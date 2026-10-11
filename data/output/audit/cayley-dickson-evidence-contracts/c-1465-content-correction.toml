@@ -1,0 +1,5 @@
+claim_id = "C-1465"
+expected_statement = "XOR sign cocycle properties exhaustively verified at dim=16: identity (sigma(i,0)=1), squares (sigma(i,i)=-1), anti-commutativity (sigma(i,j)=-sigma(j,i)), and associator defect count (1527/3375 ordered triples). Refined to 147 unordered sigma-associative triads = 35 strict + 112 sign-associative ghost triads."
+expected_where_stated = "proofs/verified/C1467_XORSignCocycle.v"
+statement = "The sedenion multiplication sign is a 2-cochain. Exhaustive reflection at dimension 16 checks identity, imaginary basis squares, and anticommutation. Its ordinary coboundary is nonzero: 1527 of 3375 ordered nonzero-index triples have zero associator defect, and 1848 have nonzero defect. Among unordered distinct-index triples, 147 are sign-associative: 35 strict and 112 ghost triads."
+where_stated = "proofs/verified/C1467_XORSignCocycle.v"

@@ -1,0 +1,19 @@
+binding_key = "sedenion-equal-norm-proof-identity"
+actor = "cayley-dickson-evidence-contracts"
+reason = "Bind the true equal-norm formal proposition independently of the unrelated XOR sign-cochain claim."
+applied_at = "2026-10-11T18:27:37Z"
+
+[[binding]]
+proposal_key = "two-blade-equal-norms"
+stable_id = "THM-LEGACY-C1465_KoebisuEqualNorm"
+legacy_name = "C1465_KoebisuEqualNorm"
+proof_path = "proofs/verified/C1465_KoebisuEqualNorm.v"
+title = "Equal octonion-half norms for four explicit sedenion two-blade vectors"
+statement = "The four vectors e_1+e_9, e_3+e_14, e_7+e_10 and e_5-e_12 have equal squared norms of their octonion halves. Equal norms alone do not establish zero-divisor membership: e_1+e_9 has parallel imaginary halves and trivial left annihilator."
+initial_status = "Verified"
+where_stated = ["proofs/verified/C1465_KoebisuEqualNorm.v", "proofs/theories/SedenionMembershipConstraints.v"]
+assumptions = "The four equality proofs use the standard Rocq real-number construction; Print Assumptions reports ClassicalDedekindReals.sig_forall_dec. Trivial annihilator follows separately from parallel_halves_left_square and parallel_halves_trivial_kernel."
+kernel_result = "Rocq 9.1.1 compiles the four equal-norm theorems and both counterexample kernel proofs with -w @default."
+replay_command = "rocq compile -w @default -R proofs/theories OpenGororoba -R proofs/verified OpenGororobaVerified proofs/verified/C1465_KoebisuEqualNorm.v"
+falsifier = "A failed kernel replay or a mismatch between the explicit vectors and the formal theorem statements refutes the claimed proof binding."
+evidence_artifact_ids = ["LOCAL-CD-EVIDENCE-CONTRACTS"]

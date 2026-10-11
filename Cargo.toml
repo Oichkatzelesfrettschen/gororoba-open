@@ -147,6 +147,7 @@ provenance_store = { path = "crates/provenance_store" }
 nalgebra = "0.34"
 ndarray = "0.17"
 num-complex = "0.4"
+num-rational = "0.4"
 num-traits = "0.2"
 
 # Graph algorithms

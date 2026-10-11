@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 216
+event_count = 218
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4647,3 +4647,41 @@ transition_spec_sha256 = "d374230cc4caaa3b5628d7fae0408f249579a9a403c7ee5c93bb0c
 proposal_key = "temperature-broadening-heuristic-implementation"
 canonical_claim_id = "C-1759"
 relation_kind = "refines"
+
+[[transition]]
+event_id = 217
+transition_key = "minimal-uncurved-associativity-obstruction"
+source_claim_id = "C-611"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Refuted"
+current_status = "Refuted"
+exercised_falsifier = "Evaluate the minimal uncurved arity-three Stasheff identity on (e_1,e_2,e_4), with m_1=0 and the Cayley-Dickson product as m_2."
+rationale = "Every arity-three boundary term involving m_3 contains m_1. Rocq proves the minimal identity forces associative multiplication and proves the concrete sedenion products differ. The legacy residual subtracted the associator from itself and did not evaluate that identity."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CD-EVIDENCE-CONTRACTS"]
+experiment_ids = []
+actor = "cayley-dickson-evidence-contracts"
+reason = "Preserve the refuted proposition and bind its correction to exact fixtures and kernel-checked proof statements."
+transition_timestamp = "2026-10-11T18:27:37Z"
+transition_spec_sha256 = "c959a0e7e33232346fbc6615f50dec239d1c36fb8814bb98a738cc918c556d7d"
+successors = []
+
+[[transition]]
+event_id = 218
+transition_key = "sedenion-full-halves-domain-refutation"
+source_claim_id = "C-1461"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Refuted"
+current_status = "Refuted"
+exercised_falsifier = "Test the full-octonion equal-norm orthogonal pair e_0+e_9, and the equal-norm parallel imaginary pair e_1+e_9, using exact left multiplication."
+rationale = "Both left multiplication matrices have trivial kernels; the exact fixtures have determinant 256. The standard factors already have zero scalar parts. Their equal-norm and orthogonality checks therefore cannot extend the imaginary R^7 frame locus to full R^8 halves."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CD-EVIDENCE-CONTRACTS"]
+experiment_ids = []
+actor = "cayley-dickson-evidence-contracts"
+reason = "Preserve the refuted proposition and bind its correction to exact fixtures and kernel-checked proof statements."
+transition_timestamp = "2026-10-11T18:27:37Z"
+transition_spec_sha256 = "e14bd9a2c4aa3dbf93c8ff17a0ec08043aed783f70c486a03ddfc63660a6112c"
+successors = []

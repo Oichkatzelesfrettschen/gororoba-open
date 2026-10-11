@@ -232,13 +232,14 @@ impl Rotation {
 
     /// ZD-avoidance Fast JL: evaluate multiple candidate Rademacher diagonal
     /// pairs and select the one that maximizes minimum Koebisu D_2 score
-    /// (furthest from zero-divisor manifold) on calibration vectors.
+    /// on calibration vectors.
     ///
-    /// D_2(v) = (||v_1||^2 - ||v_2||^2)^2 + 4*<v_1, v_2>^2
-    /// where v_1, v_2 are the upper/lower halves of the sedenion (16D) blocks.
+    /// Each 16D block uses the full polynomial, including both scalar
+    /// coordinates: D_2 = s^2 + 2s(A+B) + (A-B)^2 + 4 gamma^2.
     ///
-    /// Higher D_2 -> further from ZD manifold -> quantization error has more
-    /// algebraic redundancy to absorb it.  O(n_candidates * n_cal * d) total.
+    /// The quartic score ranks candidates at their retained block magnitudes;
+    /// D_2 is neither a geometric distance nor a quantization-error bound.
+    /// Runtime is O(n_candidates * n_cal * d).
     ///
     /// Returns the FastJL rotation with the best D_2 score.
     /// If d < 16 or calibration is empty, falls back to standard FastJL.

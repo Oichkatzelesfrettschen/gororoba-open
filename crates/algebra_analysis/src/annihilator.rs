@@ -4,8 +4,10 @@
 //! L_a * b = a * b for all b. Its nullspace is the left annihilator of `a`.
 //! Similarly, the right multiplication matrix R_a has R_a * b = b * a.
 //!
-//! Zero-divisors are exactly the elements with nontrivial left or right
-//! annihilators. Reggiani (2024) defines ZD(S) as the submanifold of
+//! A nonzero element is a zero divisor when its multiplication matrix has a
+//! nontrivial kernel. SVD tolerance measures numerical proximity to singularity;
+//! `crate::exact_annihilator` supplies exact certificates for rational input.
+//! Reggiani (2024) defines ZD(S) as the submanifold of
 //! sedenions with squared norm 2 and nontrivial annihilators.
 //!
 //! # Literature
@@ -24,6 +26,14 @@ pub struct AnnihilatorInfo {
 /// Build the dim x dim left multiplication matrix L_a: L_a * b = a * b.
 pub fn left_multiplication_matrix(a: &[f64], dim: usize) -> DMatrix<f64> {
     assert_eq!(a.len(), dim);
+    assert!(
+        dim.is_power_of_two(),
+        "dimension must be a positive power of two"
+    );
+    assert!(
+        a.iter().all(|coordinate| coordinate.is_finite()),
+        "coordinates must be finite"
+    );
     let mut mat = DMatrix::zeros(dim, dim);
     for i in 0..dim {
         let mut e = vec![0.0; dim];
@@ -39,6 +49,14 @@ pub fn left_multiplication_matrix(a: &[f64], dim: usize) -> DMatrix<f64> {
 /// Build the dim x dim right multiplication matrix R_a: R_a * b = b * a.
 pub fn right_multiplication_matrix(a: &[f64], dim: usize) -> DMatrix<f64> {
     assert_eq!(a.len(), dim);
+    assert!(
+        dim.is_power_of_two(),
+        "dimension must be a positive power of two"
+    );
+    assert!(
+        a.iter().all(|coordinate| coordinate.is_finite()),
+        "coordinates must be finite"
+    );
     let mut mat = DMatrix::zeros(dim, dim);
     for i in 0..dim {
         let mut e = vec![0.0; dim];
@@ -54,10 +72,33 @@ pub fn right_multiplication_matrix(a: &[f64], dim: usize) -> DMatrix<f64> {
 /// Compute an orthonormal basis for the right nullspace of `mat` using SVD.
 ///
 /// Returns a matrix of shape (n, k) where k = dim(nullspace).
-/// Singular values below `atol` are treated as zero.
+/// Singular values at most `atol` are treated as zero.
 pub fn nullspace_basis(mat: &DMatrix<f64>, atol: f64) -> DMatrix<f64> {
+    assert!(
+        atol.is_finite() && atol > 0.0,
+        "tolerance must be finite and positive"
+    );
+    assert!(
+        mat.iter().all(|entry| entry.is_finite()),
+        "matrix entries must be finite"
+    );
     let n = mat.ncols();
-    let svd = SVD::new(mat.clone(), false, true);
+    if n == 0 {
+        return DMatrix::zeros(0, 0);
+    }
+    if mat.nrows() == 0 {
+        return DMatrix::identity(n, n);
+    }
+    // Zero rows retain the kernel and make nalgebra's thin V^T contain all
+    // right singular vectors when the input has more columns than rows.
+    let padded = DMatrix::from_fn(mat.nrows().max(n), n, |row, column| {
+        if row < mat.nrows() {
+            mat[(row, column)]
+        } else {
+            0.0
+        }
+    });
+    let svd = SVD::new(padded, false, true);
     let singular = &svd.singular_values;
 
     let rank = singular.iter().filter(|&&s| s > atol).count();
@@ -90,8 +131,13 @@ pub fn annihilator_info(a: &[f64], dim: usize, atol: f64) -> AnnihilatorInfo {
     }
 }
 
-/// Check if a Cayley-Dickson element is a zero-divisor (has nontrivial annihilator).
+/// Numerical singularity heuristic for nonzero finite Cayley-Dickson input.
+/// `atol` is an absolute singular-value threshold, so rescaling the input can
+/// change the answer. Use an exact certificate for a membership claim.
 pub fn is_zero_divisor(a: &[f64], dim: usize, atol: f64) -> bool {
+    if !valid_numerical_input(a, dim, atol) || a.iter().all(|&coordinate| coordinate == 0.0) {
+        return false;
+    }
     let info = annihilator_info(a, dim, atol);
     info.left_nullity > 0 || info.right_nullity > 0
 }
@@ -101,7 +147,7 @@ pub fn is_zero_divisor(a: &[f64], dim: usize, atol: f64) -> bool {
 /// This matches the diagonal-form zero divisors (e_i +/- e_j) which have
 /// squared Euclidean norm 2.
 pub fn is_reggiani_zd(a: &[f64], atol: f64) -> bool {
-    if a.len() != 16 {
+    if !valid_numerical_input(a, 16, atol) {
         return false;
     }
     let norm_sq: f64 = a.iter().map(|x| x * x).sum();
@@ -113,6 +159,9 @@ pub fn is_reggiani_zd(a: &[f64], atol: f64) -> bool {
 
 /// Find a nonzero left annihilator b such that a*b = 0, if one exists.
 pub fn find_left_annihilator_vector(a: &[f64], dim: usize, atol: f64) -> Option<Vec<f64>> {
+    if !valid_numerical_input(a, dim, atol) {
+        return None;
+    }
     let la = left_multiplication_matrix(a, dim);
     let ns = nullspace_basis(&la, atol);
     if ns.ncols() == 0 {
@@ -121,9 +170,52 @@ pub fn find_left_annihilator_vector(a: &[f64], dim: usize, atol: f64) -> Option<
     Some(ns.column(0).iter().copied().collect())
 }
 
+fn valid_numerical_input(coordinates: &[f64], dimension: usize, tolerance: f64) -> bool {
+    coordinates.len() == dimension
+        && dimension.is_power_of_two()
+        && coordinates.iter().all(|coordinate| coordinate.is_finite())
+        && tolerance.is_finite()
+        && tolerance > 0.0
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn numerical_membership_rejects_zero_and_invalid_domains() {
+        assert!(!is_zero_divisor(&[0.0; 16], 16, 1e-12));
+        assert!(!is_zero_divisor(&[1.0; 15], 15, 1e-12));
+        assert!(!is_zero_divisor(&[1.0; 16], 8, 1e-12));
+        for invalid in [f64::NAN, f64::INFINITY, f64::NEG_INFINITY] {
+            let mut input = [0.0; 16];
+            input[1] = invalid;
+            assert!(!is_zero_divisor(&input, 16, 1e-12));
+            assert!(!is_reggiani_zd(&input, 1e-12));
+            assert_eq!(find_left_annihilator_vector(&input, 16, 1e-12), None);
+        }
+        for tolerance in [0.0, -1.0, f64::NAN, f64::INFINITY] {
+            assert!(!is_zero_divisor(&[1.0; 16], 16, tolerance));
+            assert!(!is_reggiani_zd(&[1.0; 16], tolerance));
+        }
+    }
+
+    #[test]
+    fn rectangular_nullspace_retains_missing_right_singular_vectors() {
+        let matrix = DMatrix::from_row_slice(1, 3, &[1.0, 0.0, 0.0]);
+        let kernel = nullspace_basis(&matrix, 1e-12);
+        assert_eq!(kernel.shape(), (3, 2));
+        assert!((&matrix * &kernel).norm() < 1e-12);
+        assert!((kernel.transpose() * kernel - DMatrix::identity(2, 2)).norm() < 1e-12);
+        assert_eq!(
+            nullspace_basis(&DMatrix::zeros(0, 3), 1e-12),
+            DMatrix::identity(3, 3)
+        );
+        assert_eq!(
+            nullspace_basis(&DMatrix::zeros(3, 0), 1e-12).shape(),
+            (0, 0)
+        );
+    }
 
     #[test]
     fn test_known_zero_divisor_has_nontrivial_annihilator() {

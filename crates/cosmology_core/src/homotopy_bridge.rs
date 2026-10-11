@@ -1,13 +1,13 @@
-//! A-infinity homotopy bridge for gravastar TOV solver.
+//! Associator-norm parameterization of the gravastar TOV solver.
 //!
-//! Maps the obstruction norm of a non-associative A-infinity algebra
-//! (e.g., sedenion m_3 tensor) to an effective anisotropic stress-energy
-//! correction in the gravastar TOV equation.
+//! Maps a chosen sedenion associator norm to an effective anisotropic
+//! stress-energy correction in the gravastar TOV equation.
 //!
-//! The key idea: non-associativity in the underlying algebra manifests as
-//! a deviation from isotropic pressure in the gravastar shell. The
-//! obstruction_norm (Frobenius norm of m_3 divided by dim^{3/2}) determines
-//! the magnitude of the anisotropy parameter lambda.
+//! The coupling is a model choice, without a derived algebra-to-pressure law.
+//! The obstruction_norm (Frobenius norm of m_3 divided by dim^{3/2}) sets
+//! the magnitude of the anisotropy parameter lambda. A stable TOV solution
+//! cannot establish an A-infinity structure: minimal uncurved operations with
+//! sedenion multiplication fail the independent arity-three identity.
 //!
 //! # Physics
 //! The Bowers-Liang anisotropic TOV equation has:
@@ -25,7 +25,7 @@
 
 use crate::gravastar::{AnisotropicParams, GravastarConfig, GravastarSolution, PolytropicEos};
 
-/// Effective stress-energy derived from A-infinity obstruction.
+/// Effective stress-energy parameterized by an associator norm.
 #[derive(Debug, Clone)]
 pub struct HomotopyStressEnergy {
     /// Effective energy density (unchanged from base model).
@@ -51,7 +51,7 @@ pub struct SweepConfig {
     pub compactness: f64,
     /// Polytropic adiabatic index for shell EoS.
     pub gamma: f64,
-    /// A-infinity obstruction norm.
+    /// Chosen associator norm.
     pub obstruction_norm: f64,
     /// Minimum coupling to test.
     pub coupling_min: f64,
@@ -76,7 +76,7 @@ pub struct ObstructionSweepResult {
     pub stability_window: Option<(f64, f64)>,
 }
 
-/// Map the A-infinity obstruction norm to an anisotropy parameter.
+/// Map a chosen associator norm to an anisotropy parameter.
 ///
 /// The mapping is: lambda = coupling * obstruction_norm
 ///
@@ -94,7 +94,7 @@ pub fn homotopy_lambda(obstruction_norm: f64, coupling: f64) -> f64 {
 }
 
 /// Compute the effective stress-energy at a given density and pressure,
-/// with A-infinity homotopy correction.
+/// with the chosen associator-norm coupling.
 pub fn homotopy_stress_energy(
     rho: f64,
     p_r: f64,
@@ -112,7 +112,7 @@ pub fn homotopy_stress_energy(
     }
 }
 
-/// Solve the gravastar TOV equation with A-infinity homotopy correction.
+/// Solve the gravastar TOV equation with the associator-norm coupling.
 ///
 /// This wraps `solve_gravastar()` with the anisotropy parameter set by the
 /// obstruction norm and coupling constant.
@@ -122,7 +122,7 @@ pub fn homotopy_stress_energy(
 /// * `m_target` - Target total mass.
 /// * `compactness` - Target compactness C = 2M/R.
 /// * `eos` - Shell equation of state.
-/// * `obstruction_norm` - A-infinity obstruction norm (from SedenionAInfinity).
+/// * `obstruction_norm` - Chosen associator norm (from SedenionAInfinity).
 /// * `coupling` - Dimensionless coupling constant.
 /// * `dr` - Integration step size.
 pub fn solve_gravastar_homotopy(

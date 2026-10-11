@@ -10,7 +10,7 @@ use anyhow::{Context, Result, bail};
 use clap::Parser;
 use provenance_store::{
     ExecutionTargetRetarget, PlanningCompatTable, ProvenanceStore, SourcePathRetarget,
-    parse_theorem_identity_spec,
+    parse_theorem_identity_spec, parse_theorem_link_correction_spec,
 };
 use serde::Deserialize;
 use std::{
@@ -1846,6 +1846,15 @@ fn cmd_theorem_mutation(
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
+        TheoremIdentityAction::CorrectLinks { spec, regen_toml } => {
+            let spec_path = resolve_cli_path(repo_root, spec);
+            let raw_spec = fs::read_to_string(&spec_path)
+                .with_context(|| format!("read theorem correction spec {}", spec_path.display()))?;
+            let parsed = parse_theorem_link_correction_spec(&raw_spec)?;
+            let result = store.correct_theorem_links(repo_root, &parsed, &raw_spec)?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+            maybe_regen_toml(*regen_toml)?;
+        }
         TheoremIdentityAction::Validate => {
             unreachable!("theorem validation is dispatched through a read-only handle")
         }
@@ -2783,6 +2792,35 @@ mod tests {
     fn cli_parses_stats_subcommand() {
         let cli = Cli::try_parse_from(["gororoba-db", "stats"]);
         assert!(cli.is_ok(), "stats subcommand should parse: {cli:?}");
+    }
+
+    #[test]
+    fn cli_parses_theorem_link_correction_with_explicit_export_choice() -> Result<()> {
+        let cli = Cli::try_parse_from([
+            "gororoba-db",
+            "theorem",
+            "identity",
+            "correct-links",
+            "--spec",
+            "correction.toml",
+            "--regen-toml",
+            "false",
+        ])?;
+        let Commands::Theorem(TheoremArgs {
+            action: TheoremAction::Identity(identity),
+        }) = cli.command
+        else {
+            bail!("expected theorem identity command");
+        };
+        let TheoremIdentityAction::CorrectLinks { spec, regen_toml } = identity.action else {
+            bail!("expected theorem link correction action");
+        };
+        assert_eq!(spec, Path::new("correction.toml"));
+        assert!(!regen_toml);
+        assert!(
+            Cli::try_parse_from(["gororoba-db", "theorem", "identity", "correct-links"]).is_err()
+        );
+        Ok(())
     }
 
     #[test]

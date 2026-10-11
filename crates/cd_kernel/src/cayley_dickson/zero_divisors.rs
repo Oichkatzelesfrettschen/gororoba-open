@@ -396,52 +396,61 @@ fn accumulate_sparse_basis_term_9(
     }
 }
 
-/// Koebisu's D_2 polynomial for zero-divisor detection.
+/// Raw quartic D_2 for exactly 16 finite sedenion coordinates.
 ///
-/// For a sedenion v = v_1 + v_2*e_8 (where v_1 = v`[0..8]`, v_2 = v`[8..16]`):
+/// Write `v=(x_1+u,x_2+w)`, with imaginary octonions `u,w`, and put
+/// `s=x_1^2+x_2^2`, `A=|u|^2`, `B=|w|^2`, `gamma=<u,w>`. Then
+/// `D_2=s^2+2s(A+B)+(A-B)^2+4 gamma^2`. The scalar terms are essential:
+/// both `e_0+e_9` and `e_1+e_9` have D_2=4 and invertible left multiplication.
 ///
-///   D_2(v) = (||v_1||^2 - ||v_2||^2)^2 + 4*<v_1, v_2>^2
-///
-/// A nonzero v is a zero-divisor iff D_2(v) = 0.
-///
-/// This replaces the O(N^3) matrix determinant with an O(N) polynomial.
-///
-/// Reference: Koebisu (arXiv:2512.13002), Theorem 3.6, Lemma 3.3.
+/// Wrong dimensions and nonfinite coordinates return NaN. Raw quartic units
+/// can overflow or underflow; use [`super::sedenion_proximity`] for normalized
+/// numerical residuals and [`super::sedenion_membership_exact`] for membership.
 #[inline]
 pub fn koebisu_d2(v: &[f64]) -> f64 {
-    debug_assert!(v.len() >= 16, "Koebisu D_2 requires at least 16 components");
-    let half = v.len() / 2;
-
-    let mut norm_sq_v1 = 0.0_f64;
-    let mut norm_sq_v2 = 0.0_f64;
-    let mut dot_v1_v2 = 0.0_f64;
-
-    for i in 0..half {
-        let x = v[i];
-        let y = v[i + half];
-        norm_sq_v1 += x * x;
-        norm_sq_v2 += y * y;
-        dot_v1_v2 += x * y;
+    if super::sedenion_membership::validate_finite_sedenion(v).is_err() {
+        return f64::NAN;
     }
-
-    let b = norm_sq_v1 - norm_sq_v2;
-    b * b + 4.0 * dot_v1_v2 * dot_v1_v2
+    let scalar_norm = v[0] * v[0] + v[8] * v[8];
+    let first_norm: f64 = v[1..8].iter().map(|value| value * value).sum();
+    let second_norm: f64 = v[9..16].iter().map(|value| value * value).sum();
+    let inner: f64 = v[1..8]
+        .iter()
+        .zip(&v[9..16])
+        .map(|(first, second)| first * second)
+        .sum();
+    scalar_norm * scalar_norm
+        + 2.0 * scalar_norm * (first_norm + second_norm)
+        + (first_norm - second_norm).powi(2)
+        + 4.0 * inner * inner
 }
 
-/// Fast zero-divisor membership test using Koebisu's D_2 polynomial.
+/// Compatibility proximity flag, never an exact membership certificate.
 ///
-/// Returns true if v is a zero-divisor (D_2(v) < epsilon).
-/// O(N) time, zero allocation, branchless inner loop.
+/// `epsilon` bounds dimensionless component residuals after unit-input
+/// normalization. The undecided band runs from `epsilon` to `2*epsilon`,
+/// with a rounding guard at both boundaries. Only `Near` returns true;
+/// invalid inputs, zero, and indeterminate observations return false.
+/// Use [`super::sedenion_proximity`] to retain those distinct outcomes.
 #[inline]
 pub fn is_zero_divisor_koebisu(v: &[f64], epsilon: f64) -> bool {
-    koebisu_d2(v) < epsilon
+    super::sedenion_proximity(
+        v,
+        super::SedenionProximityThresholds {
+            near: epsilon,
+            separated: 2.0 * epsilon,
+        },
+    )
+    .is_ok_and(|result| result.classification == super::SedenionProximityClass::Near)
 }
 
 /// D_1 polynomial: the squared norm.
 ///
 ///   D_1(v) = ||v_1||^2 + ||v_2||^2 = ||v||^2
 ///
-/// The full determinant factorization is det(L_v) = D_1(v)^4 * D_2(v)^2.
+/// For 16-dimensional sedenions the determinant factorization is
+/// `det(L_v) = D_1(v)^4 * D_2(v)^2`; higher dimensions need their own
+/// multiplication-matrix analysis.
 #[inline]
 pub fn koebisu_d1(v: &[f64]) -> f64 {
     v.iter().map(|x| x * x).sum()

@@ -659,9 +659,10 @@ fn test_koebisu_d2_on_all_standard_zds() {
 
 #[test]
 fn test_koebisu_d2_random_consistency() {
-    // Random sedenions: D_2 = 0 iff the element is a ZD (verified by multiplication)
-    use rand::RngExt;
-    let mut rng = rand::rng();
+    // The seeded sample checks polynomial separation, without claiming a
+    // matrix-kernel certificate for each sampled element.
+    use rand::{RngExt, SeedableRng, rngs::StdRng};
+    let mut rng = StdRng::seed_from_u64(0x5ede_0100);
 
     for _ in 0..100 {
         let v: Vec<f64> = (0..16).map(|_| rng.random::<f64>() * 2.0 - 1.0).collect();
@@ -679,7 +680,10 @@ fn test_koebisu_d2_random_consistency() {
     let mut zd = vec![0.0; 16];
     zd[1] = 1.0;
     zd[10] = 1.0;
-    assert!(is_zero_divisor_koebisu(&zd, 1e-10), "e_1+e_10 must be a ZD");
+    assert!(
+        is_zero_divisor_koebisu(&zd, 1e-10),
+        "e_1+e_10 has zero component residuals"
+    );
 
     // Scale it: 3*(e_1 + e_10) is still a ZD
     let mut zd_scaled = vec![0.0; 16];
@@ -687,7 +691,7 @@ fn test_koebisu_d2_random_consistency() {
     zd_scaled[10] = 3.0;
     assert!(
         is_zero_divisor_koebisu(&zd_scaled, 1e-10),
-        "3*(e_1+e_10) must be a ZD"
+        "unit-input residuals preserve scaling of e_1+e_10"
     );
 }
 

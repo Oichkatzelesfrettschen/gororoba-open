@@ -11,9 +11,10 @@
 
 // Re-export all algebra_analysis modules at their original paths.
 pub use algebra_analysis::{
-    annihilator, boxkites, codebook, entropy_census, fractal_analysis, graph_projections,
-    grassmannian, homotopy_algebra, legacy_crossval, prefix_chain_theorem, projective_geometry,
-    reggiani, stiefel, stochastic, subalgebra, zd_graphs,
+    annihilator, boxkites, codebook, entropy_census, exact_annihilator, flag_complex,
+    fractal_analysis, graph_projections, grassmannian, homotopy_algebra, legacy_crossval,
+    prefix_chain_theorem, projective_geometry, reggiani, stiefel, stochastic, subalgebra,
+    zd_graphs,
 };
 
 // These modules stay in gororoba_algebra (cross-module deps on construction/experimental).

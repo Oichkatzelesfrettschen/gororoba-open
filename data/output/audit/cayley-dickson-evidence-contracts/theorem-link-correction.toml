@@ -1,0 +1,24 @@
+correction_key = "sedenion-equal-norm-and-sign-cochain-links"
+actor = "cayley-dickson-evidence-contracts"
+reason = "Remove mismatched historical theorem-to-claim assertions and retain the exact mathematical propositions with complete printed assumptions."
+applied_at = "2026-10-11T18:27:37Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C1465_KoebisuEqualNorm"
+proof_path = "proofs/verified/C1465_KoebisuEqualNorm.v"
+expected_title = "Equal octonion-half norms for four explicit sedenion two-blade vectors"
+expected_claim_ids = ["C-1465","C-1760"]
+title = "Equal octonion-half norms for four explicit sedenion two-blade vectors"
+claim_ids = ["C-1760"]
+expected_assumptions = "The four equality proofs use the standard Rocq real-number construction; Print Assumptions reports ClassicalDedekindReals.sig_forall_dec. Trivial annihilator follows separately from parallel_halves_left_square and parallel_halves_trivial_kernel."
+assumptions = "Print Assumptions for all four equal-norm theorems reports ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. The separate trivial-kernel proof is retained in SedenionMembershipConstraints.v."
+
+[[correction]]
+stable_id = "THM-LEGACY-C1467_XORSignCocycle"
+proof_path = "proofs/verified/C1467_XORSignCocycle.v"
+expected_title = "XOR sign cocycle properties exhaustively verified at dim=16: identity (sigma(i,0)=1), squares (sigma(i,i)=-1), anti-commutativity (sigma(i,j)=-sigma(j,i)), and associator defect count (1527/3375 ordered triples). Refined to 147 unordered sigma-associative triads = 35 strict + 112 sign-associative ghost triads."
+expected_claim_ids = ["C-1465","C-1467"]
+title = "Sedenion sign-cochain reflection and associator counts"
+claim_ids = ["C-1465"]
+expected_assumptions = ""
+assumptions = "Every theorem in C1467_XORSignCocycle.v prints Closed under the global context. The literal sign table is bound to the recursive sign algorithm by exhaustive reflection."

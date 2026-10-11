@@ -1,0 +1,288 @@
+Cayley-Dickson sign codes and finite evidence contracts
+=====================================================
+
+Scope and source identity
+-------------------------
+
+The implementation uses (a,b)(c,d) = (ac-conj(d)b, da+b conj(c)), with
+e_i e_j = sigma(i,j) e_(i XOR j). The highest bit is the last doubling.
+Exact rational certificates describe the same real algebra after scalar
+extension. Floating-point proximity is a separate diagnostic domain.
+
+The source investigation used open_gororoba commit
+127816214c3f96cc1777bd4bd9ba1b286ccc5917 and local IBMQuantum commit
+b9b7d488061f48e790d97cc512c74d8dd5363e29. The IBMQuantum files were read as
+mathematical and executable references; their Python implementation is not a
+runtime dependency of the Rust workspace. Source-byte identities:
+
+literature/notes/left_mult_sign_rank.md
+  c3d472ef291d13494b5325fa2fb06e33afbec7ebb50f0d86dd4ca3f8daa8c497
+scripts/left_mult_sign_rank.py
+  acbc9fc494d30008a5915cb022915e20845e82632066ee4317cd7412f128fe1f
+gororoba_quantum/cd_core.py
+  3e28db5844f9a50c0e5e95ee24147e26601bc11bb7115aa7ac2b9d666471bfc1
+
+Sign kernel and normalized code
+-------------------------------
+
+Write phi(a,x) = [sigma(a,x)=-1]. The diagonal Schreier generator
+L_(a XOR b)^(-1) L_a L_b has exponent
+
+  s_(a,b)(x) = phi(b,x) + phi(a,b XOR x) + phi(a XOR b,x).
+
+All additions in the code discussion are over F_2. Its value at zero is
+phi(a,b), so the normalized associator sign is
+
+  d phi(a,b,x) = s_(a,b)(x) + s_(a,b)(0).
+
+The projection P(v)(x)=v(x)+v(0) removes exactly the constant direction.
+For a binary subspace H containing 1, P(H)=H intersect ker(ev_0), and every
+v has the unique decomposition P(v)+v(0)1. This is a binary vector-space
+direct sum. It supplies no direct-product decomposition of the full left
+multiplication group.
+
+For n>=3 the source characterization is
+
+  H_n = {g(x_0,...,x_(n-2)) + c x_(n-1) : wt(g) even}.
+  C_n = {g(x_0,...,x_(n-2)) + c x_(n-1) : wt(g) even, g(0)=0}.
+
+The basis of C_n consists of all nonempty proper lower-bit
+monomials, plus the top-bit monomial. Its size is 2^(n-1)-1. Quaternion
+normalization is separate: H_2 is the constants and C_2 is zero.
+
+The source argument first establishes the sign recursion, the commutator
+identity and row/column parity. Every Schreier vector then has constant
+top-bit difference and even lower-slice parity. Conversely, the generators
+with a=2^(n-1) and b lower yield delta_0+delta_b. These span the even-weight
+lower functions. The generator a=1,b=2 supplies the top coordinate after
+subtracting its lower component. Even parity deletes the full lower ANF
+monomial; evaluation at zero deletes the constant monomial.
+
+cd_kernel::cayley_dickson::sign_code regenerates the actual Schreier span
+from the kernel sign recursion. The finite audit compares both spans,
+checks ranks and explicit ANF bases through n=8, and checks C_2 separately.
+A finite audit supports exactly its enumerated dimensions.
+SchreierSignCode separately proves the characterization of the actual
+recursive Schreier span for every n>=3, the normalized characterization,
+ANF spanning and independence, and the basis cardinality. The quaternion
+exception uses exhaustive reflection of the actual two-bit recurrence.
+SignCodeCardinality constructs a duplicate-free enumeration of precisely
+the normalized truth tables, with cardinality 2^(2^(n-1)-1).
+SignCodeProjection proves the generic image, kernel and unique direct-sum
+decomposition. The generic projection result alone would be insufficient
+to establish the characterization of the actual Schreier span.
+The formal object is the span of the actual Schreier sign vectors.
+Identifying that span with the multiplication-group sign kernel uses the
+standard Schreier lemma in the sourced argument.
+
+A sign operation is represented by a normalized word and a scalar sign bit.
+The controlled exponent is control*(normalized(x)+scalar). The scalar is
+a relative phase between the two control branches. Basis-label agreement
+and uncontrolled Walsh probabilities cannot replace that phase equality.
+
+Sedenion membership and certificates
+------------------------------------
+
+For v=(x_1+u,x_2+w), with imaginary octonions u,w, define
+
+  s=x_1^2+x_2^2, A=|u|^2, B=|w|^2, gamma=<u,w>,
+  D_2=s^2+2s(A+B)+(A-B)^2+4 gamma^2.
+
+For A,B>=0, D_2=0 is equivalent to x_1=x_2=0, A=B, gamma=0.
+Koebisu's revised determinant factorization is det L_v=D_1^4 D_2^2,
+where D_1=|v|^2. The nonzero condition is essential for zero-divisor
+membership. The normalized nonzero element locus uses imaginary R^7
+frames; an extension to full R^8 halves violates the scalar constraints.
+
+The exact membership API accepts exactly 16 BigRational coordinates.
+The numerical API rejects wrong dimensions, nonfinite inputs and zero;
+scales by the largest absolute coordinate; reports normalized component
+residuals and normalized D_2; and returns Near, Indeterminate or Separated.
+Near is a tolerance conclusion, never an exact membership certificate.
+The legacy boolean denotes numerical proximity and the legacy polynomial
+returns the raw quartic, whose extreme-scale overflow remains possible.
+
+The two permanent invalid-domain fixtures are e_0+e_9 and e_1+e_9.
+Both have determinant 256. The first defeats the polynomial over full
+octonion halves. The second has equal half norms but parallel imaginary
+halves, and L_v^2=-2I. C1465_KoebisuEqualNorm proves equal norms correctly;
+the operator proof supplies the missing interpretation boundary.
+
+SedenionMembershipConstraints proves the polynomial zero-locus equivalence,
+the formal-gradient zero values, and trivial kernels for both fixtures.
+The file does not claim a kernel-checked general determinant factorization.
+The exact matrix tests independently evaluate matrices, minors and kernels.
+
+Every partial derivative of D_2 vanishes on its zero locus. A regular-value
+test applied only to D_2 therefore cannot decide smoothness. A geometric
+argument must use the component constraints with its declared normalization.
+
+algebra_analysis::exact_annihilator accepts any positive power-of-two
+dimension. A certificate includes a nonzero rank minor and an independent
+kernel basis annihilated by the original matrix, giving matching rank bounds.
+Zero has full kernel in the matrix API and remains excluded from membership.
+Unit-input scaling divides by sqrt(sum a_i^2); the signed-permutation LCU
+bound divides the matrix by alpha=sum |a_i|. Those normalizations differ.
+
+Finite frontiers
+----------------
+
+The A_5 certificate fixes row and column pivots and uses the exact domain
+det(P)!=0 and S-R P^(-1)Q=0. Its kernel frame is [-P^(-1)Q;I], reordered
+back to the original coordinates. The rank-24 fixture e_1+e_10 and its
+nonzero rational scalar orbit lie in that domain. A rejected rank jump is a
+chart boundary. The matrix-kernel trivialization does not by itself prove
+smoothness or provide parameters covering the complete real rank stratum.
+
+The graph deliverable constructs a complete finite flag complex with signed
+integer boundaries, checks boundary squared is zero, and computes rational
+Betti numbers. The assessor fixture uses XOR class 11. Those invariants
+belong to that finite complex. A continuous zero-product-space conclusion
+requires a separately proved bridge.
+
+BooleanCochainFiltration proves the structural degree bound for substitution
+of linear XOR expressions, polynomial addition and finite sums of face
+pullbacks. The concrete XOR-group face maps drop an end argument or add
+adjacent arguments coordinatewise, and satisfy the linearity bound.
+The multiplication sign is a 2-cochain F. Its associator is the
+ordinary coboundary dF; nonzero dF prevents calling F a 2-cocycle.
+
+The highest-generator negative-control family is f(u,t)=[u!=0]+t, n>=3.
+Its degree n-1, nonlinearity 2 and algebraic immunity 2 are distinct metrics.
+High degree alone supplies neither cryptographic strength nor query advantage.
+The n=3 associator control for the pair (1,4) is f(x)=x_1 and has Walsh
+probability one at outcome 2 with least-significant-bit coordinate order.
+Uncontrolled phase access identifies f and f+1. Controlled phase access
+and value access provide additional resources. Finite recovery/simulation
+tests establish an upper bound for their declared task and oracle model.
+
+For fixed Albert elements A,B, the linearized observable is
+T_(A,B)(X)=(A circle B) circle X-A circle(B circle X). Raw 27-coordinate
+inner products use Gram diagonal (1,1,1,2,...,2), or equivalently scale
+the 24 off-diagonal coordinates by sqrt(2). The observable tests include
+independent real-symmetric matrix fixtures, a diagonal associative-subalgebra control and a
+nonassociative special-Jordan control. Nonassociativity does not establish
+exceptionality. Arbitrary fixed A,B need not give a self-adjoint T.
+A and B commuting alone does not force T to vanish: for
+A=B=diag(1,0,0), a real off-diagonal 01 input gives T(X)=X/4. Placing
+A, B and X in the diagonal subalgebra makes that control associative.
+The exact rational Frobenius bound certifies the stored floating-point
+coordinate matrix after the Gram weighting. Floating construction error
+relative to an ideal real-valued A,B remains a separate numerical question.
+
+Minimal uncurved obstruction
+----------------------------
+
+For m_0=m_1=0, the arity-three Stasheff identity is associativity of m_2.
+Every boundary term involving m_3 also involves m_1. The basis triple
+(e_1,e_2,e_4) has residual norm 2, so setting m_3 to the associator cannot
+repair sedenion multiplication in a minimal uncurved A-infinity algebra.
+The generic collapse lemma and the concrete sedenion witness are checked
+in MinimalUncurvedObstruction. The tensor optimization and gravastar
+coupling APIs retain their numerical meaning as explicitly chosen models.
+Albuquerque-Majid quasiassociativity changes the monoidal structure and is
+a separate established alternative, requiring its own coherence contract.
+
+Acceptance and replay
+---------------------
+
+Use the workspace-pinned Rust toolchain and an absolute CARGO_TARGET_DIR
+specific to the worktree. The following named Cargo commands are focused
+diagnostics. Hosted CI owns repository validation and affected-consumer
+coverage. Every listed Rust test computes its witness from source.
+
+  cargo test --locked -p cd_kernel --lib -- sign_code
+    Actual Schreier generators, both containments, rank and basis: n=2..8.
+    Independent ordered recursive left-operator fixture: dimensions 4,8,16,32.
+    Controlled sign synthesis: all control and basis labels in each fixture.
+
+  cargo test --locked -p cd_kernel --lib -- sedenion_membership boolean_phase koebisu zd_avoid
+    Exact and proximity domains, nonzero and invalid input checks, scale
+    invariance, highest-generator metrics n=3..11, and all 256 n=3 oracle
+    recovery tasks. Query counts describe the declared exact observable
+    oracle model; they establish an algorithmic upper bound for that model.
+
+  cargo test --locked -p algebra_analysis --lib -- annihilator flag_complex homotopy_algebra reggiani
+    Both invertible counterexamples have determinant 256. All 84 standard
+    sedenion factors have rank 12 and complete four-dimensional partner spans
+    in both multiplication orders. The A_5 chart fixture has rank 24 and
+    nullity 8; a rank jump is rejected. The XOR=11 flag complex has f-vector
+    (6,12,8), signed boundary squared zero, and rational Betti numbers (1,0,1).
+    The minimal uncurved basis witness has residual 2 in dimensions 8,16,32.
+    Malformed rational inputs and mutated retained certificates are rejected.
+
+  cargo test --locked -p gororoba_algebra --lib -- albert signature_observables
+    Independent real symmetric matrix fixtures check the linear observable,
+    Gram weighting, adjoint and permanent special-Jordan negative control.
+    The fixture A=diag(1,0,0), B=real off-diagonal 01 has weighted Frobenius
+    norm squared 3/4 and numerical spectral norm 1/2.
+
+  cargo test --locked -p neural_homotopy -p cosmology_core --lib -- m4_tensor homotopy_bridge
+    Retained tensor and gravastar model diagnostics survive the removal of
+    the invalid algebraic interpretation.
+
+For each changed proof, run Rocq 9.1.1 from the repository root:
+
+  rocq compile -w @default -R proofs/theories OpenGororoba \
+    -R proofs/verified OpenGororobaVerified <proof-file>
+
+Every new theorem and lemma prints its assumptions. Retained output is in
+data/output/audit/cayley-dickson-evidence-contracts/*-assumptions.txt.
+The Boolean proofs are closed under the global context. The real-number
+proofs use the standard real construction and report
+ClassicalDedekindReals.sig_forall_dec and, where used,
+FunctionalExtensionality.functional_extensionality_dep. The reports, rather
+than the presence of Qed alone, specify the axiom boundary.
+
+The canonical corrections preserve the original false claims C-611 and
+C-1461 with Refuted status and typed transition records. C-614, C-684 and
+C-1310 retain their numerical meaning with corrected interpretation and
+full content revision history. I-048 carries a hash-bound revised admission.
+C-1465 names the sign-cochain reflection proof; C-1760 records the distinct
+four-vector equal-norm proposition. Proof identifiers and claim identifiers
+therefore retain separate meanings.
+C-1467 retains the finite octonion Fano test and an explicit pending formal
+proof marker; the sedenion reflection file cannot prove that octonion claim.
+The retained theorem-link correction specifies exact prior titles, links
+and assumptions. The CLI applies the batch atomically, stores both states
+in the append-only identity history, and checks the live state on replay:
+
+  gororoba-db theorem identity correct-links --spec \
+    data/output/audit/cayley-dickson-evidence-contracts/theorem-link-correction.toml \
+    --regen-toml false
+  gororoba-db theorem identity validate
+
+The generated registry includes deterministic renumbering after the new claim.
+The control-plane emitter also refreshes the experiment mirror from existing
+canonical experiment rows; the canonical experiment records remain unchanged.
+Workspace-wide formatting reports existing drift documented in the Makefile.
+Changed Rust sources receive a separate rustfmt check with child traversal
+disabled, so that result describes the changed files precisely.
+
+Primary references
+------------------
+
+Jenya Kirshtein, Multiplication groups and inner mapping groups of
+Cayley-Dickson loops (2012), equation (5), Theorems 34-35.
+https://arxiv.org/abs/1207.4230
+
+Shoot Koebisu, Determinant Factorization for Left Multiplication in the
+Sedenions, version 2 (2026).
+https://arxiv.org/abs/2512.13002v2
+
+Daniel K. Biss, J. Daniel Christensen, Daniel Dugger, Daniel C. Isaksen,
+Eigentheory of Cayley-Dickson algebras (2009), Theorem 7.2 and Proposition 7.4.
+https://arxiv.org/abs/0905.2987
+
+Daniel K. Biss, Daniel Dugger, Daniel C. Isaksen, Large annihilators in
+Cayley-Dickson algebras (2005).
+https://arxiv.org/abs/math/0511691
+
+Silvio Reggiani, The geometry of sedenion zero divisors (2024).
+https://arxiv.org/abs/2411.18881
+
+Helena Albuquerque, Shahn Majid, Quasialgebra structure of the octonions (1998).
+https://arxiv.org/abs/math/9802116
+
+John W. Bales, Periodicity of the Cayley-Dickson twists (2016).
+https://arxiv.org/abs/1602.02843

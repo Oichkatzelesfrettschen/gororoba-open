@@ -2737,9 +2737,9 @@ where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v14.py`, `data/cs
 [[claim]]
 id = "C-1310"
 last_verified = "2026-03-12"
-statement = "SedenionAInfinity (C-611) constructs m_2 from the CD product and m_3 from the CD associator. This construction works at any Cayley-Dickson dimension >= 16. The 42/84 zero-divisor count is a property of the underlying algebra at dim=16, not of the A-infinity construction itself."
+statement = "SedenionAInfinity retains a candidate-operation API that constructs the Cayley-Dickson binary product and ternary associator at power-of-two dimensions at least 16. The 42/84 standard-factor count is specific to dimension 16. The candidate fails the minimal uncurved arity-three identity; its name provides compatibility rather than an A-infinity certificate."
 status = "Verified"
-where_stated = "crates/algebra_analysis/src/homotopy_algebra.rs, C-611"
+where_stated = "crates/algebra_analysis/src/homotopy_algebra.rs; proofs/theories/MinimalUncurvedObstruction.v"
 
 [[claim]]
 id = "C-1311"
@@ -3986,7 +3986,8 @@ where_stated = "crates/algebra_experimental/src/three_fermion_generations.rs::te
 id = "C-1461"
 last_verified = "2026-03-21"
 statement = "Koebisu V_2(R^8) holonomy: all 84 standard sedenion zero-divisors satisfy the octonion-pair decomposition s=(a,b) with |a|=|b| and <a,b>=0 (a=s[0..8], b=s[8..16]). This confirms the normalized ZD set is diffeomorphic to the Stiefel manifold V_2(R^8), extending Reggiani's V_2(R^7) result by including real octonion components."
-status = "Verified"
+status = "Refuted"
+status_note = "Refuted full-halves interpretation: e_0+e_9 has equal orthogonal octonion halves and invertible left multiplication. Standard factors already satisfy zero scalar parts. The component constraints use imaginary R^7 frames; the equal-norm theorem in C1465_KoebisuEqualNorm.v remains true."
 where_stated = "crates/algebra_analysis/src/reggiani.rs::test_koebisu_holonomy_v2r8_decomposition"
 
 [[claim]]
@@ -4013,10 +4014,10 @@ status = "Verified"
 where_stated = "crates/algebra_experimental/src/neutrino_sector.rs::test_pmns_offdiag_two_param"
 
 [[claim]]
-formal_proof = "proofs/verified/C1465_KoebisuEqualNorm.v"
+formal_proof = "proofs/verified/C1467_XORSignCocycle.v"
 id = "C-1465"
 last_verified = "2026-03-21"
-statement = "XOR sign cocycle properties exhaustively verified at dim=16: identity (sigma(i,0)=1), squares (sigma(i,i)=-1), anti-commutativity (sigma(i,j)=-sigma(j,i)), and associator defect count (1527/3375 ordered triples). Refined to 147 unordered sigma-associative triads = 35 strict + 112 sign-associative ghost triads."
+statement = "The sedenion multiplication sign is a 2-cochain. Exhaustive reflection at dimension 16 checks identity, imaginary basis squares, and anticommutation. Its ordinary coboundary is nonzero: 1527 of 3375 ordered nonzero-index triples have zero associator defect, and 1848 have nonzero defect. Among unordered distinct-index triples, 147 are sign-associative: 35 strict and 112 ghost triads."
 status = "Verified"
 where_stated = "proofs/verified/C1467_XORSignCocycle.v"
 
@@ -4029,12 +4030,12 @@ status = "Verified"
 where_stated = "crates/cd_kernel/src/cayley_dickson/tests.rs::test_gourlay_psi_order_3"
 
 [[claim]]
-formal_proof = "proofs/verified/C1467_XORSignCocycle.v"
+formal_proof = "pending:Octonion 7/28 associator enumeration has Rust evidence; C1467_XORSignCocycle.v proves the separate sedenion sign-count claim C-1465."
 id = "C-1467"
 last_verified = "2026-03-21"
-statement = "Wilmot (2505.06011) Fano 3-form verification: octonion (dim=8) basis has exactly 7 associative triples and 28 non-associative triples. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex."
+statement = "Wilmot (2505.06011) Fano 3-form verification: among the 35 unordered triples of distinct imaginary octonion basis elements, exactly 7 are associative and 28 are non-associative. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex."
 status = "Verified"
-where_stated = "crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_fano_3form_octonion_triad_count"
+where_stated = "crates/algebra_experimental/src/sedenion_subalgebras/tests.rs::test_wilmot_fano_3form_octonion_triad_count"
 
 [[claim]]
 formal_proof = "proofs/verified/C1468_SlotShiftEquivariance.v"
@@ -8654,6 +8655,15 @@ status = "Verified"
 where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v21.py`, `data/csv/cd_algebraic_experiments_v21.json`"
 
 [[claim]]
+formal_proof = "proofs/verified/C1465_KoebisuEqualNorm.v"
+id = "C-1760"
+last_verified = "2026-10-11"
+statement = "The four vectors e_1+e_9, e_3+e_14, e_7+e_10 and e_5-e_12 have equal squared norms of their octonion halves. Equal norms alone do not establish zero-divisor membership: e_1+e_9 has parallel imaginary halves and trivial left annihilator."
+status = "Verified"
+status_note = "Kernel-checked formal proposition for THM-LEGACY-C1465_KoebisuEqualNorm. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/verified/C1465_KoebisuEqualNorm.v; proofs/theories/SedenionMembershipConstraints.v"
+
+[[claim]]
 id = "C-177"
 last_verified = "2026-02-01"
 statement = 'Two-generated subalgebra dimension: at dim=4 (quaternions), <a,b> = full algebra (dim=4). At dim=8, median sub_dim = 4 (some pairs generate proper subalgebras). At dim >= 16, <a,b> = full algebra for ALL tested random pairs. The algebra is "2-generated" at dim >= 16.'
@@ -11751,7 +11761,8 @@ where_stated = "`CURRENT::PATH crates/gororoba_algebra/tests/test_tessarines_cen
 id = "C-611"
 last_verified = "2026-02-10"
 statement = "SedenionAInfinity constructs a minimal A-infinity algebra with m_1=0 (no differential), m_2=CD product, m_3=CD associator. The A-infinity relation at n=3 holds with residual < 1e-10 for random sedenion inputs."
-status = "Verified"
+status = "Refuted"
+status_note = "Refuted by the minimal uncurved arity-three identity and the sedenion basis triple (e_1,e_2,e_4). See proofs/theories/MinimalUncurvedObstruction.v and data/output/audit/cayley-dickson-evidence-contracts/c-611-transition.toml. The retained candidate API computes the true associativity residual."
 where_stated = "`crates/algebra_analysis/src/homotopy_algebra.rs` (SedenionAInfinity::new, verify_relation_n3, test_sedenion_a_infinity_relation_n3)"
 
 [[claim]]
@@ -11773,10 +11784,10 @@ where_stated = "`crates/cosmology_core/src/homotopy_bridge.rs` (homotopy_lambda,
 [[claim]]
 id = "C-614"
 last_verified = "2026-02-10"
-statement = "A stable gravastar solution exists for obstruction_norm=8.725 with coupling in [0, 0.01]. The stability window is nonempty, indicating the A-infinity bypass resolves the C-030 non-associativity obstruction."
+statement = "The chosen gravastar model maps associator obstruction_norm=8.725 linearly to Bowers-Liang anisotropy and reports a nonempty stability window for coupling in [0, 0.01]. This is a bounded numerical model result with a chosen coupling; it establishes neither a minimal uncurved A-infinity algebra nor a resolution of the nonassociativity obstruction."
 status = "Verified"
 status_note = "verified_constraint"
-where_stated = "`crates/cosmology_core/src/homotopy_bridge.rs` (sweep_obstruction_coupling, test_homotopy_sweep_stability_window)"
+where_stated = "crates/cosmology_core/src/homotopy_bridge.rs; docs/engineering/cayley_dickson_evidence_contracts.txt"
 
 [[claim]]
 id = "C-615"
@@ -12337,10 +12348,10 @@ where_stated = "data/kubo_transport/validation/j1j2_validation_report.toml"
 [[claim]]
 id = "C-684"
 last_verified = "2026-02-13"
-statement = "M4 Hexagon Residual Nonzero: The associator-based m_3 correction tensor produces a nonzero hexagon (A_5) residual when evaluated with m_4=0, confirming that the sedenion A-infinity structure genuinely requires a quaternary correction m_4 beyond the ternary m_3. The M4CorrectionTensor (16^5 = 1,048,576 entries, 8.4 MB) is implemented and passes 8 unit tests."
+statement = "The associator-based ternary tensor produces a nonzero implemented arity-five residual when the quaternary tensor is zero. M4CorrectionTensor stores 16^5 entries and supports numerical tensor diagnostics. These observations do not establish an A-infinity structure: the minimal uncurved arity-three identity already fails for the Cayley-Dickson product."
 status = "Verified"
-status_note = "Sprint 55: Promoted Established->Verified. 8 new M4 tests pass. Hexagon violation uses 9-term A_5 identity with sign pattern matching existing pentagon code."
-where_stated = "crates/neural_homotopy/src/m4_tensor.rs (M4CorrectionTensor::m3_hexagon_residual)"
+status_note = "Verified refers to the implemented tensor residual diagnostic. The minimal uncurved A-infinity interpretation is refuted at arity three; a nonzero arity-five diagnostic cannot repair that obstruction."
+where_stated = "crates/neural_homotopy/src/m4_tensor.rs::M4CorrectionTensor::m3_hexagon_residual; proofs/theories/MinimalUncurvedObstruction.v"
 
 [[claim]]
 id = "C-685"

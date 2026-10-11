@@ -1,21 +1,21 @@
-//! A-infinity correction tensor m_3 for sedenion non-associativity.
+//! Ternary associator ansatz and higher-arity residual tensors.
 //!
-//! The ternary operation m_3 corrects the non-associativity of sedenion
-//! multiplication. For basis elements:
+//! The ternary ansatz records the negative associator. For basis elements:
 //!   m_3(e_i, e_j, e_k) = e_i*(e_j*e_k) - (e_i*e_j)*e_k
 //!
 //! The correction tensor is stored as a 16x16x16x16 array where
 //! `tensor[i][j][k][l]` is the coefficient of e_l in m_3(e_i, e_j, e_k).
 //!
-//! The pentagon violation measures the A-infinity A_4 relation,
-//! which determines whether a higher correction m_4 is needed.
+//! The pentagon loss evaluates a higher-arity polynomial. Minimal uncurved
+//! A-infinity admission already fails at arity three for sedenion m_2;
+//! reducing the pentagon loss cannot repair that independent obstruction.
 
 use crate::training_data::{SEDENION_DIM, build_sedenion_table};
 
 const DIM: usize = SEDENION_DIM;
 const TENSOR_SIZE: usize = DIM * DIM * DIM * DIM;
 
-/// Ternary correction tensor for the A-infinity structure on sedenions.
+/// Ternary tensor ansatz on the sedenion vector space.
 ///
 /// Stores m_3(e_i, e_j, e_k) as a 16-vector of real coefficients per triple.
 /// The full tensor has 16^4 = 65536 entries.
@@ -25,7 +25,7 @@ pub struct CorrectionTensor {
 }
 
 impl CorrectionTensor {
-    /// Create a zero correction tensor (trivial A-infinity structure).
+    /// Create a zero tensor, without an algebra-identity certificate.
     pub fn zero() -> Self {
         Self {
             data: vec![0.0; TENSOR_SIZE],
@@ -66,8 +66,9 @@ impl CorrectionTensor {
     /// Initialize from the sedenion associator (direct ansatz).
     ///
     /// Sets m_3(e_i, e_j, e_k) = e_i*(e_j*e_k) - (e_i*e_j)*e_k.
-    /// This is the canonical choice that exactly cancels the associator
-    /// at the ternary level.
+    /// Adding that tensor to the associator gives zero by definition.
+    /// The Stasheff arity-three identity contains m_1 composed with m_3,
+    /// so the cancellation does not establish a minimal A-infinity algebra.
     pub fn from_associator() -> Self {
         let table = build_sedenion_table();
         let mut tensor = Self::zero();

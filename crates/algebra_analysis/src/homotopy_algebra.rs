@@ -611,15 +611,18 @@ impl StringFieldTheory {
 }
 
 // ---------------------------------------------------------------------------
-// SedenionAInfinity: Concrete A-infinity algebra on 16D Cayley-Dickson space
+// SedenionAInfinity: candidate operations and their associativity obstruction
 // ---------------------------------------------------------------------------
 
-/// A concrete A-infinity algebra whose underlying vector space is the 16D
-/// sedenions. m_1 = 0 (minimal), m_2 = CD product, m_3 = CD associator.
+/// Candidate operations on a Cayley-Dickson space, retained under the
+/// historical API name. The candidate fails the uncurved A-infinity identities.
 ///
 /// The A-infinity relation at n=3 with m_1=0 reduces to:
-///   m_2(m_2(a,b),c) - m_2(a,m_2(b,c)) = m_3(a,b,c)
-/// which is exactly the definition of the associator.
+///   m_2(m_2(a,b),c) - m_2(a,m_2(b,c)) = 0.
+/// Every term containing m_3 also contains m_1, so choosing m_3 equal to
+/// the associator cannot repair a nonassociative m_2 when m_1 is zero.
+/// Albuquerque-Majid quasiassociativity uses a different monoidal structure;
+/// adopting that structure requires an explicit associator and coherence laws.
 ///
 /// The obstruction spectrum captures how non-associativity distributes across
 /// the algebra via eigenvalues of the flattened m_3 operator.
@@ -627,7 +630,7 @@ impl StringFieldTheory {
 pub struct SedenionAInfinity {
     /// Dimension of the underlying CD algebra (default 16).
     pub dim: usize,
-    /// The A-infinity algebra metadata.
+    /// Metadata for the proposed operations, without identity certification.
     pub algebra: AInfinityAlgebra,
 }
 
@@ -645,7 +648,7 @@ pub struct ObstructionSpectrum {
 }
 
 impl SedenionAInfinity {
-    /// Construct the sedenion A-infinity algebra at the given CD dimension.
+    /// Construct candidate operations and obstruction diagnostics.
     ///
     /// The dimension must be a power of 2 and >= 8 (non-associativity starts
     /// at dim=8 for octonions, but the canonical case is dim=16 sedenions).
@@ -655,10 +658,10 @@ impl SedenionAInfinity {
             "dim must be power-of-2 >= 8"
         );
 
-        let mut algebra = AInfinityAlgebra::new(&format!("CD({})-AInfinity", dim));
+        let mut algebra = AInfinityAlgebra::new(&format!("CD({dim})-obstruction-candidate"));
         algebra.set_dimension(0, dim);
 
-        // m_1 = 0 (minimal algebra)
+        // Minimality forces the arity-three relation to test associativity.
         algebra.add_operation(1, HomotopyOperation::a_infinity(1).zero());
 
         // m_2 = CD product (degree shift 0)
@@ -685,10 +688,11 @@ impl SedenionAInfinity {
         cd_kernel::cd_associator(a, b, c)
     }
 
-    /// Verify the A-infinity relation at n=3 (with m_1=0):
-    ///   m_2(m_2(a,b),c) - m_2(a,m_2(b,c)) = m_3(a,b,c)
+    /// Residual of the uncurved arity-three identity with m_1 = 0.
     ///
-    /// Returns the L2 norm of the residual (should be ~0 within floating point).
+    /// A positive residual refutes the candidate when exact arithmetic or a
+    /// roundoff bound establishes that the residual differs from zero.
+    /// Higher operations cannot change this residual while m_1 remains zero.
     pub fn verify_relation_n3(&self, a: &[f64], b: &[f64], c: &[f64]) -> f64 {
         let lhs_left = self.m2(&self.m2(a, b), c);
         let lhs_right = self.m2(a, &self.m2(b, c));
@@ -697,8 +701,7 @@ impl SedenionAInfinity {
             .zip(&lhs_right)
             .map(|(l, r)| l - r)
             .collect();
-        let rhs = self.m3(a, b, c);
-        let residual: f64 = lhs.iter().zip(&rhs).map(|(l, r)| (l - r).powi(2)).sum();
+        let residual: f64 = lhs.iter().map(|component| component.powi(2)).sum();
         residual.sqrt()
     }
 
@@ -1046,27 +1049,19 @@ mod tests {
     }
 
     #[test]
-    fn test_sedenion_a_infinity_relation_n3() {
-        let sa = SedenionAInfinity::new(16);
-        // Verify (ab)c - a(bc) = m_3(a,b,c) for several triples
-        let triples: Vec<(usize, usize, usize)> =
-            vec![(1, 2, 4), (1, 3, 5), (2, 5, 9), (3, 7, 11), (1, 8, 15)];
-        for (i, j, k) in triples {
-            let mut a = vec![0.0; 16];
-            a[i] = 1.0;
-            let mut b = vec![0.0; 16];
-            b[j] = 1.0;
-            let mut c = vec![0.0; 16];
-            c[k] = 1.0;
-            let residual = sa.verify_relation_n3(&a, &b, &c);
-            assert!(
-                residual < 1e-12,
-                "A-infinity relation n=3 residual {} too large for ({},{},{})",
-                residual,
-                i,
-                j,
-                k
-            );
+    fn test_minimal_uncurved_candidate_refuted_by_basis_triple() {
+        for dimension in [8, 16, 32] {
+            let candidate = SedenionAInfinity::new(dimension);
+            let mut first = vec![0.0; dimension];
+            let mut second = first.clone();
+            let mut third = first.clone();
+            first[1] = 1.0;
+            second[2] = 1.0;
+            third[4] = 1.0;
+            assert_eq!(candidate.verify_relation_n3(&first, &second, &third), 2.0);
+            third[4] = 0.0;
+            third[3] = 1.0;
+            assert_eq!(candidate.verify_relation_n3(&first, &second, &third), 0.0);
         }
     }
 

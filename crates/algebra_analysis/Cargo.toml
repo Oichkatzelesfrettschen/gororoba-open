@@ -15,6 +15,8 @@ cd_kernel = { workspace = true }
 gororoba_gpu_bridge = { workspace = true }
 moreno_1997 = { path = "../moreno_1997" }
 nalgebra = { workspace = true }
+num-rational = { workspace = true }
+num-traits = { workspace = true }
 petgraph = { workspace = true }
 rand = { workspace = true }
 rand_chacha = { workspace = true }

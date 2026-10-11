@@ -6,7 +6,11 @@
 
 use super::{exotic_octonions::HybridSignatureOctonion, split_octonion::SplitOctonion};
 use cd_kernel::{
-    cayley_dickson::CdSignature, cross_generational_friction, is_zero_divisor_koebisu, koebisu_d2,
+    cayley_dickson::{
+        CdSignature, SedenionDomainError, SedenionProximityClass, SedenionProximityThresholds,
+        sedenion_proximity,
+    },
+    cross_generational_friction,
 };
 use serde::{Deserialize, Serialize};
 use std::fmt;
@@ -85,8 +89,19 @@ impl fmt::Display for ObservableReading {
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CompactKoebisuResult {
-    pub d2: f64,
-    pub is_zero_divisor: bool,
+    /// D_2 after unit-input normalization, independent of input magnitude.
+    pub normalized_d2: f64,
+    /// Scalar, scalar, equal-imaginary-norm, and orthogonality residuals.
+    pub component_residuals: [f64; 4],
+    pub proximity: CompactSedenionProximity,
+}
+
+/// Numerical proximity carries an undecided outcome and makes no exact claim.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum CompactSedenionProximity {
+    Near,
+    Indeterminate,
+    Separated,
 }
 
 pub struct CompactKoebisuObservable<'a> {
@@ -95,24 +110,42 @@ pub struct CompactKoebisuObservable<'a> {
 }
 
 impl<'a> CompactKoebisuObservable<'a> {
+    /// `epsilon` bounds normalized component residuals; `2*epsilon` marks
+    /// separation, with an explicit undecided region between the bounds.
     pub fn new(vector: &'a [f64], epsilon: f64) -> Self {
         Self { vector, epsilon }
     }
 }
 
 impl SignatureAwareObservable for CompactKoebisuObservable<'_> {
-    type Output = CompactKoebisuResult;
+    type Output = Result<CompactKoebisuResult, SedenionDomainError>;
 
     fn regime(&self) -> ObservableSignatureRegime {
         ObservableSignatureRegime::CompactEuclidean
     }
 
     fn evaluate(&self) -> Self::Output {
-        let d2 = koebisu_d2(self.vector);
-        CompactKoebisuResult {
-            d2,
-            is_zero_divisor: is_zero_divisor_koebisu(self.vector, self.epsilon),
-        }
+        let result = sedenion_proximity(
+            self.vector,
+            SedenionProximityThresholds {
+                near: self.epsilon,
+                separated: 2.0 * self.epsilon,
+            },
+        )?;
+        Ok(CompactKoebisuResult {
+            normalized_d2: result.normalized_d2,
+            component_residuals: [
+                result.residuals.first_scalar,
+                result.residuals.second_scalar,
+                result.residuals.equal_norm,
+                result.residuals.orthogonality,
+            ],
+            proximity: match result.classification {
+                SedenionProximityClass::Near => CompactSedenionProximity::Near,
+                SedenionProximityClass::Indeterminate => CompactSedenionProximity::Indeterminate,
+                SedenionProximityClass::Separated => CompactSedenionProximity::Separated,
+            },
+        })
     }
 }
 
@@ -120,15 +153,18 @@ impl CompactKoebisuResult {
     pub fn to_reading(&self) -> ObservableReading {
         ObservableReading {
             regime: ObservableSignatureRegime::CompactEuclidean,
-            observable: "koebisu-d2".to_string(),
-            primary_value: self.d2,
-            secondary_value: Some(if self.is_zero_divisor { 1.0 } else { 0.0 }),
-            flagged: self.is_zero_divisor,
+            observable: "sedenion-normalized-d2".to_string(),
+            primary_value: self.normalized_d2,
+            secondary_value: Some(self.component_residuals.iter().copied().fold(0.0, f64::max)),
+            flagged: self.proximity == CompactSedenionProximity::Near,
         }
     }
 }
 
-pub fn koebisu_d2_compact(vector: &[f64], epsilon: f64) -> CompactKoebisuResult {
+pub fn koebisu_d2_compact(
+    vector: &[f64],
+    epsilon: f64,
+) -> Result<CompactKoebisuResult, SedenionDomainError> {
     CompactKoebisuObservable::new(vector, epsilon).evaluate()
 }
 
@@ -271,10 +307,29 @@ mod tests {
         witness[1] = 1.0;
         witness[10] = 1.0;
 
-        let result = koebisu_d2_compact(&witness, 1e-12);
-        assert!(result.d2.abs() < 1e-12);
-        assert!(result.is_zero_divisor);
-        assert_eq!(result.to_reading().summary_row(), [result.d2, 1.0, 1.0]);
+        let result = koebisu_d2_compact(&witness, 1e-12).unwrap();
+        assert!(result.normalized_d2.abs() < 1e-12);
+        assert_eq!(result.proximity, CompactSedenionProximity::Near);
+        assert_eq!(result.to_reading().summary_row(), [0.0, 0.0, 1.0]);
+    }
+
+    #[test]
+    fn test_compact_koebisu_wrapper_preserves_domain_and_indeterminate_outcomes() {
+        assert_eq!(
+            koebisu_d2_compact(&[1.0; 32], 1e-12),
+            Err(SedenionDomainError::Dimension { actual: 32 })
+        );
+        assert_eq!(
+            koebisu_d2_compact(&[0.0; 16], 1e-12),
+            Err(SedenionDomainError::ZeroVector)
+        );
+        let mut witness = [0.0; 16];
+        witness[1] = 1.0;
+        witness[10] = 1.0;
+        witness[0] = 2e-12;
+        let result = koebisu_d2_compact(&witness, 1e-12).unwrap();
+        assert_eq!(result.proximity, CompactSedenionProximity::Indeterminate);
+        assert!(!result.to_reading().flagged);
     }
 
     #[test]

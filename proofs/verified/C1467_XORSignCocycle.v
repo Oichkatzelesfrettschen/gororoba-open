@@ -1,9 +1,15 @@
-(** * C-1467: XOR+Sign Cocycle Properties of Sedenion Multiplication.
+(** * XOR+Sign Cochain Properties of Sedenion Multiplication (C-1465).
 
     e_i * e_j = sigma(i,j) * e_{i XOR j}
 
     Exhaustive verification via boolean reflection on a precomputed
     sign table. All 256 pairs (16x16) verified in < 1s.
+
+    The exponent F defined by sigma = (-1)^F is a 2-cochain.
+    Its ordinary coboundary dF records the associator sign and is nonzero
+    for some triples. Therefore F is not an ordinary group 2-cocycle.
+    The cocycle_* theorem identifiers retain compatibility with dependents;
+    their statements establish identity, square and anticommutation laws.
 
     Mirrors: cd_kernel::cayley_dickson::signs::cd_basis_mul_sign *)
 
@@ -161,3 +167,14 @@ Proof. vm_compute. reflexivity. Qed.
 (** 147 + 308 = 455 = C(15,3). *)
 Theorem triad_total : 147 + 308 = 455.
 Proof. vm_compute. reflexivity. Qed.
+
+Print Assumptions sed_sign_table_correct.
+Print Assumptions cocycle_identity.
+Print Assumptions cocycle_squares.
+Print Assumptions cocycle_anticomm.
+Print Assumptions assoc_triple_count_ordered.
+Print Assumptions assoc_distinct_count.
+Print Assumptions degenerate_triple_count.
+Print Assumptions assoc_split.
+Print Assumptions unordered_assoc_triads.
+Print Assumptions triad_total.

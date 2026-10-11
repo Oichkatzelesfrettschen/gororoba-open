@@ -1,0 +1,22 @@
+{
+  "schema": "cayley_dickson_correction_evidence_v1",
+  "minimal_uncurved": {
+    "outcome": "refuted",
+    "boundary": "Minimal uncurved structure with the Cayley-Dickson binary product",
+    "proof_file": "proofs/theories/MinimalUncurvedObstruction.v",
+    "theorems": [
+      "minimal_uncurved_multiplication_associative",
+      "sedenion_product_nonassociative"
+    ],
+    "execution": "Rocq 9.1.1 compilation succeeded; assumptions retained in MinimalUncurvedObstruction-assumptions.txt."
+  },
+  "numerical_models": {
+    "outcome": "retained_as_chosen_models",
+    "boundary": "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence.",
+    "sources": [
+      "crates/algebra_analysis/src/homotopy_algebra.rs",
+      "crates/cosmology_core/src/homotopy_bridge.rs"
+    ],
+    "execution": "Source review of operation definitions and the gravastar coupling path."
+  }
+}

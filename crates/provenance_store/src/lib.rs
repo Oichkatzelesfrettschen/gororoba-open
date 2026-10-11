@@ -99,6 +99,12 @@ use theorem_identity::{
     default_stable_theorem_id, is_declared_legacy_alias, validate_theorem_identities,
 };
 
+mod theorem_link_correction;
+pub use theorem_link_correction::{
+    TheoremLinkCorrection, TheoremLinkCorrectionChange, TheoremLinkCorrectionResult,
+    TheoremLinkCorrectionSpec, TheoremLinkState, parse_theorem_link_correction_spec,
+};
+
 mod artifact_paths;
 pub use artifact_paths::{
     ArtifactPathRepair, ArtifactPathRepairSpec, HistoricalPathRelation, RelatedArtifactPath,
