@@ -9418,7 +9418,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-1461"]
-evidence_refs = ["crates/algebra_analysis/src/reggiani.rs", "reggiani.rs"]
+evidence_refs = ["crates/algebra_analysis/src/reggiani.rs", "proofs/theories/SedenionMembershipConstraints.v", "reggiani.rs"]
 
 [[skeleton]]
 id = "PRS-00524"
@@ -10379,7 +10379,7 @@ id = "PRS-00577"
 skeleton_kind = "claim_decision_rule"
 theorem_label = "C-1510"
 claim_id = "C-1510"
-assumptions = ["ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade)."]
+assumptions = ["For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs."]
 obligations = ["Establish evidence-backed status for C-1510."]
 derivation_steps = []
 decision_rule = ""
@@ -10595,7 +10595,7 @@ id = "PRS-00589"
 skeleton_kind = "claim_decision_rule"
 theorem_label = "C-1521"
 claim_id = "C-1521"
-assumptions = ["ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."]
+assumptions = ["For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested."]
 obligations = ["Establish evidence-backed status for C-1521."]
 derivation_steps = []
 decision_rule = ""

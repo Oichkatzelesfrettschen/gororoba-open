@@ -41741,12 +41741,12 @@ claim_id = "C-1510"
 claim_refs = ["C-1510"]
 step_index = 1
 step_kind = "derivation_step"
-text = "ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade)."
-text_sha256 = "046dbb930bd7c896dd2d0a398a5e8b6964b2eecd271bc45cce707c3edf6a94fc"
+text = "For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs."
+text_sha256 = "bd77c38100e274a7edc08ae38ba652cb278d646828a6389fe0c414d001ad6dc2"
 equation_refs = []
 symbol_refs = []
-numeric_constants = ["12", "14", "2", "20", "4", "6"]
-key_tokens = ["G_2", "Jacobian", "Moreno", "ZD", "annihilator", "blade", "dim", "rank", "redundant", "sedenion", "space", "standard", "tangent", "witnesses"]
+numeric_constants = ["0", "16", "1e-10"]
+key_tokens = ["Both", "G_2", "L_a", "Partial", "R_b", "acting", "both", "change", "constraint", "constructs", "da", "db", "derivative", "dimension", "e_1", "e_10", "e_15", "e_3", "e_4", "e_6"]
 depends_on_step_ids = []
 line_start = 0
 line_end = 0
@@ -42461,12 +42461,12 @@ claim_id = "C-1521"
 claim_refs = ["C-1521"]
 step_index = 1
 step_kind = "derivation_step"
-text = "ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."
-text_sha256 = "d6c78630f88b78f62951b5a11e2687f78e441ea3e6f4230caaf4ffafc5a0476d"
+text = "For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested."
+text_sha256 = "64d2fba2c8de38485d80a1b92184b6be26e2e6b92ecd2c0bf4d08a8b4e197ce4"
 equation_refs = []
 symbol_refs = []
-numeric_constants = []
-key_tokens = ["Archimedean", "Cross", "Equal", "First", "No", "ZD", "ZDs", "across", "alpha", "beta", "break", "class", "classes", "coefficients", "condition", "delta", "fails", "gamma", "genuinely", "mixed"]
+numeric_constants = ["0", "1", "10", "100", "1000", "2", "30", "50"]
+key_tokens = ["Archimedean", "Every", "These", "against", "alpha", "arithmetic", "cancellation", "class", "coefficient", "dyadic", "e_1", "e_10", "e_15", "e_4", "establish", "exact", "factor", "finite", "fixed", "fixture"]
 depends_on_step_ids = []
 line_start = 0
 line_end = 0

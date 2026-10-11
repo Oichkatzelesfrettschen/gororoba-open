@@ -7211,9 +7211,9 @@ status_token = "REFUTED"
 status_detail = "Refuted"
 hypothesis_class = "refuted_claim"
 last_verified = "2026-03-21"
-where_stated = "crates/algebra_analysis/src/reggiani.rs::test_koebisu_holonomy_v2r8_decomposition"
+where_stated = "crates/algebra_analysis/src/reggiani.rs::test_standard_zero_divisor_imaginary_frame_constraints; crates/algebra_analysis/src/reggiani.rs::test_koebisu_d2_polynomial; proofs/theories/SedenionMembershipConstraints.v"
 verification_rule = "Refuted full-halves interpretation: e_0+e_9 has equal orthogonal octonion halves and invertible left multiplication. Standard factors already satisfy zero scalar parts. The component constraints use imaginary R^7 frames; the equal-norm theorem in C1465_KoebisuEqualNorm.v remains true."
-where_stated_refs = ["crates/algebra_analysis/src/reggiani.rs", "reggiani.rs"]
+where_stated_refs = ["crates/algebra_analysis/src/reggiani.rs", "proofs/theories/SedenionMembershipConstraints.v", "reggiani.rs"]
 verification_refs = []
 cross_refs = []
 
@@ -7962,7 +7962,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0569"
 claim_id = "C-1510"
-statement = "ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade)."
+statement = "For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs."
 status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
@@ -8130,7 +8130,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0581"
 claim_id = "C-1521"
-statement = "ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."
+statement = "For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested."
 status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"

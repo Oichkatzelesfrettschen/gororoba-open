@@ -1,25 +1,17 @@
-(** * M3IsAssociatorPathion: associator classification at pathion level (dim=32).
+(** * Finite associator partition for 32D signs on lower-half labels.
 
-    Extends M3IsAssociator from octonions (dim=8, 210 triples) to pathions
-    (dim=32).  Uses the same cd_sign_fuel recursion with fuel=6 and dim=32.
+    The input corpus consists of all 2730 ordered distinct triples from
+    {1,...,15}. The 32D recursive signs restrict to the sedenion subalgebra
+    on these labels and agree with octonion signs on {1,...,7}.
 
-    At the pathion level there are 31 imaginary basis elements, giving:
-    - 31 * 30 * 29 = 26970 ordered triples ... but we check unordered
-      triples to match Wilmot's classification.
-    - C(31, 3) = 4495 unordered triples
-    - Wilmot Table 2: 35 U_1 + 252 U_2 + 168 U_3 = 455 ... wait, that's
-      C(15,3) = 455 for the sedenion retraction to octonion.
+    The checked theorems count 210 XOR-zero triples, prove their associators
+    vanish, and prove exhaustiveness of the partition into XOR-zero,
+    remaining zero-associator, and nonzero-associator triples. The latter
+    two cardinalities are defined but receive no numeric theorem here.
 
-    Actually, the Wilmot classification at pathion level classifies triples
-    of imaginary SEDENION units (1..15) via the retraction from pathion
-    to sedenion.  The 35+252+168=455 counts unordered triples in {1..15}.
-
-    Here we verify the SIGN TABLE properties at the pathion level:
-    - The associator formula [e_i, e_j, e_k] uses pathion signs
-    - XOR-based Fano detection generalizes to dim=32
-
-    Reference: Wilmot Pathions1-3.pdf, arXiv:2505.11747v3.
-    Claim: C-1507. *)
+    The file defines no retraction operation. A comparison with a cubic
+    retraction polynomial requires a separate operation-level certificate,
+    and a transfer interpretation requires a graded contraction. *)
 
 From Stdlib Require Import ZArith Bool List Arith.
 Import ListNotations.
@@ -50,10 +42,7 @@ Definition path_assoc_coeff (i j k : nat) : Z :=
 Definition is_path_fano (i j k : nat) : bool :=
   Nat.eqb (Nat.lxor (Nat.lxor i j) k) 0.
 
-(** Build all ordered triples from {1..15} (sedenion imaginary units).
-    This gives the 210 triples at the octonion/sedenion boundary,
-    which is where the Wilmot 35+252+168=455 classification lives
-    (unordered = C(15,3) = 455). *)
+(** All 15*14*13 = 2730 ordered distinct triples on labels {1,...,15}. *)
 Definition sed_triples : list (nat * nat * nat) :=
   List.flat_map (fun i =>
     List.flat_map (fun j =>
@@ -82,7 +71,7 @@ Proof. vm_compute. reflexivity. Qed.
 (** Now verify associator properties on {1..15} using PATHION signs.
     The pathion sign table extends the octonion one to 32D. *)
 
-(** Count Fano triples in {1..15}: should be 42 (same 7 Fano lines x 6 orderings). *)
+(** Count XOR-zero triples in the declared lower-half corpus. *)
 Definition sed_fano_count : nat :=
   List.length (List.filter (fun ijk =>
     match ijk with (i, j, k) => is_path_fano i j k end)
@@ -107,11 +96,8 @@ Definition check_sed_fano_zero : bool :=
 Theorem sed_fano_assoc_zero : check_sed_fano_zero = true.
 Proof. vm_compute. reflexivity. Qed.
 
-(** Count non-Fano triples with ZERO associator in {1..15}.
-    These are cross-subalgebra triples where the sign-table associator
-    vanishes despite XOR != 0.  This is a GENUINE structural finding:
-    the retraction-based m3 captures cross-subalgebra effects that
-    the naive sign-table associator misses. *)
+(** Count triples with nonzero label XOR and zero ordinary associator.
+    The predicate concerns the sign-table product alone. *)
 Definition sed_nonfano_zero_count : nat :=
   List.length (List.filter (fun ijk =>
     match ijk with (i, j, k) =>
@@ -137,10 +123,17 @@ Theorem sed_partition_complete :
   = sed_total_ordered.
 Proof. vm_compute. reflexivity. Qed.
 
-(** Pathion-level summary:
-    1. cd_sign_fuel 6 32 agrees with cd_sign_fuel 4 8 on indices 1..7.
-    2. Fano classification (XOR=0) extends to {1..15}: still 42 Fano triples.
-    3. Associator = 0 on Fano, nonzero on non-Fano, using pathion signs.
-    4. The 35+252+168=455 Wilmot decomposition requires the RETRACTION
-       m3 (homotopy transfer from pathion to sedenion), not just the
-       sign table.  That computation is verified in Rust (C-1465). *)
+(** The partition is exhaustive on the declared corpus. The theorem above
+    leaves both non-Fano class cardinalities as computed definitions and
+    supplies no retraction-polynomial or all-dimension conclusion. *)
+
+Print Assumptions path_self_1.
+Print Assumptions path_self_16.
+Print Assumptions path_self_31.
+Print Assumptions path_zero_left.
+Print Assumptions path_zero_right.
+Print Assumptions pathion_octonion_sign_agree.
+Print Assumptions sed_fano_count_is.
+Print Assumptions sed_fano_assoc_zero.
+Print Assumptions sed_total_is.
+Print Assumptions sed_partition_complete.

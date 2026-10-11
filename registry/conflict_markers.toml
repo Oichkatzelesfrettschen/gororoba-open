@@ -4,8 +4,8 @@
 [conflict_markers]
 updated = "deterministic"
 authoritative = true
-marker_count = 128
-high_severity_count = 115
+marker_count = 127
+high_severity_count = 114
 medium_severity_count = 13
 low_severity_count = 0
 kind_count = 2
@@ -23,6 +23,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["REFUTED: Legacy 16D \"Zero-Divisor Adjacency Matrix\" does NOT represent valid algebra. Found to be noise/hallucination when verified against commutator/parity matrices."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "00cfae16d019bae23e52e5f675d0c0d6c0e4c304d3517d0e9bd5bc95115c15c9"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -39,6 +40,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["REFUTED: Hypothesis tested: 1024D Basis-to-Lattice mapping is a consistent function.... Result: This claim was empirically refuted."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "e21cc1032ee5c21f8bea01b2b208ded16722bf3c5b2114d6ad30a1900b49813a"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -55,6 +57,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["GWTC-3 black hole sky positions cluster around projected sedenion zero-divisor coordinates (CMB-aligned frame). REFUTED at the statistical level: sky distribution is consistent with isotropy."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "dbc472551f4da331a634a62ebe335dbd4489964de2aef59a38f8a17009e070db"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -71,6 +74,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["By Hurwitz theorem, only dims 1/2/4/8 admit normed division algebras (R,C,H,O). In the CD tower at dim=16 (sedenions), norm composition fails and zero divisors exist; therefore any sedenion-valued field theory must specify an associative representation (or restrict to associative subalgebras) to define a unique action and a compatible Hilbert-space structure."]
+source_content_sha256 = "70a9a817dd24a4afc45f340a77930dbf18fc83498eaa5a82487abcd93d6eca75"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -87,6 +91,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Associator saturation fit fails for non-power-of-2 dimensions."]
+source_content_sha256 = "e6a8aa391c4b410d9211bf58edaffd3242a02da5a89351b1b96896c584b1eff5"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -103,6 +108,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Random probing fails to find algebraic ZDs; diagonal ZDs lifted via CD doubling exhibit kernel doubling (kernel=8 at dim=32, 16 at dim=64, 32 at dim=128)."]
+source_content_sha256 = "faedce40e8d16d86dbc2aa2535c560d8722c50bcf93ecabd01b63d746f01bff7"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -119,6 +125,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["512D Cayley-Dickson CHSH S-value = -1.528 (does NOT violate classical bound |S|<=2). Associator-based measurement model with sedenion-lifted ZD pairs produces dimension-invariant S ~ -1.5 across 16D through 512D. The correlators are uniformly anti-correlated (~-0.85) with insufficient angular dependence for CHSH violation."]
+source_content_sha256 = "50d9d420ae6ccef108569e8ce1b8556bf69cee0da209007bc69ec3d230b8dc65"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -135,6 +142,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Non-associativity at dim 8 (octonions) lifts to dim 16 (sedenions) via Cayley-Dickson doubling embedding (x, 0). The AVT violation set is non-empty at all dims >= 8. Constructive proof: the octonion witness (e1, e2, e4) embedded in sedenions still fails associativity. Kernel-checked via Rocq 9.1."]
+source_content_sha256 = "f0173893511161ce3c592f13545a7425759a0dd09074671d663077b49880b78b"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -151,6 +159,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Moufang ratio||M(a,b,c)||^2/||A(a,b,c)||^2 converges to M_inf = 1.561 +/- 0.017, consistent with pi/2 (0.6 sigma), inconsistent with 3/2 (3.6 sigma)."]
+source_content_sha256 = "10d7a8d819d363788b5b214e5b11a10e4224f435d03d265e33c4b517649ab5a5"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -167,6 +176,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["High-resolution WIND MFI 3-second data in the shock ramp regime (CME front at L1) yields |F_DM|/|F_Lorentz| ~ O(10^-12), confirming the null result holds even in the highest-gradient magnetic topology."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "838a5cc0d714564b09b94f33b1b8a88d64dd8dcb53a097a27e9ed5ce83f91e41"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -183,6 +193,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Anomalous viscosity regime: LBM BGK collision operator is valid for Knudsen number Kn < 100 (corresponding to heliocentric distance r < ~50 AU for quiet solar wind). Beyond 50 AU, kinetic effects dominate and BGK fails."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "dbfe1a2dadce2e536d394e14f1554588900fe28623476fb469103f86ec26c414"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -199,6 +210,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Parker spiral scaling verified by multi-spacecraft data: B_r(r) ~ r^-2 (magnetic flux conservation) and B_phi(r) ~ r^-1 (spiral winding). At 1 AU, B_r ~ 3 nT and B_phi ~ 3 nT (Parker spiral angle ~ 45 deg). At 10 AU, B_phi >> B_r."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "68964d5dcce6d9bb74cf944d3b9375b37ff99dc88f7e22470b23a7d99237df66"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -215,6 +227,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Voyager termination shock at 84-94 AU is consistent with MHD simulation boundary conditions. V1 crossed at 94 AU (2004), V2 at 84 AU (2007). Density jump factor ~ 2-4x across shock."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "8f7d6f3be68918c0539c4c350a94de57b9fe844e09c0f9c3ea954e1e67584615"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -231,6 +244,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Outer heliosphere Knudsen boundary: LBM validity boundary at r ~ 30-50 AU for quiet solar wind. Beyond this distance, mean free path exceeds simulation cell size (Kn > 1), and the BGK collision operator underpredicts heat flux and viscous stress."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "74d055922d798838a9346a4624c549d20eeacbbff936d06ae6e1cac26a9b3cef"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -247,6 +261,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["New Horizons SWAP data has no known alternate provider besides SPDF. AMDA catalog (1065 datasets, queried 2026-03-10) contains zero NH entries. NH carries SWAP plasma but no magnetometer. PDS-SBN is a potential but unverified alternative source."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "1bc0a2e531fa5edc7934a8635aac82d78ce5f6611f2c408542baa611a36377f5"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -263,6 +278,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Multi-seed bootstrap: Moufang ratio converges to M_inf = 1.519 +/- 0.013, consistent with 3/2 (1.5 sigma), INCONSISTENT with pi/2 (4.1 sigma). Corrects C-113."]
+source_content_sha256 = "b7dfd3d60c1cba920980df5df4b0d551e091cae172bafd785e942fbc0e3fb116"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -279,6 +295,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["The kagome flat band near 2.08 GHz has bandwidth < 0.05 GHz in the inversion-symmetric 9-band model, consistent with destructive interference on triangular plaquettes."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "65fcbbcba37f91e7ee1650eff0a37d0335980f7aa599246a76ac2c4f77fe28d9"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -295,6 +312,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["The Holstein-Primakoff linearization for YIG magnons is valid when magnon occupation n << 2S = 28.4 (S = 14.2 for Fe3+ in YIG with 10 sublattices)."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "650f3eb37a6d5d07c90aa3d0236ca7bdfb091af2460739e54f7c23b3dc588d97"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -311,6 +329,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem (2-generated subalgebras are associative) holds through dim=8 and fails at dim=16. However, flexibility within 2-generated subalgebras (x(yx) = (xy)x) holds at ALL dims through 256 to machine precision."]
+source_content_sha256 = "660ff16186f98221c20e439c797efad0d8977c0359c0654606641b2d44b6daad"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -327,6 +346,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Multi-galaxy D_f sweep pipeline (prepare_galaxy) correctly filters invalid galaxies (NaN, r_e=0, z<=0) and returns None, with skip count tracked in DfSweepSummary."]
+source_content_sha256 = "5e720fb8817bc6658781325d02100f0c1b9386ad65938b1d1070918773b4c572"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -343,6 +363,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["MRT ghost-moment damping (s_ghost=1.0) provides a modest stability advantage over BGK at matched tau=0.7 on 16^3 grid (E-167): both modes survive to contrast~15.7 (Ma~1.1); MRT retains a grace period at contrast~29.1 (Ma~3.9) while BGK diverges catastrophically at contrast~23.7. The originally claimed Ma~0.3 BGK threshold and Ma~1.5 MRT ceiling are not reproduced; actual MRT advantage is ~1.5x at the divergence threshold."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "1a9b3e25868ebee5eecb3e05273411c60261231ab22b95c45100254b05d26433"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -359,6 +380,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["ESTABLISHED"]
 negative_evidence = ["Smagorinsky tau mutation invalidates CUDA Graph cache: Smagorinsky LES updates tau every N steps based on local strain rate tensor. Since tau is a kernel parameter captured in the graph, any mutation requires graph reconstruction. step_n() correctly falls back to per-step loop when Smagorinsky is active."]
+source_content_sha256 = "273372a9fd0fd3e5032801fbf6933c424fbd596fe8e0d9167eae57aec8477a5e"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -375,6 +397,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["SedenionAInfinity retains a candidate-operation API that constructs the Cayley-Dickson binary product and ternary associator at power-of-two dimensions at least 16. The 42/84 standard-factor count is specific to dimension 16. The candidate fails the minimal uncurved arity-three identity; its name provides compatibility rather than an A-infinity certificate."]
+source_content_sha256 = "18244f86b67dde2ba248c2c610fd0e7285d1d35dc30636de9a97b3d2fe69389e"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -391,6 +414,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["x87 80-bit extended precision Jacobi eigenvalue solver achieves null-space eigenvalue precision < 1e-13 for sedenion obstruction matrices (condition number ~5e4), vs ~1e-9 with f64. The x87 FPU 64-bit mantissa (~19 decimal digits) provides ~4 extra digits over f64 (53-bit, ~15 digits), preventing catastrophic cancellation during Givens rotation accumulation."]
+source_content_sha256 = "2d7727b6db7daed7f7fa244604230e56289f5bd974abc74512d76c549f9938f9"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -407,6 +431,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Topological friction (C-1134, friction >= 4 for dim >= 16) is cumulative associator norm along a braid path -- an algebraic obstruction invariant, not physical dissipation. Wick damping (C-1138, F(theta) = F(0)*exp(-H*sin(theta))) is algebraic complex-time rotation. The friction dimensional scaling (C-1136, Open) is empirical: friction grows with dim but the exact F ~ L*(1-2/n)*||AVT||_rms formula is unformalized. Braid 'fidelity' (BraidResult.fidelity) is exactly 1.0 only when total_friction < 1e-12, which never occurs at dim >= 16 by C-1134."]
+source_content_sha256 = "9ba48216f872d54835479ff8795f37e439572e4a8fd50de4f777483abf595d74"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -423,6 +448,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["The A-infinity obstruction norm 8.725 (C-612) mapped to Bowers-Liang anisotropy (C-613) produces a stable gravastar (C-614, C-615) for coupling in [0, 0.01]. However, the claim that this 'drives dark energy' is architecturally unsupported: (a) gravastar solver outputs (mass, compactness, c_s) at r~10 km scale with no cosmological observable; (b) actual dark energy EOS (orthoplex_diffusion.rs, C-931/C-932) uses orthoplex heat kernel spectral dimension, not gravastar anisotropy; (c) DarkEnergyEOS.v proves w(z) from diffusion_time(z, alpha, t_0) with no reference to obstruction_norm or homotopy_bridge; (d) no code bridges Chain A (gravastar TOV) to Chain B (orthoplex w(z)); (e) obstruction_norm normalization (frobenius / dim^1.5) has free choice of norm type, exponent, truncation order; (f) coupling parameter in [0, 0.01] is a free parameter."]
 negative_evidence = ["CLOSED_REFUTED"]
+source_content_sha256 = "958b8d87d27bb01bb9436bb8b55e2657a93acf432c19e13c5e4a89a7b9b752b5"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -439,6 +465,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["FORMAL KILL SHOT: The A-infinity obstruction norm of 8.725 has no standing as a physical driver of dark energy. Measured normalization sensitivity at dim=16 (E-186, 2026-03-12): frobenius/dim^1.5=8.725 (current), frobenius/dim=34.900, frobenius/sqrt(d)=139.599, frobenius/dim^2=2.181, spectral_radius/dim^1.5=7.764. Relative spread = 98.4% (63x range, min 2.18 to max 139.6). A true physical constant driving a macroscopic observable (cosmological constant Lambda) must be invariant under change of basis and coordinate transformation. The 8.725 value is an artifact of choosing one of at least 5 valid matrix norm conventions; changing convention shifts the value by 2 orders of magnitude. This belongs in the same graveyard as the 0.1764 metamaterial grid artifact (C-1329). SECONDARY FINDING: spectral_radius/dim^1.5 = 7.764 is close to frobenius/dim^1.5 = 8.725, indicating the m_3 associator tensor at D=16 has energy concentrated in its dominant eigenmodes (low-rank-dominated operator), not diffusely distributed -- a genuine algebraic structural property of the sedenion m_3 operator, but not a cosmological observable."]
 negative_evidence = ["CLOSED_REFUTED"]
+source_content_sha256 = "7ea4326c410f60ced8f7ceecd44058fa049ad89532b58c77de0976fe3d9883e3"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
@@ -455,6 +482,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Under the explicit linear homotopy bridge law lambda = coupling * obstruction_norm, zero coupling gives lambda = 0 and exact isotropic recovery p_t = p_r, while positive rho, p_r, obstruction_norm, and coupling imply a strictly positive anisotropy correction. This is a bridge-law consequence under explicit assumptions, not a derivation of physical stress-energy from the algebra."]
+source_content_sha256 = "677dba4b00b7014dff1f3d4a147e39c07904d3f439a8f2dc7c68cceded25b84f"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -471,6 +499,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["DC14 vs NFW stacking comparison (H3, Michelson-Morley inversion): DC14 feedback-modified profiles (Di Cintio et al. 2014) reduce stacked residual RMS by 31.4% vs NFW (0.087 vs 0.126) at matched (rho_s, r_s). However, DC14 residuals are uniformly more negative (-0.14 to -0.35 vs NFW -0.05 to +0.15) because the DC14 core reduces enclosed mass relative to NFW cusp, producing systematic v_DC14 < v_NFW. The DC14 Fourier power is 1.8-61x HIGHER than NFW across all 7 modes (opposite of what a better model should produce). Chi2/dof = 0.80 (spectral shape). Result is INCONCLUSIVE: the comparison is confounded by parameter reuse (DC14 needs its own best-fit rho_s, r_s per galaxy, not the NFW-calibrated values). A proper test requires DC14-specific SMHM-to-profile fitting."]
+source_content_sha256 = "467acb84db691ce32aa99ed9c505b6d28a69c3a7e3b11ddfbf67aad5bd2fb6ce"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -487,6 +516,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["STFT phase gradient analysis (H4, chirp detection analogy): linear regression of phase vs x_center across 32 STFT windows shows R^2 > 0.999 for all 7 modes, but fitted slopes are near zero (-0.015 to -0.074) vs predicted wavenumber k (0.90 to 6.28). Slope/k ratios range from -0.002 to -0.055, meaning phases are essentially FLAT across the x-range. Modes 1-4 are degenerate (< 0.5 full wavelengths in the 0.72 r/r_s window). The high R^2 reflects the smooth baryonic baseline imprinting a slowly-varying phase, not coherent harmonic forcing. No chirp-like phase evolution detected. Hypothesis INCONCLUSIVE (limited by radial coverage) but strongly disfavored."]
+source_content_sha256 = "cf4a833f141b11e25f4e62c830b5ac2323f54ce9a1cc1f3c94cfc74d48f55382"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -503,6 +533,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Fourier anomaly detection (Hypothesis B): Top 70 galaxies ranked by total Fourier power at 7 CD-ZD wavenumbers show Rayleigh R > 0.98 at all modes, but this is an ARTIFACT of selection: galaxies with highest per-galaxy Fourier power are those with extreme rotation curves (very few data points, poor radial coverage), producing large DFT power from noise at individual radial bins. When stacked, these 70 galaxies yield zero valid bins (RMS = 0.000, SNR = 0.000) because their sparse radial coverage fails the min_galaxies_per_bin threshold. The bottom 70 galaxies (lowest Fourier power, best-behaved rotation curves) stack normally with RMS = 0.047, SNR = 0.63. Lesson: per-galaxy Fourier power at CD-ZD wavenumbers is dominated by DATA QUALITY (radial coverage, number of points), not by physical signal strength. Anomaly detection on raw Fourier power requires a data-quality correction (normalization by effective coverage)."]
+source_content_sha256 = "63ba902b88766de629907c04b53b130fd2d191ee24c027d235062d43ef185967"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -519,6 +550,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["H4 cross-algebra mutual information FALSIFIED as ZD-selective: KSG MI estimator (k=5 neighbors, unit-circle phase embedding) shows strong algebra-universal dependence across all 6 cross-algebra pairs. MI ranges from 2.82 nats (J3O vs sl2) to 4.45 nats (CD-ZD vs G2), with Pearson correlations r=0.85-0.96 confirming overwhelmingly linear coupling. No selective cross-algebraic pattern detected: all pairs show similar MI magnitude. NMI normalization fails due to negative differential entropy on compact circular domain (artifact, not physical). The quasi-degeneracy (rho > 0.97 from E-184) extends to the full non-linear dependence structure."]
+source_content_sha256 = "dbebe92bcd3e3539a994c5462edd7a6463f2f884f577ca1b91c72f4c7b61755d"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -535,6 +567,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["D3 window function sensitivity: contrarian hypothesis that the 0.72 r/r_s data window makes long-wavelength modes undetectable was REFUTED. Targeted DFT on the actual data grid shows >100% recovery at ALL 7 modes: mode 1 at 185%, mode 2 at 151%, modes 3-7 at 102-119%. The overrecovery at modes 1-2 is spectral leakage from the non-periodic window boundary, which artificially amplifies low-frequency power. Effective DOF = 14.0 (no reduction). The null result is NOT invalidated by the data window. However, the 185% overrecovery at mode 1 means smooth baryonic gradients (cusp-to-bulge transition) leak into low-k Fourier coefficients, partially explaining the red-noise spectral structure."]
+source_content_sha256 = "34154d1aaf33e79656f0044f17a77a0a7e28886509e96b6d535666abe3d61718"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -551,6 +584,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["E-201 H1 free-gamma ablation: face-on galaxies have gamma=-0.011 (essentially flat power spectrum), vs full-sample gamma=0.808. The red-noise spectral slope is predominantly an INCLINATION ARTIFACT: high-inclination galaxies create the k^{-0.78} structure via projection effects. Face-on galaxies have intrinsically flat spectral floors. This invalidates the gamma=0.808 prior for face-on analysis."]
+source_content_sha256 = "62ee2fd9023fbb548f587fb2503751b51ee9845412bc3e2652ba6593c6cbe115"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -567,6 +601,7 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inner derivation D(a,b)(x) = [[a,b],x] + [[a,x],b] + [[x,b],a] satisfies the Leibniz rule D(xy) = D(x)y + xD(y) exactly at dim=4 and dim=8 (alternative algebras). Fails at dim=16+ with relative residual ~ 1.1-1.7. Inner derivations are non-trivial at dim >= 4."]
+source_content_sha256 = "f9ab9a6bf7153c352b309b04063315e8b782621be79083ad7e9368f7769f62d4"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
@@ -583,27 +618,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Wilmot (2512.07210) Aut(S) = G_2 (Schafer confirmed). Brown's sigma' transformation changes e_{1234567} of Phi_O, invalidating it as automorphism. Only Phi_O^{C(1)} (cyclic sign variations) provides connected G_2 automorphisms in 15 dimensions. 105 primary invariants x 4 sign variations = 420 total."]
+source_content_sha256 = "9764add81ee4e1b8852b9f56d76a3e4d9990c8d4f1cfc2304661c84e016b4a59"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
 id = "CM-0037"
-marker_kind = "claim_status_statement_tension"
-severity = "high"
-status = "open"
-claim_refs = ["C-1521"]
-source_registry = "registry/claims.toml"
-source_document = "C-1521"
-section_label = "statement"
-line_start = 0
-line_end = 0
-positive_evidence = ["VERIFIED"]
-negative_evidence = ["ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."]
-jaccard_overlap = 0.000000
-notes = "Verified status conflicts with negative language in statement."
-
-[[marker]]
-id = "CM-0038"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -615,11 +635,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Phase C CP-phase overlay (evid H): CP-A (~165 deg, Gram-derived) lies within NuFit 6.0 1-sigma for delta_CP (pull = -0.526; 1-sigma range [138,258] deg). CP-B (~93 deg, maximal CP violation) lies outside 1-sigma (pull = -1.789) but inside 3-sigma ([0,360] deg). The 2025 NuFit best-fit is 195 deg; CP-B is displaced toward maximal CP. Both values are exploratory (scorecard Bin 3). Falsification target: DUNE/HyperK sensitivity will determine which, if either, is consistent at 5-sigma."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "f7f549964dccf8342b827941d9788242216ade05dab349fdac6dc430c336301d"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0039"
+id = "CM-0038"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -631,11 +652,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem: any 2-generated subalgebra is associative at dim=4 and dim=8 (alternative algebras). Fails at dim >= 16 with max associator norm > 1.0. Mean associator norm grows with dim beyond the Hurwitz boundary."]
+source_content_sha256 = "ff4ce30e7b72d3d325286f58ed840d88e0f567a530d45960010b43c62ada8337"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0040"
+id = "CM-0039"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -647,11 +669,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Jacobi identity [[a,b],c] + [[b,c],a] + [[c,a],b] = 0 holds exactly at dim=2 (commutative, all commutators zero) and dim=4 (quaternion Lie algebra). Fails at dim >= 8 with relative Jacobi defect ~ 3.5-4.1, converging toward ~3.5 at high dim. The commutator does NOT form a Lie algebra at dim >= 8."]
+source_content_sha256 = "0c7fc1782d8c10f8dd96c8727daba163c3eaf4b030963fd3c713a1911b5151bc"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0041"
+id = "CM-0040"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -663,11 +686,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["ESTABLISHED"]
 negative_evidence = ["PMD-equivalent static analysis gap audit of the 41-crate open_gororoba workspace (2026-04-15) reveals: (1) cargo-machete finds unused dependencies in 13 crates including ort (ONNX Runtime) in gororoba_cli_physics, ash+cubecl-core (GPU stubs) in cd_kernel, and pulp appearing unused in 4 crates (cd_kernel, data_core, materials_core, lbm_3d); (2) pmd-cpd with 80-token minimum detects 1596 total duplicate blocks, but only 3 cross-crate duplicates at 100+ tokens (LoTSS parsing in data_core/gororoba_cli_data/gororoba_cli_physics, turboquant cosine boilerplate in 7 binaries); (3) clippy cognitive_complexity lint (threshold 25) finds 7 violations across the workspace -- worst is source_provenance.rs:1788 at 37/25, followed by lbm_vulkan/compute.rs:2231 at 33/25 and flavor_lifts/basis.rs:214 at 31/25; (4) cargo miri on cd_kernel: 15 AVX2 tests pass clean, 12 predicates tests pass clean, test_high_dim_workspace fails due to rayon/crossbeam-epoch stacked borrows incompatibility with miri (not a cd_kernel UB). rust-code-analysis-cli cannot be installed due to tree-sitter ABI break in nightly-2026-04-05."]
+source_content_sha256 = "6811e9ddd21219bb9e44d2d53e9d1cb3d815d5c3345750e0b00a0cc92ebbdf84"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0042"
+id = "CM-0041"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -679,11 +703,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["The source-faithful Maksimov energy constraint kappa_1 - kappa_2 = gamma_l holds under declared units and parameter correspondence."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "81e351a72e04d3c0fe08ac78fac0859bbf5ba22a203a29de91e1a5de3d09b48f"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0043"
+id = "CM-0042"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -695,11 +720,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["On the timestamp-causal THEMIS-A crossing-day archive (22,263,526 admitted decisions, 543,911 positives, 813 daily files), training-only preprocessing and ridge-logistic fits on 2007-2012 produce a small positive canonical-associator increment over six matched geometric predictors in held-out 2015 and 2016. Across 2,000 paired whole-daily-file bootstrap draws, the global minimum ROC-AUC increment over calibration widths 64, 256 and 1024 and both final years has approximate 95 percent interval [0.0010149049086891153, 0.0029188809429172872]. The upper endpoint lies below the historical investigator-declared 0.005 discrimination target. The target has no established application-based justification; the below-target comparison leaves the positive-effect observation intact and practical utility unassessed. Fourteen to sixteen of nineteen exact-support sign controls equal or exceed canonical point ROC-AUC in every final panel; a declared post-hoc 120-contrast whole-file bootstrap comparison now finds 47 control-superiority intervals and 73 directionally inconclusive intervals, including all six matched-capacity geometric comparisons. Canonical superiority is unestablished; practical equivalence requires a declared margin. E-283 retains the native provider-product chronology failure. The separately declared retrospective external replication is reported by C-1754."]
+source_content_sha256 = "a2ed2f7c2d08892a4e657bce06c6cd68fbf2b2de12f002480aed84f37a865e26"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0044"
+id = "CM-0043"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -711,11 +737,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The explicit open-x D3Q19 transport instrument passes independent outgoing/interior packet and fixed-direction face-sum tests. In a nonuniform 5x3x2 domain over 20 steps, mass changes from 30.6 to 31.2888816925378848 lattice mass units; the maximum absolute cumulative residual after measured boundary flux is 1.791899961745e-13. Five tests and a three-step no-DM, zero-magnetic-field runner pass their declared gates; an exact-zero budget control fails after retaining its ledger row. The zero-gradient incoming-population closure is a tested finite numerical mechanism. Physical outflow suitability, magnetic boundaries and a dark-matter force bound remain unassessed."]
+source_content_sha256 = "ac675329d4595b017eefbe85b262de0afc486072a3350132319e80886aeebb7b"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0045"
+id = "CM-0044"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -727,11 +754,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The magnetic diffusivity instrument in lbm_3d::mhd passes 24 periodic Fourier amplitude/energy comparisons against independent seven-point stencil formulas within the unchanged 1e-12 gates, 5760 retained B/psi component bit comparisons, SI conversion fixtures and rejected-update atomicity controls. The computed finite-grid admission bound applies only to isolated periodic diffusion. The separate centered forward-Euler induction control fails energy stability with measured multiplier 1.00146446609406747. Synthetic zero-B, no-DM CLI runs establish unit intake and alias parity only; physical force sensitivity remains unresolved."]
+source_content_sha256 = "bd785f8bc32b8805129bb02014fd8cb01422425a13d44b4a81307049b85b45b2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0046"
+id = "CM-0045"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -743,11 +771,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The proton collisionality implementation reproduces the NRL Plasma Formulary 2019 singly charged ion collision-time convention using Kelvin-to-eV conversion and thermal speed sqrt(k_B T/m_p). The caller supplies a positive finite macroscopic length and Coulomb logarithm. Independent fixtures verify source-rounded collision time, mean-free-path scaling proportional to T squared over density, inverse length scaling, invalid-input rejection, and explicit record denominators. Missing scale or all-invalid observations remain Unassessed. Numeric comparison with unity establishes neither general plasma closure validity nor a physical heliospheric BGK boundary."]
+source_content_sha256 = "8193158f57ea19d24944cf126529131787d19a102a6ea51b94ae0421bb648b78"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0047"
+id = "CM-0046"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -759,11 +788,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inner product preservation <ax,ay> =||a||^2 <x,y> holds EXACTLY at composition dimensions (dim <= 8) and FAILS at dim >= 16. Mean deviation decreases with dim: 0.106 (dim=16), 0.092 (dim=64), 0.062 (dim=128). This is equivalent to the norm composition property."]
+source_content_sha256 = "c27fa8cba8a8c19e11c54e4e1f0854d39559548b0e993596de74ff1647729cf2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0048"
+id = "CM-0047"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -775,11 +805,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Quadratic representation U_a(x) = 2a(ax) - (a^2)x is NOT an algebra endomorphism at any CD dimension. Relative deviation 1.7 (dim=4) to 2.6 (dim=64). The fundamental identity U_a(U_b(x)) = U_{U_a(b)}(x) also fails everywhere (deviation 1.7-3.0). CD algebras are Jordan-admissible but not Jordan algebras."]
+source_content_sha256 = "475d1f367f42c93d87a5f9148f795c97cf5102a850547f97bf867f7b84ab4b96"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0049"
+id = "CM-0048"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -791,11 +822,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Associator alternation: A(a,b,c) + A(b,a,c) = 0 (skew-symmetry in first two slots) holds EXACTLY at dim <= 8 (alternative algebras) and FAILS at dim >= 16. Similarly for swap(2,3). Both swap defects are approximately equal. Relative defect grows from 0.61 (dim=16) toward 0.97 (dim=256)."]
+source_content_sha256 = "d050865ccf8946f884cb9898a4a0f7334bf0acf1c7c1076a481c390ae37aabab"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0050"
+id = "CM-0049"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -807,11 +839,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Iterated commutator:||[[a,b],c]||/||[a,b]||-> 2.0 as dim increases (1.34 at dim=4, 1.98 at dim=256). Jacobi identity holds EXACTLY at dim=4 (associative -> commutator is Lie bracket with Jacobi=0). Jacobi fails at dim >= 8 (relative defect 2.37 at dim=8, decreasing to 1.79 at dim=256)."]
+source_content_sha256 = "df9be278d23f4f5287905682e61c54d2c147d2ce11f192893385b582de94c1a2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0051"
+id = "CM-0050"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -823,11 +856,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Malcev identity [J(a,b,c), a] + J(a, b, [c,a]) = 0 holds EXACTLY at dim=8 (with opposite sign convention: LHS = -RHS). Trivially true at dim=4 (J=0). Fails at dim >= 16 with increasing defect. The sign flip means the octonion commutator forms a Malcev algebra under the convention J + [J,a] = 0."]
+source_content_sha256 = "a22363cb387c130ed03d341598a4ee45aba34793b0ec2eea261d5a8ff8a4f612"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0052"
+id = "CM-0051"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -839,11 +873,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Bol identity a(b(ac)) = (a(ba))c holds EXACTLY at dim <= 8 (alternative algebras). Fails at dim >= 16 with increasing defect: left/right Bol defects are approximately equal (ratio 0.9-1.1), confirming symmetric failure. Left and right Bol mean defects grow from ~0.8 (dim=16) to ~1.57 (dim=128)."]
+source_content_sha256 = "dbc3f7398536d1451c6f8f4b585d903632d8799d13ae1f58bae401903aa21c0d"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0053"
+id = "CM-0052"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -855,11 +890,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem: the subalgebra generated by any two elements {a, b, ab, ba, ...} is associative at dim <= 8 (alternative algebras). All four tested associator combinations A(a,b,ab), A(a,b,ba), A(ab,a,b), A(a,ab,b) are exactly zero. Fails at dim >= 16 with growing defect."]
+source_content_sha256 = "faab813c182740e2b0d33f1eff850dfd575119f689a40b5f6eebaf3dac38e0ba"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0054"
+id = "CM-0053"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -871,11 +907,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Middle Moufang identity (ab)(ca) = a((bc)a) holds EXACTLY at dim <= 8 (alternative/Moufang). Fails at dim >= 16 with growing defect: mean 0.79 (dim=16), 1.22 (dim=32), 1.59 (dim=128). Combined with left/right Bol (C-190), this verifies all three Moufang identities hold iff dim <= 8."]
+source_content_sha256 = "cdd51c172806906824007b92c54170858f62f2f7c36b6f0800ef6cc7f1a1839e"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0055"
+id = "CM-0054"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -887,11 +924,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left/right alternative laws a(ab) = (aa)b and (ba)a = b(aa) hold EXACTLY at dim <= 8. Both fail symmetrically at dim >= 16 (left mean = right mean to within 1%). Left inverse property a^{-1}(ab) = b also holds exactly at dim <= 8 and fails at dim >= 16 with the same defect magnitude as the alternative laws."]
+source_content_sha256 = "0036471ee2ee7e4e38634cfb3ce69da108b17721783f2bfc074f5b65b2903b8a"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0056"
+id = "CM-0055"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -903,11 +941,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inner derivation D(a,b)(c) = A(a,b,c) - A(b,a,c) is generically NOT a derivation. The Leibniz rule D(xy) = D(x)y + xD(y) fails for random (a,b) at ALL non-associative dims (8+). Max deviation is O(1) (6-9). This explains why C-178 found derivation map dimension 21 at dim=8 instead of 14 (G2): most D(a,b) maps are not actual derivations."]
+source_content_sha256 = "f25e9c7af960178c8bc844ce7512dbd04add2d331b9e3e143f2f7974e88e5cd2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0057"
+id = "CM-0056"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -919,11 +958,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Composition algebra test N(xy) = N(x)N(y): exact at dim<=8 (Hurwitz theorem). Fails at dim>=16 but mean ratio N(xy)/(N(x)N(y)) -> 1.0 with std decreasing: 0.18 (dim=16), 0.15 (dim=64), 0.09 (dim=256), 0.06 (dim=512). This is the quadratic form version of C-195 (submultiplicativity)."]
+source_content_sha256 = "8cde11069d516dad3675a69d37b2181b8904cd7e47e7e654ccd233c8ce113c7b"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0058"
+id = "CM-0057"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -935,11 +975,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Jordan product {a,b} = (ab+ba)/2: the Jordan identity {a, {b, a^2}} = {{a,b}, a^2} holds EXACTLY at ALL CD dims (4-128 tested). However, general Jordan associativity {a, {b, c}} = {{a,b}, c} fails even at dim=4 (quaternions). The Jordan identity is universal (follows from flexibility), but Jordan associativity requires commutativity."]
+source_content_sha256 = "ab1f74a483629380f2d81b55ebce751597894c9ea07b05fedcb3c0c72823cf3c"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0059"
+id = "CM-0058"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -951,11 +992,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left alternative law x(xy) = (xx)y holds EXACTLY at dim<=8, fails at dim>=16. Mean failure grows from 0.51 (dim=16) to 0.96 (dim=256), saturating near 1.0. This verifies the alternative property (C-199) from the specific left-alternative perspective and shows the failure magnitude approaches a finite limit."]
+source_content_sha256 = "54ef7d74f9c265d6103306474123e9078f39d88b2170038cb5d64bb8684e91d3"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0060"
+id = "CM-0059"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -967,11 +1009,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right Moufang identity (ab)(ca) = a((bc)a) holds EXACTLY at dim<=8, fails at dim>=16. Failure grows: mean 0.79 (dim=16) to 1.59 (dim=128). This complements the left Moufang (C-190/Bol) and middle Moufang (C-198), confirming all three Moufang identities hold iff dim<=8."]
+source_content_sha256 = "38f92e43f5200126e2437f2dbb74d2766faa4967f11ccb760fb58865c3434d48"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0061"
+id = "CM-0060"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -983,11 +1026,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right alternative law y(xx) = (yx)x holds EXACTLY at dim<=8, fails at dim>=16. Mean failure grows from 0.51 (dim=16) to 0.96 (dim=256), saturating near 1.0. Mirrors the left alternative (C-233), confirming the full alternative property at composition dimensions."]
+source_content_sha256 = "fa1c915e296986e78d08d63e14ab69c448b0d015137ad5d3983570ae70b4a92c"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0062"
+id = "CM-0061"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -999,11 +1043,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem: the subalgebra generated by any 2 elements is associative at dim<=8 (alternative algebras). Verified via A(a, b, ab) = A(a, b, ba) = A(a, ab, b) = 0 at dim<=8. Fails at dim>=16 with max associator > 1.0."]
+source_content_sha256 = "264752942ef96759ccdcaa61873abd6bba4ff3c4d1854681fa9e7afbe2713c89"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0063"
+id = "CM-0062"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1015,11 +1060,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left Bol identity ((ab)c)b = a((bc)b) holds EXACTLY at dim<=8, fails at dim>=16. Mean failure grows from 0.79 (dim=16) to 1.59 (dim=128). Complements C-190 (left Bol/Moufang already verified) with the explicit left Bol formulation."]
+source_content_sha256 = "9d2a55f4ec8e68da10b51cae3744f9e79aea3b4da4638ec4dd721f2d1435b3a4"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0064"
+id = "CM-0063"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1031,11 +1077,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left multiplication operator: L_a^2 = L_{a^2} (as matrices) holds EXACTLY at dim<=8 and fails at dim>=16. This is equivalent to the left alternative law a(ax) = (aa)x. Spectral radius of L_a^2 grows from 1.0 (dim<=8) to 3.1 (dim=64)."]
+source_content_sha256 = "d4ce7ede66e780d5ba6f5d0ddcb956fdad2d2972925df7a6db5c072ad5bb93cf"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0065"
+id = "CM-0064"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1047,11 +1094,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Product norm ratio:||ab||/(||a||*||b||) = 1.0 EXACTLY at dim<=8 (composition property). At dim>=16, the ratio has mean ~ 1.0 but std > 0 (spread). The mean stays near 1.0 at all dims (unbiased), but the variance decreases with dim. Norm multiplicativity fails symmetrically."]
+source_content_sha256 = "532dd54f7705b07620a30ea5468ca1b0ef928c160e46b36d36bd2ffb93af13e7"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0066"
+id = "CM-0065"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1063,11 +1111,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Product of inverses: (ab)^{-1} = b^{-1}*a^{-1} holds EXACTLY at dim<=8 (composition algebras). Fails at dim>=16 with relative errors ~0.4-0.75. This identity requires norm multiplicativity and alternativity, both of which break at dim>=16. The failure magnitude stabilizes rather than growing with dimension."]
+source_content_sha256 = "d23277982a43d3f8be212f6c9022dc48be7552f4f26125dd76b62bf921d851b5"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0067"
+id = "CM-0066"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1079,11 +1128,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inner derivation D(a,b)(x) = [[a,b],x] - 3*A(a,b,x) satisfies the Leibniz rule D(xy) = D(x)y + xD(y) at dim<=8 (alternative algebras). Fails at dim>=16 with Leibniz violations growing to ~4-6. This verifies D(a,b) is a proper derivation exactly on the alternative/composition algebras. The derivation algebra Der(O) is 14-dimensional (= g2)."]
+source_content_sha256 = "bdd6f6c8df23cd90117ba34b8651041f10449f92d4f3e34c11348d8d9165a73a"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0068"
+id = "CM-0067"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1095,11 +1145,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Moufang identity a(b(ac)) = ((ab)a)c holds EXACTLY at dim<=8 (Moufang loop). Fails at dim>=16 with violations growing from ~1.4 (dim=16) to ~2.2 (dim=64). This verifies the unit elements of R,C,H,O form a Moufang loop but sedenions and beyond do not. Combined with C-250 (Bol), C-236 (right Moufang), the full Moufang quartet is now verified."]
+source_content_sha256 = "6587b9d3d56d719c10962063aefded9d263c4cd3402d15fb0928ef2be9b40f27"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0069"
+id = "CM-0068"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1111,11 +1162,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem: subalgebra generated by any two elements is associative at dim<=8 (alternative algebras). All products a,b,ab,ba,a^2,b^2 and their triple products have zero associator. Fails at dim>=16 with||A||~ 1.0-1.8. This is a direct computational verification of Artin's classical theorem for CD algebras."]
+source_content_sha256 = "6cb9d23c16a248e68eea627ab1e4a1c78e354264906936591cf8696d24c3ecb0"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0070"
+id = "CM-0069"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1127,11 +1179,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Moufang identity a(b(ac)) = (a(ba))c holds EXACTLY at dim<=8 (Moufang loop) and FAILS at dim>=16. The failure ratio increases monotonically: 0.80 (dim=16), 1.21 (dim=32), 1.48 (dim=64), 1.58 (dim=128). The Moufang property is a composition algebra boundary phenomenon."]
+source_content_sha256 = "546a8a836fd9c8157abd79704788491a685c80f77dacfd8aa9f6f84bacc256fd"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0071"
+id = "CM-0070"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1143,11 +1196,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right Bol identity (ab)(ca) = a((bc)a) holds EXACTLY at dim<=8 and FAILS at dim>=16. The failure ratio increases monotonically: 0.78 (dim=16), 1.21 (dim=32), 1.46 (dim=64), 1.59 (dim=128). The Bol identity is a composition algebra boundary property, similar to but distinct from the Moufang identity (C-292)."]
+source_content_sha256 = "fdcceb70e14cbc2b9aaf7dea302598280f918345dde72f218bcc3370e79e5158"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0072"
+id = "CM-0071"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1159,11 +1213,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inverse composition: (ab)^{-1} = b^{-1}*a^{-1} holds EXACTLY at dim<=8 and FAILS at dim>=16. The failure ratio is 0.14 (dim=16), 0.14 (dim=32), 0.12 (dim=64), 0.08 (dim=128). The ratio DECREASES at high dim (concentration of measure reduces the inverse composition error)."]
+source_content_sha256 = "91182bff52325e7c8a639aff93aabb92de1b84300a485ac5292755d2ed60a904"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0073"
+id = "CM-0072"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1175,11 +1230,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Associator (2,3)-swap: A(a,b,c) = -A(a,c,b) holds EXACTLY at dim<=8 and FAILS at dim>=16. The swap ratio increases: 0.64 (dim=16), 0.80 (dim=32), 0.93 (dim=64), 0.94 (dim=128). This completes the associator swap picture: (1,3)-swap is UNIVERSAL (C-302), (1,2)-swap is dim<=8 only (C-290), (2,3)-swap is dim<=8 only (C-311)."]
+source_content_sha256 = "6ec9d402097e646c808d6e388084a503da4e9eb43d8f0503e47c42124cabfdba"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0074"
+id = "CM-0073"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1191,11 +1247,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["L_a quadratic identity: L_a^2 - 2*Re(a)*L_a + ||a||^2*I = 0 holds at dim<=8 (composition algebras) and FAILS at dim>=16. At dim=4 and dim=8, the residual is <1e-15 (exact). At dim>=16, residuals grow: 2.63 (dim=16), 4.71 (dim=32), 7.96 (dim=64). This characterizes composition algebras: L_a is a root of the quadratic x^2 - 2*Re(a)*x + ||a||^2."]
+source_content_sha256 = "4c06720bf83853a095a3a7a321d0d565dc339553e9efb680e8f42393b0f81f75"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0075"
+id = "CM-0074"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1207,11 +1264,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left-alternative identity: (aa)b = a(ab) holds EXACTLY at dim<=8 and FAILS at dim>=16. Diffs grow: 65.6 (dim=16), 119.3 (dim=32), 245.9 (dim=64), 588.1 (dim=128). This is one of the two defining identities of alternative algebras. Combined with right-alternative (C-323), characterizes the octonions as the largest alternative CD algebra."]
+source_content_sha256 = "fb2222e73d07c8ebac50e3f5ca154815fc72a11b7d0c51263c33403f09b11c11"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0076"
+id = "CM-0075"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1223,11 +1281,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right-alternative identity: (ba)a = b(aa) holds EXACTLY at dim<=8 and FAILS at dim>=16. This mirrors the left-alternative (C-322). Together they define the class of alternative algebras, which by Zorn's theorem includes only R, C, H, O and their split forms."]
+source_content_sha256 = "8c2db959a487f81391d08abd2135d0ee3356a7a728262e4a024067c64cc5c2e9"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0077"
+id = "CM-0076"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1239,11 +1298,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left Moufang identity: a(b(ac)) = ((ab)a)c holds EXACTLY at dim<=8 and FAILS at dim>=16. Moufang identities are stronger than alternating and characterize Moufang loops. The failure at dim>=16 is dramatic: diff=435 (dim=16), 1216 (dim=32), 3844 (dim=64), 10587 (dim=128). Combined with C-292 (right Moufang), verifies octonions are the largest Moufang CD algebra."]
+source_content_sha256 = "69125bba4f8cd60cab2e109801fcfcb4b208b85433e0ca3bde354e86dd1e75a5"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0078"
+id = "CM-0077"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1255,11 +1315,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem: (a, b, ab) = 0 (the associator of a, b, and their product vanishes) at dim<=8 (alternative algebras). This is a consequence of Artin's theorem: in an alternative algebra, any 2-generated subalgebra is associative. Fails at dim>=16: diff=476 (dim=16), 1031 (dim=32)."]
+source_content_sha256 = "978da995c52c20cdb42afe5e959e8ce8fc7c72b0d4a5acbd732479cf99520df0"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0079"
+id = "CM-0078"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1271,11 +1332,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Norm of product of conjugates: ||conj(a)*conj(b)||= ||a||*||b||iff dim<=8 (norm multiplicativity via conjugates). Since ||conj(x)||= ||x||, this is equivalent to full norm multiplicativity. Fails at dim>=16 with relative errors ~0.12-0.24."]
+source_content_sha256 = "c847803ea1974ff2dc377338fb65c02539e4172a904147381eb31ff4731c4408"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0080"
+id = "CM-0079"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1287,11 +1349,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Middle Moufang identity: (ab)(ca) = a((bc)a) at ALL CD dims<=8 (alternative algebras). Fails at dim>=16 with diffs ~450-9500. Completes the Moufang triple together with left Moufang (C-327) and right Moufang (C-351)."]
+source_content_sha256 = "6f2a753355102a9f5071d8b876ab3db678da8606b99176e3858057a95e640046"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0081"
+id = "CM-0080"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1303,11 +1366,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right Moufang identity: ((ab)c)b = a(b(cb)) at ALL CD dims<=8 (alternative algebras). Fails at dim>=16 with diffs ~477-9945. Together with left (C-327) and middle (C-348), all three Moufang identities are now verified as equivalent characterizations of alternativity (dim<=8)."]
+source_content_sha256 = "d672424e077ee5d35c4706ec26373452a7b78a9c2d63cb235231d1c76caee1e2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0082"
+id = "CM-0081"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1319,11 +1383,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Malcev identity: J(x,y,xz) = J(x,y,z)*x where J is the Jacobian of double commutators. Holds at dim<=8 (octonions form a Malcev algebra under commutator). At dim<=4 both sides are zero (Jacobi holds). At dim>=16 fails with relative errors 10-18. This is the alternative-algebra generalization of the Jacobi identity."]
+source_content_sha256 = "73b28f25be10d83ba64d7f850d8f768908b995316256d9dfd4d32bb6b69fce99"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0083"
+id = "CM-0082"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1335,11 +1400,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Schafer identity: J(a,b,c) = 6*[a,b,c] in alternative algebras (dim<=8). The Jacobian of double commutators equals 6 times the associator. At dim<=4 both sides are zero. At dim>=16, the relation fails with absolute diffs ~500-3000. Reference: Schafer, \"An Introduction to Nonassociative Algebras\" (1966)."]
+source_content_sha256 = "e882b1b0c6fc882565cc52639e52057adea15b2ed39bafa81b6192a55ff57da3"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0084"
+id = "CM-0083"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1351,11 +1417,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Artin's theorem (2-generated subalgebra associativity): any subalgebra generated by two elements is associative at dim<=8. Tested with products (ab)*a, a*(ba), (ab)*(ba) and their nested associativity. At dim>=16, associativity fails with diffs ~1764-38839. This is the definitive test of alternativity via Artin."]
+source_content_sha256 = "3a96c5d43b99ec3ca75bd8dd0f95d5fdbc41eb555ba123e43a454348d63c8d3c"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0085"
+id = "CM-0084"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1367,11 +1434,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Inverse multiplicativity: (ab)^{-1} = b^{-1}*a^{-1} iff dim<=8 (alternative algebras). At dim>=16, the relation fails with diffs ~0.001-0.025. This is because non-alternativity breaks the cancellation needed for inverse reversal."]
+source_content_sha256 = "bcbb48ccdd37bb648bbb40208052308d7e0cc29671bfdca89df8896d264ef03f"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0086"
+id = "CM-0085"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1383,11 +1451,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Left Bol identity: a(b(ac)) = (a(ba))c iff dim<=8. In a Moufang loop, left and right Bol identities both hold. At dim>=16, fails with diffs ~300-10600. Together with the three Moufang identities (C-327, C-348, C-351), this verifies the complete Moufang loop structure at dim<=8."]
+source_content_sha256 = "c7b1d8f7ece2de0782ec18143a6ef8ba40232ea272db9cf2dc3d5984f65149c5"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0087"
+id = "CM-0086"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1399,11 +1468,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Right Bol identity: ((xy)z)y = x(y(zy)) iff dim<=8 (alternative algebras). At dim>=16, fails with diffs ~320-10800. Together with left Bol (C-365), verifies the complete Bol loop structure of unit elements in composition algebras."]
+source_content_sha256 = "09d7ab6cf7ea095a2bf8b776d8c91336be002ea8a0560c1f21e1f1c7471a6ce0"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0088"
+id = "CM-0087"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1415,11 +1485,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Normed division algebra (Hurwitz theorem):||xy||=||x||*||y||exactly iff dim in {1,2,4,8}. At dim>=16, norm multiplicativity fails: min(||xy||/(||x||*||y||)) drops to ~0.66-0.88. This is the classical Hurwitz theorem verified computationally. Only R, C, H, O are normed division algebras."]
+source_content_sha256 = "be0d645ea66031529075461e39b9cb8c7b88d5f153c6f6e65dcf63cd7459c1b2"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0089"
+id = "CM-0088"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1431,11 +1502,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Commutator Jacobi identity: J(a,b,c) = [a,[b,c]] + [b,[c,a]] + [c,[a,b]] = 0 iff dim<=4 (associative). At dim>=8, the Jacobi identity fails with||J||/(||a||*||b||*||c||) mean ~6.6-7.5. This verifies that the commutator algebra is NOT a Lie algebra beyond dim=4 (but IS a Malcev algebra at dim=8, C-352)."]
+source_content_sha256 = "73115f8b082ef52c7e8fdff7f744329a535ddc0d3abcc6a9100213d328553a50"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0090"
+id = "CM-0089"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1447,11 +1519,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Octonion-valued (8D) scalar field Hamiltonian with Stormer-Verlet symplectic integrator, 7 Noether charges from octonionic U(1) rotations, and free-field dispersion relation omega^2 = k^2 + m^2. Restricts to octonionic subalgebra to bypass C-030 non-associativity obstruction."]
+source_content_sha256 = "c199bcb6886f001f63b70e0ea0c2356eef0fd863da6f06bc526d15a77ba71ed7"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0091"
+id = "CM-0090"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1463,11 +1536,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The Pathion Cubic Anomaly: the zero-divisor motif partition at dim=32 (8 heptacross + 7 mixed-degree) requires a degree-3 (cubic) GF(2) polynomial for separation in PG(3,2). Degree 1 (linear) and degree 2 (quadratic) are insufficient. This establishes a non-linear geometric obstruction in the Cayley-Dickson zero-divisor hierarchy starting at the first post-sedenion doubling."]
+source_content_sha256 = "7e0ce3e617e5b823fa22ab88f1163e2d904434f2cc1c243226aaeff8ac2960eb"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0092"
+id = "CM-0091"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1479,11 +1553,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Algebraic Locality Principle (ALP): In sparse constraint graphs (edge density < 0.5), generator sequences in algebraic constraint systems concentrate on locally adjacent moves in the constraint graph Gamma, because nonlocal moves are either dynamically suppressed (long collision times, low measure) or annihilated (zero product, absorption). This produces geometric locality in the observed chaos. Evidence across two sparse stacks: (A) E10 billiard r=1.0 vs r_null=0.20, p=0.000; (B) ET DMZ r=1.0 vs r_null=0.01, p=0.000. FAILS for dense graphs (sedenion ZD at 86.7% edge density: r_null=0.87, p=1.0)."]
+source_content_sha256 = "d0fa0ddf2bf387c94c7d189e0c5ff4ec5c7d3e78e69ac6977b8630d5aa383e99"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0093"
+id = "CM-0092"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1495,11 +1570,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Coset Obstruction Theorem: Lambda_n (n <= 1024) has exactly 0% closure under both Z-addition and F_3-addition because all lattice vectors have l_0 = -1. Z-addition gives l_0 = (-1)+(-1) = -2, leaving the trinary range {-1,0,1}. F_3-addition gives l_0 = (-1)+(-1) = +1 (mod 3), mapping to the forbidden l_0=+1 coset excluded by is_in_base_universe(). This applies to ALL pairs without exception. The zero vector [0,...,0] is NOT in any Lambda_n (fails l_0=-1 at Lambda_1024), so there is no additive identity."]
+source_content_sha256 = "677bdda8fd45120b71ff3e5d1354ad66b46868810cc8ae64f9031352e84c111f"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0094"
+id = "CM-0093"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1511,11 +1587,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Singh's delta^2 = 3/8 is NOT reproduced for arbitrary trace-free real J_3(O) elements. Observed delta^2 values range from 2.5 to 3.75. The result likely requires specific normalized idempotent constructions in the complexified algebra J_3(O_C)."]
 negative_evidence = ["CLOSED_NEGATIVE_RESULT"]
+source_content_sha256 = "1190318944da08cfaf78895c774004f607b7f739b18767570ff0acee94ec83c2"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0095"
+id = "CM-0094"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1527,11 +1604,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The 8D lattice dimension in CD codebook is structurally driven by octonion algebra (Hurwitz unique 8D normed division algebra), NOT by E8 roots or arbitrary design. Evidence: (1) C-453 verified 8D dimension invariant across ALL CD dimensions (256-2048); (2) C-455 refuted E8 root involvement (zero E8 roots in ZD-adjacent differences); (3) C-458 verified all lattice points satisfy octonion-like parity constraints (trinary, even-sum, even-weight); (4) Filtration hierarchy (Lambda_2048->1024->512->256) partitions base universe injectively into 8D space."]
+source_content_sha256 = "1fc8af9b282ac29afa00bfeffc3b18fa04a5450d45679dd0098443c02eeae3d9"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0096"
+id = "CM-0095"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1543,11 +1621,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Norm multiplicativity property ||ab||=||a||||b|| is preserved only in standard (Euclidean) CD algebras (all gamma=-1); fails universally in split algebras (gamma=+1 at any level)."]
+source_content_sha256 = "60e4bddf80a72ccbe9ae37bbf14159bd299a67bc14d06d685c9a3786683c2936"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0097"
+id = "CM-0096"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1559,11 +1638,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["SedenionAInfinity constructs a minimal A-infinity algebra with m_1=0 (no differential), m_2=CD product, m_3=CD associator. The A-infinity relation at n=3 holds with residual < 1e-10 for random sedenion inputs."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "9b13d3ccd6f279b1ef6c4988c314677ea7e632a57a40f115d7440115288d56d4"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0098"
+id = "CM-0097"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1575,11 +1655,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The sedenion obstruction spectrum has Frobenius norm 8.725, spectral radius 496.9, and rank fraction 15/16=0.9375. The m_3 tensor is nearly full-rank, confirming non-associativity is algebraically pervasive."]
+source_content_sha256 = "f70fbb1203d5608b9c71c67c846a80724a5f955d007ac3f642452136477b60b6"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0099"
+id = "CM-0098"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1591,11 +1672,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The homotopy gravastar bridge maps obstruction_norm to Bowers-Liang anisotropy parameter lambda via homotopy_lambda(obs, coupling) = coupling * obs. At zero coupling, isotropic gravastar solution is recovered exactly."]
+source_content_sha256 = "64189bd0c508ad8df009023e4e48d5ca1331ba2a181a4c51e6b8d9586fdbbcab"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0100"
+id = "CM-0099"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1607,11 +1689,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The chosen gravastar model maps associator obstruction_norm=8.725 linearly to Bowers-Liang anisotropy and reports a nonempty stability window for coupling in [0, 0.01]. This is a bounded numerical model result with a chosen coupling; it establishes neither a minimal uncurved A-infinity algebra nor a resolution of the nonassociativity obstruction."]
+source_content_sha256 = "1c334b2a77f25141b933c8ea9a485e3f64b0b636b843a319259e4a001fd0dc68"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0101"
+id = "CM-0100"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1623,11 +1706,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The homotopy-corrected gravastar satisfies causality (c_s < c) for coupling < 0.01, where the radial sound speed includes anisotropic pressure contributions from the m_3 obstruction tensor."]
+source_content_sha256 = "2c99e80052a0bf9c08f03307de390990f3d3a5f78a2678c32f375ac4a6f1083b"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0102"
+id = "CM-0101"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1639,11 +1723,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Tessarines norm multiplicativity fails component-wise: ||t1 * t2|| != ||t1|| * ||t2|| in general, despite C preserving norm multiplicativity."]
+source_content_sha256 = "01eec9e390a78136b48cc1ab3d5bc8e6d4071d93ef3f4812dac8cf88e7e7aac1"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0103"
+id = "CM-0102"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1655,11 +1740,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["TX-2 Null Result at All Grid Scales: The viscosity-to-filtration cross-thesis (T2 x T4) produces 'Undetermined' latency law classification at 16^3, 32^3, and 64^3 grids. Gamma values range 0.10-0.14, insufficient for power-law or exponential classification. Kolmogorov shear produces smooth velocity gradients incompatible with sharp return-time structures. Documented negative result."]
+source_content_sha256 = "b267290209eabe359ca26a45c7ecbdc54667df07d12c9e183eb24fd42e4767fa"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0104"
+id = "CM-0103"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1671,11 +1757,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The associator-based ternary tensor produces a nonzero implemented arity-five residual when the quaternary tensor is zero. M4CorrectionTensor stores 16^5 entries and supports numerical tensor diagnostics. These observations do not establish an A-infinity structure: the minimal uncurved arity-three identity already fails for the Cayley-Dickson product."]
+source_content_sha256 = "5fa9eb67e9765a1ea2ac084caef6f7ee6c405b146cc072f1965fcf8bf4c7c691"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0105"
+id = "CM-0104"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1687,11 +1774,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Sign convention for Lorentz oscillator Im(eps) handled robustly: the +i*gamma*omega denominator convention (engineering) gives Im(eps)<0 in absorption bands. Derived properties use |Im(eps)| and |Im(sqrt(eps))| to produce physically meaningful non-negative quantities (k, alpha, sigma_1) regardless of convention choice. Verified across 7 materials at 4 frequency points."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "dde09da872eab2723f95dd17ecc2478617acb1b9f233475bbe8f8c900239623a"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0106"
+id = "CM-0105"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1703,11 +1791,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Anharmonic and multiphonon methods (anharmonic linewidth, multiphonon absorption, two-phonon density of states, infrared combination bands) extend the harmonic DL model to temperature-dependent and multi-phonon effects. Anharmonic linewidth gamma(T) = gamma_0 + A*(1+2*n_BE(omega/2,T)) captures cubic decay. Multiphonon absorption uses exponential tail above one-phonon cutoff. Oscillator frequencies are in eV (matching omega_0_ev field). 7 tests verify temperature dependence, zero below cutoff, DOS peaks, sorted bands, and None for invalid indices."]
+source_content_sha256 = "d0885094a8ac494bbd72a04804229d0cbeb6ff552232e16652a6663c68a6fbc3"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0107"
+id = "CM-0106"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1719,11 +1808,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["The scalar relative polarization parameter P is insufficient to distinguish entangled states from classically correlated states in Lambda-pair systems."]
+source_content_sha256 = "1f74845c4843428cd5eda11db17ac7d28b7bcbd540913b320e62658682762599"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0108"
+id = "CM-0107"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1735,11 +1825,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Ghost frequency phi^{-1/2} detected in ATNF Pulsar Catalog dispersion measures at f=0.206 normalized, SNR=5.93, and in pulsar periods at f=0.221, SNR=5.14. Two independent columns from the same catalog yield consistent detections."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "fd3641c2f7e496737e2b0099915b3c3104ee393b35f86d0c67fb05d4c1908732"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0109"
+id = "CM-0108"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1751,11 +1842,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["Ghost frequency phi^{-1/2} detected in Pantheon+ SNIa distance moduli at f=0.211 normalized, SNR=4.43. Third independent messenger (optical SNIa) with consistent ghost detection."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "b2fd609bf29a38de1fd41bc8901ce8486c3e70984e2788b2e4791eb73befabbb"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0110"
+id = "CM-0109"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1767,11 +1859,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["FALSIFIED: Ghost peak FWHM=0.0008 was an interpolation artifact below the FFT resolution limit 1/N. The claimed convergence (0.016 to 0.0008) represents interpolation precision, not physical sharpening. Detected frequencies (0.206, 0.211, 0.218, 0.221, 0.227) have std dev ~0.008, consistent with sampling variability, not convergence toward 0.2138."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "19cb7c63cf8d5a55c659b0f04d1bb53034b065d3eed8a2e574dd9621f67e3c7c"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0111"
+id = "CM-0110"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1783,11 +1876,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["ALICE Pb-Pb R_AA data shows a marginal peak at f=0.2105, below detection threshold. If confirmed with higher statistics (LHC Run 3), this would indicate the Sedenion ZD lattice operates at the QGP deconfinement scale, not only at cosmological path lengths."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "20377dae21e9318ea3c2a6aaf6a60126c75f74b9cd69178ee9f98ce8f2ed25c3"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0112"
+id = "CM-0111"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1799,11 +1893,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["ATLAS jet v2/eccentricity vs d(ln R_AA)/d(ln pT) gives beta_jets = 1.03 +/- 0.15, consistent with hadron beta."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "6eec086278dfa7f6ff759d9fcefc84cf7ca12a1e928e223b8cff881b534d9b4b"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0113"
+id = "CM-0112"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1815,11 +1910,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Commutativity fails at dim=4 (property tower: first loss). Quaternions are the first CD level to lose commutativity. Same witness as C-907."]
+source_content_sha256 = "96df5f24b7af287260436427a2afbf20d9c868e8fb453927eb9c807a6d1f7227"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0114"
+id = "CM-0113"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1831,11 +1927,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["VERIFIED"]
 negative_evidence = ["Associativity fails at dim=8 (property tower: second loss). Octonions are the first CD level to lose associativity. References C-909 witness."]
+source_content_sha256 = "8037201320d01ec6c46ea36a30f6bc361a1fed95ccc9967d626014ba893a14f4"
 jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0115"
+id = "CM-0114"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1847,11 +1944,12 @@ line_start = 0
 line_end = 0
 positive_evidence = ["The Arleo-Falmagne path-length exponent beta extracted from density scaling (epsilon_bar = K * rho * L^beta) and from azimuthal anisotropy (v2/epsilon = (beta/2) * d(ln R_AA)/d(ln pT)) are statistically consistent (z-score < 2), confirming universality of the path-length dependence across independent observables."]
 negative_evidence = ["REFUTED"]
+source_content_sha256 = "0d52574def2b61a3594b65588b45f7c2abe722b5d0524df1b1480928b9e1523f"
 jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0116"
+id = "CM-0115"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1863,11 +1961,12 @@ line_start = 3
 line_end = 17
 positive_evidence = ["valid"]
 negative_evidence = ["inconclusive"]
+source_content_sha256 = "2f31666e2024a129c5177f1a51678ffc8ae3022711cd4bc1de29a41be3d5d103"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0117"
+id = "CM-0116"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1879,11 +1978,12 @@ line_start = 66
 line_end = 91
 positive_evidence = ["valid", "verified"]
 negative_evidence = ["insufficient"]
+source_content_sha256 = "b0fc09050ba9f3454fc2b40329b0132570b126f3c559b7462f5fa9f4243cb423"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0118"
+id = "CM-0117"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1895,11 +1995,12 @@ line_start = 147
 line_end = 158
 positive_evidence = ["valid"]
 negative_evidence = ["refuted"]
+source_content_sha256 = "fd53aa0480ee20a2f8bbe4410f0b1b9d84ba6e7f68eeb8bee944e137ae49d0f3"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0119"
+id = "CM-0118"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1911,11 +2012,12 @@ line_start = 272
 line_end = 316
 positive_evidence = ["valid", "verified"]
 negative_evidence = ["fails"]
+source_content_sha256 = "7dafc2320ef0a49e6f8383eaa4debaccd6cc1dc59c1ecadf366e5c7b4f8e5206"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0120"
+id = "CM-0119"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1927,11 +2029,12 @@ line_start = 86
 line_end = 100
 positive_evidence = ["verified"]
 negative_evidence = ["refuted"]
+source_content_sha256 = "a404046e221d474181d055365b7806d3a7bf368920afba2c78cb4a2b5b88ee84"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0121"
+id = "CM-0120"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1943,11 +2046,12 @@ line_start = 154
 line_end = 174
 positive_evidence = ["established"]
 negative_evidence = ["refuted"]
+source_content_sha256 = "df5982ff730de43cd600e765b2c9f9ca456337774dc8a5f1e499dee587dbf825"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0122"
+id = "CM-0121"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1959,11 +2063,12 @@ line_start = 80
 line_end = 104
 positive_evidence = ["supported"]
 negative_evidence = ["obstruction"]
+source_content_sha256 = "03045aad9c5e4ebe90d4b3d1e70cbcaa2a8879b943ad62710300ccd83f163f6d"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0123"
+id = "CM-0122"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1975,11 +2080,12 @@ line_start = 7
 line_end = 575
 positive_evidence = ["consistent", "holds"]
 negative_evidence = ["fails"]
+source_content_sha256 = "97627a527ab023d8ef85fdb0248c0baad4c7ca68e38972c2e88612402cfb3f6b"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0124"
+id = "CM-0123"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1991,11 +2097,12 @@ line_start = 80
 line_end = 1754
 positive_evidence = ["confirmed", "consistent"]
 negative_evidence = ["contradiction"]
+source_content_sha256 = "59ac9b276fd432d08b0d730ac80212f96617b06b7351d1a60ac17d7f6c41f8df"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0125"
+id = "CM-0124"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2007,11 +2114,12 @@ line_start = 99
 line_end = 152
 positive_evidence = ["supported", "valid"]
 negative_evidence = ["invalid"]
+source_content_sha256 = "af1383e8a698860cb5751a35ffb89b4f534fbfce8622906c845ff0959b3f00a9"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0126"
+id = "CM-0125"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2023,11 +2131,12 @@ line_start = 1
 line_end = 34
 positive_evidence = ["verified"]
 negative_evidence = ["refuted"]
+source_content_sha256 = "f1af7260d5ce76630261246fd15e5d7b24ffe8a8484b7a9ce06e3319c7ae3d40"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0127"
+id = "CM-0126"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2039,11 +2148,12 @@ line_start = 30
 line_end = 62
 positive_evidence = ["valid"]
 negative_evidence = ["invalid"]
+source_content_sha256 = "251e75b8eb5aec5e22ed14ca6022b391e7ddb8662c8bd156fa05eabceb319666"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0128"
+id = "CM-0127"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2055,5 +2165,6 @@ line_start = 57
 line_end = 64
 positive_evidence = ["verified"]
 negative_evidence = ["refuted"]
+source_content_sha256 = "b18ed39af69d8ef258c90ad98100484a4b1bf4d94ee65e9b2886c4fa31f041ec"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."

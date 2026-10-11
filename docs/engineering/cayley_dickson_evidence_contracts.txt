@@ -183,6 +183,25 @@ coupling APIs retain their numerical meaning as explicitly chosen models.
 Albuquerque-Majid quasiassociativity changes the monoidal structure and is
 a separate established alternative, requiring its own coherence contract.
 
+The retained retraction helpers define finite multilinear polynomials.
+The map h=id-ip is a complementary projection; a chain homotopy would
+require a declared differential and its contraction identity. The proof
+files HomotopyTransferAssociator, WilmotRetractionTheorem, M3IsAssociator,
+and M3IsAssociatorPathion establish finite XOR counts, associator signs,
+or literal arithmetic equalities. Their checked statements leave the
+retraction-polynomial comparison and an all-arity structure separate.
+ArchimedeanStratification proves a real four-scalar implication. Finite
+dyadic scaling fixtures use one Archimedean class and cannot establish a
+surreal stratification.
+
+The unnormalized product Jacobian is [R_b | L_a]. Its pivot loop must
+advance the row only after accepting a pivot. The corrected finite test
+measures rank 16 and kernel dimension 16 for (e_1+e_10,e_4-e_15) and
+(e_3+e_10,e_6-e_15), with pivot tolerance 1e-10. The former rank-12 report
+was an elimination error. C-1510 now records the two measurements, without
+the former 20=14+6 geometric interpretation. The normalized pair test adds
+two norm constraints and separately measures rank 18 and nullity 14.
+
 Acceptance and replay
 ---------------------
 
@@ -258,6 +277,22 @@ canonical experiment rows; the canonical experiment records remain unchanged.
 Workspace-wide formatting reports existing drift documented in the Makefile.
 Changed Rust sources receive a separate rustfmt check with child traversal
 disabled, so that result describes the changed files precisely.
+
+Conflict-marker display numbers depend on scan order. The integrity tool
+now binds each live lacuna to a SHA-256 identity over source, conflict kind,
+claim references and complete evidence content. A resolution survives only
+an identical evidence identity; changed evidence opens a new row. Unbound
+historical resolutions retain their references without suppressing a live
+conflict. The retained generator-owned lacuna lane has render/reload and
+canonical-export-preservation tests; the typed canonical exporter does not
+own that lane.
+
+The Casimir replay hashes the root Cargo manifests as source inputs.
+Hosted run 38165513092 regenerated its provenance manifest after those
+inputs changed. All 24 declared source hashes matched the implementation
+worktree, and the other 16 retained replay files compared byte-for-byte.
+The adopted manifest records the new input identity without changing the
+model outputs.
 
 Primary references
 ------------------

@@ -3988,7 +3988,7 @@ last_verified = "2026-03-21"
 statement = "Koebisu V_2(R^8) holonomy: all 84 standard sedenion zero-divisors satisfy the octonion-pair decomposition s=(a,b) with |a|=|b| and <a,b>=0 (a=s[0..8], b=s[8..16]). This confirms the normalized ZD set is diffeomorphic to the Stiefel manifold V_2(R^8), extending Reggiani's V_2(R^7) result by including real octonion components."
 status = "Refuted"
 status_note = "Refuted full-halves interpretation: e_0+e_9 has equal orthogonal octonion halves and invertible left multiplication. Standard factors already satisfy zero scalar parts. The component constraints use imaginary R^7 frames; the equal-norm theorem in C1465_KoebisuEqualNorm.v remains true."
-where_stated = "crates/algebra_analysis/src/reggiani.rs::test_koebisu_holonomy_v2r8_decomposition"
+where_stated = "crates/algebra_analysis/src/reggiani.rs::test_standard_zero_divisor_imaginary_frame_constraints; crates/algebra_analysis/src/reggiani.rs::test_koebisu_d2_polynomial; proofs/theories/SedenionMembershipConstraints.v"
 
 [[claim]]
 id = "C-1462"
@@ -4379,7 +4379,7 @@ where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v17.py`, `data/cs
 [[claim]]
 id = "C-1510"
 last_verified = "2026-03-22"
-statement = "ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade)."
+statement = "For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs."
 status = "Verified"
 where_stated = "crates/cd_kernel/src/cayley_dickson/tests.rs::test_zd_tangent_space"
 
@@ -4463,7 +4463,7 @@ where_stated = "crates/surreal_algebra/src/finite_field_cd.rs::test_fp_sedenion_
 [[claim]]
 id = "C-1521"
 last_verified = "2026-03-22"
-statement = "ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."
+statement = "For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested."
 status = "Verified"
 where_stated = "crates/surreal_algebra/src/surreal_cd.rs::test_archimedean_stratification_of_zd"
 

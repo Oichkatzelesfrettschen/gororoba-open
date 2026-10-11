@@ -328,33 +328,27 @@ mod tests {
     }
 
     // -----------------------------------------------------------------
-    // Archimedean-class stratification (harmonized doc Appendix B, target 1)
+    // Finite dyadic rescaling of a fixed zero-product witness
     // -----------------------------------------------------------------
 
-    /// Study how the ZD variety behaves across Archimedean classes.
+    /// Check exact witness cancellation under five finite dyadic rescalings.
     ///
-    /// A surreal sedenion x = sum_i alpha_i * e_i has coefficients
-    /// alpha_i in the surreal field. The "Archimedean class" of x is
-    /// determined by the largest |alpha_i|. Two surreals are in the
-    /// same Archimedean class if their ratio is finite (neither
-    /// infinitesimal nor infinite).
+    /// Every nonzero coefficient in the fixture is a finite dyadic rational.
+    /// All belong to the Archimedean class of 1: each magnitude and its
+    /// reciprocal are bounded by positive integers. The fixture therefore
+    /// tests coefficient rescaling within one class.
     ///
-    /// We use the birthday as a proxy for Archimedean class:
-    /// - birthday 0: the integer 0
-    /// - birthday 1: integers {-1, 0, 1}
-    /// - birthday 2: half-integers {-2, -1, -1/2, 0, 1/2, 1, 2}
-    /// - birthday n: dyadics k/2^n with |k| <= 2^n
-    ///
-    /// The "max birthday" of a surreal sedenion measures its
-    /// coefficient complexity. A ZD product should have max birthday
-    /// <= sum of input max birthdays.
+    /// The mixed-coefficient example keeps the right factor fixed and breaks
+    /// cancellation by assigning unequal left coefficients. `birthday()` logs
+    /// the representation statistic max(numerator bit length, denominator shift),
+    /// which supplies neither an Archimedean class nor an exact Conway birthday.
     #[test]
     fn test_archimedean_stratification_of_zd() {
-        println!("--- ARCHIMEDEAN STRATIFICATION OF ZD VARIETY ---\n");
+        println!("--- FINITE DYADIC RESCALING OF A ZERO-PRODUCT WITNESS ---\n");
 
-        // Test ZD at different Archimedean scales
+        // All five positive scales lie in the Archimedean class of 1.
         let scales: Vec<(SurrealDyadic, &str)> = vec![
-            (SurrealDyadic::new(1, 100), "infinitesimal (1/2^100)"),
+            (SurrealDyadic::new(1, 100), "small finite (1/2^100)"),
             (SurrealDyadic::new(1, 10), "small (1/2^10)"),
             (SurrealDyadic::one(), "unit (1)"),
             (SurrealDyadic::from_int(1000), "large (1000)"),
@@ -375,22 +369,26 @@ mod tests {
             let max_bday = product.iter().map(|c| c.birthday()).max().unwrap_or(0);
 
             println!(
-                "  scale={:>25} (bday {:>3}): is_zd={}, product_max_bday={}",
+                "  scale={:>25} (complexity {:>3}): zero_product={}, product_max_complexity={}",
                 label,
                 scale.birthday(),
                 is_zd,
                 max_bday
             );
-            assert!(is_zd, "ZD should persist at scale {}", label);
+            assert!(
+                is_zd,
+                "The scaled pair must retain an exact zero product at {}",
+                label
+            );
         }
 
-        // Now test with MIXED scales: one factor infinitesimal, one finite
+        // The two unequal positive dyadics still occupy the same Archimedean class.
         let epsilon = SurrealDyadic::new(1, 50);
         let omega = SurrealDyadic::new(1_i128 << 30, 0);
 
         let mut a_mixed = [SurrealDyadic::zero(); 16];
-        a_mixed[1] = epsilon; // infinitesimal * e_1
-        a_mixed[10] = omega; // large * e_10
+        a_mixed[1] = epsilon; // finite 2^-50 * e_1
+        a_mixed[10] = omega; // finite 2^30 * e_10
 
         let mut b_unit = [SurrealDyadic::zero(); 16];
         b_unit[4] = SurrealDyadic::one();
@@ -399,29 +397,28 @@ mod tests {
         let mixed_product = surreal_cd_multiply(16, &a_mixed, &b_unit);
         let mixed_is_zd = mixed_product.iter().all(|c| c.is_zero());
 
-        println!("\n  Mixed scale (epsilon*e_1 + omega*e_10)(e_4 - e_15):");
+        println!("\n  Unequal finite coefficients (epsilon*e_1 + omega*e_10)(e_4 - e_15):");
         println!("    epsilon = 1/2^50, omega = 2^30");
-        println!("    is_zd: {}", mixed_is_zd);
+        println!("    zero_product: {}", mixed_is_zd);
         if !mixed_is_zd {
             println!("    Product components:");
             for (i, c) in mixed_product.iter().enumerate() {
                 if !c.is_zero() {
-                    println!("      e_{}: {} (birthday {})", i, c, c.birthday());
+                    println!("      e_{}: {} (complexity {})", i, c, c.birthday());
                 }
             }
         }
 
-        // The mixed case is NOT a ZD because epsilon != omega.
-        // The ZD condition requires alpha*gamma = beta*delta for
-        // (alpha*e_1 + beta*e_10)(gamma*e_4 - delta*e_15).
-        // Here alpha=epsilon, beta=omega, gamma=1, delta=1.
-        // epsilon*1 != omega*1, so NOT a ZD.
+        // For the fixed right factor e_4 - e_15, cancellation of
+        // (alpha*e_1 + beta*e_10)(e_4 - e_15) requires alpha = beta.
         assert!(
             !mixed_is_zd,
-            "Mixed-scale should break ZD: epsilon != omega"
+            "Unequal coefficients must break cancellation for the fixed right factor"
         );
-        println!("    CORRECT: mixed Archimedean classes break ZD");
-        println!("    (ZD requires equal-scale coefficients: alpha*delta = beta*gamma)");
+        println!(
+            "    Unequal left coefficients break cancellation against the fixed right factor."
+        );
+        println!("    Every nonzero input coefficient remains in the Archimedean class of 1.");
     }
 
     /// Explore the connection between Archimedean classes and the

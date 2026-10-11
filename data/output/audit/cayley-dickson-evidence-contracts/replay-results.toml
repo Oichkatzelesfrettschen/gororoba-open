@@ -6,8 +6,8 @@ evidence_scope = "Named local diagnostics; hosted CI owns repository validation.
 
 [proofs]
 command = "rocq compile -w @default -R proofs/theories OpenGororoba -R proofs/verified OpenGororobaVerified <proof-file>"
-files = ["SchreierSignCode", "SignCodeCardinality", "SignCodeProjection", "BooleanCochainFiltration", "SedenionMembershipConstraints", "MinimalUncurvedObstruction", "C1465_KoebisuEqualNorm", "C1467_XORSignCocycle"]
-declarations_with_assumption_reports = 119
+files = ["SchreierSignCode", "SignCodeCardinality", "SignCodeProjection", "BooleanCochainFiltration", "SedenionMembershipConstraints", "MinimalUncurvedObstruction", "C1465_KoebisuEqualNorm", "C1467_XORSignCocycle", "HomotopyTransferAssociator", "WilmotRetractionTheorem", "M3IsAssociator", "M3IsAssociatorPathion", "ArchimedeanStratification"]
+declarations_with_assumption_reports = 154
 missing_assumption_reports = 0
 result = "passed"
 assumptions = "Boolean results use explicit section parameters or are closed under the global context. Real results report ClassicalDedekindReals.sig_forall_dec and, where used, FunctionalExtensionality.functional_extensionality_dep. Read the retained per-file reports for exact scope."
@@ -77,14 +77,40 @@ command = "cargo test --locked --offline -p gororoba_db --bin gororoba-db -- cli
 passed = 1
 scope = "CLI parser and dispatch surface; binary help separately checked."
 
+[[test]]
+command = "cargo test --locked -p gororoba_cli_governance --bin registry-integrity"
+passed = 6
+scope = "Stable conflict identities; resolution history; insertion/reordering and changed-content controls; three canonical-export/render-reload cycles."
+
+[[test]]
+command = "cargo test --locked -p cd_kernel --lib -- test_zd_tangent_space --nocapture"
+passed = 1
+scope = "Both 16-by-32 unnormalized product Jacobians have asserted numerical rank 16 and kernel dimension 16 at pivot tolerance 1e-10."
+
+[[test]]
+command = "cargo test --locked -p surreal_algebra --lib -- test_archimedean_stratification_of_zd --nocapture"
+passed = 1
+scope = "Five finite-dyadic common rescalings preserve the exact witness; unequal coefficients fail cancellation against the fixed right factor. All nonzero coefficients belong to one Archimedean class."
+
 [clippy]
 commands = ["cargo clippy --locked --offline -p cd_kernel --all-targets -- -D warnings", "cargo clippy --locked --offline -p algebra_analysis -p gororoba_algebra --lib --tests -- -D warnings", "cargo clippy --locked --offline -p neural_homotopy -p cosmology_core --lib -- -D warnings", "cargo clippy --locked --offline -p provenance_store -p gororoba_db --all-targets -- -D warnings"]
+review_commands = ["cargo clippy --locked -p gororoba_cli_governance --all-targets -- -D warnings", "cargo clippy --locked -p cd_kernel -p surreal_algebra --all-targets -- -D warnings"]
 result = "passed"
 
 [canonical]
-commands = ["gororoba-db theorem identity validate", "provenance verify-control-plane", "knowledge-atoms verify", "artifact-scrolls verify", "semantic-atoms --repo-root . --verify", "evidence-provenance --repo-root . --verify", "project-counter-sync --check", "registry-integrity --verify", "rocq-project-audit"]
+commands = ["gororoba-db theorem identity validate", "provenance verify-control-plane", "knowledge-atoms verify", "artifact-scrolls verify", "semantic-atoms --repo-root . --verify", "evidence-provenance --repo-root . --verify", "project-counter-sync --check", "registry-integrity --verify", "rocq-project-audit", "markdown-registry verify-all"]
 result = "passed"
 theorem_link_exact_replay = true
+integrity_regeneration_byte_identical = true
+conflict_markers = 127
+retained_lacunae = 311
 rocq_listed_sources = 304
 rocq_inventory_sources = 304
-artifact_scroll_limit = "The existing verifier reports missing payload stubs and skips payload checks; the result covers registry metadata only."
+semantic_atom_limit = "The existing semantic-atoms verifier reports missing payload stubs and skips payload checks; its result covers registry metadata only."
+
+[casimir_manifest]
+hosted_run = 38165513092
+artifact_id = 11712207111
+source_input_hashes_verified = 24
+other_output_files_byte_equal = 16
+scope = "Retained CI-generated source manifest after Cargo input changes; numerical outputs compare byte-for-byte. Final-head CI replays the complete audit."

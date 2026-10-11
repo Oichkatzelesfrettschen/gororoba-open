@@ -36,12 +36,13 @@ fn is_fano_triple(i: usize, j: usize, k: usize) -> bool {
 }
 
 // ---------------------------------------------------------------------------
-// Shared homotopy-transfer helpers (used by test_homotopy_transfer_m3,
+// Shared retraction-polynomial helpers (used by test_homotopy_transfer_m3,
 // test_m4_vanishes, test_m4_zero_classification, test_m4_missing_sets_and_m5,
 // test_oscillation_pattern, test_m3_is_associator).
 //
-// These implement the canonical retraction O -> S -> O from the A-infinity
-// homotopy-transfer theorem applied to the sedenion-to-octonion retraction.
+// The linear maps satisfy p*i = id_O and h = id_S - i*p. The map h is a
+// complementary projection. Applying a homotopy-transfer theorem would also
+// require a differential, grading, and a verified chain contraction.
 // ---------------------------------------------------------------------------
 
 /// Section i: O -> S,  i(x)[k] = x[k], i(x)[k+8] = x[k].
@@ -54,7 +55,7 @@ fn ht_section(x: &[f64; 8]) -> [f64; 16] {
     s
 }
 
-/// Projection p: S -> O,  p(u,v)[k] = (u[k] + v[k+8]) / 2.
+/// Projection p: S -> O,  p(s)[k] = (s[k] + s[k+8]) / 2.
 fn ht_project(s: &[f64]) -> [f64; 8] {
     let mut o = [0.0_f64; 8];
     for k in 0..8 {
@@ -63,7 +64,7 @@ fn ht_project(s: &[f64]) -> [f64; 8] {
     o
 }
 
-/// Homotopy h = id_S - i*p.
+/// Complementary projection h = id_S - i*p used in the nested polynomials.
 fn ht_homotopy(s: &[f64; 16]) -> [f64; 16] {
     let ps = ht_project(s);
     let ips = ht_section(&ps);
@@ -85,7 +86,7 @@ fn ht_sed_mul(a: &[f64; 16], b: &[f64; 16]) -> [f64; 16] {
     out
 }
 
-/// Transferred m3 operation: p( h(i(x)*i(y)) * i(z) ) - p( i(x) * h(i(y)*i(z)) ).
+/// Cubic polynomial: p( h(i(x)*i(y)) * i(z) ) - p( i(x) * h(i(y)*i(z)) ).
 fn ht_compute_m3(x: &[f64; 8], y: &[f64; 8], z: &[f64; 8]) -> [f64; 8] {
     let ix = ht_section(x);
     let iy = ht_section(y);
@@ -2077,19 +2078,18 @@ fn test_surreal_cd_scalar_extension_zd() {
     println!("\n  All verified. ZD geometry is coefficient-field-independent.");
 }
 
-/// Homotopy transfer m3: the cubic operation from sedenion retraction to octonions.
+/// Classify a cubic retraction polynomial on distinct imaginary basis triples.
 ///
 /// Given the retraction/section pair:
 ///   p(u,v) = (u+v)/2       (S -> O, fold-average projection)
 ///   i(x) = (x,x)           (O -> S, diagonal section)
-///   h = id - i*p            (contracting homotopy)
+///   h = id - i*p            (complementary projection)
 ///
-/// The transferred cubic is:
+/// The cubic formula is:
 ///   m3(x,y,z) = p( h(i(x)*i(y)) * i(z) ) - p( i(x) * h(i(y)*i(z)) )
 ///
-/// This measures how much the sedenion multiplication deviates from
-/// what the octonion projection predicts. It is the first A-infinity
-/// correction to the octonionic product.
+/// The diagnostic classifies the outputs on 210 ordered triples. The linear
+/// retraction alone supplies neither chain-complex data nor A-infinity identities.
 #[test]
 fn test_homotopy_transfer_m3() {
     // Octonion basis as 16D sedenion vectors (lower 8 components)
@@ -2100,7 +2100,7 @@ fn test_homotopy_transfer_m3() {
         v
     };
 
-    println!("  === Homotopy Transfer m3: Sedenion Retraction to Octonions ===\n");
+    println!("  === Cubic Retraction Polynomial: 210 Imaginary Basis Triples ===\n");
 
     // Compute m3 for all 210 ordered triples of distinct imaginary units
     let mut scalar_count = 0;
@@ -2214,32 +2214,20 @@ fn test_homotopy_transfer_m3() {
     println!("  Non-Fano triples with imaginary m3: {}", nonfano_imag);
 }
 
-/// Does m4 vanish? Check if the A-infinity structure truncates at m3.
+/// Evaluate a four-term quartic retraction polynomial on 840 basis quadruples.
 ///
-/// m4(w,x,y,z) is the quartic transferred operation. If m4 = 0 for all
-/// basis inputs, the homotopy transfer is FINITE (only m2 and m3).
-/// This would mean the sedenion retraction produces a STRICT A_3 algebra
-/// on the octonions, not an infinite A-infinity tower.
+/// The inputs are ordered quadruples of distinct imaginary octonion units.
+/// Norms are classified at 1e-10; repeated indices and scalar inputs belong to
+/// a separate domain. Vanishing on these tuples would establish only the
+/// sampled polynomial residual, leaving algebra identities and truncation unproved.
 #[test]
 fn test_m4_vanishes() {
-    // m4 has multiple terms from the A-infinity relations.
-    // The simplest check: does the transferred product of m3 outputs vanish?
-    //
-    // The A-infinity relation for m4:
-    //   m4(w,x,y,z) = sum of terms involving m2 and m3 compositions
-    //
-    // For the specific retraction (p, i, h), m4 involves:
+    // The local name m4 denotes exactly the following four-term polynomial:
     //   p( h(h(i(w)*i(x))*i(y)) * i(z) )
     //   - p( h(i(w)*h(i(x)*i(y))) * i(z) )
     //   + p( i(w) * h(h(i(x)*i(y))*i(z)) )
     //   - p( i(w) * h(i(x)*h(i(y)*i(z))) )
-    //   + correction terms from m3 compositions
-    //
-    // Simplified test: compute the "naive" m4 (without m3 corrections)
-    //   + correction terms from m3 compositions
-    //
-    // Simplified test: compute the "naive" m4 (without m3 corrections)
-    // and check if it's zero. If not, m4 is nonzero.
+    // The expression is evaluated directly from p, i, h, and the CD product.
 
     let compute_naive_m4 = |w: &[f64; 8], x: &[f64; 8], y: &[f64; 8], z: &[f64; 8]| -> [f64; 8] {
         let iw = ht_section(w);
@@ -2273,7 +2261,7 @@ fn test_m4_vanishes() {
         m4
     };
 
-    println!("  === Does m4 Vanish? (A-infinity Truncation Test) ===\n");
+    println!("  === Four-Term Quartic Retraction Polynomial ===\n");
 
     let mut max_m4_norm = 0.0_f64;
     let mut nonzero_count = 0;
@@ -2331,28 +2319,25 @@ fn test_m4_vanishes() {
         "\n  Total ordered quadruples: {} (expected: 7*6*5*4 = 840)",
         total
     );
-    println!("  Nonzero m4 outputs: {}", nonzero_count);
+    println!("  Quartic outputs with norm > 1e-10: {}", nonzero_count);
     println!("  Max |m4|: {:.4}", max_m4_norm);
 
     if nonzero_count == 0 {
-        println!("\n  m4 VANISHES! A-infinity truncates at m3.");
-        println!("  The sedenion retraction produces a STRICT A_3 algebra on O.");
+        println!("\n  All enumerated quartic norms are at most 1e-10.");
     } else {
         println!(
-            "\n  m4 is NONZERO for {}/{} quadruples.",
+            "\n  Quartic norms exceed 1e-10 for {}/{} enumerated quadruples.",
             nonzero_count, total
         );
-        println!("  The A-infinity structure does NOT truncate at m3.");
-        println!("  Higher operations m_n (n >= 4) are needed for the full transfer.");
     }
+    println!("  The result classifies the displayed four-term polynomial on the sampled domain.");
+    println!("  Minimal uncurved A-infinity admission still requires associative m2.");
 }
 
-/// Classify the 168 m4-zero quadruples combinatorially.
+/// Classify quartic norms below 1e-10 on 840 distinct imaginary basis quadruples.
 ///
-/// The 168 quadruples where m4 vanishes may correlate with:
-/// (a) quadruples containing a Fano-line triple as a sub-triple
-/// (b) quadruples with specific XOR structure
-/// (c) quadruples related to the G2 coset geometry
+/// The diagnostic records Fano sub-triples, XOR values, and unordered input sets
+/// for the four-term retraction polynomial.
 #[test]
 fn test_m4_zero_classification() {
     let compute_m4 = |w: &[f64; 8], x: &[f64; 8], y: &[f64; 8], z: &[f64; 8]| -> f64 {
@@ -2420,7 +2405,7 @@ fn test_m4_zero_classification() {
         }
     }
 
-    println!("  === m4-Zero Quadruple Classification ===\n");
+    println!("  === Quartic Norms Below 1e-10: Quadruple Classification ===\n");
     println!("  Total: {} zero + {} nonzero = 840", zeros.len(), nonzeros);
 
     // Check: how many zero quadruples contain a Fano sub-triple?
@@ -2493,11 +2478,11 @@ fn test_m4_zero_classification() {
     }
 }
 
-/// Identify the 7 missing m4-nonzero sets and check m5 growth rate.
+/// List Fano-count-selected sets and sample one nested quintic polynomial.
 #[test]
 fn test_m4_missing_sets_and_m5() {
-    // Find the 7 missing 4-element sets (those with 2+ Fano sub-triples)
-    println!("  === 7 Missing Sets (2+ Fano Sub-Triples) ===\n");
+    // Enumerate four-element sets and report the selector fano_count >= 2.
+    println!("  === Four-Element Sets with at Least Two Fano Sub-Triples ===\n");
 
     let mut all_sets: Vec<[usize; 4]> = Vec::new();
     for a in 1..8 {
@@ -2522,9 +2507,9 @@ fn test_m4_missing_sets_and_m5() {
         .filter(|&&(a, b, c)| is_fano_triple(a, b, c))
         .count();
         if fano_count >= 2 {
-            // This is a missing set -- all 24 orderings have nonzero m4
+            // The selector uses only Fano incidence, without evaluating m4.
             println!(
-                "  {:?}: {} Fano sub-triples, complement = e_{}",
+                "  {:?}: {} Fano sub-triples, first excluded unit = e_{}",
                 s,
                 fano_count,
                 (1..8).find(|x| !s.contains(x)).unwrap_or(0)
@@ -2532,17 +2517,8 @@ fn test_m4_missing_sets_and_m5() {
         }
     }
 
-    // Now check m5: does the growth pattern continue?
-    // m5 has 7*6*5*4*3 = 2520 ordered quintuples
-    // Too many for full scan, but we can sample
-    println!("\n  === m5 Sampling (Growth Rate Check) ===\n");
-
-    // For m5, we need one more nested level of homotopy composition
-    // Simplified: check if m4 composed with m3 gives nonzero results
-    // This is a proxy for whether m5 grows further
-
-    // Quick check: |m3| = 2, |m4| = 4. Does |m5| = 8?
-    // Compute a few m5 samples by nesting h one more time
+    // Evaluate one nested quintic polynomial on 6*5*4*3 = 360 tuples with w=e1.
+    println!("\n  === Nested Quintic Polynomial with First Input e1 ===\n");
     let mut max_m5 = 0.0_f64;
     let mut m5_count = 0;
     let mut m5_nonzero = 0;
@@ -2574,14 +2550,14 @@ fn test_m4_missing_sets_and_m5() {
                     let mut ul = [0.0_f64; 8];
                     ul[u] = 1.0;
 
-                    // Naive m5: nest h one more level
+                    // Build the inputs for the selected quintic polynomial.
                     let iw = ht_section(&w1);
                     let ix = ht_section(&xi);
                     let iy = ht_section(&yj);
                     let iz = ht_section(&zk);
                     let iu = ht_section(&ul);
 
-                    // One representative term of m5:
+                    // The full expression evaluated for each tuple is:
                     // p( h(h(h(iw*ix)*iy)*iz) * iu )
                     let wx = ht_sed_mul(&iw, &ix);
                     let h1 = ht_homotopy(&wx);
@@ -2603,35 +2579,31 @@ fn test_m4_missing_sets_and_m5() {
     }
 
     println!(
-        "  w=e1 sample: {}/{} nonzero, max |m5 term| = {:.1}",
+        "  w=e1 sample: {}/{} norms > 1e-10, maximum quintic norm = {:.1}",
         m5_nonzero, m5_count, max_m5
     );
-    println!("  Growth: |m3|=2, |m4|=4, |m5 term|={:.1}", max_m5);
+    println!("  The fixed-first-input scan covers one finite quintic-polynomial domain.");
     println!(
-        "  Ratio: {:.1}x per level",
+        "  Ratio to reference scale 4 (zero when maximum <= 0.1): {:.1}",
         if max_m5 > 0.1 { max_m5 / 4.0 } else { 0.0 }
     );
 }
 
-/// Oscillation pattern: compute max|m_n| for n=3..7 via iterated homotopy nesting.
+/// Measure nested retraction polynomials for n=3..7 on distinct basis tuples.
 ///
-/// The "naive m_n" is computed by nesting h compositions n-2 times:
-///   m_n ~ p( h^{n-2}(i(x1)*...) * i(x_n) )
-/// This is one representative term of the full A-infinity m_n.
-///
-/// The question: does the sequence |m3|, |m4|, |m5|, |m6|, |m7| oscillate,
-/// converge, or diverge?
+/// Set v_2 = h(i(x_1)*i(x_2)), then v_j = h(v_{j-1}*i(x_j)) for 3 <= j < n,
+/// and t_n = p(v_{n-1}*i(x_n)). Each finite diagnostic enumerates the ordered
+/// distinct n-tuples from {e_1,...,e_7} and reports norms of t_n. A uniform bound
+/// or convergence claim requires an argument for arbitrary n.
 #[test]
 fn test_oscillation_pattern() {
-    println!("  === A-infinity Oscillation Pattern ===\n");
+    println!("  === Nested Retraction Polynomial Norms for n=3..7 ===\n");
 
-    // Use a fixed sequence of basis elements: e1, e2, e4, e7, e3, e5, e6
-    // (chosen to include Fano and non-Fano sub-tuples)
+    // Reference ordering; the enumeration below uses every distinct tuple from {1..7}.
     let _basis_seq: [usize; 7] = [1, 2, 4, 7, 3, 5, 6];
 
-    // For each n from 3 to 7, compute the "left-nested" representative term:
+    // For each n from 3 to 7, compute the left-nested polynomial:
     //   t_n = p( h( h( ... h(i(e_{b1}) * i(e_{b2})) ... * i(e_{b_{n-1}})) * i(e_{bn}) )
-    // This is one specific term of the full m_n.
 
     println!(
         "  {:>4} | {:>12} | {:>12} | {:>10}",
@@ -2645,7 +2617,7 @@ fn test_oscillation_pattern() {
         let mut count = 0_usize;
         let mut nonzero = 0_usize;
 
-        // Sample: all n-tuples from basis_seq (permutations of n elements from 7)
+        // Enumerate all ordered distinct n-tuples from the seven imaginary units.
         // For n=3: 7*6*5 = 210, for n=7: 7! = 5040
         let indices: Vec<usize> = (1..=7).collect();
 
@@ -2683,7 +2655,7 @@ fn test_oscillation_pattern() {
                 basis_vecs.push(v);
             }
 
-            // Left-nested homotopy composition:
+            // Left-nested complementary-projection composition:
             // Start: h(i(b1) * i(b2))
             // Then: h(prev * i(b3))
             // ...
@@ -2731,17 +2703,19 @@ fn test_oscillation_pattern() {
         );
     }
 
-    println!("\n  Sequence of max|term|: this reveals the oscillation/convergence pattern.");
-    println!("  If oscillatory: the A-infinity tower has bounded norms.");
-    println!("  If growing: the tower diverges and only finite truncation is meaningful.");
+    println!("\n  The table records finite norm statistics for n=3..7.");
+    println!(
+        "  Uniform bounds and limiting behavior require a proof beyond the enumerated domain."
+    );
 }
 
-/// Pathion (32D) retraction transfer: does the Fano pattern generalize?
+/// Classify the cubic pathion-to-sedenion retraction polynomial.
 ///
 /// The sedenion retraction to octonions gave m3 with 42+168 classification.
 /// Apply the SAME retraction p(u,v)=(u+v)/2 to pathion -> sedenion.
 /// The sedenion has 15 imaginary units, giving C(15,3) = 455 triples.
-/// Check: does the associator classification match the 35+84+84+252 Wilmot decomposition?
+/// Compare the 455 unordered basis triples with the direct sedenion associator
+/// and the cited 35+84+84+252 classification.
 #[test]
 fn test_pathion_retraction_m3() {
     use cd_kernel::cd_multiply;
@@ -2768,7 +2742,7 @@ fn test_pathion_retraction_m3() {
         s.iter().zip(ips.iter()).map(|(a, b)| a - b).collect()
     };
 
-    // Sedenion associator via pathion retraction
+    // Cubic polynomial built from the pathion retraction maps.
     let compute_sed_m3 = |x: &[f64; 16], y: &[f64; 16], z: &[f64; 16]| -> [f64; 16] {
         let ix = section_32(x);
         let iy = section_32(y);
@@ -2872,8 +2846,14 @@ fn test_pathion_retraction_m3() {
     println!("  Scalar m3: {}", scalar_count);
     println!("  Imaginary m3: {}", imaginary_count);
     println!("  Zero m3: {}", zero_count);
-    println!("  m3 = Assoc (within 1%): {}", m3_equals_assoc);
-    println!("  m3 != Assoc: {}", m3_differs);
+    println!(
+        "  Nonzero m3/Assoc pairs with relative difference < 1%: {}",
+        m3_equals_assoc
+    );
+    println!(
+        "  Nonzero m3 outputs with mismatched associator: {}",
+        m3_differs
+    );
 
     println!("\n  Wilmot comparison:");
     println!("  35 associative triads (quaternionic)");
@@ -2881,7 +2861,10 @@ fn test_pathion_retraction_m3() {
     println!("  Total: 455");
 }
 
-/// Is m3 = alpha * octonionic associator?
+/// Compare one selected coordinate ratio per nonzero associator basis triple.
+///
+/// Each triple contributes the first coordinate with |associator| > 0.5.
+/// Equal ratios leave other coordinates and zero-associator triples untested.
 #[test]
 fn test_m3_is_associator() {
     use cd_kernel::cd_multiply;
@@ -2902,7 +2885,7 @@ fn test_m3_is_associator() {
         out
     };
 
-    println!("  === m3 vs Octonionic Associator ===\n");
+    println!("  === Cubic Polynomial vs Associator: Selected Coordinate Ratios ===\n");
 
     let mut ratios = Vec::new();
     for i in 1..8 {
@@ -2942,7 +2925,7 @@ fn test_m3_is_associator() {
         }
     }
 
-    // Check if all ratios are the same
+    // Compare only the selected coordinate ratios at tolerance 1e-10.
     if !ratios.is_empty() {
         let r0 = ratios[0];
         let all_same = ratios.iter().all(|r| (r - r0).abs() < 1e-10);
@@ -2953,10 +2936,10 @@ fn test_m3_is_associator() {
         println!("  All {} ratios equal: {}", ratios.len(), all_same);
         if all_same {
             println!(
-                "  m3(x,y,z) = {:.4} * Assoc(x,y,z) for ALL 210 triples!",
+                "  Selected coordinate ratios agree at {:.4} within tolerance 1e-10.",
                 r0
             );
-            println!("  The A-infinity cubic IS the octonionic associator (scaled).");
+            println!("  The ratio check leaves full-vector proportionality untested.");
         }
     }
 }

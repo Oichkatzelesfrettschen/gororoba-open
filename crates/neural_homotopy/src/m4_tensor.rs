@@ -87,7 +87,7 @@ impl CorrectionTensor {
                     let (right_basis, right_sign_raw) = table[i][jk_basis];
                     let right_coeff = (jk_sign * right_sign_raw) as f64;
 
-                    // m_3 = right - left (corrects non-associativity)
+                    // m_3 records right - left, the negative associator.
                     let base = Self::idx(i, j, k, 0);
                     tensor.data[base + right_basis] += right_coeff;
                     tensor.data[base + left_basis] -= left_coeff;
@@ -98,8 +98,7 @@ impl CorrectionTensor {
         tensor
     }
 
-    /// Alias for `from_associator()` -- the algebraic fallback when
-    /// neural search fails or is not available.
+    /// Alias for the direct negative-associator construction `from_associator()`.
     pub fn direct_associator_ansatz() -> Self {
         Self::from_associator()
     }
@@ -119,18 +118,22 @@ impl CorrectionTensor {
         1.0 - (self.nnz() as f64) / (TENSOR_SIZE as f64)
     }
 
-    /// Evaluate the A-infinity A_4 pentagon violation.
+    /// Evaluate the five-term arity-four polynomial used by the pentagon loss.
     ///
-    /// For each sampled quadruple (a,b,c,d), computes the 5 terms of the
-    /// A_4 relation involving m_2 (sedenion product) and m_3 (this tensor):
+    /// For each sampled basis quadruple (a,b,c,d), computes the following
+    /// expression with m_2 the sedenion product and m_3 the stored tensor:
     ///
     ///   m_2(m_3(a,b,c), d) + m_3(m_2(a,b), c, d)
     ///   - m_3(a, m_2(b,c), d) + m_3(a, b, m_2(c,d))
-    ///   + m_2(a, m_3(b,c,d))
+    ///   - m_2(a, m_3(b,c,d))
     ///
-    /// Returns the mean L2 norm of the violation vector across samples.
-    /// A value near zero means m_3 nearly satisfies the pentagon identity
-    /// without needing a higher m_4 correction.
+    /// Returns the mean computed L2 norm over deterministic samples, or zero
+    /// for an empty sample. The index schedule repeats after 16 quadruples.
+    /// The two outer-product contractions skip coefficients of magnitude
+    /// at most 1e-14. The result describes the sampled, thresholded residual;
+    /// algebra coherence requires all identities with declared grading and
+    /// signs, including the independent arity-three associativity condition
+    /// when m_1 = 0 and curvature vanishes.
     pub fn pentagon_violation(&self, n_samples: usize) -> f64 {
         let table = build_sedenion_table();
         let mut total_violation = 0.0;
@@ -174,7 +177,7 @@ impl CorrectionTensor {
                 viol[l] += cd_sign as f64 * coeff;
             }
 
-            // Term 5: m_2(a, m_3(b,c,d))
+            // Term 5: -m_2(a, m_3(b,c,d))
             let m3_bcd = self.slice(b, c, d);
             for (l, &coeff) in m3_bcd.iter().enumerate() {
                 if coeff.abs() > 1e-14 {
@@ -230,14 +233,14 @@ impl CorrectionTensor {
 
 const M4_TENSOR_SIZE: usize = DIM * DIM * DIM * DIM * DIM; // 16^5 = 1,048,576
 
-/// Quaternary correction tensor for the A-infinity structure on sedenions.
+/// Quaternary tensor ansatz on the sedenion vector space.
 ///
 /// Stores m_4(e_i, e_j, e_k, e_l) as a 16-vector of real coefficients per quadruple.
 /// The full tensor has 16^5 = 1,048,576 entries (8.4 MB).
 ///
-/// The hexagon identity (A_5 relation) determines whether m_3 and m_4 together
-/// satisfy higher coherence. When hexagon_violation is zero, no m_5 correction
-/// is needed.
+/// `hexagon_violation` evaluates a nine-term arity-five polynomial on a finite
+/// deterministic sample. A vanishing sampled loss records that residual only;
+/// it cannot establish algebra coherence or the vanishing of higher tensors.
 #[derive(Debug, Clone)]
 pub struct M4CorrectionTensor {
     data: Vec<f64>,
@@ -297,10 +300,10 @@ impl M4CorrectionTensor {
         1.0 - (self.nnz() as f64) / (M4_TENSOR_SIZE as f64)
     }
 
-    /// Evaluate the A_5 hexagon identity violation.
+    /// Evaluate the nine-term arity-five polynomial used by the hexagon loss.
     ///
-    /// For each sampled 5-tuple (a,b,c,d,e), computes the 9 terms of the
-    /// A_5 relation involving m_2 (sedenion product), m_3, and m_4 (this tensor).
+    /// For each sampled basis 5-tuple (a,b,c,d,e), computes the expression
+    /// below with m_2 the sedenion product and m_3, m_4 the stored tensors.
     ///
     /// The 9 terms are grouped:
     ///   m_4 outer, m_2 inner (4 terms, alternating sign):
@@ -314,8 +317,11 @@ impl M4CorrectionTensor {
     ///   m_2 outer, m_4 inner (2 terms):
     ///     +m_2(m_4(a,b,c,d), e) - m_2(a, m_4(b,c,d,e))
     ///
-    /// Returns the mean L2 norm of the violation vector across samples.
-    /// Zero means (m_3, m_4) jointly satisfy the hexagon identity.
+    /// Returns the mean computed L2 norm over deterministic samples, or zero
+    /// for an empty sample. The index schedule repeats after 16 tuples.
+    /// Nested m_3 and outer-product contractions skip coefficients of magnitude
+    /// at most 1e-14. The sampled, thresholded residual supplies a numerical
+    /// diagnostic; an A-infinity structure requires the full identity family.
     pub fn hexagon_violation(&self, m3: &CorrectionTensor, n_samples: usize) -> f64 {
         let table = build_sedenion_table();
         let mut total_violation = 0.0;
@@ -428,11 +434,11 @@ impl M4CorrectionTensor {
         }
     }
 
-    /// Evaluate just the m_3-m_3 hexagon residual (m_4 = 0 contribution).
+    /// Evaluate the sampled arity-five polynomial with m_4 set to zero.
     ///
-    /// This measures how much m_4 correction is needed to satisfy the A_5
-    /// identity. If this is zero, the m_3 alone satisfies hexagon coherence
-    /// and no m_4 is needed (unlikely for sedenions).
+    /// Only the three nested m_3 terms contribute. The result inherits the
+    /// sampling and coefficient threshold of `hexagon_violation`; determining
+    /// whether any m_4 can cancel those terms requires a separate analysis.
     pub fn m3_hexagon_residual(m3: &CorrectionTensor, n_samples: usize) -> f64 {
         let zero_m4 = Self::zero();
         zero_m4.hexagon_violation(m3, n_samples)
@@ -530,9 +536,12 @@ mod tests {
     fn test_associator_pentagon_violation_positive() {
         let t = CorrectionTensor::from_associator();
         let v = t.pentagon_violation(256);
-        // The associator ansatz does NOT automatically satisfy A_4,
-        // so pentagon violation should be positive for sedenions.
-        assert!(v >= 0.0, "Pentagon violation must be non-negative: {}", v);
+        // The assertion checks nonnegativity of the computed mean norm.
+        assert!(
+            v >= 0.0,
+            "Sampled arity-four mean norm must be non-negative: {}",
+            v
+        );
     }
 
     #[test]
@@ -619,19 +628,19 @@ mod tests {
         let v = m4.hexagon_violation(&m3, 100);
         assert_eq!(
             v, 0.0,
-            "Zero m3 + zero m4 should have zero hexagon violation"
+            "Zero m3 + zero m4 must give zero sampled arity-five residual"
         );
     }
 
     #[test]
     fn test_m4_hexagon_residual_nonzero_for_associator() {
-        // The associator m_3 does NOT satisfy the hexagon identity alone,
-        // so the m_3-only hexagon residual should be positive.
+        // The deterministic basis sample detects a positive residual for the
+        // three nested negative-associator terms with m_4 set to zero.
         let m3 = CorrectionTensor::from_associator();
         let residual = M4CorrectionTensor::m3_hexagon_residual(&m3, 256);
         assert!(
             residual > 0.0,
-            "Associator m_3 should have nonzero hexagon residual: {}",
+            "Negative-associator tensor must give a positive sampled arity-five residual: {}",
             residual
         );
     }

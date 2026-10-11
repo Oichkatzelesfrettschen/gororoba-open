@@ -1,29 +1,23 @@
-(** * M3IsAssociator: m3 = Assoc on all 168 non-Fano triples.
+(** * Finite octonion sign and associator reflection.
 
-    Uses the recursive cd_sign_fuel approach (matching the Rust
-    cd_basis_mul_sign implementation) to compute the octonion sign
-    table algorithmically, then verifies the associator classification
-    on all 210 ordered triples via vm_compute boolean reflection.
+    The recursive sign function computes coefficients of basis products.
+    Boolean reflection checks the ordinary associator on all 210 ordered
+    distinct triples from {1,...,7}: the 42 XOR-zero triples have zero
+    associator, and the other 168 have coefficient +2 or -2.
 
-    Claims: C-1505 (this formal proof). *)
+    The definitions contain no retraction polynomial m3. Equality of such a
+    polynomial with the associator requires a separate operation-level
+    bridge; these finite sign checks establish no A-infinity structure. *)
 
 From Stdlib Require Import ZArith Bool List Arith.
 Import ListNotations.
 Open Scope Z_scope.
 
-(** * Recursive sign computation (matches cd_kernel::cd_basis_mul_sign).
-
-    cd_sign(fuel, dim, i, j):
-      if i = 0 or j = 0: +1
-      if i = j: -1
-      if i < dim/2 and j < dim/2: recurse on half
-      if i < dim/2 and j >= dim/2: negate if j-dim/2 < i, then recurse
-      if i >= dim/2 and j < dim/2: negate if j <= i-dim/2, then recurse
-      if i >= dim/2 and j >= dim/2: negate, swap, recurse on conjugate *)
+(** Recursive Cayley-Dickson signs use the highest-bit doubling convention. *)
 
 (** Recursive sign computation matching cd_kernel::cd_basis_mul_sign exactly.
 
-    Rust logic (signs.rs lines 2-28):
+    The recursive cases are:
       dim=1: return 1
       p<half, q<half: recurse(half, p, q)
       p<half, q>=half: recurse(half, q-half, p)  -- NOTE: swaps p and q
@@ -62,13 +56,11 @@ Example sign_1_3 : oct_sign 1 3 = (-1). Proof. vm_compute. reflexivity. Qed.
 Example sign_2_3 : oct_sign 2 3 = 1. Proof. vm_compute. reflexivity. Qed.
 Example sign_self : oct_sign 3 3 = (-1). Proof. vm_compute. reflexivity. Qed.
 
-(** * Associator coefficient via sign table.
-
-    [e_i, e_j, e_k] = (e_i * e_j) * e_k - e_i * (e_j * e_k)
-    = sign(i XOR j, k) * e_{i XOR j XOR k} - sign(i, j XOR k) * e_{i XOR j XOR k}
-    = (sign(i XOR j, k) - sign(i, j XOR k)) * e_{target}
-
-    where target = i XOR j XOR k. *)
+(** The ordinary associator includes both inner-product signs:
+      [e_i,e_j,e_k] = (e_i*e_j)*e_k - e_i*(e_j*e_k)
+       = (sign(i,j)*sign(i XOR j,k) - sign(j,k)*sign(i,j XOR k))
+         * e_(i XOR j XOR k).
+    The coefficient is computed directly from the recursive sign table. *)
 
 Definition assoc_coeff (i j k : nat) : Z :=
   let ij := Nat.lxor i j in
@@ -114,7 +106,7 @@ Theorem fano_assoc_zero : check_fano_zero = true.
 Proof. vm_compute. reflexivity. Qed.
 
 (** Associator magnitude is exactly 2 on all non-Fano triples.
-    This means m3 = +/-2 * e_{i XOR j XOR k}. *)
+    The ordinary associator is +/-2 * e_{i XOR j XOR k}. *)
 Definition check_nonfano_abs2 : bool :=
   List.forallb (fun ijk =>
     match ijk with (i, j, k) =>
@@ -127,21 +119,14 @@ Definition check_nonfano_abs2 : bool :=
 Theorem nonfano_assoc_is_pm2 : check_nonfano_abs2 = true.
 Proof. vm_compute. reflexivity. Qed.
 
-(** * Summary (original):
+(** Finite associator summary:
     1. Associator = 0 on all 42 Fano-line triples.
     2. Associator != 0 on all 168 non-Fano triples.
     3. |Associator| = 2 on all non-Fano triples.
     All verified by boolean reflection via vm_compute. *)
 
-(** ================================================================== *)
-(** * Phase A: Sign table algebraic properties.                        *)
-(**                                                                     *)
-(**   These extend the boolean-reflection pattern to verify algebraic  *)
-(**   properties of oct_sign itself (not just the associator).         *)
-(**   Analog: SASS combo runner testing multiple instruction families   *)
-(**   in a single kernel; here a single forallb checks multiple        *)
-(**   algebraic laws across all basis pairs.                           *)
-(** ================================================================== *)
+(** The following finite checks cover the sign table's unit, square,
+    anticommutation, XOR-range, and coefficient-magnitude properties. *)
 
 (** All 42 off-diagonal ordered pairs in {1..7} x {1..7}. *)
 Definition all_pairs_oct : list (nat * nat) :=
@@ -186,13 +171,7 @@ Definition check_sign_unit_right : bool :=
 Theorem sign_unit_right_forallb : check_sign_unit_right = true.
 Proof. vm_compute. reflexivity. Qed.
 
-(** ================================================================== *)
-(** * Phase A2: Combo runner -- single forallb checks all properties.  *)
-(**                                                                     *)
-(**   Inspired by SASS combo_blockred_warp_atomg64sys_ops_runner.cu:   *)
-(**   one kernel exercises multiple instruction families together.     *)
-(**   Here: one forallb checks anticomm + self_neg + unit in one pass. *)
-(** ================================================================== *)
+(** A conjunction collects four finite sign properties in one reflection. *)
 
 (** XOR index check: for all i, j in {1..7}, i != j,
     the XOR i lxor j is in {1..7} (stays in the imaginary subspace). *)
@@ -217,16 +196,7 @@ Definition check_sign_combo : bool :=
 Theorem sign_triple_check_combo : check_sign_combo = true.
 Proof. vm_compute. reflexivity. Qed.
 
-(** ================================================================== *)
-(** * Phase A3: XOR index rule verification.                           *)
-(**                                                                     *)
-(**   Verifies the XOR rule: for all i, j in {1..7}, i != j,          *)
-(**   oct_sign(i XOR j, j) * oct_sign(i, j) has a consistent sign     *)
-(**   with the Fano plane orientation.                                 *)
-(**                                                                     *)
-(**   More precisely: for all 64 pairs in {0..7} x {0..7},            *)
-(**   oct_sign satisfies |oct_sign i j| = 1 (all signs are +/-1).     *)
-(** ================================================================== *)
+(** Every coefficient on the 64 basis-index pairs is +1 or -1. *)
 
 (** All 64 pairs in {0..7} x {0..7}. *)
 Definition all_pairs_oct_full : list (nat * nat) :=
@@ -245,3 +215,18 @@ Definition check_sign_pm1 : bool :=
 
 Theorem sign_unit_forallb : check_sign_pm1 = true.
 Proof. vm_compute. reflexivity. Qed.
+
+Print Assumptions sign_1_2.
+Print Assumptions sign_1_3.
+Print Assumptions sign_2_3.
+Print Assumptions sign_self.
+Print Assumptions nonfano_assoc_nonzero.
+Print Assumptions fano_assoc_zero.
+Print Assumptions nonfano_assoc_is_pm2.
+Print Assumptions sign_anticomm_forallb.
+Print Assumptions sign_self_neg_forallb.
+Print Assumptions sign_unit_left_forallb.
+Print Assumptions sign_unit_right_forallb.
+Print Assumptions sign_xor_index_in_range.
+Print Assumptions sign_triple_check_combo.
+Print Assumptions sign_unit_forallb.

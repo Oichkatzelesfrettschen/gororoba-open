@@ -1,0 +1,5 @@
+claim_id = "C-1461"
+expected_statement = "Koebisu V_2(R^8) holonomy: all 84 standard sedenion zero-divisors satisfy the octonion-pair decomposition s=(a,b) with |a|=|b| and <a,b>=0 (a=s[0..8], b=s[8..16]). This confirms the normalized ZD set is diffeomorphic to the Stiefel manifold V_2(R^8), extending Reggiani's V_2(R^7) result by including real octonion components."
+expected_where_stated = "crates/algebra_analysis/src/reggiani.rs::test_koebisu_holonomy_v2r8_decomposition"
+statement = "Koebisu V_2(R^8) holonomy: all 84 standard sedenion zero-divisors satisfy the octonion-pair decomposition s=(a,b) with |a|=|b| and <a,b>=0 (a=s[0..8], b=s[8..16]). This confirms the normalized ZD set is diffeomorphic to the Stiefel manifold V_2(R^8), extending Reggiani's V_2(R^7) result by including real octonion components."
+where_stated = "crates/algebra_analysis/src/reggiani.rs::test_standard_zero_divisor_imaginary_frame_constraints; crates/algebra_analysis/src/reggiani.rs::test_koebisu_d2_polynomial; proofs/theories/SedenionMembershipConstraints.v"
