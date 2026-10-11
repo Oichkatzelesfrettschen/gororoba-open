@@ -59,6 +59,12 @@ theories/CDAssociator.v
 theories/CDInverse.v
 theories/BransDicke.v
 theories/Sedenion.v
+theories/SedenionMembershipConstraints.v
+theories/MinimalUncurvedObstruction.v
+theories/SignCodeProjection.v
+theories/SchreierSignCode.v
+theories/SignCodeCardinality.v
+theories/BooleanCochainFiltration.v
 theories/FanoResonance.v
 theories/BinaryEntropy.v
 verified/C886_BDGammaDeviation.v

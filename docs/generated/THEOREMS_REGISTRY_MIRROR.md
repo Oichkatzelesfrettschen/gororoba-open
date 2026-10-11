@@ -75,9 +75,9 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-C1455_AssociatorTrilinear` | `C1455_AssociatorTrilinear` | `proofs/verified/C1455_AssociatorTrilinear.v` | kernel_checked | explicit_link | C-1455, C-1463 |
 | `THM-LEGACY-C1463_ArithmeticInventory` | `C1463_ArithmeticInventory` | `proofs/verified/C1463_ArithmeticInventory.v` | kernel_checked | explicit_link | C-1463 |
 | `THM-LEGACY-C1464_SedenionAnticommutation` | `C1464_SedenionAnticommutation` | `proofs/verified/C1464_SedenionAnticommutation.v` | kernel_checked | explicit_link | C-1464 |
-| `THM-LEGACY-C1465_KoebisuEqualNorm` | `C1465_KoebisuEqualNorm` | `proofs/verified/C1465_KoebisuEqualNorm.v` | kernel_checked | explicit_link | C-1465 |
+| `THM-LEGACY-C1465_KoebisuEqualNorm` | `C1465_KoebisuEqualNorm` | `proofs/verified/C1465_KoebisuEqualNorm.v` | kernel_checked | explicit_link | C-1760 |
 | `THM-LEGACY-C1466_SubalgebraClosure` | `C1466_SubalgebraClosure` | `proofs/verified/C1466_SubalgebraClosure.v` | kernel_checked | explicit_link | C-1466 |
-| `THM-LEGACY-C1467_XORSignCocycle` | `C1467_XORSignCocycle` | `proofs/verified/C1467_XORSignCocycle.v` | kernel_checked | explicit_link | C-1465, C-1467 |
+| `THM-LEGACY-C1467_XORSignCocycle` | `C1467_XORSignCocycle` | `proofs/verified/C1467_XORSignCocycle.v` | kernel_checked | explicit_link | C-1465 |
 | `THM-LEGACY-C1468_SlotShiftEquivariance` | `C1468_SlotShiftEquivariance` | `proofs/verified/C1468_SlotShiftEquivariance.v` | kernel_checked | explicit_link | C-1468 |
 | `THM-LEGACY-C1469_TowerTrilinearity` | `C1469_TowerTrilinearity` | `proofs/verified/C1469_TowerTrilinearity.v` | kernel_checked | explicit_link | C-1469 |
 | `THM-LEGACY-C1470_PathionTrilinearity` | `C1470_PathionTrilinearity` | `proofs/verified/C1470_PathionTrilinearity.v` | kernel_checked | explicit_link | C-1470 |

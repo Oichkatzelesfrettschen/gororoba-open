@@ -1,0 +1,116 @@
+schema_version = 1
+base_commit = "127816214c3f96cc1777bd4bd9ba1b286ccc5917"
+rustc = "1.97.0 (2d8144b78 2026-07-07)"
+rocq = "9.1.1, OCaml 5.4.0"
+evidence_scope = "Named local diagnostics; hosted CI owns repository validation."
+
+[proofs]
+command = "rocq compile -w @default -R proofs/theories OpenGororoba -R proofs/verified OpenGororobaVerified <proof-file>"
+files = ["SchreierSignCode", "SignCodeCardinality", "SignCodeProjection", "BooleanCochainFiltration", "SedenionMembershipConstraints", "MinimalUncurvedObstruction", "C1465_KoebisuEqualNorm", "C1467_XORSignCocycle", "HomotopyTransferAssociator", "WilmotRetractionTheorem", "M3IsAssociator", "M3IsAssociatorPathion", "ArchimedeanStratification"]
+declarations_with_assumption_reports = 154
+missing_assumption_reports = 0
+result = "passed"
+assumptions = "Boolean results use explicit section parameters or are closed under the global context. Real results report ClassicalDedekindReals.sig_forall_dec and, where used, FunctionalExtensionality.functional_extensionality_dep. Read the retained per-file reports for exact scope."
+
+[[test]]
+command = "cargo test --locked --offline -p cd_kernel --lib -- sign_code"
+passed = 5
+scope = "Schreier spans and ANF bases n=2..8; independent ordered recursive left-operator fixture at dimensions 4,8,16,32; phase-exact control; all 256 three-variable sign tables."
+
+[[test]]
+command = "cargo test --locked --offline -p cd_kernel --lib -- sedenion_membership boolean_phase koebisu zd_avoid"
+passed = 13
+scope = "Exact and numerical domains; Boolean family n=3..11; exhaustive n=3 observable-oracle recovery."
+
+[[test]]
+command = "cargo test --locked --offline -p algebra_analysis --lib -- annihilator"
+passed = 17
+scope = "Exact and numerical matrix APIs, both invertible fixtures, all 84 corpus factors, complete partner spans, A5 Schur chart, malformed rational guards."
+
+[[test]]
+command = "cargo test --locked --offline -p algebra_analysis --lib -- flag_complex"
+passed = 3
+scope = "Complete finite flag complex, signed boundary maps and rational Betti numbers (1,0,1)."
+
+[[test]]
+command = "cargo test --locked --offline -p algebra_analysis --lib -- homotopy_algebra"
+passed = 21
+scope = "Candidate operation API and actual arity-three associativity obstruction."
+
+[[test]]
+command = "cargo test --locked --offline -p algebra_analysis --lib -- reggiani"
+passed = 17
+scope = "Component-domain constraints and measured Jacobian ranks."
+
+[[test]]
+command = "cargo test --locked --offline -p gororoba_algebra --lib -- albert"
+passed = 20
+scope = "Albert construction, fixed linearized observable, independent real-matrix fixtures, Gram coordinates, exact stored-matrix bounds."
+
+[[test]]
+command = "cargo test --locked --offline -p gororoba_algebra --lib -- signature_observables"
+passed = 7
+scope = "Typed compact-observable domain and invalid-domain fixtures."
+
+[[test]]
+command = "cargo test --locked --offline -p cosmology_core --lib -- homotopy_bridge"
+passed = 8
+scope = "Chosen numerical coupling model."
+
+[[test]]
+command = "cargo test --locked --offline -p neural_homotopy --lib -- m4_tensor"
+passed = 18
+scope = "Freshly built test executable replay; tensor diagnostic semantics."
+
+[[test]]
+command = "cargo test --locked --offline -p algebra_experimental --lib -- test_wilmot_fano_3form_octonion_triad_count"
+passed = 1
+scope = "Octonion Fano fixture retained by C-1467 after removal of its unrelated sedenion proof link."
+
+[[test]]
+command = "cargo test --locked --offline -p provenance_store --lib -- theorem_link_correction"
+passed = 8
+scope = "Atomic corrections, retained history, stale prestate and poststate guards, malformed specifications and proof locators."
+
+[[test]]
+command = "cargo test --locked --offline -p gororoba_db --bin gororoba-db -- cli_parses_theorem_link_correction_with_explicit_export_choice"
+passed = 1
+scope = "CLI parser and dispatch surface; binary help separately checked."
+
+[[test]]
+command = "cargo test --locked -p gororoba_cli_governance --bin registry-integrity"
+passed = 6
+scope = "Stable conflict identities; resolution history; insertion/reordering and changed-content controls; three canonical-export/render-reload cycles."
+
+[[test]]
+command = "cargo test --locked -p cd_kernel --lib -- test_zd_tangent_space --nocapture"
+passed = 1
+scope = "Both 16-by-32 unnormalized product Jacobians have asserted numerical rank 16 and kernel dimension 16 at pivot tolerance 1e-10."
+
+[[test]]
+command = "cargo test --locked -p surreal_algebra --lib -- test_archimedean_stratification_of_zd --nocapture"
+passed = 1
+scope = "Five finite-dyadic common rescalings preserve the exact witness; unequal coefficients fail cancellation against the fixed right factor. All nonzero coefficients belong to one Archimedean class."
+
+[clippy]
+commands = ["cargo clippy --locked --offline -p cd_kernel --all-targets -- -D warnings", "cargo clippy --locked --offline -p algebra_analysis -p gororoba_algebra --lib --tests -- -D warnings", "cargo clippy --locked --offline -p neural_homotopy -p cosmology_core --lib -- -D warnings", "cargo clippy --locked --offline -p provenance_store -p gororoba_db --all-targets -- -D warnings"]
+review_commands = ["cargo clippy --locked -p gororoba_cli_governance --all-targets -- -D warnings", "cargo clippy --locked -p cd_kernel -p surreal_algebra --all-targets -- -D warnings"]
+result = "passed"
+
+[canonical]
+commands = ["gororoba-db theorem identity validate", "provenance verify-control-plane", "knowledge-atoms verify", "artifact-scrolls verify", "semantic-atoms --repo-root . --verify", "evidence-provenance --repo-root . --verify", "project-counter-sync --check", "registry-integrity --verify", "rocq-project-audit", "markdown-registry verify-all"]
+result = "passed"
+theorem_link_exact_replay = true
+integrity_regeneration_byte_identical = true
+conflict_markers = 127
+retained_lacunae = 311
+rocq_listed_sources = 304
+rocq_inventory_sources = 304
+semantic_atom_limit = "The existing semantic-atoms verifier reports missing payload stubs and skips payload checks; its result covers registry metadata only."
+
+[casimir_manifest]
+hosted_run = 38165513092
+artifact_id = 11712207111
+source_input_hashes_verified = 24
+other_output_files_byte_equal = 16
+scope = "Retained CI-generated source manifest after Cargo input changes; numerical outputs compare byte-for-byte. Final-head CI replays the complete audit."

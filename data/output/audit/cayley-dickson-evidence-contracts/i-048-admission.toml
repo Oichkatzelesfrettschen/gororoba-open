@@ -1,0 +1,84 @@
+admission_id = "i-048-minimal-uncurved-obstruction"
+insight_id = "I-048"
+disposition = "Replace the false algebraic bypass interpretation with the proved obstruction and retain the numerical models."
+falsifier = "A kernel-check failure or associative evaluation of the concrete sedenion witness refutes the stated obstruction evidence."
+successor = "A replacement must change the algebraic structure; quasiassociativity has separate coherence obligations."
+residual = "Historical numerical spectra and gravastar outputs remain bounded model results, with physical interpretation unestablished."
+
+[expected]
+title = "Phase B: A-infinity Bypass Resolves C-030 Non-Associativity Obstruction"
+status = "verified"
+summary = "Phase B constructed a concrete A-infinity algebra from sedenion structure: m_1=0 (minimal/no differential), m_2=Cayley-Dickson product, m_3=CD associator. The A-infinity relation at n=3 holds identically because m_3 IS the associator by definition, encoding non-associativity as higher homotopy data rather than obstruction. KEY RESULTS: (1) OBSTRUCTION SPECTRUM: The 16x16 flattened m_3 tensor has Frobenius norm 8.725, spectral radius 496.9, and rank fraction 15/16 (nearly full-rank), confirming non-associativity is algebraically pervasive across sedenion directions. (2) HOMOTOPY-GRAVASTAR BRIDGE: Linear mapping obstruction_norm -> Bowers-Liang anisotropy parameter lambda produces stable gravastar solutions for coupling in [0, 0.01]. At coupling=0, the isotropic baseline is recovered exactly. At coupling=0.005, solutions remain causal (c_s < c). This resolves C-030 by demonstrating that sedenion non-associativity CAN be consistently incorporated into gravitational physics via the A-infinity framework, rather than being an obstruction."
+claim_refs = ["C-611","C-612","C-613","C-614","C-615"]
+
+[revised]
+title = "Minimal uncurved obstruction and bounded associator models"
+status = "verified"
+summary = "The minimal uncurved A-infinity claim is refuted: m_1=0 forces m_2 to be associative, and the sedenion basis triple (e_1,e_2,e_4) violates associativity. Assigning the associator to m_3 cannot repair the arity-three identity. The tensor diagnostics and chosen associator-norm-to-Bowers-Liang-anisotropy coupling remain numerical models. Their computed spectra and stability windows establish neither the missing algebraic structure nor a physical resolution of nonassociativity. Albuquerque-Majid quasiassociativity is a distinct structure with a separate coherence contract."
+status_note = "Verified applies to the kernel-checked obstruction and the stated interpretation boundary. Historical tensor and gravastar claim references remain retained; their algebraic bypass interpretation is refuted."
+claim_refs = ["C-611","C-612","C-613","C-614","C-615"]
+
+[[evidence_files]]
+path = "data/output/audit/cayley-dickson-evidence-contracts/interpretation-evidence.json"
+sha256 = "2f255c4318e06c2eb1797a8b60dc84493d2ecc1bafd53e1eab7d6479c4116986"
+
+[[predicates]]
+id = "minimal"
+proposition = "The minimal uncurved Cayley-Dickson A-infinity construction satisfies the arity-three identity."
+kind = "asserted_proposition"
+evidence_layer = "implementation_conformance"
+outcome = "refuted"
+execution_status = "replayed"
+boundary = "Minimal uncurved structure with the Cayley-Dickson binary product"
+evidence_anchors = ["proofs/theories/MinimalUncurvedObstruction.v"]
+[[predicates.evidence_bindings]]
+path = "data/output/audit/cayley-dickson-evidence-contracts/interpretation-evidence.json"
+json_pointer = "/minimal_uncurved"
+
+[[predicates]]
+id = "models"
+proposition = "The implementation defines associator tensor diagnostics and a chosen gravastar anisotropy coupling."
+kind = "asserted_proposition"
+evidence_layer = "implementation_conformance"
+outcome = "supported"
+execution_status = "source_review"
+boundary = "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence."
+evidence_anchors = ["crates/cosmology_core/src/homotopy_bridge.rs"]
+[[predicates.evidence_bindings]]
+path = "data/output/audit/cayley-dickson-evidence-contracts/interpretation-evidence.json"
+json_pointer = "/numerical_models"
+
+[[references]]
+claim_id = "C-611"
+predicate_id = "minimal"
+role = "historical_context"
+provenance = "Retained canonical claim reference; correction evidence names the formal and numerical boundaries."
+boundary = "Minimal uncurved structure with the Cayley-Dickson binary product"
+
+[[references]]
+claim_id = "C-612"
+predicate_id = "models"
+role = "qualifies"
+provenance = "Retained canonical claim reference; correction evidence names the formal and numerical boundaries."
+boundary = "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence."
+
+[[references]]
+claim_id = "C-613"
+predicate_id = "models"
+role = "qualifies"
+provenance = "Retained canonical claim reference; correction evidence names the formal and numerical boundaries."
+boundary = "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence."
+
+[[references]]
+claim_id = "C-614"
+predicate_id = "models"
+role = "qualifies"
+provenance = "Retained canonical claim reference; correction evidence names the formal and numerical boundaries."
+boundary = "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence."
+
+[[references]]
+claim_id = "C-615"
+predicate_id = "models"
+role = "qualifies"
+provenance = "Retained canonical claim reference; correction evidence names the formal and numerical boundaries."
+boundary = "Associator tensor diagnostics and a chosen linear norm-to-anisotropy map retain a numerical meaning; algebraic and physical attribution require independent evidence."

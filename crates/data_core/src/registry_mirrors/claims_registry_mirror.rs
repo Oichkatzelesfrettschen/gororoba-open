@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1572
+//! Total claims: 1573
 //!
 //! ## C-001
 //!
@@ -4890,7 +4890,7 @@
 //!
 //! ## C-611
 //!
-//! - Status: `Verified`
+//! - Status: `Refuted`
 //! - Last verified: 2026-02-10
 //! - Statement: SedenionAInfinity constructs a minimal A-infinity algebra with m_1=0 (no differential), m_2=CD product, m_3=CD associator. The A-infinity relation at n=3 holds with residual < 1e-10 for random sedenion inputs.
 //! - Where stated: `crates/algebra_analysis/src/homotopy_algebra.rs` (SedenionAInfinity::new, verify_relation_n3, test_sedenion_a_infinity_relation_n3)
@@ -4916,8 +4916,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-02-10
-//! - Statement: A stable gravastar solution exists for obstruction_norm=8.725 with coupling in [0, 0.01]. The stability window is nonempty, indicating the A-infinity bypass resolves the C-030 non-associativity obstruction.
-//! - Where stated: `crates/cosmology_core/src/homotopy_bridge.rs` (sweep_obstruction_coupling, test_homotopy_sweep_stability_window)
+//! - Statement: The chosen gravastar model maps associator obstruction_norm=8.725 linearly to Bowers-Liang anisotropy and reports a nonempty stability window for coupling in [0, 0.01]. This is a bounded numerical model result with a chosen coupling; it establishes neither a minimal uncurved A-infinity algebra nor a resolution of the nonassociativity obstruction.
+//! - Where stated: crates/cosmology_core/src/homotopy_bridge.rs; docs/engineering/cayley_dickson_evidence_contracts.txt
 //! - What would verify/refute it:
 //!
 //! ## C-615
@@ -5476,8 +5476,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-02-13
-//! - Statement: M4 Hexagon Residual Nonzero: The associator-based m_3 correction tensor produces a nonzero hexagon (A_5) residual when evaluated with m_4=0, confirming that the sedenion A-infinity structure genuinely requires a quaternary correction m_4 beyond the ternary m_3. The M4CorrectionTensor (16^5 = 1,048,576 entries, 8.4 MB) is implemented and passes 8 unit tests.
-//! - Where stated: crates/neural_homotopy/src/m4_tensor.rs (M4CorrectionTensor::m3_hexagon_residual)
+//! - Statement: The associator-based ternary tensor produces a nonzero implemented arity-five residual when the quaternary tensor is zero. M4CorrectionTensor stores 16^5 entries and supports numerical tensor diagnostics. These observations do not establish an A-infinity structure: the minimal uncurved arity-three identity already fails for the Cayley-Dickson product.
+//! - Where stated: crates/neural_homotopy/src/m4_tensor.rs::M4CorrectionTensor::m3_hexagon_residual; proofs/theories/MinimalUncurvedObstruction.v
 //! - What would verify/refute it:
 //!
 //! ## C-685
@@ -9372,8 +9372,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-12
-//! - Statement: SedenionAInfinity (C-611) constructs m_2 from the CD product and m_3 from the CD associator. This construction works at any Cayley-Dickson dimension >= 16. The 42/84 zero-divisor count is a property of the underlying algebra at dim=16, not of the A-infinity construction itself.
-//! - Where stated: crates/algebra_analysis/src/homotopy_algebra.rs, C-611
+//! - Statement: SedenionAInfinity retains a candidate-operation API that constructs the Cayley-Dickson binary product and ternary associator at power-of-two dimensions at least 16. The 42/84 standard-factor count is specific to dimension 16. The candidate fails the minimal uncurved arity-three identity; its name provides compatibility rather than an A-infinity certificate.
+//! - Where stated: crates/algebra_analysis/src/homotopy_algebra.rs; proofs/theories/MinimalUncurvedObstruction.v
 //! - What would verify/refute it:
 //!
 //! ## C-1311
@@ -10578,10 +10578,10 @@
 //!
 //! ## C-1461
 //!
-//! - Status: `Verified`
+//! - Status: `Refuted`
 //! - Last verified: 2026-03-21
 //! - Statement: Koebisu V_2(R^8) holonomy: all 84 standard sedenion zero-divisors satisfy the octonion-pair decomposition s=(a,b) with |a|=|b| and <a,b>=0 (a=s[0..8], b=s[8..16]). This confirms the normalized ZD set is diffeomorphic to the Stiefel manifold V_2(R^8), extending Reggiani's V_2(R^7) result by including real octonion components.
-//! - Where stated: crates/algebra_analysis/src/reggiani.rs::test_koebisu_holonomy_v2r8_decomposition
+//! - Where stated: crates/algebra_analysis/src/reggiani.rs::test_standard_zero_divisor_imaginary_frame_constraints; crates/algebra_analysis/src/reggiani.rs::test_koebisu_d2_polynomial; proofs/theories/SedenionMembershipConstraints.v
 //! - What would verify/refute it:
 //!
 //! ## C-1462
@@ -10612,7 +10612,7 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-21
-//! - Statement: XOR sign cocycle properties exhaustively verified at dim=16: identity (sigma(i,0)=1), squares (sigma(i,i)=-1), anti-commutativity (sigma(i,j)=-sigma(j,i)), and associator defect count (1527/3375 ordered triples). Refined to 147 unordered sigma-associative triads = 35 strict + 112 sign-associative ghost triads.
+//! - Statement: The sedenion multiplication sign is a 2-cochain. Exhaustive reflection at dimension 16 checks identity, imaginary basis squares, and anticommutation. Its ordinary coboundary is nonzero: 1527 of 3375 ordered nonzero-index triples have zero associator defect, and 1848 have nonzero defect. Among unordered distinct-index triples, 147 are sign-associative: 35 strict and 112 ghost triads.
 //! - Where stated: proofs/verified/C1467_XORSignCocycle.v
 //! - What would verify/refute it:
 //!
@@ -10628,8 +10628,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-21
-//! - Statement: Wilmot (2505.06011) Fano 3-form verification: octonion (dim=8) basis has exactly 7 associative triples and 28 non-associative triples. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex.
-//! - Where stated: crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_fano_3form_octonion_triad_count
+//! - Statement: Wilmot (2505.06011) Fano 3-form verification: among the 35 unordered triples of distinct imaginary octonion basis elements, exactly 7 are associative and 28 are non-associative. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex.
+//! - Where stated: crates/algebra_experimental/src/sedenion_subalgebras/tests.rs::test_wilmot_fano_3form_octonion_triad_count
 //! - What would verify/refute it:
 //!
 //! ## C-1468
@@ -10972,7 +10972,7 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-22
-//! - Statement: ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade).
+//! - Statement: For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs.
 //! - Where stated: crates/cd_kernel/src/cayley_dickson/tests.rs::test_zd_tangent_space
 //! - What would verify/refute it:
 //!
@@ -11060,7 +11060,7 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-22
-//! - Statement: ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result.
+//! - Statement: For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested.
 //! - Where stated: crates/surreal_algebra/src/surreal_cd.rs::test_archimedean_stratification_of_zd
 //! - What would verify/refute it:
 //!
@@ -12582,4 +12582,12 @@
 //! - Last verified: 2026-09-12
 //! - Statement: DrudeLorentzParams::at_temperature preserves oscillator strengths and frequencies while applying the declared coth oscillator scaling and gamma(T)=gamma(0)*(1+(T/T_D)^2) Drude scaling. Tests establish implementation behavior and limiting arithmetic only. The Drude scaling is a quadratic Debye-scaled heuristic, not a Bloch-Gruneisen transport model or a specimen-calibrated temperature law.
 //! - Where stated: crates/materials_core/src/optical_database/temperature_dispersion.rs; docs/engineering/casimir_optics_discrimination_contract.md
+//! - What would verify/refute it:
+//!
+//! ## C-1760
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-11
+//! - Statement: The four vectors e_1+e_9, e_3+e_14, e_7+e_10 and e_5-e_12 have equal squared norms of their octonion halves. Equal norms alone do not establish zero-divisor membership: e_1+e_9 has parallel imaginary halves and trivial left annihilator.
+//! - Where stated: proofs/verified/C1465_KoebisuEqualNorm.v; proofs/theories/SedenionMembershipConstraints.v
 //! - What would verify/refute it:

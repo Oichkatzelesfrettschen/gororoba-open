@@ -1,0 +1,5 @@
+claim_id = "C-614"
+expected_statement = "The chosen gravastar model maps associator obstruction_norm=8.725 linearly to Bowers-Liang anisotropy and reports a nonempty stability window for coupling in [0, 0.01]. This is a bounded numerical model result with a fitted coupling; it establishes neither a minimal uncurved A-infinity algebra nor a resolution of the nonassociativity obstruction."
+expected_where_stated = "crates/cosmology_core/src/homotopy_bridge.rs; docs/engineering/cayley_dickson_evidence_contracts.txt"
+statement = "The chosen gravastar model maps associator obstruction_norm=8.725 linearly to Bowers-Liang anisotropy and reports a nonempty stability window for coupling in [0, 0.01]. This is a bounded numerical model result with a chosen coupling; it establishes neither a minimal uncurved A-infinity algebra nor a resolution of the nonassociativity obstruction."
+where_stated = "crates/cosmology_core/src/homotopy_bridge.rs; docs/engineering/cayley_dickson_evidence_contracts.txt"

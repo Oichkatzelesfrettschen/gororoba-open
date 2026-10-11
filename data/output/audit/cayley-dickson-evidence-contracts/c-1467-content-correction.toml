@@ -1,0 +1,5 @@
+claim_id = "C-1467"
+expected_statement = "Wilmot (2505.06011) Fano 3-form verification: octonion (dim=8) basis has exactly 7 associative triples and 28 non-associative triples. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex."
+expected_where_stated = "crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_fano_3form_octonion_triad_count"
+statement = "Wilmot (2505.06011) Fano 3-form verification: among the 35 unordered triples of distinct imaginary octonion basis elements, exactly 7 are associative and 28 are non-associative. The 7 associative triples correspond to the Fano plane lines, each generating a quaternion subalgebra, and cover all 21 edges of the 6-simplex."
+where_stated = "crates/algebra_experimental/src/sedenion_subalgebras/tests.rs::test_wilmot_fano_3form_octonion_triad_count"

@@ -9,10 +9,13 @@
 
 mod arith;
 mod associator;
+pub mod boolean_phase;
 pub mod cariow_factorization;
 pub mod fast_associator;
 pub mod predicates;
 pub mod sedenion;
+pub mod sedenion_membership;
+pub mod sign_code;
 mod signature;
 mod signs;
 pub mod simd;
@@ -34,6 +37,11 @@ pub use associator::{
 };
 pub use fast_associator::{
     AssociatorWorkspace, batch_fast_associator_norms_f32, fast_associator_norm_f32,
+};
+pub use sedenion_membership::{
+    ExactSedenionConstraints, SedenionComponentResiduals, SedenionDomainError, SedenionProximity,
+    SedenionProximityClass, SedenionProximityThresholds, sedenion_constraints_exact,
+    sedenion_membership_exact, sedenion_proximity,
 };
 pub use signature::{
     CdSignature, SplitSignTable, cd_basis_mul_sign_split, cd_basis_mul_sign_split_iter,

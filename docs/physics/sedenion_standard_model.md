@@ -107,9 +107,12 @@ the sedenion subalgebras and extracts:
 
 **Three-layer truth classification (peer-reviewed)**:
 
-**(A) Literature-backed backbone**: Z(S) isometric to G_2 (Reggiani 2024),
-ZD(S) isometric to V_2(R^7) (Reggiani 2024, also Koebisu 2025
-determinant-side via D_2(v)=0). Graded CD construction, 35+60+360=455
+**(A) Literature-backed backbone**: Reggiani (2024) identifies the normalized
+zero-product pair space Z(S) with G_2 and the normalized single-element
+zero-divisor space ZD(S) with V_2(R^7), with the metrics specified by the
+source. These are different spaces. Koebisu's determinant criterion uses
+imaginary octonion components and excludes the zero element from membership;
+Section V states the complete domain. Graded CD construction, 35+60+360=455
 triad count for U_1, A/B/C/X non-associativity stratification (Wilmot
 2025/2026). Interleaved sedenion subalgebras, psi automorphism, S_3 family
 symmetry, gauge-sector S_3-invariance (Gresnigt/Gourlay 2019/2023/2026).
@@ -409,36 +412,74 @@ electroweak DOFs; the stabilizer carries color.
 
 ## V. The Zero-Divisor Manifold
 
-### Reggiani G_2 Isometry (Literature-Established)
+### Reggiani's Pair Space and the Sampled Jacobian
 
-The constraint manifold Z(S) = {(a,b) : a*b = 0, |a| = |b| = 1} has
-dimension 14 = dim(G_2), confirmed by numerical Jacobian rank test
-(reggiani.rs::test_reggiani_zd_manifold_dimension_is_g2).
+Reggiani's source theorem concerns the normalized zero-product pair space
+Z(S) = {(a,b) in S x S : a*b = 0, |a| = |b| = 1}, identified with G_2.
+The 14-dimensional pair space uses 32 real coordinates. Its global geometry
+comes from the source theorem, with the source's metric conventions.
 
-### Koebisu V_2(R^8) Holonomy (C-1461, Complementary to Reggiani)
+The repository test
+`reggiani.rs::test_reggiani_unit_zero_product_pair_jacobian_rank` samples one
+standard pair. Forward differences with step 1e-7 and an SVD threshold of
+1e-6 give numerical rank 18 for the 18-by-32 constraint Jacobian, hence
+numerical nullity 14 at that sample. The measurement checks that finite
+fixture; a global manifold, dimension, or isometry conclusion requires the
+separate source argument.
 
-Koebisu (arXiv:2512.13002) decomposes each sedenion as a pair of octonions
-s = (a, b) where a = s[0..8], b = s[8..16]. The ZD condition becomes
-|a| = |b| and <a,b> = 0, identifying the normalized ZD set with the
-Stiefel manifold V_2(R^8).
+### Sedenion Membership in Imaginary-Component Coordinates
 
-All 84 standard zero-divisors satisfy both conditions (verified in
-reggiani.rs::test_koebisu_holonomy_v2r8_decomposition).
+Koebisu's *Determinant Factorization for Left Multiplication in the Sedenions*,
+[arXiv:2512.13002v2](https://arxiv.org/abs/2512.13002v2), writes a real
+sedenion as v=(x_1+u,x_2+w), with imaginary octonions u,w. Define
 
-The Koebisu D_2 polynomial provides an O(N) zero-divisor detector:
-D_2(v) = |a|^2 * |b|^2 - <a,b>^2 - |a*b|^2 = 0 iff v is a zero divisor.
-Related to the left-multiplication determinant: D_1(v)^4 * D_2(v)^2 = det(L_v).
-Implemented in cd_kernel::is_zero_divisor_koebisu().
+    s = x_1^2 + x_2^2, A = |u|^2, B = |w|^2, gamma = <u,w>,
+    D_1 = |v|^2,
+    D_2 = s^2 + 2*s*(A+B) + (A-B)^2 + 4*gamma^2.
 
-Note: Koebisu's V_2(R^8) and Reggiani's V_2(R^7) are complementary results
-using different mathematical frameworks. Koebisu uses the full octonion
-pair including the real component; Reggiani restricts to the imaginary sector.
+The determinant factorization is det(L_v)=D_1^4*D_2^2. Over the reals,
+D_2=0 is equivalent to x_1=x_2=0, A=B, and gamma=0. Membership also
+requires v != 0. With |v|^2=2, u and w are orthonormal vectors in R^7,
+giving the single-element locus V_2(R^7). Unit-input normalization instead
+gives |u|=|w|=1/sqrt(2); the normalization must accompany any metric claim.
+
+C-1461's full-octonion V_2(R^8) interpretation is refuted. The scalar
+constraints are essential, and the two permanent invalid-domain fixtures are:
+
+| Element | D_2 | det(L_v) | Operator witness |
+| ------- | --- | -------- | ---------------- |
+| e_0+e_9 | 4 | 256 | L_v^2 has a nonzero off-diagonal entry |
+| e_1+e_9 | 4 | 256 | L_v^2=-2I |
+
+The first fixture has a nonzero scalar component. The second has equal
+half norms and parallel imaginary halves. Standard-factor tests alone miss
+the scalar-domain error because their 84 fixtures already set both scalars
+to zero. `exact_annihilator.rs::invalid_sedenion_predicate_fixtures_are_invertible`
+checks both matrices exactly; the same module certifies rank 12 and nullity
+4 for all 84 standard factors in both multiplication orders.
+
+The exact `sedenion_membership_exact` API accepts 16 rational coordinates
+and checks the nonzero condition. `sedenion_proximity` normalizes finite
+nonzero inputs and reports scalar, equal-norm, and orthogonality residuals
+with Near, Indeterminate, and Separated outcomes. The compatibility function
+`is_zero_divisor_koebisu` denotes numerical proximity. Other dimensions use
+the multiplication-matrix annihilator API.
+
+`SedenionMembershipConstraints.v` proves the polynomial zero-locus
+equivalence and the two trivial-kernel witnesses. Its proof boundary excludes
+the general determinant factorization. `C1465_KoebisuEqualNorm.v`, linked to
+C-1760, proves equal half norms for four vectors, including e_1+e_9; that
+true equality supplies only a necessary membership condition. The gradient
+of D_2 vanishes on its zero locus, so regularity arguments must use the
+component constraints. See the [evidence contract](../engineering/cayley_dickson_evidence_contracts.txt)
+for the API and proof boundaries.
 
 ### Wilmot Calibration Connection
 
-Wilmot (AACA 2026, arXiv:2505.06011) derives sedenions from a 14-simplex
-calibration on Pin(15). The 14-dimensional calibration space matches
-dim(G_2) = 14, providing a calibration-theoretic origin for the G_2 isometry.
+Wilmot (AACA 2026, arXiv:2505.06011) describes a 14-simplex calibration
+construction on Pin(15). Equality of the number 14 with dim(G_2) alone
+supplies neither a map to Reggiani's pair space nor a proof of its isometry.
+Such a connection requires an explicit map and a metric comparison.
 
 **Note on Aut(S)**: Wilmot (arXiv:2512.07210) resolves the Schafer/Brown
 discrepancy in favor of Schafer: Aut(S) = G_2. Brown's sigma'
@@ -502,7 +543,8 @@ B and C have identical singular-value spectra (spectral identity).
 - Anticommutation of all 120 sedenion basis pairs ({e_i, e_j} = 0 for i != j)
 - Psi automorphism: psi^3 = Id, U-conjugation U^3 = -I, orbit sum = 3/2 exact
 - Epsilon automorphism: upper-block parity flip, order 2
-- Koebisu equal-norm property: |a| = |b| for ZD pairs
+- Equal imaginary-half norms for single sedenion zero divisors, together
+  with zero scalar components, orthogonality, and the nonzero condition
 
 ### Scheme Comparison (Interleaved vs Contiguous)
 
@@ -1107,9 +1149,11 @@ theta_23 progression: 32.3 (diagonal) -> 37.6 (1st coupling) -> 39.0
 ### Sedenion Anticommutation and Closure (C-1464..C-1466)
 
 - C-1464: All 120 sedenion basis pairs anticommute ({e_i, e_j} = 0 for i != j)
-- C-1465: Koebisu equal-norm property verified (D_2 polynomial)
+- C-1465: Sedenion sign 2-cochain identities and finite associator-defect census
 - C-1466: Octonionic subalgebra closure verified for O_1, O_2, O_3
-- C-1467: XOR sign cocycle: sign(i,j) * sign(i XOR j, k) = sign(i, j XOR k) * sign(j, k)
+- C-1467: Octonion Fano census: 7 associative and 28 non-associative distinct triads
+- C-1760: Equal octonion-half norms for four named vectors; the equality alone
+  leaves zero-divisor membership undecided
 
 ## XIV. Computational Infrastructure
 
@@ -1505,25 +1549,25 @@ persists through the nonperturbative hadronization transition -- a
 principle that is philosophically parallel to our thesis that the
 algebraic CD structure persists through the lift into flavor space.
 
-### Dual 455-decomposition at the sedenion boundary (C-1507)
+### Finite Sign and Retraction Classifications
 
-The sign-table associator on sedenion imaginary indices {1..15}
-produces a DIFFERENT 455-decomposition from Wilmot's retraction m3:
+The sign-table associator and the cubic retraction polynomial evaluate
+different expressions. A difference between their finite classifications
+supplies a comparison of those expressions, rather than a defect in the
+sign-table associator or a homotopy-transfer theorem.
 
-| Decomposition          | Fano-like | Middle    | Genuine   | Total |
-| ---------------------- | --------- | --------- | --------- | ----- |
-| Wilmot (retraction m3) | 35 (U_1)  | 252 (U_2) | 168 (U_3) | 455   |
-| Sign-table (cd_sign)   | 35        | 112       | 308       | 455   |
+`M3IsAssociatorPathion.v` enumerates all 2730 ordered distinct triples
+from {1..15} using the 32D sign recursion restricted to those indices. It
+checks 210 XOR-zero triples, vanishing associator on that class, and the
+exhaustiveness of the partition into XOR-zero, other zero-associator, and
+nonzero-associator triples. Its theorem statements leave the two latter
+counts unevaluated. The historical 35+112+308 unordered summary therefore
+requires its own count witnesses; the partition theorem alone proves less.
 
-The 672 ordered cross-subalgebra-zero triples (112 unordered) are
-triples where XOR != 0 but the sign-table associator vanishes because
-the indices span different octonionic subalgebras within the sedenion.
-The retraction m3 correctly identifies these as non-trivial (they
-appear in Wilmot's U_2 category), capturing cross-subalgebra effects
-that the naive sign-table approach misses.
-
-This dual decomposition is formally verified in Rocq:
-M3IsAssociatorPathion.v (vm_compute, all 2730 ordered triples).
+`test_pathion_retraction_m3` separately enumerates 455 increasing triples
+and prints the cubic polynomial's scalar, imaginary, and zero counts. The
+historical 35/252/168 summary retains finite diagnostic status, with the
+assertion and formalization limits stated in Section XVI.
 
 ## XV-B. Known Tensions and Scope Limits
 
@@ -1604,17 +1648,19 @@ No point has angles < 2% AND r < 3 sigma. (Complementarity theorem)
 
 **Zero-divisor geometry and G2 structure:**
 
-- Reggiani (2024): "Geometry of sedenion zero divisors" [arXiv:2411.18881]
-  Z(S) homeomorphic to G2. Principal bundle SU(2)->G2->V_2(R^7). 84 standard ZDs.
+- Reggiani (2024): "The geometry of sedenion zero divisors" [arXiv:2411.18881]
+  Normalized zero-product pairs Z(S) and normalized single elements ZD(S)
+  are distinct spaces. The source identifies them with G2 and V_2(R^7),
+  respectively, with its stated metrics. The repository's Jacobian sample
+  and 84 standard-factor tests have the narrower scope described in Section V.
   Local: ~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/*/reggiani_2024_2411.18881.pdf
   Integration: g2_stabilizer.rs, sedenion_subalgebras.rs
 
-- Reggiani (2025): "CD algebras -- full study" [arXiv:2512.13002]
-  Isometry group G2 x S^1. Curvature polynomial (285 coefficients).
-  Local: ~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/*/reggiani_2025_251213002_cd_algebras.pdf
-
-- Koebisu (2025): "Singular structures + holonomy" [arXiv:2512.13002]
-  det(L_v) = D_1(v)^4 D_2(v)^2. Local singular model. V_2(R^8) holonomy.
+- Koebisu (2026, version 2): "Determinant Factorization for Left Multiplication
+  in the Sedenions" [arXiv:2512.13002v2](https://arxiv.org/abs/2512.13002v2).
+  det(L_v) = D_1(v)^4 D_2(v)^2, with both scalar coordinates retained in D_2.
+  The identifier belongs to Koebisu. The former Reggiani attribution and
+  full-octonion V_2(R^8) interpretation supply neither source nor theorem.
 
 - Moreno (2005): "Zero divisors of 2^n-ions" [arXiv:math/0512517]
   ZD counting formula for general CD algebras. Stiefel manifold identification.
@@ -1625,6 +1671,11 @@ No point has angles < 2% AND r < 3 sigma. (Complementarity theorem)
   Local: ~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/*/moreno_2005_math0512516_companion.pdf
 
 **Alternative CD constructions:**
+
+- Albuquerque and Majid (1998): "Quasialgebra structure of the octonions"
+  [arXiv:math/9802116](https://arxiv.org/abs/math/9802116).
+  Quasiassociativity uses a nontrivial monoidal associator. Its coherence
+  obligations differ from the refuted minimal uncurved A-infinity ansatz.
 
 - Flipped Polynomial Rings (2024): "CD algebras from flipped Ore extensions" [arXiv:2403.03763]
   ALL CD algebras arise as quotients of flipped non-associative polynomial rings.
@@ -1805,120 +1856,114 @@ on the multiplication table, not the coefficient field). However, it provides:
 - A formal language for "near-zero-divisor" deformations
 - A bridge to non-Archimedean valuation theory on the ZD manifold
 
-### Homotopy Transfer m3 (A-infinity Correction)
+### Retraction Polynomials and the Minimal Uncurved Obstruction
 
-The sedenion retraction p(u,v)=(u+v)/2 with section i(x)=(x,x) defines
-a transferred cubic operation on octonions:
+The maps p(u,v)=(u+v)/2 and i(x)=(x,x) satisfy p*i=id. The helper
+`ht_homotopy` defines h=id-i*p, an ordinary linear projection onto the
+complement. A chain contraction would additionally require a graded
+differential and the identity d*h+h*d=id-i*p. The retraction helpers supply
+neither that differential nor its contraction proof.
 
-    m3(x,y,z) = p(h(i(x)*i(y))*i(z)) - p(i(x)*h(i(y)*i(z)))
+With m_0=m_1=0, the arity-three Stasheff identity requires associativity of
+m_2. The basis triple (e_1,e_2,e_4) has associator norm 2 in the tested
+dimensions 8, 16, and 32. `MinimalUncurvedObstruction.v` proves the generic
+collapse to associativity and the sedenion counterexample;
+`test_minimal_uncurved_candidate_refuted_by_basis_triple` checks those finite
+Rust fixtures. Higher operations cannot repair that identity while m_1
+remains zero. C-611 retains the refuted minimal uncurved claim.
 
-Classification of all 210 ordered triples (e_i, e_j, e_k):
+The retraction code still defines concrete multilinear polynomials. Write
+its cubic expression as T3 to separate the expression from an admitted
+A-infinity operation:
 
-- **42 scalar outputs** (m3 = +/-2 e_0): ALL on Fano-line triples
-  (7 lines * 3! orderings = 42)
-- **168 imaginary outputs** (m3 = +/-2 e_l): ALL on non-Fano triples
-- **0 zero outputs**: m3 is nonzero for every triple
+    T3(x,y,z) = p(h(i(x)*i(y))*i(z)) - p(i(x)*h(i(y)*i(z))).
 
-This encodes the two fundamental G2 calibration forms:
+`algebra_experimental::sedenion_subalgebras::tests` evaluates T3 on 210
+ordered distinct imaginary octonion basis triples. The historical probe
+summary records 42 scalar and 168 imaginary outputs, and a comparison with
+the ordinary associator on the latter class. `test_pathion_retraction_m3`
+evaluates the corresponding 32D construction on 455 increasing triples of
+imaginary sedenion units. Those probes print their classifications; their
+test bodies leave the reported counts and T3/associator equality unasserted.
+The historical counts therefore retain diagnostic status rather than an
+executable acceptance guarantee or an all-dimension theorem.
 
-- phi (3-form, scalar on Fano lines) = the G2-invariant 3-form
-- psi (4-form dual, imaginary on non-Fano) = the co-associative 4-form
+### Formal Scope of the Finite Counts
 
-### Universal Theorem: Retraction m3 = Wilmot Decomposition
+`HomotopyTransferAssociator.v` proves the XOR incidence counts 42+168=210.
+Its definitions contain the Fano predicate and a finite triple list, rather
+than the retraction polynomial T3. `M3IsAssociator.v` proves that the
+ordinary octonion associator vanishes on the 42 Fano triples and has
+coefficient +/-2 on the other 168 triples. Equality with T3 requires a
+separate bridge.
 
-At each CD level, the retraction m3 classifies triads into the Wilmot
-triad decomposition of the target algebra:
+`WilmotRetractionTheorem.v` reuses the octonion XOR counts. Its theorem
+`pathion_wilmot_decomposition` checks the literal arithmetic equality
+35+252+168=455; its statement contains neither a pathion operation nor a
+classification function. The filename and the arithmetic equality carry
+no universal homotopy-transfer conclusion. `M3IsAssociatorPathion.v` proves
+the finite sign-partition statements described in Section XV, leaving the
+retraction comparison separate.
 
-| CD level | Target   | Scalar     | Imaginary (=Assoc) | Zero      | Total |
-| -------- | -------- | ---------- | ------------------ | --------- | ----- |
-| S -> O   | Octonion | 42 (Fano)  | 168 (non-Fano)     | 0         | 210   |
-| P -> S   | Sedenion | 35 (assoc) | 252 (Type X)       | 168 (B+C) | 455   |
+### Higher-Arity Polynomial Diagnostics
 
-The 168 zero m3 at the pathion level = Wilmot Type B (84) + Type C (84).
-This is a UNIVERSAL structural theorem connecting homotopy transfer to
-the Wilmot non-associativity classification.
+The helper in `test_m4_vanishes` evaluates a chosen four-term quartic
+expression. The historical summary records 672 nonzero and 168 zero
+outputs over 840 ordered distinct quadruples, with maximum norm 4.
+`test_m4_zero_classification` groups the zero outputs by Fano incidence.
+The probe computes that particular expression; a nonzero output establishes
+neither an admitted m4 nor an infinite A-infinity structure.
 
-**KEY RESULT (octonion level)**: m3 decomposes into two components:
+The Fano complement relation is a finite combinatorial statement: among
+the 35 four-element subsets of {1..7}, 28 contain one Fano line and seven
+contain zero Fano lines. The seven latter sets are the complements of the
+seven lines. Identifying a polynomial's support with this incidence pattern
+would still require a tensor and equivariance argument before asserting a
+G_2 calibration identity.
 
-- **Non-Fano triples (168)**: m3(x,y,z) = Assoc(x,y,z) EXACTLY (ratio 1.0)
-  where Assoc = (xy)z - x(yz) is the octonionic associator
-- **Fano triples (42)**: m3(x,y,z) = +/-2 e_0 (scalar), while Assoc = 0
-  (Fano lines are associative sub-quaternions, so their associator vanishes)
+The selector `fano_count >= 2` in `test_m4_missing_sets_and_m5` cannot
+identify the seven complements: two distinct Fano lines already occupy
+five points. The four-point complement class has `fano_count == 0`.
+Its finite count and any quartic-output claim require separate assertions.
 
-The Fano scalar term is a "quaternionic trace" contribution from the
-sedenion doubling that has no counterpart in the bare octonion associator.
-The non-Fano component IS the associator; the Fano component is new.
+`test_m4_missing_sets_and_m5` evaluates one left-nested quintic term on
+360 tuples with first input e_1. `test_oscillation_pattern` evaluates one
+left-nested term on distinct basis tuples of lengths three through seven.
+The historical maximum norms 2, 4, and 1 belong to a cubic difference,
+a four-term quartic, and a single quintic term, respectively. They compare
+different expressions and establish neither convergence nor oscillation of
+an infinite series. The printed norm summaries also leave their values
+unasserted.
 
-### m4 Does NOT Vanish (Infinite A-infinity Tower)
-
-The quartic transfer m4 is nonzero for 672 of 840 ordered quadruples (80%).
-Max |m4| = 4.0 (vs m3 max = 2.0). The ratio |m4|/|m3| = 2 means the series
-GROWS, not converges. The A-infinity structure is genuinely infinite.
-
-### m4-Zero Classification: Fano Incidence Hierarchy
-
-Complete classification of C(7,4) = 35 four-element sets:
-
-- **28 sets with exactly 1 Fano sub-triple**: m4 = 0 for 6/24 orderings
-  (those where the Fano triple occupies positions 1-3)
-- **7 sets with 0 Fano sub-triples** ("co-Fano"): m4 nonzero for ALL
-  24 orderings. These are EXACTLY the complements of the 7 Fano lines:
-  {1,2,3}^c = {4,5,6,7}, {1,4,5}^c = {2,3,6,7}, {1,6,7}^c = {2,3,4,5},
-  {2,4,6}^c = {1,3,5,7}, {2,5,7}^c = {1,3,4,6}, {3,4,7}^c = {1,2,5,6},
-  {3,5,6}^c = {1,2,4,7}.
-
-This is the **phi/psi duality of G2**: Fano lines carry the associative
-3-form phi (m3 scalar), their complements carry the co-associative 4-form
-psi (m4 fully nonzero). The m4 classification IS the G2 calibration duality.
-
-Check: 28*6 = 168 zeros, 28*18 + 7*24 = 504 + 168 = 672 nonzeros. Correct.
-
-### m5 Growth: Oscillatory, Not Monotonic
-
-m5 sampling (w=e1, 360 quintuples): all nonzero, max |m5 term| = 1.0.
-Growth sequence: **|m3|=2, |m4|=4, |m5|=1**. The series OSCILLATES.
-
-### Unit-Norm Building Blocks (Corrected Oscillation)
-
-Individual left-nested terms `p(h^{n-2}(i(e_a)*...)*i(e_b))` have norm
-EXACTLY 1.0 for ALL n-tuples at ALL levels n=3..7 (verified through 7!=5040
-permutations). The growth |m3|=2, |m4|=4 comes from COMBINATORIAL
-multiplicity (number of terms with alternating signs), not from individual
-term magnitude. The Catalan numbers C_1=1, C_2=2, C_3=5, C_4=14 govern
-the term count at each level.
-
-### Terminology (Novel to This Work)
-
-- **CD retraction transfer**: Homotopy transfer theorem applied to the
-  Cayley-Dickson doubling retraction p(u,v)=(u+v)/2 with section i(x)=(x,x)
-- **Fano-adjacent n-set**: n-element subset of {1..7} containing exactly
-  1 Fano line sub-triple (28 of 35 four-element sets)
-- **Anti-Fano n-set**: n-element subset containing 0 Fano line sub-triples
-  (7 of 35: {1,2,4,7}, {1,2,5,6}, {1,3,4,6}, {1,3,5,7}, {2,3,4,5},
-  {2,3,6,7}, {4,5,6,7})
-- **Fano incidence tower**: The hierarchy of m_n zero/nonzero classifications
-  by Fano sub-triple count at each A-infinity level
-
-No prior work combining homotopy transfer with the CD retraction and Fano
-plane classification was found in the literature (searched: arXiv, nLab,
-Buchholtz-Rijke HoTT, Baez octonions, Freudenthal-Fano incidence geometry).
+An admissible replacement needs a declared structure and its identities.
+Albuquerque-Majid quasiassociativity changes the monoidal associator and is
+an established alternative with a separate coherence contract. A different
+differential or curvature would likewise change the original claim and
+require a new graded specification. The tensor optimization routines retain
+their meaning as finite polynomial diagnostics.
 
 ### Open Problems
 
-1. [x] Classify m4-zero quadruples: 28 Fano-adjacent + 7 co-Fano sets
-2. [x] Individual term norms: constant 1.0 (growth is combinatorial)
-3. [x] m3 = Assoc on 168 non-Fano triples + scalar trace on 42 Fano triples
-4. [x] Rocq: 42+168 classification via XOR (HomotopyTransferAssociator.v)
+1. Bind the quartic zero-pattern census to executable assertions on its
+   declared 840-input corpus; retain the finite Fano complement count separately.
+2. Bind the left-nested term norms to assertions for tuple lengths three
+   through seven, with the selected polynomial specified at each length.
+3. Prove or independently certify the T3/associator comparison on its
+   declared 210-input corpus before extending its interpretation.
+4. [x] Rocq: finite 42+168 XOR count (HomotopyTransferAssociator.v), separate
+   from a proof about the retraction polynomial
 5. [x] 5-element subsets: ALL 21 have exactly 2 Fano sub-triples (uniform)
 6. Fano incidence sequence across n-set sizes:
    n=3: {7 with 1, 28 with 0}, n=4: {28 with 1, 7 with 0},
    n=5: {21 with 2} (uniform), n=6: {7 with 4}, n=7: {1 with 7}
-7. [x] Formalize the scalar extension theorem in Rocq (CDScalarExtension.v, C-1504)
+7. [x] Formalize the scalar extension theorem in Rocq (CDScalarExtension.v)
 8. [x] Surreal ZD persistence verified with exact dyadic arithmetic (C-1520)
-9. [x] Archimedean stratification: ZD variety stratifies by class over No (C-1521)
+9. Specify a non-Archimedean coefficient domain and geometry before
+   extending the finite dyadic scaling fixtures of C-1521 to a stratification
 10. [x] Friction is field-independent: associator coefficients are integers (C-1523)
 11. [x] Implied class ratios: lepton 1.529, quark 1.771 (sector-dependent, C-1524)
-12. [x] Archimedean stratification formalized in Rocq: ZD requires alpha^2=beta^2 (C-1527)
+12. [x] Real scalar-equation implication alpha^2=beta^2
+    (ArchimedeanStratification.v); the theorem leaves the surreal extension open
 13. [x] Sign-profile clustering: 21 doublets, not 3 generations (C-1525)
 14. [x] Subalgebra classification: 42 = 6 intra + 24 cross + 12 shared (C-1528)
 15. [x] Cross-class coupling penalty: 10% coupling -> 1% mass shift (C-1526)
@@ -1926,23 +1971,28 @@ Buchholtz-Rijke HoTT, Baez octonions, Freudenthal-Fano incidence geometry).
 17. Test friction profiles with explicit psi cycling across subalgebras
 18. Connect Archimedean class ratios to experimental CKM/PMNS mixing angles
 
-### Archimedean Stratification of the ZD Variety (C-1521, C-1527)
+### Finite Dyadic Scaling and the Scalar-Equation Constraint (C-1521)
 
-Over the surreal field No, the zero-divisor variety STRATIFIES by
-Archimedean class. The formal content (ArchimedeanStratification.v):
+`test_archimedean_stratification_of_zd` checks the witness
+(e_1+e_10)(e_4-e_15)=0 after multiplying the first factor by each of
+2^-100, 2^-10, 1, 1000, and 2^50. It also checks a nonzero product when
+the first factor's two coefficients are 2^-50 and 2^30. Those coefficients
+are finite rational numbers and belong to one Archimedean class. The
+fixtures establish bounded scaling persistence and one unequal-coefficient
+failure; they supply no infinitesimal or infinite surreal input.
 
-**Theorem (zd_cross_ratio)**: If (alpha*e_i + beta*e_j)(gamma*e_k - delta*e_l) = 0
-and gamma, delta are nonzero, then alpha^2 = beta^2.
+`ArchimedeanStratification.v::zd_cross_ratio` has four real scalar variables.
+From alpha*gamma=beta*delta, alpha*delta=beta*gamma, and nonzero gamma and
+delta, it derives alpha^2=beta^2. The corollary excludes that conjunction
+when the two squares differ. Its checked statement contains neither a
+Cayley-Dickson product nor a surreal coefficient field; mapping those
+equations to a selected two-blade product is a separate obligation.
 
-**Corollary (no_zd_different_scales)**: If alpha^2 != beta^2 (different
-magnitudes, hence different Archimedean classes), then the product is
-nonzero. Zero divisors REQUIRE equal-magnitude coefficients.
-
-This means:
-
-- Over R: the ZD variety is a single connected 14D manifold (Reggiani G_2)
-- Over No: it stratifies into infinitely many copies, one per Archimedean class
-- Cross-class ZDs do not exist
+Different real magnitudes can share an Archimedean class. Reggiani's
+14-dimensional theorem concerns normalized zero-product pairs, while
+V_2(R^7) describes normalized single elements. Neither result establishes
+copies of a full zero-divisor variety indexed by surreal Archimedean class.
+That geometric extension remains an open specification and proof problem.
 
 ### Three-Layer Theorem: Sign Table / Generations / Mass Hierarchy
 
@@ -2092,11 +2142,12 @@ C-1457: PMNS theta_13 = 8.64 deg (PDG 8.54, 1.2%)
 C-1458: Electroweak mixing angle sin^2(theta_W) = 0.199
 C-1459: 3-blade ZD ratio = 3/2, friction quantized in 2*sqrt(2)
 C-1460: Gresnigt Cl(8) S_3 correspondence
-C-1461: Koebisu V_2(R^8) holonomy verification
+C-1461: Refuted full-octonion V_2(R^8) interpretation; scalar constraints are essential
 C-1462: SU(5) lepton-quark selector identity
 C-1463: Arithmetic inventory (Rocq boolean reflection)
 C-1464: Sedenion anticommutation: all 120 basis pairs anticommute
-C-1465: Koebisu equal-norm: D_2 polynomial verified
+C-1465: Sedenion sign 2-cochain reflection and finite associator-defect census
+C-1760: Equal octonion-half norms for four named vectors, including invertible e_1+e_9
 C-1466: Octonionic subalgebra closure: O_1, O_2, O_3 closed under multiplication
 C-1467: Wilmot Fano 3-form: 7 associative + 28 non-associative octonion triples
 C-1468: Wilmot 14-simplex: 35 terms, 105 edges, 252 non-associative
@@ -2125,13 +2176,13 @@ C-1500: flavor_lifts crate: FlavorLift trait + 4 impls + CP scaffolding + optimi
 C-1501: Paper restructuring: 3-bin abstract, negative-result ladder, known tensions
 C-1502: S_3 lift derivation: V_6 is psi-eigenspace (-0.2215), non-equivariant lift (Epic B)
 C-1503: CDTowerInstantiation: R->C->H->O->S via CDDoubleFunctor, 0 new proofs per level
-C-1504: CDScalarExtension: ring axioms suffice for CD linearity (no ordered-field needed)
-C-1505: WilmotRetractionTheorem: 42+0+168=210 at octonion level, pathion 35+252+168=455
-C-1506: M3IsAssociator: Assoc=0 on Fano, |Assoc|=2 on non-Fano (boolean reflection)
-C-1507: M3IsAssociatorPathion: sign-table partition 35+112+308=455 (dual decomposition)
+C-1504: Cardano eigensolver correctness and eigenvector phase canonicalization
+C-1505: Rephasing-invariant delta_CP extraction from matrix observables
+C-1506: Pathion V_k spectrum comparison; separate from M3IsAssociator.v
+C-1507: Cardano eigensolver polynomial identities in CardanoEigensolver.v
 C-1508: delta_CP sign systematics: Z_2 symmetry, maximal CP robust across 8 combinations
 C-1509: Sign-nullity stratification: exact 1:1 balance at every CD dimension
-C-1510: ZD tangent space dim=20 = 14(G_2) + 6(2-blade), Moreno 4D annihilator confirmed
+C-1510: Unnormalized pairs (e1+e10,e4-e15) and (e3+e10,e6-e15): numerical 16-by-32 product-Jacobian rank 16, kernel dimension 16 at pivot tolerance 1e-10; global geometry remains unadmitted
 C-1511: Bales sign 50% match, p-adic norm isotropy, A_3(Q_p) division status OPEN
 C-1512: CD sign table verified correct through 2048D (11th level)
 C-1513: Lattice codebook: 5/6 levels exact (Lambda_1024 off by 2)
@@ -2142,13 +2193,14 @@ C-1517: CacheHierarchy: auto-detect L1-L4 via CPUID, CPU-agnostic
 C-1518: x87 FP-80 CD multiply oracle (80-bit accumulation)
 C-1519: Dual-pipe verified multiply: x87 oracle validates f64 fast path
 C-1520: Sedenion ZD persists over F_p for all primes (scalar extension universality)
-C-1521: ZD variety stratifies by Archimedean class over No (first surreal result)
+C-1521: Five finite dyadic scaling fixtures and one unequal-coefficient counterexample; surreal stratification remains unproved
 C-1522: Mass hierarchy is NOT dyadic-birthday-driven; framework/content distinction
 C-1523: Friction is field-independent (associator coefficients are integers)
 C-1524: Class ratios sector-dependent: lepton 1.529, quark 1.771 (16% mismatch)
 C-1525: Sign profiles give 21 doublets (C(7,2)) -- generations from psi, not signs
 C-1526: Cross-class coupling at 10% shifts masses by 1% (natural mixing suppression)
-C-1527: Rocq proof: ZD requires alpha^2 = beta^2 (ArchimedeanStratification.v)
+C-1527: Canonical identifier belongs to the faer eigensolver performance claim;
+the real scalar-equation proof is identified by ArchimedeanStratification.v
 C-1528: Subalgebra classification: 42 assessors = 6 intra + 24 cross + 12 shared-to-excl
 C-1529: Intra-generation friction = ZERO; cross-gen quantized in 2*sqrt(2), 1:3 ratio
 C-1530: 3 generations persist at dim=32 (topological: psi order 3 is CD-level-independent)
@@ -2320,7 +2372,8 @@ C-1488: Real-part projection: e_0 component is unique commutative-associative sc
 
 **Zero divisors**: Elements a,b != 0 with a*b = 0. First appear at 16D (sedenions).
 84 standard ZDs in sedenions (Moreno 1997, Reggiani 2024).
-ZD set Z(S) homeomorphic to G2 (Reggiani 2024).
+Reggiani's normalized zero-product pair space Z(S) is identified with G2;
+the normalized single-element locus ZD(S) is V_2(R^7). Section V fixes both domains.
 
 **Box-kites**: Octahedral vertex figures organizing ZD geometry (de Marrais 2000).
 7 box-kites in sedenions, each with 6 assessor vertices.
@@ -2798,8 +2851,9 @@ claims we should trust and which search lanes are worth burning time on.
 
 ### Corrections applied
 
-- Reggiani 2025 [2512.13002] -> This is actually Koebisu 2025. Reggiani's 2025 paper
-  may be a different preprint not yet on arXiv.
+- arXiv:2512.13002v2 belongs to Shoot Koebisu's *Determinant Factorization
+  for Left Multiplication in the Sedenions* (2026). The identifier does
+  not support the former Reggiani attribution or V_2(R^8) interpretation.
 - Gresnigt 2025 [2601.07857] -> Corrected to 2026 (January 2026 preprint).
 
 ### Guterman-Zhilina graph sequence (gap-filled from Math-Net.ru)

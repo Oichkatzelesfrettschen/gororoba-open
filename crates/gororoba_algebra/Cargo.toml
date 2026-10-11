@@ -15,6 +15,7 @@ gororoba_gpu_bridge = { workspace = true }
 gororoba_gpu_cubecl = { workspace = true, optional = true }
 nalgebra = { workspace = true }
 num-complex = { workspace = true }
+num-rational = { workspace = true }
 num-traits = { workspace = true }
 rand = { workspace = true }
 rand_chacha = { workspace = true }

@@ -5,12 +5,12 @@
 updated = "deterministic"
 authoritative = true
 status = "active"
-lacuna_count = 184
-open_count = 13
-high_priority_count = 68
-medium_priority_count = 110
+lacuna_count = 311
+open_count = 140
+high_priority_count = 182
+medium_priority_count = 123
 low_priority_count = 6
-origin_kind_count = 2
+origin_kind_count = 4
 
 [[lacuna]]
 id = "L-001"
@@ -314,7 +314,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0001"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0001"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -326,7 +326,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0002"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0002"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -338,7 +338,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0003"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0003"
 description = "Verified status conflicts with negative language in statement."
@@ -350,7 +350,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0004"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0004"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -362,7 +362,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0005"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0005"
 description = "Verified status conflicts with negative language in statement."
@@ -374,7 +374,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0006"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0006"
 description = "Verified status conflicts with negative language in statement."
@@ -386,7 +386,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0007"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0007"
 description = "Verified status conflicts with negative language in statement."
@@ -398,7 +398,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0008"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0008"
 description = "Verified status conflicts with negative language in statement."
@@ -410,7 +410,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0009"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0009"
 description = "Verified status conflicts with negative language in statement."
@@ -422,7 +422,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0010"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0010"
 description = "Verified status conflicts with negative language in statement."
@@ -434,7 +434,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0011"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0011"
 description = "Verified status conflicts with negative language in statement."
@@ -446,7 +446,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0012"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0012"
 description = "Verified status conflicts with negative language in statement."
@@ -458,7 +458,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0013"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0013"
 description = "Verified status conflicts with negative language in statement."
@@ -470,7 +470,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0014"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0014"
 description = "Verified status conflicts with negative language in statement."
@@ -482,7 +482,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0015"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0015"
 description = "Verified status conflicts with negative language in statement."
@@ -494,7 +494,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0016"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0016"
 description = "Verified status conflicts with negative language in statement."
@@ -506,7 +506,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0017"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0017"
 description = "Verified status conflicts with negative language in statement."
@@ -518,7 +518,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0018"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0018"
 description = "Verified status conflicts with negative language in statement."
@@ -530,7 +530,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0019"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0019"
 description = "Verified status conflicts with negative language in statement."
@@ -542,7 +542,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0020"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0020"
 description = "Verified status conflicts with negative language in statement."
@@ -554,7 +554,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0021"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0021"
 description = "Verified status conflicts with negative language in statement."
@@ -566,7 +566,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0022"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0022"
 description = "Verified status conflicts with negative language in statement."
@@ -578,7 +578,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0023"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0023"
 description = "Verified status conflicts with negative language in statement."
@@ -590,7 +590,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0024"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0024"
 description = "Verified status conflicts with negative language in statement."
@@ -602,7 +602,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0025"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0025"
 description = "Verified status conflicts with negative language in statement."
@@ -614,7 +614,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0026"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0026"
 description = "Verified status conflicts with negative language in statement."
@@ -626,7 +626,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0027"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0027"
 description = "Verified status conflicts with negative language in statement."
@@ -638,7 +638,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0028"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0028"
 description = "Verified status conflicts with negative language in statement."
@@ -650,7 +650,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0029"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0029"
 description = "Verified status conflicts with negative language in statement."
@@ -662,7 +662,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0030"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0030"
 description = "Verified status conflicts with negative language in statement."
@@ -674,7 +674,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0031"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0031"
 description = "Verified status conflicts with negative language in statement."
@@ -686,7 +686,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0032"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0032"
 description = "Verified status conflicts with negative language in statement."
@@ -698,7 +698,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0033"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0033"
 description = "Verified status conflicts with negative language in statement."
@@ -710,7 +710,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0034"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0034"
 description = "Verified status conflicts with negative language in statement."
@@ -722,7 +722,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0035"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0035"
 description = "Verified status conflicts with negative language in statement."
@@ -734,7 +734,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0036"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0036"
 description = "Verified status conflicts with negative language in statement."
@@ -746,7 +746,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0037"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0037"
 description = "Verified status conflicts with negative language in statement."
@@ -758,7 +758,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0038"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0038"
 description = "Verified status conflicts with negative language in statement."
@@ -770,7 +770,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0039"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0039"
 description = "Verified status conflicts with negative language in statement."
@@ -782,7 +782,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0040"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0040"
 description = "Verified status conflicts with negative language in statement."
@@ -794,7 +794,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0041"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0041"
 description = "Verified status conflicts with negative language in statement."
@@ -806,7 +806,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0042"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0042"
 description = "Verified status conflicts with negative language in statement."
@@ -818,7 +818,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0043"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0043"
 description = "Verified status conflicts with negative language in statement."
@@ -830,7 +830,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0044"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0044"
 description = "Verified status conflicts with negative language in statement."
@@ -842,7 +842,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0045"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0045"
 description = "Verified status conflicts with negative language in statement."
@@ -854,7 +854,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0046"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0046"
 description = "Verified status conflicts with negative language in statement."
@@ -866,7 +866,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0047"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0047"
 description = "Verified status conflicts with negative language in statement."
@@ -878,7 +878,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0048"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0048"
 description = "Verified status conflicts with negative language in statement."
@@ -890,7 +890,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0049"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0049"
 description = "Verified status conflicts with negative language in statement."
@@ -902,7 +902,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0050"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0050"
 description = "Verified status conflicts with negative language in statement."
@@ -914,7 +914,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0051"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0051"
 description = "Verified status conflicts with negative language in statement."
@@ -926,7 +926,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0052"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0052"
 description = "Verified status conflicts with negative language in statement."
@@ -938,7 +938,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0053"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0053"
 description = "Verified status conflicts with negative language in statement."
@@ -950,7 +950,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0054"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0054"
 description = "Verified status conflicts with negative language in statement."
@@ -962,7 +962,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0055"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0055"
 description = "Verified status conflicts with negative language in statement."
@@ -974,7 +974,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0056"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0056"
 description = "Verified status conflicts with negative language in statement."
@@ -986,7 +986,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0057"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0057"
 description = "Verified status conflicts with negative language in statement."
@@ -998,7 +998,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0058"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0058"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -1010,7 +1010,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0059"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0059"
 description = "Verified status conflicts with negative language in statement."
@@ -1022,7 +1022,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0060"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0060"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -1034,7 +1034,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0061"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0061"
 description = "Refuted/negative status conflicts with positive language in statement."
@@ -1046,7 +1046,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0062"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0062"
 description = "Verified status conflicts with negative language in statement."
@@ -1058,7 +1058,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0063"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0063"
 description = "Section contains both positive and negative validation language."
@@ -1070,7 +1070,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0064"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0064"
 description = "Section contains both positive and negative validation language."
@@ -1082,7 +1082,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0065"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0065"
 description = "Section contains both positive and negative validation language."
@@ -1094,7 +1094,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0066"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0066"
 description = "Section contains both positive and negative validation language."
@@ -1106,7 +1106,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0067"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0067"
 description = "Section contains both positive and negative validation language."
@@ -1118,7 +1118,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0068"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0068"
 description = "Section contains both positive and negative validation language."
@@ -1130,7 +1130,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0069"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0069"
 description = "Section contains both positive and negative validation language."
@@ -1142,7 +1142,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0070"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0070"
 description = "Section contains both positive and negative validation language."
@@ -1154,7 +1154,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0071"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0071"
 description = "Section contains both positive and negative validation language."
@@ -1166,7 +1166,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0072"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0072"
 description = "Section contains both positive and negative validation language."
@@ -1178,7 +1178,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0073"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0073"
 description = "Section contains both positive and negative validation language."
@@ -1190,7 +1190,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0074"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0074"
 description = "Section contains both positive and negative validation language."
@@ -1202,7 +1202,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0075"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0075"
 description = "Section contains both positive and negative validation language."
@@ -1214,7 +1214,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0076"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0076"
 description = "Section contains both positive and negative validation language."
@@ -1226,7 +1226,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0077"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0077"
 description = "Section contains both positive and negative validation language."
@@ -1238,7 +1238,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0078"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0078"
 description = "Section contains both positive and negative validation language."
@@ -1250,7 +1250,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0079"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0079"
 description = "Section contains both positive and negative validation language."
@@ -1262,7 +1262,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0080"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0080"
 description = "Section contains both positive and negative validation language."
@@ -1274,7 +1274,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0081"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0081"
 description = "Section contains both positive and negative validation language."
@@ -1286,7 +1286,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0082"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0082"
 description = "Section contains both positive and negative validation language."
@@ -1298,7 +1298,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0083"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0083"
 description = "Section contains both positive and negative validation language."
@@ -1310,7 +1310,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0084"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0084"
 description = "Section contains both positive and negative validation language."
@@ -1322,7 +1322,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0085"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0085"
 description = "Section contains both positive and negative validation language."
@@ -1334,7 +1334,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0086"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0086"
 description = "Section contains both positive and negative validation language."
@@ -1346,7 +1346,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0087"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0087"
 description = "Section contains both positive and negative validation language."
@@ -1358,7 +1358,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0088"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0088"
 description = "Section contains both positive and negative validation language."
@@ -1370,7 +1370,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0089"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0089"
 description = "Section contains both positive and negative validation language."
@@ -1382,7 +1382,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0090"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0090"
 description = "Section contains both positive and negative validation language."
@@ -1394,7 +1394,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0091"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0091"
 description = "Section contains both positive and negative validation language."
@@ -1406,7 +1406,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0092"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0092"
 description = "Section contains both positive and negative validation language."
@@ -1418,7 +1418,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0093"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0093"
 description = "Section contains both positive and negative validation language."
@@ -1430,7 +1430,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0094"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0094"
 description = "Section contains both positive and negative validation language."
@@ -1442,7 +1442,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0095"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0095"
 description = "Section contains both positive and negative validation language."
@@ -1454,7 +1454,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0096"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0096"
 description = "Section contains both positive and negative validation language."
@@ -1466,7 +1466,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0097"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0097"
 description = "Section contains both positive and negative validation language."
@@ -1478,7 +1478,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0098"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0098"
 description = "Section contains both positive and negative validation language."
@@ -1490,7 +1490,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0099"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0099"
 description = "Section contains both positive and negative validation language."
@@ -1502,7 +1502,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0100"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0100"
 description = "Section contains both positive and negative validation language."
@@ -1514,7 +1514,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0101"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0101"
 description = "Section contains both positive and negative validation language."
@@ -1526,7 +1526,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0102"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0102"
 description = "Section contains both positive and negative validation language."
@@ -1538,7 +1538,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0103"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0103"
 description = "Section contains both positive and negative validation language."
@@ -1550,7 +1550,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0104"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0104"
 description = "Section contains both positive and negative validation language."
@@ -1562,7 +1562,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0105"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0105"
 description = "Section contains both positive and negative validation language."
@@ -1574,7 +1574,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0106"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0106"
 description = "Section contains both positive and negative validation language."
@@ -1586,7 +1586,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0107"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0107"
 description = "Section contains both positive and negative validation language."
@@ -1598,7 +1598,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0108"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0108"
 description = "Section contains both positive and negative validation language."
@@ -1610,7 +1610,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0109"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0109"
 description = "Section contains both positive and negative validation language."
@@ -1622,7 +1622,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0110"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0110"
 description = "Section contains both positive and negative validation language."
@@ -1634,7 +1634,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0111"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0111"
 description = "Section contains both positive and negative validation language."
@@ -1646,7 +1646,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0112"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0112"
 description = "Section contains both positive and negative validation language."
@@ -1658,7 +1658,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0113"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0113"
 description = "Section contains both positive and negative validation language."
@@ -1670,7 +1670,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0114"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0114"
 description = "Section contains both positive and negative validation language."
@@ -1682,7 +1682,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0115"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0115"
 description = "Section contains both positive and negative validation language."
@@ -1694,7 +1694,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0116"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0116"
 description = "Section contains both positive and negative validation language."
@@ -1706,7 +1706,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0117"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0117"
 description = "Section contains both positive and negative validation language."
@@ -1718,7 +1718,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0118"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0118"
 description = "Section contains both positive and negative validation language."
@@ -1730,7 +1730,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0119"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0119"
 description = "Section contains both positive and negative validation language."
@@ -1742,7 +1742,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0120"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0120"
 description = "Section contains both positive and negative validation language."
@@ -1754,7 +1754,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0121"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0121"
 description = "Section contains both positive and negative validation language."
@@ -1766,7 +1766,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0122"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0122"
 description = "Section contains both positive and negative validation language."
@@ -1778,7 +1778,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0123"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0123"
 description = "Section contains both positive and negative validation language."
@@ -1790,7 +1790,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0124"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0124"
 description = "Section contains both positive and negative validation language."
@@ -1802,7 +1802,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0125"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0125"
 description = "Section contains both positive and negative validation language."
@@ -1814,7 +1814,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0126"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0126"
 description = "Section contains both positive and negative validation language."
@@ -1826,7 +1826,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0127"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0127"
 description = "Section contains both positive and negative validation language."
@@ -1838,7 +1838,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0128"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0128"
 description = "Section contains both positive and negative validation language."
@@ -1850,7 +1850,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0129"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0129"
 description = "Section contains both positive and negative validation language."
@@ -1862,7 +1862,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0130"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0130"
 description = "Section contains both positive and negative validation language."
@@ -1874,7 +1874,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0131"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0131"
 description = "Section contains both positive and negative validation language."
@@ -1886,7 +1886,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0132"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0132"
 description = "Section contains both positive and negative validation language."
@@ -1898,7 +1898,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0133"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0133"
 description = "Section contains both positive and negative validation language."
@@ -1910,7 +1910,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0134"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0134"
 description = "Section contains both positive and negative validation language."
@@ -1922,7 +1922,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0135"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0135"
 description = "Section contains both positive and negative validation language."
@@ -1934,7 +1934,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0136"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0136"
 description = "Section contains both positive and negative validation language."
@@ -1946,7 +1946,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0137"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0137"
 description = "Section contains both positive and negative validation language."
@@ -1958,7 +1958,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0138"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0138"
 description = "Section contains both positive and negative validation language."
@@ -1970,7 +1970,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0139"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0139"
 description = "Section contains both positive and negative validation language."
@@ -1982,7 +1982,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0140"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0140"
 description = "Section contains both positive and negative validation language."
@@ -1994,7 +1994,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0141"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0141"
 description = "Section contains both positive and negative validation language."
@@ -2006,7 +2006,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0142"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0142"
 description = "Section contains both positive and negative validation language."
@@ -2018,7 +2018,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0143"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0143"
 description = "Section contains both positive and negative validation language."
@@ -2030,7 +2030,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0144"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0144"
 description = "Section contains both positive and negative validation language."
@@ -2042,7 +2042,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0145"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0145"
 description = "Section contains both positive and negative validation language."
@@ -2054,7 +2054,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0146"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0146"
 description = "Section contains both positive and negative validation language."
@@ -2066,7 +2066,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0147"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0147"
 description = "Section contains both positive and negative validation language."
@@ -2078,7 +2078,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0148"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0148"
 description = "Section contains both positive and negative validation language."
@@ -2090,7 +2090,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0149"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0149"
 description = "Section contains both positive and negative validation language."
@@ -2102,7 +2102,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0150"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0150"
 description = "Section contains both positive and negative validation language."
@@ -2114,7 +2114,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0151"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0151"
 description = "Section contains both positive and negative validation language."
@@ -2126,7 +2126,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0152"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0152"
 description = "Section contains both positive and negative validation language."
@@ -2138,7 +2138,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0153"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0153"
 description = "Section contains both positive and negative validation language."
@@ -2150,7 +2150,7 @@ related_marker_ids = []
 
 [[lacuna]]
 id = "L-CM-0154"
-origin = "legacy_manual"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve conflict marker CM-0154"
 description = "Section contains both positive and negative validation language."
@@ -2159,6 +2159,1530 @@ status = "resolved"
 claim_refs = []
 source_refs = []
 related_marker_ids = []
+
+[[lacuna]]
+id = "L-CM-v1-00ee8aff6e484d648c23e4d2648b7ff61c655768145a2477a8842a07a3651af5"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-146"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-146"]
+source_refs = ["registry/claims.toml", "C-146"]
+related_marker_ids = ["CM-0035"]
+
+[[lacuna]]
+id = "L-CM-v1-02335851a568f6a5caca99d9572859dcc760cc8882960a43b2edb1c9e90cd089"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1315"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1315"]
+source_refs = ["registry/claims.toml", "C-1315"]
+related_marker_ids = ["CM-0024"]
+
+[[lacuna]]
+id = "L-CM-v1-02b91b82318ed55403b86d21b4c30659c2015797c130bc0d1361aeac81a53d96"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1396"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1396"]
+source_refs = ["registry/claims.toml", "C-1396"]
+related_marker_ids = ["CM-0030"]
+
+[[lacuna]]
+id = "L-CM-v1-036cd1810d2d7791fa56e3641fbafee18a7723d4bc0c45d1ac490afb1ab0fbce"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-498"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-498"]
+source_refs = ["registry/claims.toml", "C-498"]
+related_marker_ids = ["CM-0092"]
+
+[[lacuna]]
+id = "L-CM-v1-0400c217428793d49bd2b6ada574bac3477ed6d50d50c61a627879c075ee1129"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/PHYSICAL_CLAIM_BOUNDARIES.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = ["C-011"]
+source_refs = ["registry/docs_root_narratives.toml", "docs/PHYSICAL_CLAIM_BOUNDARIES.md"]
+related_marker_ids = ["CM-0121"]
+
+[[lacuna]]
+id = "L-CM-v1-071c22db4848e8b47e60ade54b65f335e6058228b5bd5ba360fe3807c42eedef"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-611"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-611"]
+source_refs = ["registry/claims.toml", "C-611"]
+related_marker_ids = ["CM-0096"]
+
+[[lacuna]]
+id = "L-CM-v1-08c1758993db81a8a7393daf2d0f8c7eda198553479885233754f92671e29e61"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-785"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-785"]
+source_refs = ["registry/claims.toml", "C-785"]
+related_marker_ids = ["CM-0107"]
+
+[[lacuna]]
+id = "L-CM-v1-08c42ef2b9cf5e9a4dd68ed01cc9aaeae33c201afb7d40a089c56ae01467d678"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-425"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-425"]
+source_refs = ["registry/claims.toml", "C-425"]
+related_marker_ids = ["CM-0089"]
+
+[[lacuna]]
+id = "L-CM-v1-09e28ca1382caf89657ee252299dd93dcf318afc8175385745129062dc4d29ff"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-250"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-250"]
+source_refs = ["registry/claims.toml", "C-250"]
+related_marker_ids = ["CM-0062"]
+
+[[lacuna]]
+id = "L-CM-v1-0eec743dcaa63448d5552483bd552ee4745cf7f9e831f598ca23c3c1da28a772"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1358"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1358"]
+source_refs = ["registry/claims.toml", "C-1358"]
+related_marker_ids = ["CM-0027"]
+
+[[lacuna]]
+id = "L-CM-v1-0f2c03793236d0f631b4daee5ee3135f50f808b82d8d046d577964d40eedb310"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-157"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-157"]
+source_refs = ["registry/claims.toml", "C-157"]
+related_marker_ids = ["CM-0039"]
+
+[[lacuna]]
+id = "L-CM-v1-0f9b3fe99561456a262ef90d23cd050c00da24a8ab09aa59426a94dd65f600aa"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-190"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-190"]
+source_refs = ["registry/claims.toml", "C-190"]
+related_marker_ids = ["CM-0051"]
+
+[[lacuna]]
+id = "L-CM-v1-13e737e0fd0509c5fcf2d4fbcfd68613285634b87ffb22fb7b87f155af8da8ed"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-684"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-684"]
+source_refs = ["registry/claims.toml", "C-684"]
+related_marker_ids = ["CM-0103"]
+
+[[lacuna]]
+id = "L-CM-v1-1c98687e54c53c42e1d30d37d865185bc8bdab6080c6c23b86d7a9f8e0f6f301"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-233"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-233"]
+source_refs = ["registry/claims.toml", "C-233"]
+related_marker_ids = ["CM-0058"]
+
+[[lacuna]]
+id = "L-CM-v1-1d683353145d355088393841d52e023f02b550fb853f4813f0e3cd64abf22cab"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1395"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1395"]
+source_refs = ["registry/claims.toml", "C-1395"]
+related_marker_ids = ["CM-0029"]
+
+[[lacuna]]
+id = "L-CM-v1-202ed65432cb507641d5f9d8d4e4935115192ab5df469dd7372370ccd1c359e4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1364"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1364"]
+source_refs = ["registry/claims.toml", "C-1364"]
+related_marker_ids = ["CM-0028"]
+
+[[lacuna]]
+id = "L-CM-v1-232db0c502b7ec46758a3fb77ab976dde22cec9d165d88eeee73da28077a43f0"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-322"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-322"]
+source_refs = ["registry/claims.toml", "C-322"]
+related_marker_ids = ["CM-0074"]
+
+[[lacuna]]
+id = "L-CM-v1-24a517634cc64ccac4dbc3f893a68875d989826adcbe28fb4c9187beb22c9ced"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-613"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-613"]
+source_refs = ["registry/claims.toml", "C-613"]
+related_marker_ids = ["CM-0098"]
+
+[[lacuna]]
+id = "L-CM-v1-26d8fddd5308c1fd00ebc249c8e8e16358787cb95de01a045253d00567d14967"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-184"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-184"]
+source_refs = ["registry/claims.toml", "C-184"]
+related_marker_ids = ["CM-0050"]
+
+[[lacuna]]
+id = "L-CM-v1-2751649b5c1201a5e9116f72fdb4b0988be65997f187ba8e2200cab9fb576d8d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-113"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-113"]
+source_refs = ["registry/claims.toml", "C-113"]
+related_marker_ids = ["CM-0009"]
+
+[[lacuna]]
+id = "L-CM-v1-2c853ce3f0e96fb8b037bca37125cc7dc8bdd20423b88c004fc3640bda24dad2"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-365"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-365"]
+source_refs = ["registry/claims.toml", "C-365"]
+related_marker_ids = ["CM-0085"]
+
+[[lacuna]]
+id = "L-CM-v1-2cb2b696d307eb7497b5bad56ee78e6007f021c4e65080fb5c83c61a57572c94"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1307"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1307"]
+source_refs = ["registry/claims.toml", "C-1307"]
+related_marker_ids = ["CM-0022"]
+
+[[lacuna]]
+id = "L-CM-v1-2d00b665bf254885f2c766157e60024e342e648066ed1cf49b3b6b546b1a6ae5"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-181"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-181"]
+source_refs = ["registry/claims.toml", "C-181"]
+related_marker_ids = ["CM-0047"]
+
+[[lacuna]]
+id = "L-CM-v1-2d31cb9921219385d0c85395a4e9655d93a040a3703909ab7fafea99a51fb95f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1426"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1426"]
+source_refs = ["registry/claims.toml", "C-1426"]
+related_marker_ids = ["CM-0033"]
+
+[[lacuna]]
+id = "L-CM-v1-31fbdfb7229c5678018ff807a7c632507d1b5b0ae565c7a32548ffcd8f1b4ab0"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-789"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-789"]
+source_refs = ["registry/claims.toml", "C-789"]
+related_marker_ids = ["CM-0109"]
+
+[[lacuna]]
+id = "L-CM-v1-354763e621adb16b2817c0bc6068e1ac3608fc1bdb0ac9c5ef4af846444ef929"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1755"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1755"]
+source_refs = ["registry/claims.toml", "C-1755"]
+related_marker_ids = ["CM-0045"]
+
+[[lacuna]]
+id = "L-CM-v1-37ced9811f0d35d7f279da51d465f77d1c62eaf0e0ef9f643465e2043cf2ef39"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/E027_PHASE2_EXECUTION_PLAN.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = ["C-657"]
+source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
+related_marker_ids = ["CM-0116"]
+
+[[lacuna]]
+id = "L-CM-v1-380c6ae2249816ecfd0278c734510b6ad5cfbb1df6fe990ea2d6aa3d54f9267b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-182"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-182"]
+source_refs = ["registry/claims.toml", "C-182"]
+related_marker_ids = ["CM-0048"]
+
+[[lacuna]]
+id = "L-CM-v1-3d813f32245e817baf4c87dabaf5e35f978c6160818ded59d30c589a92fa7076"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-936"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-936"]
+source_refs = ["registry/claims.toml", "C-936"]
+related_marker_ids = ["CM-0114"]
+
+[[lacuna]]
+id = "L-CM-v1-3d91f6a70809f903cfcfb0408c1b9717c4746aa9a0555da9131035d36a44edc9"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-636"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-636"]
+source_refs = ["registry/claims.toml", "C-636"]
+related_marker_ids = ["CM-0101"]
+
+[[lacuna]]
+id = "L-CM-v1-3fae6e87fcce226494dc2eb8762471d380fa5fa37fa96a3e457577c707ca29bb"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-263"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-263"]
+source_refs = ["registry/claims.toml", "C-263"]
+related_marker_ids = ["CM-0065"]
+
+[[lacuna]]
+id = "L-CM-v1-444e5bb3f78bfe0e3256463d8d80126c42c453ae71457cdf770623a5c631e417"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-238"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-238"]
+source_refs = ["registry/claims.toml", "C-238"]
+related_marker_ids = ["CM-0060"]
+
+[[lacuna]]
+id = "L-CM-v1-448d6a829c093b0038dfd807b1cbadb0066e736439f06dc66c2977a176164428"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/DE_MARRAIS_BOXKITES_III.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md"]
+related_marker_ids = ["CM-0122"]
+
+[[lacuna]]
+id = "L-CM-v1-451a87784d10afc971a4ff5759c697fe10ffe9b6a5d6ba14bf6a08890fd986d2"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-332"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-332"]
+source_refs = ["registry/claims.toml", "C-332"]
+related_marker_ids = ["CM-0077"]
+
+[[lacuna]]
+id = "L-CM-v1-45c9b1978441b4bf3322376eaf8cbcef6bb688ffcad0a0f8c0ae3b47787e9336"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1164"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1164"]
+source_refs = ["registry/claims.toml", "C-1164"]
+related_marker_ids = ["CM-0013"]
+
+[[lacuna]]
+id = "L-CM-v1-45edb0dcd8b454cfa2f499f444fe2d4a50f9b233e174721a146d13d04473df03"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-308"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-308"]
+source_refs = ["registry/claims.toml", "C-308"]
+related_marker_ids = ["CM-0071"]
+
+[[lacuna]]
+id = "L-CM-v1-46c648ce4d44aa0dd8d8dfc1b56f221a4a9b01d0e49497aa4ee6b3387f755c69"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-764"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-764"]
+source_refs = ["registry/claims.toml", "C-764"]
+related_marker_ids = ["CM-0105"]
+
+[[lacuna]]
+id = "L-CM-v1-4ab85af426688492698a752e94c756aeb707ad6b79e5ca13edf20d0631ba082d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-448"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-448"]
+source_refs = ["registry/claims.toml", "C-448"]
+related_marker_ids = ["CM-0090"]
+
+[[lacuna]]
+id = "L-CM-v1-4cb3255a9f1558438a140be87a4898a536dea081a5c9494b780dc900449b01af"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-271"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-271"]
+source_refs = ["registry/claims.toml", "C-271"]
+related_marker_ids = ["CM-0068"]
+
+[[lacuna]]
+id = "L-CM-v1-511cfe992e05eb92c3c0cb879a33d12437a51cfb7011144d1d911accf7e8cda0"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-265"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-265"]
+source_refs = ["registry/claims.toml", "C-265"]
+related_marker_ids = ["CM-0066"]
+
+[[lacuna]]
+id = "L-CM-v1-51391d8c531a3f0d8c1c3b7b02b1286cfa203af19460a1c54c90279baea49f40"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-109"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-109"]
+source_refs = ["registry/claims.toml", "C-109"]
+related_marker_ids = ["CM-0006"]
+
+[[lacuna]]
+id = "L-CM-v1-552e7b53ae786e6af702cbef8e2f20e5bb2f86bf5f828ae4c83a326878e21977"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1431"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1431"]
+source_refs = ["registry/claims.toml", "C-1431"]
+related_marker_ids = ["CM-0034"]
+
+[[lacuna]]
+id = "L-CM-v1-5e1469eaa447bb36cb9a80edc931021a680a6143e5eb49ae2516cf37d2b74fe5"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-340"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-340"]
+source_refs = ["registry/claims.toml", "C-340"]
+related_marker_ids = ["CM-0078"]
+
+[[lacuna]]
+id = "L-CM-v1-60f6695e369d88aa920e2ba286dc6e6dc9457aeb62cc45e094670b11122dca72"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-353"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-353"]
+source_refs = ["registry/claims.toml", "C-353"]
+related_marker_ids = ["CM-0082"]
+
+[[lacuna]]
+id = "L-CM-v1-6a0a9c5245cbe4ca7eca17affc3f951b76a3ff4e7e11958f26916f5b5a8d1d95"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/PIONEER_FLYBY_ANOMALY_SOURCES.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/PIONEER_FLYBY_ANOMALY_SOURCES.md"]
+related_marker_ids = ["CM-0127"]
+
+[[lacuna]]
+id = "L-CM-v1-6a2773c595c12bf43064eb222ffcdc538ab7a113e2f329f6d08cf12b39c66f2f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-255"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-255"]
+source_refs = ["registry/claims.toml", "C-255"]
+related_marker_ids = ["CM-0063"]
+
+[[lacuna]]
+id = "L-CM-v1-6b5e14e899135770d84d20d5d83dd3bc75a15af3b653dc639ec83013748f82b4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/SCOPE_GUARDRAILS.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = ["C-012", "C-430", "C-441"]
+source_refs = ["registry/docs_root_narratives.toml", "docs/SCOPE_GUARDRAILS.md"]
+related_marker_ids = ["CM-0119"]
+
+[[lacuna]]
+id = "L-CM-v1-6e18c2fb67a72ff54df7e84ddd3882ae0eb3e7bcf74f0e65823a067ec5eba146"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-021"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-021"]
+source_refs = ["registry/claims.toml", "C-021"]
+related_marker_ids = ["CM-0002"]
+
+[[lacuna]]
+id = "L-CM-v1-6ed9820e8d25e816d845d27eb314d73833d9cb80b2d7b478916e3bf0d081ae85"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-327"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-327"]
+source_refs = ["registry/claims.toml", "C-327"]
+related_marker_ids = ["CM-0076"]
+
+[[lacuna]]
+id = "L-CM-v1-6f62b44a3b60f5f28057f3c2e4c02be9c320348cc443da14ac8d6fae9ed67d1b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-847"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-847"]
+source_refs = ["registry/claims.toml", "C-847"]
+related_marker_ids = ["CM-0111"]
+
+[[lacuna]]
+id = "L-CM-v1-6fd140987bff2255d487954d6df855d6f1bf2fce694183c817e36d7b4b4c50db"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1290"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1290"]
+source_refs = ["registry/claims.toml", "C-1290"]
+related_marker_ids = ["CM-0021"]
+
+[[lacuna]]
+id = "L-CM-v1-72d7dd32b4012b05b6f546b8b36aa8c8b5dcd187fa943f93ad0463e54dce4e00"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-351"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-351"]
+source_refs = ["registry/claims.toml", "C-351"]
+related_marker_ids = ["CM-0080"]
+
+[[lacuna]]
+id = "L-CM-v1-747f030ddd942b416caa58e509686ef3d928df9825ccfcae25e28ece170aed82"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1128"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1128"]
+source_refs = ["registry/claims.toml", "C-1128"]
+related_marker_ids = ["CM-0008"]
+
+[[lacuna]]
+id = "L-CM-v1-748d1c38b19101d25a7159c834770a20d9ecc23e1b3f3f603d9e679afad040f6"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md"]
+related_marker_ids = ["CM-0124"]
+
+[[lacuna]]
+id = "L-CM-v1-7550d0fdf17a01bce3259edc1e28722df5f3044b38886d5c8a5e12960e04ed5f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-585"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-585"]
+source_refs = ["registry/claims.toml", "C-585"]
+related_marker_ids = ["CM-0093"]
+
+[[lacuna]]
+id = "L-CM-v1-7637aa06c5ac62398c216d4f6148f104b327e22541a265d30d027f88782693a9"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1240"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1240"]
+source_refs = ["registry/claims.toml", "C-1240"]
+related_marker_ids = ["CM-0018"]
+
+[[lacuna]]
+id = "L-CM-v1-78012a3eab44ba00010a288392f18354ec89de1d8bb04d59c5bb2fe0b00cdc1b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-094"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-094"]
+source_refs = ["registry/claims.toml", "C-094"]
+related_marker_ids = ["CM-0005"]
+
+[[lacuna]]
+id = "L-CM-v1-783c253a56c756b61ab89cc8fbbb5cc0e4a0d30f70e581fb97091a221e687406"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1752"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1752"]
+source_refs = ["registry/claims.toml", "C-1752"]
+related_marker_ids = ["CM-0044"]
+
+[[lacuna]]
+id = "L-CM-v1-79b3d912ddbaa47a93b9757d6c51b3e9924d3962267f99fd5c0d65583364b545"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-323"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-323"]
+source_refs = ["registry/claims.toml", "C-323"]
+related_marker_ids = ["CM-0075"]
+
+[[lacuna]]
+id = "L-CM-v1-79ecd7dab69b990cd580ee4b10b859d4eef43ab193345064ae4943a4469d62b4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-267"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-267"]
+source_refs = ["registry/claims.toml", "C-267"]
+related_marker_ids = ["CM-0067"]
+
+[[lacuna]]
+id = "L-CM-v1-7b798481d27a784cd6c3478d45893bb13d8590b566d280ad96180b6c01d17d59"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-716"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-716"]
+source_refs = ["registry/claims.toml", "C-716"]
+related_marker_ids = ["CM-0104"]
+
+[[lacuna]]
+id = "L-CM-v1-7d4fca841da3403480d77695e01bc8c0d3bf3e8bf4c3157a0cbcfc74e93ec0cd"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-299"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-299"]
+source_refs = ["registry/claims.toml", "C-299"]
+related_marker_ids = ["CM-0070"]
+
+[[lacuna]]
+id = "L-CM-v1-7ed66aa19b90e22106224a75d3370d6d24c9545afbaec6c050770543aa5fad6b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-919"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-919"]
+source_refs = ["registry/claims.toml", "C-919"]
+related_marker_ids = ["CM-0112"]
+
+[[lacuna]]
+id = "L-CM-v1-7f2b46b3a1151cbcd47c64238d241857de5786660e1b6b5aab7a4bfa53e496a0"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1351"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1351"]
+source_refs = ["registry/claims.toml", "C-1351"]
+related_marker_ids = ["CM-0025"]
+
+[[lacuna]]
+id = "L-CM-v1-7fa8e4bb6234dcef5162f8d88733391eeae7a9e22feb6692a005e2c83f34c7ad"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/PHASE1_REMAINING_ROADMAP.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = ["C-657", "C-670"]
+source_refs = ["registry/docs_root_narratives.toml", "docs/PHASE1_REMAINING_ROADMAP.md"]
+related_marker_ids = ["CM-0118"]
+
+[[lacuna]]
+id = "L-CM-v1-80f9a41a021d3ca5bb4d20a86d8178cf6cc1d480f18408e52c8cba2973e282ae"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-311"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-311"]
+source_refs = ["registry/claims.toml", "C-311"]
+related_marker_ids = ["CM-0072"]
+
+[[lacuna]]
+id = "L-CM-v1-8260c6be1f01af272e4a47d37a7944f5541f608531ef7c3b24ddb2190de16ed7"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-786"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-786"]
+source_refs = ["registry/claims.toml", "C-786"]
+related_marker_ids = ["CM-0108"]
+
+[[lacuna]]
+id = "L-CM-v1-82816c65c2244e2e29d6f744587a11113e86a373b0d8f4517bb07f0f9fa967f8"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-612"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-612"]
+source_refs = ["registry/claims.toml", "C-612"]
+related_marker_ids = ["CM-0097"]
+
+[[lacuna]]
+id = "L-CM-v1-83cc7b5f0ef249622d05e093da0de5d46ddb308ef732002ddf52f4226be3ae3e"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-348"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-348"]
+source_refs = ["registry/claims.toml", "C-348"]
+related_marker_ids = ["CM-0079"]
+
+[[lacuna]]
+id = "L-CM-v1-850cbb2f95efe41c3462a81dbe781df588c818d057cb0654693c7550abb2633d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1111"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1111"]
+source_refs = ["registry/claims.toml", "C-1111"]
+related_marker_ids = ["CM-0007"]
+
+[[lacuna]]
+id = "L-CM-v1-8630511bc92656bb1be6d75f91227f92b8fbb51c8d807ce4f60c5899dd6dd678"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1162"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1162"]
+source_refs = ["registry/claims.toml", "C-1162"]
+related_marker_ids = ["CM-0012"]
+
+[[lacuna]]
+id = "L-CM-v1-866b1363161bc463742f9eac90fe66f5f7407265d6249d38c5a64acaf605f0ab"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-374"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-374"]
+source_refs = ["registry/claims.toml", "C-374"]
+related_marker_ids = ["CM-0087"]
+
+[[lacuna]]
+id = "L-CM-v1-8804d51077a356d4621f63fbbb0e9e853e71ac4b78e79e42737a9330be9a02c4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-594"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-594"]
+source_refs = ["registry/claims.toml", "C-594"]
+related_marker_ids = ["CM-0095"]
+
+[[lacuna]]
+id = "L-CM-v1-8a5052adb53d208418d6fe377eb2807c4d4566be7cd1dd942bb1922bed9d11dc"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1743"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1743"]
+source_refs = ["registry/claims.toml", "C-1743"]
+related_marker_ids = ["CM-0042"]
+
+[[lacuna]]
+id = "L-CM-v1-8cd303868295a4d7119db04dd98bbd45e1d9cd082b2d7946144050ba5f07265d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1398"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1398"]
+source_refs = ["registry/claims.toml", "C-1398"]
+related_marker_ids = ["CM-0031"]
+
+[[lacuna]]
+id = "L-CM-v1-8ff628858e31d6bf874421790cf0ca3dba0c7b30eb61e6059d17187e62f80731"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1159"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1159"]
+source_refs = ["registry/claims.toml", "C-1159"]
+related_marker_ids = ["CM-0011"]
+
+[[lacuna]]
+id = "L-CM-v1-90db0136ff8f3c40803e848329ef1172959bf0b875f6988e48e81372e86a17f6"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1232"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1232"]
+source_refs = ["registry/claims.toml", "C-1232"]
+related_marker_ids = ["CM-0017"]
+
+[[lacuna]]
+id = "L-CM-v1-917582f932b0da5fffb9ae0c48d565e4638572a20cb9170a5678ed5f316747fd"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1531"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1531"]
+source_refs = ["registry/claims.toml", "C-1531"]
+related_marker_ids = ["CM-0037"]
+
+[[lacuna]]
+id = "L-CM-v1-95448f0cf032aa06f57abab3b89da4700e0507c7f09479298ff2cd2e048e760f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-385"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-385"]
+source_refs = ["registry/claims.toml", "C-385"]
+related_marker_ids = ["CM-0088"]
+
+[[lacuna]]
+id = "L-CM-v1-9a68be67da8804dba76afc6ff737cd3f1b9d0d750f3857786fd38805c4f75c53"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-352"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-352"]
+source_refs = ["registry/claims.toml", "C-352"]
+related_marker_ids = ["CM-0081"]
+
+[[lacuna]]
+id = "L-CM-v1-9af9442f534eeec4126e6a8f37f0730a0683610e11be534ec3d4e1ba39d1d175"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-258"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-258"]
+source_refs = ["registry/claims.toml", "C-258"]
+related_marker_ids = ["CM-0064"]
+
+[[lacuna]]
+id = "L-CM-v1-9d877ff49c4150ff809f71f16cb9a1ffd0ca05b1d87383701de1ffbe839ee099"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-615"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-615"]
+source_refs = ["registry/claims.toml", "C-615"]
+related_marker_ids = ["CM-0100"]
+
+[[lacuna]]
+id = "L-CM-v1-a1780d01a4c171d6e04064b1d7399d8579f1512fe33346147553a812c9e4e87a"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-791"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-791"]
+source_refs = ["registry/claims.toml", "C-791"]
+related_marker_ids = ["CM-0110"]
+
+[[lacuna]]
+id = "L-CM-v1-a3b301202c55cad6a2838e45e46119a1c5720c4d34534414c3c5ec951d294f88"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1746"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1746"]
+source_refs = ["registry/claims.toml", "C-1746"]
+related_marker_ids = ["CM-0043"]
+
+[[lacuna]]
+id = "L-CM-v1-a9739509763a95d459eb09b2b05d24a17348ece948c82bd2eb41b94a4364ecbf"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-356"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-356"]
+source_refs = ["registry/claims.toml", "C-356"]
+related_marker_ids = ["CM-0083"]
+
+[[lacuna]]
+id = "L-CM-v1-aa672f9b23a112464434fbc24d470caa6f8f957df478586c1f66ca1b90427db2"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-198"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-198"]
+source_refs = ["registry/claims.toml", "C-198"]
+related_marker_ids = ["CM-0053"]
+
+[[lacuna]]
+id = "L-CM-v1-ac7e55b56d6d958cbb1299b5e9eebfed9059d490422b196e8ab3b1468e19f53d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md"]
+related_marker_ids = ["CM-0126"]
+
+[[lacuna]]
+id = "L-CM-v1-acdc86369204e93aee6081736c5b650cf0b234bfe65b473e37f3fdb0d5f5f961"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1150"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1150"]
+source_refs = ["registry/claims.toml", "C-1150"]
+related_marker_ids = ["CM-0010"]
+
+[[lacuna]]
+id = "L-CM-v1-b2ab318703206a8b7bb3cbf6d96176483b101efe6d5fa0838504647b7e72529b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1626"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1626"]
+source_refs = ["registry/claims.toml", "C-1626"]
+related_marker_ids = ["CM-0040"]
+
+[[lacuna]]
+id = "L-CM-v1-bbe27fd376d89ed5cf411c779d0894cbe26db4badff2560ff0c4785f94f3dd0e"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-476"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-476"]
+source_refs = ["registry/claims.toml", "C-476"]
+related_marker_ids = ["CM-0091"]
+
+[[lacuna]]
+id = "L-CM-v1-bc3dce42dc96448f9aacf6bdf68a6bff1b415525c03c567e9301f20ed14b6366"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1183"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1183"]
+source_refs = ["registry/claims.toml", "C-1183"]
+related_marker_ids = ["CM-0015"]
+
+[[lacuna]]
+id = "L-CM-v1-bc4454c6f2f645e8029c86d341ce2d7c5811ea3d9df68e3d0fe1309e4217f862"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-183"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-183"]
+source_refs = ["registry/claims.toml", "C-183"]
+related_marker_ids = ["CM-0049"]
+
+[[lacuna]]
+id = "L-CM-v1-bee2550acdc5cf128368156dacc82dd26e23e25a9fd7c8e761efa127485f9f6d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-031"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-031"]
+source_refs = ["registry/claims.toml", "C-031"]
+related_marker_ids = ["CM-0004"]
+
+[[lacuna]]
+id = "L-CM-v1-bf6e37567ad45f8f0959f31698fd8b77e6e25daaa2808ebee61c4d121b2eaf6e"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-614"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-614"]
+source_refs = ["registry/claims.toml", "C-614"]
+related_marker_ids = ["CM-0099"]
+
+[[lacuna]]
+id = "L-CM-v1-c0583412794c71580728a670139a94aa4bd886f4d87c2777d72ab74000400c93"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-775"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-775"]
+source_refs = ["registry/claims.toml", "C-775"]
+related_marker_ids = ["CM-0106"]
+
+[[lacuna]]
+id = "L-CM-v1-c137f908a7232d56c8d0914f980e06eabef5a025cd398e8b04b77ee18a23ab4b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-677"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-677"]
+source_refs = ["registry/claims.toml", "C-677"]
+related_marker_ids = ["CM-0102"]
+
+[[lacuna]]
+id = "L-CM-v1-c26bfeda808b42c08dff2afbff181938b84feac3f5b4a3fe626f2bea2ce270e0"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/E027_PHASE2_EXECUTION_PLAN.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
+related_marker_ids = ["CM-0117"]
+
+[[lacuna]]
+id = "L-CM-v1-c3c71e74db9f196ea7a4aa1726d4ab77f8a9800ffe997ae790501fc453789534"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-199"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-199"]
+source_refs = ["registry/claims.toml", "C-199"]
+related_marker_ids = ["CM-0054"]
+
+[[lacuna]]
+id = "L-CM-v1-c45f0674fa34eb358cb888f394d9085665f9fd88251222ff53fc81d5622618af"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-020"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-020"]
+source_refs = ["registry/claims.toml", "C-020"]
+related_marker_ids = ["CM-0001"]
+
+[[lacuna]]
+id = "L-CM-v1-c6fc8aed575f24459cc7dbe8668d1e4cd71273dd5dbf3a01dcf56a93ba329434"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/E027_PHASE2_EXECUTION_PLAN.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
+related_marker_ids = ["CM-0115"]
+
+[[lacuna]]
+id = "L-CM-v1-d03e7c3af55e5da56642b4055d327f1e0668ffe922f60ec4a3a1f36e99bb6b76"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1310"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1310"]
+source_refs = ["registry/claims.toml", "C-1310"]
+related_marker_ids = ["CM-0023"]
+
+[[lacuna]]
+id = "L-CM-v1-d9c9d5147ab6813638774f7b8f928bac99e318fb0db3daafd2137cc229ab3c54"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md"]
+related_marker_ids = ["CM-0123"]
+
+[[lacuna]]
+id = "L-CM-v1-db3500c007d35abdd4a0ec36a8844e333e246dbb25a6509bb723f378f2164bee"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-921"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-921"]
+source_refs = ["registry/claims.toml", "C-921"]
+related_marker_ids = ["CM-0113"]
+
+[[lacuna]]
+id = "L-CM-v1-db3b5f5e611a806fee79b96c89b5f97661fcf13177a232776078eabb30fbe2d5"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1639"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1639"]
+source_refs = ["registry/claims.toml", "C-1639"]
+related_marker_ids = ["CM-0041"]
+
+[[lacuna]]
+id = "L-CM-v1-dc66dc420df68d0bb3bb6b69a735b718715feb7140a797049e58608439bd5c7c"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-245"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-245"]
+source_refs = ["registry/claims.toml", "C-245"]
+related_marker_ids = ["CM-0061"]
+
+[[lacuna]]
+id = "L-CM-v1-dd10dd33d68837f1bbb971cdd3edf09038026ea73986ddb065d87c89b5d6d7b8"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1471"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1471"]
+source_refs = ["registry/claims.toml", "C-1471"]
+related_marker_ids = ["CM-0036"]
+
+[[lacuna]]
+id = "L-CM-v1-ddcf9ef0e038c13fc695720a4a76d159868769109b669227181a509d3b30cd1c"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-154"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-154"]
+source_refs = ["registry/claims.toml", "C-154"]
+related_marker_ids = ["CM-0038"]
+
+[[lacuna]]
+id = "L-CM-v1-dfbf18af71f54fe23fc0313a79c8c772217ecdb47f6dada0194ab5a89ae65df4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-180"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-180"]
+source_refs = ["registry/claims.toml", "C-180"]
+related_marker_ids = ["CM-0046"]
+
+[[lacuna]]
+id = "L-CM-v1-e18eb217c6d4a571975983588869ed6376d1ca1d583c5da1501bfd4b084508e3"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/SCOPE_GUARDRAILS.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = ["C-012", "C-679"]
+source_refs = ["registry/docs_root_narratives.toml", "docs/SCOPE_GUARDRAILS.md"]
+related_marker_ids = ["CM-0120"]
+
+[[lacuna]]
+id = "L-CM-v1-e29bd461efc8d5eb8c066a72c1542e6e889ef676b3a2218460405159393c4417"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-125"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-125"]
+source_refs = ["registry/claims.toml", "C-125"]
+related_marker_ids = ["CM-0019"]
+
+[[lacuna]]
+id = "L-CM-v1-e2f3e04e88f751d29ccf501ca39a72758ebd06962784116f63534943e9ffd4d4"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/INDEX.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/INDEX.md"]
+related_marker_ids = ["CM-0125"]
+
+[[lacuna]]
+id = "L-CM-v1-e384c4875ddaa151e68b99d6d47123c997c248225f99d0fbb9929395e5246227"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-370"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-370"]
+source_refs = ["registry/claims.toml", "C-370"]
+related_marker_ids = ["CM-0086"]
+
+[[lacuna]]
+id = "L-CM-v1-e403ee3048dc6cad63f2bf34ed1c656cc3f0860b187477d22c0f5ba4fca2b58f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-364"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-364"]
+source_refs = ["registry/claims.toml", "C-364"]
+related_marker_ids = ["CM-0084"]
+
+[[lacuna]]
+id = "L-CM-v1-e52345aae3fa0e530cd2239c4fc9431d088864923aa1dd010c693de90f1bd22c"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-121"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-121"]
+source_refs = ["registry/claims.toml", "C-121"]
+related_marker_ids = ["CM-0016"]
+
+[[lacuna]]
+id = "L-CM-v1-e61008eedc2cd6640a714463de68e9272594ded8a765111aebda4c57600b2ad1"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-196"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-196"]
+source_refs = ["registry/claims.toml", "C-196"]
+related_marker_ids = ["CM-0052"]
+
+[[lacuna]]
+id = "L-CM-v1-e9068cfce8fbbd80d47f9d140658f86bb2a1a3867a8bf1d25c80f7aa8e537978"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-025"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-025"]
+source_refs = ["registry/claims.toml", "C-025"]
+related_marker_ids = ["CM-0003"]
+
+[[lacuna]]
+id = "L-CM-v1-e9a830757a56b2075e0932ce964629b4527f406dfef80558e8e6c68d29538060"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-204"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-204"]
+source_refs = ["registry/claims.toml", "C-204"]
+related_marker_ids = ["CM-0056"]
+
+[[lacuna]]
+id = "L-CM-v1-eab22475d056296b4f19a38b8b10382c973fbf24179894f4ea7f5ddaddc9948d"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-203"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-203"]
+source_refs = ["registry/claims.toml", "C-203"]
+related_marker_ids = ["CM-0055"]
+
+[[lacuna]]
+id = "L-CM-v1-eba73621790250c6596f862bf089e9e7dd01cc1ebb77c2fe2f39102517f4375f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-210"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-210"]
+source_refs = ["registry/claims.toml", "C-210"]
+related_marker_ids = ["CM-0057"]
+
+[[lacuna]]
+id = "L-CM-v1-ebef87596abdfcbac117a7d3143c7eb887ddb38aedacf278d77eca28255affb7"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-589"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-589"]
+source_refs = ["registry/claims.toml", "C-589"]
+related_marker_ids = ["CM-0094"]
+
+[[lacuna]]
+id = "L-CM-v1-ee29b0f8db475408acac61c2079979b8afef62c33ce8b61692d72a89a2e22d8c"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1422"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1422"]
+source_refs = ["registry/claims.toml", "C-1422"]
+related_marker_ids = ["CM-0032"]
+
+[[lacuna]]
+id = "L-CM-v1-f2e302c758f44e97c53a97382e1f9b9c386c8b25bfd586745f0d2ce94f798f1b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1166"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1166"]
+source_refs = ["registry/claims.toml", "C-1166"]
+related_marker_ids = ["CM-0014"]
+
+[[lacuna]]
+id = "L-CM-v1-f39a2efaf33816297fd552415adffdd3563bb5ec052c84efeb74063bbaa24c3f"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-292"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-292"]
+source_refs = ["registry/claims.toml", "C-292"]
+related_marker_ids = ["CM-0069"]
+
+[[lacuna]]
+id = "L-CM-v1-f3b75f88d82078707003141b2580a88d59ff73667ab2a15a69519761a5399e75"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-236"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-236"]
+source_refs = ["registry/claims.toml", "C-236"]
+related_marker_ids = ["CM-0059"]
+
+[[lacuna]]
+id = "L-CM-v1-f5635178aaf06a81ffbe03b01211aa58ac40d3c81d773e328747d0238b840243"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-316"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-316"]
+source_refs = ["registry/claims.toml", "C-316"]
+related_marker_ids = ["CM-0073"]
+
+[[lacuna]]
+id = "L-CM-v1-f64a1fcd228ed2454d2d79528bc5090e7592232b9ee670ebb016c7279ce9c02b"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1357"
+description = "Refuted/negative status conflicts with positive language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1357"]
+source_refs = ["registry/claims.toml", "C-1357"]
+related_marker_ids = ["CM-0026"]
+
+[[lacuna]]
+id = "L-CM-v1-fe190392bb21e2c749bcdf9d6cf6fa80483f4ac133714ab87226dd255a3b75a1"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-1268"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-1268"]
+source_refs = ["registry/claims.toml", "C-1268"]
+related_marker_ids = ["CM-0020"]
 
 [[lacuna]]
 id = "L-DANGLING-E-001"

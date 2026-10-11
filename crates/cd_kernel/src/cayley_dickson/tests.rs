@@ -659,9 +659,10 @@ fn test_koebisu_d2_on_all_standard_zds() {
 
 #[test]
 fn test_koebisu_d2_random_consistency() {
-    // Random sedenions: D_2 = 0 iff the element is a ZD (verified by multiplication)
-    use rand::RngExt;
-    let mut rng = rand::rng();
+    // The seeded sample checks polynomial separation, without claiming a
+    // matrix-kernel certificate for each sampled element.
+    use rand::{RngExt, SeedableRng, rngs::StdRng};
+    let mut rng = StdRng::seed_from_u64(0x5ede_0100);
 
     for _ in 0..100 {
         let v: Vec<f64> = (0..16).map(|_| rng.random::<f64>() * 2.0 - 1.0).collect();
@@ -679,7 +680,10 @@ fn test_koebisu_d2_random_consistency() {
     let mut zd = vec![0.0; 16];
     zd[1] = 1.0;
     zd[10] = 1.0;
-    assert!(is_zero_divisor_koebisu(&zd, 1e-10), "e_1+e_10 must be a ZD");
+    assert!(
+        is_zero_divisor_koebisu(&zd, 1e-10),
+        "e_1+e_10 has zero component residuals"
+    );
 
     // Scale it: 3*(e_1 + e_10) is still a ZD
     let mut zd_scaled = vec![0.0; 16];
@@ -687,7 +691,7 @@ fn test_koebisu_d2_random_consistency() {
     zd_scaled[10] = 3.0;
     assert!(
         is_zero_divisor_koebisu(&zd_scaled, 1e-10),
-        "3*(e_1+e_10) must be a ZD"
+        "unit-input residuals preserve scaling of e_1+e_10"
     );
 }
 
@@ -1251,25 +1255,22 @@ fn test_padic_cd_bales_sign_comparison() {
 }
 
 // =========================================================================
-// D3a: Infinitesimal ZD deformation -- tangent space at standard witnesses
+// Linearized zero-product constraints at standard sedenion witnesses
 // =========================================================================
 
-/// Compute the tangent space to the zero-divisor variety at standard
-/// sedenion ZD witnesses.
+/// Compute the product-Jacobian rank at two explicit sedenion zero-product pairs.
 ///
 /// The ZD variety: {(a,b) : a*b = 0, a != 0, b != 0} in S x S.
 /// At a witness (a_0, b_0), the tangent space is:
 ///   T = {(da, db) : da*b_0 + a_0*db = 0}
 ///
 /// This is a linear system: the Jacobian of F(a,b) = a*b at (a_0, b_0)
-/// is the 16x32 matrix `[L_{b_0} | R_{a_0}]` where L_b is left multiplication
-/// by b and R_a is right multiplication by a.
+/// is the 16x32 matrix `[R_{b_0} | L_{a_0}]`, with R_b(da) = da*b
+/// and L_a(db) = a*db.
 ///
-/// The tangent space dimension reveals the local geometry of the ZD manifold.
-/// Moreno (2005) shows all nontrivial annihilators are 4-dimensional.
-/// Reggiani (2024) shows Z(S) is isometric to G_2.
-///
-/// Reference: Reggiani 2024, Moreno 2004 (math/0404395).
+/// Both factors may change norm. The finite calculation reports the kernel
+/// dimension of the evaluated linearized constraint using a 1e-10 pivot
+/// tolerance; a smooth-manifold or global-topology claim requires its own proof.
 #[test]
 fn test_zd_tangent_space() {
     let dim = 16_usize;
@@ -1298,10 +1299,12 @@ fn test_zd_tangent_space() {
         },
     ];
 
-    println!("--- D3a: ZD TANGENT SPACE AT STANDARD WITNESSES ---\n");
+    println!("--- ZERO-PRODUCT JACOBIAN AT TWO SEDENION WITNESSES ---\n");
 
     for (w_idx, (a0, b0)) in witnesses.iter().enumerate() {
-        // Verify this is actually a ZD
+        // Admit only pairs of nonzero factors with a vanishing product.
+        assert!(a0.iter().any(|&coefficient| coefficient != 0.0));
+        assert!(b0.iter().any(|&coefficient| coefficient != 0.0));
         let prod = cd_multiply(a0.as_ref(), b0.as_ref());
         let norm_sq: f64 = prod.iter().map(|x| x * x).sum();
         assert!(
@@ -1311,9 +1314,9 @@ fn test_zd_tangent_space() {
             norm_sq.sqrt()
         );
 
-        // Build the Jacobian: 16x32 matrix [L_{b0} | R_{a0}]
-        // L_{b0}[i][j] = (e_j * b0)[i]  (left multiply basis vector by b0)
-        // R_{a0}[i][j] = (a0 * e_j)[i]  (right multiply a0 by basis vector)
+        // Build the Jacobian: 16x32 matrix [R_{b0} | L_{a0}].
+        // R_{b0}[i][j] = (e_j * b0)[i].
+        // L_{a0}[i][j] = (a0 * e_j)[i].
         let mut jac = vec![vec![0.0_f64; 2 * dim]; dim];
 
         // Left block: da * b0 -> columns 0..15
@@ -1336,14 +1339,15 @@ fn test_zd_tangent_space() {
             }
         }
 
-        // Row-echelon rank via Gaussian elimination (no external dep)
+        // Partial-pivot elimination advances the row only after finding a pivot.
         let rows = dim;
         let cols = 2 * dim;
         let mut mat = jac.clone();
         let mut rank = 0_usize;
-        let mut pivot_col = 0_usize;
-        for row in 0..rows {
-            if pivot_col >= cols {
+        let pivot_tolerance = 1e-10;
+        for pivot_col in 0..cols {
+            let row = rank;
+            if row == rows {
                 break;
             }
             // Find pivot
@@ -1355,8 +1359,7 @@ fn test_zd_tangent_space() {
                     max_row = r;
                 }
             }
-            if max_val < 1e-10 {
-                pivot_col += 1;
+            if max_val < pivot_tolerance {
                 continue;
             }
             mat.swap(row, max_row);
@@ -1378,9 +1381,12 @@ fn test_zd_tangent_space() {
                 }
             }
             rank += 1;
-            pivot_col += 1;
         }
         let kernel_dim = cols - rank;
+        assert_eq!(
+            rank, 16,
+            "Witness {w_idx} must retain full product-Jacobian row rank after skipped columns"
+        );
 
         // The a0 and b0 support indices
         let a_support: Vec<usize> = a0
@@ -1404,18 +1410,15 @@ fn test_zd_tangent_space() {
             b_support.first().unwrap_or(&0),
             b_support.get(1).unwrap_or(&0)
         );
-        println!("    Jacobian rank: {} / {}", rank, dim);
         println!(
-            "    Tangent space dimension: {} (= 32 - {})",
+            "    Numerical Jacobian rank: {} / {} (pivot tolerance 1e-10)",
+            rank, dim
+        );
+        println!(
+            "    Linearized-constraint kernel dimension: {} (= 32 - {})",
             kernel_dim, rank
         );
-        // Singular values would require SVD (nalgebra); rank from
-        // Gaussian elimination is sufficient for dimension count.
-
-        // Moreno predicts: annihilator dimension = 4 for each factor
-        // So the tangent space should have a specific structure related
-        // to the 4D annihilator fibers.
-        println!("    (Moreno: nontrivial annihilators are 4-dimensional)");
+        println!("    Both factors have unconstrained norms in the 32-variable derivative.");
         println!();
     }
 }

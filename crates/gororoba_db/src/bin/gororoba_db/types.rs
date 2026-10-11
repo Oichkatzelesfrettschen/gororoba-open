@@ -526,6 +526,13 @@ pub(crate) enum TheoremIdentityAction {
         #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
         regen_toml: bool,
     },
+    /// Correct titles, assumptions, and formal links against exact prior values.
+    CorrectLinks {
+        #[arg(long)]
+        spec: PathBuf,
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        regen_toml: bool,
+    },
     /// Validate stable theorem identities and explicit claim links.
     Validate,
 }

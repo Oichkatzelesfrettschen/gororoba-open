@@ -1,0 +1,16 @@
+[transition]
+transition_key = "minimal-uncurved-associativity-obstruction"
+source_claim_id = "C-611"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-CD-EVIDENCE-CONTRACTS"]
+experiment_ids = []
+exercised_falsifier = "Evaluate the minimal uncurved arity-three Stasheff identity on (e_1,e_2,e_4), with m_1=0 and the Cayley-Dickson product as m_2."
+proposed_claim_status = "Refuted"
+rationale = "Every arity-three boundary term involving m_3 contains m_1. Rocq proves the minimal identity forces associative multiplication and proves the concrete sedenion products differ. The legacy residual subtracted the associator from itself and did not evaluate that identity."
+unresolved_assumptions = []
+actor = "cayley-dickson-evidence-contracts"
+reason = "Preserve the refuted proposition and bind its correction to exact fixtures and kernel-checked proof statements."
+transition_timestamp = "2026-10-11T18:27:37Z"
+expected_source_state_sha256 = "7ee7372d2d13b64352c3f0d996ca5470a6e232443e9d4b96878e477bb5f2a350"
+expected_claim_id_max = 1759

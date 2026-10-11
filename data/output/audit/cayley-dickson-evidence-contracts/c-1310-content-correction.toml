@@ -1,0 +1,5 @@
+claim_id = "C-1310"
+expected_statement = "SedenionAInfinity (C-611) constructs m_2 from the CD product and m_3 from the CD associator. This construction works at any Cayley-Dickson dimension >= 16. The 42/84 zero-divisor count is a property of the underlying algebra at dim=16, not of the A-infinity construction itself."
+expected_where_stated = "crates/algebra_analysis/src/homotopy_algebra.rs, C-611"
+statement = "SedenionAInfinity retains a candidate-operation API that constructs the Cayley-Dickson binary product and ternary associator at power-of-two dimensions at least 16. The 42/84 standard-factor count is specific to dimension 16. The candidate fails the minimal uncurved arity-three identity; its name provides compatibility rather than an A-infinity certificate."
+where_stated = "crates/algebra_analysis/src/homotopy_algebra.rs; proofs/theories/MinimalUncurvedObstruction.v"

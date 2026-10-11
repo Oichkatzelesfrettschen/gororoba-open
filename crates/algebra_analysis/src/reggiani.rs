@@ -496,15 +496,13 @@ mod tests {
         );
     }
 
-    /// Reggiani (2024) proves Z(S) = {(x,y): xy=0, |x|=|y|=1} is isometric
-    /// to G2.  G2 is a 14-dimensional Lie group.
-    ///
-    /// Numerical verification: the constraint map F(a,b) = (a*b, |a|^2-1, |b|^2-1)
-    /// maps R^32 -> R^18 (16 product components + 2 norm constraints).
-    /// The Jacobian DF at a point on Z(S) should have rank 18, confirming
-    /// the manifold has dimension 32 - 18 = 14 = dim(G2).
+    /// Measure the Jacobian of the zero-product pair constraints at one
+    /// normalized standard pair. The numerical rank belongs to this sample;
+    /// a global manifold or Lie-group identification needs a separate proof.
+    /// The pair space uses 32 coordinates, unlike the 16-coordinate
+    /// single-element membership constraints.
     #[test]
-    fn test_reggiani_zd_manifold_dimension_is_g2() {
+    fn test_reggiani_unit_zero_product_pair_jacobian_rank() {
         use cd_kernel::cayley_dickson::{cd_multiply, cd_norm_sq};
         use nalgebra::DMatrix;
 
@@ -567,18 +565,14 @@ mod tests {
         let svd = jacobian.svd(false, false);
         let singular_values = svd.singular_values;
         let rank = singular_values.iter().filter(|&&s| s > 1e-6).count();
-        let manifold_dim = n_vars - rank;
+        let jacobian_nullity = n_vars - rank;
 
         println!(
-            "Reggiani G2 test: Jacobian {}x{}, rank={}, manifold_dim={}",
-            n_constraints, n_vars, rank, manifold_dim
+            "Unit pair sample: Jacobian {}x{}, numerical rank={}, numerical nullity={}",
+            n_constraints, n_vars, rank, jacobian_nullity
         );
-        // Note: SV degeneracies at one sample point are suggestive of G2
-        // representation structure but are NOT a Lie-theoretic identification.
-        // A full proof would require tangent-space decomposition under the
-        // isotropy action (Reggiani 2024, Theorem 3.1).
         println!(
-            "Singular values (suggestive, not Lie-theoretic): {:?}",
+            "Singular values at the sampled pair: {:?}",
             singular_values
                 .iter()
                 .take(20)
@@ -587,32 +581,20 @@ mod tests {
         );
 
         assert_eq!(
-            manifold_dim, 14,
-            "Z(S) manifold dimension should be 14 = dim(G2), got {}",
-            manifold_dim
+            rank, 18,
+            "The sampled constraint Jacobian has full row rank"
         );
     }
 
-    /// Reggiani (2024) proves the space of unit sedenions with nontrivial
-    /// left-annihilator is isometric to the Stiefel manifold V_2(R^7).
-    /// V_2(R^7) has dimension 7*2 - 2*3/2 = 11.
-    ///
-    /// Verification via fiber counting:
-    /// - Z(S) = {(x,y): xy=0, |x|=|y|=1} has dim 14 (G2 test above).
-    /// - Projection pi_1(x,y) = x has fiber {y: xy=0, |y|=1} = S^3 in
-    ///   the 4-dim left-annihilator of x.  dim(fiber) = 3.
-    /// - Therefore dim(pi_1(Z(S))) = 14 - 3 = 11 = dim(V_2(R^7)).
-    ///
-    /// We verify:
-    /// (a) All 84 standard ZDs have left-annihilator nullity exactly 4.
-    /// (b) The annihilator S^3 fiber dimension is 3.
-    /// (c) Combined with the G2 test: 14 - 3 = 11.
+    /// Verify numerical nullity on all 84 standard factors and orthogonality
+    /// of a sampled SVD kernel basis. The finite checks concern multiplication
+    /// matrices; continuous topology requires its own bridge theorem.
     #[test]
-    fn test_reggiani_single_zd_stiefel_v2r7() {
+    fn test_reggiani_standard_annihilator_nullity_and_orthogonality() {
         use crate::annihilator::{annihilator_info, left_multiplication_matrix, nullspace_basis};
 
         let dim = 16;
-        // (a) Verify all 84 ZDs have nullity 4 (annihilator dimension 4).
+        // Verify all 84 standard factors have numerical nullity four.
         for zd in &standard_zero_divisors() {
             let info = annihilator_info(&zd.vector, dim, 1e-12);
             assert_eq!(
@@ -622,27 +604,7 @@ mod tests {
             );
         }
 
-        // (b) Fiber dimension: S^{nullity-1} = S^3, so dim(fiber) = 3.
-        let fiber_dim = 4 - 1; // annihilator is R^4, unit sphere is S^3
-
-        // (c) V_2(R^7) dimension check via fiber counting.
-        let zs_dim = 14; // from test_reggiani_zd_manifold_dimension_is_g2
-        let single_zd_dim = zs_dim - fiber_dim;
-        let v2r7_dim = 7 * 2 - 2 * 3 / 2; // nk - k(k+1)/2 = 14 - 3 = 11
-
-        println!(
-            "Reggiani V2(R7): Z(S) dim={}, fiber dim={}, single-ZD dim={}, V_2(R^7) dim={}",
-            zs_dim, fiber_dim, single_zd_dim, v2r7_dim
-        );
-
-        assert_eq!(
-            single_zd_dim, v2r7_dim,
-            "Single-ZD manifold dimension should be {} = dim(V_2(R^7)), got {}",
-            v2r7_dim, single_zd_dim
-        );
-
-        // Additional structural check: verify the annihilator basis vectors
-        // are orthogonal (as required for a Stiefel manifold frame).
+        // Check the orthogonality of the SVD-returned kernel basis.
         let zd0 = &standard_zero_divisors()[0];
         let mut x = zd0.vector.clone();
         let nx = x.iter().map(|v| v * v).sum::<f64>().sqrt();
@@ -770,103 +732,36 @@ mod tests {
         );
     }
 
-    /// Koebisu (arXiv:2512.13002) holonomy verification.
-    ///
-    /// Koebisu decomposes a sedenion as s = (a, b) where a = (s_0..s_7) and
-    /// b = (s_8..s_15) are the two octonion halves. The left-multiplication
-    /// determinant factors as det(L_s) = |s|^4 * D_2(a,b) where D_2 is a
-    /// quartic polynomial. D_2(a,b) = 0 iff |a| = |b| and <a,b> = 0.
-    ///
-    /// The normalized ZD set is therefore diffeomorphic to V_2(R^8) -- the
-    /// Stiefel manifold of orthonormal 2-frames in R^8.
-    ///
-    /// Key difference from Reggiani: Koebisu uses the FULL 8-dim octonion
-    /// components (including real part), while Reggiani restricts to the
-    /// 7-dim imaginary subspace. Both are valid: V_2(R^8) (Koebisu) projects
-    /// to V_2(R^7) (Reggiani) when the real components are zero.
+    /// Standard fixtures satisfy all four component constraints. Their
+    /// normalized imaginary halves form 2-frames in R^7. Finite fixtures
+    /// alone establish neither a global parametrization nor holonomy.
     #[test]
-    fn test_koebisu_holonomy_v2r8_decomposition() {
-        let zds = standard_zero_divisors();
-
-        println!("--- KOEBISU V_2(R^8) HOLONOMY VERIFICATION ---");
-
-        let mut all_orthogonal = true;
-        let mut all_equal_norm = true;
-
-        for zd in &zds {
+    fn test_standard_zero_divisor_imaginary_frame_constraints() {
+        for zd in standard_zero_divisors() {
             let v = &zd.vector;
-            // Split into octonion halves: a = v[0..8], b = v[8..16]
-            let a: Vec<f64> = v[..8].to_vec();
-            let b: Vec<f64> = v[8..].to_vec();
-
-            let norm_a_sq: f64 = a.iter().map(|x| x * x).sum();
-            let norm_b_sq: f64 = b.iter().map(|x| x * x).sum();
-            let inner_ab: f64 = a.iter().zip(b.iter()).map(|(x, y)| x * y).sum();
-
-            // Koebisu criterion: |a| = |b| and <a,b> = 0
-            if (norm_a_sq - norm_b_sq).abs() > 1e-10 {
-                all_equal_norm = false;
-            }
-            if inner_ab.abs() > 1e-10 {
-                all_orthogonal = false;
-            }
+            assert_eq!(v[0], 0.0);
+            assert_eq!(v[8], 0.0);
+            let norm_first: f64 = v[1..8].iter().map(|value| value * value).sum();
+            let norm_second: f64 = v[9..16].iter().map(|value| value * value).sum();
+            let inner: f64 = v[1..8]
+                .iter()
+                .zip(&v[9..16])
+                .map(|(first, second)| first * second)
+                .sum();
+            assert_eq!(norm_first, 1.0);
+            assert_eq!(norm_second, 1.0);
+            assert_eq!(inner, 0.0);
         }
-
-        println!("  All 84 ZDs satisfy |a| = |b|: {}", all_equal_norm);
-        println!("  All 84 ZDs satisfy <a,b> = 0: {}", all_orthogonal);
-
-        // For standard ZDs (2-blade), the octonion halves are:
-        // a = e_low (one nonzero in [1..7]), b = +/- e_high (one nonzero in [8..15])
-        // These trivially satisfy |a|=|b|=1 and <a,b>=0 since they live in
-        // non-overlapping index ranges.
-        //
-        // The NONTRIVIAL content of Koebisu's theorem is that this extends to
-        // ALL ZDs (not just 2-blade standard ones), including continuous ZDs.
-        assert!(all_equal_norm, "Koebisu equal-norm condition violated");
-        assert!(all_orthogonal, "Koebisu orthogonality condition violated");
-
-        // V_2(R^8) dimension: 8*2 - 2*3/2 = 16 - 3 = 13
-        // But Koebisu includes the norm constraint (|s|=1), reducing to 13.
-        // With the pair (a,b) both normalized: dim = 7 + 6 = 13
-        // (S^7 for direction of a, S^6 for direction of b perp a)
-        let v2r8_dim = 8 + 7 - 2; // 13
-        println!(
-            "  dim(V_2(R^8)) = {} (consistent with normalized ZD manifold)",
-            v2r8_dim
-        );
-
-        // Connection to our Reggiani G2 test:
-        // G2 (dim 14) acts on V_2(R^7) (dim 11), with isotropy SO(4) (dim 6).
-        // 14 = 11 + 3 (fiber dimension).
-        // Koebisu's V_2(R^8) (dim 13) extends this by including the real octonion component.
-        println!("  Reggiani V_2(R^7) dim = 11 (imaginary sector)");
-        println!("  Koebisu  V_2(R^8) dim = 13 (full octonion pair)");
-        println!("  Difference = 2 (real components of a and b)");
-
-        // Wilmot calibration connection:
-        // Wilmot (AACA 2026) derives sedenions from a 14-simplex calibration on Pin(15).
-        // The 14-dim calibration space matches dim(G2) = 14, confirming the
-        // G2 isometry of the ZD manifold has a calibration-theoretic origin.
-        println!("\n  Wilmot calibration: 14-simplex on Pin(15) -> sedenion structure");
-        println!("  Calibration dim = 14 = dim(G2) -- confirms G2 isometry origin");
     }
 
-    /// Koebisu (arXiv:2512.13002) Theorem 3.6: D_2 polynomial verification.
-    ///
-    /// D_2(v) = (||v_1||^2 - ||v_2||^2)^2 + 4*<v_1,v_2>^2
-    /// where v = v_1 + v_2*e_8, v_1 = v[0..8], v_2 = v[8..16].
-    ///
-    /// v != 0 is a zero-divisor iff D_2(v) = 0 iff ||v_1|| = ||v_2|| and <v_1,v_2> = 0.
+    /// The full D_2 includes both scalar coordinates. Standard factors alone
+    /// cannot detect their omission because those fixtures already set them
+    /// to zero. Counterexamples exercise the omitted domain constraints.
     #[test]
     fn test_koebisu_d2_polynomial() {
         let zds = standard_zero_divisors();
 
-        let d2 = |v: &[f64]| -> f64 {
-            let v1_sq: f64 = v[..8].iter().map(|x| x * x).sum();
-            let v2_sq: f64 = v[8..].iter().map(|x| x * x).sum();
-            let inner: f64 = v[..8].iter().zip(v[8..].iter()).map(|(a, b)| a * b).sum();
-            (v1_sq - v2_sq).powi(2) + 4.0 * inner.powi(2)
-        };
+        let d2 = cd_kernel::cayley_dickson::koebisu_d2;
 
         println!("--- KOEBISU D_2 POLYNOMIAL VERIFICATION ---");
 
@@ -877,19 +772,17 @@ mod tests {
         println!("  [PASS] D_2 = 0 on all 84 standard ZDs");
 
         // D_2 = 1 on single basis elements (non-ZD)
-        for i in 1..16_usize {
+        for i in 0..16_usize {
             let mut v = vec![0.0; 16];
             v[i] = 1.0;
             assert!((d2(&v) - 1.0).abs() < 1e-12, "D_2(e_{i}) should be 1");
         }
         println!("  [PASS] D_2 = 1 on all single basis elements");
 
-        // det(L_v) = 0 for first ZD (Theorem 3.6)
-        let la = left_multiplication_matrix(&zds[0].vector, 16);
-        let det = nalgebra::DMatrix::from_fn(16, 16, |i, j| la[(i, j)]).determinant();
-        println!("  det(L_v) for ZD_0: {:.2e}", det);
-        assert!(det.abs() < 1e-10, "det(L_v) must be 0 for ZD");
-        println!("  [PASS] det(L_v) = 0 for ZD");
+        for zd in &zds {
+            let determinant = left_multiplication_matrix(&zd.vector, 16).determinant();
+            assert!(determinant.abs() < 1e-10);
+        }
 
         // D_2 = 0 for e_1 + e_10 (a ZD pair): v_1[1]=1, v_2[2]=1, <v_1,v_2>=0
         let mut cand = vec![0.0; 16];
@@ -904,5 +797,28 @@ mod tests {
         non_zd[9] = 1.0;
         assert!((d2(&non_zd) - 4.0).abs() < 1e-12, "e_1+e_9 has D_2=4");
         println!("  [PASS] D_2(e_1 + e_9) = 4 (non-ZD, inner product = 1)");
+    }
+
+    #[test]
+    fn test_sedenion_counterexample_determinants_and_operator_squares() {
+        let identity = nalgebra::DMatrix::<f64>::identity(16, 16);
+        for first_index in [0, 1] {
+            let mut vector = [0.0; 16];
+            vector[first_index] = 1.0;
+            vector[9] = 1.0;
+            let operator = left_multiplication_matrix(&vector, 16);
+            assert_eq!(operator.determinant(), 256.0);
+            assert_eq!(cd_kernel::cayley_dickson::koebisu_d2(&vector), 4.0);
+            assert!(!is_reggiani_zd(&vector, 1e-12));
+            let square = &operator * &operator;
+            if first_index == 1 {
+                assert_eq!(square, -2.0 * &identity);
+            } else {
+                assert!(square.iter().any(|value| *value != 0.0));
+                assert!((0..16).any(|row| {
+                    (0..16).any(|column| row != column && square[(row, column)] != 0.0)
+                }));
+            }
+        }
     }
 }

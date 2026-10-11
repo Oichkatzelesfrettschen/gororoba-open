@@ -1,20 +1,10 @@
-(** * HomotopyTransferAssociator: m3 classification by Fano incidence.
+(** * Finite Fano incidence counts on octonion basis labels.
 
-    The homotopy transfer m3 from the sedenion retraction classifies
-    all 210 ordered triples of distinct imaginary octonion units into:
-    - 42 scalar outputs (m3 = +/-2 e_0) on Fano-line triples
-    - 168 imaginary outputs (m3 = +/-2 e_l) on non-Fano triples
-
-    On non-Fano triples: m3 = Assoc (octonionic associator) exactly.
-    On Fano triples: m3 = -2 e_0 (scalar), while Assoc = 0.
-
-    The scalar/imaginary classification is determined by i XOR j XOR k:
-    - i XOR j XOR k = 0 iff {i,j,k} is a Fano line => scalar output
-    - i XOR j XOR k != 0 => imaginary output on basis e_{i XOR j XOR k}
-
-    This encodes the G2 calibration structure:
-    - phi (3-form) on Fano lines
-    - psi (co-associative 4-form) on non-Fano triples *)
+    The checked objects are the XOR predicate and the 210 ordered triples
+    of distinct labels in {1,...,7}. The theorems count 42 Fano triples and
+    168 remaining triples. The file defines neither a retraction polynomial
+    nor an A-infinity operation. A transfer interpretation needs a separate
+    graded contraction and a proof relating its operations to these counts. *)
 
 From Stdlib Require Import List Arith Bool ZArith Lia.
 Import ListNotations.
@@ -68,3 +58,8 @@ Proof. vm_compute. reflexivity. Qed.
 (** Each Fano line has 3! = 6 orderings. 7 * 6 = 42. *)
 Theorem fano_lines_times_orderings : 7 * 6 = 42.
 Proof. reflexivity. Qed.
+
+Print Assumptions fano_triples_are_42.
+Print Assumptions nonfano_triples_are_168.
+Print Assumptions total_triples.
+Print Assumptions fano_lines_times_orderings.

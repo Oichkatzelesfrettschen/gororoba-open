@@ -26,6 +26,8 @@ pub mod boxkites;
 pub mod codebook;
 pub mod crystal_bands;
 pub mod entropy_census;
+pub mod exact_annihilator;
+pub mod flag_complex;
 pub mod flat_band_localization;
 pub mod fractal_analysis;
 pub mod graph_projections;

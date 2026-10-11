@@ -1,0 +1,5 @@
+claim_id = "C-1521"
+expected_statement = "ZD variety stratifies by Archimedean class over No. Equal-class coefficients preserve ZDs; mixed-class coefficients break them. Cross-ratio condition alpha*delta = beta*gamma fails across classes. First genuinely surreal result."
+expected_where_stated = "crates/surreal_algebra/src/surreal_cd.rs::test_archimedean_stratification_of_zd"
+statement = "For alpha in {2^-100, 2^-10, 1, 1000, 2^50}, exact dyadic arithmetic verifies (alpha*e_1 + alpha*e_10)(e_4 - e_15) = 0. The unequal-coefficient fixture (2^-50*e_1 + 2^30*e_10)(e_4 - e_15) has a nonzero product. Every nonzero input coefficient is a finite dyadic rational in the Archimedean class of 1. These fixtures establish coefficient cancellation against the stated fixed right factor; non-Archimedean stratification remains untested."
+where_stated = "crates/surreal_algebra/src/surreal_cd.rs::test_archimedean_stratification_of_zd"

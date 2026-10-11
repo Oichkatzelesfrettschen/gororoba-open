@@ -1,0 +1,16 @@
+[transition]
+transition_key = "sedenion-full-halves-domain-refutation"
+source_claim_id = "C-1461"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-CD-EVIDENCE-CONTRACTS"]
+experiment_ids = []
+exercised_falsifier = "Test the full-octonion equal-norm orthogonal pair e_0+e_9, and the equal-norm parallel imaginary pair e_1+e_9, using exact left multiplication."
+proposed_claim_status = "Refuted"
+rationale = "Both left multiplication matrices have trivial kernels; the exact fixtures have determinant 256. The standard factors already have zero scalar parts. Their equal-norm and orthogonality checks therefore cannot extend the imaginary R^7 frame locus to full R^8 halves."
+unresolved_assumptions = []
+actor = "cayley-dickson-evidence-contracts"
+reason = "Preserve the refuted proposition and bind its correction to exact fixtures and kernel-checked proof statements."
+transition_timestamp = "2026-10-11T18:27:37Z"
+expected_source_state_sha256 = "bfc986e94b0262d76dd0e735324762d3243759f7a4d49502eab3a14e971f9e9c"
+expected_claim_id_max = 1759

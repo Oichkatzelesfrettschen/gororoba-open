@@ -44,6 +44,7 @@ struct ConflictMarker {
     line_end: i64,
     positive_evidence: Vec<String>,
     negative_evidence: Vec<String>,
+    source_content_sha256: String,
     jaccard_overlap: f64,
     notes: String,
 }
@@ -60,6 +61,7 @@ struct Lacuna {
     claim_refs: Vec<String>,
     source_refs: Vec<String>,
     related_marker_ids: Vec<String>,
+    historical_marker_ids: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -473,7 +475,7 @@ fn build_conflict_markers(
     let mut markers = Vec::new();
     let mut seq = 0usize;
 
-    let mut claim_by_id = BTreeMap::<String, (String, String)>::new();
+    let mut claim_by_id = BTreeMap::<String, (String, String, String)>::new();
     let mut statement_tokens = BTreeMap::<String, BTreeSet<String>>::new();
     for row in claims_rows {
         let claim_id = collapse(table_str(row, "id"));
@@ -482,7 +484,15 @@ fn build_conflict_markers(
         }
         let status_token = status_token(table_str(row, "status"));
         let statement = collapse(table_str(row, "statement"));
-        claim_by_id.insert(claim_id.clone(), (statement.clone(), status_token.clone()));
+        let source_content_sha256 = sha256_hex(table_str(row, "statement").as_bytes());
+        claim_by_id.insert(
+            claim_id.clone(),
+            (
+                statement.clone(),
+                status_token.clone(),
+                source_content_sha256.clone(),
+            ),
+        );
         statement_tokens.insert(claim_id.clone(), token_set(&statement)?);
         let lower = statement.to_lowercase();
         let has_positive = POSITIVE_TERMS.iter().any(|term| lower.contains(term));
@@ -502,6 +512,7 @@ fn build_conflict_markers(
                 line_end: 0,
                 positive_evidence: vec![statement.clone()],
                 negative_evidence: vec![status_token.clone()],
+                source_content_sha256: source_content_sha256.clone(),
                 jaccard_overlap: 0.0,
                 notes: "Refuted/negative status conflicts with positive language in statement."
                     .to_string(),
@@ -522,6 +533,7 @@ fn build_conflict_markers(
                 line_end: 0,
                 positive_evidence: vec![status_token.clone()],
                 negative_evidence: vec![statement.clone()],
+                source_content_sha256,
                 jaccard_overlap: 0.0,
                 notes: "Verified status conflicts with negative language in statement.".to_string(),
             });
@@ -530,7 +542,7 @@ fn build_conflict_markers(
 
     let claim_ids = claim_by_id.keys().cloned().collect::<Vec<_>>();
     for (idx, a_id) in claim_ids.iter().enumerate() {
-        let Some((a_statement, a_status)) = claim_by_id.get(a_id).cloned() else {
+        let Some((a_statement, a_status, a_content_sha256)) = claim_by_id.get(a_id).cloned() else {
             continue;
         };
         if !VERIFIED_STATUS_TOKENS.contains(&a_status.as_str())
@@ -539,7 +551,8 @@ fn build_conflict_markers(
             continue;
         }
         for b_id in claim_ids.iter().skip(idx + 1) {
-            let Some((b_statement, b_status)) = claim_by_id.get(b_id).cloned() else {
+            let Some((b_statement, b_status, b_content_sha256)) = claim_by_id.get(b_id).cloned()
+            else {
                 continue;
             };
             if !VERIFIED_STATUS_TOKENS.contains(&b_status.as_str())
@@ -581,6 +594,9 @@ fn build_conflict_markers(
                     format!("{}: {}", a_id, a_status),
                     format!("{}: {}", b_id, b_status),
                 ],
+                source_content_sha256: sha256_hex(
+                    serde_json::to_string(&[&a_content_sha256, &b_content_sha256])?.as_bytes(),
+                ),
                 jaccard_overlap: (score * 1_000_000.0).round() / 1_000_000.0,
                 notes: "Semantically similar claims have opposite truth-status categories."
                     .to_string(),
@@ -643,6 +659,7 @@ fn build_conflict_markers(
                     line_end: section.line_end,
                     positive_evidence: pos_hits,
                     negative_evidence: neg_hits,
+                    source_content_sha256: sha256_hex(section.body.as_bytes()),
                     jaccard_overlap: 0.0,
                     notes: "Section contains both positive and negative validation language."
                         .to_string(),
@@ -668,6 +685,34 @@ fn build_conflict_markers(
     Ok((markers, meta))
 }
 
+// Marker sequence numbers and line offsets locate one scan. Resolution belongs
+// to the source, conflict kind and evidence, including the complete section
+// text when polarity hits alone cannot distinguish two contradictory passages.
+fn conflict_lacuna_id(marker: &ConflictMarker) -> String {
+    // Ordered field pairs keep the hash independent of JSON map feature flags.
+    let identity = serde_json::json!([
+        ["version", 1],
+        ["marker_kind", marker.marker_kind],
+        [
+            "claim_refs",
+            marker.claim_refs.iter().collect::<BTreeSet<_>>()
+        ],
+        ["source_registry", marker.source_registry],
+        ["source_document", marker.source_document],
+        ["section_label", marker.section_label],
+        ["source_content_sha256", marker.source_content_sha256],
+        [
+            "positive_evidence",
+            marker.positive_evidence.iter().collect::<BTreeSet<_>>()
+        ],
+        [
+            "negative_evidence",
+            marker.negative_evidence.iter().collect::<BTreeSet<_>>()
+        ],
+    ]);
+    format!("L-CM-v1-{}", sha256_hex(identity.to_string().as_bytes()))
+}
+
 fn build_lacunae(
     claims_rows: &[Value],
     conflict_markers: &[ConflictMarker],
@@ -677,15 +722,17 @@ fn build_lacunae(
 ) -> Result<(Vec<Lacuna>, LacunaMeta)> {
     let mut rows = Vec::new();
     let mut seen_ids = BTreeSet::new();
+    let mut live_conflicts = BTreeMap::<String, Vec<&ConflictMarker>>::new();
+    for marker in conflict_markers {
+        live_conflicts
+            .entry(conflict_lacuna_id(marker))
+            .or_default()
+            .push(marker);
+    }
 
-    // The prior lacunae file is an input, so a row derived from claim status on one
-    // run would otherwise be carried into the next and outlive the status that
-    // produced it: seen_ids is filled here before the live scan below runs, so a
-    // resolved claim keeps a frozen "unresolved" row forever. Derived rows are
-    // therefore dropped from the carry-forward set and re-derived from live status,
-    // and every surviving row keeps the origin it was recorded with rather than
-    // being relabelled legacy_manual, which is what made the two kinds
-    // indistinguishable.
+    // Claim-status lacunae follow live status and are regenerated. Retained
+    // conflict resolutions receive an active marker link only when the source
+    // and evidence identity matches; unmatched records retain their history.
     for row in legacy_lacunae {
         let lacuna_id = collapse(table_str(row, "id"));
         if lacuna_id.is_empty() {
@@ -701,13 +748,39 @@ fn build_lacunae(
         if !seen_ids.insert(lacuna_id.clone()) {
             continue;
         }
+        let conflict_derived = legacy_origin == "conflict_marker_scan"
+            || legacy_origin == "conflict_marker_history"
+            || lacuna_id.starts_with("L-CM-")
+            || legacy_title.starts_with("Resolve conflict marker ");
+        let mut related_marker_ids = string_list(row, "related_marker_ids");
+        let mut historical_marker_ids = string_list(row, "historical_marker_ids");
+        let origin = if conflict_derived {
+            let live_markers = live_conflicts.get(&lacuna_id);
+            let live_ids: Vec<String> = live_markers
+                .map(|markers| markers.iter().map(|marker| marker.id.clone()).collect())
+                .unwrap_or_default();
+            historical_marker_ids.extend(
+                related_marker_ids
+                    .iter()
+                    .filter(|marker_id| !live_ids.contains(marker_id))
+                    .cloned(),
+            );
+            related_marker_ids = live_ids;
+            if live_markers.is_some() {
+                "conflict_marker_scan".to_string()
+            } else {
+                "conflict_marker_history".to_string()
+            }
+        } else if legacy_origin.is_empty() {
+            "legacy_manual".to_string()
+        } else {
+            legacy_origin
+        };
+        historical_marker_ids.sort();
+        historical_marker_ids.dedup();
         rows.push(Lacuna {
             id: lacuna_id,
-            origin: if legacy_origin.is_empty() {
-                "legacy_manual".to_string()
-            } else {
-                legacy_origin
-            },
+            origin,
             area: {
                 let area = collapse(table_str(row, "area"));
                 if area.is_empty() {
@@ -734,9 +807,14 @@ fn build_lacunae(
                     status
                 }
             },
-            claim_refs: extract_claim_refs(table_str(row, "description"))?,
-            source_refs: Vec::new(),
-            related_marker_ids: Vec::new(),
+            claim_refs: if value_is_array(row, "claim_refs") {
+                string_list(row, "claim_refs")
+            } else {
+                extract_claim_refs(table_str(row, "description"))?
+            },
+            source_refs: string_list(row, "source_refs"),
+            related_marker_ids,
+            historical_marker_ids,
         });
     }
 
@@ -776,23 +854,23 @@ fn build_lacunae(
             claim_refs: vec![claim_id],
             source_refs: vec!["registry/claims.toml".to_string()],
             related_marker_ids: Vec::new(),
+            historical_marker_ids: Vec::new(),
         });
     }
 
-    for marker in conflict_markers {
-        let marker_id = marker.id.clone();
-        let lacuna_id = format!(
-            "L-CM-{}",
-            marker_id.split('-').next_back().unwrap_or("0000")
-        );
+    for (lacuna_id, markers) in live_conflicts {
         if !seen_ids.insert(lacuna_id.clone()) {
             continue;
         }
+        let marker = markers[0];
         rows.push(Lacuna {
             id: lacuna_id,
             origin: "conflict_marker_scan".to_string(),
             area: "consistency".to_string(),
-            title: format!("Resolve conflict marker {}", marker_id),
+            title: format!(
+                "Resolve {} in {}",
+                marker.marker_kind, marker.source_document
+            ),
             description: if marker.notes.is_empty() {
                 "Unresolved contradiction marker.".to_string()
             } else {
@@ -809,7 +887,8 @@ fn build_lacunae(
                 marker.source_registry.clone(),
                 marker.source_document.clone(),
             ],
-            related_marker_ids: vec![marker_id],
+            related_marker_ids: markers.iter().map(|marker| marker.id.clone()).collect(),
+            historical_marker_ids: Vec::new(),
         });
     }
 
@@ -861,6 +940,7 @@ fn build_lacunae(
                 claim_refs: Vec::new(),
                 source_refs: vec![format!("registry/{}.toml", source_name)],
                 related_marker_ids: Vec::new(),
+                historical_marker_ids: Vec::new(),
             });
         }
     }
@@ -993,6 +1073,10 @@ fn render_conflict_markers(rows: &[ConflictMarker], meta: &ConflictMeta) -> Stri
                 "negative_evidence = {}",
                 render_list(&row.negative_evidence)
             ),
+            format!(
+                "source_content_sha256 = {}",
+                esc(&row.source_content_sha256)
+            ),
             format!("jaccard_overlap = {:.6}", row.jaccard_overlap),
             format!("notes = {}", esc(&row.notes)),
             "".to_string(),
@@ -1035,8 +1119,14 @@ fn render_lacunae(rows: &[Lacuna], meta: &LacunaMeta) -> String {
                 "related_marker_ids = {}",
                 render_list(&row.related_marker_ids)
             ),
-            "".to_string(),
         ]);
+        if !row.historical_marker_ids.is_empty() {
+            lines.push(format!(
+                "historical_marker_ids = {}",
+                render_list(&row.historical_marker_ids)
+            ));
+        }
+        lines.push(String::new());
     }
     lines.join("\n")
 }
@@ -1396,6 +1486,340 @@ mod tests {
             .and_then(Value::as_array)
             .expect("test TOML must contain the requested array")
             .clone()
+    }
+
+    fn verified_claim(claim_id: &str, statement: &str) -> Value {
+        Value::Table(
+            [
+                ("id", claim_id),
+                ("status", "Verified"),
+                ("statement", statement),
+            ]
+            .into_iter()
+            .map(|(key, value)| (key.to_string(), Value::String(value.to_string())))
+            .collect(),
+        )
+    }
+
+    fn conflict_rows(claims: &[Value]) -> Vec<ConflictMarker> {
+        build_conflict_markers(claims, &[], &[], &[], &[])
+            .expect("build fixture conflict markers")
+            .0
+    }
+
+    #[test]
+    fn conflict_resolution_follows_semantic_identity_across_insertion_and_reordering() {
+        let original_claims = [
+            verified_claim("C-002", "An obstruction bounds the first construction."),
+            verified_claim("C-003", "The second construction fails its boundary test."),
+        ];
+        let original_markers = conflict_rows(&original_claims);
+        let resolved_id = conflict_lacuna_id(&original_markers[0]);
+        let (mut retained, meta) =
+            build_lacunae(&original_claims, &original_markers, &[], &[], &[]).unwrap();
+        let resolved = retained
+            .iter_mut()
+            .find(|row| row.id == resolved_id)
+            .unwrap();
+        resolved.status = "resolved".to_string();
+        resolved.description = "The boundary obstruction is the proved result.".to_string();
+        resolved.source_refs.push("proofs/boundary.v".to_string());
+        let original_text = render_lacunae(&retained, &meta);
+        let inserted_claims = [
+            verified_claim(
+                "C-001",
+                "The new candidate fails the associativity identity.",
+            ),
+            original_claims[1].clone(),
+            original_claims[0].clone(),
+        ];
+        let inserted_markers = conflict_rows(&inserted_claims);
+        let (inserted, inserted_meta) = build_lacunae(
+            &inserted_claims,
+            &inserted_markers,
+            &[],
+            &[],
+            &table_rows(&original_text, "lacuna"),
+        )
+        .unwrap();
+        assert_eq!(inserted.len(), 3);
+        assert_eq!(inserted_meta.open_count, 2);
+        let new_conflict = inserted
+            .iter()
+            .find(|row| row.claim_refs == ["C-001"])
+            .unwrap();
+        assert_eq!(new_conflict.status, "open");
+        assert_ne!(new_conflict.id, resolved_id);
+        assert_eq!(new_conflict.related_marker_ids, ["CM-0001"]);
+        let resolved = inserted.iter().find(|row| row.id == resolved_id).unwrap();
+        assert_eq!(resolved.claim_refs, ["C-002"]);
+        assert_eq!(resolved.status, "resolved");
+        assert_eq!(resolved.related_marker_ids, ["CM-0003"]);
+        assert_eq!(resolved.historical_marker_ids, ["CM-0001"]);
+        assert!(
+            resolved
+                .source_refs
+                .iter()
+                .any(|source| source == "proofs/boundary.v")
+        );
+        assert_eq!(
+            resolved.description,
+            "The boundary obstruction is the proved result."
+        );
+
+        let reordered_claims = [
+            inserted_claims[2].clone(),
+            inserted_claims[0].clone(),
+            inserted_claims[1].clone(),
+        ];
+        let reordered_markers = conflict_rows(&reordered_claims);
+        let (reordered, _) = build_lacunae(
+            &reordered_claims,
+            &reordered_markers,
+            &[],
+            &[],
+            &table_rows(&render_lacunae(&inserted, &inserted_meta), "lacuna"),
+        )
+        .unwrap();
+        assert_eq!(reordered.len(), 3);
+        assert_eq!(
+            reordered
+                .iter()
+                .find(|row| row.id == resolved_id)
+                .unwrap()
+                .status,
+            "resolved"
+        );
+        assert_eq!(
+            reordered
+                .iter()
+                .find(|row| row.claim_refs == ["C-001"])
+                .unwrap()
+                .status,
+            "open"
+        );
+    }
+
+    #[test]
+    fn unbound_conflict_resolution_remains_history_without_suppressing_live_marker() {
+        let claims = [verified_claim(
+            "C-1310",
+            "The candidate fails its associativity identity.",
+        )];
+        let markers = conflict_rows(&claims);
+        let legacy_lacunae = table_rows(
+            r#"
+[[lacuna]]
+id = "L-CM-0001"
+origin = "legacy_manual"
+title = "Resolve conflict marker CM-0001"
+description = "Retained resolution evidence for a different claim."
+status = "resolved"
+claim_refs = ["C-007"]
+source_refs = ["proofs/retained.v"]
+related_marker_ids = ["CM-0001"]
+"#,
+            "lacuna",
+        );
+        let (rows, meta) = build_lacunae(&claims, &markers, &[], &[], &legacy_lacunae).unwrap();
+        assert_eq!(rows.len(), 2);
+        assert_eq!(meta.open_count, 1);
+        let historical = rows.iter().find(|row| row.id == "L-CM-0001").unwrap();
+        assert_eq!(historical.status, "resolved");
+        assert_eq!(historical.origin, "conflict_marker_history");
+        assert_eq!(historical.claim_refs, ["C-007"]);
+        assert_eq!(historical.source_refs, ["proofs/retained.v"]);
+        assert!(historical.related_marker_ids.is_empty());
+        assert_eq!(historical.historical_marker_ids, ["CM-0001"]);
+        let live = rows
+            .iter()
+            .find(|row| row.id == conflict_lacuna_id(&markers[0]))
+            .unwrap();
+        assert_eq!(live.status, "open");
+        assert_eq!(live.claim_refs, ["C-1310"]);
+
+        let text = render_lacunae(&rows, &meta);
+        let (repeated, repeated_meta) =
+            build_lacunae(&claims, &markers, &[], &[], &table_rows(&text, "lacuna")).unwrap();
+        assert_eq!(render_lacunae(&repeated, &repeated_meta), text);
+    }
+
+    #[test]
+    fn changed_section_content_reopens_conflict_even_with_identical_polarity_hits() {
+        let documents = table_rows(
+            r##"
+[[document]]
+id = "D-001"
+source_markdown = "docs/fixture.md"
+body_markdown = "# Result\nThe confirmed computation fails the first constraint."
+"##,
+            "document",
+        );
+        let original = build_conflict_markers(&[], &documents, &[], &[], &[])
+            .unwrap()
+            .0;
+        assert_eq!(original.len(), 1);
+        let (mut retained, meta) = build_lacunae(&[], &original, &[], &[], &[]).unwrap();
+        retained[0].status = "resolved".to_string();
+        let mut edited_documents = documents.clone();
+        edited_documents[0]["body_markdown"] = Value::String(
+            "# Result\nThe confirmed computation fails the second constraint.".to_string(),
+        );
+        let edited = build_conflict_markers(&[], &edited_documents, &[], &[], &[])
+            .unwrap()
+            .0;
+        assert_eq!(original[0].positive_evidence, edited[0].positive_evidence);
+        assert_eq!(original[0].negative_evidence, edited[0].negative_evidence);
+        assert_ne!(
+            conflict_lacuna_id(&original[0]),
+            conflict_lacuna_id(&edited[0])
+        );
+        let (rows, _) = build_lacunae(
+            &[],
+            &edited,
+            &[],
+            &[],
+            &table_rows(&render_lacunae(&retained, &meta), "lacuna"),
+        )
+        .unwrap();
+        assert_eq!(rows.len(), 2);
+        assert_eq!(
+            rows.iter()
+                .find(|row| row.origin == "conflict_marker_scan")
+                .unwrap()
+                .status,
+            "open"
+        );
+        assert_eq!(
+            rows.iter()
+                .find(|row| row.origin == "conflict_marker_history")
+                .unwrap()
+                .status,
+            "resolved"
+        );
+
+        let mut relocated = edited[0].clone();
+        relocated.id = "CM-9999".to_string();
+        relocated.line_start += 10;
+        relocated.line_end += 10;
+        assert_eq!(
+            conflict_lacuna_id(&relocated),
+            conflict_lacuna_id(&edited[0])
+        );
+    }
+
+    #[test]
+    fn duplicate_conflict_sightings_share_one_stable_lacuna() {
+        let claim = verified_claim("C-001", "The candidate fails its identity.");
+        let claims = [claim.clone(), claim];
+        let markers = conflict_rows(&claims);
+        let (rows, meta) = build_lacunae(&claims, &markers, &[], &[], &[]).unwrap();
+        assert_eq!(rows.len(), 1);
+        assert_eq!(rows[0].related_marker_ids, ["CM-0001", "CM-0002"]);
+        let text = render_lacunae(&rows, &meta);
+        let (repeated, repeated_meta) =
+            build_lacunae(&claims, &markers, &[], &[], &table_rows(&text, "lacuna")).unwrap();
+        assert_eq!(render_lacunae(&repeated, &repeated_meta), text);
+    }
+
+    #[test]
+    fn canonical_export_preserves_integrity_history_and_generation_is_idempotent() {
+        let claims = [verified_claim("C-001", "The candidate fails its identity.")];
+        let (markers, marker_meta) = build_conflict_markers(&claims, &[], &[], &[], &[]).unwrap();
+        let (mut rows, _) = build_lacunae(&claims, &markers, &[], &[], &[]).unwrap();
+        rows[0].status = "resolved".to_string();
+        rows[0].historical_marker_ids = vec!["CM-0042".to_string()];
+        let (rows, meta) = build_lacunae(
+            &claims,
+            &markers,
+            &[],
+            &[],
+            &table_rows(&render_lacunae(&rows, &LacunaMeta::default()), "lacuna"),
+        )
+        .unwrap();
+        let lacunae_text = render_lacunae(&rows, &meta);
+        let marker_text = render_conflict_markers(&markers, &marker_meta);
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let fixture = std::env::temp_dir().join(format!(
+            "gororoba-registry-integrity-{}-{nonce}",
+            std::process::id()
+        ));
+        fs::create_dir(&fixture).unwrap();
+        let registry = fixture.join("registry");
+        fs::create_dir(&registry).unwrap();
+        let lacunae_path = registry.join("lacunae.toml");
+        let marker_path = registry.join("conflict_markers.toml");
+        fs::write(&lacunae_path, &lacunae_text).unwrap();
+        fs::write(&marker_path, &marker_text).unwrap();
+        let mut store = ProvenanceStore::open(Path::new(":memory:")).unwrap();
+        for _ in 0..3 {
+            assert_eq!(store.ingest_lacunae(&lacunae_text).unwrap(), 1);
+            store
+                .record_registry_snapshot(&fixture, "lacunae", &lacunae_path, &lacunae_text)
+                .unwrap();
+            store
+                .record_registry_snapshot(&fixture, "conflict_markers", &marker_path, &marker_text)
+                .unwrap();
+            // The typed canonical exporter owns six lanes plus transitions;
+            // retained integrity lanes stay in their generator-owned files.
+            store
+                .export_control_plane_compat_paths(
+                    &fixture,
+                    provenance_store::CompatExportPaths {
+                        claims: &registry.join("claims.toml"),
+                        insights: &registry.join("insights.toml"),
+                        experiments: &registry.join("experiments.toml"),
+                        binaries: &registry.join("binaries.toml"),
+                        theorems: &registry.join("theorems.toml"),
+                        theorems_mirror: &registry.join("theorems_mirror.toml"),
+                    },
+                )
+                .unwrap();
+            assert_eq!(fs::read_to_string(&lacunae_path).unwrap(), lacunae_text);
+            assert_eq!(fs::read_to_string(&marker_path).unwrap(), marker_text);
+            assert_eq!(
+                store.registry_snapshot("lacunae").unwrap().unwrap(),
+                lacunae_text
+            );
+            assert_eq!(
+                store
+                    .registry_snapshot("conflict_markers")
+                    .unwrap()
+                    .unwrap(),
+                marker_text
+            );
+            let (regenerated, regenerated_meta) = build_lacunae(
+                &claims,
+                &markers,
+                &[],
+                &[],
+                table_array(&load_toml(&lacunae_path).unwrap(), "lacuna"),
+            )
+            .unwrap();
+            assert_eq!(
+                render_lacunae(&regenerated, &regenerated_meta),
+                lacunae_text
+            );
+        }
+        for name in [
+            "claims",
+            "insights",
+            "experiments",
+            "binaries",
+            "theorems",
+            "theorems_mirror",
+            "claim_transitions",
+            "claim_relations",
+            "lacunae",
+            "conflict_markers",
+        ] {
+            fs::remove_file(registry.join(format!("{name}.toml"))).unwrap();
+        }
+        fs::remove_dir(&registry).unwrap();
+        fs::remove_dir(&fixture).unwrap();
     }
 
     #[test]

@@ -39,6 +39,9 @@ use crate::{
 };
 use num_complex::Complex;
 
+pub mod observable;
+pub use observable::{AlbertLinearizedAssociator, AlbertObservableError};
+
 /// A 3x3 Hermitian matrix over the Complexified Octonions $J_3(\mathbb{O}_\mathbb{C})$.
 ///
 /// Layout: 3 complex diagonal entries + 3 complex octonion off-diagonal entries.
@@ -157,6 +160,77 @@ impl AlbertElement {
     /// Create an element with all entries specified.
     pub fn new(diag: [f64; 3], off: [[f64; 8]; 3]) -> Self {
         Self { diag, off }
+    }
+
+    /// Coordinates are the three diagonal entries followed by the eight
+    /// components of `off[0]`, `off[1]`, and `off[2]`, in that order.
+    pub fn coordinates(&self) -> [f64; 27] {
+        std::array::from_fn(|index| {
+            if index < 3 {
+                self.diag[index]
+            } else {
+                self.off[(index - 3) / 8][(index - 3) % 8]
+            }
+        })
+    }
+
+    pub fn from_coordinates(coordinates: [f64; 27]) -> Self {
+        Self {
+            diag: std::array::from_fn(|index| coordinates[index]),
+            off: std::array::from_fn(|block| {
+                std::array::from_fn(|component| coordinates[3 + 8 * block + component])
+            }),
+        }
+    }
+
+    /// The trace inner product is `Tr(X . Y)`. Each off-diagonal component
+    /// appears twice in the Hermitian matrix, giving Gram weights 2.
+    pub fn trace_inner_product(&self, other: &Self) -> f64 {
+        self.diag
+            .iter()
+            .zip(other.diag)
+            .map(|(left, right)| left * right)
+            .sum::<f64>()
+            + 2.0
+                * self
+                    .off
+                    .iter()
+                    .flatten()
+                    .zip(other.off.iter().flatten())
+                    .map(|(left, right)| left * right)
+                    .sum::<f64>()
+    }
+
+    /// Gram matrix for `coordinates()`, in the trace inner product.
+    pub fn coordinate_gram_matrix() -> [[f64; 27]; 27] {
+        std::array::from_fn(|row| {
+            std::array::from_fn(|column| {
+                if row != column {
+                    0.0
+                } else if row < 3 {
+                    1.0
+                } else {
+                    2.0
+                }
+            })
+        })
+    }
+
+    /// Coordinates in the orthonormal basis obtained by dividing each
+    /// off-diagonal coordinate basis element by `sqrt(2)`.
+    pub fn orthonormal_coordinates(&self) -> [f64; 27] {
+        let mut coordinates = self.coordinates();
+        for coordinate in &mut coordinates[3..] {
+            *coordinate *= std::f64::consts::SQRT_2;
+        }
+        coordinates
+    }
+
+    pub fn from_orthonormal_coordinates(mut coordinates: [f64; 27]) -> Self {
+        for coordinate in &mut coordinates[3..] {
+            *coordinate /= std::f64::consts::SQRT_2;
+        }
+        Self::from_coordinates(coordinates)
     }
 
     /// Trace: Tr(X) = xi_1 + xi_2 + xi_3.
@@ -394,7 +468,7 @@ impl AlbertElement {
         result
     }
 
-    /// Squared Frobenius norm: sum of squares of all 27 real components.
+    /// Squared trace norm: coordinate squares weighted by the coordinate Gram matrix.
     pub fn norm_sq(&self) -> f64 {
         let d_sq: f64 = self.diag.iter().map(|x| x * x).sum();
         let o_sq: f64 = self.off.iter().map(oct_norm_sq).sum();
@@ -445,6 +519,37 @@ fn mat_mul(a: &[[[f64; 8]; 3]; 3], b: &[[[f64; 8]; 3]; 3]) -> [[[f64; 8]; 3]; 3]
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn albert_coordinate_gram_matches_jordan_trace_on_every_basis_pair() {
+        let gram = AlbertElement::coordinate_gram_matrix();
+        for (row, gram_row) in gram.iter().enumerate() {
+            let mut left_coordinates = [0.0; 27];
+            left_coordinates[row] = 1.0;
+            let left = AlbertElement::from_coordinates(left_coordinates);
+            assert_eq!(left.coordinates(), left_coordinates);
+            for (column, expected) in gram_row.iter().enumerate() {
+                let mut right_coordinates = [0.0; 27];
+                right_coordinates[column] = 1.0;
+                let right = AlbertElement::from_coordinates(right_coordinates);
+                assert_eq!(left.jordan_product(&right).trace(), *expected);
+                assert_eq!(left.trace_inner_product(&right), *expected);
+            }
+        }
+    }
+
+    #[test]
+    fn albert_orthonormal_coordinates_preserve_trace_inner_product() {
+        let coordinates = std::array::from_fn(|index| index as f64 / 7.0 - 2.0);
+        let element = AlbertElement::from_coordinates(coordinates);
+        let orthonormal = element.orthonormal_coordinates();
+        let squared_norm: f64 = orthonormal.iter().map(|value| value * value).sum();
+        assert!((squared_norm - element.norm_sq()).abs() < 1e-12);
+        let reconstructed = AlbertElement::from_orthonormal_coordinates(orthonormal);
+        for (actual, expected) in reconstructed.coordinates().iter().zip(coordinates) {
+            assert!((actual - expected).abs() < 1e-12);
+        }
+    }
 
     #[test]
     fn test_albert_diagonal_trace() {

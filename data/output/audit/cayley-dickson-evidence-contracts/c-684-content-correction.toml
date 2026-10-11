@@ -1,0 +1,5 @@
+claim_id = "C-684"
+expected_statement = "M4 Hexagon Residual Nonzero: The associator-based m_3 correction tensor produces a nonzero hexagon (A_5) residual when evaluated with m_4=0, confirming that the sedenion A-infinity structure genuinely requires a quaternary correction m_4 beyond the ternary m_3. The M4CorrectionTensor (16^5 = 1,048,576 entries, 8.4 MB) is implemented and passes 8 unit tests."
+expected_where_stated = "crates/neural_homotopy/src/m4_tensor.rs (M4CorrectionTensor::m3_hexagon_residual)"
+statement = "The associator-based ternary tensor produces a nonzero implemented arity-five residual when the quaternary tensor is zero. M4CorrectionTensor stores 16^5 entries and supports numerical tensor diagnostics. These observations do not establish an A-infinity structure: the minimal uncurved arity-three identity already fails for the Cayley-Dickson product."
+where_stated = "crates/neural_homotopy/src/m4_tensor.rs::M4CorrectionTensor::m3_hexagon_residual; proofs/theories/MinimalUncurvedObstruction.v"

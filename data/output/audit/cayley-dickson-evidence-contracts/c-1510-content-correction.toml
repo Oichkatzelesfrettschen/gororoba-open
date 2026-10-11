@@ -1,0 +1,5 @@
+claim_id = "C-1510"
+expected_statement = "ZD tangent space dim = 20 for standard sedenion 2-blade witnesses. Jacobian rank = 12 (4 redundant = Moreno 4D annihilator). 20 = 14 (G_2) + 6 (2-blade)."
+expected_where_stated = "crates/cd_kernel/src/cayley_dickson/tests.rs::test_zd_tangent_space"
+statement = "For the nonzero sedenion pairs (a,b) = (e_1+e_10,e_4-e_15) and (e_3+e_10,e_6-e_15), the test verifies a*b = 0 and constructs the 16x32 derivative of F(a,b)=a*b as [R_b | L_a], acting by da*b + a*db. Partial-pivot elimination with pivot tolerance 1e-10 finds numerical rank 16 and linearized-constraint kernel dimension 16 at both pairs. Both factors may change norm. The fixture establishes these two numerical derivative ranks; smoothness and a global G_2 identification require separate proofs."
+where_stated = "crates/cd_kernel/src/cayley_dickson/tests.rs::test_zd_tangent_space"

@@ -1,8 +1,11 @@
-//! Thesis 3: A-Infinity Correction Protocol
+//! Tensor optimization and associator residual diagnostics.
 //!
-//! The A-infinity correction tensor m_4 resolving the Sedenion Lagrangian
-//! obstruction can be synthesized via neural search constrained by Stasheff
-//! polytope geometry.
+//! The optimization routines evaluate selected higher-arity polynomial losses.
+//! An uncurved minimal A-infinity algebra requires an associative m_2 at
+//! arity three. Sedenion multiplication fails that requirement, independently
+//! of any learned m_3 or m_4. These losses therefore supply tensor diagnostics;
+//! algebra admission requires a different differential or monoidal structure
+//! and verification of its complete identities.
 
 // Native BLAS backends are selected at compile time via this crate's Cargo
 // features (see `[features]` in `Cargo.toml`). Keep them opt-in so the default
