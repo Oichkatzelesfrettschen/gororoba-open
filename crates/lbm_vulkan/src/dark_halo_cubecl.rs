@@ -1,4 +1,3 @@
-// Copyright (c) 2026 Terascale Functionalists
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 //! cubecl-wgpu ZD viscosity hash for the dark-halo detector.

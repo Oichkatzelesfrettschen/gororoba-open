@@ -1,4 +1,3 @@
-// Copyright (c) 2026 Terascale Functionalists
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 //! Parity tests for the Besag-Clifford cubecl shuffle + transform pipeline.

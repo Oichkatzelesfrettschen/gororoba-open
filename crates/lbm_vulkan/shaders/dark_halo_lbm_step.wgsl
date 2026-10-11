@@ -1,4 +1,3 @@
-// Copyright (c) 2026 Terascale Functionalists
 // SPDX-License-Identifier: GPL-2.0-or-later
 //
 // D3Q19 BGK LBM timestep with per-cell tau read from a storage buffer.
