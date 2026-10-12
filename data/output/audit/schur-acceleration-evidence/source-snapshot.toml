@@ -5,9 +5,10 @@ source_evidence_checksum_result = "README.md, replay.py and result.json passed S
 source_dependency_result = "all seven hashes in the retained result match the inspected canonical source bytes"
 destination_baseline_commit = "abbf13cada78d9b106fc610a36f6eea54567ecfc"
 reviewed_schur_commit = "a72f2238ed498ac8e886943c923999ddb84c9d37"
-incoming_reviewed_base_commit = "775768a84ef183e0577306a88e2b98b7c5f69005"
-reconciled_merge_commit = "b1190df1162c2afc492395ea361df727abbc8c4e"
+incoming_reviewed_base_commit = "2fabc48796a7a29b269faec44e8f5a7b57444213"
+reconciled_merge_commit = "c165f17e90216d3cdbe7c9a921d381c91a2fff19"
 local_digest_state = "reconciled source inputs; initial digests remain retained in the reviewed Schur commit"
+math_dependency_diff_result = "named Schur library crates, manifests, lockfile, toolchain and Cargo configuration are unchanged between the prior and repaired incoming base"
 
 [[source_file]]
 path = "gororoba_quantum/schur_acceleration.py"
@@ -54,3 +55,8 @@ sha256 = "57d3b95c332f90e7a80d81f2f65b5932c2a8b8100b70688b41705bc5518998b0"
 [[dependency_file]]
 path = "rust-toolchain.toml"
 sha256 = "c0864e4045ce7847ebe68e13423671c7007fbbe77d8b10ad5f5bacb8a1601ab3"
+
+[prior_reconciliation]
+incoming_base_commit = "775768a84ef183e0577306a88e2b98b7c5f69005"
+merge_commit = "b1190df1162c2afc492395ea361df727abbc8c4e"
+diagnostic_receipt_commit = "1188e1bf77c440bcff210508319e5e166de419a8"

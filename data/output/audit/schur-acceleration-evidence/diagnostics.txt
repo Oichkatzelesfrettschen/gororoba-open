@@ -139,3 +139,46 @@ git -c core.fsmonitor=false diff --check
 The local commit and merge update the Schur branch and its checkout. GitHub
 publication, canonical SQL/exports and hardware execution retain the root
 integration task's authorization boundaries.
+
+Complete-receipt base reconciliation
+-----------------------------------
+
+The next local --no-ff merge incorporated the repaired Boolean/proof head
+2fabc48796a7a29b269faec44e8f5a7b57444213 into the Schur branch. The command
+
+git -c core.fsmonitor=false merge --no-ff --quiet \
+  codex/boolean-permutation-evidence \
+  -m 'merge(proofs): reconcile complete kernel receipts and governance'
+
+exited 0 and created c165f17e90216d3cdbe7c9a921d381c91a2fff19, with parents
+1188e1bf77c440bcff210508319e5e166de419a8 and
+2fabc48796a7a29b269faec44e8f5a7b57444213. The worktree status immediately
+after the merge was empty. The comparison against the repaired base lists
+exactly the seven scoped Schur files.
+
+The incoming-base source comparison
+
+git -c core.fsmonitor=false diff --exit-code \
+  775768a84ef183e0577306a88e2b98b7c5f69005 \
+  2fabc48796a7a29b269faec44e8f5a7b57444213 -- \
+  crates/algebra_analysis crates/cd_kernel crates/verified_core \
+  crates/moreno_1997 crates/gororoba_gpu_bridge crates/fwht \
+  Cargo.toml Cargo.lock rust-toolchain.toml .cargo
+
+exited 0. Those named Rust sources, manifests and Cargo inputs are identical
+between the two incoming heads. The owning library's default dependency
+manifests exclude data_core, gororoba_db and provenance_store, whose mirrors
+or governance implementations changed in the repaired base. The six local
+port/dependency digests also match their previously validated byte values.
+
+The eleven Schur tests, eleven exact-annihilator tests and library/test
+Clippy outcomes recorded for b1190df1162c2afc492395ea361df727abbc8c4e therefore
+remain the diagnostic witnesses for those identical inputs. The reconciliation
+runs the source-hash, nightly format and whitespace checks because the merge
+and refreshed receipts change those review surfaces. Additional execution of
+the unchanged mathematics would repeat the same input boundary.
+
+The source-snapshot file records the repaired incoming head and merge identity
+while retaining the prior reconciliation identities. GitHub publication,
+canonical registration and repository-wide hosted validation remain owned by
+the root integration task.
