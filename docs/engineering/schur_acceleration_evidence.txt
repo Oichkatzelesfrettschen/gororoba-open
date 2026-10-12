@@ -1,0 +1,130 @@
+Centered Schur acceleration evidence
+===================================
+
+Second-order compatibility separates a curved constant-nullity path from a
+straight path with the same velocity. The algebra_analysis::schur_acceleration
+module ports the exact certificate mechanism from gororoba-quantum's
+schur_acceleration.py into the existing rational multiplication and annihilator
+infrastructure. The quantum source snapshot is
+95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2. The retained source manifest binds the
+production inputs, proof note and independent Python replay by SHA-256.
+
+Execution domain and centered frame
+----------------------------------
+
+The public chart domain has dimension 32. Center coordinates are exact
+BigRational values, coordinates 0 and 16 vanish, the center is nonzero, and
+its left-multiplication nullity is 4, 8, 12 or 16. Directions and accelerations
+use all 30 remaining coordinates and may be zero. Rational centers retain
+their own sphere radius; an irrational unit normalization is unnecessary.
+Invalid dimensions, malformed rational denominators, purity violations,
+unsupported center nullities and singular pivots return explicit errors.
+
+CenteredSchurChart rebuilds L_center through multiplication_matrix_exact and
+retains an AnnihilatorCertificate. Independent image columns form U, and
+the complete certified kernel forms V. Verification checks the exact source
+operator, the kernel and image frames, skew symmetry, U^T V=0, and both
+inverse identities for A0=U^T L_center U. These checks establish an invertible
+combined frame. schur_at admits a point only when its fixed pivot is invertible.
+
+For the skew block convention [[A,B],[-B^T,D]], the residual is
+
+  S(x)=D(x)+B(x)^T A(x)^(-1) B(x).
+
+Block elimination gives rank L_x=(32-k)+rank S(x) on that pivot domain.
+A zero residual therefore has the center's nullity k. The plus sign follows
+from skew symmetry; changing the sign changes the necessary accelerations.
+Biss, Christensen, Dugger and Isaksen, Lemma 2.3, grounds the adjoint identity.
+The quantum proof note records the real differentiation argument and its
+source attribution.
+
+Complete acceleration certificates
+----------------------------------
+
+The module reconstructs every derivative direction V^T L_ei V, then keeps
+the strictly upper-triangular entries as Dmap. For a velocity h, it forms
+
+  Q(h)=B(h)^T A0^(-1) B(h),
+  M=[Dmap; center^T],
+  rhs=[upper_triangle(-2Q(h)); -||h||^2].
+
+Direct operator entries and the center inner product reconstruct the
+first-order residual. FirstOrderInadmissible carries that nonzero residual.
+SecondOrderObstructed carries ell with ell^T M=0 and ell^T rhs!=0.
+SecondOrderCompatible carries a particular acceleration and a full
+homogeneous kernel. Each status requires its own witness and excludes the
+other witness type.
+
+The affine space retains a Schur particular solution a0, the radial correction
+alpha=(-||h||^2-center^T a0)/||center||^2, and a=a0+alpha*center. The verifier
+checks Dmap*center=0, so the correction preserves the Schur equation while
+enforcing the norm equation. The norm row increases rank by one; every
+separating covector has coefficient zero on that row.
+
+A nonzero rank-sized minor proves the system's lower rank bound. The retained
+kernel has 30-rank independent columns, witnessed by an identity block on
+the free rows, and M*K=0 proves the matching upper bound. Every real solution
+is therefore particular+K*z. The Rust evaluation interface accepts rational
+parameters and returns all 32 ambient coordinates. verify_member independently
+checks V^T L_acceleration V+2Q(h)=0 and the second norm equation.
+
+SchurAccelerationCertificate::verify reconstructs the source chart, all 30
+derivative directions and the velocity equations. The verifier checks exact
+identities and retained witnesses without calling the acceleration constructor.
+Malformed shapes and denominators fail before retained-field arithmetic.
+
+Finite replay and falsifiers
+---------------------------
+
+The eleven module tests cover four exact centers with nullities 4, 8, 12 and
+16, all 30 derivative directions at each center, complete zero-velocity
+acceleration spaces, radial rejection and dense rational first-order directions.
+The nonzero curvature fixture at center e1+e10 uses velocity e3. Its derivative
+map has rank 6, the sphere system has rank 7, and the affine acceleration space
+has dimension 23. Acceleration -e1 verifies. Zero acceleration, a wrong sign,
+a missing factor two and radial-only acceleration fail the direct equations.
+
+The incompatible fixture at e1+e18 uses velocity e11. The derivative map has
+rank 8 and the first-order sphere kernel has dimension 21. The residual rows
+(0,1) and (4,5) have equal coefficients and right-hand sides 2 and -2.
+Their difference yields a separating covector with pairing -4. The obstruction
+excludes a second-order jet in the named same-nullity locus.
+
+Four rational samples of the source curvature path retain norm squared two
+and nullity eight; the matching straight samples have full-rank Schur residual
+and determinant t^16. The t=2 curve point e3+e10 remains inside the chosen
+centered pivot domain. The point e1-e10 has a directly checked singular pivot.
+These samples establish finite exact regression results. The source's symbolic
+path identity remains separately retained in the quantum evidence bundle.
+
+The tests reject 62 altered-evidence or reassigned-status cases across chart,
+derivative, equation, affine-space, separator and malformed-rational fields.
+Invalid public input shapes and purity violations receive separate error checks.
+Negative rational center rescalings and quadratic velocity rescalings preserve
+the exact normalization contract.
+
+Validation and remaining boundaries
+-----------------------------------
+
+Named Cargo diagnostics run with the repository's Rust 1.97.0 pin and the
+worktree's own target directory. The existing eight exact-annihilator tests
+establish the baseline. The eleven Schur tests, library/test Clippy with
+warnings denied, nightly rustfmt and scoped whitespace checks validate the
+named local surfaces. Hosted CI owns repository admission and affected consumers.
+The retained diagnostics file records the commands, versions and outcomes.
+
+The certificate port verifies exact CPU algebra in dimension 32. Generic exact
+multiplication and annihilator APIs remain under exact_annihilator's own domain.
+Dense higher-dimensional centered charts need separate storage, execution and
+replay contracts; dimension-4096 or dimension-65536 coordinate round trips do
+not establish those dense matrix computations.
+
+Compatible second-order jets establish the named equations through order two.
+Higher-order obstructions, sufficient curve criteria, complete real tangent
+cones, smooth strata, attachments and global topology remain separate work.
+The quantum replay's coefficient-complete quadratic outer-bound calculation
+also retains its own source and execution boundary. The Rust port adds a new
+implementation witness, while derivative/calculus/stratum Rocq formalization
+remains an explicit proof frontier. Existing Boolean, fold and channel receipts
+retain their own theorem scopes. QPU execution supplies neither these polynomial
+identities nor the missing geometric classification.

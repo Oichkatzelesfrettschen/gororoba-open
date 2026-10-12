@@ -1,0 +1,42 @@
+schema = "centered-schur-source-snapshot-v1"
+source_project = "gororoba-quantum"
+source_commit = "95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2"
+source_evidence_checksum_result = "README.md, replay.py and result.json passed SHA256SUMS verification"
+source_dependency_result = "all seven hashes in the retained result match the inspected canonical source bytes"
+destination_baseline_commit = "abbf13cada78d9b106fc610a36f6eea54567ecfc"
+
+[[source_file]]
+path = "gororoba_quantum/schur_acceleration.py"
+sha256 = "8788a72319a54af2b8f66aa8de95feecdde5d67c712e11b70334c40cc96c8c9d"
+[[source_file]]
+path = "gororoba_quantum/skew_schur_charts.py"
+sha256 = "b7b180911309bb7452bc56c77cb219d192ab4be381259c32b152ddbab6bac85b"
+[[source_file]]
+path = "gororoba_quantum/rank_charts.py"
+sha256 = "f2174f0e9d5d176b27765d4f3b9df62da4480cbba4570bc8cd6e12db7aa7a29c"
+[[source_file]]
+path = "gororoba_quantum/cd_core.py"
+sha256 = "80edfb2588f03f11c5b02bebbd8df5b373e0d322c0f8e08158b130b447bba9fa"
+[[source_file]]
+path = "gororoba_quantum/parallel.py"
+sha256 = "9de69d2e33806695d7565b1148296ef97d9361defc1ea6868135aaf8684bb4b3"
+[[source_file]]
+path = "docs/notes/schur_acceleration_certificates.md"
+sha256 = "58b9b7e5504cde8f1c54e941b04f2a33a6772e75cb3993631d661348e0c8a975"
+[[source_file]]
+path = "docs/evidence/schur_acceleration/replay.py"
+sha256 = "23a6189b0521a9d7491483c3b5e36857aca7770c0554af48eb3edbe1f1741ebe"
+
+[source_result]
+path = "docs/evidence/schur_acceleration/result.json"
+sha256 = "a0713df2b31c65f286142a6a1fdc19a1470be47a2d6f88ae784e979af5aab8f0"
+
+[[port_file]]
+path = "crates/algebra_analysis/src/schur_acceleration.rs"
+sha256 = "e3a9cf4a422022d627ee5de487a49a8a35cb887421413b72ae9ee7a4cd1d5b88"
+[[port_file]]
+path = "crates/algebra_analysis/src/exact_annihilator.rs"
+sha256 = "65e48d9efb08565d7142b099e97811d9eafc54830221488f0985be18555f8b90"
+[[port_file]]
+path = "crates/algebra_analysis/src/lib.rs"
+sha256 = "1f4430710d312d6b0b278387e298918d18607ea64b86cfefc778b96ce174e3fe"

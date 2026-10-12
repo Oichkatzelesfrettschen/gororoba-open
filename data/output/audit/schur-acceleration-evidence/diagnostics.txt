@@ -1,0 +1,87 @@
+Centered Schur certificate diagnostic receipt
+============================================
+
+Observed 2026-10-12, UTC. The diagnostic commands ran in the managed
+codex/schur-acceleration-evidence worktree with HEAD
+abbf13cada78d9b106fc610a36f6eea54567ecfc. The commands read the worktree's
+Rust sources, Cargo.lock and pinned toolchain configuration. Cargo wrote
+the shared primary cargo-home/build-dir and the worktree's distinct
+.cache/exp-schur-acceleration-target. Worker-count variables were left
+unset, preserving Cargo and Rust's native process-visible CPU detection.
+The named diagnostics establish their own execution surfaces. Hosted CI
+owns repository admission, reverse-dependency coverage and canonical gates.
+
+Tool identities
+---------------
+
+rustc 1.97.0 (2d8144b78 2026-07-07)
+cargo 1.97.0 (c980f4866 2026-06-30)
+rustfmt 1.9.0-nightly (7c3c88f42a 2026-05-14)
+Cargo test profile: optimized + debuginfo.
+
+Commands and measured results
+----------------------------
+
+cargo test --offline --locked -p algebra_analysis --lib exact_annihilator
+  exit 0; 8 passed; 0 failed; test execution 3.80 s.
+  The baseline ran before the Schur source was installed.
+
+cargo test --offline --locked -p algebra_analysis --lib schur_acceleration
+  exit 0; 11 passed; 0 failed; test execution 24.95 s.
+  All four center nullities, all three statuses, complete affine spaces,
+  curvature/straight-path samples and 62 altered-evidence/status cases passed.
+
+cargo clippy --offline --locked -p algebra_analysis --lib -- -D warnings
+  exit 0; the owning library passed with warnings denied.
+
+cargo clippy --offline --locked -p algebra_analysis --lib --tests -- -D warnings
+  exit 0; the owning library and test targets passed with warnings denied.
+
+rustfmt +nightly --edition 2024 --check --config skip_children=true \
+  crates/algebra_analysis/src/schur_acceleration.rs \
+  crates/algebra_analysis/src/exact_annihilator.rs \
+  crates/algebra_analysis/src/lib.rs
+  exit 0; the three owned Rust source files passed the nightly format check.
+
+git -c core.fsmonitor=false diff --check
+  exit 0; tracked source edits passed whitespace verification.
+
+Source provenance reads in gororoba-quantum at
+95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2:
+
+jq -r '.source_sha256 | to_entries[] | "\(.value)  \(.key)"' \
+  docs/evidence/schur_acceleration/result.json | sha256sum -c -
+  exit 0 under Bash set -euo pipefail; all seven declared source hashes passed.
+
+sha256sum -c SHA256SUMS
+  exit 0 in docs/evidence/schur_acceleration;
+  README.md, replay.py and result.json passed their declared hashes.
+
+Checks that changed the understanding
+------------------------------------
+
+The first compilation exposed a borrowed BigRational scalar division in
+a test-only matrix expression. An entrywise exact map corrected the type
+contract. Production matrix equations retained their original arithmetic.
+
+The first executable run passed 10 tests and falsified an extra pivot-boundary
+assertion for e3+e10. Direct reduction established a zero Schur residual with
+an invertible pivot. The final test retains that t=2 curve point as a positive
+control and verifies the singular pivot determinant at e1-e10 explicitly.
+This correction concerns the finite centered chart domain. The observations
+supply neither a global chart cover nor a new curve-existence theorem.
+
+Observed scope
+--------------
+
+The source changes add schur_acceleration.rs, its sorted lib.rs declaration,
+and crate-private visibility for exact_annihilator::determinant. The helper's
+arithmetic is unchanged. The local evidence files record source identities,
+finite scope and these diagnostics. Every listed computational command uses
+the CPU or reads source/artifact hashes. The QPU command count is zero.
+Canonical registry mutation, pull-request publication, hosted validation and
+merge are owned by the integration task.
+
+The source-snapshot manifest binds the three local Rust inputs and the seven
+canonical quantum inputs. Incoming base-branch changes require a fresh local
+dependency snapshot and named diagnostics before integration.
