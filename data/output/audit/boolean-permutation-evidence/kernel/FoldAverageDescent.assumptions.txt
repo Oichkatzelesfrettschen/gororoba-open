@@ -1,0 +1,16 @@
+Declaration: kernel_witness_average
+Closed under the global context
+Declaration: zero_average
+Closed under the global context
+Declaration: witness_product_average
+Closed under the global context
+Declaration: zero_product_average
+Closed under the global context
+Declaration: average_product_does_not_descend
+Closed under the global context
+Declaration: reconstruction_after_average_detail
+Closed under the global context
+Declaration: average_detail_after_reconstruction
+Closed under the global context
+Declaration: average_detail_injective
+Closed under the global context

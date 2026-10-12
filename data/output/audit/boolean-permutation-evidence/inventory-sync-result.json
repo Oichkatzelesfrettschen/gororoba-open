@@ -1,0 +1,7 @@
+{
+  "event_key": "proof-inventory:boolean-permutation-source-inventory",
+  "theorem_count": 308,
+  "source_only_count": 308,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}

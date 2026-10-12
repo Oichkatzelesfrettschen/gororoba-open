@@ -1,0 +1,22 @@
+Declaration: projection_zero
+Closed under the global context
+Declaration: projection_linear
+Closed under the global context
+Declaration: projection_idempotent
+Closed under the global context
+Declaration: projection_kernel
+Closed under the global context
+Declaration: scalar_decomposition
+Closed under the global context
+Declaration: scalar_decomposition_unique
+Closed under the global context
+Declaration: projection_preserves_code
+Closed under the global context
+Declaration: projection_image
+Closed under the global context
+Declaration: code_direct_sum
+Closed under the global context
+Declaration: controlled_projection_exact
+Closed under the global context
+Declaration: controlled_scalar_distinguishable
+Closed under the global context

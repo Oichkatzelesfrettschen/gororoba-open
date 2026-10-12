@@ -1,0 +1,45 @@
+{
+  "correction_key": "higher-cd-homogeneity-formal-relation",
+  "event_key": "correct-links:higher-cd-homogeneity-formal-relation",
+  "spec_sha256": "563329f53c5b89b2722cf787cf7826123b1bcb67cfee5ad329916d045cf4f56c",
+  "changes": [
+    {
+      "before": {
+        "stable_id": "THM-LEGACY-C1471_HigherCDTrilinearity",
+        "legacy_name": "C1471_HigherCDTrilinearity",
+        "proof_path": "proofs/verified/C1471_HigherCDTrilinearity.v",
+        "identity_kind": "explicit_link",
+        "assumptions": "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded.",
+        "kernel_result": "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata.",
+        "replay_command": "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1471_HigherCDTrilinearity.v",
+        "falsifier": "Reject a purported formal certificate that substitutes full trilinearity or Aut(S)=G2 for the actual first-slot scalar-homogeneity statements; fresh compiler or checker rejection withdraws kernel admission.",
+        "identity_source": "_RocqProject",
+        "title": "Higher Cayley-Dickson associator homogeneity in its first argument",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": [
+          "C-1471",
+          "C-1762"
+        ]
+      },
+      "after": {
+        "stable_id": "THM-LEGACY-C1471_HigherCDTrilinearity",
+        "legacy_name": "C1471_HigherCDTrilinearity",
+        "proof_path": "proofs/verified/C1471_HigherCDTrilinearity.v",
+        "identity_kind": "explicit_link",
+        "assumptions": "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded.",
+        "kernel_result": "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata.",
+        "replay_command": "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1471_HigherCDTrilinearity.v",
+        "falsifier": "Reject a purported formal certificate that substitutes full trilinearity or Aut(S)=G2 for the actual first-slot scalar-homogeneity statements; fresh compiler or checker rejection withdraws kernel admission.",
+        "identity_source": "_RocqProject",
+        "title": "Higher Cayley-Dickson associator homogeneity in its first argument",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": [
+          "C-1762"
+        ]
+      }
+    }
+  ],
+  "exact_replay": false
+}

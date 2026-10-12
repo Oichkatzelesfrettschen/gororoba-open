@@ -1,0 +1,1 @@
+Registered local artifact LOCAL-BOOLEAN-PERMUTATION-EVIDENCE with 9 retained paths in web_references.

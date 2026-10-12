@@ -90,7 +90,13 @@ mod planning_rows;
 // submodule via a second impl ProvenanceStore block.
 mod requirements_mut;
 
+mod theorem_execution;
 mod theorem_identity;
+pub use theorem_execution::{
+    ProofDeclarationEvidence, ProofFileDigest, TheoremEvidenceMutationResult,
+    TheoremInventorySyncSpec, TheoremKernelEvidenceSpec, TheoremKernelWitness,
+    parse_theorem_inventory_sync_spec, parse_theorem_kernel_evidence_spec,
+};
 pub use theorem_identity::{
     TheoremBindingSpec, TheoremClaimMapping, TheoremIdentityBindResult, TheoremIdentitySpec,
     bind_theorem_identities, parse_theorem_identity_spec,
@@ -174,7 +180,7 @@ pub(crate) struct ProofInventoryEntry {
 #[derive(Clone, Debug, Default)]
 pub(crate) struct ProofInventory {
     pub(crate) project_raw: String,
-    pub(crate) verified_entries: Vec<ProofInventoryEntry>,
+    pub(crate) source_entries: Vec<ProofInventoryEntry>,
     pub(crate) verified_by_claim_id: BTreeMap<String, Vec<ProofInventoryEntry>>,
 }
 
@@ -597,7 +603,8 @@ impl ProvenanceStore {
             load_registry_table_toml(&experiments_text, "experiments")?.unwrap_or_default();
         let registry_binaries = load_binaries_from_registry(&binaries_text)?;
         let binaries = merge_workspace_binaries(repo_root, &registry_binaries)?;
-        let theorems = load_theorems_from_inventory(repo_root, &proof_inventory, &claims)?;
+        let theorems =
+            load_theorems_from_inventory(&self.conn, repo_root, &proof_inventory, &claims)?;
 
         // Every column the importer touches has to be either written from the
         // mirror or carried across from SQLite. A schema column in neither set
@@ -912,20 +919,10 @@ impl ProvenanceStore {
         let theorem_linked_claims = self
             .list_theorems()?
             .into_iter()
+            .filter(|theorem| theorem.status == theorem_execution::KERNEL_CHECKED)
             .flat_map(|theorem| theorem.linked_claim_ids.into_iter())
             .collect::<BTreeSet<_>>();
-        let kernel_checked_claim_count = self
-            .list_claims()?
-            .into_iter()
-            .filter(|claim| {
-                claim
-                    .formal_proof
-                    .as_deref()
-                    .map(|v| !v.trim().is_empty())
-                    .unwrap_or(false)
-                    || theorem_linked_claims.contains(&claim.id)
-            })
-            .count();
+        let kernel_checked_claim_count = theorem_linked_claims.len();
         let proof_file_count = self
             .registry_snapshot("rocq_project")?
             .map(|raw| {

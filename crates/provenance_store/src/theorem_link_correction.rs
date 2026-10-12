@@ -322,7 +322,7 @@ impl ProvenanceStore {
     }
 }
 
-fn read_state(connection: &Connection, stable_id: &str) -> Result<TheoremLinkState> {
+pub(crate) fn read_state(connection: &Connection, stable_id: &str) -> Result<TheoremLinkState> {
     let (mut state, projected_path, projected_links): (TheoremLinkState, String, String) =
         connection
             .query_row(

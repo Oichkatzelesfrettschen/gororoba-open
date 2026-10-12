@@ -1,0 +1,299 @@
+Source-bound theorem inventory and kernel execution provenance
+
+Audit date: 2026-10-12
+Source base: open_gororoba abbf13cada78d9b106fc610a36f6eea54567ecfc
+Active source project: proofs/_RocqProject
+Source inventory: 308 files, comprising 146 theories and 162 verified files.
+The inventory is a finite source denominator. Kernel admission is a separate
+execution property, scoped by named source declarations and their assumptions.
+
+Original admission defect and corrected mechanism
+The original inventory loader considered only verified/ and projected a proof
+file's existence as kernel_checked. The canonical theorem tables consequently
+represented 162 source files as checked executions. Source existence establishes
+an inventory entry; a compiler/checker execution requires retained artifacts.
+
+The new loader reconciles both proof roots with the exact disk-source set.
+Duplicate entries, missing or unlisted sources, legacy-stem collisions, path
+traversal, and symlinked project/source roots produce visible errors.
+New entries receive source_only. Existing identities retain their stable ID,
+legacy name, title, formal claim links, identity kind and explanatory metadata.
+The stable THM namespace and legacy theorem-table namespace remain distinct.
+Numeric filename prefixes reserve historical IDs and carry scientific links
+only through explicit canonical claim relations.
+
+The new typed sync operation inserts source identities and projections without
+clearing canonical tables. Registered locator removal/movement is rejected.
+The operation retains complete identity/projection prestate and poststate in
+an append-only theorem_identity_events envelope, records the project snapshot,
+and checks exact replay against the retained poststate and live source evidence.
+Status changes are the existing-record mutation surface. Existing assumptions,
+kernel_result narrative, replay command, falsifier, titles, links and source
+fields remain their recorded values.
+
+Kernel receipts and operator boundary
+The typed kernel evidence operation promotes one registered identity only after
+its source project, complete project-local Require closure, declaration headers,
+compiler/checker exits, warning policy, assumption reports, logs and retained .vo
+object match the supplied witness. The proof object must have the Rocq object
+header and the witnessed source basename. Each output role uses a distinct file.
+The checker log carries its context summary; each selected declaration carries
+one labeled Print Assumptions block whose full axiom-name set matches the spec.
+An empty set requires a declaration-specific closed-context result.
+
+The receipt stores the exact input specification and complete theorem metadata
+before/after in a kernel-evidence event. The narrative kernel_result field stays
+separate. Later ordinary theorem binding can revise its narrative while the
+receipt remains in append-only history. Activation selects the latest receipt
+for the stable identity and validates the exact live project/source/artifact
+hashes. A changed source, dependency, project, object or log removes its active
+kernel_checked projection on the next sync; the historical receipt is retained.
+
+These receipts are operator-declared execution provenance with byte and scope
+validation. The API validates retained file correspondence and reported exits;
+the API does not launch the compiler, authenticate a process trace, reproduce a
+run, attest an executable/toolchain installation, or cryptographically prove
+that a retained .vo was produced from a particular source. Fresh production and
+independent checking remain the operator's execution obligations. Section
+hypotheses generalized into theorem parameters remain part of the mathematical
+statement even when Print Assumptions reports a closed global context.
+
+Warning semantics and command boundary
+The pinned Rocq 9.1.1 parser maps '+' to AsError, '-' to Disabled, and an
+unprefixed name to Enabled. Thus +all and +default are fatal warning policies.
+The strings @all and @default denote unsupported warning names in that parser.
+The validator accepts fatal_all, fatal_default and default_severity separately.
+Fatal-policy commands require the matching -w argument and reject later warning
+policy overrides, quick/interface-only compilation and checker-admission flags.
+
+Compiler tokens must contain rocq compile or coqc and name the witnessed source.
+Checker tokens must contain rocq check, rocqchk or coqchk and name its logical
+module. An opam exec wrapper is accepted. This bounded token correspondence is
+not a shell interpreter or execution attestation. Repository-relative artifact
+paths keep local machine paths out of retained canonical receipts.
+
+Theorem and claim scope corrections
+The binding API now says Scoped formal proposition instead of unconditionally
+calling a source binding Kernel-checked. Execution status comes from receipts.
+The kernel_checked_claim_count metric counts links from kernel_checked theorem
+projections. A formal_proof string or a source_only link contributes zero.
+
+C958_ZDGraphTopology defines graph-count expressions and an explicit
+zd_graph_three_components axiom. That axiom states equations about hard-coded
+cardinality definitions; its formal statement contains no adjacency relation or
+connectivity predicate. The binary-natural count evaluations and declared
+singleton/missing-edge-list checks have closed contexts. The real edge formula
+and polynomial-bound declarations carry real-library assumptions. A module-wide
+checker summary can include the source axiom while a particular numeric theorem
+has a closed context. The draft correction records that declaration-specific
+interpretation and retains its legacy_alias identity with an empty claim list.
+The inspected canonical database contains no C-958 claim to infer from its stem.
+
+C1471_HigherCDTrilinearity proves first-slot scalar homogeneity for named higher
+Cayley-Dickson associators, including dimensions 4096 and 65536. Its source does
+not supply additivity, other-slot homogeneity, or a full automorphism-group
+classification. A new Provisional homogeneity proposition owns that actual scope.
+The C-1471 full-automorphism relation must be removed after the binder returns
+the homogeneity proposition's actual allocated claim ID. Its source-only state
+remains explicit until a fresh execution receipt for its large closure exists.
+
+The six existing theory bindings describe their actual propositions: scalar
+projection/control phase; all-order Schreier/normalized-ANF span; finite code
+cardinality; Boolean degree filtration/coboundary; component-constrained sedenion
+membership with two injective operators; and the minimal uncurved associativity
+obstruction with a concrete sedenion witness. The all-order sign-span proof and
+finite table enumeration leave full multiplication-group identification as a
+separate proposition. General singular-left-multiplication determinant admission
+also remains separate from the real polynomial's proved zero locus.
+
+Primary-source automorphism reconciliation
+Three locally retained primary PDFs were read with pdftotext -layout. Their
+file identities permit a later operator to locate and verify the same edition:
+
+2fefa736f6ed2ac9b10485a2110a7b2c4689b0039730f2c536edbbd625051f4d
+  Wilmot, Automorphisms of Sedenions, arXiv:2512.07210v1, 8 Dec 2025.
+  Section 4, especially pages 10 and 16, disputes Brown's finite factor via
+  a calibration-stabilizer analysis and claims full Aut(S)=G2.
+  Source locator: https://arxiv.org/abs/2512.07210
+
+03ffabb6b1f05282fe6c2d65ced324741108e07f717e1228a69432e3d7d4ee0d
+  Brown, On generalized Cayley-Dickson algebras, Pacific Journal of Mathematics
+  20 (1967), 415-422. Section 2 and Theorem 1, page 417, distinguish the full
+  group, its always-present epsilon sign involution, and the additional psi
+  transformation under a ground-field condition. The stated classification
+  covers doubling orders 4,5,6; the extension to every larger order is stated
+  there as a conjecture. The real negative-unit parameters satisfy the displayed
+  square-root field condition beta=sqrt(-3*gamma) for the S3 factor. The
+  rendered original page confirms the finite-group subscript and field formula.
+
+4ab7e9a82f253ad0932de311a0dd17e71b309797d7398018943fee0aacc80f46
+  Schafer, On the Algebras Formed by the Cayley-Dickson Process, American Journal
+  of Mathematics 76 (1954), 435-446. Theorem 4, page 445, concerns derivation
+  algebras of dimension 14 and type g2. The derivation extension has block form
+  D(a+bu)=D(a)+D(b)u. A derivation-algebra theorem identifies infinitesimal
+  symmetry; it does not classify disconnected components of a full group.
+  The rendered original page confirms the theorem concerns derivations.
+
+The literature disagreement consequently requires an explicit distinction
+between Der(S), the identity component of Aut(S), the full automorphism group,
+and the calibration stabilizer used by a source. A source-bound Rocq homogeneity
+receipt addresses a different proposition from each of those four surfaces.
+The typed C-1471 transition preserves its original statement/history and moves
+its source-claim admission from Verified to Provisional pending that review.
+The transition verdict Inconclusive records the unresolved source reconciliation
+rather than substituting a new full-group classification as an executed result.
+
+Existing authority: C-301 already records the computed dimension-14 sedenion
+derivation space from the Leibniz constraint matrix. C-576 owns the computed
+14-element octonion g2 derivation basis and its product tests. The drafts add
+neither a duplicate derivation-dimension claim nor a new automorphism theorem.
+
+Concrete connection and falsifier
+Every Cayley-Dickson doubling admits epsilon(a,b)=(a,-b). The doubling product
+proves epsilon(xy)=epsilon(x)epsilon(y). Equivalently, for an XOR-indexed basis,
+epsilon(e_i)=(-1)^(highest_bit(i))e_i is a multiplicative Boolean character.
+This action fixes every basis label and changes a diagonal sign direction.
+Schafer's displayed derivation extension fixes the newly doubled unit u, so
+exponentials of those derivations fix u. The standard finite-dimensional real
+Lie-group identity-component argument then separates epsilon, which sends u to
+-u, from that connected component. This paper-backed argument supplies a direct
+falsifier for conflating a connected g2/G2 result with the full group. The report
+records the derivation. The owner added
+exact_annihilator::tests::doubling_reflection_preserves_all_sedenion_basis_products
+in crates/algebra_analysis/src/exact_annihilator.rs. The retained test log
+reports a passing cargo test --locked -p algebra_analysis --lib
+doubling_reflection run. The test uses the existing cd_kernel::gourlay_epsilon,
+checks all 256 sedenion basis-product pairs with exact equality, fixes scalar
+one and negates the last doubling unit e8. The identity-component/group-level
+argument has the primary-source/Lie-theory support above; a new Rocq certificate
+for that group-level argument remains a separate evidence surface.
+
+The same distinction explains the modular-arithmetic boundary: a signed-XOR
+word can fix zero and retain an observable controlled diagonal phase, while its
+label action remains the identity. The origin-fixed nontrivial N=21 modular map
+is excluded from that restricted label-word family. Boolean target flips and
+other reversible circuits operate in a larger family. Sign-span cardinality,
+automorphism-group classification, reversible synthesis and physical QPU
+admission have independent success criteria, including above dimension 4096.
+
+C1463_ArithmeticInventory contains exactly 22 closed natural-number equalities.
+The fresh arithmetic-kernel producer compiled that one project-local leaf with
+fatal_all (+all), compiled one labeled Print Assumptions query for each of its
+22 declarations, and ran an independent kernel check. All three operations
+exited 0. All 22 declaration blocks report Closed under the global context;
+the checker context summary reports an empty axiom list. The retained source
+copy, object header, logs, specification, producer and 14-member checksum
+manifest were verified after publication. The binary-inclusive local-path scan
+recorded zero matches. The source SHA256 is
+9d2965761bb0d7ec936ac08f95bcbc21a1b973924aac4351715362b22f63714b.
+
+The arithmetic binding limits its proposition to the displayed natural-number
+equations. It leaves identified algebraic object counts, associator laws,
+conjugation, Clifford representations, periodicity and runtime measurements to
+their own evidence. A theorem name such as minimal_ideal_dim or cl8_is_mat16
+does not extend the numerical statement 256/16=16 or 256=16*16 into a theorem
+about a represented algebra or periodicity.
+
+The C-1463 admission transition preserves its original compound associator,
+tower-architecture and under-six-second compilation statement, and reopens its
+status as Provisional with a pending formal relation. The measured defect is the
+ArithmeticInventory binding to that compound assertion. The relevant actual
+sources retain stronger, separately named support: C1455_AssociatorTrilinear
+proves first-slot scalar homogeneity at dimension 16; C1470_PathionTrilinearity
+proves the corresponding dimension-32 law; C1471_HigherCDTrilinearity extends
+the displayed law to named dimensions through 65536. C1469_TowerTrilinearity
+checks finite sign-table identity/square properties and selected
+anticommutativity properties. Bilinear multiplication implies mathematical
+associator trilinearity by expansion. Admission of a particular full formal
+certificate requires the matching slot/additivity declarations; admission of a
+thirteen-level compile-time claim requires a separately retained timing protocol.
+
+Source identities for that scope comparison:
+d9a411e2be90200236b3e07c23cb59b3c68fde49e75e8275a0011e6a2b155510
+  proofs/verified/C1455_AssociatorTrilinear.v
+b8d05d5466641d9000e67c2fcd999d4a3837c34eedff9fad05a2c998b778f6c8
+  proofs/verified/C1469_TowerTrilinearity.v
+9fccf3e3a9b68d631388a5c02f470c7a37f161b0c307bf249ae957940827cf42
+  proofs/verified/C1470_PathionTrilinearity.v
+00c5922b0b5da069cd2aca13ec1c66bbc2e0b74c2eb56c88eb8a238a66382f99
+  proofs/verified/C1471_HigherCDTrilinearity.v
+
+Named developer diagnostics and observed results
+The source changes passed a complete provenance_store library suite of 112 tests
+before the final root-symlink and exact-project-freshness guards. The frozen final
+receipt/inventory suite passed all 13 tests. The gororoba-db theorem CLI parser
+suite passed both tests. The owner reported incremental Clippy success after the
+final guards. Those are named local developer diagnostics; hosted CI owns the
+repository validation gate.
+
+Commands, with parent-approved shared cache roots and an isolated target root:
+  cargo test --locked --offline -p provenance_store --lib
+  cargo test --locked --offline -p provenance_store --lib theorem_execution
+  cargo test --locked --offline -p gororoba_db --bin gororoba-db cli_parses_theorem
+  rustfmt +nightly --edition 2024 --config skip_children=true <owned source files>
+  git diff --check -- crates/provenance_store crates/gororoba_db
+
+The tests exercise exact inventory coverage, metadata preservation, replay,
+transaction rollback, source/dependency/project/artifact changes, incomplete
+closures, false declaration statements, hidden axioms, nonzero exits, warning
+policy overrides, missing checker summaries, invalid objects and symlink paths.
+The fixture receipts test validator correspondence with synthetic objects; fresh
+Rocq executions and genuine objects belong to the retained kernel receipts.
+
+Integration interfaces and ordering
+  gororoba-db theorem identity sync-inventory --spec <inventory.toml> --regen-toml false
+  gororoba-db theorem identity bind --spec <binding.toml> --regen-toml false
+  gororoba-db theorem identity correct-links --spec <correction.toml> --regen-toml false
+  gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml> --regen-toml false
+  gororoba-db claim transition plan --spec <transition.toml>
+  gororoba-db claim transition apply --spec <transition.toml> --regen-toml false
+
+The owner registers the evidence artifact, syncs the source inventory, applies
+the concurrency-bound compound-claim admission transitions, binds scoped propositions,
+materializes the C1471 link correction from the actual bind result, applies the
+C958 assumptions correction and the ArithmeticInventory link correction, then
+ingests receipts against the final metadata
+prestates. Compatibility exports and signatures follow the canonical mutation
+sequence. Exact replay is accepted only against unchanged specs/poststates.
+The provenance implementer writes source/spec/report files; the parent owner
+executes canonical SQLite changes, exports, commits, review and integration.
+
+Typed-spec and canonical integration observations
+The frozen public parsers accepted the binding specs (7, 4 and 1 entries), the
+C958 correction, both compound-claim transition specifications, and all 13
+genuine receipt specs, covering 189 declaration entries. The retained producers
+record 172 closed declaration reports and 17 assumption-bearing reports. A read-only transition plan reported Verified ->
+Provisional with an empty successor allocation against its then-current source
+fingerprint and numeric maximum.
+
+After the owner applied the canonical operations, independent read-only SQLite
+queries observed 308 theorem records: 13 kernel_checked and 295 source_only.
+The event table contains 13 kernel-evidence receipts. C-1471 is Provisional with
+formal_proof=pending:reviewed_pending. The newly allocated C-1762 is Provisional
+and refers to the actual higher-CD homogeneity source. The C1471 legacy theorem
+identity has exactly the C-1762 formal relation. The separate C1471 correction
+plan used the actual bind result rather than predicting that allocated ID.
+C-1463 is Provisional with formal_proof=pending:reviewed_pending; the freshly
+admitted C-1772 is Verified and owns the 22-equation arithmetic proposition.
+The ArithmeticInventory theorem identity has exactly the C-1772 formal relation.
+The owner materialized the correction with its complete reason and actual
+allocated ID before recording the arithmetic execution receipt.
+The project SHA256 remains
+5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8.
+
+Source freeze: theorem_execution.rs SHA256
+facadc8ddc0ae1e70c3121fb0ceea88a3fb572b917d1bea9d7bc88c8f0caf21b.
+The provenance implementer performed read-only canonical queries and the named
+source/spec/report edits. The canonical event, claim, artifact and export writes
+belong to the parent integration owner.
+
+Final bounded canonical audit
+The owner reports that the canonical set audit retained the original theorem
+events, claim revisions, transitions, unrelated claim rows and artifact rows,
+while admitting exactly the 12 new claims C-1761 through C-1772 and the scoped
+corrections described above. The owner reports passing compatibility export
+and signature checks. The provenance implementer independently read the final
+13/295 theorem split, both Provisional/pending compound claims, their precise
+replacement propositions and sole corrected theorem relations. Those named
+observations bound the preservation and completion statements; further hosted
+review and CI belong to the parent integration procedure.

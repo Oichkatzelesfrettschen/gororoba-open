@@ -533,6 +533,20 @@ pub(crate) enum TheoremIdentityAction {
         #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
         regen_toml: bool,
     },
+    /// Synchronize both proof roots while preserving canonical theorem metadata.
+    SyncInventory {
+        #[arg(long)]
+        spec: PathBuf,
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        regen_toml: bool,
+    },
+    /// Promote a registered theorem using retained source-bound kernel evidence.
+    RecordKernelEvidence {
+        #[arg(long)]
+        spec: PathBuf,
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        regen_toml: bool,
+    },
     /// Validate stable theorem identities and explicit claim links.
     Validate,
 }

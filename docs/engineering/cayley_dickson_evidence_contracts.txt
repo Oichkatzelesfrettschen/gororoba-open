@@ -242,7 +242,7 @@ coverage. Every listed Rust test computes its witness from source.
 
 For each changed proof, run Rocq 9.1.1 from the repository root:
 
-  rocq compile -w @default -R proofs/theories OpenGororoba \
+  rocq compile -w +default -R proofs/theories OpenGororoba \
     -R proofs/verified OpenGororobaVerified <proof-file>
 
 Every new theorem and lemma prints its assumptions. Retained output is in

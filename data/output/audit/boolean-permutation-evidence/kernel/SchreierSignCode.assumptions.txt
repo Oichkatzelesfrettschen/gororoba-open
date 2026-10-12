@@ -1,0 +1,132 @@
+Declaration: cube_equal_reflexive
+Closed under the global context
+Declaration: cube_equal_symmetric
+Closed under the global context
+Declaration: cube_equal_spec
+Closed under the global context
+Declaration: cube_nonzero_double
+Closed under the global context
+Declaration: cube_nonzero_zero
+Closed under the global context
+Declaration: cube_xor_zero
+Closed under the global context
+Declaration: cube_xor_commutative
+Closed under the global context
+Declaration: cube_equal_translate
+Closed under the global context
+Declaration: sign_zero_left
+Closed under the global context
+Declaration: sign_commutator
+Closed under the global context
+Declaration: cube_sum_extensional
+Closed under the global context
+Declaration: cube_sum_xor
+Closed under the global context
+Declaration: cube_sum_false
+Closed under the global context
+Declaration: cube_sum_constant
+Closed under the global context
+Declaration: cube_sum_and_constant
+Closed under the global context
+Declaration: cube_sum_delta
+Closed under the global context
+Declaration: cube_sum_translation
+Closed under the global context
+Declaration: sign_row_column_parity_equal
+Closed under the global context
+Declaration: sign_row_even
+Closed under the global context
+Declaration: sign_column_even
+Closed under the global context
+Declaration: sign_transpose
+Closed under the global context
+Declaration: schreier_high_difference
+Closed under the global context
+Declaration: schreier_closed_form
+Closed under the global context
+Declaration: schreier_low_even
+Closed under the global context
+Declaration: schreier_span_upper
+Closed under the global context
+Declaration: span_cube_sum
+Closed under the global context
+Declaration: cube_sum_sampling
+Closed under the global context
+Declaration: schreier_delta_pair
+Closed under the global context
+Declaration: even_function_delta_expansion
+Closed under the global context
+Declaration: even_lower_in_span
+Closed under the global context
+Declaration: independent_high_coefficient
+Closed under the global context
+Declaration: high_coordinate_in_span
+Closed under the global context
+Declaration: schreier_span_lower
+Closed under the global context
+Declaration: schreier_span_characterization
+Closed under the global context
+Declaration: normalized_schreier_characterization
+Closed under the global context
+Declaration: scalar_sign_in_span
+Closed under the global context
+Declaration: quaternion_generator_constant
+Closed under the global context
+Declaration: quaternion_span_constant
+Closed under the global context
+Declaration: quaternion_normalized_code_zero
+Closed under the global context
+Declaration: anf_evaluate_extensional
+Closed under the global context
+Declaration: anf_evaluate_xor
+Closed under the global context
+Declaration: anf_evaluate_false
+Closed under the global context
+Declaration: anf_evaluate_involutive
+Closed under the global context
+Declaration: anf_evaluate_injective
+Closed under the global context
+Declaration: anf_evaluate_zero
+Closed under the global context
+Declaration: anf_evaluate_ones
+Closed under the global context
+Declaration: anf_evaluate_parity
+Closed under the global context
+Declaration: anf_evaluate_monomial_sum
+Closed under the global context
+Declaration: monomial_basis_independent
+Closed under the global context
+Declaration: monomial_zero
+Closed under the global context
+Declaration: anf_monomial_basis
+Closed under the global context
+Declaration: anf_scalar_delta
+Closed under the global context
+Declaration: normalized_anf_spanning
+Closed under the global context
+Declaration: normalized_anf_coefficients_unique
+Closed under the global context
+Declaration: normalized_monomial_member
+Closed under the global context
+Declaration: cube_count_extensional
+Closed under the global context
+Declaration: cube_count_false
+Closed under the global context
+Declaration: cube_count_and_constant
+Closed under the global context
+Declaration: cube_count_delta
+Closed under the global context
+Declaration: cube_count_complement
+Closed under the global context
+Declaration: cube_count_union
+Closed under the global context
+Declaration: cube_zero_ones_distinct
+Closed under the global context
+Declaration: proper_nonempty_mask_count
+Closed under the global context
+Declaration: normalized_anf_basis_cardinality
+Closed under the global context
+Declaration: normalized_span_intersection
+Closed under the global context
+Declaration: schreier_scalar_direct_sum
+Closed under the global context

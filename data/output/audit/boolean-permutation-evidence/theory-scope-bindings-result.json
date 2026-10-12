@@ -1,0 +1,42 @@
+{
+  "binding_key": "boolean-theory-source-scopes",
+  "spec_sha256": "e248c9a9ba0c7102c2310720d2dd0e6e3cd1c89883ac9e7a5088de13a4664d38",
+  "claim_mappings": [
+    {
+      "proposal_key": "boolean-cochain-degree-filtration",
+      "stable_theorem_id": "THM-LEGACY-BooleanCochainFiltration",
+      "claim_id": "C-1761"
+    },
+    {
+      "proposal_key": "higher-cd-first-slot-homogeneity",
+      "stable_theorem_id": "THM-LEGACY-C1471_HigherCDTrilinearity",
+      "claim_id": "C-1762"
+    },
+    {
+      "proposal_key": "minimal-uncurved-associativity-obstruction",
+      "stable_theorem_id": "THM-LEGACY-MinimalUncurvedObstruction",
+      "claim_id": "C-1763"
+    },
+    {
+      "proposal_key": "schreier-normalized-span",
+      "stable_theorem_id": "THM-LEGACY-SchreierSignCode",
+      "claim_id": "C-1764"
+    },
+    {
+      "proposal_key": "sedenion-membership-component-constraints",
+      "stable_theorem_id": "THM-LEGACY-SedenionMembershipConstraints",
+      "claim_id": "C-1765"
+    },
+    {
+      "proposal_key": "sign-code-finite-cardinality",
+      "stable_theorem_id": "THM-LEGACY-SignCodeCardinality",
+      "claim_id": "C-1766"
+    },
+    {
+      "proposal_key": "sign-code-scalar-projection",
+      "stable_theorem_id": "THM-LEGACY-SignCodeProjection",
+      "claim_id": "C-1767"
+    }
+  ],
+  "exact_replay": false
+}

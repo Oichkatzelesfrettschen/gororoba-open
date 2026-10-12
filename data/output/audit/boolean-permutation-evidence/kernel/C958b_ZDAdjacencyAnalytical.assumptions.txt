@@ -1,0 +1,4 @@
+Declaration: analytical_edges_16
+Closed under the global context
+Declaration: analytical_edges_32
+Closed under the global context

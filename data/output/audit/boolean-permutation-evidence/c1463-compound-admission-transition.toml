@@ -1,0 +1,17 @@
+[transition]
+transition_key = "arithmetic-inventory-associator-claim-review"
+source_claim_id = "C-1463"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+experiment_ids = []
+exercised_falsifier = "Compare the exact source declarations and fresh labeled kernel assumption reports for C1463_ArithmeticInventory with the associator/tower/compile-time compound claim. The source has 22 closed natural-number equalities and its source-bound check supplies arithmetic evidence. Inspect C1455, C1470 and C1471 for their actual first-slot homogeneity statements and C1469 for finite sign-table properties; require a separately retained timing protocol for the under 6 seconds assertion."
+proposed_claim_status = "Provisional"
+rationale = "The prior ArithmeticInventory formal relation addresses22 concrete sums, products, natural-number divisions and powers rather than the associator/tower/runtime compound assertion. C1455 and C1470 contain first-slot scalar-homogeneity proofs, and C1471 extends that displayed law through 65536; C1469 supplies finite sign-table checks. Those source scopes remain supported at their own named boundaries. The transition preserves the original compound statement while reopening its admission pending matching formal scope and independent reproducible timing evidence."
+unresolved_assumptions = ["Identify formal declarations for every additivity and scalar-homogeneity slot claimed by the full trilinearity statement.","Retain a fresh complete dependency-closure execution for the actual higher-CD formal source surface.","Record the machine, compiler version, warning flags, source closure, cold/warm cache boundary and repeated observations for the thirteen-level under 6 seconds compile claim.","Keep arithmetic equalities separate from identified algebraic counts, conjugation, Clifford representation and periodicity theorems."]
+actor = "codex"
+reason = "Correct a mismatched proof relation while preserving the independently supported associator source scopes"
+transition_timestamp = "2026-10-12T16:56:43Z"
+expected_source_state_sha256 = "6a590edd7e52421142c3bdfa40e7b1366a4f58e0caa61055eaae21c5a334a949"
+expected_claim_id_max = 1771
+reserved_claim_ids = []

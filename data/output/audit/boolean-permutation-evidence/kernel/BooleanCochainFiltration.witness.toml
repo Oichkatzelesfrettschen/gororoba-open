@@ -1,0 +1,70 @@
+schema_version = 1
+stable_id = "THM-LEGACY-BooleanCochainFiltration"
+proof_path = "proofs/theories/BooleanCochainFiltration.v"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanCochainFiltration.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanCochainFiltration"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/BooleanCochainFiltration.v"
+sha256 = "b9672d8df27dabe052e0ba32f53e9e84230b3735d570efeb311e808678454e69"
+
+[compile_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/BooleanCochainFiltration.compile.txt"
+sha256 = "85a3b45103e22b997503de8b34fc3dab00d0e705ae5dc6469e29fdd4024cd4a1"
+
+[kernel_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/BooleanCochainFiltration.kernel.txt"
+sha256 = "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+
+[assumption_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/BooleanCochainFiltration.assumptions.txt"
+sha256 = "c8d3dba80fe74672851793af861d1f207295c38ddd9e013d64ab294f006e95bf"
+
+[proof_object]
+path = "data/output/audit/boolean-permutation-evidence/kernel/theories/BooleanCochainFiltration.vo"
+sha256 = "22c9d4c1cae159ceb0c0fdc30fa649c191d9854e4ac8b799d47f3fd7be6e1029"
+
+[[declarations]]
+name = "linear_substitution_preserves_degree"
+statement = "Theorem linear_substitution_preserves_degree : forall polynomial substitution, (forall variable, polynomial_degree (substitution variable) <= 1) -> polynomial_degree (polynomial_substitute polynomial substitution) <= polynomial_degree polynomial"
+assumptions = []
+
+[[declarations]]
+name = "substitution_evaluation"
+statement = "Theorem substitution_evaluation : forall polynomial substitution point, polynomial_evaluate (polynomial_substitute polynomial substitution) point = polynomial_evaluate polynomial (fun variable => polynomial_evaluate (substitution variable) point)"
+assumptions = []
+
+[[declarations]]
+name = "addition_preserves_filtration"
+statement = "Theorem addition_preserves_filtration : forall left right bound, degree_at_most left bound -> degree_at_most right bound -> degree_at_most (fun point => xorb (left point) (right point)) bound"
+assumptions = []
+
+[[declarations]]
+name = "linear_pullback_preserves_filtration"
+statement = "Theorem linear_pullback_preserves_filtration : forall function bound substitution, degree_at_most function bound -> (forall variable, polynomial_degree (substitution variable) <= 1) -> degree_at_most (fun point => function (fun variable => polynomial_evaluate (substitution variable) point)) bound"
+assumptions = []
+
+[[declarations]]
+name = "cochain_differential_preserves_degree"
+statement = "Theorem cochain_differential_preserves_degree : forall polynomial faces, Forall (fun face => forall variable, polynomial_degree (face variable) <= 1) faces -> polynomial_degree (face_sum polynomial faces) <= polynomial_degree polynomial"
+assumptions = []
+
+[[declarations]]
+name = "normalized_schreier_is_coboundary"
+statement = "Theorem normalized_schreier_is_coboundary : forall left right input, xorb (schreier_exponent left right input) (schreier_exponent left right identity) = ordinary_coboundary left right input"
+assumptions = []
+
+[[declarations]]
+name = "xor_group_face_linear"
+statement = "Theorem xor_group_face_linear : forall block_dimension arity face variable, polynomial_degree (xor_group_face block_dimension arity face variable) <= 1"
+assumptions = []
+
+[[declarations]]
+name = "xor_group_differential_preserves_degree"
+statement = "Theorem xor_group_differential_preserves_degree : forall block_dimension arity polynomial, polynomial_degree (xor_group_differential block_dimension arity polynomial) <= polynomial_degree polynomial"
+assumptions = []

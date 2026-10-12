@@ -1,0 +1,780 @@
+Boolean permutation and generic evidence theorem port
+
+Verification date: 2026-10-12
+Canonical audit base: open_gororoba abbf13cada78d9b106fc610a36f6eea54567ecfc
+Quantum source snapshot: gororoba-quantum 5604e4b1399cb8748783803c0ec9c51ff16149b7
+Toolchain: The Rocq Prover, version 9.1.1; compiled with OCaml 5.4.0
+Logical proof namespace: OpenGororoba
+
+Ownership and transformation
+BooleanPermutation.v owns generic Boolean target flips, ordered words,
+controlled signed basis semantics, the fixed-origin label obstruction, and
+finite identity-padded N=21 counterexamples. TargetFlipN21.v remains the
+quantum-owned compiler certificate; its generated cube lists are omitted.
+FoldAverageDescent.v ports the exact Qc algebra and reconstruction proof
+bodies with a scope header. Both terminal-channel ports preserve the original
+contraction proof and generalize the exclusion to four independent radii and
+arbitrary centers. Hardware counts, replay counts and their statistical
+interpretations remain in the quantum-owned sources and receipts.
+
+Source identities: SHA-256 of the quantum inputs
+c30eb3e2b4979e231314d65187073a327c984016919ffc82d4a86cd6310eeafb  gororoba-quantum:proofs/FoldAverageDescent.v
+992c9705fbad7c64728cc709acff248f8d0b2e716cc3572d726ce905d86d3521  gororoba-quantum:proofs/TerminalChannelSeparation.v
+b1227ae6842e33967def112c9cf69b37b2c9c0b04a7f4b7af3b9f8d3bb3dc797  gororoba-quantum:proofs/TerminalChannelSeparationReal.v
+494e3e9c1a4370c46f37e26b0f9e7cb301d8acf8ac96f94e2512ad57612e0fc6  gororoba-quantum:proofs/TargetFlipN21.v
+a67b7248f679fd9255967a72e585cf855f3a3d5e7b922660b387557b2dcd5044  gororoba-quantum:docs/evidence/formal_certificates/README.md
+6487da6f5ae6481601a3cf2172ec481785f0d67cf55633b0c4fdddf4cf956185  gororoba-quantum:docs/evidence/formal_certificates/source_hashes.sha256
+eee2298bf2180e0b208237f94c9d94e85b237fa9547c851f72cc95beddd738dd  gororoba-quantum:docs/evidence/formal_certificates/verification_receipt.json
+
+Canonical algebra surfaces consulted: SHA-256 at the audit base
+9addcc2ca88d5c76995578e54fda496f1aeb526be15a0b61e2b43a8e7e36825b  crates/cd_kernel/src/cayley_dickson/signs.rs
+d4c60e8b50e1b8d48c5c17ecca9bd4847323e27fe409d73661ee36791f0f7b6b  crates/cd_kernel/src/cayley_dickson/sign_code.rs
+5311372ac352568bd63ecd2f850b82639952ac6f014158f8e5c6767b1cd23d8e  proofs/theories/SignCodeProjection.v
+54b9e22250f20e185139c53d83e89f362a74d13979ecc0c42b3ddf0efcb0d417  proofs/theories/SchreierSignCode.v
+
+Producer identities: SHA-256 of the exact checked temporary source copies
+91860978dbba0759f088c7f9d16f7dea3d82d5c0e6938c65eb0b73ee14473f43  proofs/theories/BooleanPermutation.v
+fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23  proofs/theories/FoldAverageDescent.v
+c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866  proofs/theories/TerminalChannelSeparation.v
+6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4  proofs/theories/TerminalChannelSeparationReal.v
+
+Claim boundaries
+The toggle/predicate theorem quantifies over any State type. Its hypotheses
+state that the toggle is involutive and the predicate ignores that toggle.
+The integer cube instance derives predicate invariance from bit-mask
+exclusion. Ordered involution words have left and right reverse-word inverses.
+Signed basis pairs retain Boolean phase and natural label separately. The
+second action evaluates its phase at the first action's translated label.
+A signed-XOR word fixing label zero acts identically on labels; its phase
+can remain nonconstant. The explicit diagonal action preserves every label
+and distinguishes the two controlled branches at label one.
+The N=21 examples quantify only multipliers 2, 4 and 16 on the identity-padded
+five-bit map. The common non-affinity witness uses inputs 8 and 16: their XOR
+is 24, the padded output is 24, and the XORs of their outputs are 27, 10 and 6.
+The fixed-origin obstruction concerns a single signed-XOR word. LCU sums,
+arbitrary reversible circuits and physical coherence have separate contracts.
+The fold theorem concerns canonical rational scalar pairs. A general
+Cayley-Dickson tower embedding and physical interpretations remain external.
+The channel theorems concern one common appended stochastic binary channel.
+They require deterministic bounds on all four means and a positive center-gap
+margin. Statistical coverage, stationarity, calibration, replacement readout
+and context-dependent instruments remain experiment-owned obligations.
+
+Check protocol and observed exits
+Each source was copied into fresh task-owned temporary theories/ storage.
+The temporary source hashes above match the worktree source hashes byte-for-byte.
+The initial compile and independent check established the OpenGororoba namespace.
+Every declared Lemma/Theorem has exactly one explicit Print Assumptions query.
+The producer inventory contains 45 declarations: Boolean 28, fold 8, Q 4, R 5.
+All four compile with default warning categories escalated to errors:
+  "$ROCQ" compile -q -w +default -R theories OpenGororoba theories/NAME.v
+Each command exits 0. Fresh independent kernel checks after those compiles use:
+  "$ROCQ" check -silent -o -R theories OpenGororoba OpenGororoba.NAME
+Each command exits 0. BooleanPermutation and FoldAverageDescent also compile
+with every warning category escalated using -w +all, both with exit 0.
+
+Warning-profile probes
+The installed lib/rocq-runtime/lib/cWarnings.ml parser maps '+' to AsError,
+'-' to Disabled, and an unprefixed name to Enabled. Its SHA-256 is
+622fdc35d56b54b3201b547596ef36fb42de4c09cb8ec3e30ef06b0ddb4f09e6.
+The @all/@default spellings are not severity prefixes in this implementation.
+The matched clean fixture contains:
+  From Stdlib Require Import ZArith.
+The mutation fixture contains:
+  From Stdlib Require Import ZArith.ZArith_base.
+The command "$ROCQ" compile -q -w +default WarningPolicyClean.v exits 0.
+The same command on WarningPolicyMutation.v exits 1 and reports the enabled
+deprecated-library-file default warning as an error. The source hashes are:
+c4627ad47e62313f0054cca6a1ece4f3c6f4d0b277b88b11fcc60be7e5f63e4a  WarningPolicyClean.v
+8957b277e1ca7314a95882717cad2fe2ad0745d03dd3bbf9923ea32de942a49a  WarningPolicyMutation.v
+
+Semantic mutation
+Replacing the second action's translated phase argument with the original
+label in signed_compose makes signed_composition_exact fail. The command
+  "$ROCQ" compile -q -w +all -R theories OpenGororoba theories/BooleanPermutationPhaseMutation.v
+exits 1. The complete diagnostic appears below.
+
+Residual warning surfaces
+The two terminal-channel sources have strict-all imported-library failures.
+The Q port encounters Stdlib's deprecated disj-pattern-notation during QArith
+import. The R port encounters deprecated transitive ZArith_base while loading
+Stdlib proof objects. These failures remain distinct from successful +default
+compilation, exact assumption reports and independent kernel checking.
+Compiler diagnostics below replace the local toolchain prefix with ROCQ_SWITCH
+for portable retention; the library identities and warning categories remain.
+
+Assumption surfaces
+BooleanPermutation, FoldAverageDescent and TerminalChannelSeparation have 40
+closed theorem-specific queries and imported-library kernel contexts with
+zero axioms. Each of the five real theorem queries names exactly
+ClassicalDedekindReals.sig_forall_dec and
+FunctionalExtensionality.functional_extensionality_dep.
+The real imported-library kernel context additionally names
+ClassicalDedekindReals.sig_not_dec and Classical_Prop.classic.
+All four kernel contexts report zero type-in-type dependencies, unsafe
+(co)fixpoints and assumed positivity.
+
+The exact exported theorem signatures follow. Their implicit State parameters
+and explicit toggle/predicate hypotheses are part of the printed signatures.
+target_flip_involutive
+     : forall (toggle : ?State -> ?State) (predicate : ?State -> bool),
+       (forall state : ?State, toggle (toggle state) = state) ->
+       (forall state : ?State, predicate (toggle state) = predicate state) ->
+       forall state : ?State,
+       target_flip toggle predicate (target_flip toggle predicate state) =
+       state
+where
+?State : [ |- Type]
+target_flip_injective
+     : forall (toggle : ?State -> ?State) (predicate : ?State -> bool),
+       (forall state : ?State, toggle (toggle state) = state) ->
+       (forall state : ?State, predicate (toggle state) = predicate state) ->
+       forall left right : ?State,
+       target_flip toggle predicate left = target_flip toggle predicate right ->
+       left = right
+where
+?State : [ |- Type]
+target_flip_surjective
+     : forall (toggle : ?State -> ?State) (predicate : ?State -> bool),
+       (forall state : ?State, toggle (toggle state) = state) ->
+       (forall state : ?State, predicate (toggle state) = predicate state) ->
+       forall output : ?State,
+       exists input : ?State, target_flip toggle predicate input = output
+where
+?State : [ |- Type]
+masked_toggle_invariant
+     : forall label mask toggle_mask : nat,
+       PeanoNat.Nat.land mask toggle_mask = 0 ->
+       PeanoNat.Nat.land (PeanoNat.Nat.lxor label toggle_mask) mask =
+       PeanoNat.Nat.land label mask
+cube_flip_involutive
+     : forall target mask selected : nat,
+       PeanoNat.Nat.land mask (PeanoNat.Nat.pow 2 target) = 0 ->
+       forall label : nat,
+       cube_flip target mask selected (cube_flip target mask selected label) =
+       label
+cube_flip_bijective
+     : forall target mask selected : nat,
+       PeanoNat.Nat.land mask (PeanoNat.Nat.pow 2 target) = 0 ->
+       (forall left right : nat,
+        cube_flip target mask selected left =
+        cube_flip target mask selected right -> left = right) /\
+       (forall output : nat,
+        exists input : nat, cube_flip target mask selected input = output)
+target_dependent_predicate_breaks_involution
+     : cube_flip 0 1 0 (cube_flip 0 1 0 0) <> 0
+run_word_append
+     : forall (State : Type) (first second : list (State -> State))
+         (state : State),
+       run_word (first ++ second) state =
+       run_word second (run_word first state)
+reverse_word_inverse
+     : forall (State : Type) (word : list (State -> State)),
+       ListDef.Forall
+         (fun gate : State -> State =>
+          forall state : State, gate (gate state) = state)
+         word ->
+       forall state : State,
+       run_word (List.rev word) (run_word word state) = state
+word_reverse_inverse
+     : forall (State : Type) (word : list (State -> State)),
+       ListDef.Forall
+         (fun gate : State -> State =>
+          forall state : State, gate (gate state) = state)
+         word ->
+       forall state : State,
+       run_word word (run_word (List.rev word) state) = state
+disabled_control_identity
+     : forall (State : Type) (action : State -> State) (state : State),
+       controlled action false state = state
+enabled_control_action
+     : forall (State : Type) (action : State -> State) (state : State),
+       controlled action true state = action state
+controlled_composition
+     : forall (State : Type) (first second : State -> State)
+         (control : bool) (state : State),
+       controlled second control (controlled first control state) =
+       controlled (fun value : State => second (first value)) control state
+signed_composition_exact
+     : forall (first second : signed_xor_action) (phase : bool) (label : nat),
+       let intermediate := signed_apply first phase label in
+       signed_apply second (fst intermediate) (snd intermediate) =
+       signed_apply (signed_compose first second) phase label
+controlled_signed_label
+     : forall (action : signed_xor_action) (control phase : bool)
+         (label : nat),
+       snd (controlled_signed action control phase label) =
+       (if control
+        then PeanoNat.Nat.lxor label (action_offset action)
+        else label)
+controlled_signed_phase
+     : forall (action : signed_xor_action) (control phase : bool)
+         (label : nat),
+       fst (controlled_signed action control phase label) =
+       xorb phase (control && action_phase action label)
+controlled_signed_disabled_identity
+     : forall (action : signed_xor_action) (phase : bool) (label : nat),
+       controlled_signed action false phase label = (phase, label)
+controlled_signed_composition
+     : forall (first second : signed_xor_action) (control phase : bool)
+         (label : nat),
+       let intermediate := controlled_signed first control phase label in
+       controlled_signed second control (fst intermediate) (snd intermediate) =
+       controlled_signed (signed_compose first second) control phase label
+signed_word_label_projection
+     : forall (word : list signed_xor_action) (phase : bool) (label : nat),
+       snd (run_signed_word word phase label) =
+       PeanoNat.Nat.lxor label (word_offset word)
+signed_xor_fixed_zero_label_identity
+     : forall action : signed_xor_action,
+       snd (signed_apply action false 0) = 0 ->
+       forall (phase : bool) (label : nat),
+       snd (signed_apply action phase label) = label
+signed_word_fixed_zero_label_identity
+     : forall word : list signed_xor_action,
+       snd (run_signed_word word false 0) = 0 ->
+       forall (phase : bool) (label : nat),
+       snd (run_signed_word word phase label) = label
+diagonal_phase_preserves_labels
+     : forall (phase : bool) (label : nat),
+       snd (signed_apply nonconstant_diagonal phase label) = label
+diagonal_phase_is_nontrivial
+     : signed_apply nonconstant_diagonal false 0 = (false, 0) /\
+       signed_apply nonconstant_diagonal false 1 = (true, 1)
+diagonal_control_relative_phase
+     : controlled_signed nonconstant_diagonal false false 1 <>
+       controlled_signed nonconstant_diagonal true false 1
+n21_fixes_origin
+     : forall multiplier : nat, n21_multiplier multiplier 0 = 0
+n21_moves_one
+     : forall multiplier : nat,
+       List.In multiplier (2 :: 4 :: 16 :: nil) ->
+       n21_multiplier multiplier 1 <> 1
+n21_nonaffine
+     : forall multiplier : nat,
+       List.In multiplier (2 :: 4 :: 16 :: nil) ->
+       ~ affine_on_five_bits (n21_multiplier multiplier)
+n21_excludes_signed_xor_words
+     : forall multiplier : nat,
+       List.In multiplier (2 :: 4 :: 16 :: nil) ->
+       forall word : list signed_xor_action,
+       ~
+       (forall label : nat,
+        label < 32 ->
+        snd (run_signed_word word false label) =
+        n21_multiplier multiplier label)
+kernel_witness_average
+     : pair_average kernel_witness =
+       Qcanon.Q2Qc
+         {| QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH |}
+zero_average
+     : pair_average pair_zero =
+       Qcanon.Q2Qc
+         {| QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH |}
+witness_product_average
+     : pair_average (pair_product kernel_witness right_multiplier) =
+       Qcanon.Q2Qc
+         {|
+           QArith_base.Qnum := BinNums.Zpos BinNums.xH;
+           QArith_base.Qden := BinNums.xH
+         |}
+zero_product_average
+     : pair_average (pair_product pair_zero right_multiplier) =
+       Qcanon.Q2Qc
+         {| QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH |}
+average_product_does_not_descend
+     : ~
+       (exists average_product : Qcanon.Qc -> Qcanon.Qc -> Qcanon.Qc,
+          forall left right : scalar_pair,
+          pair_average (pair_product left right) =
+          average_product (pair_average left) (pair_average right))
+reconstruction_after_average_detail
+     : forall value : scalar_pair, reconstruct (average_detail value) = value
+average_detail_after_reconstruction
+     : forall coordinates : scalar_pair,
+       average_detail (reconstruct coordinates) = coordinates
+average_detail_injective
+     : forall left right : scalar_pair,
+       average_detail left = average_detail right -> left = right
+TerminalChannelSeparation.binary_channel_contracts_separation
+     : forall
+         false_positive true_positive first_mean second_mean : QArith_base.Q,
+       QArith_base.Qle
+         {| QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH |}
+         false_positive /\
+       QArith_base.Qle false_positive
+         {|
+           QArith_base.Qnum := BinNums.Zpos BinNums.xH;
+           QArith_base.Qden := BinNums.xH
+         |} ->
+       QArith_base.Qle
+         {| QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH |}
+         true_positive /\
+       QArith_base.Qle true_positive
+         {|
+           QArith_base.Qnum := BinNums.Zpos BinNums.xH;
+           QArith_base.Qden := BinNums.xH
+         |} ->
+       QArith_base.Qle
+         (Qabs.Qabs
+            (QArith_base.Qminus
+               (TerminalChannelSeparation.binary_channel false_positive
+                  true_positive first_mean)
+               (TerminalChannelSeparation.binary_channel false_positive
+                  true_positive second_mean)))
+         (Qabs.Qabs (QArith_base.Qminus first_mean second_mean))
+TerminalChannelSeparation.difference_radius_bound
+     : forall
+         first second first_center second_center first_radius
+          second_radius : QArith_base.Q,
+       QArith_base.Qle (Qabs.Qabs (QArith_base.Qminus first first_center))
+         first_radius ->
+       QArith_base.Qle (Qabs.Qabs (QArith_base.Qminus second second_center))
+         second_radius ->
+       QArith_base.Qle
+         (Qabs.Qabs
+            (QArith_base.Qminus (QArith_base.Qminus first second)
+               (QArith_base.Qminus first_center second_center)))
+         (QArith_base.Qplus first_radius second_radius)
+TerminalChannelSeparation.separation_radius_bound
+     : forall
+         first second first_center second_center first_radius
+          second_radius : QArith_base.Q,
+       QArith_base.Qle (Qabs.Qabs (QArith_base.Qminus first first_center))
+         first_radius ->
+       QArith_base.Qle (Qabs.Qabs (QArith_base.Qminus second second_center))
+         second_radius ->
+       QArith_base.Qle (Qabs.Qabs (QArith_base.Qminus first second))
+         (QArith_base.Qplus
+            (QArith_base.Qplus
+               (Qabs.Qabs (QArith_base.Qminus first_center second_center))
+               first_radius)
+            second_radius)
+TerminalChannelSeparation.separated_centers_exclude_common_binary_channel
+     : forall
+         output_first output_second input_first input_second
+          output_first_center output_second_center input_first_center
+          input_second_center output_first_radius output_second_radius
+          input_first_radius input_second_radius : QArith_base.Q,
+       QArith_base.Qle
+         (Qabs.Qabs (QArith_base.Qminus output_first output_first_center))
+         output_first_radius ->
+       QArith_base.Qle
+         (Qabs.Qabs (QArith_base.Qminus output_second output_second_center))
+         output_second_radius ->
+       QArith_base.Qle
+         (Qabs.Qabs (QArith_base.Qminus input_first input_first_center))
+         input_first_radius ->
+       QArith_base.Qle
+         (Qabs.Qabs (QArith_base.Qminus input_second input_second_center))
+         input_second_radius ->
+       QArith_base.Qlt
+         (QArith_base.Qplus
+            (QArith_base.Qplus
+               (QArith_base.Qplus
+                  (QArith_base.Qplus
+                     (Qabs.Qabs
+                        (QArith_base.Qminus input_first_center
+                           input_second_center))
+                     output_first_radius)
+                  output_second_radius)
+               input_first_radius)
+            input_second_radius)
+         (Qabs.Qabs
+            (QArith_base.Qminus output_first_center output_second_center)) ->
+       ~
+       (exists false_positive true_positive : QArith_base.Q,
+          (QArith_base.Qle
+             {|
+               QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH
+             |} false_positive /\
+           QArith_base.Qle false_positive
+             {|
+               QArith_base.Qnum := BinNums.Zpos BinNums.xH;
+               QArith_base.Qden := BinNums.xH
+             |}) /\
+          (QArith_base.Qle
+             {|
+               QArith_base.Qnum := BinNums.Z0; QArith_base.Qden := BinNums.xH
+             |} true_positive /\
+           QArith_base.Qle true_positive
+             {|
+               QArith_base.Qnum := BinNums.Zpos BinNums.xH;
+               QArith_base.Qden := BinNums.xH
+             |}) /\
+          QArith_base.Qeq output_first
+            (TerminalChannelSeparation.binary_channel false_positive
+               true_positive input_first) /\
+          QArith_base.Qeq output_second
+            (TerminalChannelSeparation.binary_channel false_positive
+               true_positive input_second))
+binary_channel_contracts_separation
+     : forall
+         false_positive true_positive first_mean
+          second_mean : Rdefinitions.RbaseSymbolsImpl.R,
+       Rdefinitions.Rle (Rdefinitions.IZR BinNums.Z0) false_positive /\
+       Rdefinitions.Rle false_positive
+         (Rdefinitions.IZR (BinNums.Zpos BinNums.xH)) ->
+       Rdefinitions.Rle (Rdefinitions.IZR BinNums.Z0) true_positive /\
+       Rdefinitions.Rle true_positive
+         (Rdefinitions.IZR (BinNums.Zpos BinNums.xH)) ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus
+               (binary_channel false_positive true_positive first_mean)
+               (binary_channel false_positive true_positive second_mean)))
+         (Rbasic_fun.Rabs (Rdefinitions.Rminus first_mean second_mean))
+absolute_radius_bounds
+     : forall value center radius : Rdefinitions.RbaseSymbolsImpl.R,
+       Rdefinitions.Rle (Rbasic_fun.Rabs (Rdefinitions.Rminus value center))
+         radius ->
+       Rdefinitions.Rle (Rdefinitions.Rminus center radius) value /\
+       Rdefinitions.Rle value
+         (Rdefinitions.RbaseSymbolsImpl.Rplus center radius)
+difference_radius_bound
+     : forall
+         first second first_center second_center first_radius
+          second_radius : Rdefinitions.RbaseSymbolsImpl.R,
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs (Rdefinitions.Rminus first first_center))
+         first_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs (Rdefinitions.Rminus second second_center))
+         second_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus (Rdefinitions.Rminus first second)
+               (Rdefinitions.Rminus first_center second_center)))
+         (Rdefinitions.RbaseSymbolsImpl.Rplus first_radius second_radius)
+separation_radius_bound
+     : forall
+         first second first_center second_center first_radius
+          second_radius : Rdefinitions.RbaseSymbolsImpl.R,
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs (Rdefinitions.Rminus first first_center))
+         first_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs (Rdefinitions.Rminus second second_center))
+         second_radius ->
+       Rdefinitions.Rle (Rbasic_fun.Rabs (Rdefinitions.Rminus first second))
+         (Rdefinitions.RbaseSymbolsImpl.Rplus
+            (Rdefinitions.RbaseSymbolsImpl.Rplus
+               (Rbasic_fun.Rabs
+                  (Rdefinitions.Rminus first_center second_center))
+               first_radius)
+            second_radius)
+separated_centers_exclude_common_binary_channel
+     : forall
+         output_first output_second input_first input_second
+          output_first_center output_second_center input_first_center
+          input_second_center output_first_radius output_second_radius
+          input_first_radius
+          input_second_radius : Rdefinitions.RbaseSymbolsImpl.R,
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus output_first output_first_center))
+         output_first_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus output_second output_second_center))
+         output_second_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus input_first input_first_center))
+         input_first_radius ->
+       Rdefinitions.Rle
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus input_second input_second_center))
+         input_second_radius ->
+       Rdefinitions.RbaseSymbolsImpl.Rlt
+         (Rdefinitions.RbaseSymbolsImpl.Rplus
+            (Rdefinitions.RbaseSymbolsImpl.Rplus
+               (Rdefinitions.RbaseSymbolsImpl.Rplus
+                  (Rdefinitions.RbaseSymbolsImpl.Rplus
+                     (Rbasic_fun.Rabs
+                        (Rdefinitions.Rminus input_first_center
+                           input_second_center))
+                     output_first_radius)
+                  output_second_radius)
+               input_first_radius)
+            input_second_radius)
+         (Rbasic_fun.Rabs
+            (Rdefinitions.Rminus output_first_center output_second_center)) ->
+       ~
+       (exists
+          false_positive true_positive : Rdefinitions.RbaseSymbolsImpl.R,
+          (Rdefinitions.Rle (Rdefinitions.IZR BinNums.Z0) false_positive /\
+           Rdefinitions.Rle false_positive
+             (Rdefinitions.IZR (BinNums.Zpos BinNums.xH))) /\
+          (Rdefinitions.Rle (Rdefinitions.IZR BinNums.Z0) true_positive /\
+           Rdefinitions.Rle true_positive
+             (Rdefinitions.IZR (BinNums.Zpos BinNums.xH))) /\
+          output_first =
+          binary_channel false_positive true_positive input_first /\
+          output_second =
+          binary_channel false_positive true_positive input_second)
+
+Source-order assumption receipt: BooleanPermutation; +default compile exit 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+Independent kernel receipt: BooleanPermutation; exit 0
+
+CONTEXT SUMMARY
+===============
+
+* Theory: Set is predicative
+
+* Theory: Rewrite rules are not allowed
+
+* Axioms: <none>
+
+* Constants/Inductives relying on type-in-type: <none>
+
+* Constants/Inductives relying on unsafe (co)fixpoints: <none>
+
+* Inductives whose positivity is assumed: <none>
+
+
+Source-order assumption receipt: FoldAverageDescent; +default compile exit 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+Independent kernel receipt: FoldAverageDescent; exit 0
+
+CONTEXT SUMMARY
+===============
+
+* Theory: Set is predicative
+
+* Theory: Rewrite rules are not allowed
+
+* Axioms: <none>
+
+* Constants/Inductives relying on type-in-type: <none>
+
+* Constants/Inductives relying on unsafe (co)fixpoints: <none>
+
+* Inductives whose positivity is assumed: <none>
+
+
+Source-order assumption receipt: TerminalChannelSeparation; +default compile exit 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+Independent kernel receipt: TerminalChannelSeparation; exit 0
+
+CONTEXT SUMMARY
+===============
+
+* Theory: Set is predicative
+
+* Theory: Rewrite rules are not allowed
+
+* Axioms: <none>
+
+* Constants/Inductives relying on type-in-type: <none>
+
+* Constants/Inductives relying on unsafe (co)fixpoints: <none>
+
+* Inductives whose positivity is assumed: <none>
+
+
+Source-order assumption receipt: TerminalChannelSeparationReal; +default compile exit 0
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+
+Independent kernel receipt: TerminalChannelSeparationReal; exit 0
+
+CONTEXT SUMMARY
+===============
+
+* Theory: Set is predicative
+
+* Theory: Rewrite rules are not allowed
+
+* Axioms:
+    Stdlib.Logic.FunctionalExtensionality.functional_extensionality_dep
+    Stdlib.Reals.ClassicalDedekindReals.sig_not_dec
+    Stdlib.Reals.ClassicalDedekindReals.sig_forall_dec
+    Stdlib.Logic.Classical_Prop.classic
+
+* Constants/Inductives relying on type-in-type: <none>
+
+* Constants/Inductives relying on unsafe (co)fixpoints: <none>
+
+* Inductives whose positivity is assumed: <none>
+
+
+Strict-all BooleanPermutation receipt: exit 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+Strict-all FoldAverageDescent receipt: exit 0
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+
+Strict-all rational channel dependency receipt: exit 1
+File "./theories/TerminalChannelSeparation.v", line 9, characters 0-50:
+Error:
+Use of "( _ | _ )" Notation is deprecated as it is inconsistent with pattern syntax.
+[disj-pattern-notation,syntax]
+
+
+Strict-all real channel dependency receipt: exit 1
+File "./theories/TerminalChannelSeparationReal.v", line 8, characters 0-39:
+Error:
+Error when parsing .vo (from file ROCQ_SWITCH/lib/coq/user-contrib/Stdlib/ZArith/ZArith_base.vo) for library Stdlib.ZArith.ZArith_base: Library File (transitively required)
+Stdlib.ZArith.ZArith_base is deprecated since 9.0. use ZArith instead
+[deprecated-transitive-library-file-since-9.0,deprecated-since-9.0,deprecated-transitive-library-file,deprecated]
+
+
+Enabled default-warning mutation receipt: exit 1
+File "./WarningPolicyMutation.v", line 1, characters 0-46:
+Error: Library File Stdlib.ZArith.ZArith_base is deprecated since 9.0.
+use ZArith instead
+[deprecated-library-file-since-9.0,deprecated-since-9.0,deprecated-library-file,deprecated,default]
+
+
+Translated-phase mutation receipt: exit 1
+File "./theories/BooleanPermutationPhaseMutation.v", line 157, characters 38-49:
+Error:
+In environment
+first, second : signed_xor_action
+phase : bool
+label : nat
+Unable to unify
+ "(xorb phase (xorb (action_phase first label) (action_phase second label)),
+   Nat.lxor label (Nat.lxor (action_offset first) (action_offset second)))"
+with
+ "(xorb phase
+     (xorb (action_phase first label)
+        (action_phase second (Nat.lxor label (action_offset first)))),
+   Nat.lxor label (Nat.lxor (action_offset first) (action_offset second)))".
+
+
+Receipt rendering and raw-byte identities
+The retained text strips trailing horizontal whitespace from displayed
+statements and diagnostics. The raw temporary logs have the identities below;
+the real strict-all diagnostic also replaces the local toolchain prefix with
+ROCQ_SWITCH for portable retention. The mathematical tokens remain unchanged.
+729ac0db3789af42e5bab07e95c036bd9e9c8ac83fac20b87632c742c5ce0c34  theorem-signatures.txt
+dc14ba0d8c8596d1a19a5c5e558bc783b23c26ac400bcff56f61b6118bf3737b  BooleanPermutation.strict-default.txt
+7c97b18da34e49eb514d1cad5901f51c328894ece2ffd401a7bec2d34c3040ac  FoldAverageDescent.strict-default.txt
+f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996  TerminalChannelSeparation.strict-default.txt
+50931813f874961585e741e6033e3b8b948bee12e207b52c21e34f3d2a976c2f  TerminalChannelSeparationReal.strict-default.txt
+263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3  BooleanPermutation.strict-default.kernel.txt
+263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3  FoldAverageDescent.strict-default.kernel.txt
+263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3  TerminalChannelSeparation.strict-default.kernel.txt
+21ac8ced1b33d60841abc171c205fd04d60ccf964fba53cbe53280f32286f864  TerminalChannelSeparationReal.strict-default.kernel.txt
+dc14ba0d8c8596d1a19a5c5e558bc783b23c26ac400bcff56f61b6118bf3737b  BooleanPermutation.strict-all.txt
+7c97b18da34e49eb514d1cad5901f51c328894ece2ffd401a7bec2d34c3040ac  FoldAverageDescent.strict-all.txt
+0c4a6dfca6d2217ebb0d9c640edfc6af4167172f2f4c40432f56a04a196f4985  TerminalChannelSeparation.strict-all.txt
+b7e38025ef8ba3f2461585e30b45606597eb4619a916977b4561ec96b06739bd  TerminalChannelSeparationReal.strict-all.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  warning-default-clean.txt
+23c8b7fbfcbef0b0fd81d959d87b0e187b4efe84100d776993e36a9da2839843  warning-default-mutation.txt
+4216ce3ecff8a34e3764fcfb1ebcbf9780baeca5acc531b23465c0bdc6026592  phase-mutation.txt

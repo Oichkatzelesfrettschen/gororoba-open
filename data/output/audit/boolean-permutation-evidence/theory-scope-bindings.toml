@@ -1,0 +1,109 @@
+binding_key = "boolean-theory-source-scopes"
+actor = "codex"
+reason = "Separate scoped formal source propositions from source-only inventory and source-bound execution admission"
+applied_at = "2026-10-12T16:43:59Z"
+
+[[binding]]
+proposal_key = "higher-cd-first-slot-homogeneity"
+stable_id = "THM-LEGACY-C1471_HigherCDTrilinearity"
+legacy_name = "C1471_HigherCDTrilinearity"
+proof_path = "proofs/verified/C1471_HigherCDTrilinearity.v"
+title = "Higher Cayley-Dickson associator homogeneity in its first argument"
+statement = "For the recursively defined real Cayley-Dickson algebras at dimensions 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768 and 65536, the displayed associator declarations prove scalar homogeneity in the first argument. The scope does not assert additivity, homogeneity in the other two arguments, or a full automorphism-group classification."
+initial_status = "Provisional"
+where_stated = ["proofs/verified/C1471_HigherCDTrilinearity.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1471_HigherCDTrilinearity.v"
+falsifier = "Reject a purported formal certificate that substitutes full trilinearity or Aut(S)=G2 for the actual first-slot scalar-homogeneity statements; fresh compiler or checker rejection withdraws kernel admission."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "sign-code-scalar-projection"
+stable_id = "THM-LEGACY-SignCodeProjection"
+legacy_name = "SignCodeProjection"
+proof_path = "proofs/theories/SignCodeProjection.v"
+title = "Boolean scalar projection, direct-sum decomposition and controlled relative phase"
+statement = "Subtracting a Boolean function value at a chosen origin gives an idempotent linear projection with constant functions as kernel. A Boolean code stable under extensional equality and XOR and containing the constant-one direction decomposes into its normalized part and scalar direction. Coherent Boolean control retains the removed scalar as a relative phase, as expressed by controlled_projection_exact and controlled_scalar_distinguishable."
+initial_status = "Verified"
+where_stated = ["proofs/theories/SignCodeProjection.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The source generalizes its Section variables. The code direct-sum statement assumes extensionality, zero and one membership, and XOR closure. Declaration-specific execution receipts identify global axioms separately from these theorem parameters."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeProjection.v"
+falsifier = "A projected function retaining a nonzero value at the origin, a failed direct-sum uniqueness condition under the stated code hypotheses, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "schreier-normalized-span"
+stable_id = "THM-LEGACY-SchreierSignCode"
+legacy_name = "SchreierSignCode"
+proof_path = "proofs/theories/SchreierSignCode.v"
+title = "All-order Cayley-Dickson Schreier-span and normalized ANF characterization"
+statement = "For every natural order parameter, schreier_span_characterization and normalized_schreier_characterization identify the recursively defined sign span at order S(S(S order)) with its explicit even-lower-code predicate and normalized predicate. The source also proves normalized ANF basis cardinality and the scalar direct-sum decomposition. The scope concerns the specified Boolean span and recurrence; it leaves the full multiplication-group identification as a separate proposition."
+initial_status = "Verified"
+where_stated = ["proofs/theories/SchreierSignCode.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The named statements quantify over the recursively defined Boolean cube, sign recurrence and GF(2) span. Fresh declaration-specific execution receipts record their kernel assumptions."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SchreierSignCode.v"
+falsifier = "A Boolean function in exactly one side of either stated span equivalence, a failure of the normalized ANF basis cardinality, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "sign-code-finite-cardinality"
+stable_id = "THM-LEGACY-SignCodeCardinality"
+legacy_name = "SignCodeCardinality"
+proof_path = "proofs/theories/SignCodeCardinality.v"
+title = "Exact finite cardinality of the normalized Boolean sign code"
+statement = "For every natural order parameter, normalized_code_tables enumerates the normalized code without duplicates and normalized_code_cardinality proves length(normalized_code_tables order)=2^(2^(S(S order))-1). The table/specification equivalence binds the enumeration to the defined normalized sign span."
+initial_status = "Verified"
+where_stated = ["proofs/theories/SignCodeCardinality.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The statements use finite Boolean table enumeration and the normalized ANF basis theorem from SchreierSignCode. Fresh declaration-specific receipts record their global assumptions."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeCardinality.v"
+falsifier = "A missing or duplicate normalized table, a discrepancy in the exact stated cardinality, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "boolean-cochain-degree-filtration"
+stable_id = "THM-LEGACY-BooleanCochainFiltration"
+legacy_name = "BooleanCochainFiltration"
+proof_path = "proofs/theories/BooleanCochainFiltration.v"
+title = "Boolean degree filtration under linear substitution and XOR-group faces"
+statement = "Linear Boolean substitution preserves the displayed polynomial degree bound, and a cochain differential assembled from linear faces preserves that bound. The source proves the XOR-group-face instance and identifies the normalized Schreier exponent with the ordinary coboundary under the explicit right-identity and sign-normalization hypotheses."
+initial_status = "Verified"
+where_stated = ["proofs/theories/BooleanCochainFiltration.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The filtration statements require each substitution or face to have degree at most one. The coboundary identity generalizes add_identity and sign_identity Section hypotheses; it does not assert that an arbitrary sign cochain is a cocycle."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanCochainFiltration.v"
+falsifier = "A permitted linear substitution or XOR-group face raising the proved degree bound, failure of the normalized coboundary identity under its hypotheses, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "sedenion-membership-component-constraints"
+stable_id = "THM-LEGACY-SedenionMembershipConstraints"
+legacy_name = "SedenionMembershipConstraints"
+proof_path = "proofs/theories/SedenionMembershipConstraints.v"
+title = "Real sedenion membership polynomial constraints and two injective left actions"
+statement = "With nonnegative imaginary-half norm coordinates, the displayed sedenion_d2 polynomial vanishes exactly when both scalar parts vanish, the imaginary-half norms agree, and their inner product vanishes. Its five-coordinate gradient vanishes on that locus. The explicit parallel-imaginary and scalar/imaginary examples have injective left multiplication, established by their displayed square and left-inverse identities. Identification of the polynomial with a general singular-left-multiplication determinant remains a separate obligation."
+initial_status = "Verified"
+where_stated = ["proofs/theories/SedenionMembershipConstraints.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The real polynomial statement requires nonnegative norm coordinates. The two operator statements use the concrete recursively defined sedenion multiplication and named elements. Real-library assumptions appear in the declaration-specific execution receipts."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionMembershipConstraints.v"
+falsifier = "A polynomial-zero witness violating the component constraints under nonnegative norms, a nonzero kernel vector for either displayed left action, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "minimal-uncurved-associativity-obstruction"
+stable_id = "THM-LEGACY-MinimalUncurvedObstruction"
+legacy_name = "MinimalUncurvedObstruction"
+proof_path = "proofs/theories/MinimalUncurvedObstruction.v"
+title = "Minimal uncurved arity-three associativity obstruction and sedenion witness"
+statement = "Under the displayed zero-operation laws, m1=0, and vanishing of m3 whenever any input is zero, the stated uncurved arity-three identity forces m2 to be associative. The source supplies an explicit sedenion basis witness with indices 1,2,4 whose two parenthesized products differ. The result applies to the specified minimal uncurved identity and leaves curved, nonminimal and homotopy-transferred products to separate contracts."
+initial_status = "Verified"
+where_stated = ["proofs/theories/MinimalUncurvedObstruction.v","docs/engineering/boolean_permutation_evidence.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "The abstract theorem generalizes the Section operation/zero/minimality hypotheses. The concrete sedenion inequality uses the recursively defined real algebra and the real-library assumptions listed in its execution receipt."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/MinimalUncurvedObstruction.v"
+falsifier = "A nonassociative m2 satisfying every displayed minimal uncurved hypothesis, equality of the two displayed sedenion basis products, or compiler/checker rejection refutes the stated scope."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
