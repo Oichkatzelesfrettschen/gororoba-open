@@ -132,7 +132,7 @@ fn complement(dimension: usize, pivots: &[usize]) -> Vec<usize> {
         .collect()
 }
 
-fn determinant(matrix: &ExactMatrix) -> BigRational {
+pub(crate) fn determinant(matrix: &ExactMatrix) -> BigRational {
     assert!(matrix.is_square());
     let mut triangular = matrix.clone();
     let mut result = BigRational::one();

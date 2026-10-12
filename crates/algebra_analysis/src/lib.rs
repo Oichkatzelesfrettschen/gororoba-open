@@ -43,6 +43,7 @@ pub mod projective_geometry;
 pub mod quantum_chaos;
 pub mod reggiani;
 pub mod riemann_resonance;
+pub mod schur_acceleration;
 pub mod sedenion_lifting;
 pub mod sky_mapping;
 pub mod sparse;

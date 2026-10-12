@@ -1,0 +1,46 @@
+schema = "centered-schur-acceleration-port-v1"
+source_project = "gororoba-quantum"
+source_commit = "95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2"
+destination_module = "algebra_analysis::schur_acceleration"
+baseline_commit = "abbf13cada78d9b106fc610a36f6eea54567ecfc"
+arithmetic = "BigRational exact CPU algebra"
+dimension = 32
+excluded_coordinates = [0, 16]
+center_nullities = [4, 8, 12, 16]
+center_domain = "nonzero doubly-pure rational center"
+direction_domain = "all thirty doubly-pure rational directions, including zero"
+acceleration_states = ["first_order_inadmissible", "second_order_obstructed", "second_order_compatible"]
+affine_verification = "nonzero rank-sized minor, free-row kernel identity, system residual, radial correction and direct second derivative"
+obstruction_verification = "left-kernel residual, zero norm-row coefficient and nonzero right-hand-side pairing"
+finite_center_count = 4
+coordinate_direction_count_per_center = 30
+unit_test_count = 11
+altered_evidence_or_status_case_count = 62
+curve_sample_parameters = ["-1/2", "1/2", "1", "2"]
+qpu_execution = "excluded from the certificate mechanism"
+canonical_registry_mutation = "owned by the integration task"
+
+[curvature]
+center = "e1+e10"
+direction = "e3"
+compatible_acceleration = "-e1"
+derivative_rank = 6
+sphere_system_rank = 7
+affine_dimension = 23
+positive_pivot_control = "e3+e10"
+singular_pivot_control = "e1-e10"
+
+[obstruction]
+center = "e1+e18"
+direction = "e11"
+derivative_rank = 8
+first_order_sphere_dimension = 21
+equal_residual_rows = ["(0,1)", "(4,5)"]
+rhs_values = ["2", "-2"]
+separating_pairing = "-4"
+
+[residual_frontier]
+rocq = "derivative, calculus, rank-stratum and acceleration-space formalization"
+geometry = "higher-order obstructions, sufficient curve criteria, tangent-cone equality, smooth strata and global topology"
+higher_dimensions = "separate dense centered-chart resource and exact replay contract"
+quadratic_coefficients = "coefficient-complete outer-bound calculation retains quantum repository ownership"

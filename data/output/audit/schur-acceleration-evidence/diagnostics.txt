@@ -1,0 +1,198 @@
+Centered Schur certificate diagnostic receipt
+============================================
+
+Observed 2026-10-12, UTC. The initial diagnostic commands ran in the managed
+codex/schur-acceleration-evidence worktree with HEAD
+abbf13cada78d9b106fc610a36f6eea54567ecfc. The commands read the worktree's
+Rust sources, Cargo.lock and pinned toolchain configuration. Cargo wrote
+the shared primary cargo-home/build-dir and the worktree's distinct
+.cache/exp-schur-acceleration-target. Worker-count variables were left
+unset, preserving Cargo and Rust's native process-visible CPU detection.
+The named diagnostics establish their own execution surfaces. Hosted CI
+owns repository admission, reverse-dependency coverage and canonical gates.
+
+Tool identities
+---------------
+
+rustc 1.97.0 (2d8144b78 2026-07-07)
+cargo 1.97.0 (c980f4866 2026-06-30)
+rustfmt 1.9.0-nightly (7c3c88f42a 2026-05-14)
+Cargo test profile: optimized + debuginfo.
+
+Commands and measured results
+----------------------------
+
+cargo test --offline --locked -p algebra_analysis --lib exact_annihilator
+  exit 0; 8 passed; 0 failed; test execution 3.80 s.
+  The baseline ran before the Schur source was installed.
+
+cargo test --offline --locked -p algebra_analysis --lib schur_acceleration
+  exit 0; 11 passed; 0 failed; test execution 24.95 s.
+  All four center nullities, all three statuses, complete affine spaces,
+  curvature/straight-path samples and 62 altered-evidence/status cases passed.
+
+cargo clippy --offline --locked -p algebra_analysis --lib -- -D warnings
+  exit 0; the owning library passed with warnings denied.
+
+cargo clippy --offline --locked -p algebra_analysis --lib --tests -- -D warnings
+  exit 0; the owning library and test targets passed with warnings denied.
+
+rustfmt +nightly --edition 2024 --check --config skip_children=true \
+  crates/algebra_analysis/src/schur_acceleration.rs \
+  crates/algebra_analysis/src/exact_annihilator.rs \
+  crates/algebra_analysis/src/lib.rs
+  exit 0; the three owned Rust source files passed the nightly format check.
+
+git -c core.fsmonitor=false diff --check
+  exit 0; tracked source edits passed whitespace verification.
+
+Source provenance reads in gororoba-quantum at
+95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2:
+
+jq -r '.source_sha256 | to_entries[] | "\(.value)  \(.key)"' \
+  docs/evidence/schur_acceleration/result.json | sha256sum -c -
+  exit 0 under Bash set -euo pipefail; all seven declared source hashes passed.
+
+sha256sum -c SHA256SUMS
+  exit 0 in docs/evidence/schur_acceleration;
+  README.md, replay.py and result.json passed their declared hashes.
+
+Checks that changed the understanding
+------------------------------------
+
+The first compilation exposed a borrowed BigRational scalar division in
+a test-only matrix expression. An entrywise exact map corrected the type
+contract. Production matrix equations retained their original arithmetic.
+
+The first executable run passed 10 tests and falsified an extra pivot-boundary
+assertion for e3+e10. Direct reduction established a zero Schur residual with
+an invertible pivot. The final test retains that t=2 curve point as a positive
+control and verifies the singular pivot determinant at e1-e10 explicitly.
+This correction concerns the finite centered chart domain. The observations
+supply neither a global chart cover nor a new curve-existence theorem.
+
+Observed scope
+--------------
+
+The source changes add schur_acceleration.rs, its sorted lib.rs declaration,
+and crate-private visibility for exact_annihilator::determinant. The helper's
+arithmetic is unchanged. The local evidence files record source identities,
+finite scope and these diagnostics. Every listed computational command uses
+the CPU or reads source/artifact hashes. The QPU command count is zero.
+Canonical registry mutation, pull-request publication, hosted validation and
+merge are owned by the integration task.
+
+The source-snapshot manifest binds the three local Rust inputs and the seven
+canonical quantum inputs. Incoming base-branch changes require a fresh local
+dependency snapshot and named diagnostics before integration.
+
+Reviewed-base reconciliation
+----------------------------
+
+The scoped git commit recorded the seven reviewed Schur files at
+a72f2238ed498ac8e886943c923999ddb84c9d37 on codex/schur-acceleration-evidence.
+The subsequent local command
+
+git -c core.fsmonitor=false merge --no-ff --quiet \
+  codex/boolean-permutation-evidence \
+  -m 'merge(proofs): reconcile reviewed Boolean and kernel evidence'
+
+exited 0 and created b1190df1162c2afc492395ea361df727abbc8c4e. Its parents are
+a72f2238ed498ac8e886943c923999ddb84c9d37 and the reviewed base
+775768a84ef183e0577306a88e2b98b7c5f69005. Git merged exact_annihilator.rs and
+lib.rs cleanly. The worktree status immediately after the merge was empty.
+The Schur module hash remained
+e3a9cf4a422022d627ee5de487a49a8a35cb887421413b72ae9ee7a4cd1d5b88.
+
+The comparison against the reviewed base lists exactly the seven scoped
+Schur files. exact_annihilator.rs differs by the determinant helper's
+crate-private visibility; lib.rs differs by the sorted schur_acceleration
+module declaration. The merged sources retain the incoming fold_coordinates
+declaration and the octonion, sedenion and doubling-reflection tests.
+The source-snapshot file records refreshed local hashes, the merge identity,
+the incoming base identity, and the CD module, lockfile and toolchain digests.
+
+Post-merge commands read the reconciled sources at b1190df1162c2afc492395ea361df727abbc8c4e
+and wrote the same named shared/local Cargo roots as the initial diagnostics:
+
+cargo test --offline --locked -p algebra_analysis --lib schur_acceleration
+  exit 0; 11 passed; 0 failed; test execution 31.46 s.
+
+cargo test --offline --locked -p algebra_analysis --lib exact_annihilator
+  exit 0; 11 passed; 0 failed; test execution 0.78 s.
+  The incoming tests include octonion left-action multiplication failure,
+  sedenion Jordan-square failure on an annihilator, and exact doubling
+  reflection across every sedenion basis product.
+
+cargo clippy --offline --locked -p algebra_analysis --lib --tests -- -D warnings
+  exit 0; the reconciled owning library and test targets passed with warnings denied.
+
+rustfmt +nightly --edition 2024 --check --config skip_children=true \
+  crates/algebra_analysis/src/schur_acceleration.rs \
+  crates/algebra_analysis/src/exact_annihilator.rs \
+  crates/algebra_analysis/src/lib.rs
+  exit 0; all three reconciled source files passed.
+
+git -c core.fsmonitor=false diff --check
+  exit 0; the reconciled tracked edits passed whitespace verification.
+
+The local commit and merge update the Schur branch and its checkout. GitHub
+publication, canonical SQL/exports and hardware execution retain the root
+integration task's authorization boundaries.
+
+Complete-receipt base reconciliation
+-----------------------------------
+
+The next local --no-ff merge incorporated the repaired Boolean/proof head
+2fabc48796a7a29b269faec44e8f5a7b57444213 into the Schur branch. The command
+
+git -c core.fsmonitor=false merge --no-ff --quiet \
+  codex/boolean-permutation-evidence \
+  -m 'merge(proofs): reconcile complete kernel receipts and governance'
+
+exited 0 and created c165f17e90216d3cdbe7c9a921d381c91a2fff19, with parents
+1188e1bf77c440bcff210508319e5e166de419a8 and
+2fabc48796a7a29b269faec44e8f5a7b57444213. The worktree status immediately
+after the merge was empty. The comparison against the repaired base lists
+exactly the seven scoped Schur files.
+
+The incoming-base source comparison
+
+git -c core.fsmonitor=false diff --exit-code \
+  775768a84ef183e0577306a88e2b98b7c5f69005 \
+  2fabc48796a7a29b269faec44e8f5a7b57444213 -- \
+  crates/algebra_analysis crates/cd_kernel crates/verified_core \
+  crates/moreno_1997 crates/gororoba_gpu_bridge crates/fwht \
+  Cargo.toml Cargo.lock rust-toolchain.toml .cargo
+
+exited 0. Those named Rust sources, manifests and Cargo inputs are identical
+between the two incoming heads. The owning library's default dependency
+manifests exclude data_core, gororoba_db and provenance_store, whose mirrors
+or governance implementations changed in the repaired base. The six local
+port/dependency digests also match their previously validated byte values.
+
+The eleven Schur tests, eleven exact-annihilator tests and library/test
+Clippy outcomes recorded for b1190df1162c2afc492395ea361df727abbc8c4e therefore
+remain the diagnostic witnesses for those identical inputs. The reconciliation
+runs the source-hash, nightly format and whitespace checks because the merge
+and refreshed receipts change those review surfaces. Additional execution of
+the unchanged mathematics would repeat the same input boundary.
+
+The source-snapshot file records the repaired incoming head and merge identity
+while retaining the prior reconciliation identities. GitHub publication,
+canonical registration and repository-wide hosted validation remain owned by
+the root integration task.
+
+Trusted-source receipt reconciliation
+-------------------------------------
+
+source-replayed-reconciliation.txt records the reviewed parent identities,
+fixed-argument typed API replay, exact theorem-event comparison and preserved
+Schur registration. The named validation-profile commands ran eleven Schur
+tests and eleven exact-annihilator tests with zero failures, then library/test
+Clippy with warnings denied. A broad formatter check using nightly-2026-04-05
+reported unrelated workspace differences; the repository-prescribed
+rustfmt +nightly --edition 2024 --check --config skip_children=true command
+passed all three owned source files. The port changes preserve their hashes.
+The incoming Boolean dependency changed, so the fresh tests replace reuse of
+the earlier unchanged-dependency diagnostic boundary.
