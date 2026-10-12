@@ -5,10 +5,9 @@ source_evidence_checksum_result = "README.md, replay.py and result.json passed S
 source_dependency_result = "all seven hashes in the retained result match the inspected canonical source bytes"
 destination_baseline_commit = "abbf13cada78d9b106fc610a36f6eea54567ecfc"
 reviewed_schur_commit = "a72f2238ed498ac8e886943c923999ddb84c9d37"
-incoming_reviewed_base_commit = "2fabc48796a7a29b269faec44e8f5a7b57444213"
-reconciled_merge_commit = "c165f17e90216d3cdbe7c9a921d381c91a2fff19"
+incoming_reviewed_base_commit = "cb364ec93458b0e52ae96230d0390e72c555083b"
 local_digest_state = "reconciled source inputs; initial digests remain retained in the reviewed Schur commit"
-math_dependency_diff_result = "named Schur library crates, manifests, lockfile, toolchain and Cargo configuration are unchanged between the prior and repaired incoming base"
+math_dependency_diff_result = "boolean_permutation.rs changes; eleven Schur and eleven exact-annihilator tests plus library-test Clippy rerun on merged inputs"
 
 [[source_file]]
 path = "gororoba_quantum/schur_acceleration.py"
@@ -60,3 +59,12 @@ sha256 = "c0864e4045ce7847ebe68e13423671c7007fbbe77d8b10ad5f5bacb8a1601ab3"
 incoming_base_commit = "775768a84ef183e0577306a88e2b98b7c5f69005"
 merge_commit = "b1190df1162c2afc492395ea361df727abbc8c4e"
 diagnostic_receipt_commit = "1188e1bf77c440bcff210508319e5e166de419a8"
+
+[complete_receipt_reconciliation]
+incoming_base_commit = "2fabc48796a7a29b269faec44e8f5a7b57444213"
+merge_commit = "c165f17e90216d3cdbe7c9a921d381c91a2fff19"
+diagnostic_receipt_commit = "7bba3dd173307d28ead3f9fc9fee4b7071b525a3"
+
+[[dependency_file]]
+path = "crates/cd_kernel/src/cayley_dickson/boolean_permutation.rs"
+sha256 = "ec794b5e5d885be9c02dfe3f611588ff73422a8e6c337b5e6960318a09fdc344"

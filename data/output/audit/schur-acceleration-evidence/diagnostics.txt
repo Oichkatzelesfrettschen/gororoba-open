@@ -182,3 +182,17 @@ The source-snapshot file records the repaired incoming head and merge identity
 while retaining the prior reconciliation identities. GitHub publication,
 canonical registration and repository-wide hosted validation remain owned by
 the root integration task.
+
+Trusted-source receipt reconciliation
+-------------------------------------
+
+source-replayed-reconciliation.txt records the reviewed parent identities,
+fixed-argument typed API replay, exact theorem-event comparison and preserved
+Schur registration. The named validation-profile commands ran eleven Schur
+tests and eleven exact-annihilator tests with zero failures, then library/test
+Clippy with warnings denied. A broad formatter check using nightly-2026-04-05
+reported unrelated workspace differences; the repository-prescribed
+rustfmt +nightly --edition 2024 --check --config skip_children=true command
+passed all three owned source files. The port changes preserve their hashes.
+The incoming Boolean dependency changed, so the fresh tests replace reuse of
+the earlier unchanged-dependency diagnostic boundary.

@@ -1,0 +1,123 @@
+evidence_key = "source-replayed-kernel-FoldAverageDescent-5507a888eedd"
+actor = "codex"
+reason = "Require internally-produced pinned Rocq source-closure compilation, exact retained object reproduction, independent kernel checking and complete declaration-assumption replay before active admission; retain all historical receipts."
+applied_at = "2026-10-12T18:19:28Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-FoldAverageDescent"
+proof_path = "proofs/theories/FoldAverageDescent.v"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FoldAverageDescent.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FoldAverageDescent"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/FoldAverageDescent.v"
+sha256 = "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23"
+
+[witness.compile_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/FoldAverageDescent.compile.txt"
+sha256 = "7c97b18da34e49eb514d1cad5901f51c328894ece2ffd401a7bec2d34c3040ac"
+
+[witness.kernel_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/FoldAverageDescent.kernel.txt"
+sha256 = "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+
+[witness.assumption_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/FoldAverageDescent.assumptions.txt"
+sha256 = "438b4ab65308a58802d40ed35ef12a560bdbd5aba989af26ebf5edb638e3376f"
+
+[witness.proof_object]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/theories/FoldAverageDescent.vo"
+sha256 = "afbbfddb0e864cab4ed63f465072800daf73cb57c221875b1b05e01a50d0cf61"
+
+[[witness.declarations]]
+name = "scalar_pair"
+statement = "Definition scalar_pair := (Qc * Qc)%type"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_zero"
+statement = "Definition pair_zero : scalar_pair := (0, 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_product"
+statement = "Definition pair_product (left right : scalar_pair) : scalar_pair := (fst left * fst right - snd right * snd left, snd right * fst left + snd left * fst right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_average"
+statement = "Definition pair_average (value : scalar_pair) : Qc := (fst value + snd value) / (1 + 1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_detail"
+statement = "Definition pair_detail (value : scalar_pair) : Qc := (fst value - snd value) / (1 + 1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "average_detail"
+statement = "Definition average_detail (value : scalar_pair) : scalar_pair := (pair_average value, pair_detail value)"
+assumptions = []
+
+[[witness.declarations]]
+name = "reconstruct"
+statement = "Definition reconstruct (coordinates : scalar_pair) : scalar_pair := (fst coordinates + snd coordinates, fst coordinates - snd coordinates)"
+assumptions = []
+
+[[witness.declarations]]
+name = "kernel_witness"
+statement = "Definition kernel_witness : scalar_pair := (1, Qcopp 1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "right_multiplier"
+statement = "Definition right_multiplier : scalar_pair := (0, 1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "kernel_witness_average"
+statement = "Lemma kernel_witness_average : pair_average kernel_witness = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "zero_average"
+statement = "Lemma zero_average : pair_average pair_zero = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "witness_product_average"
+statement = "Lemma witness_product_average : pair_average (pair_product kernel_witness right_multiplier) = 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "zero_product_average"
+statement = "Lemma zero_product_average : pair_average (pair_product pair_zero right_multiplier) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "average_product_does_not_descend"
+statement = "Theorem average_product_does_not_descend : ~ exists average_product : Qc -> Qc -> Qc, forall left right : scalar_pair, pair_average (pair_product left right) = average_product (pair_average left) (pair_average right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "reconstruction_after_average_detail"
+statement = "Theorem reconstruction_after_average_detail : forall value, reconstruct (average_detail value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "average_detail_after_reconstruction"
+statement = "Theorem average_detail_after_reconstruction : forall coordinates, average_detail (reconstruct coordinates) = coordinates"
+assumptions = []
+
+[[witness.declarations]]
+name = "average_detail_injective"
+statement = "Theorem average_detail_injective : forall left right, average_detail left = average_detail right -> left = right"
+assumptions = []

@@ -1,0 +1,43 @@
+Trusted Rocq replay and Schur history reconciliation
+==================================================
+
+The incoming Boolean/proof head is
+cb364ec93458b0e52ae96230d0390e72c555083b. The Schur parent is
+7bba3dd173307d28ead3f9fc9fee4b7071b525a3. A no-fast-forward merge combines
+their sources. The only conflict is the canonical SQLite file.
+
+The reconciled database starts from the audited Schur parent, whose theorem
+events match the historical incoming events. The typed gororoba-db API applies
+source-replayed-inventory-sync.toml and all thirteen existing
+source-replayed-receipts/*.receipt.toml inputs with --regen-toml false. The
+pinned Rocq 9.1.1/OCaml 5.4.0 installation compiles each complete source closure,
+reproduces its retained object, runs the independent kernel checker and queries
+all recognized declaration assumptions. The replay runs sequentially before
+compatibility export. The source inputs and retained objects are unchanged.
+
+The history audit compares full rows through SQLite EXCEPT in both directions
+for the incoming theorem event set and checks containment of both parents'
+export-run histories. The theorem, identity, artifact, artifact-path, claim
+revision and transition checks preserve their named parent sets. The original
+Schur registration remains export_runs ID100 with timestamp
+2026-10-12T17:47:44.752278536+00:00. The final theorem surface contains thirteen
+kernel_checked and 295 source_only rows and 39 kernel receipt events. The
+thirteen v2 events match the incoming branch exactly; the 26 v1 events retain
+their historical bytes. See source-replayed-history-audit.json and
+canonical-set-audit.json for the finite row-set observations.
+
+Between the prior incoming head 2fabc487 and cb364ec, the named Schur dependency
+surface changes only cd_kernel's boolean_permutation.rs. The Schur and
+exact-annihilator module hashes remain identical. Fresh validation-profile
+diagnostics run eleven Schur tests and eleven exact-annihilator tests on the
+merged dependency surface. Owning-library/test Clippy denies warnings; the
+repository-prescribed nightly source formatter and whitespace checks also run on the merged inputs.
+Hosted CI owns repository validation and the final head's consumer coverage.
+
+Owning generators export the canonical database, refresh dependent signatures
+and emit all 23 Rust mirrors. Read-only theorem, counter, semantic, evidence and
+signature diagnostics assess the generated surfaces. Existing payload-stub
+skips remain explicit. The receipts establish compiler/source conformance;
+the Schur certificates establish exact finite CPU calculations. Neither surface
+establishes physical QPU feasibility or the deferred calculus, higher-order,
+global-topology or all-dimensional claims.

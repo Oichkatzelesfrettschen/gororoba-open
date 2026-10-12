@@ -175,6 +175,7 @@ pub fn inverse_permutation(permutation: &[usize]) -> Result<Vec<usize>, BooleanP
 }
 
 /// Identity padding on unused labels is part of the mathematical map.
+/// The register uses the minimum binary width that represents `0..modulus`.
 pub fn identity_padded_modular_permutation(
     modulus: usize,
     multiplier: usize,
@@ -190,7 +191,7 @@ pub fn identity_padded_modular_permutation(
     if first != 1 {
         return Err(BooleanPermutationError::InvalidModularMap);
     }
-    let width = usize::BITS - modulus.leading_zeros();
+    let width = usize::BITS - (modulus - 1).leading_zeros();
     Ok((0..1 << width)
         .map(|input| {
             if input < modulus {
@@ -337,10 +338,62 @@ mod tests {
     }
 
     #[test]
+    fn power_of_two_moduli_use_minimal_registers_for_permutation_consumers() {
+        for (modulus, expected_width, expected) in [
+            (4, 2, vec![0, 3, 2, 1]),
+            (8, 3, vec![0, 3, 6, 1, 4, 7, 2, 5]),
+            (
+                16,
+                4,
+                vec![0, 3, 6, 9, 12, 15, 2, 5, 8, 11, 14, 1, 4, 7, 10, 13],
+            ),
+        ] {
+            let permutation = identity_padded_modular_permutation(modulus, 3).unwrap();
+            assert_eq!(permutation, expected);
+            assert_eq!(permutation.len(), modulus);
+            assert_eq!(
+                affine_skeleton(&permutation).unwrap().data_width,
+                expected_width
+            );
+            let inverse = inverse_permutation(&permutation).unwrap();
+            assert_eq!(
+                affine_skeleton(&inverse).unwrap().data_width,
+                expected_width
+            );
+            for (input, &image) in permutation.iter().enumerate() {
+                assert_eq!(inverse[image], input);
+            }
+        }
+    }
+
+    #[test]
+    fn every_admitted_modulus_has_exact_residue_and_identity_padding_domains() {
+        for modulus in 3..=31 {
+            let identity = identity_padded_modular_permutation(modulus, 1).unwrap();
+            let negation = identity_padded_modular_permutation(modulus, modulus - 1).unwrap();
+            assert_eq!(identity.len(), modulus.next_power_of_two());
+            assert_eq!(identity, (0..identity.len()).collect::<Vec<_>>());
+            assert_eq!(negation.len(), identity.len());
+            assert!(identity.len() / 2 < modulus);
+            for (input, &image) in negation.iter().enumerate() {
+                let expected = if input == 0 || input >= modulus {
+                    input
+                } else {
+                    modulus - input
+                };
+                assert_eq!(image, expected);
+            }
+            assert_eq!(inverse_permutation(&negation).unwrap(), negation);
+        }
+    }
+
+    #[test]
     fn n21_words_cover_all_labels_and_control_branches_with_inverse_and_mutations() {
         for multiplier in [2, 4, 16] {
             let word = n21_target_flip_witness(multiplier).unwrap();
             let expected = identity_padded_modular_permutation(21, multiplier).unwrap();
+            assert_eq!(expected.len(), 32);
+            assert_eq!(&expected[21..], &(21..32).collect::<Vec<_>>());
             for (input, &image) in expected.iter().enumerate() {
                 assert_eq!(word.apply_data(input).unwrap(), image);
                 assert_eq!(word.apply_controlled(input).unwrap(), input);

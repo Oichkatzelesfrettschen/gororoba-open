@@ -361,14 +361,14 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/docs_root_narratives.toml"
-sha256 = "660a57bb55b8a7ccd90c0b2efcbafd5206bc4405db0e961267dde7a0b5709d28"
-size_bytes = 25470
-line_count = 174
-claim_ref_count = 139
+sha256 = "b69b586fcf5c0976920a5e05aad8eb4dc949ae00f4abe8235abf2a5e6cff9784"
+size_bytes = 43862
+line_count = 320
+claim_ref_count = 177
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 486
-link_sample = ["proofs/verified/C001_CDNonAssociative.v", "proofs/verified/C002_SedenionZDAndNormFail.v", "proofs/verified/C003_AssessorsBoxkites.v", "proofs/verified/C004_PSL27Order168.v", "proofs/verified/C005_ZDAnnihilatorGeometry.v", "proofs/verified/C006_GWAlgebraicAnchor.v", "proofs/verified/C007_BHMassAlgebraicAnchor.v", "proofs/verified/C008_AlphaFreeParameter.v"]
+link_count = 924
+link_sample = ["proofs/theories/ADM.v", "proofs/theories/ADMAlgebraBridge.v", "proofs/theories/AlternatorTraceExclusion.v", "proofs/theories/ArchimedeanStratification.v", "proofs/theories/BaezNormedDivAlgebra.v", "proofs/theories/BekensteinEntropy.v", "proofs/theories/BellCHSH.v", "proofs/theories/BinaryEntropy.v"]
 
 [[document]]
 id = "DOC-0020"
@@ -944,14 +944,14 @@ generated = false
 status = "active"
 migration_priority = "high"
 toml_backing = "registry/research_narratives.toml"
-sha256 = "5b793963cd7b3709414e474c79aa03d4b9e5b78157ac69e9c76739212af882e9"
-size_bytes = 28754
-line_count = 541
+sha256 = "7d91e67707611ab5d49cb0c37a2f4f187ca54cb8738a8ca7c6844878f7491d7f"
+size_bytes = 31276
+line_count = 581
 claim_ref_count = 4
 insight_ref_count = 8
 experiment_ref_count = 0
-link_count = 172
-link_sample = [".gitignore", "// @generated", "<first-two-hash-digits>/<next-two>/<sha256>", "control_plane.sqlite3-shm", "control_plane.sqlite3-wal", "crates/gororoba_cli_data/src/bin/repo_audit.rs", "crates/provenance_store/src/lib.rs", "data/output/audit/insight-canonical-admission/specs/"]
+link_count = 181
+link_sample = [".gitignore", ".vo", "// @generated", "<first-two-hash-digits>/<next-two>/<sha256>", "control_plane.sqlite3-shm", "control_plane.sqlite3-wal", "crates/gororoba_cli_data/src/bin/repo_audit.rs", "crates/provenance_store/src/lib.rs"]
 
 [[document]]
 id = "DOC-0051"
@@ -1798,14 +1798,14 @@ authoring_mode = "generated"
 generated = true
 status = "active"
 migration_priority = "critical"
-sha256 = "1951c49ca2071c78614f7372bdcc236c7041c92b93eea176ba50ef2dc5f4d7d7"
-size_bytes = 25462
-line_count = 174
-claim_ref_count = 139
+sha256 = "2e5303901d090487d3b7bc38bb4e87db708bcb1630c1c44dfe1cc3694aad9c5d"
+size_bytes = 43854
+line_count = 320
+claim_ref_count = 177
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 486
-link_sample = ["proofs/verified/C001_CDNonAssociative.v", "proofs/verified/C002_SedenionZDAndNormFail.v", "proofs/verified/C003_AssessorsBoxkites.v", "proofs/verified/C004_PSL27Order168.v", "proofs/verified/C005_ZDAnnihilatorGeometry.v", "proofs/verified/C006_GWAlgebraicAnchor.v", "proofs/verified/C007_BHMassAlgebraicAnchor.v", "proofs/verified/C008_AlphaFreeParameter.v"]
+link_count = 924
+link_sample = ["proofs/theories/ADM.v", "proofs/theories/ADMAlgebraBridge.v", "proofs/theories/AlternatorTraceExclusion.v", "proofs/theories/ArchimedeanStratification.v", "proofs/theories/BaezNormedDivAlgebra.v", "proofs/theories/BekensteinEntropy.v", "proofs/theories/BellCHSH.v", "proofs/theories/BinaryEntropy.v"]
 
 [[document]]
 id = "DOC-0096"

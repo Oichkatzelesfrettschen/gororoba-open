@@ -321,6 +321,46 @@ failure-log evidence from the body-size wording in their original receipts.
 predecessors and returns eight effective acquisition records from ten history
 rows. Corrections represent metadata revisions rather than additional requests.
 
+## Theorem source execution
+
+`gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>`
+admits `kernel_checked` only after a fresh Rocq source execution. The process
+selects `rocq` from the trusted host PATH/opam switch and verifies Rocq 9.1.1
+compiled with OCaml 5.4.0. The receipt supplies hashes and historical command
+descriptions; its `compile_command` and `kernel_command` strings never execute.
+The internally-produced `execution_replay` argument vectors and actual process
+results provide the execution authority.
+
+The replayer copies and digest-checks the complete project-local source closure
+into a private temporary directory. Fixed relative source arguments and the two
+project namespaces make fresh object bytes comparable with retained objects.
+Dependency-first full compilation must reproduce the retained target `.vo`
+SHA-256 exactly. The independent kernel checker and fresh labeled
+`Print Assumptions` queries must then pass for the same object and every
+recognized declaration. Admission requires a fatal warning policy and rejects
+warning output, failed processes, changed source bytes, unmatched objects and
+incorrect assumption sets. Successful replay retains stdout and stderr as
+separate streams; local absolute paths fail the canonical-output boundary.
+
+Version 2 theorem-event envelopes retain the internally-produced replay evidence.
+The process finishes replay before opening the canonical mutation transaction;
+the transaction rechecks file and metadata prestates. Activation and exact
+idempotent replay use pure byte/scope freshness checks and launch zero compiler
+processes. A public caller supplies neither an executor nor a verification result.
+Private synthetic fixtures test state transitions; the separately invoked genuine
+Rocq integration test exercises the public admission method.
+
+Version 1 operator-declared events, specifications and raw artifacts remain
+immutable history. Their original token/file correspondence checks provide
+historical provenance; they supply zero active `kernel_checked` admissions.
+Inventory sync withdraws their active projection. A fresh distinct evidence key
+records a version 2 admission against the resulting exact prestate.
+
+The execution boundary trusts the host-selected compiler/kernel installation,
+its external libraries and the canonical-store writer. Actual local replay
+establishes source/object conformance within that boundary. The record supplies
+neither cryptographic process attestation nor physical or QPU evidence.
+
 ## Compatibility row rendering
 
 The Layer-1-to-Layer-2 export does not regenerate each TOML row from

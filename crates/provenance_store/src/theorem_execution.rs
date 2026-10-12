@@ -14,6 +14,9 @@ use sha2::{Digest, Sha256};
 
 use crate::{ProvenanceStore, TheoremLinkState, sha256_hex, theorem_link_correction::read_state};
 
+#[path = "theorem_replay.rs"]
+mod replay;
+
 pub const SOURCE_ONLY: &str = "source_only";
 pub const KERNEL_CHECKED: &str = "kernel_checked";
 
@@ -92,6 +95,8 @@ struct KernelEvidenceEnvelope {
     raw_spec: String,
     before: TheoremLinkState,
     after: TheoremLinkState,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    execution_replay: Option<replay::KernelReplayEvidence>,
 }
 
 fn text(value: &str, label: &str) -> Result<()> {
@@ -580,6 +585,7 @@ fn project_dependencies(
     proof_path: &str,
     modules: &BTreeMap<String, String>,
     visited: &mut BTreeSet<String>,
+    ordered: &mut Vec<String>,
 ) -> Result<()> {
     if !visited.insert(proof_path.to_owned()) {
         return Ok(());
@@ -635,9 +641,10 @@ fn project_dependencies(
             let dependency = modules
                 .get(&logical)
                 .with_context(|| format!("project import is unlisted: {logical}"))?;
-            project_dependencies(root, dependency, modules, visited)?;
+            project_dependencies(root, dependency, modules, visited, ordered)?;
         }
     }
+    ordered.push(proof_path.to_owned());
     Ok(())
 }
 
@@ -714,7 +721,13 @@ pub(crate) fn validate_kernel_witness(
         "kernel witness proof is outside the active source inventory"
     );
     let mut required = BTreeSet::new();
-    project_dependencies(root, &witness.proof_path, &modules, &mut required)?;
+    project_dependencies(
+        root,
+        &witness.proof_path,
+        &modules,
+        &mut required,
+        &mut Vec::new(),
+    )?;
     let mut observed = BTreeSet::new();
     for input in &witness.sources {
         ensure!(
@@ -850,7 +863,7 @@ pub(crate) fn kernel_witness_matches(
     let envelope: KernelEvidenceEnvelope =
         serde_json::from_str(&raw).context("parse retained kernel evidence event")?;
     ensure!(
-        envelope.schema_version == 1 && sha256_hex(&envelope.raw_spec) == spec_sha256,
+        matches!(envelope.schema_version, 1 | 2) && sha256_hex(&envelope.raw_spec) == spec_sha256,
         "kernel evidence event envelope changed"
     );
     let specification = parse_theorem_kernel_evidence_spec(&envelope.raw_spec)?;
@@ -862,15 +875,59 @@ pub(crate) fn kernel_witness_matches(
     if witness.stable_id != stable_id || witness.proof_path != proof_path.as_str() {
         return Ok(false);
     }
-    Ok(validate_kernel_witness(root, witness, true).is_ok())
+    if envelope.schema_version == 1 {
+        return Ok(false);
+    }
+    let Some(execution) = &envelope.execution_replay else {
+        return Ok(false);
+    };
+    Ok(execution.validate(witness).is_ok() && validate_kernel_witness(root, witness, true).is_ok())
 }
 
 impl ProvenanceStore {
+    /// Compile the exact source closure and check its matching object before admission.
+    /// The host PATH selects the pinned Rocq toolchain. Retained witness command
+    /// strings describe prior execution; fixed replay argument vectors execute.
     pub fn record_theorem_kernel_evidence(
         &mut self,
         root: &Path,
         specification: &TheoremKernelEvidenceSpec,
         raw: &str,
+    ) -> Result<TheoremEvidenceMutationResult> {
+        let validated = parse_theorem_kernel_evidence_spec(raw)?;
+        ensure!(
+            serde_json::to_value(&validated)? == serde_json::to_value(specification)?,
+            "kernel specification differs from its retained input"
+        );
+        validate_kernel_witness(root, &specification.witness, true)?;
+        let event_key = format!("kernel-evidence:{}", specification.evidence_key);
+        let existing: bool = self.conn.query_row(
+            "SELECT EXISTS(SELECT 1 FROM theorem_identity_events WHERE binding_key=?1)",
+            [&event_key],
+            |row| row.get(0),
+        )?;
+        let execution = if existing {
+            None
+        } else {
+            let before = read_state(&self.conn, &specification.witness.stable_id)?;
+            ensure!(
+                before.proof_path == specification.witness.proof_path
+                    && before.theorem_status == specification.expected_status
+                    && sha256_hex(&before.kernel_result)
+                        == specification.expected_kernel_result_sha256,
+                "kernel evidence prestate changed"
+            );
+            Some(replay::execute(root, &specification.witness)?)
+        };
+        self.record_replayed_theorem_kernel_evidence(root, specification, raw, execution)
+    }
+
+    fn record_replayed_theorem_kernel_evidence(
+        &mut self,
+        root: &Path,
+        specification: &TheoremKernelEvidenceSpec,
+        raw: &str,
+        execution_replay: Option<replay::KernelReplayEvidence>,
     ) -> Result<TheoremEvidenceMutationResult> {
         let validated = parse_theorem_kernel_evidence_spec(raw)?;
         ensure!(
@@ -898,6 +955,15 @@ impl ProvenanceStore {
         if let Some((existing, envelope)) = existing {
             let envelope: KernelEvidenceEnvelope = serde_json::from_str(&envelope)?;
             ensure!(
+                envelope.schema_version == 2,
+                "legacy operator-declared receipt needs a fresh distinct evidence key for trusted replay"
+            );
+            envelope
+                .execution_replay
+                .as_ref()
+                .context("kernel receipt lacks internally-produced replay evidence")?
+                .validate(&specification.witness)?;
+            ensure!(
                 existing == spec_sha256 && before == envelope.after,
                 "kernel evidence replay changed its specification or poststate"
             );
@@ -910,6 +976,9 @@ impl ProvenanceStore {
                 exact_replay: true,
             });
         }
+        let execution_replay = execution_replay
+            .context("kernel promotion requires internally-produced replay evidence")?;
+        execution_replay.validate(&specification.witness)?;
         ensure!(
             sha256_hex(&before.kernel_result) == specification.expected_kernel_result_sha256
                 && before.theorem_status == specification.expected_status,
@@ -921,11 +990,12 @@ impl ProvenanceStore {
         )?;
         let after = read_state(&transaction, &specification.witness.stable_id)?;
         let envelope = KernelEvidenceEnvelope {
-            schema_version: 1,
+            schema_version: 2,
             specification: specification.clone(),
             raw_spec: raw.to_owned(),
             before,
             after,
+            execution_replay: Some(execution_replay),
         };
         validate_kernel_witness(root, &specification.witness, true)?;
         transaction.execute("INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES(?1,?2,?3,?4,?5,?6,'[]')", params![event_key,spec_sha256,specification.actor,serde_json::to_string(&envelope)?,specification.applied_at,serde_json::to_string(&[&specification.witness.stable_id])?])?;
@@ -1196,8 +1266,12 @@ mod tests {
             &mut self,
             spec: &TheoremKernelEvidenceSpec,
         ) -> Result<TheoremEvidenceMutationResult> {
-            self.store
-                .record_theorem_kernel_evidence(&self.root, spec, &toml::to_string(spec)?)
+            self.store.record_replayed_theorem_kernel_evidence(
+                &self.root,
+                spec,
+                &toml::to_string(spec)?,
+                Some(replay::fixture_evidence(&spec.witness)?),
+            )
         }
 
         fn events(&self) -> Result<i64> {
@@ -1213,6 +1287,170 @@ mod tests {
         fn drop(&mut self) {
             let _ = fs::remove_dir_all(&self.root);
         }
+    }
+
+    #[test]
+    fn legacy_receipts_preserve_history_and_need_distinct_replayed_admission() -> Result<()> {
+        let mut fixture = Fixture::new()?;
+        let mut spec = fixture.witness()?;
+        spec.evidence_key = "legacy-operator-receipt".to_owned();
+        let before = read_state(&fixture.store.conn, "THM-TEST")?;
+        assert_eq!(before.theorem_status, KERNEL_CHECKED);
+        let raw = toml::to_string(&spec)?;
+        let historical = serde_json::to_string(&KernelEvidenceEnvelope {
+            schema_version: 1,
+            specification: spec.clone(),
+            raw_spec: raw.clone(),
+            before: before.clone(),
+            after: before,
+            execution_replay: None,
+        })?;
+        fixture.store.conn.execute("INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES('kernel-evidence:legacy-operator-receipt',?1,'test-actor',?2,'2026-10-12','[\"THM-TEST\"]','[]')", params![sha256_hex(&raw), historical])?;
+        assert_eq!(fixture.sync("legacy-freshness")?.kernel_checked_count, 0);
+        assert_eq!(
+            read_state(&fixture.store.conn, "THM-TEST")?.theorem_status,
+            SOURCE_ONLY
+        );
+        let events = fixture.events()?;
+        let error = fixture
+            .store
+            .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)
+            .unwrap_err();
+        assert!(error.to_string().contains("fresh distinct evidence key"));
+        assert_eq!(fixture.events()?, events);
+        let retained: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:legacy-operator-receipt'", [], |row| row.get(0))?;
+        assert_eq!(retained, historical);
+        Ok(())
+    }
+
+    #[test]
+    fn version_two_promotion_requires_private_replay_evidence_and_exact_replay_is_pure()
+    -> Result<()> {
+        let mut fixture = Fixture::new()?;
+        fixture.sync("trusted-replay-prestate")?;
+        let spec = fixture.witness()?;
+        let raw = toml::to_string(&spec)?;
+        let before = read_state(&fixture.store.conn, "THM-TEST")?;
+        assert!(
+            fixture
+                .store
+                .record_replayed_theorem_kernel_evidence(&fixture.root, &spec, &raw, None)
+                .is_err()
+        );
+        assert_eq!(read_state(&fixture.store.conn, "THM-TEST")?, before);
+        assert_eq!(fixture.events()?, 1);
+        fixture.record(&spec)?;
+        assert!(
+            fixture
+                .store
+                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .exact_replay
+        );
+        assert_eq!(fixture.events()?, 2);
+        Ok(())
+    }
+
+    #[test]
+    #[ignore = "requires host PATH/opam switch with Rocq 9.1.1 and OCaml 5.4.0"]
+    fn genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects() -> Result<()> {
+        let mut fixture = Fixture::new()?;
+        fixture.sync("genuine-prestate")?;
+        replay::genuine_fixture_artifacts(&fixture.root, &fixture.witness()?.witness)?;
+        let mut spec = fixture.witness()?;
+        spec.witness.compile_command.push_str(" ; false");
+        let raw = toml::to_string(&spec)?;
+        assert!(
+            !fixture
+                .store
+                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .exact_replay
+        );
+        assert!(
+            fixture
+                .store
+                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .exact_replay
+        );
+        let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
+        let retained: KernelEvidenceEnvelope = serde_json::from_str(&envelope)?;
+        assert_eq!(retained.schema_version, 2);
+        assert!(retained.execution_replay.is_some());
+
+        for mutation in 0..4 {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("wrong-object-prestate")?;
+            replay::genuine_fixture_artifacts(&fixture.root, &fixture.witness()?.witness)?;
+            match mutation {
+                0 => fs::write(
+                    fixture.root.join("evidence/C900_Test.vo"),
+                    b"Coq!fabricated-object",
+                )?,
+                1 => {
+                    fs::copy(
+                        fixture.root.join("proofs/theories/Prelude.vo"),
+                        fixture.root.join("evidence/C900_Test.vo"),
+                    )?;
+                }
+                2 => fs::write(
+                    fixture.root.join("proofs/verified/C900_Test.v"),
+                    "From OpenGororoba Require Import Prelude.\nTheorem fixture : True. Proof. exact prerequisite. Qed.\n",
+                )?,
+                3 => fs::write(
+                    fixture.root.join("proofs/verified/C900_Test.v"),
+                    "From OpenGororoba Require Import Prelude.\nTheorem fixture : False. Proof. exact I. Qed.\n",
+                )?,
+                _ => unreachable!(),
+            }
+            let mut spec = fixture.witness()?;
+            if mutation == 3 {
+                spec.witness.declarations[0].statement = "Theorem fixture : False".to_owned();
+            }
+            let before = read_state(&fixture.store.conn, "THM-TEST")?;
+            let events = fixture.events()?;
+            let error = fixture
+                .store
+                .record_theorem_kernel_evidence(&fixture.root, &spec, &toml::to_string(&spec)?)
+                .unwrap_err();
+            assert!(
+                error.to_string().contains(if mutation == 3 {
+                    "trusted Rocq replay failed"
+                } else {
+                    "retained proof object differs"
+                }),
+                "mutation {mutation}: {error}"
+            );
+            assert_eq!(read_state(&fixture.store.conn, "THM-TEST")?, before);
+            assert_eq!(fixture.events()?, events);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn trusted_replay_rejects_warnings_failures_and_descriptive_warning_profiles() -> Result<()> {
+        let fixture = Fixture::new()?;
+        let witness = fixture.witness()?.witness;
+        let evidence = replay::fixture_evidence(&witness)?;
+        for mutation in 0..4 {
+            let mut encoded = serde_json::to_value(&evidence)?;
+            match mutation {
+                0 => encoded["compilation"][0]["stderr"] = "Warning: replay diagnostic".into(),
+                1 => encoded["checker"]["exit_code"] = 1.into(),
+                2 => {
+                    encoded["assumptions"]["stdout"] =
+                        "Declaration: fixture\nAxioms:\nHidden.Axiom : True\n".into()
+                }
+                3 => encoded["proof_object_sha256"] = "0".repeat(64).into(),
+                _ => unreachable!(),
+            }
+            let modified: replay::KernelReplayEvidence = serde_json::from_value(encoded)?;
+            assert!(modified.validate(&witness).is_err());
+        }
+        let mut descriptive = witness;
+        descriptive.warning_policy = "default_severity".to_owned();
+        descriptive.compile_command = descriptive.compile_command.replace("+all", "default");
+        assert!(validate_kernel_witness(&fixture.root, &descriptive, true).is_ok());
+        assert!(replay::fixture_evidence(&descriptive).is_err());
+        Ok(())
     }
 
     #[test]
