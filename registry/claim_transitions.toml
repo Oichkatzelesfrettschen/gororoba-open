@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 218
+event_count = 220
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4684,4 +4684,42 @@ actor = "cayley-dickson-evidence-contracts"
 reason = "Preserve the refuted proposition and bind its correction to exact fixtures and kernel-checked proof statements."
 transition_timestamp = "2026-10-11T18:27:37Z"
 transition_spec_sha256 = "e14bd9a2c4aa3dbf93c8ff17a0ec08043aed783f70c486a03ddfc63660a6112c"
+successors = []
+
+[[transition]]
+event_id = 219
+transition_key = "sedenion-full-automorphism-source-review"
+source_claim_id = "C-1471"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Provisional"
+current_status = "Provisional"
+exercised_falsifier = "Audit the purported formal certificate against its actual homogeneity declarations and compare the full-group assertion with Schafer1954 Theorem4 and Brown1967 Section2/Theorem1, including Brown epsilon(a+bu)=a-bu and the identity-component fixed-unit consequence of the derivation theorem."
+rationale = "C1471_HigherCDTrilinearity.v proves first-slot scalar homogeneity rather than an automorphism-group classification. Schafer1954 proves a derivation-algebra result of type g2; Brown1967 treats full automorphism groups and includes a finite factor, whereas Wilmot2025 Section4 disputes Brown through calibration stabilizers. The original source assertion needs an explicit full-group versus identity-component reconciliation. The transition preserves its original statement and prior status in canonical history."
+unresolved_assumptions = ["Relate the calibration-stabilizer restriction to algebra automorphisms including disconnected elements.", "Check Brown epsilon and psi under the repository multiplication convention and standard real doubling parameters.", "Separate full Aut(S), its identity component, and the derivation Lie algebra.", "A new source-bound formal certificate for the full automorphism claim remains outstanding."]
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+experiment_ids = []
+actor = "codex"
+reason = "Withdraw unsupported full-group admission while preserving the historical source assertion"
+transition_timestamp = "2026-10-12T16:43:59Z"
+transition_spec_sha256 = "86b9e0d5d60eb9097f83be45fefa3d9c818f9155a3648406428cbbefc3a93f4f"
+successors = []
+
+[[transition]]
+event_id = 220
+transition_key = "arithmetic-inventory-associator-claim-review"
+source_claim_id = "C-1463"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Provisional"
+current_status = "Provisional"
+exercised_falsifier = "Compare the exact source declarations and fresh labeled kernel assumption reports for C1463_ArithmeticInventory with the associator/tower/compile-time compound claim. The source has 22 closed natural-number equalities and its source-bound check supplies arithmetic evidence. Inspect C1455, C1470 and C1471 for their actual first-slot homogeneity statements and C1469 for finite sign-table properties; require a separately retained timing protocol for the under 6 seconds assertion."
+rationale = "The prior ArithmeticInventory formal relation addresses22 concrete sums, products, natural-number divisions and powers rather than the associator/tower/runtime compound assertion. C1455 and C1470 contain first-slot scalar-homogeneity proofs, and C1471 extends that displayed law through 65536; C1469 supplies finite sign-table checks. Those source scopes remain supported at their own named boundaries. The transition preserves the original compound statement while reopening its admission pending matching formal scope and independent reproducible timing evidence."
+unresolved_assumptions = ["Identify formal declarations for every additivity and scalar-homogeneity slot claimed by the full trilinearity statement.", "Retain a fresh complete dependency-closure execution for the actual higher-CD formal source surface.", "Record the machine, compiler version, warning flags, source closure, cold/warm cache boundary and repeated observations for the thirteen-level under 6 seconds compile claim.", "Keep arithmetic equalities separate from identified algebraic counts, conjugation, Clifford representation and periodicity theorems."]
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+experiment_ids = []
+actor = "codex"
+reason = "Correct a mismatched proof relation while preserving the independently supported associator source scopes"
+transition_timestamp = "2026-10-12T16:56:43Z"
+transition_spec_sha256 = "cf65b23ad0eaf8a02ab618cf96f8d27a23b93d222d4fbcb97132a973a40b06b2"
 successors = []

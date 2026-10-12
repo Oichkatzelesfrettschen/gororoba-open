@@ -1,0 +1,64 @@
+binding_key = "boolean-predicate-fold-channel-formal-bindings"
+actor = "codex"
+reason = "Bind four source-owned formal scopes to retained execution artifacts while keeping mathematical claims, declared assumptions, and kernel admission distinct."
+applied_at = "2026-10-12T16:40:52Z"
+
+[[binding]]
+proposal_key = "boolean-predicate-signed-xor-label-obstruction"
+stable_id = "THM-LEGACY-BooleanPermutation"
+legacy_name = "BooleanPermutation"
+proof_path = "proofs/theories/BooleanPermutation.v"
+title = "Boolean target flips and signed-XOR label obstruction"
+statement = "An involutive toggle with a toggle-invariant Boolean predicate induces an involutive bijection; a cube mask disjoint from the target bit supplies that invariance. Reversing a word of involutions computes its inverse. Signed-XOR actions compose with the second phase evaluated on the translated label. A signed-XOR word fixing label zero has identity label motion while diagonal signs can remain nonconstant. The identity-padded five-bit N=21 multipliers 2, 4, and 16 fix zero, move one, violate the stated affine identity, and differ from every signed-XOR word on at least one of the 32 labels."
+initial_status = "Verified"
+where_stated = ["proofs/theories/BooleanPermutation.v"]
+assumptions = "The abstract target-flip theorems quantify over an involutive toggle and a predicate invariant under that toggle. Cube theorems require Nat.land mask (2 ^ target) = 0. Inverse-word theorems require every gate to be involutive. Signed actions retain both Boolean phase and natural-number label. N=21 statements restrict comparison to labels below 32, multiply valid residues below 21, and fix labels 21 through 31. The declarations introduce these premises as quantified hypotheses."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanPermutation.v && rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanPermutation"
+falsifier = "A toggle-invariant predicate over an involutive toggle whose target flip fails involution, a target-disjoint mask whose cube fails bijectivity, or a signed-XOR word matching a named identity-padded N=21 multiplier on all 32 labels would falsify the corresponding formal proposition."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "canonical-rational-average-detail-reconstruction"
+stable_id = "THM-LEGACY-FoldAverageDescent"
+legacy_name = "FoldAverageDescent"
+proof_path = "proofs/theories/FoldAverageDescent.v"
+title = "Average-only multiplication obstruction and exact rational reconstruction"
+statement = "For canonical-rational pairs with product (ac-db, da+bc), average (a+b)/2 alone admits no binary scalar operation preserving every pair product: (1,-1) and (0,0) have equal averages, while multiplication by (0,1) gives product averages 1 and 0. The coordinates average=(a+b)/2 and detail=(a-b)/2 reconstruct (a,b) as (average+detail, average-detail), and the two coordinate maps are mutual inverses and injective."
+initial_status = "Verified"
+where_stated = ["proofs/theories/FoldAverageDescent.v"]
+assumptions = "The carrier is Stdlib canonical rational Qc, equality is literal equality, and multiplication is the explicitly defined scalar Cayley-Dickson pair law. The obstruction quantifies over all scalar binary operations and all Qc pairs. Reconstruction retains both average and detail coordinates. Higher Cayley-Dickson multiplication, statistical compression, and physical implementations require separate premises."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FoldAverageDescent.v && rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FoldAverageDescent"
+falsifier = "A binary Qc scalar operation preserving the average of every defined pair product, or a Qc pair or coordinate pair that fails either reconstruction identity, would falsify the corresponding formal proposition."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "rational-terminal-binary-channel-separation"
+stable_id = "THM-LEGACY-TerminalChannelSeparation"
+legacy_name = "TerminalChannelSeparation"
+proof_path = "proofs/theories/TerminalChannelSeparation.v"
+title = "Rational separation excludes a common terminal binary channel"
+statement = "Over rational Qeq, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means."
+initial_status = "Verified"
+where_stated = ["proofs/theories/TerminalChannelSeparation.v"]
+assumptions = "The carrier is rational Q with Qeq equality. The common channel has false-positive and true-positive coefficients in [0,1]. The experiment must supply all four deterministic radius bounds and the strict separation margin. The proposition quantifies over arbitrary rational means and radii; empirical channel stationarity, calibration and statistical coverage remain premises supplied outside the theorem."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparation.v && rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparation"
+falsifier = "Rational channel coefficients in [0,1], means and centers satisfying all four radius bounds and the strict margin, and both output equalities under that same channel would falsify the exclusion proposition."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+
+[[binding]]
+proposal_key = "real-terminal-binary-channel-separation"
+stable_id = "THM-LEGACY-TerminalChannelSeparationReal"
+legacy_name = "TerminalChannelSeparationReal"
+proof_path = "proofs/theories/TerminalChannelSeparationReal.v"
+title = "Real separation excludes a common terminal binary channel"
+statement = "Over Stdlib real numbers, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means. An absolute-radius premise also bounds the value between center-radius and center+radius."
+initial_status = "Verified"
+where_stated = ["proofs/theories/TerminalChannelSeparationReal.v"]
+assumptions = "The real-number declarations depend on ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. The common channel has false-positive and true-positive coefficients in [0,1]. The experiment must supply all four deterministic radius bounds and the strict separation margin. Empirical channel stationarity, calibration and statistical coverage remain premises supplied outside the theorem."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparationReal.v && rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparationReal"
+falsifier = "Real channel coefficients in [0,1], means and centers satisfying all four radius bounds and the strict margin, and both output equalities under that same channel would falsify the exclusion proposition within the stated real-number foundations."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]

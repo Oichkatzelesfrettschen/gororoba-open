@@ -9,6 +9,7 @@
 
 mod arith;
 mod associator;
+pub mod boolean_permutation;
 pub mod boolean_phase;
 pub mod cariow_factorization;
 pub mod fast_associator;

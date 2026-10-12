@@ -29,6 +29,7 @@ pub mod entropy_census;
 pub mod exact_annihilator;
 pub mod flag_complex;
 pub mod flat_band_localization;
+pub mod fold_coordinates;
 pub mod fractal_analysis;
 pub mod graph_projections;
 pub mod grassmannian;

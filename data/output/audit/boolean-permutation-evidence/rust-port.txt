@@ -1,0 +1,156 @@
+Boolean permutation and oracle boundary Rust port
+
+Source identity
+---------------
+
+The mathematical reference is gororoba-quantum main commit 5604e4b,
+inspected after its N21 target-flip integration. The imported finite words
+are the witnesses in proofs/TargetFlipN21.v; the port contains their label
+evaluator, rather than the Qiskit synthesis optimizer.
+
+Reference file SHA-256 values:
+  gororoba_quantum/target_flip.py
+    09ee85e602f48942d39d3c7210cdffcbaa75de61cd0c46cc87bbb20151f042a6
+  gororoba_quantum/affine_residual.py
+    b17a8d9f75c4380c9205e9edd493117c3c2cbda535cb85ffd8795fd34fe823ec
+  gororoba_quantum/claim_boundaries.py
+    f7d7e7a1f66b8e9148e200bf22d36ad4b8a859eba943ad97a25682b28a54f685
+  proofs/TargetFlipN21.v
+    494e3e9c1a4370c46f37e26b0f9e7cb301d8acf8ac96f94e2512ad57612e0fc6
+
+Canonical code ownership
+------------------------
+
+cd_kernel::cayley_dickson::boolean_permutation owns validated Boolean
+label words, complete finite permutations, inverse maps and affine
+coefficient extraction. boolean_phase owns value-oracle interpolation and
+the exact Walsh measurement boundary. algebra_analysis::exact_annihilator
+owns exact left-action matrix regression witnesses.
+
+TargetCube predicates exclude the target and constrain only data bits.
+TargetFlipWord validates its full word before evaluation. Data widths are
+one through five; bit data_width is the outer control. Every disabled
+control branch fixes its label. Reversing the word gives its inverse.
+The retained N21 words cover multipliers 2, 4 and 16, all 32 data labels,
+identity padding at labels 21 through 31, and both control values. Tests
+cover 192 controlled labels and all 51 single-cube deletions. The primitive
+test enumerates all 547 admitted cubes at widths 1-5 and checks their
+controlled involution action on every input.
+
+SignedXorTranslation retains the output label and diagonal sign as
+separate values. Translation zero fixes every label while a nonzero sign
+exponent can still change the operator. The fixed-zero obstruction is an
+identity-label statement; it does not erase diagonal phases or identify
+the full multiplication group with a direct product.
+
+affine_skeleton reads the constant and degree-one ANF coefficients of a
+complete bijection. Its GF(2) rank need not be full and need not agree with
+the rank of the functional inverse. Identity-padded doubling modulo 21
+has linear rank 5; its inverse multiplier 11 has linear rank 4. The port
+retains this exact counterexample without importing a residual optimizer,
+an optimal CNOT search, or a compiler-performance claim.
+
+recover_degree_promised_anf requires every low-weight query input exactly
+once and rejects missing, duplicate or extra samples. Its domain is
+0 <= d <= n <= 8. Unique recovery relies on an external degree promise.
+A degree d+1 monomial vanishes at every queried input of weight <= d and
+aliases the zero polynomial; the API cannot certify an unseen oracle's
+degree. Coefficient-basis and dense tests retain query counts 4, 11, 26
+and 57 at (n,d)=(3,1),(4,2),(5,3),(6,4); constant and complete
+eight-variable edge cases are checked separately.
+
+The translated cubics f=x0*x1*x2 and g=x1*x2+x0*x1*x2 differ and are not
+complements, yet their squared Walsh spectra agree at n=3 and n=5.
+The collision concerns the uniform-input Walsh probability measurement.
+OracleAccess::UncontrolledPhase retains its existing full-access
+equivalence up to complementation; its representatives distinguish the
+two cubics. The existing BooleanPhaseError enum is unchanged; the added
+interpolation API has a separate DegreePromisedAnfError type.
+
+The exact matrix tests reuse multiplication_matrix_exact. For octonions,
+L_(e1*e2)e4=e7 but L_e1 L_e2 e4=-e7. For sedenions, x=e1+e10 and
+y=e4-e15 satisfy x*y=0 and x*x=-2e0, so L_x L_x y=0 whereas
+L_(x*x)y=-2y. Reversing the probe sign gives a nonzero product. These
+witnesses refute multiplicative and Jordan-square readings of the left
+action; they do not claim a geometry or a different algebra product.
+
+Diagnostic evidence
+-------------------
+
+The focused commands used Rust 1.97.0. The repository's nightly rustfmt
+configuration was applied only to the owned Rust files and its check
+passed. The following developer diagnostics exited zero:
+
+  cargo test --offline --locked -p cd_kernel --lib cayley_dickson::boolean_
+    12 passed, 0 failed; includes existing phase-oracle regressions.
+  cargo test --offline --locked -p algebra_analysis --lib left_action
+    2 passed, 0 failed; exact BigRational matrix witnesses.
+  cargo clippy --offline --locked -p cd_kernel --lib -- -D warnings
+    completed with warnings denied.
+  git diff --check -- <the four owned Rust source paths>
+    passed.
+
+Cargo used the resolved shared dependency roots, GOROROBA_REPO_ROOT set
+to the calling worktree, and the distinct absolute target root represented
+portably by <worktree>/.cache/exp-boolean-permutation-target. Worker variables
+were unset. These are provisional diagnostics of their named source
+surfaces; the integration owner repeats frozen checks and hosted CI owns
+repository validation and reverse-dependency admission.
+
+Supported integration frontier
+------------------------------
+
+The main-source principal_skew_atlas.py, its proof note, and retained
+replay have matching source hashes. For d=2^n, n>=2, x_0=x_(d/2)=0 and
+x!=0, the ordered principal pivot (0,h,i,h+i), h=d/2, has A_i^2=-q_i I
+and det(A_i)=q_i^2, q_i=x_i^2+x_(h+i)^2. The h-1 domains q_i>0 cover
+the doubly-pure domain. Selecting the largest q_i gives
+q_i>=||x||^2/(h-1). Dimension32 has fifteen domains. The all-real,
+all-stage statement is a written proof; the symbolic replay enumerates
+247 pivots through dimension256 and runtime certificates cover dimensions
+4,8,16,32,64,128,256. Its report rejects 33 changed fields and 12 invalid
+inputs. The separate small selected-pivot and singular-domain falsifiers
+passed during the source audit.
+
+Schur lift, kernel reconstruction, metric and overlap identities require
+det(A)!=0 and restriction of ambient transports to residual kernels.
+Different pivot sizes allow rectangular ambient maps. Zero-nullity cases
+retain zero-dimensional shapes. The maximal-refinement checker and the
+kernel-restricted cocycle are suitable future exact Rust/Rocq ports using
+the existing exact_annihilator matrix authority. A principal cover is a
+global incidence presentation; it does not compute global topology or
+prove smooth rank strata. The unfinished Schur acceleration branch remains
+outside the supported main-source frontier.
+
+The merged FoldAverageDescent and TerminalChannelSeparation rational/real
+certificates passed pinned Rocq9.1.1/OCaml5.4.0 compilation, independent
+kernel checks and exact assumption reports. The historical replay used
+@all, which the pinned warning parser ignored; that command did not
+establish fatal warning severity. Fresh canonical port receipts use the
+validated +default profile and retain separate +all outcomes. The scalar
+average-only obstruction quantifies over arbitrary Qc functions. Keeping
+both average and detail gives inverse coordinates, without dimension
+compression. A full Cayley-Dickson scalar embedding/product bridge is a
+separate theorem obligation. The channel theorem proves contraction and
+conditional exclusion on four declared radius premises; its exact margin
+is 156109/1024000. Statistical coverage and physical channel applicability
+remain unproved by that deterministic certificate. Generic reusable
+channel statements should parameterize observations and radii; retained
+hardware counts belong to their experiment fixture.
+
+Evidence boundaries
+-------------------
+
+The port establishes finite integer label semantics and exact algebra
+witnesses. Complex circuit phases and clean-workspace restoration remain
+separate Qiskit Operator evidence. Native KG24 shared-predicate rewrites,
+routing, scheduled duration, calibrated noise, statistical QPU admission
+and hardware execution remain gororoba-quantum-owned. The retained rejected
+affine challenger is negative compiler evidence, not a universal synthesis
+lower bound. The broader principal-atlas written proofs, finite replay and
+Rocq formalization obligations retain separate identities under their
+integration owner.
+
+The worker changed only its assigned Rust modules, their single module
+declaration, the two assigned exact left-action tests and this report.
+The worker performed no registry mutation, commit, push or QPU job.

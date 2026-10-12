@@ -1,0 +1,5 @@
+sync_key = "boolean-permutation-source-inventory"
+actor = "codex"
+reason = "Register both proof roots without inferring execution from source existence; preserve identities and append-only history."
+applied_at = "2026-10-12T16:27:44Z"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"

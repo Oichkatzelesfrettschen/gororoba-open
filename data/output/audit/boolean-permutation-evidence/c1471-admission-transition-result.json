@@ -1,0 +1,8 @@
+{
+  "transition_key": "sedenion-full-automorphism-source-review",
+  "transition_spec_sha256": "86b9e0d5d60eb9097f83be45fefa3d9c818f9155a3648406428cbbefc3a93f4f",
+  "event_id": 219,
+  "allocated_successors": [],
+  "skipped_reserved_claim_ids": [],
+  "exact_replay": false
+}

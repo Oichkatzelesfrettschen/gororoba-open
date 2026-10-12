@@ -1,0 +1,19 @@
+binding_key = "closed-natural-arithmetic-source-scope"
+actor = "codex"
+reason = "Bind the freshly checked arithmetic equations to their own formal proposition and preserve the compound claim separately"
+applied_at = "2026-10-12T16:56:43Z"
+
+[[binding]]
+proposal_key = "closed-natural-arithmetic-inventory"
+stable_id = "THM-LEGACY-C1463_ArithmeticInventory"
+legacy_name = "C1463_ArithmeticInventory"
+proof_path = "proofs/verified/C1463_ArithmeticInventory.v"
+title = "Twenty-two closed natural-number arithmetic equalities"
+statement = "C1463_ArithmeticInventory proves exactly 22 displayed closed equations in natural-number arithmetic using concrete addition, multiplication, natural-number division and powers, including 7*6=42,2^8=256 and256/16=16. The formal scope is the displayed equations. Identification with algebraic object counts, associator laws, conjugation, Clifford-algebra representations, periodicity or runtime measurements requires separate mathematical or execution evidence."
+initial_status = "Verified"
+where_stated = ["proofs/verified/C1463_ArithmeticInventory.v","data/output/audit/boolean-permutation-evidence/arithmetic-kernel/execution-summary.txt","data/output/audit/boolean-permutation-evidence/provenance-port.txt"]
+assumptions = "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain."
+kernel_result = "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata."
+replay_command = "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +all -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v"
+falsifier = "A failed evaluation of any displayed closed natural-number equality or rejection by the recorded compiler/independent kernel checker withdraws this arithmetic proposition. A semantic count or runtime assertion does not follow from a theorem name."
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]

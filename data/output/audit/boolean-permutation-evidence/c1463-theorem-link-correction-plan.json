@@ -1,0 +1,16 @@
+{
+  "operation": "theorem identity correct-links",
+  "allocation_source": {
+    "binding_key": "closed-natural-arithmetic-source-scope",
+    "proposal_key": "closed-natural-arithmetic-inventory"
+  },
+  "stable_id": "THM-LEGACY-C1463_ArithmeticInventory",
+  "proof_path": "proofs/verified/C1463_ArithmeticInventory.v",
+  "expected_title": "Twenty-two closed natural-number arithmetic equalities",
+  "title": "Twenty-two closed natural-number arithmetic equalities",
+  "expected_claim_relation_rule": "Read the actual new arithmetic claim ID from the binding result and expect exactly C-1463 plus that claim in the postbinding projection.",
+  "claim_relation_rule": "Retain exactly the allocated arithmetic proposition, and remove the C-1463 compound associator/timing relation.",
+  "expected_assumptions": "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain.",
+  "assumptions": "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain.",
+  "reason": "Separate the closed arithmetic proposition from the compound associator and compiler-timing claim."
+}

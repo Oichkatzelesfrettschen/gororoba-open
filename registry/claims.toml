@@ -3998,11 +3998,12 @@ status = "Verified"
 where_stated = "crates/algebra_experimental/src/neutrino_sector.rs::test_pmns_selector_pair_scan"
 
 [[claim]]
-formal_proof = "proofs/verified/C1463_ArithmeticInventory.v"
+formal_proof = "pending:reviewed_pending"
 id = "C-1463"
 last_verified = "2026-03-21"
 statement = "Associator trilinearity formally verified from dim=16 (Sedenion) through dim=65536 (2^16) via tower proof architecture. Each CD level uses ONLY the previous level's lemmas. Ring arithmetic appears only at the sedenion floor (16 R variables). Total compile time under 6 seconds for 13 levels of CD doubling."
-status = "Verified"
+status = "Provisional"
+status_note = "C1463_ArithmeticInventory supplies 22 closed natural-number equalities with a fresh compiler/kernel check; that proof relation addresses arithmetic. The actual associator sources C1455_AssociatorTrilinear, C1470_PathionTrilinearity and C1471_HigherCDTrilinearity contain first-slot scalar-homogeneity declarations at 16,32 and named higher dimensions through 65536. C1469_TowerTrilinearity checks finite sign-table identities, squares and selected anticommutativity. Bilinear multiplication implies mathematical associator trilinearity by expansion; the admission defect concerns the specific formal binding and the unsupported whole compound runtime assertion. The original source assertion remains Provisional with pending formal admission until every claimed formal law and the thirteen-level under 6 seconds timing have matching retained evidence. Scope distinctions and source hashes appear in data/output/audit/boolean-permutation-evidence/provenance-port.txt."
 where_stated = "proofs/verified/C1455_AssociatorTrilinear.v, C1470_PathionTrilinearity.v, C1471_HigherCDTrilinearity.v"
 
 [[claim]]
@@ -4069,11 +4070,12 @@ status = "Verified"
 where_stated = "crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_252_decomposition_8o_plus_7p4"
 
 [[claim]]
-formal_proof = "proofs/verified/C1471_HigherCDTrilinearity.v"
+formal_proof = "pending:reviewed_pending"
 id = "C-1471"
 last_verified = "2026-03-21"
 statement = "Wilmot (2512.07210) Aut(S) = G_2 (Schafer confirmed). Brown's sigma' transformation changes e_{1234567} of Phi_O, invalidating it as automorphism. Only Phi_O^{C(1)} (cyclic sign variations) provides connected G_2 automorphisms in 15 dimensions. 105 primary invariants x 4 sign variations = 420 total."
-status = "Verified"
+status = "Provisional"
+status_note = "Source-claim review: C1471_HigherCDTrilinearity.v proves first-slot scalar homogeneity and does not certify full Aut(S)=G2. Schafer1954 Theorem4 (p445) concerns derivation algebras of type g2. Brown1967 Section2/Theorem1 (p417) includes discrete automorphisms, while Wilmot2025 Section4 disputes that classification through a calibration-stabilizer restriction. The full-group assertion remains Provisional pending explicit reconciliation of the full group, its identity component and the repository multiplication convention. C-301 retains the independently computed dimension-14 sedenion derivation result. Primary-source pages, PDF identities and an explicit fixed-unit/discrete-sign falsifier are recorded in data/output/audit/boolean-permutation-evidence/provenance-port.txt."
 where_stated = "crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_aut_s_equals_g2"
 
 [[claim]]
@@ -8664,11 +8666,119 @@ status_note = "Kernel-checked formal proposition for THM-LEGACY-C1465_KoebisuEqu
 where_stated = "proofs/verified/C1465_KoebisuEqualNorm.v; proofs/theories/SedenionMembershipConstraints.v"
 
 [[claim]]
+formal_proof = "proofs/theories/BooleanCochainFiltration.v"
+id = "C-1761"
+last_verified = "2026-10-12"
+statement = "Linear Boolean substitution preserves the displayed polynomial degree bound, and a cochain differential assembled from linear faces preserves that bound. The source proves the XOR-group-face instance and identifies the normalized Schreier exponent with the ordinary coboundary under the explicit right-identity and sign-normalization hypotheses."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-BooleanCochainFiltration. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/BooleanCochainFiltration.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/verified/C1471_HigherCDTrilinearity.v"
+id = "C-1762"
+last_verified = "2026-10-12"
+statement = "For the recursively defined real Cayley-Dickson algebras at dimensions 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768 and 65536, the displayed associator declarations prove scalar homogeneity in the first argument. The scope does not assert additivity, homogeneity in the other two arguments, or a full automorphism-group classification."
+status = "Provisional"
+status_note = "Scoped formal proposition for THM-LEGACY-C1471_HigherCDTrilinearity. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/verified/C1471_HigherCDTrilinearity.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/MinimalUncurvedObstruction.v"
+id = "C-1763"
+last_verified = "2026-10-12"
+statement = "Under the displayed zero-operation laws, m1=0, and vanishing of m3 whenever any input is zero, the stated uncurved arity-three identity forces m2 to be associative. The source supplies an explicit sedenion basis witness with indices 1,2,4 whose two parenthesized products differ. The result applies to the specified minimal uncurved identity and leaves curved, nonminimal and homotopy-transferred products to separate contracts."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-MinimalUncurvedObstruction. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/MinimalUncurvedObstruction.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/SchreierSignCode.v"
+id = "C-1764"
+last_verified = "2026-10-12"
+statement = "For every natural order parameter, schreier_span_characterization and normalized_schreier_characterization identify the recursively defined sign span at order S(S(S order)) with its explicit even-lower-code predicate and normalized predicate. The source also proves normalized ANF basis cardinality and the scalar direct-sum decomposition. The scope concerns the specified Boolean span and recurrence; it leaves the full multiplication-group identification as a separate proposition."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-SchreierSignCode. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/SchreierSignCode.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/SedenionMembershipConstraints.v"
+id = "C-1765"
+last_verified = "2026-10-12"
+statement = "With nonnegative imaginary-half norm coordinates, the displayed sedenion_d2 polynomial vanishes exactly when both scalar parts vanish, the imaginary-half norms agree, and their inner product vanishes. Its five-coordinate gradient vanishes on that locus. The explicit parallel-imaginary and scalar/imaginary examples have injective left multiplication, established by their displayed square and left-inverse identities. Identification of the polynomial with a general singular-left-multiplication determinant remains a separate obligation."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-SedenionMembershipConstraints. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/SedenionMembershipConstraints.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/SignCodeCardinality.v"
+id = "C-1766"
+last_verified = "2026-10-12"
+statement = "For every natural order parameter, normalized_code_tables enumerates the normalized code without duplicates and normalized_code_cardinality proves length(normalized_code_tables order)=2^(2^(S(S order))-1). The table/specification equivalence binds the enumeration to the defined normalized sign span."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-SignCodeCardinality. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/SignCodeCardinality.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/SignCodeProjection.v"
+id = "C-1767"
+last_verified = "2026-10-12"
+statement = "Subtracting a Boolean function value at a chosen origin gives an idempotent linear projection with constant functions as kernel. A Boolean code stable under extensional equality and XOR and containing the constant-one direction decomposes into its normalized part and scalar direction. Coherent Boolean control retains the removed scalar as a relative phase, as expressed by controlled_projection_exact and controlled_scalar_distinguishable."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-SignCodeProjection. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/SignCodeProjection.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/BooleanPermutation.v"
+id = "C-1768"
+last_verified = "2026-10-12"
+statement = "An involutive toggle with a toggle-invariant Boolean predicate induces an involutive bijection; a cube mask disjoint from the target bit supplies that invariance. Reversing a word of involutions computes its inverse. Signed-XOR actions compose with the second phase evaluated on the translated label. A signed-XOR word fixing label zero has identity label motion while diagonal signs can remain nonconstant. The identity-padded five-bit N=21 multipliers 2, 4, and 16 fix zero, move one, violate the stated affine identity, and differ from every signed-XOR word on at least one of the 32 labels."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-BooleanPermutation. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/BooleanPermutation.v"
+
+[[claim]]
+formal_proof = "proofs/theories/FoldAverageDescent.v"
+id = "C-1769"
+last_verified = "2026-10-12"
+statement = "For canonical-rational pairs with product (ac-db, da+bc), average (a+b)/2 alone admits no binary scalar operation preserving every pair product: (1,-1) and (0,0) have equal averages, while multiplication by (0,1) gives product averages 1 and 0. The coordinates average=(a+b)/2 and detail=(a-b)/2 reconstruct (a,b) as (average+detail, average-detail), and the two coordinate maps are mutual inverses and injective."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-FoldAverageDescent. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/FoldAverageDescent.v"
+
+[[claim]]
 id = "C-177"
 last_verified = "2026-02-01"
 statement = 'Two-generated subalgebra dimension: at dim=4 (quaternions), <a,b> = full algebra (dim=4). At dim=8, median sub_dim = 4 (some pairs generate proper subalgebras). At dim >= 16, <a,b> = full algebra for ALL tested random pairs. The algebra is "2-generated" at dim >= 16.'
 status = "Verified"
 where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v21.py`, `data/csv/cd_algebraic_experiments_v21.json`"
+
+[[claim]]
+formal_proof = "proofs/theories/TerminalChannelSeparation.v"
+id = "C-1770"
+last_verified = "2026-10-12"
+statement = "Over rational Qeq, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-TerminalChannelSeparation. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/TerminalChannelSeparation.v"
+
+[[claim]]
+formal_proof = "proofs/theories/TerminalChannelSeparationReal.v"
+id = "C-1771"
+last_verified = "2026-10-12"
+statement = "Over Stdlib real numbers, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means. An absolute-radius premise also bounds the value between center-radius and center+radius."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-TerminalChannelSeparationReal. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/TerminalChannelSeparationReal.v"
+
+[[claim]]
+formal_proof = "proofs/verified/C1463_ArithmeticInventory.v"
+id = "C-1772"
+last_verified = "2026-10-12"
+statement = "C1463_ArithmeticInventory proves exactly 22 displayed closed equations in natural-number arithmetic using concrete addition, multiplication, natural-number division and powers, including 7*6=42,2^8=256 and256/16=16. The formal scope is the displayed equations. Identification with algebraic object counts, associator laws, conjugation, Clifford-algebra representations, periodicity or runtime measurements requires separate mathematical or execution evidence."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-C1463_ArithmeticInventory. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/verified/C1463_ArithmeticInventory.v; data/output/audit/boolean-permutation-evidence/arithmetic-kernel/execution-summary.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
 
 [[claim]]
 id = "C-178"

@@ -1,0 +1,40 @@
+{
+  "correction_key": "zd-count-declaration-assumptions",
+  "event_key": "correct-links:zd-count-declaration-assumptions",
+  "spec_sha256": "e7d0aa717c3a57c2f361ddbb16081405c770e8477609f0123050af3f3472ee3a",
+  "changes": [
+    {
+      "before": {
+        "stable_id": "THM-LEGACY-C958_ZDGraphTopology",
+        "legacy_name": "C958_ZDGraphTopology",
+        "proof_path": "proofs/verified/C958_ZDGraphTopology.v",
+        "identity_kind": "legacy_alias",
+        "assumptions": "",
+        "kernel_result": "",
+        "replay_command": "",
+        "falsifier": "",
+        "identity_source": "_RocqProject",
+        "title": "C958 ZDGraphTopology",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": []
+      },
+      "after": {
+        "stable_id": "THM-LEGACY-C958_ZDGraphTopology",
+        "legacy_name": "C958_ZDGraphTopology",
+        "proof_path": "proofs/verified/C958_ZDGraphTopology.v",
+        "identity_kind": "legacy_alias",
+        "assumptions": "Declaration-specific interpretation: the binary-natural count evaluations, declared singleton-list evaluations and finite missing-edge-list checks have closed contexts. The real edge-formula and polynomial-bound declarations use the real-library assumptions printed in their own execution blocks. zd_graph_three_components is an explicit source axiom concerning hard-coded cardinality expressions; its statement contains no adjacency or connectivity model. A checker module summary can include that source axiom even when a particular count declaration has a closed context.",
+        "kernel_result": "",
+        "replay_command": "",
+        "falsifier": "",
+        "identity_source": "_RocqProject",
+        "title": "Declared zero-divisor count expressions, closed evaluations and conditional real bounds",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": []
+      }
+    }
+  ],
+  "exact_replay": false
+}

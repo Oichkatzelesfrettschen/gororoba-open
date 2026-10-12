@@ -26,6 +26,69 @@ pub enum BooleanPhaseError {
     InvalidQuery { index: usize, dimension: usize },
 }
 
+/// Invalid degree promise or incomplete low-weight value-query transcript.
+#[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
+pub enum DegreePromisedAnfError {
+    #[error(
+        "degree-promised interpolation accepts at most eight variables and degree at most the variable count"
+    )]
+    InvalidDegreePromise,
+    #[error("interpolation requires each low-weight input exactly once and no other samples")]
+    InvalidLowWeightSamples,
+}
+
+/// Query inputs for a Boolean polynomial with externally promised degree <= d.
+///
+/// The domain is bounded at eight variables. There are sum_{k=0}^d binom(n,k)
+/// inputs; the subset-monomial evaluation matrix on them is unit triangular.
+pub fn low_weight_query_inputs(
+    variable_count: u32,
+    maximum_degree: u32,
+) -> Result<Vec<usize>, DegreePromisedAnfError> {
+    if variable_count > 8 || maximum_degree > variable_count {
+        return Err(DegreePromisedAnfError::InvalidDegreePromise);
+    }
+    Ok((0..1_usize << variable_count)
+        .filter(|input| input.count_ones() <= maximum_degree)
+        .collect())
+}
+
+/// Recover ANF monomial masks from the complete low-weight value-query set.
+///
+/// Uniqueness assumes the external degree promise. The returned polynomial
+/// matches the supplied samples; unqueried higher-degree terms can alias them,
+/// so this API does not certify the degree of an unseen oracle. Ordinary value
+/// queries and uniform-input Walsh probabilities are different access models.
+pub fn recover_degree_promised_anf(
+    variable_count: u32,
+    maximum_degree: u32,
+    samples: &[(usize, bool)],
+) -> Result<Vec<usize>, DegreePromisedAnfError> {
+    let query_inputs = low_weight_query_inputs(variable_count, maximum_degree)?;
+    let mut coefficients = std::collections::BTreeMap::new();
+    for &(input, output) in samples {
+        if coefficients.insert(input, output).is_some() {
+            return Err(DegreePromisedAnfError::InvalidLowWeightSamples);
+        }
+    }
+    if coefficients.keys().copied().collect::<Vec<_>>() != query_inputs {
+        return Err(DegreePromisedAnfError::InvalidLowWeightSamples);
+    }
+    for variable in 0..variable_count {
+        let bit = 1_usize << variable;
+        for &input in &query_inputs {
+            if input & bit != 0 {
+                let subset_coefficient = coefficients[&(input ^ bit)];
+                *coefficients.get_mut(&input).expect("validated query input") ^= subset_coefficient;
+            }
+        }
+    }
+    Ok(coefficients
+        .into_iter()
+        .filter_map(|(mask, coefficient)| coefficient.then_some(mask))
+        .collect())
+}
+
 /// Exact integer Walsh spectrum and Mobius-derived algebraic degree.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct BooleanSpectrum {
@@ -353,7 +416,7 @@ fn evaluate_monomials(monomials: &[usize], index: usize) -> bool {
         .fold(false, |value, &mask| value ^ (index & mask == mask))
 }
 
-fn binary_rank(rows: impl IntoIterator<Item = u64>, columns: usize) -> usize {
+pub(super) fn binary_rank(rows: impl IntoIterator<Item = u64>, columns: usize) -> usize {
     let mut pivots = vec![0_u64; columns];
     let mut rank = 0;
     for mut row in rows {
@@ -376,6 +439,105 @@ fn binary_rank(rows: impl IntoIterator<Item = u64>, columns: usize) -> usize {
 mod tests {
     use super::*;
     use crate::cayley_dickson::SignTable;
+
+    #[test]
+    fn low_weight_recovery_covers_each_coefficient_and_requires_its_samples() {
+        for (variables, degree, query_count) in [(3, 1, 4), (4, 2, 11), (5, 3, 26), (6, 4, 57)] {
+            let inputs = low_weight_query_inputs(variables, degree).unwrap();
+            assert_eq!(inputs.len(), query_count);
+            for coefficients in inputs
+                .iter()
+                .map(|&mask| vec![mask])
+                .chain([inputs.clone()])
+            {
+                let samples: Vec<_> = inputs
+                    .iter()
+                    .map(|&input| (input, evaluate_monomials(&coefficients, input)))
+                    .collect();
+                assert_eq!(
+                    recover_degree_promised_anf(variables, degree, &samples).unwrap(),
+                    coefficients
+                );
+                assert_eq!(
+                    recover_degree_promised_anf(variables, degree, &samples[1..]),
+                    Err(DegreePromisedAnfError::InvalidLowWeightSamples)
+                );
+            }
+            let higher_degree_mask = (1 << (degree + 1)) - 1;
+            let aliased_samples: Vec<_> = inputs
+                .iter()
+                .map(|&input| (input, evaluate_monomials(&[higher_degree_mask], input)))
+                .collect();
+            assert!(aliased_samples.iter().all(|sample| !sample.1));
+            assert!(
+                recover_degree_promised_anf(variables, degree, &aliased_samples)
+                    .unwrap()
+                    .is_empty()
+            );
+            assert!(evaluate_monomials(
+                &[higher_degree_mask],
+                higher_degree_mask
+            ));
+        }
+        assert_eq!(
+            recover_degree_promised_anf(0, 0, &[(0, true)]).unwrap(),
+            vec![0]
+        );
+        let complete_inputs = low_weight_query_inputs(8, 8).unwrap();
+        assert_eq!(complete_inputs.len(), 256);
+        let complete_samples: Vec<_> = complete_inputs
+            .iter()
+            .map(|&input| (input, evaluate_monomials(&[255], input)))
+            .collect();
+        assert_eq!(
+            recover_degree_promised_anf(8, 8, &complete_samples).unwrap(),
+            vec![255]
+        );
+        for (variables, degree) in [(9, 0), (3, 4), (u32::MAX, 0), (3, u32::MAX)] {
+            assert_eq!(
+                low_weight_query_inputs(variables, degree),
+                Err(DegreePromisedAnfError::InvalidDegreePromise)
+            );
+        }
+        for samples in [
+            vec![(0, false), (0, true)],
+            vec![],
+            vec![(1, false)],
+            vec![(0, false), (1, false)],
+        ] {
+            assert_eq!(
+                recover_degree_promised_anf(0, 0, &samples),
+                Err(DegreePromisedAnfError::InvalidLowWeightSamples)
+            );
+        }
+    }
+
+    #[test]
+    fn translated_cubics_collide_in_walsh_probabilities_beyond_complementation() {
+        for variables in [3, 5] {
+            let first: Vec<_> = (0..1 << variables)
+                .map(|input| evaluate_monomials(&[7], input))
+                .collect();
+            let second: Vec<_> = (0..1 << variables)
+                .map(|input| evaluate_monomials(&[6, 7], input))
+                .collect();
+            assert_ne!(first, second);
+            assert_ne!(first.iter().map(|value| !value).collect::<Vec<_>>(), second);
+            assert!((0..first.len()).all(|input| second[input] == first[input ^ 1]));
+            assert_eq!(
+                walsh_measurement(&first).unwrap(),
+                walsh_measurement(&second).unwrap()
+            );
+            assert_ne!(
+                OracleAccess::UncontrolledPhase
+                    .representative(&first)
+                    .unwrap(),
+                OracleAccess::UncontrolledPhase
+                    .representative(&second)
+                    .unwrap()
+            );
+        }
+    }
 
     #[test]
     fn walsh_transform_matches_direct_sums_and_affine_distance() {
