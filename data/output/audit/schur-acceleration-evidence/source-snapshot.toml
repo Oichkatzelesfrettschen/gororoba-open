@@ -4,6 +4,10 @@ source_commit = "95fdc7f2dc25316eb2ba7952a1a5f65c640ec6b2"
 source_evidence_checksum_result = "README.md, replay.py and result.json passed SHA256SUMS verification"
 source_dependency_result = "all seven hashes in the retained result match the inspected canonical source bytes"
 destination_baseline_commit = "abbf13cada78d9b106fc610a36f6eea54567ecfc"
+reviewed_schur_commit = "a72f2238ed498ac8e886943c923999ddb84c9d37"
+incoming_reviewed_base_commit = "775768a84ef183e0577306a88e2b98b7c5f69005"
+reconciled_merge_commit = "b1190df1162c2afc492395ea361df727abbc8c4e"
+local_digest_state = "reconciled source inputs; initial digests remain retained in the reviewed Schur commit"
 
 [[source_file]]
 path = "gororoba_quantum/schur_acceleration.py"
@@ -36,7 +40,17 @@ path = "crates/algebra_analysis/src/schur_acceleration.rs"
 sha256 = "e3a9cf4a422022d627ee5de487a49a8a35cb887421413b72ae9ee7a4cd1d5b88"
 [[port_file]]
 path = "crates/algebra_analysis/src/exact_annihilator.rs"
-sha256 = "65e48d9efb08565d7142b099e97811d9eafc54830221488f0985be18555f8b90"
+sha256 = "c04268802166b8d22407a6926d6104baa8c566a7651d3dc8d804c218bbbf889a"
 [[port_file]]
 path = "crates/algebra_analysis/src/lib.rs"
-sha256 = "1f4430710d312d6b0b278387e298918d18607ea64b86cfefc778b96ce174e3fe"
+sha256 = "e544e7accac251adee98a6bee1b89f3bf73be00dfaed98fbb5eea53d0127b8cb"
+
+[[dependency_file]]
+path = "crates/cd_kernel/src/cayley_dickson/mod.rs"
+sha256 = "8926618789bb051a31ada26b6729a24396f64d9e1f126bb4a8aa5bb05ca12a23"
+[[dependency_file]]
+path = "Cargo.lock"
+sha256 = "57d3b95c332f90e7a80d81f2f65b5932c2a8b8100b70688b41705bc5518998b0"
+[[dependency_file]]
+path = "rust-toolchain.toml"
+sha256 = "c0864e4045ce7847ebe68e13423671c7007fbbe77d8b10ad5f5bacb8a1601ab3"
