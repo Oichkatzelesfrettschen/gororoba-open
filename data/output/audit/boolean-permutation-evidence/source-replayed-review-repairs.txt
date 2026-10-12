@@ -1,0 +1,44 @@
+Configured Flocq replay and hosted test routing
+==============================================
+
+Replay source closures importing Flocq honor the documented FLOCQ_ROOT override
+and active-opam default. The trusted executor copies the configured compiled
+library to private external/Flocq storage, verifies source/destination hashes,
+records sorted portable object identities, and rechecks the snapshot after
+execution. Compilation, independent checking and assumption queries receive the
+same literal -R external/Flocq Flocq arguments. Witness command strings remain
+descriptive. Local paths stay outside the retained successful execution envelope.
+
+The optional library field is omitted for empty snapshots. Existing thirteen
+non-Flocq v2 receipts retain their exact arguments and serialized bytes; the
+read-only canonical theorem validator accepts them under the repaired reader.
+The trusted host compiler/library/writer boundary remains explicit.
+
+The proofs component now routes provenance_store, provenance_core, repo_root,
+Cargo inputs, Rust toolchain/configuration and proof workflow changes to genuine
+replay. The hosted leaf executes both ignored genuine tests. A Rust routing
+regression checks ten relevant paths and two unrelated paths.
+
+Before repair, the route test failed on theorem_execution.rs. Under the active
+project's fatal-default profile, the genuine Flocq test failed on the missing
+configured mapping/snapshot. The stricter-all fixture also exposed the recorded
+Stdlib deprecated-transitive-library-file diagnostic; that failure remains a
+library/profile limitation, separate from the mapping defect. Installed and
+portable mappings reproduced identical FP24Representable objects.
+
+After repair, one routing test, 122 ordinary provenance tests and both genuine
+Rocq tests pass. The Flocq test records object identities, checks mappings on
+all compilation/checker/assumption processes and exercises exact idempotent
+replay. Provenance/xtask library-test Clippy denies warnings. Workflow actionlint,
+repository-prescribed source formatting, whitespace and read-only canonical
+identity validation pass. Canonical SQLite hash remains
+85f996bbde622a836b1964531582f77829acbdb43e512873f54ad6979691b3bc.
+
+The source hashes below identify the reviewed repair surface. Historical frozen
+source-audit reports retain their prior observations and bytes. Hosted CI and
+current-head PR review supply separate final integration gates.
+93f0aa1c4076be45e5d48f1a0640dfc0922b5157752b4e1a991223313691f4fd  crates/provenance_store/src/theorem_replay.rs
+beec93e1dcb8e6910f87afc8a4956822b7fac961210cdb0bbf79705769c22764  crates/provenance_store/src/theorem_execution.rs
+399d556c3a8b9b3519a4f88f8a7f9ad1a945c49d81def8d5f37bf10bf6685a27  .github/workflows/ci.yml
+71f7c334be4fc43fc1907d59e464ee6d6db38069af48975baca8d3007af6dda3  .github/workflows/proofs.yml
+6a1d9648c9693636a8f53f532bc34b2ea742aa25c056020b2806ea4881da437c  xtask/tests/ci_component_routing.rs

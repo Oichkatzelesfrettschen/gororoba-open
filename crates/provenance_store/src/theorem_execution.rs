@@ -1426,6 +1426,60 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "requires pinned Rocq and configured Flocq library"]
+    fn genuine_rocq_replay_retains_configured_flocq_mapping() -> Result<()> {
+        let mut fixture = Fixture::new()?;
+        let source = fixture.root.join("proofs/verified/C900_Test.v");
+        let original = fs::read_to_string(&source)?;
+        fs::write(
+            &source,
+            format!("From Flocq Require Import Core.\n{original}"),
+        )?;
+        fixture.sync("flocq-prestate")?;
+        let mut compile_witness = fixture.witness()?.witness;
+        compile_witness.warning_policy = "fatal_default".to_owned();
+        compile_witness.compile_command =
+            compile_witness.compile_command.replace("+all", "+default");
+        replay::genuine_fixture_artifacts(&fixture.root, &compile_witness)?;
+        let mut spec = fixture.witness()?;
+        spec.witness.warning_policy = "fatal_default".to_owned();
+        spec.witness.compile_command = spec.witness.compile_command.replace("+all", "+default");
+        fixture.store.record_theorem_kernel_evidence(
+            &fixture.root,
+            &spec,
+            &toml::to_string(&spec)?,
+        )?;
+        let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
+        let retained: serde_json::Value = serde_json::from_str(&envelope)?;
+        let execution = &retained["execution_replay"];
+        assert!(
+            execution["flocq_objects"]
+                .as_array()
+                .is_some_and(|objects| !objects.is_empty())
+        );
+        for command in execution["compilation"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .chain([&execution["checker"], &execution["assumptions"]])
+        {
+            let arguments = command["arguments"].as_array().unwrap();
+            assert!(
+                arguments
+                    .windows(3)
+                    .any(|arguments| arguments == ["-R", "external/Flocq", "Flocq"])
+            );
+        }
+        assert!(
+            fixture
+                .store
+                .record_theorem_kernel_evidence(&fixture.root, &spec, &toml::to_string(&spec)?)?
+                .exact_replay
+        );
+        Ok(())
+    }
+
+    #[test]
     fn trusted_replay_rejects_warnings_failures_and_descriptive_warning_profiles() -> Result<()> {
         let fixture = Fixture::new()?;
         let witness = fixture.witness()?.witness;
