@@ -2454,6 +2454,7 @@ struct SourceEntry {
 }
 
 fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
+    ProvenanceStore::ensure_artifact_reimport_safe(db_path)?;
     println!("Building derived registry database...");
     println!("  DB path: {}", db_path.display());
 
@@ -2476,7 +2477,7 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
     // triggers cannot catch file removal because it issues no DELETE. Refuse rather
     // than destroy, and require an explicit acknowledgement of that loss.
     if db_path.exists() {
-        let existing = ProvenanceStore::open(db_path)
+        let existing = ProvenanceStore::open_read_only(db_path)
             .with_context(|| format!("open existing db {}", db_path.display()))?;
         let event_count = existing.list_claim_transition_events()?.len();
         let revision_count = existing.table_row_count("claim_revisions")?;
@@ -2886,5 +2887,50 @@ mod tests {
         assert!(claim_history_requires_loss_acknowledgement(0, 1));
         assert!(claim_history_requires_loss_acknowledgement(1, 0));
         assert!(!claim_history_requires_loss_acknowledgement(0, 0));
+    }
+
+    #[test]
+    fn build_claim_history_override_preserves_theorem_events_and_database_bytes() -> Result<()> {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_nanos();
+        let root = std::env::temp_dir().join(format!(
+            "gororoba-build-theorem-history-{}-{nonce}",
+            std::process::id()
+        ));
+        fs::create_dir(&root)?;
+        struct Cleanup(PathBuf);
+        impl Drop for Cleanup {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let _cleanup = Cleanup(root.clone());
+        let database = root.join("canonical.sqlite3");
+        let store = ProvenanceStore::open(&database)?;
+        store.conn_exec(
+            "INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES('proof-inventory:retained',?1,'test-actor','retained inventory','2026-10-12','[]','[]')",
+            [&"a".repeat(64)],
+        )?;
+        drop(store);
+        let bytes = fs::read(&database)?;
+        for allow_transition_history_loss in [false, true] {
+            let error = cmd_build(
+                &root,
+                &database,
+                &BuildArgs {
+                    verify: false,
+                    allow_transition_history_loss,
+                },
+            )
+            .unwrap_err();
+            assert!(error.to_string().contains("theorem identity events"));
+            assert_eq!(fs::read(&database)?, bytes);
+            let retained = ProvenanceStore::open_read_only(&database)?;
+            assert_eq!(retained.table_row_count("theorem_identity_events")?, 1);
+            assert_eq!(retained.table_row_count("claim_transition_events")?, 0);
+            assert_eq!(retained.table_row_count("claim_revisions")?, 0);
+        }
+        Ok(())
     }
 }

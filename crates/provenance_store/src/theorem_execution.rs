@@ -254,6 +254,184 @@ fn source_commands(source: &str) -> Result<Vec<String>> {
     Ok(commands)
 }
 
+fn has_top_level_mutual_declaration(command: &str) -> bool {
+    let mut delimiter_depth = 0usize;
+    let mut match_depth = 0usize;
+    let mut quoted = false;
+    let mut token = String::new();
+    let inspect = |token: &str, delimiter_depth: usize, match_depth: &mut usize| {
+        match token {
+            "match" => *match_depth += 1,
+            "end" => *match_depth = match_depth.saturating_sub(1),
+            "with" if delimiter_depth == 0 && *match_depth == 0 => return true,
+            _ => {}
+        }
+        false
+    };
+    for character in command.chars() {
+        if !quoted && (character.is_alphanumeric() || matches!(character, '_' | '\'')) {
+            token.push(character);
+            continue;
+        }
+        if inspect(&token, delimiter_depth, &mut match_depth) {
+            return true;
+        }
+        token.clear();
+        if character == '"' {
+            quoted = !quoted;
+        } else if !quoted {
+            match character {
+                '(' | '[' | '{' => delimiter_depth += 1,
+                ')' | ']' | '}' => delimiter_depth = delimiter_depth.saturating_sub(1),
+                _ => {}
+            }
+        }
+    }
+    inspect(&token, delimiter_depth, &mut match_depth)
+}
+
+fn source_declarations(source: &str) -> Result<BTreeMap<String, String>> {
+    let mut declarations = BTreeMap::new();
+    for command in source_commands(source)? {
+        let words = command.split_whitespace().collect::<Vec<_>>();
+        let position = usize::from(matches!(
+            words.first(),
+            Some(&"Local" | &"Global" | &"Polymorphic" | &"Monomorphic")
+        ));
+        let supported = |keyword: &str| {
+            matches!(
+                keyword,
+                "Theorem"
+                    | "Lemma"
+                    | "Corollary"
+                    | "Fact"
+                    | "Proposition"
+                    | "Definition"
+                    | "Example"
+            )
+        };
+        // Type, recursive and assumption declarations remain compiler/checker
+        // context; the named assumption-report denominator has seven forms.
+        let context = |keyword: &str| {
+            matches!(
+                keyword,
+                "Axiom"
+                    | "Axioms"
+                    | "Parameter"
+                    | "Parameters"
+                    | "Variable"
+                    | "Variables"
+                    | "Hypothesis"
+                    | "Hypotheses"
+                    | "Context"
+                    | "Inductive"
+                    | "CoInductive"
+                    | "Variant"
+                    | "Record"
+                    | "Structure"
+                    | "Class"
+                    | "Fixpoint"
+                    | "CoFixpoint"
+            )
+        };
+        let header = words.get(position).copied().unwrap_or_default();
+        let mut source_words = command
+            .split('"')
+            .step_by(2)
+            .flat_map(str::split_whitespace);
+        if !supported(header) && !context(header) {
+            ensure!(
+                !command
+                    .split('"')
+                    .step_by(2)
+                    .any(|fragment| fragment.contains("#["))
+                    && !source_words.any(|word| {
+                        supported(word)
+                            || context(word)
+                            || matches!(
+                                word,
+                                "Remark"
+                                    | "Let"
+                                    | "Instance"
+                                    | "Goal"
+                                    | "Program"
+                                    | "Equations"
+                                    | "Function"
+                                    | "Scheme"
+                                    | "Obligation"
+                                    | "Obligations"
+                            )
+                    }),
+                "unsupported proof declaration form or prefix: {command}"
+            );
+            continue;
+        }
+        if context(header) {
+            continue;
+        }
+        ensure!(
+            !has_top_level_mutual_declaration(&command),
+            "unsupported mutual proof declaration form: {command}"
+        );
+        let name = words
+            .get(position + 1)
+            .context("supported proof declaration lacks a name")?
+            .trim_end_matches(':');
+        let mut characters = name.chars();
+        ensure!(
+            characters.next().is_some_and(|character| character.is_alphabetic() || character == '_')
+                && characters.all(|character| character.is_alphanumeric() || matches!(character, '_' | '\'')),
+            "unsupported proof declaration name syntax: {command}"
+        );
+        ensure!(
+            declarations
+                .insert(name.to_owned(), words.join(" "))
+                .is_none(),
+            "proof source repeats declaration name {name}"
+        );
+    }
+    Ok(declarations)
+}
+
+fn labeled_assumption_reports(log: &str) -> Result<BTreeMap<String, &str>> {
+    let mut reports = BTreeMap::new();
+    for block in log.split("Declaration:").skip(1) {
+        let (name, contents) = block
+            .split_once('\n')
+            .context("assumption log has an incomplete declaration label")?;
+        let name = name.trim();
+        text(name, "assumption-log declaration label")?;
+        ensure!(
+            name.split_whitespace().count() == 1,
+            "assumption log has an invalid declaration label {name}"
+        );
+        ensure!(
+            reports.insert(name.to_owned(), contents).is_none(),
+            "assumption log repeats declaration label {name}"
+        );
+    }
+    Ok(reports)
+}
+
+pub(crate) fn refuse_theorem_identity_history_loss(connection: &Connection) -> Result<()> {
+    let exists: bool = connection.query_row(
+        "SELECT EXISTS(SELECT 1 FROM sqlite_master WHERE type='table' AND name='theorem_identity_events')",
+        [],
+        |row| row.get(0),
+    )?;
+    if exists {
+        let count: i64 =
+            connection.query_row("SELECT count(*) FROM theorem_identity_events", [], |row| {
+                row.get(0)
+            })?;
+        ensure!(
+            count == 0,
+            "refusing destructive import: {count} theorem identity events require preserving the canonical database; compatibility imports cannot restore theorem history"
+        );
+    }
+    Ok(())
+}
+
 fn validate_execution_commands(witness: &TheoremKernelWitness) -> Result<()> {
     let compiler = witness
         .compile_command
@@ -605,48 +783,34 @@ pub(crate) fn validate_kernel_witness(
         fs::read_to_string(kernel_log)?.contains("CONTEXT SUMMARY"),
         "kernel checker log lacks its context summary"
     );
-    let declarations = source_commands(&fs::read_to_string(root.join(&witness.proof_path))?)?
-        .into_iter()
-        .filter_map(|command| {
-            let words = command.split_whitespace().collect::<Vec<_>>();
-            let declaration_position = usize::from(matches!(
-                words.first(),
-                Some(&"Local" | &"Global" | &"Polymorphic" | &"Monomorphic")
-            ));
-            if matches!(
-                words.get(declaration_position),
-                Some(
-                    &"Theorem"
-                        | &"Lemma"
-                        | &"Corollary"
-                        | &"Fact"
-                        | &"Proposition"
-                        | &"Definition"
-                        | &"Example"
-                )
-            ) {
-                words
-                    .get(declaration_position + 1)
-                    .map(|name| (name.trim_end_matches(':').to_owned(), words.join(" ")))
-            } else {
-                None
-            }
-        })
-        .collect::<BTreeMap<_, _>>();
+    let declarations = source_declarations(&fs::read_to_string(root.join(&witness.proof_path))?)?;
     ensure!(
         !witness.declarations.is_empty(),
         "kernel witness needs declaration-specific scope and assumptions"
     );
     let assumptions = fs::read_to_string(assumption_log)?;
+    let reports = labeled_assumption_reports(&assumptions)?;
     let mut names = BTreeSet::new();
     for declaration in &witness.declarations {
         text(&declaration.name, "declaration name")?;
         text(&declaration.statement, "declaration statement")?;
         ensure!(
-            names.insert(&declaration.name),
+            names.insert(declaration.name.clone()),
             "kernel witness repeats declaration {}",
             declaration.name
         );
+    }
+    let source_names = declarations.keys().cloned().collect::<BTreeSet<_>>();
+    let report_names = reports.keys().cloned().collect::<BTreeSet<_>>();
+    ensure!(
+        source_names == names,
+        "kernel witness declaration names differ from the complete recognized source set: source {source_names:?}; witness {names:?}"
+    );
+    ensure!(
+        source_names == report_names,
+        "assumption-log declaration names differ from the complete recognized source set: source {source_names:?}; log {report_names:?}"
+    );
+    for declaration in &witness.declarations {
         ensure!(
             declarations.get(&declaration.name)
                 == Some(
@@ -659,20 +823,7 @@ pub(crate) fn validate_kernel_witness(
             "kernel witness declaration statement differs from its source: {}",
             declaration.name
         );
-        let reports = assumptions
-            .split("Declaration: ")
-            .skip(1)
-            .filter_map(|block| {
-                let (name, contents) = block.split_once('\n')?;
-                (name.trim() == declaration.name).then_some(contents)
-            })
-            .collect::<Vec<_>>();
-        ensure!(
-            reports.len() == 1,
-            "assumption log needs exactly one declaration label {}",
-            declaration.name
-        );
-        validate_assumption_report(reports[0], &declaration.assumptions)?;
+        validate_assumption_report(reports[&declaration.name], &declaration.assumptions)?;
     }
     Ok(())
 }
@@ -1062,6 +1213,137 @@ mod tests {
         fn drop(&mut self) {
             let _ = fs::remove_dir_all(&self.root);
         }
+    }
+
+    #[test]
+    fn recognized_declaration_inventory_has_an_explicit_language_boundary() -> Result<()> {
+        let source = "(* Theorem commented : False. *)\n\
+            Axiom context_axiom : True.\nParameter context_parameter : nat.\n\
+            Inductive context_type := constructor.\nRecord context_record := { field : nat }.\n\
+            Fixpoint context_recursive (fuel : nat) : nat := match fuel with O => O | S rest => context_recursive rest end.\n\
+            Theorem theorem_name : True. Proof. idtac \"text Theorem ignored\". exact I. Qed.\n\
+            Local Lemma lemma_name : True. Proof. exact I. Qed.\n\
+            Global Corollary corollary_name : True. Proof. exact I. Qed.\n\
+            Polymorphic Fact fact_name : True. Proof. exact I. Qed.\n\
+            Monomorphic Proposition proposition_name : True. Proof. exact I. Qed.\n\
+            Definition definition_name : True := I.\nExample example_name : True. Proof. exact I. Qed.\n";
+        let declarations = source_declarations(source)?;
+        assert_eq!(declarations.len(), 7);
+        assert_eq!(
+            declarations["definition_name"],
+            "Definition definition_name : True := I"
+        );
+        for unsupported in [
+            "Local Polymorphic Theorem hidden : True",
+            "#[local] Theorem hidden : True",
+            "Local#[local]Theorem hidden : True",
+            "Program Definition hidden : True",
+            "Time Theorem hidden : True",
+            "Remark hidden : True",
+            "Let hidden : True",
+            "Instance hidden : True",
+            "Goal True",
+            "Definition hidden:True := I",
+            "Theorem",
+            "Theorem first : True with second : True",
+        ] {
+            assert!(source_declarations(unsupported).is_err(), "{unsupported}");
+        }
+        assert!(
+            source_declarations("Theorem repeated : True. Definition repeated : True := I.")
+                .is_err()
+        );
+        assert_eq!(source_declarations("Definition matched (fuel : nat) : nat := match fuel with O => O | S rest => rest end.")?.len(), 1);
+        Ok(())
+    }
+
+    #[test]
+    fn receipt_rejects_omitted_axiom_theorems_and_dependency_definitions() -> Result<()> {
+        for omitted in [
+            "Axiom hidden_axiom : True.\nTheorem hidden_theorem : True. Proof. exact hidden_axiom. Qed.\n",
+            "Definition hidden_dependency : True := prerequisite.\n",
+        ] {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("omission-prestate")?;
+            let source_path = fixture.root.join("proofs/verified/C900_Test.v");
+            fs::write(
+                &source_path,
+                format!("{}{omitted}", fs::read_to_string(&source_path)?),
+            )?;
+            let specification = fixture.witness()?;
+            let before = read_state(&fixture.store.conn, "THM-TEST")?;
+            let events = fixture.events()?;
+            let error = fixture.record(&specification).unwrap_err();
+            assert!(error.to_string().contains("complete recognized source set"));
+            assert_eq!(read_state(&fixture.store.conn, "THM-TEST")?, before);
+            assert_eq!(fixture.events()?, events);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn receipt_requires_complete_unique_witness_and_assumption_labels() -> Result<()> {
+        for report in [
+            "Declaration: fixture\nClosed under the global context\nDeclaration: extra\nClosed under the global context\n",
+            "Declaration: fixture\nClosed under the global context\nDeclaration:extra\nClosed under the global context\n",
+            "Declaration: fixture\nClosed under the global context\nDeclaration: fixture\nClosed under the global context\n",
+            "Closed under the global context\n",
+            "Declaration: fixture",
+        ] {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("label-prestate")?;
+            fs::write(fixture.root.join("evidence/assumptions.log"), report)?;
+            let specification = fixture.witness()?;
+            let events = fixture.events()?;
+            assert!(fixture.record(&specification).is_err(), "{report}");
+            assert_eq!(fixture.events()?, events);
+        }
+        let mut fixture = Fixture::new()?;
+        fixture.sync("duplicate-witness-prestate")?;
+        let mut specification = fixture.witness()?;
+        specification
+            .witness
+            .declarations
+            .push(specification.witness.declarations[0].clone());
+        let events = fixture.events()?;
+        assert!(
+            fixture
+                .record(&specification)
+                .unwrap_err()
+                .to_string()
+                .contains("repeats declaration")
+        );
+        assert_eq!(fixture.events()?, events);
+        Ok(())
+    }
+
+    #[test]
+    fn complete_receipt_includes_definition_bodies_and_theorem_contexts() -> Result<()> {
+        let mut fixture = Fixture::new()?;
+        fixture.sync("complete-definition-prestate")?;
+        let source_path = fixture.root.join("proofs/verified/C900_Test.v");
+        fs::write(
+            &source_path,
+            format!(
+                "{}Definition helper : True := prerequisite.\n",
+                fs::read_to_string(&source_path)?
+            ),
+        )?;
+        fs::write(
+            fixture.root.join("evidence/assumptions.log"),
+            "Declaration: fixture\nClosed under the global context\nDeclaration: helper\nClosed under the global context\n",
+        )?;
+        let mut specification = fixture.witness()?;
+        specification
+            .witness
+            .declarations
+            .push(ProofDeclarationEvidence {
+                name: "helper".to_owned(),
+                statement: "Definition helper : True := prerequisite".to_owned(),
+                assumptions: Vec::new(),
+            });
+        assert_eq!(fixture.record(&specification)?.kernel_checked_count, 1);
+        Ok(())
     }
 
     #[test]

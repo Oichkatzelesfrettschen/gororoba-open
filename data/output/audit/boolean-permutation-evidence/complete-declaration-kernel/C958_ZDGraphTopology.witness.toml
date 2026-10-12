@@ -1,0 +1,164 @@
+schema_version = 1
+stable_id = "THM-LEGACY-C958_ZDGraphTopology"
+proof_path = "proofs/verified/C958_ZDGraphTopology.v"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C958_ZDGraphTopology.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C958_ZDGraphTopology"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[sources]]
+path = "proofs/verified/C958_ZDGraphTopology.v"
+sha256 = "9ddc4131269209a2ceb1d78986f385117ac7b279d0cd9765f8b29ef553dc09ed"
+
+[compile_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/C958_ZDGraphTopology.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/C958_ZDGraphTopology.kernel.txt"
+sha256 = "9a6d6838e3033067c0f705642716f452dabd54a69c00fedd8a8e91509d2af51a"
+
+[assumption_log]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/C958_ZDGraphTopology.assumptions.txt"
+sha256 = "cbdef2988e3c0a8a363db1df05e9056346ef1f74d7655e309afab8363aa52468"
+
+[proof_object]
+path = "data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/verified/C958_ZDGraphTopology.vo"
+sha256 = "4bd3ec062bb1890a4a2585f769e58ad16c807401ace648028278816f9298ea11"
+
+[[declarations]]
+name = "valid_cd_dim"
+statement = "Definition valid_cd_dim (d : nat) : Prop := (d >= 16)%nat /\\ exists n : nat, d = (2 ^ n)%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_component_count"
+statement = "Definition zd_component_count : nat := 3%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_giant_size"
+statement = "Definition zd_giant_size (d : nat) : nat := (d - 2)%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_singleton_count"
+statement = "Definition zd_singleton_count : nat := 2%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_missing_edge_count"
+statement = "Definition zd_missing_edge_count (d : nat) : nat := (d / 2 - 1)%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_edge_count_R"
+statement = "Definition zd_edge_count_R (d : R) : R := (d * d - 6 * d + 8) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "complete_edges_R"
+statement = "Definition complete_edges_R (n : R) : R := n * (n - 1) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "missing_edges_R"
+statement = "Definition missing_edges_R (d : R) : R := d / 2 - 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "zd_edge_formula"
+statement = "Theorem zd_edge_formula : forall d : R, d > 0 -> zd_edge_count_R d = complete_edges_R (d - 2) - missing_edges_R d"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "zd_edge_count_N"
+statement = "Definition zd_edge_count_N (d : N) : N := ((d * d - 6 * d + 8) / 2)%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_16"
+statement = "Theorem zd_edges_at_16 : zd_edge_count_N 16 = 84%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_32"
+statement = "Theorem zd_edges_at_32 : zd_edge_count_N 32 = 420%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_64"
+statement = "Theorem zd_edges_at_64 : zd_edge_count_N 64 = 1860%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_256"
+statement = "Theorem zd_edges_at_256 : zd_edge_count_N 256 = 32004%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_512"
+statement = "Theorem zd_edges_at_512 : zd_edge_count_N 512 = 129540%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_edges_at_1024"
+statement = "Theorem zd_edges_at_1024 : zd_edge_count_N 1024 = 521220%N"
+assumptions = []
+
+[[declarations]]
+name = "zd_singleton_indices"
+statement = "Definition zd_singleton_indices (d : N) : list N := [0%N; (d / 2)%N]"
+assumptions = []
+
+[[declarations]]
+name = "singletons_at_16"
+statement = "Theorem singletons_at_16 : zd_singleton_indices 16 = [0%N; 8%N]"
+assumptions = []
+
+[[declarations]]
+name = "singletons_at_32"
+statement = "Theorem singletons_at_32 : zd_singleton_indices 32 = [0%N; 16%N]"
+assumptions = []
+
+[[declarations]]
+name = "singletons_at_64"
+statement = "Theorem singletons_at_64 : zd_singleton_indices 64 = [0%N; 32%N]"
+assumptions = []
+
+[[declarations]]
+name = "missing_edges_16"
+statement = "Definition missing_edges_16 : list (N * N) := [(1, 9); (2, 10); (3, 11); (4, 12); (5, 13); (6, 14); (7, 15)]%N"
+assumptions = []
+
+[[declarations]]
+name = "missing_edges_16_xor"
+statement = "Theorem missing_edges_16_xor : List.forallb (fun p => N.eqb (N.lxor (fst p) (snd p)) 8) missing_edges_16 = true"
+assumptions = []
+
+[[declarations]]
+name = "missing_edges_16_count"
+statement = "Theorem missing_edges_16_count : length missing_edges_16 = 7%nat"
+assumptions = []
+
+[[declarations]]
+name = "zd_numerator_positive"
+statement = "Theorem zd_numerator_positive : forall d : R, d >= 16 -> d * d - 6 * d + 8 > 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "zd_edge_superquadratic_growth"
+statement = "Theorem zd_edge_superquadratic_growth : forall d : R, d >= 16 -> (2 * d) * (2 * d) - 6 * (2 * d) + 8 > 4 * (d * d - 6 * d + 8) - 12 * d"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "zd_giant_density_gt_half"
+statement = "Theorem zd_giant_density_gt_half : forall d : R, d >= 16 -> 2 * (d * d - 6 * d + 8) > (d - 2) * (d - 3)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

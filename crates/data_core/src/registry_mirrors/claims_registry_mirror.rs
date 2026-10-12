@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1573
+//! Total claims: 1585
 //!
 //! ## C-001
 //!
@@ -10594,7 +10594,7 @@
 //!
 //! ## C-1463
 //!
-//! - Status: `Verified`
+//! - Status: `Provisional`
 //! - Last verified: 2026-03-21
 //! - Statement: Associator trilinearity formally verified from dim=16 (Sedenion) through dim=65536 (2^16) via tower proof architecture. Each CD level uses ONLY the previous level's lemmas. Ring arithmetic appears only at the sedenion floor (16 R variables). Total compile time under 6 seconds for 13 levels of CD doubling.
 //! - Where stated: proofs/verified/C1455_AssociatorTrilinear.v, C1470_PathionTrilinearity.v, C1471_HigherCDTrilinearity.v
@@ -10658,7 +10658,7 @@
 //!
 //! ## C-1471
 //!
-//! - Status: `Verified`
+//! - Status: `Provisional`
 //! - Last verified: 2026-03-21
 //! - Statement: Wilmot (2512.07210) Aut(S) = G_2 (Schafer confirmed). Brown's sigma' transformation changes e_{1234567} of Phi_O, invalidating it as automorphism. Only Phi_O^{C(1)} (cyclic sign variations) provides connected G_2 automorphisms in 15 dimensions. 105 primary invariants x 4 sign variations = 420 total.
 //! - Where stated: crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_aut_s_equals_g2
@@ -12590,4 +12590,100 @@
 //! - Last verified: 2026-10-11
 //! - Statement: The four vectors e_1+e_9, e_3+e_14, e_7+e_10 and e_5-e_12 have equal squared norms of their octonion halves. Equal norms alone do not establish zero-divisor membership: e_1+e_9 has parallel imaginary halves and trivial left annihilator.
 //! - Where stated: proofs/verified/C1465_KoebisuEqualNorm.v; proofs/theories/SedenionMembershipConstraints.v
+//! - What would verify/refute it:
+//!
+//! ## C-1761
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: Linear Boolean substitution preserves the displayed polynomial degree bound, and a cochain differential assembled from linear faces preserves that bound. The source proves the XOR-group-face instance and identifies the normalized Schreier exponent with the ordinary coboundary under the explicit right-identity and sign-normalization hypotheses.
+//! - Where stated: proofs/theories/BooleanCochainFiltration.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1762
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-10-12
+//! - Statement: For the recursively defined real Cayley-Dickson algebras at dimensions 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768 and 65536, the displayed associator declarations prove scalar homogeneity in the first argument. The scope does not assert additivity, homogeneity in the other two arguments, or a full automorphism-group classification.
+//! - Where stated: proofs/verified/C1471_HigherCDTrilinearity.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1763
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: Under the displayed zero-operation laws, m1=0, and vanishing of m3 whenever any input is zero, the stated uncurved arity-three identity forces m2 to be associative. The source supplies an explicit sedenion basis witness with indices 1,2,4 whose two parenthesized products differ. The result applies to the specified minimal uncurved identity and leaves curved, nonminimal and homotopy-transferred products to separate contracts.
+//! - Where stated: proofs/theories/MinimalUncurvedObstruction.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1764
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: For every natural order parameter, schreier_span_characterization and normalized_schreier_characterization identify the recursively defined sign span at order S(S(S order)) with its explicit even-lower-code predicate and normalized predicate. The source also proves normalized ANF basis cardinality and the scalar direct-sum decomposition. The scope concerns the specified Boolean span and recurrence; it leaves the full multiplication-group identification as a separate proposition.
+//! - Where stated: proofs/theories/SchreierSignCode.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1765
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: With nonnegative imaginary-half norm coordinates, the displayed sedenion_d2 polynomial vanishes exactly when both scalar parts vanish, the imaginary-half norms agree, and their inner product vanishes. Its five-coordinate gradient vanishes on that locus. The explicit parallel-imaginary and scalar/imaginary examples have injective left multiplication, established by their displayed square and left-inverse identities. Identification of the polynomial with a general singular-left-multiplication determinant remains a separate obligation.
+//! - Where stated: proofs/theories/SedenionMembershipConstraints.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1766
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: For every natural order parameter, normalized_code_tables enumerates the normalized code without duplicates and normalized_code_cardinality proves length(normalized_code_tables order)=2^(2^(S(S order))-1). The table/specification equivalence binds the enumeration to the defined normalized sign span.
+//! - Where stated: proofs/theories/SignCodeCardinality.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1767
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: Subtracting a Boolean function value at a chosen origin gives an idempotent linear projection with constant functions as kernel. A Boolean code stable under extensional equality and XOR and containing the constant-one direction decomposes into its normalized part and scalar direction. Coherent Boolean control retains the removed scalar as a relative phase, as expressed by controlled_projection_exact and controlled_scalar_distinguishable.
+//! - Where stated: proofs/theories/SignCodeProjection.v; docs/engineering/boolean_permutation_evidence.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1768
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: An involutive toggle with a toggle-invariant Boolean predicate induces an involutive bijection; a cube mask disjoint from the target bit supplies that invariance. Reversing a word of involutions computes its inverse. Signed-XOR actions compose with the second phase evaluated on the translated label. A signed-XOR word fixing label zero has identity label motion while diagonal signs can remain nonconstant. The identity-padded five-bit N=21 multipliers 2, 4, and 16 fix zero, move one, violate the stated affine identity, and differ from every signed-XOR word on at least one of the 32 labels.
+//! - Where stated: proofs/theories/BooleanPermutation.v
+//! - What would verify/refute it:
+//!
+//! ## C-1769
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: For canonical-rational pairs with product (ac-db, da+bc), average (a+b)/2 alone admits no binary scalar operation preserving every pair product: (1,-1) and (0,0) have equal averages, while multiplication by (0,1) gives product averages 1 and 0. The coordinates average=(a+b)/2 and detail=(a-b)/2 reconstruct (a,b) as (average+detail, average-detail), and the two coordinate maps are mutual inverses and injective.
+//! - Where stated: proofs/theories/FoldAverageDescent.v
+//! - What would verify/refute it:
+//!
+//! ## C-1770
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: Over rational Qeq, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means.
+//! - Where stated: proofs/theories/TerminalChannelSeparation.v
+//! - What would verify/refute it:
+//!
+//! ## C-1771
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: Over Stdlib real numbers, the channel f*(1-p)+t*p contracts absolute input separation whenever f and t lie in [0,1]. Four deterministic absolute-radius bounds and a positive margin, with output-center separation exceeding input-center separation plus all four radii, exclude one common such channel mapping both input means to both output means. An absolute-radius premise also bounds the value between center-radius and center+radius.
+//! - Where stated: proofs/theories/TerminalChannelSeparationReal.v
+//! - What would verify/refute it:
+//!
+//! ## C-1772
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-12
+//! - Statement: C1463_ArithmeticInventory proves exactly 22 displayed closed equations in natural-number arithmetic using concrete addition, multiplication, natural-number division and powers, including 7*6=42,2^8=256 and256/16=16. The formal scope is the displayed equations. Identification with algebraic object counts, associator laws, conjugation, Clifford-algebra representations, periodicity or runtime measurements requires separate mathematical or execution evidence.
+//! - Where stated: proofs/verified/C1463_ArithmeticInventory.v; data/output/audit/boolean-permutation-evidence/arithmetic-kernel/execution-summary.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
 //! - What would verify/refute it:
