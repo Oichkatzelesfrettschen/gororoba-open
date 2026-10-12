@@ -1,0 +1,5 @@
+sync_key = "boolean-permutation-complete-declaration-inventory"
+actor = "codex"
+reason = "Reconcile active execution status against the complete recognized declaration denominator while preserving historical receipt events."
+applied_at = "2026-10-12T17:30:44Z"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"

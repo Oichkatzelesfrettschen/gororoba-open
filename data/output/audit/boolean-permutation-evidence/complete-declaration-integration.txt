@@ -1,0 +1,49 @@
+Complete-declaration canonical integration
+
+The repaired typed inventory synchronization retained 308 registered identities
+and all thirteen historical kernel-receipt events. Its poststate contained one
+kernel_checked arithmetic identity and 307 source_only identities. The complete
+arithmetic witness already covered every recognized declaration in its source.
+
+Thirteen new complete-declaration receipts then passed the typed API against the
+recorded post-sync status and narrative prestates. Each receipt has a distinct
+append-only event key and an exact ingested specification digest. The canonical
+poststate contains thirteen kernel_checked identities, 295 source_only identities
+and twenty-six retained kernel-receipt events. The new thirteen receipts cover
+251 recognized declarations: 224 closed reports and 27 assumption-bearing reports.
+The recognized set comprises 62 Definitions, 63 Lemmas and 126 Theorems.
+
+The canonical set audit compares the scoped worktree database with the retained
+base database. The exact comparisons preserve the original theorem IDs and
+locators, theorem events, claim revisions, transition events, unrelated claim
+rows and artifact rows. The permitted original-claim corrections are C-1463
+and C-1471. The twelve admitted claim IDs are C-1761 through C-1772.
+
+The owning generators ran in this order and each exited zero:
+  provenance --repo-root . export-control-plane
+  project-counter-sync
+  semantic-atoms --repo-root .
+  evidence-provenance --repo-root .
+  registry-integrity --repo-root .
+  xtask registry-emit-all-mirrors
+
+The generated counts are 1585 claim atoms, 1593 proof skeletons, 6485 claim
+edges and 5771 derivation steps. The mirror owner emitted all 23 declared Rust
+mirrors. Counter, semantic-atom, evidence-provenance and signature check modes
+passed as named developer diagnostics. Hosted CI retains repository validation
+authority. The generators used migration-capable connections; the exact final
+canonical-set comparisons bound the history-preservation result.
+
+An independent evidence audit matched all thirteen source closures, the union
+of sixteen source files, all 251 normalized statements and assumption reports,
+all object/log/spec hashes, their canonical digests and narrative prestates.
+All 100 historical evidence paths and hashes remain equal to their prestate.
+The 47 printed real-foundation assumption occurrences comprise 27 occurrences
+of ClassicalDedekindReals.sig_forall_dec and 20 occurrences of
+FunctionalExtensionality.functional_extensionality_dep. C958's separate
+zd_graph_three_components axiom remains explicit in the module kernel summary.
+
+The semantic diagnostic emitted its existing payload-stub warning and skipped
+Markdown payload checks. Its reported success covers the named atom, edge,
+equation, symbol and skeleton sets; the skipped payload checks establish no
+payload completeness result.

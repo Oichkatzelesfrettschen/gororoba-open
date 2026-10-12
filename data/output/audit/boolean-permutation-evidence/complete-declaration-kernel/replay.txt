@@ -1,0 +1,108 @@
+Complete recognized-declaration Rocq replay
+==========================================
+
+The retained producer compiles sixteen first-party source files, checks thirteen
+target modules independently, and queries every declaration in the named source
+language: Definition, Theorem, Lemma, Corollary, Fact, Proposition and Example,
+with zero or one Local, Global, Polymorphic or Monomorphic prefix. Definition
+statements retain their full normalized bodies. Source, serialized witness and
+labeled assumption-log name sets agree exactly; duplicate keys fail visibly.
+Every Declaration: marker is parsed independently of following whitespace.
+The producer tests cover supported forms, unsupported attributes and wrappers,
+duplicate source/log names, excluded compiler-context forms, top-level mutual
+headers, ordinary Definition match bodies and labels without following spaces.
+The unsupported-command attribute guard scans every unquoted fragment, including
+an attached prefix such as Local#[local]Theorem. Quoted attribute-like literals
+preserve the ordinary command boundary.
+Top-level with outside parentheses, brackets, braces and match/end expressions
+rejects a recognized declaration. Ordinary match bodies remain supported.
+
+Axiom, Parameter, section context, Inductive, Record, Class, Fixpoint and
+CoFixpoint belong to compilation and kernel checking rather than this seven-form
+per-declaration assumption denominator. The ingestion validator rejects
+unsupported source forms and wrappers. The named denominator contains 251
+declarations: 62 Definitions, 63 Lemmas and 126 Theorems. The 224 closed reports
+and 27 assumption-bearing reports remain raw Rocq output. Their assumption-name
+occurrence count is 47. Module-wide context summaries remain distinct from
+declaration-specific assumption reports.
+
+Run the commands at the repository root. Set TASK_ROCQ_BIN to the directory
+containing the pinned Rocq 9.1.1 executable built with OCaml 5.4.0. The producer
+checks that exact version string. Use a fresh scratch directory for each replay;
+the producer writes only its scratch proofs and kernel output. Its arguments
+read the repository source closure, project file and both historical evidence
+trees. The producer verifies identical historical file-name sets and byte hashes
+at completion. The pinned project hash is
+5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8.
+
+  TASK_SCRATCH=$(mktemp -d)
+  TASK_ARTIFACT=data/output/audit/boolean-permutation-evidence/complete-declaration-kernel
+  cp "$TASK_ARTIFACT/retained-complete-declaration-rocq-execution.rs" \
+    "$TASK_SCRATCH/retained_complete_rocq_execution.rs"
+  rustc --edition=2024 -D warnings --test --crate-name retained_complete_rocq_execution \
+    "$TASK_SCRATCH/retained_complete_rocq_execution.rs" -o "$TASK_SCRATCH/producer_tests"
+  "$TASK_SCRATCH/producer_tests"
+  rustc --edition=2024 -D warnings --crate-name retained_complete_rocq_execution \
+    "$TASK_SCRATCH/retained_complete_rocq_execution.rs" -o "$TASK_SCRATCH/producer"
+  "$TASK_SCRATCH/producer" "$PWD" "$TASK_SCRATCH" "$TASK_ROCQ_BIN"
+  (cd "$TASK_SCRATCH/kernel" && sha256sum --check --status SHA256SUMS)
+
+The bare child commands run in the scratch proofs directory:
+
+  rocq compile -q -w +default -R theories OpenGororoba \
+    -R verified OpenGororobaVerified SOURCE
+  rocq check -silent -o -R theories OpenGororoba \
+    -R verified OpenGororobaVerified LOGICAL_MODULE
+
+Receipt generation reads the raw kernel tree and writes a new output directory;
+an existing output directory fails. The optional final argument sets only the
+C1463 expected prestate. Its default is source_only; kernel_checked is permitted
+when a post-sync read confirms the existing arithmetic receipt remains valid.
+The eleven shared explanatory prestates hash to
+1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312.
+C958/C958b retain the empty explanatory prestate with hash
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.
+The generator creates thirteen distinct complete-declaration-kernel event keys,
+receipt-prestates.tsv and a receipt-only SHA256SUMS.
+
+  rustc --edition=2024 -D warnings --crate-name draft_complete_kernel_receipts \
+    "$TASK_ARTIFACT/draft-complete-declaration-kernel-receipts.rs" \
+    -o "$TASK_SCRATCH/receipt_generator"
+  "$TASK_SCRATCH/receipt_generator" "$TASK_SCRATCH/kernel" \
+    "$TASK_SCRATCH/receipts" source_only
+
+Ingestion uses the repository's typed validator after inspecting canonical
+prestates. The integration owner runs inventory sync, then record-kernel-evidence
+for each receipts/NAME.receipt.toml. The producer performs neither SQLite
+mutation nor claim allocation. Historical receipt events retain their own scope.
+
+To regenerate the C1463 prestate from an already-published artifact tree, run
+receipt_generator ARTIFACT_ROOT NEW_OUTPUT_DIRECTORY kernel_checked. Replace
+the integration-owned C1463 receipt and receipt-prestates.tsv from that fresh
+output only after validating the live canonical status; the other twelve receipt
+files should compare byte-for-byte with the published versions. The checksum
+helper refreshes the receipt-only manifest and the complete artifact manifest.
+It hashes every regular file and refuses symlinks. The verify mode compares both
+manifests without writing. Keep subsequent receipt-result JSON files outside
+the complete-declaration-kernel tree so retained output hashes stay stable.
+
+  rustc --edition=2024 -D warnings --crate-name artifact_checksums \
+    "$TASK_ARTIFACT/artifact-checksums.rs" -o "$TASK_SCRATCH/artifact_checksums"
+  "$TASK_SCRATCH/artifact_checksums" refresh "$TASK_ARTIFACT"
+  "$TASK_SCRATCH/artifact_checksums" verify "$TASK_ARTIFACT"
+  (cd "$TASK_ARTIFACT" && sha256sum --check --status SHA256SUMS)
+  (cd "$TASK_ARTIFACT/receipts" && sha256sum --check --status SHA256SUMS)
+
+The portable manifests identify relative paths. Every retained proof object has
+the Coq! header; every retained kernel log has CONTEXT SUMMARY. A byte scan covers
+text files and proof objects. Formal source scope, actual kernel execution and
+physical/QPU evidence remain separate. The producer supplies exact CPU proof
+execution for the named source closure.
+
+The retained raw compilation, kernel and assumption outputs predate the attached
+attribute-prefix guard refinement. Seven parser-only tests and direct comparison
+of the thirteen unchanged source declaration sets validate that absent-form
+refinement. Every ingested receipt/spec, proof source, raw log, query source and
+proof object retains its exact recorded bytes. The refinement updates the replay
+helper, its parser-test report, this explanation and checksum manifests; the raw
+execution artifacts retain their original scope and hashes.

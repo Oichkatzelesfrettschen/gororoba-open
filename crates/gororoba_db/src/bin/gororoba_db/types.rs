@@ -131,6 +131,7 @@ pub(crate) struct BuildArgs {
     /// claim revisions. The rebuild reads only the manifest lanes, so the event,
     /// relation and revision tables come back empty and no compatibility TOML can
     /// restore them. Required to discard adjudication history on purpose.
+    /// The claim-history override never authorizes theorem identity history loss.
     #[arg(long)]
     pub(crate) allow_transition_history_loss: bool,
 }

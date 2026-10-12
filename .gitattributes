@@ -105,3 +105,6 @@ data/output/audit/boolean-permutation-evidence/kernel/** -text
 data/output/audit/boolean-permutation-evidence/arithmetic-kernel/** -text
 # Canonical receipt input preserves the exact byte sequence ingested in its event.
 data/output/audit/boolean-permutation-evidence/arithmetic-kernel/*.receipt.toml whitespace=-blank-at-eof
+# Complete-declaration replay retains exact logs, proof objects and receipt bytes.
+data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/**/*.vo -filter -diff -text

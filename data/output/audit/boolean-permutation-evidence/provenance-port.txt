@@ -37,9 +37,36 @@ its source project, complete project-local Require closure, declaration headers,
 compiler/checker exits, warning policy, assumption reports, logs and retained .vo
 object match the supplied witness. The proof object must have the Rocq object
 header and the witnessed source basename. Each output role uses a distinct file.
-The checker log carries its context summary; each selected declaration carries
-one labeled Print Assumptions block whose full axiom-name set matches the spec.
+The checker log carries its context summary. Recognized source declaration names,
+witness declaration names and labeled Print Assumptions names must form exactly
+the same set. Each source name, witness name and log label occurs once. Omitted
+recognized declarations, extra labels and duplicate names produce visible errors.
+Each recognized declaration carries one labeled Print Assumptions block whose
+full axiom-name set matches the spec.
 An empty set requires a declaration-specific closed-context result.
+
+The declaration-assumption denominator covers Theorem, Lemma, Corollary, Fact,
+Proposition, Definition and Example. A header permits zero or one Local, Global,
+Polymorphic or Monomorphic prefix; the normalized statement retains the complete
+Definition body. Unsupported wrappers, attributes, unnamed Goal declarations,
+Remark, Let, Instance, top-level mutual with forms and unsupported
+declaration-name syntax fail visibly. Ordinary match/with/end expressions remain
+part of their complete normalized Definition statements.
+The lexer supplies a bounded correspondence contract rather than a full Rocq
+language parser. Source Axiom/Parameter, section-variable/context and
+Inductive/Record/Class/Fixpoint/CoFixpoint forms remain compiler/checker context
+outside that seven-form declaration-assumption denominator. The retained module
+context and each recognized declaration's assumption report keep their separate
+scope; a kernel_checked projection does not assert a closed assumption context
+for auxiliary type/recursive forms.
+
+Destructive file rebuilds reject every theorem_identity_events row, including
+ordinary bindings, link corrections, inventory syncs, kernel receipts and future
+event kinds. Compatibility imports have no restoration lane for that history.
+The central guard opens the existing database read-only before filesystem writes;
+gororoba-db build invokes the guard before reading its source manifest and uses
+a read-only handle for claim-history inspection. The claim-only
+--allow-transition-history-loss flag never authorizes theorem history loss.
 
 The receipt stores the exact input specification and complete theorem metadata
 before/after in a kernel-evidence event. The narrative kernel_result field stays
@@ -297,3 +324,66 @@ and signature checks. The provenance implementer independently read the final
 replacement propositions and sole corrected theorem relations. Those named
 observations bound the preservation and completion statements; further hosted
 review and CI belong to the parent integration procedure.
+
+Complete declaration denominator and theorem history diagnostics
+The strengthened contract supersedes selected-declaration validation for active
+admission. The integration observations about the original 189-entry receipts
+remain historical observations. Inventory sync revalidates those receipts;
+complete coverage supplies the active admission denominator.
+
+The final source diagnostics ran these named Cargo commands in the assigned
+source worktree with the primary Cargo home/shared build directory and a
+worktree-local provenance-diagnostics-target. Local worker variables remained
+unset. The commands establish their named source/test surface; hosted
+repository validation remains the integration owner's separate gate.
+
+cargo test --locked --offline -p provenance_store --lib
+  Result: 119 passed, 0 failed, 0 ignored.
+cargo test --locked --offline -p gororoba_db --bin gororoba-db
+  Result: 5 passed, 0 failed, 0 ignored.
+cargo clippy --locked --offline -p provenance_store -p gororoba_db --all-targets -- -D warnings
+  Result: exit 0.
+rustfmt +nightly --edition 2024 --config skip_children=true --check
+  Inputs: theorem_execution.rs, lib.rs, gororoba_db.rs and gororoba_db/types.rs.
+  Result: exit 0.
+git -c core.fsmonitor=false diff --check
+  Result: exit 0.
+
+Receipt regressions cover omitted axiom-dependent theorems, omitted
+import-dependent helper definitions, duplicate source/witness/log names,
+extra/missing/incomplete labels, labels with attached spacing, complete
+Definition bodies, unsupported attributes/prefixes and mutual theorem commands.
+An ordinary Definition match/with/end body remains in its normalized statement.
+A pinned Rocq 9.1.1 probe recognized Theorem/with mutual syntax and rejected the
+probe's incompatible premises, confirming that the grammar admits the form.
+The bounded receipt parser rejects that form explicitly rather than silently
+counting only its first declared theorem.
+
+The file-rebuild test independently creates ordinary-binding, link-correction,
+proof-inventory, kernel-evidence and future-kind theorem events in otherwise
+claim-history-empty databases. Each refused rebuild leaves the measured
+primary database bytes and ordered theorem-event rows equal to their prestate.
+The CLI test repeats that measured refusal with the claim-history override
+both disabled and enabled.
+
+Final source-byte identities for the reviewed mechanisms:
+76555a95f7cf8c84d2b7b4ca6e59d84df8bc7de5fa96138642301a87535a85fd
+  crates/provenance_store/src/theorem_execution.rs
+25480b897a3ca214f9bb3db83e81477dcc6cb7cf2f1a1757d7e16373ab62401f
+  crates/provenance_store/src/lib.rs
+995c6f8bad55ecab4febd2e7b55ee78588bb4509f785edd35b8e6af3e0caa1a4
+  crates/gororoba_db/src/bin/gororoba_db.rs
+e9424ca84218020227c1a6623d997895028c65a8fa2ceda0a45dae31c7b57d14
+  crates/gororoba_db/src/bin/gororoba_db/types.rs
+
+Complete-declaration admission supersedes subset activation
+The retained complete-declaration-integration.txt records the final typed sync,
+all thirteen complete receipt results, exact canonical-set comparisons and the
+owning generator chain. The active receipt denominator is 251 declarations:
+224 closed and 27 assumption-bearing reports. Historical receipt specifications,
+compiler/checker outputs, objects and event envelopes remain retained. The final
+projection has thirteen kernel_checked identities and 295 source_only identities,
+with twenty-six historical and complete receipt events. Owning generators refresh
+all 1585 claim atoms and 1593 proof skeletons; all 23 declared Rust mirrors were
+emitted. Named semantic diagnostics expose the existing payload-stub skip and do
+not assert Markdown payload completeness.
