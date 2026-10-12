@@ -10,7 +10,8 @@ use anyhow::{Context, Result, bail};
 use clap::Parser;
 use provenance_store::{
     ExecutionTargetRetarget, PlanningCompatTable, ProvenanceStore, SourcePathRetarget,
-    parse_theorem_identity_spec, parse_theorem_link_correction_spec,
+    parse_theorem_identity_spec, parse_theorem_inventory_sync_spec,
+    parse_theorem_kernel_evidence_spec, parse_theorem_link_correction_spec,
 };
 use serde::Deserialize;
 use std::{
@@ -1858,6 +1859,25 @@ fn cmd_theorem_mutation(
         TheoremIdentityAction::Validate => {
             unreachable!("theorem validation is dispatched through a read-only handle")
         }
+        TheoremIdentityAction::SyncInventory { spec, regen_toml } => {
+            let spec_path = resolve_cli_path(repo_root, spec);
+            let raw_spec = fs::read_to_string(&spec_path)
+                .with_context(|| format!("read theorem inventory spec {}", spec_path.display()))?;
+            let parsed = parse_theorem_inventory_sync_spec(&raw_spec)?;
+            let result = store.sync_theorem_inventory(repo_root, &parsed, &raw_spec)?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+            maybe_regen_toml(*regen_toml)?;
+        }
+        TheoremIdentityAction::RecordKernelEvidence { spec, regen_toml } => {
+            let spec_path = resolve_cli_path(repo_root, spec);
+            let raw_spec = fs::read_to_string(&spec_path).with_context(|| {
+                format!("read theorem kernel evidence spec {}", spec_path.display())
+            })?;
+            let parsed = parse_theorem_kernel_evidence_spec(&raw_spec)?;
+            let result = store.record_theorem_kernel_evidence(repo_root, &parsed, &raw_spec)?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+            maybe_regen_toml(*regen_toml)?;
+        }
     }
     Ok(())
 }
@@ -2434,6 +2454,7 @@ struct SourceEntry {
 }
 
 fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
+    ProvenanceStore::ensure_artifact_reimport_safe(db_path)?;
     println!("Building derived registry database...");
     println!("  DB path: {}", db_path.display());
 
@@ -2456,7 +2477,7 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
     // triggers cannot catch file removal because it issues no DELETE. Refuse rather
     // than destroy, and require an explicit acknowledgement of that loss.
     if db_path.exists() {
-        let existing = ProvenanceStore::open(db_path)
+        let existing = ProvenanceStore::open_read_only(db_path)
             .with_context(|| format!("open existing db {}", db_path.display()))?;
         let event_count = existing.list_claim_transition_events()?.len();
         let revision_count = existing.table_row_count("claim_revisions")?;
@@ -2486,7 +2507,7 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
     let insights_path = repo_root.join("registry/insights.toml");
     let experiments_path = repo_root.join("registry/experiments.toml");
     let binaries_path = repo_root.join("registry/binaries.toml");
-    let proofs_project_path = repo_root.join("proofs/_CoqProject");
+    let proofs_project_path = repo_root.join("proofs/_RocqProject");
 
     if claims_path.exists()
         && insights_path.exists()
@@ -2795,6 +2816,44 @@ mod tests {
     }
 
     #[test]
+    fn cli_parses_theorem_source_inventory_and_kernel_receipt_with_export_choice() -> Result<()> {
+        for command in ["sync-inventory", "record-kernel-evidence"] {
+            let cli = Cli::try_parse_from([
+                "gororoba-db",
+                "theorem",
+                "identity",
+                command,
+                "--spec",
+                "receipt.toml",
+                "--regen-toml",
+                "false",
+            ])?;
+            let Commands::Theorem(TheoremArgs {
+                action: TheoremAction::Identity(identity),
+            }) = cli.command
+            else {
+                bail!("expected theorem identity command");
+            };
+            let (spec, regen_toml) = match identity.action {
+                TheoremIdentityAction::SyncInventory { spec, regen_toml }
+                    if command == "sync-inventory" =>
+                {
+                    (spec, regen_toml)
+                }
+                TheoremIdentityAction::RecordKernelEvidence { spec, regen_toml }
+                    if command == "record-kernel-evidence" =>
+                {
+                    (spec, regen_toml)
+                }
+                _ => bail!("expected the requested theorem identity action"),
+            };
+            assert_eq!(spec, Path::new("receipt.toml"));
+            assert!(!regen_toml);
+        }
+        Ok(())
+    }
+
+    #[test]
     fn cli_parses_theorem_link_correction_with_explicit_export_choice() -> Result<()> {
         let cli = Cli::try_parse_from([
             "gororoba-db",
@@ -2828,5 +2887,145 @@ mod tests {
         assert!(claim_history_requires_loss_acknowledgement(0, 1));
         assert!(claim_history_requires_loss_acknowledgement(1, 0));
         assert!(!claim_history_requires_loss_acknowledgement(0, 0));
+    }
+
+    #[test]
+    fn build_uses_active_rocq_inventory_for_fresh_and_expendable_databases() -> Result<()> {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_nanos();
+        let repository_root = std::env::temp_dir().join(format!(
+            "gororoba-build-active-rocq-{}-{nonce}",
+            std::process::id()
+        ));
+        fs::create_dir(&repository_root)?;
+        struct Cleanup(PathBuf);
+        impl Drop for Cleanup {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let _cleanup = Cleanup(repository_root.clone());
+        fs::create_dir(repository_root.join("registry"))?;
+        fs::create_dir_all(repository_root.join("proofs/theories"))?;
+        fs::create_dir(repository_root.join("proofs/verified"))?;
+        fs::write(
+            repository_root.join("registry/source_manifest.toml"),
+            "source = []\n",
+        )?;
+        for (filename, row_name) in [
+            ("claims.toml", "claim"),
+            ("insights.toml", "insight"),
+            ("experiments.toml", "experiment"),
+            ("binaries.toml", "binary"),
+        ] {
+            fs::write(
+                repository_root.join("registry").join(filename),
+                format!("{row_name} = []\n"),
+            )?;
+        }
+        fs::write(
+            repository_root.join("Cargo.toml"),
+            "[package]\nname = \"proof-inventory-fixture\"\nversion = \"0.0.0\"\nedition = \"2024\"\n[lib]\npath = \"fixture_lib.rs\"\n[workspace]\nmembers = []\n",
+        )?;
+        fs::write(repository_root.join("fixture_lib.rs"), "")?;
+        fs::write(
+            repository_root.join("proofs/_CoqProject"),
+            "theories/ActiveTheory.v\n",
+        )?;
+        fs::write(
+            repository_root.join("proofs/_RocqProject"),
+            "-R theories OpenGororoba\n-R verified OpenGororobaVerified\ntheories/ActiveTheory.v\nverified/ActiveVerified.v\n",
+        )?;
+        for proof in ["theories/ActiveTheory.v", "verified/ActiveVerified.v"] {
+            fs::write(
+                repository_root.join("proofs").join(proof),
+                "Theorem fixture : True. Proof. exact I. Qed.\n",
+            )?;
+        }
+        for database_name in ["fresh.sqlite3", "expendable.sqlite3"] {
+            let database = repository_root.join(database_name);
+            if database_name == "expendable.sqlite3" {
+                let previous = ProvenanceStore::open(&database)?;
+                previous.conn_exec(
+                    "INSERT INTO theorems(id,title,proof_path,status,linked_claim_ids_json,source) VALUES('DiscardedInventory','Discarded inventory','proofs/theories/Discarded.v','source_only','[]','fixture')",
+                    [] as [&str; 0],
+                )?;
+            }
+            cmd_build(
+                &repository_root,
+                &database,
+                &BuildArgs {
+                    verify: true,
+                    allow_transition_history_loss: false,
+                },
+            )?;
+            let built = ProvenanceStore::open_read_only(&database)?;
+            let theorems = built.list_theorems()?;
+            let proof_paths = theorems
+                .iter()
+                .map(|theorem| theorem.proof_path.as_str())
+                .collect::<std::collections::BTreeSet<_>>();
+            assert_eq!(
+                proof_paths,
+                std::collections::BTreeSet::from([
+                    "proofs/theories/ActiveTheory.v",
+                    "proofs/verified/ActiveVerified.v"
+                ])
+            );
+            assert!(
+                theorems
+                    .iter()
+                    .all(|theorem| theorem.status == "source_only"
+                        && theorem.source == "_RocqProject")
+            );
+            assert_eq!(built.table_row_count("theorem_identity_events")?, 0);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn build_claim_history_override_preserves_theorem_events_and_database_bytes() -> Result<()> {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_nanos();
+        let root = std::env::temp_dir().join(format!(
+            "gororoba-build-theorem-history-{}-{nonce}",
+            std::process::id()
+        ));
+        fs::create_dir(&root)?;
+        struct Cleanup(PathBuf);
+        impl Drop for Cleanup {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let _cleanup = Cleanup(root.clone());
+        let database = root.join("canonical.sqlite3");
+        let store = ProvenanceStore::open(&database)?;
+        store.conn_exec(
+            "INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES('proof-inventory:retained',?1,'test-actor','retained inventory','2026-10-12','[]','[]')",
+            [&"a".repeat(64)],
+        )?;
+        drop(store);
+        let bytes = fs::read(&database)?;
+        for allow_transition_history_loss in [false, true] {
+            let error = cmd_build(
+                &root,
+                &database,
+                &BuildArgs {
+                    verify: false,
+                    allow_transition_history_loss,
+                },
+            )
+            .unwrap_err();
+            assert!(error.to_string().contains("theorem identity events"));
+            assert_eq!(fs::read(&database)?, bytes);
+            let retained = ProvenanceStore::open_read_only(&database)?;
+            assert_eq!(retained.table_row_count("theorem_identity_events")?, 1);
+            assert_eq!(retained.table_row_count("claim_transition_events")?, 0);
+            assert_eq!(retained.table_row_count("claim_revisions")?, 0);
+        }
+        Ok(())
     }
 }

@@ -1,0 +1,45 @@
+{
+  "correction_key": "closed-arithmetic-formal-relation",
+  "event_key": "correct-links:closed-arithmetic-formal-relation",
+  "spec_sha256": "103aa5c5bbbedd706fbebf5218eb1d5c1666efa961d40574630cfbfa73346354",
+  "changes": [
+    {
+      "before": {
+        "stable_id": "THM-LEGACY-C1463_ArithmeticInventory",
+        "legacy_name": "C1463_ArithmeticInventory",
+        "proof_path": "proofs/verified/C1463_ArithmeticInventory.v",
+        "identity_kind": "explicit_link",
+        "assumptions": "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain.",
+        "kernel_result": "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata.",
+        "replay_command": "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +all -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v",
+        "falsifier": "A failed evaluation of any displayed closed natural-number equality or rejection by the recorded compiler/independent kernel checker withdraws this arithmetic proposition. A semantic count or runtime assertion does not follow from a theorem name.",
+        "identity_source": "_RocqProject",
+        "title": "Twenty-two closed natural-number arithmetic equalities",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": [
+          "C-1463",
+          "C-1772"
+        ]
+      },
+      "after": {
+        "stable_id": "THM-LEGACY-C1463_ArithmeticInventory",
+        "legacy_name": "C1463_ArithmeticInventory",
+        "proof_path": "proofs/verified/C1463_ArithmeticInventory.v",
+        "identity_kind": "explicit_link",
+        "assumptions": "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain.",
+        "kernel_result": "The source owns the stated formal scope. Append-only source-bound execution receipts determine kernel_checked admission independently of explanatory metadata.",
+        "replay_command": "cd proofs && opam exec --switch rocq-9.1.1 -- rocq compile -q -w +all -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v",
+        "falsifier": "A failed evaluation of any displayed closed natural-number equality or rejection by the recorded compiler/independent kernel checker withdraws this arithmetic proposition. A semantic count or runtime assertion does not follow from a theorem name.",
+        "identity_source": "_RocqProject",
+        "title": "Twenty-two closed natural-number arithmetic equalities",
+        "theorem_status": "source_only",
+        "theorem_source": "_RocqProject",
+        "claim_ids": [
+          "C-1772"
+        ]
+      }
+    }
+  ],
+  "exact_replay": false
+}

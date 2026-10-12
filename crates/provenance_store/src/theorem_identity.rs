@@ -256,7 +256,7 @@ pub fn bind_theorem_identities(
         reserved.insert(next_id);
         let where_stated = binding.where_stated.join("; ");
         let status_note = format!(
-            "Kernel-checked formal proposition for {}. Scope is limited to the stated assumptions and does not establish a physical or implementation claim.",
+            "Scoped formal proposition for {}. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim.",
             binding.stable_id
         );
         let compat_toml_text = format!(
@@ -446,8 +446,8 @@ pub(crate) fn default_stable_theorem_id(legacy_name: &str) -> String {
 
 pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -> Result<()> {
     let mut statement = conn.prepare(
-        "SELECT stable_id, legacy_name, proof_path, identity_kind
-         FROM theorem_identities ORDER BY stable_id",
+        "SELECT identity.stable_id, identity.legacy_name, identity.proof_path, identity.identity_kind, theorem.status
+         FROM theorem_identities identity LEFT JOIN theorems theorem ON theorem.id=identity.legacy_name ORDER BY identity.stable_id",
     )?;
     let rows = statement.query_map([], |row| {
         Ok((
@@ -455,10 +455,11 @@ pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -
             row.get::<_, String>(1)?,
             row.get::<_, String>(2)?,
             row.get::<_, String>(3)?,
+            row.get::<_, Option<String>>(4)?,
         ))
     })?;
     for row in rows {
-        let (stable_id, legacy_name, proof_path, identity_kind) = row?;
+        let (stable_id, legacy_name, proof_path, identity_kind, theorem_status) = row?;
         if !stable_id.is_ascii() || !stable_id.starts_with("THM-") {
             bail!("invalid stable theorem identity {stable_id}");
         }
@@ -486,10 +487,25 @@ pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -
             "legacy_alias" if !is_claim_like && linked_claims.is_empty() => {
                 bail!("non-claim theorem {legacy_name} cannot use legacy_alias")
             }
-            "unresolved" if is_claim_like => {
+            "unresolved"
+                if is_claim_like
+                    && theorem_status.as_deref() != Some(super::theorem_execution::SOURCE_ONLY) =>
+            {
                 bail!("claim-like theorem {legacy_name} has unresolved identity")
             }
             _ => {}
+        }
+        if theorem_status.as_deref() == Some(super::theorem_execution::KERNEL_CHECKED)
+            && !super::theorem_execution::kernel_witness_matches(
+                conn,
+                repo_root,
+                &stable_id,
+                camino::Utf8Path::new(&proof_path),
+            )?
+        {
+            bail!(
+                "kernel_checked theorem {stable_id} lacks a valid source-bound execution receipt"
+            );
         }
     }
 

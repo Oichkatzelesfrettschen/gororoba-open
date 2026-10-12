@@ -1,0 +1,14 @@
+correction_key = "zd-count-declaration-assumptions"
+actor = "codex"
+reason = "Distinguish theorem-specific assumptions and count-expression checks from an unmodeled graph-connectivity claim"
+applied_at = "2026-10-12T16:43:59Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C958_ZDGraphTopology"
+proof_path = "proofs/verified/C958_ZDGraphTopology.v"
+expected_title = "C958 ZDGraphTopology"
+expected_claim_ids = []
+title = "Declared zero-divisor count expressions, closed evaluations and conditional real bounds"
+claim_ids = []
+expected_assumptions = ""
+assumptions = "Declaration-specific interpretation: the binary-natural count evaluations, declared singleton-list evaluations and finite missing-edge-list checks have closed contexts. The real edge-formula and polynomial-bound declarations use the real-library assumptions printed in their own execution blocks. zd_graph_three_components is an explicit source axiom concerning hard-coded cardinality expressions; its statement contains no adjacency or connectivity model. A checker module summary can include that source axiom even when a particular count declaration has a closed context."

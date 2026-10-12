@@ -1,0 +1,17 @@
+[transition]
+transition_key = "sedenion-full-automorphism-source-review"
+source_claim_id = "C-1471"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+evidence_artifact_ids = ["LOCAL-BOOLEAN-PERMUTATION-EVIDENCE"]
+experiment_ids = []
+exercised_falsifier = "Audit the purported formal certificate against its actual homogeneity declarations and compare the full-group assertion with Schafer1954 Theorem4 and Brown1967 Section2/Theorem1, including Brown epsilon(a+bu)=a-bu and the identity-component fixed-unit consequence of the derivation theorem."
+proposed_claim_status = "Provisional"
+rationale = "C1471_HigherCDTrilinearity.v proves first-slot scalar homogeneity rather than an automorphism-group classification. Schafer1954 proves a derivation-algebra result of type g2; Brown1967 treats full automorphism groups and includes a finite factor, whereas Wilmot2025 Section4 disputes Brown through calibration stabilizers. The original source assertion needs an explicit full-group versus identity-component reconciliation. The transition preserves its original statement and prior status in canonical history."
+unresolved_assumptions = ["Relate the calibration-stabilizer restriction to algebra automorphisms including disconnected elements.","Check Brown epsilon and psi under the repository multiplication convention and standard real doubling parameters.","Separate full Aut(S), its identity component, and the derivation Lie algebra.","A new source-bound formal certificate for the full automorphism claim remains outstanding."]
+actor = "codex"
+reason = "Withdraw unsupported full-group admission while preserving the historical source assertion"
+transition_timestamp = "2026-10-12T16:43:59Z"
+expected_source_state_sha256 = "d819eed0818768ee9a0a78e9430dd1b12617434ee902660bf43f26271c066262"
+expected_claim_id_max = 1760
+reserved_claim_ids = []

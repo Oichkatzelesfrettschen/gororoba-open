@@ -131,6 +131,7 @@ pub(crate) struct BuildArgs {
     /// claim revisions. The rebuild reads only the manifest lanes, so the event,
     /// relation and revision tables come back empty and no compatibility TOML can
     /// restore them. Required to discard adjudication history on purpose.
+    /// The claim-history override never authorizes theorem identity history loss.
     #[arg(long)]
     pub(crate) allow_transition_history_loss: bool,
 }
@@ -528,6 +529,20 @@ pub(crate) enum TheoremIdentityAction {
     },
     /// Correct titles, assumptions, and formal links against exact prior values.
     CorrectLinks {
+        #[arg(long)]
+        spec: PathBuf,
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        regen_toml: bool,
+    },
+    /// Synchronize both proof roots while preserving canonical theorem metadata.
+    SyncInventory {
+        #[arg(long)]
+        spec: PathBuf,
+        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        regen_toml: bool,
+    },
+    /// Promote a registered theorem using retained source-bound kernel evidence.
+    RecordKernelEvidence {
         #[arg(long)]
         spec: PathBuf,
         #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]

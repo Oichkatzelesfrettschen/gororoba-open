@@ -1,0 +1,9 @@
+targets=1
+first_party_sources=1
+retained_proof_objects=1
+witnessed_declarations=22
+closed_declaration_queries=22
+printed_assumption_name_occurrences=0
+project_sha256=5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8
+warning_policy=fatal_all
+raw_log_transformation=none

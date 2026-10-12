@@ -1,0 +1,8 @@
+Declaration: binary_channel_contracts_separation
+Closed under the global context
+Declaration: difference_radius_bound
+Closed under the global context
+Declaration: separation_radius_bound
+Closed under the global context
+Declaration: separated_centers_exclude_common_binary_channel
+Closed under the global context

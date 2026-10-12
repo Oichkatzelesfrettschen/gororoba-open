@@ -1,0 +1,117 @@
+evidence_key = "retained-kernel-C958_ZDGraphTopology-5507a888eedd"
+actor = "codex"
+reason = "Admit retained fatal-default compilation, independent kernel checking, labeled declaration assumptions, and proof objects through an append-only source-bound execution receipt."
+applied_at = "2026-10-12T16:40:52Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-C958_ZDGraphTopology"
+proof_path = "proofs/verified/C958_ZDGraphTopology.v"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C958_ZDGraphTopology.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C958_ZDGraphTopology"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/verified/C958_ZDGraphTopology.v"
+sha256 = "9ddc4131269209a2ceb1d78986f385117ac7b279d0cd9765f8b29ef553dc09ed"
+
+[witness.compile_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/C958_ZDGraphTopology.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/C958_ZDGraphTopology.kernel.txt"
+sha256 = "9a6d6838e3033067c0f705642716f452dabd54a69c00fedd8a8e91509d2af51a"
+
+[witness.assumption_log]
+path = "data/output/audit/boolean-permutation-evidence/kernel/C958_ZDGraphTopology.assumptions.txt"
+sha256 = "369f5ac73032550be32c925c6faa9175b1fb0bf3601e1f7d475be5c0ccfa2fc8"
+
+[witness.proof_object]
+path = "data/output/audit/boolean-permutation-evidence/kernel/verified/C958_ZDGraphTopology.vo"
+sha256 = "4bd3ec062bb1890a4a2585f769e58ad16c807401ace648028278816f9298ea11"
+
+[[witness.declarations]]
+name = "zd_edge_formula"
+statement = "Theorem zd_edge_formula : forall d : R, d > 0 -> zd_edge_count_R d = complete_edges_R (d - 2) - missing_edges_R d"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zd_edges_at_16"
+statement = "Theorem zd_edges_at_16 : zd_edge_count_N 16 = 84%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_edges_at_32"
+statement = "Theorem zd_edges_at_32 : zd_edge_count_N 32 = 420%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_edges_at_64"
+statement = "Theorem zd_edges_at_64 : zd_edge_count_N 64 = 1860%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_edges_at_256"
+statement = "Theorem zd_edges_at_256 : zd_edge_count_N 256 = 32004%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_edges_at_512"
+statement = "Theorem zd_edges_at_512 : zd_edge_count_N 512 = 129540%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_edges_at_1024"
+statement = "Theorem zd_edges_at_1024 : zd_edge_count_N 1024 = 521220%N"
+assumptions = []
+
+[[witness.declarations]]
+name = "singletons_at_16"
+statement = "Theorem singletons_at_16 : zd_singleton_indices 16 = [0%N; 8%N]"
+assumptions = []
+
+[[witness.declarations]]
+name = "singletons_at_32"
+statement = "Theorem singletons_at_32 : zd_singleton_indices 32 = [0%N; 16%N]"
+assumptions = []
+
+[[witness.declarations]]
+name = "singletons_at_64"
+statement = "Theorem singletons_at_64 : zd_singleton_indices 64 = [0%N; 32%N]"
+assumptions = []
+
+[[witness.declarations]]
+name = "missing_edges_16_xor"
+statement = "Theorem missing_edges_16_xor : List.forallb (fun p => N.eqb (N.lxor (fst p) (snd p)) 8) missing_edges_16 = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "missing_edges_16_count"
+statement = "Theorem missing_edges_16_count : length missing_edges_16 = 7%nat"
+assumptions = []
+
+[[witness.declarations]]
+name = "zd_numerator_positive"
+statement = "Theorem zd_numerator_positive : forall d : R, d >= 16 -> d * d - 6 * d + 8 > 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zd_edge_superquadratic_growth"
+statement = "Theorem zd_edge_superquadratic_growth : forall d : R, d >= 16 -> (2 * d) * (2 * d) - 6 * (2 * d) + 8 > 4 * (d * d - 6 * d + 8) - 12 * d"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zd_giant_density_gt_half"
+statement = "Theorem zd_giant_density_gt_half : forall d : R, d >= 16 -> 2 * (d * d - 6 * d + 8) > (d - 2) * (d - 3)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

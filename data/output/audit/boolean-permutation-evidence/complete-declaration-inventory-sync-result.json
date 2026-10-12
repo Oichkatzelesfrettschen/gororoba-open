@@ -1,0 +1,7 @@
+{
+  "event_key": "proof-inventory:boolean-permutation-complete-declaration-inventory",
+  "theorem_count": 308,
+  "source_only_count": 307,
+  "kernel_checked_count": 1,
+  "exact_replay": false
+}

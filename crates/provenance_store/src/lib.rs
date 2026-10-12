@@ -90,7 +90,13 @@ mod planning_rows;
 // submodule via a second impl ProvenanceStore block.
 mod requirements_mut;
 
+mod theorem_execution;
 mod theorem_identity;
+pub use theorem_execution::{
+    ProofDeclarationEvidence, ProofFileDigest, TheoremEvidenceMutationResult,
+    TheoremInventorySyncSpec, TheoremKernelEvidenceSpec, TheoremKernelWitness,
+    parse_theorem_inventory_sync_spec, parse_theorem_kernel_evidence_spec,
+};
 pub use theorem_identity::{
     TheoremBindingSpec, TheoremClaimMapping, TheoremIdentityBindResult, TheoremIdentitySpec,
     bind_theorem_identities, parse_theorem_identity_spec,
@@ -174,7 +180,7 @@ pub(crate) struct ProofInventoryEntry {
 #[derive(Clone, Debug, Default)]
 pub(crate) struct ProofInventory {
     pub(crate) project_raw: String,
-    pub(crate) verified_entries: Vec<ProofInventoryEntry>,
+    pub(crate) source_entries: Vec<ProofInventoryEntry>,
     pub(crate) verified_by_claim_id: BTreeMap<String, Vec<ProofInventoryEntry>>,
 }
 
@@ -597,7 +603,8 @@ impl ProvenanceStore {
             load_registry_table_toml(&experiments_text, "experiments")?.unwrap_or_default();
         let registry_binaries = load_binaries_from_registry(&binaries_text)?;
         let binaries = merge_workspace_binaries(repo_root, &registry_binaries)?;
-        let theorems = load_theorems_from_inventory(repo_root, &proof_inventory, &claims)?;
+        let theorems =
+            load_theorems_from_inventory(&self.conn, repo_root, &proof_inventory, &claims)?;
 
         // Every column the importer touches has to be either written from the
         // mirror or carried across from SQLite. A schema column in neither set
@@ -912,20 +919,10 @@ impl ProvenanceStore {
         let theorem_linked_claims = self
             .list_theorems()?
             .into_iter()
+            .filter(|theorem| theorem.status == theorem_execution::KERNEL_CHECKED)
             .flat_map(|theorem| theorem.linked_claim_ids.into_iter())
             .collect::<BTreeSet<_>>();
-        let kernel_checked_claim_count = self
-            .list_claims()?
-            .into_iter()
-            .filter(|claim| {
-                claim
-                    .formal_proof
-                    .as_deref()
-                    .map(|v| !v.trim().is_empty())
-                    .unwrap_or(false)
-                    || theorem_linked_claims.contains(&claim.id)
-            })
-            .count();
+        let kernel_checked_claim_count = theorem_linked_claims.len();
         let proof_file_count = self
             .registry_snapshot("rocq_project")?
             .map(|raw| {
@@ -2829,10 +2826,11 @@ impl ProvenanceStore {
 
     // ── Three-layer registry: build methods ─────────────────────────
 
-    /// Refuse artifact history loss before import-related filesystem writes.
+    /// Refuse canonical evidence history loss before import-related filesystem writes.
     pub fn ensure_artifact_reimport_safe(db_path: &Path) -> Result<()> {
         if db_path.exists() {
             let existing = Connection::open_with_flags(db_path, OpenFlags::SQLITE_OPEN_READ_ONLY)?;
+            theorem_execution::refuse_theorem_identity_history_loss(&existing)?;
             claim_evidence::refuse_claim_evidence_history_loss(&existing)?;
             insight_admission::refuse_insight_admission_history_loss(&existing)?;
             table_ops::refuse_artifact_path_history_loss(&existing)?;
@@ -2841,7 +2839,7 @@ impl ProvenanceStore {
     }
 
     /// Create a fresh derived database at the given path.
-    /// Refuses canonical artifact path history before replacing an existing file.
+    /// Refuses canonical theorem and evidence history before replacing an existing file.
     /// Runs all migrations on the fresh file and sets WAL mode.
     pub fn build_fresh(db_path: &Path) -> Result<Self> {
         Self::ensure_artifact_reimport_safe(db_path)?;
@@ -4111,6 +4109,41 @@ claim_refs = ["C-001"]
         assert!(error.to_string().contains("injected revision failure"));
         for (table, original) in tables.iter().zip(before) {
             assert_eq!(lane_test_rows(&store, table)?, original, "{table}");
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn every_theorem_event_kind_blocks_database_file_rebuild() -> Result<()> {
+        for binding_key in [
+            "scope-binding",
+            "link-correction:links",
+            "proof-inventory:source-sync",
+            "kernel-evidence:execution",
+            "future-theorem-event:retained",
+        ] {
+            let fixture = make_test_workspace("theorem_history_guard")?;
+            let store = ProvenanceStore::open(&fixture.db)?;
+            store.conn.execute(
+                "INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES(?1,?2,'test-actor','retained event','2026-10-12','[]','[]')",
+                params![binding_key, "a".repeat(64)],
+            )?;
+            assert_eq!(store.table_row_count("claim_transition_events")?, 0);
+            assert_eq!(store.table_row_count("claim_revisions")?, 0);
+            let history = lane_test_rows(&store, "theorem_identity_events")?;
+            drop(store);
+            let bytes = fs::read(&fixture.db)?;
+            let error = ProvenanceStore::build_fresh(&fixture.db).err().unwrap();
+            assert!(
+                error.to_string().contains("theorem identity events"),
+                "{binding_key}: {error}"
+            );
+            assert_eq!(fs::read(&fixture.db)?, bytes);
+            let reopened = ProvenanceStore::open_read_only(&fixture.db)?;
+            assert_eq!(
+                lane_test_rows(&reopened, "theorem_identity_events")?,
+                history
+            );
         }
         Ok(())
     }

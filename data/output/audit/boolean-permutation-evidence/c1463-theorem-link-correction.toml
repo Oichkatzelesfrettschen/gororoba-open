@@ -1,0 +1,14 @@
+correction_key = "closed-arithmetic-formal-relation"
+actor = "codex"
+reason = "Separate the closed arithmetic proposition from the compound associator and compiler-timing claim."
+applied_at = "2026-10-12T16:57:22Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C1463_ArithmeticInventory"
+proof_path = "proofs/verified/C1463_ArithmeticInventory.v"
+expected_title = "Twenty-two closed natural-number arithmetic equalities"
+expected_claim_ids = ["C-1463","C-1772"]
+title = "Twenty-two closed natural-number arithmetic equalities"
+claim_ids = ["C-1772"]
+expected_assumptions = "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain."
+assumptions = "All 22 freshly compiled declaration-specific Print Assumptions blocks report Closed under the global context. The complete project-local source closure contains this one leaf; Stdlib Arith and PeanoNat are resolved by the recorded Rocq 9.1.1/OCaml 5.4.0 toolchain."

@@ -1,0 +1,12 @@
+{
+  "binding_key": "closed-natural-arithmetic-source-scope",
+  "spec_sha256": "5dc28ab582fd18d902b023d24d8da3e5934dd50719a563cb9b030d652cee297d",
+  "claim_mappings": [
+    {
+      "proposal_key": "closed-natural-arithmetic-inventory",
+      "stable_theorem_id": "THM-LEGACY-C1463_ArithmeticInventory",
+      "claim_id": "C-1772"
+    }
+  ],
+  "exact_replay": false
+}

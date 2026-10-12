@@ -1,0 +1,85 @@
+Frozen theorem execution source review
+======================================
+
+Scope
+-----
+
+The reviewer reads the public record method, private transaction method,
+retained-envelope activation path and complete replay helper in the
+boolean-permutation-evidence worktree. The reviewer also reads the changed
+legacy/private/genuine/mutation tests, source inventory projection, identity
+validation and the execution-boundary documentation. The reviewer writes
+only this temporary report. The review launches zero new compiler processes
+and issues zero database mutation commands.
+
+Reviewed source digests:
+  crates/provenance_store/src/theorem_execution.rs
+  75ad9a19d5925a3bb4dd9e609f8f7ef369f38bd6229752ef3aff4b800c99492c
+  crates/provenance_store/src/theorem_replay.rs
+  8fcbb884d81bfc5f4734e7317ff1527085f37542b8ee879a234af51c029bb444
+
+Observed result
+---------------
+
+The read-only review finds zero supported reachable defects in the frozen
+public record/activation path within its documented trust boundary.
+
+record_theorem_kernel_evidence validates raw/spec equality, complete source
+and declaration closure, role hashes and optimistic prestate. A new key runs
+genuine Rocq replay before opening the immediate transaction. The private
+record helper requires internally-produced replay evidence, rereads the
+database prestate and validates current source/role files before committing.
+The public interface accepts neither an executor nor an externally supplied
+verification result.
+
+The replayer creates private fresh scratch storage and copies digest-verified
+sources. It executes fixed argument vectors with canonical relative paths,
+fixed namespaces and fatal warning profiles in dependency-first order. The
+fresh target object must reproduce the retained SHA256. Kernel checking and
+fresh declaration-specific assumption queries examine that same scratch
+object. Command evidence binds actual arguments, exit codes, stdout and
+stderr, and rejects warnings, errors and local absolute path output.
+
+Schema 2 envelopes retain internally-produced replay. Activation validates
+retained replay against the witness and current source/project/role bytes.
+Exact public key replay skips new process execution and requires the original
+spec digest and complete poststate. Schema 1 envelopes supply historical
+provenance while inventory sync assigns source_only to their active projection.
+Reusing a legacy key fails; a fresh distinct key admits a genuine replay.
+
+The inspected tests cover private-evidence absence, exact replay, legacy
+history preservation, genuine public admission, fabricated/wrong/source-stale
+objects, false source compilation, warning output, checker failure, assumption
+changes and descriptive warning-policy rejection. Root owns execution results
+for those tests and the thirteen-target public API admission experiment.
+
+Documentation follow-up
+-----------------------
+
+docs/engineering/registry_canonical_architecture.md:324-362 describes the
+reviewed v2 mechanism and its trust boundary accurately.
+docs/engineering/boolean_permutation_evidence.txt:143-151 still describes
+operator-declared evidence as the active admission rule. Root owns alignment
+of that companion passage with the v2 contract. The stale passage supplies a
+documentation correction, rather than a runtime admission defect.
+
+Independent evidence and limits
+-------------------------------
+
+determinism-audit.txt and object-correspondence.tsv retain the independently
+executed thirteen-target audit: 13 matching target objects, 23 dependency-first
+compilations over 16 first-party sources and 13 successful target kernel checks.
+Interface probes at private temporary interface-probe storage show that source
+argument spelling and logical namespace change object bytes, while warning
+profile changes can preserve bytes. The frozen replayer enforces those argument
+contracts independently of object digest agreement.
+
+The temporary thirteen-target audit recorded identical before/after hashes
+for 13 receipt files, 13 retained objects, 16 first-party sources and the proof
+project. Those measured surfaces establish only those surfaces.
+
+The source review assumes the documented authority of the host-selected pinned
+Rocq installation, its external libraries and the canonical-store writer.
+Direct database forgery and a compromised trusted toolchain lie outside that
+typed public API boundary. The review establishes neither cryptographic
+process attestation nor hosted repository admission nor QPU evidence.

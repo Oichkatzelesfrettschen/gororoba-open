@@ -1,0 +1,140 @@
+schema_version = 1
+stable_id = "THM-LEGACY-C1463_ArithmeticInventory"
+proof_path = "proofs/verified/C1463_ArithmeticInventory.v"
+project_sha256 = "5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8"
+compile_command = "rocq compile -q -w +all -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C1463_ArithmeticInventory"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_all"
+
+[[sources]]
+path = "proofs/verified/C1463_ArithmeticInventory.v"
+sha256 = "9d2965761bb0d7ec936ac08f95bcbc21a1b973924aac4351715362b22f63714b"
+
+[compile_log]
+path = "data/output/audit/boolean-permutation-evidence/arithmetic-kernel/C1463_ArithmeticInventory.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/boolean-permutation-evidence/arithmetic-kernel/C1463_ArithmeticInventory.kernel.txt"
+sha256 = "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+
+[assumption_log]
+path = "data/output/audit/boolean-permutation-evidence/arithmetic-kernel/C1463_ArithmeticInventory.assumptions.txt"
+sha256 = "db44d626cca460f312c691af8479d6539cc1b008d9a03e1a61f344c27af3120d"
+
+[proof_object]
+path = "data/output/audit/boolean-permutation-evidence/arithmetic-kernel/verified/C1463_ArithmeticInventory.vo"
+sha256 = "460c34efc4385fabe7cb34cfa00e97201b7e947257014970da1580aea9e1eafe"
+
+[[declarations]]
+name = "wilmot_table2_u1_total"
+statement = "Theorem wilmot_table2_u1_total : 35 + 60 + 360 = 455"
+assumptions = []
+
+[[declarations]]
+name = "c15_3"
+statement = "Theorem c15_3 : 15 * 14 * 13 / 6 = 455"
+assumptions = []
+
+[[declarations]]
+name = "h_15_equals_35"
+statement = "Theorem h_15_equals_35 : 15 * 14 / 6 = 35"
+assumptions = []
+
+[[declarations]]
+name = "h_31_equals_155"
+statement = "Theorem h_31_equals_155 : 31 * 30 / 6 = 155"
+assumptions = []
+
+[[declarations]]
+name = "wilmot_table2_u2_total"
+statement = "Theorem wilmot_table2_u2_total : 155 + 620 + 3720 = 4495"
+assumptions = []
+
+[[declarations]]
+name = "c31_3"
+statement = "Theorem c31_3 : 31 * 30 * 29 / 6 = 4495"
+assumptions = []
+
+[[declarations]]
+name = "assessor_count_42"
+statement = "Theorem assessor_count_42 : 7 * 6 = 42"
+assumptions = []
+
+[[declarations]]
+name = "standard_zd_count"
+statement = "Theorem standard_zd_count : 42 * 2 = 84"
+assumptions = []
+
+[[declarations]]
+name = "directed_zd_pairs"
+statement = "Theorem directed_zd_pairs : 84 * 2 = 168"
+assumptions = []
+
+[[declarations]]
+name = "gl32_order"
+statement = "Theorem gl32_order : (8 - 1) * (8 - 2) * (8 - 4) = 168"
+assumptions = []
+
+[[declarations]]
+name = "braid_pair_count"
+statement = "Theorem braid_pair_count : 15 * 14 / 2 = 105"
+assumptions = []
+
+[[declarations]]
+name = "s3_orbit_decomposition"
+statement = "Theorem s3_orbit_decomposition : 21 + 36 + 48 = 105"
+assumptions = []
+
+[[declarations]]
+name = "triad_type_decomposition"
+statement = "Theorem triad_type_decomposition : 35 + 84 + 84 + 252 = 455"
+assumptions = []
+
+[[declarations]]
+name = "type_x_is_3_times_bc"
+statement = "Theorem type_x_is_3_times_bc : 252 = 3 * 84"
+assumptions = []
+
+[[declarations]]
+name = "incidence_rank_containment"
+statement = "Theorem incidence_rank_containment : 21 + 6 = 27"
+assumptions = []
+
+[[declarations]]
+name = "rank_bc_is_c72"
+statement = "Theorem rank_bc_is_c72 : 7 * 6 / 2 = 21"
+assumptions = []
+
+[[declarations]]
+name = "orbit_sum_numerator"
+statement = "Theorem orbit_sum_numerator : 4 + 1 + 1 = 6"
+assumptions = []
+
+[[declarations]]
+name = "orbit_partner_numerator"
+statement = "Theorem orbit_partner_numerator : 0 + 3 + 3 = 6"
+assumptions = []
+
+[[declarations]]
+name = "sedenion_dim"
+statement = "Theorem sedenion_dim : 2^4 = 16"
+assumptions = []
+
+[[declarations]]
+name = "cl8_dim"
+statement = "Theorem cl8_dim : 2^8 = 256"
+assumptions = []
+
+[[declarations]]
+name = "cl8_is_mat16"
+statement = "Theorem cl8_is_mat16 : 256 = 16 * 16"
+assumptions = []
+
+[[declarations]]
+name = "minimal_ideal_dim"
+statement = "Theorem minimal_ideal_dim : 256 / 16 = 16"
+assumptions = []

@@ -1,0 +1,8 @@
+{
+  "transition_key": "arithmetic-inventory-associator-claim-review",
+  "transition_spec_sha256": "cf65b23ad0eaf8a02ab618cf96f8d27a23b93d222d4fbcb97132a973a40b06b2",
+  "event_id": 220,
+  "allocated_successors": [],
+  "skipped_reserved_claim_ids": [],
+  "exact_replay": false
+}

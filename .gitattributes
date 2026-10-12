@@ -96,3 +96,17 @@ data/output/audit/qgp-fragmentation-interpolation/*.log -text whitespace=-blank-
 data/output/audit/qgp-fragmentation-interpolation/*.stdout -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/qgp-fragmentation-interpolation/*.stderr -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/qgp-fragmentation-interpolation/*-version.txt -text whitespace=-blank-at-eof,-blank-at-eol
+# Source-bound Rocq receipts preserve the compiler and checker output bytes.
+data/output/audit/boolean-permutation-evidence/kernel/*.txt -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/boolean-permutation-evidence/kernel/**/*.vo -filter -diff -text
+data/output/audit/boolean-permutation-evidence/arithmetic-kernel/*.txt -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/boolean-permutation-evidence/arithmetic-kernel/**/*.vo -filter -diff -text
+data/output/audit/boolean-permutation-evidence/kernel/** -text
+data/output/audit/boolean-permutation-evidence/arithmetic-kernel/** -text
+# Canonical receipt input preserves the exact byte sequence ingested in its event.
+data/output/audit/boolean-permutation-evidence/arithmetic-kernel/*.receipt.toml whitespace=-blank-at-eof
+# Complete-declaration replay retains exact logs, proof objects and receipt bytes.
+data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/**/*.vo -filter -diff -text
+# Source-replayed receipt inputs preserve the bytes ingested in their events.
+data/output/audit/boolean-permutation-evidence/source-replayed-receipts/** -text whitespace=-blank-at-eof,-blank-at-eol

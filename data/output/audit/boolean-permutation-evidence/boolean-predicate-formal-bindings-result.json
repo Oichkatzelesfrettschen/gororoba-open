@@ -1,0 +1,27 @@
+{
+  "binding_key": "boolean-predicate-fold-channel-formal-bindings",
+  "spec_sha256": "bb6fc05855c294965e107b073b704f22cbde4aa47d8791d76f6cb424f82c0564",
+  "claim_mappings": [
+    {
+      "proposal_key": "boolean-predicate-signed-xor-label-obstruction",
+      "stable_theorem_id": "THM-LEGACY-BooleanPermutation",
+      "claim_id": "C-1768"
+    },
+    {
+      "proposal_key": "canonical-rational-average-detail-reconstruction",
+      "stable_theorem_id": "THM-LEGACY-FoldAverageDescent",
+      "claim_id": "C-1769"
+    },
+    {
+      "proposal_key": "rational-terminal-binary-channel-separation",
+      "stable_theorem_id": "THM-LEGACY-TerminalChannelSeparation",
+      "claim_id": "C-1770"
+    },
+    {
+      "proposal_key": "real-terminal-binary-channel-separation",
+      "stable_theorem_id": "THM-LEGACY-TerminalChannelSeparationReal",
+      "claim_id": "C-1771"
+    }
+  ],
+  "exact_replay": false
+}

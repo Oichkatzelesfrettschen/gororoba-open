@@ -1,0 +1,50 @@
+Trusted source replay and review repairs
+
+The fresh builder selects proofs/_RocqProject and preserves the theorem-history
+refusal before reads or destructive writes. The expendable fixture includes an
+incomplete legacy project and proves complete active inventory imports in fresh
+and expendable databases. Six CLI tests, Clippy and formatting passed.
+
+The padded modular permutation uses the bit length of modulus minus one.
+Literal multiplier-three fixtures at moduli four, eight and sixteen exercise
+minimal widths and affine/inverse consumers. Fifty-eight identity/negation maps
+cover the admitted modulus denominator three through thirty-one. N21 retains
+32 labels and identity padding at 21 through 31. Fourteen Boolean tests, Clippy
+and formatting passed.
+
+The reviewed v2 API executes trusted fixed-argument source compilation, requires
+exact target-object reproduction, runs independent kernel checking and queries
+all recognized declaration assumptions. All 122 ordinary library tests pass;
+the genuine public-API test passes valid admission and rejects fabricated,
+unrelated, stale and uncompilable inputs with preserved metadata/event counts.
+The proof workflow now runs that genuine test as an independent aggregated leaf.
+Supplied witness command strings remain descriptive and never execute.
+
+The independent per-target audit reproduced thirteen of thirteen retained
+objects through 23 compilations over sixteen distinct sources and thirteen
+kernel checks. Its interface controls prove that absolute source arguments and
+altered namespaces change object bytes, lexical dependency order can fail, and
+warning policy must be checked independently of object hashes. The frozen source
+review reports zero reachable defects within the stated compiler/writer trust
+boundary. The retained portable reports describe their temporary-path rewrite;
+raw proof sources, objects, logs and ingested inputs retain exact bytes.
+
+Root then exercised all thirteen public admissions in a temporary database.
+The temporary sync yielded 308 source_only identities and retained 26 version-one
+receipts. Genuine replay restored thirteen kernel_checked and 295 source_only
+identities with thirteen version-two receipts. Full identity validation passed.
+
+The canonical transition independently repeated every genuine admission after
+the same 308-source-only sync. Its final counts match: 308 identities, thirteen
+kernel_checked, 295 source_only, 26 immutable v1 and thirteen internally-produced
+v2 kernel receipts. Temporary and canonical v2 binding-key, specification-digest
+and event-envelope sets agree exactly. The canonical base-set audit preserves
+original identities, locators, events, revisions, transitions, unrelated claims
+and artifacts. The twelve new scoped claim IDs remain C-1761 through C-1772.
+
+Owning generators refreshed compatibility exports, Markdown source/governance
+indexes, project counters, semantic/evidence views, signatures and all 23 Rust
+mirrors. Counter/semantic/evidence/signature diagnostics pass. The existing
+payload-stub skip remains explicit and proves no Markdown-payload completeness.
+Source registration, formal propositions, local CPU execution and physical/QPU
+results retain separate admission boundaries.

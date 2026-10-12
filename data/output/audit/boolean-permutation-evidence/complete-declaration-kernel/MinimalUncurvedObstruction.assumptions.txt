@@ -1,0 +1,13 @@
+Declaration: uncurved_arity_three
+Closed under the global context
+Declaration: minimal_uncurved_multiplication_associative
+Closed under the global context
+Declaration: sedenion_product_nonassociative
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g

@@ -1,0 +1,16 @@
+{
+  "operation": "theorem identity correct-links",
+  "allocation_source": {
+    "binding_key": "boolean-theory-source-scopes",
+    "proposal_key": "higher-cd-first-slot-homogeneity"
+  },
+  "stable_id": "THM-LEGACY-C1471_HigherCDTrilinearity",
+  "proof_path": "proofs/verified/C1471_HigherCDTrilinearity.v",
+  "expected_title": "Higher Cayley-Dickson associator homogeneity in its first argument",
+  "title": "Higher Cayley-Dickson associator homogeneity in its first argument",
+  "expected_claim_relation_rule": "Read the actual new canonical claim ID from the bind result; expect exactly C-1471 plus that new claim in the postbinding projection.",
+  "claim_relation_rule": "Retain exactly the allocated homogeneity proposition, and remove the C-1471 automorphism relation.",
+  "expected_assumptions": "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded.",
+  "assumptions": "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded.",
+  "reason": "Keep the source homogeneity proposition and remove an unrelated full-automorphism claim."
+}

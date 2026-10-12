@@ -1,0 +1,181 @@
+Boolean permutation and proof execution evidence
+================================================
+
+Reversible predicates enlarge the signed-XOR label dictionary. A predicate
+that ignores its target makes a conditional target flip an involution.
+An ordered word has the reversed word as its inverse. A signed-XOR word
+fixing label zero has identity label action, while its diagonal phase can
+remain nonconstant. Controlled operation preserves that phase relative to
+the disabled branch. Label equality and operator equality are distinct.
+
+Canonical ownership
+-------------------
+
+cd_kernel::cayley_dickson::boolean_permutation owns validated finite label
+words, controlled evaluation, complete permutation inversion and affine
+coefficient ranks. boolean_phase owns degree-promised value-query recovery
+and exact Walsh measurements. algebra_analysis::fold_coordinates owns an
+invertible rational coordinate change. exact_annihilator owns the rational
+left-action counterexamples. The generic Rocq statements live in
+BooleanPermutation, FoldAverageDescent and the two TerminalChannelSeparation
+modules. Their source-bound kernel receipts belong to the theorem registry.
+
+The source investigation pins gororoba-quantum at
+5604e4b1399cb8748783803c0ec9c51ff16149b7. The retained port reports record
+the source-byte hashes and separate mathematical inputs from compiler and
+device evidence. The Qiskit synthesis optimizer, gate phases, clean-workspace
+Operator checks, routing, native gate costs, calibration, shot records and
+QPU approval remain under the quantum repository's execution contract.
+
+Exact finite label and oracle witnesses
+--------------------------------------
+
+TargetFlipWord accepts one through five data bits. Every cube excludes its
+target and uses a data-only mask. Its outer control occupies the next bit.
+The three retained N=21 words implement multipliers 2, 4 and 16 on every
+five-bit label, including identity padding at labels 21 through 31. The
+Rust checks cover all 192 packed control/data inputs and all 51 required
+gate deletions. BooleanPermutation separately proves generic involution,
+word inverse, control and signed-phase composition laws. The generic proof
+does not replace the quantum-owned exact gate-word certificate.
+
+For the N=21 maps, inputs 8 and 16 have XOR 24. The padded output at 24 is
+24, whereas the XOR of their multiplier outputs is 27, 10 or 6. All three
+maps fix zero, so each violates the affine XOR law. The degree-one ANF
+matrix is still invertible for multiplier 2; the functional inverse,
+multiplier 11, has degree-one matrix rank four. Functional invertibility
+therefore supplies neither affinity nor an invertible affine skeleton.
+
+recover_degree_promised_anf accepts a complete low-weight value-query
+transcript at 0 <= d <= n <= 8. Unique recovery assumes an external degree
+bound d. A degree d+1 monomial aliases zero at every queried input, giving
+a permanent falsifier for promotion from samples to an unverified degree
+promise. The query count is a constructive upper bound for this value-oracle
+protocol. The computational checks retain their finite execution scope.
+
+The translated cubics x0*x1*x2 and x1*x2+x0*x1*x2 differ and are not
+complements, but their squared Walsh spectra agree. Uniform-input Walsh
+probabilities lose more information than full phase-oracle access.
+OracleAccess::UncontrolledPhase retains its full-access equivalence up to
+complementation; the collision concerns only the named measurement.
+
+Exact coordinate and action boundaries
+--------------------------------------
+
+Average/detail coordinates are (a+b)/2 and (a-b)/2, component by component
+between the two doubling halves. Reconstruction returns average+detail and
+average-detail. Both channels retain the original scalar-coordinate count.
+The exact Rust round trips include dimensions 4096 and 65536; the scalar
+Rocq theorem proves the inverse identities over canonical rationals.
+
+The pair (1,-1) and zero both have average zero. Multiplication by (0,1)
+gives product averages one and zero. An average-only product law therefore
+cannot reproduce even scalar Cayley-Dickson doubling. Preserving the detail
+channel addresses the missing information; the coordinate change itself
+provides neither dimensional compression nor a hardware realization.
+
+For octonions, L_(e1*e2)e4=e7 while L_e1 L_e2 e4=-e7. For sedenions,
+x=e1+e10 and y=e4-e15 satisfy x*y=0 and x*x=-2e0. Hence L_x squared
+annihilates y while L_(x*x)y=-2y. Exact rational matrix checks refute both
+multiplicative and Jordan-square interpretations of the left-action map.
+The algebra product and matrix composition retain their separate meanings.
+
+The common binary channel p -> a(1-p)+bp has slope b-a in [-1,1] when
+a,b lie in [0,1], so it contracts mean separation. The rational and real
+Rocq ports use four independently supplied radius bounds. A larger output
+center gap than the input center gap plus all four radii excludes one
+common appended channel. Statistical coverage, stationarity and the means
+themselves remain premises supplied by a separate experiment.
+
+Proof identity and warning boundaries
+-------------------------------------
+
+The project inventory includes theories/ and verified/ source files.
+Source registration carries source_only state. Kernel-checked promotion
+requires a typed retained execution witness with matching source/import
+hashes, declaration headers, assumption reports, proof object, compiler and
+checker logs, successful exits and toolchain identity. Identity events
+retain the witness history; narrative evidence remains available without
+being treated as an execution receipt. Source or artifact mutation reopens
+the execution state rather than preserving an unsupported promotion.
+
+C1471_HigherCDTrilinearity proves the named scalar-homogeneity statements.
+Its formal proposition has a separate identity from C-1471's automorphism
+source claim. C958_ZDGraphTopology has theorem-specific assumptions: its
+named component axiom supplies a stipulated count relation, while the
+arithmetic formula and finite evaluations have their own assumption sets.
+Neither a file prefix nor kernel acceptance establishes a different claim.
+
+The pinned Rocq 9.1.1 warning parser uses +category for error severity.
+The configured +default profile rejects emitted default-category warnings;
+the matched deprecated-import mutation verifies that rejection. The two
+Boolean/rational-fold modules also pass +all. The terminal-channel imports
+expose separate strict-all Stdlib diagnostics for disj-pattern-notation and
+deprecated transitive ZArith_base. Retained reports preserve those failures
+beside the successful configured-profile compilation and kernel checks.
+
+Integration frontier
+--------------------
+
+data/output/audit/boolean-permutation-evidence/ retains source identities,
+port reports, fresh proof objects, execution logs, typed canonical mutation
+specifications and finite falsifiers. Each scientific claim uses the scope
+of its own declaration or executed witness. The principal-skew-atlas source
+snapshot has separate symbolic and runtime checks through dimension 256.
+Its written all-stage argument and the source's completed Schur acceleration
+certificates at snapshot 95fdc7f remain separate from the kernel-checked
+Boolean, fold and channel propositions. The Schur certificates distinguish
+first-order admissibility, complete second-order acceleration spaces and
+separating obstructions. Higher-order curves and a full stratum topology
+remain separate obligations.
+Hosted CI owns repository validation and affected-consumer coverage.
+
+Canonical replay and execution admission
+----------------------------------------
+
+The mutators operate on registry/canonical/control_plane.sqlite3 through
+an explicitly selected repository root. Inventory synchronization uses
+`gororoba-db theorem identity sync-inventory --spec <sync.toml>
+--regen-toml false`. The command preserves stable identities, claim links,
+explanatory metadata and append-only events, while registering every listed
+source in both roots. Source registration has source_only execution state.
+
+`gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>
+--regen-toml false` checks the exact source/import closure and retained role
+files before compiling the complete source closure in a private scratch tree.
+Fixed relative arguments and the pinned Rocq installation must reproduce the
+retained target object digest. An independent kernel check and fresh labeled
+assumption queries then verify every recognized declaration. The process
+appends a version 2 event with internally-produced command outputs before
+promoting the named theorem. Supplied command descriptions never execute.
+A changed source, project or retained role file invalidates active admission.
+Version 1 operator-declared receipts and raw artifacts remain immutable
+history; a fresh distinct evidence key records trusted replay for activation.
+The boundary trusts the host-selected compiler, libraries and store writer.
+Closures importing Flocq resolve FLOCQ_ROOT, or the active opam switch's
+documented library path. Replay copies the configured .vo library into a private
+external/Flocq directory, records sorted object digests and supplies the same
+portable -R mapping to compilation, checking and assumption queries. The
+snapshot binds the record-time library bytes without retaining a local path.
+Closures without Flocq preserve their original arguments and event envelopes.
+The proof component route includes replay owners and Cargo/toolchain inputs;
+its ignored genuine tests exercise both object admission and Flocq replay.
+Kernel replay supplies source/object conformance rather than cryptographic
+process attestation or physical/QPU evidence.
+
+The integration exports compatibility views with
+`provenance export-control-plane`, then refreshes registry signatures with
+`make registry-integrity`. A destructive `gororoba-db build` import would
+lose the append-only history and is excluded from the replay procedure.
+
+Closed arithmetic and compound claim scope
+------------------------------------------
+
+C1463_ArithmeticInventory proves twenty-two closed natural-number equations.
+The equations do not establish the algebraic object counts suggested by
+some source theorem names, associator laws, Clifford representations,
+periodicity, or compilation timing. A separate exact arithmetic proposition
+owns those declarations and its fresh strict-all kernel receipt. C-1463's
+compound associator/timing claim retains Provisional admission and a pending
+formal-proof disposition. The source note preserves the actual first-slot
+homogeneity support in the relevant higher-dimensional modules.

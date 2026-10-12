@@ -527,6 +527,69 @@ mod tests {
     }
 
     #[test]
+    fn octonion_left_action_does_not_preserve_multiplication() {
+        let mut first = vec![integer(0); 8];
+        let mut second = first.clone();
+        let mut probe = first.clone();
+        first[1] = integer(1);
+        second[2] = integer(1);
+        probe[4] = integer(1);
+        let first_matrix = multiplication_matrix_exact(&first, MultiplicationSide::Left).unwrap();
+        let second_matrix = multiplication_matrix_exact(&second, MultiplicationSide::Left).unwrap();
+        let product = &first_matrix * ExactMatrix::from_column_slice(8, 1, &second);
+        let product_coordinates: Vec<_> = product.column(0).iter().cloned().collect();
+        let product_matrix =
+            multiplication_matrix_exact(&product_coordinates, MultiplicationSide::Left).unwrap();
+        let probe_column = ExactMatrix::from_column_slice(8, 1, &probe);
+        let product_action = product_matrix * &probe_column;
+        let composed_action = &first_matrix * &second_matrix * probe_column;
+        let mut positive = vec![integer(0); 8];
+        positive[7] = integer(1);
+        assert_eq!(
+            product_action,
+            ExactMatrix::from_column_slice(8, 1, &positive)
+        );
+        positive[7] = integer(-1);
+        assert_eq!(
+            composed_action,
+            ExactMatrix::from_column_slice(8, 1, &positive)
+        );
+        assert_ne!(product_action, composed_action);
+    }
+
+    #[test]
+    fn sedenion_left_action_fails_jordan_square_preservation_on_an_annihilator() {
+        let mut element = vec![integer(0); 16];
+        element[1] = integer(1);
+        element[10] = integer(1);
+        let mut probe = vec![integer(0); 16];
+        probe[4] = integer(1);
+        probe[15] = integer(-1);
+        let matrix = multiplication_matrix_exact(&element, MultiplicationSide::Left).unwrap();
+        let probe_column = ExactMatrix::from_column_slice(16, 1, &probe);
+        assert_eq!(&matrix * &probe_column, ExactMatrix::zeros(16, 1));
+        let square = &matrix * ExactMatrix::from_column_slice(16, 1, &element);
+        let mut expected_square = vec![integer(0); 16];
+        expected_square[0] = integer(-2);
+        assert_eq!(
+            square,
+            ExactMatrix::from_column_slice(16, 1, &expected_square)
+        );
+        let square_matrix =
+            multiplication_matrix_exact(&expected_square, MultiplicationSide::Left).unwrap();
+        let square_action = &square_matrix * &probe_column;
+        let repeated_action = &matrix * &matrix * &probe_column;
+        assert_eq!(repeated_action, ExactMatrix::zeros(16, 1));
+        assert_eq!(square_action, &probe_column * integer(-2));
+        assert_ne!(square_action, repeated_action);
+        probe[15] = integer(1);
+        assert_ne!(
+            &matrix * ExactMatrix::from_column_slice(16, 1, &probe),
+            ExactMatrix::zeros(16, 1)
+        );
+    }
+
+    #[test]
     fn all_84_assessor_diagonals_have_certified_rank_twelve() {
         for assessor in crate::boxkites::primitive_assessors() {
             for sign in [-1, 1] {
@@ -648,6 +711,61 @@ mod tests {
             chart.certify(&rank_jump),
             Err(CertificateError::NonzeroSchurComplement)
         );
+    }
+
+    #[test]
+    fn doubling_reflection_preserves_all_sedenion_basis_products() {
+        use cd_kernel::cayley_dickson::gourlay_epsilon;
+
+        fn reflect_exact(values: &[BigRational]) -> Vec<BigRational> {
+            let basis_values: [f64; 16] = std::array::from_fn(|index| {
+                if values[index] == integer(0) {
+                    0.0
+                } else if values[index] == integer(1) {
+                    1.0
+                } else {
+                    assert_eq!(values[index], integer(-1));
+                    -1.0
+                }
+            });
+            gourlay_epsilon(&basis_values)
+                .into_iter()
+                .map(|value| {
+                    assert!(value == 0.0 || value == 1.0 || value == -1.0);
+                    integer(value as i64)
+                })
+                .collect()
+        }
+
+        for left_index in 0..16 {
+            let mut left = vec![integer(0); 16];
+            left[left_index] = integer(1);
+            let reflected_left = reflect_exact(&left);
+            let product = multiplication_matrix_exact(&left, MultiplicationSide::Left).unwrap();
+            let reflected_product =
+                multiplication_matrix_exact(&reflected_left, MultiplicationSide::Left).unwrap();
+            for right_index in 0..16 {
+                let original_result: Vec<_> = product.column(right_index).iter().cloned().collect();
+                let right_sign = if right_index < 8 {
+                    integer(1)
+                } else {
+                    integer(-1)
+                };
+                let transformed_result: Vec<_> = reflected_product
+                    .column(right_index)
+                    .iter()
+                    .map(|value| value * &right_sign)
+                    .collect();
+                assert_eq!(transformed_result, reflect_exact(&original_result));
+            }
+        }
+        let mut doubling_unit = vec![integer(0); 16];
+        doubling_unit[8] = integer(1);
+        assert_eq!(reflect_exact(&doubling_unit)[8], integer(-1));
+        assert_ne!(reflect_exact(&doubling_unit), doubling_unit);
+        let mut scalar_unit = vec![integer(0); 16];
+        scalar_unit[0] = integer(1);
+        assert_eq!(reflect_exact(&scalar_unit), scalar_unit);
     }
 
     #[test]

@@ -1,0 +1,14 @@
+correction_key = "higher-cd-homogeneity-formal-relation"
+actor = "codex"
+reason = "Keep the source homogeneity proposition and remove an unrelated full-automorphism claim."
+applied_at = "2026-10-12T16:44:51Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C1471_HigherCDTrilinearity"
+proof_path = "proofs/verified/C1471_HigherCDTrilinearity.v"
+expected_title = "Higher Cayley-Dickson associator homogeneity in its first argument"
+expected_claim_ids = ["C-1471","C-1762"]
+title = "Higher Cayley-Dickson associator homogeneity in its first argument"
+claim_ids = ["C-1762"]
+expected_assumptions = "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded."
+assumptions = "Historical declaration-specific Print Assumptions reports contain ClassicalDedekindReals.sig_forall_dec and FunctionalExtensionality.functional_extensionality_dep. Source-only admission retains that historical account until a fresh source-bound execution receipt is recorded."

@@ -1,0 +1,10 @@
+Declaration: is_giant_vertex
+Closed under the global context
+Declaration: is_zd_edge
+Closed under the global context
+Declaration: analytical_edge_count
+Closed under the global context
+Declaration: analytical_edges_16
+Closed under the global context
+Declaration: analytical_edges_32
+Closed under the global context

@@ -1,0 +1,77 @@
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_extensional
+: forall left right : word,
+  word_eq left right -> kernel_code left -> kernel_code right
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+Closed under the global context
+Closed under the global context

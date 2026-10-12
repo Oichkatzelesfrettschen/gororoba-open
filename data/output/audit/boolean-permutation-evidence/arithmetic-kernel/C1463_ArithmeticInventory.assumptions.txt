@@ -1,0 +1,44 @@
+Declaration: wilmot_table2_u1_total
+Closed under the global context
+Declaration: c15_3
+Closed under the global context
+Declaration: h_15_equals_35
+Closed under the global context
+Declaration: h_31_equals_155
+Closed under the global context
+Declaration: wilmot_table2_u2_total
+Closed under the global context
+Declaration: c31_3
+Closed under the global context
+Declaration: assessor_count_42
+Closed under the global context
+Declaration: standard_zd_count
+Closed under the global context
+Declaration: directed_zd_pairs
+Closed under the global context
+Declaration: gl32_order
+Closed under the global context
+Declaration: braid_pair_count
+Closed under the global context
+Declaration: s3_orbit_decomposition
+Closed under the global context
+Declaration: triad_type_decomposition
+Closed under the global context
+Declaration: type_x_is_3_times_bc
+Closed under the global context
+Declaration: incidence_rank_containment
+Closed under the global context
+Declaration: rank_bc_is_c72
+Closed under the global context
+Declaration: orbit_sum_numerator
+Closed under the global context
+Declaration: orbit_partner_numerator
+Closed under the global context
+Declaration: sedenion_dim
+Closed under the global context
+Declaration: cl8_dim
+Closed under the global context
+Declaration: cl8_is_mat16
+Closed under the global context
+Declaration: minimal_ideal_dim
+Closed under the global context

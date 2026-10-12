@@ -2,7 +2,7 @@
 -R verified OpenGororobaVerified
 -docroot OpenGororoba
 -arg -w
--arg @default
+-arg +default
 theories/Prelude.v
 theories/Tanh.v
 theories/Quaternion.v
@@ -65,6 +65,10 @@ theories/SignCodeProjection.v
 theories/SchreierSignCode.v
 theories/SignCodeCardinality.v
 theories/BooleanCochainFiltration.v
+theories/BooleanPermutation.v
+theories/FoldAverageDescent.v
+theories/TerminalChannelSeparation.v
+theories/TerminalChannelSeparationReal.v
 theories/FanoResonance.v
 theories/BinaryEntropy.v
 verified/C886_BDGammaDeviation.v
