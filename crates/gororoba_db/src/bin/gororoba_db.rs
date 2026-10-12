@@ -2507,7 +2507,7 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
     let insights_path = repo_root.join("registry/insights.toml");
     let experiments_path = repo_root.join("registry/experiments.toml");
     let binaries_path = repo_root.join("registry/binaries.toml");
-    let proofs_project_path = repo_root.join("proofs/_CoqProject");
+    let proofs_project_path = repo_root.join("proofs/_RocqProject");
 
     if claims_path.exists()
         && insights_path.exists()
@@ -2887,6 +2887,101 @@ mod tests {
         assert!(claim_history_requires_loss_acknowledgement(0, 1));
         assert!(claim_history_requires_loss_acknowledgement(1, 0));
         assert!(!claim_history_requires_loss_acknowledgement(0, 0));
+    }
+
+    #[test]
+    fn build_uses_active_rocq_inventory_for_fresh_and_expendable_databases() -> Result<()> {
+        let nonce = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)?
+            .as_nanos();
+        let repository_root = std::env::temp_dir().join(format!(
+            "gororoba-build-active-rocq-{}-{nonce}",
+            std::process::id()
+        ));
+        fs::create_dir(&repository_root)?;
+        struct Cleanup(PathBuf);
+        impl Drop for Cleanup {
+            fn drop(&mut self) {
+                let _ = fs::remove_dir_all(&self.0);
+            }
+        }
+        let _cleanup = Cleanup(repository_root.clone());
+        fs::create_dir(repository_root.join("registry"))?;
+        fs::create_dir_all(repository_root.join("proofs/theories"))?;
+        fs::create_dir(repository_root.join("proofs/verified"))?;
+        fs::write(
+            repository_root.join("registry/source_manifest.toml"),
+            "source = []\n",
+        )?;
+        for (filename, row_name) in [
+            ("claims.toml", "claim"),
+            ("insights.toml", "insight"),
+            ("experiments.toml", "experiment"),
+            ("binaries.toml", "binary"),
+        ] {
+            fs::write(
+                repository_root.join("registry").join(filename),
+                format!("{row_name} = []\n"),
+            )?;
+        }
+        fs::write(
+            repository_root.join("Cargo.toml"),
+            "[package]\nname = \"proof-inventory-fixture\"\nversion = \"0.0.0\"\nedition = \"2024\"\n[lib]\npath = \"fixture_lib.rs\"\n[workspace]\nmembers = []\n",
+        )?;
+        fs::write(repository_root.join("fixture_lib.rs"), "")?;
+        fs::write(
+            repository_root.join("proofs/_CoqProject"),
+            "theories/ActiveTheory.v\n",
+        )?;
+        fs::write(
+            repository_root.join("proofs/_RocqProject"),
+            "-R theories OpenGororoba\n-R verified OpenGororobaVerified\ntheories/ActiveTheory.v\nverified/ActiveVerified.v\n",
+        )?;
+        for proof in ["theories/ActiveTheory.v", "verified/ActiveVerified.v"] {
+            fs::write(
+                repository_root.join("proofs").join(proof),
+                "Theorem fixture : True. Proof. exact I. Qed.\n",
+            )?;
+        }
+        for database_name in ["fresh.sqlite3", "expendable.sqlite3"] {
+            let database = repository_root.join(database_name);
+            if database_name == "expendable.sqlite3" {
+                let previous = ProvenanceStore::open(&database)?;
+                previous.conn_exec(
+                    "INSERT INTO theorems(id,title,proof_path,status,linked_claim_ids_json,source) VALUES('DiscardedInventory','Discarded inventory','proofs/theories/Discarded.v','source_only','[]','fixture')",
+                    [] as [&str; 0],
+                )?;
+            }
+            cmd_build(
+                &repository_root,
+                &database,
+                &BuildArgs {
+                    verify: true,
+                    allow_transition_history_loss: false,
+                },
+            )?;
+            let built = ProvenanceStore::open_read_only(&database)?;
+            let theorems = built.list_theorems()?;
+            let proof_paths = theorems
+                .iter()
+                .map(|theorem| theorem.proof_path.as_str())
+                .collect::<std::collections::BTreeSet<_>>();
+            assert_eq!(
+                proof_paths,
+                std::collections::BTreeSet::from([
+                    "proofs/theories/ActiveTheory.v",
+                    "proofs/verified/ActiveVerified.v"
+                ])
+            );
+            assert!(
+                theorems
+                    .iter()
+                    .all(|theorem| theorem.status == "source_only"
+                        && theorem.source == "_RocqProject")
+            );
+            assert_eq!(built.table_row_count("theorem_identity_events")?, 0);
+        }
+        Ok(())
     }
 
     #[test]

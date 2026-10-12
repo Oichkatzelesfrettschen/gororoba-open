@@ -1,0 +1,87 @@
+Per-target Rocq object correspondence
+====================================
+
+The independent temporary producer reads all thirteen complete-declaration
+receipts and checks their exact source closures, recorded object hashes,
+warning profile, command arguments and toolchain identity. Each target gets
+a fresh scratch proofs directory containing only its first-party source
+closure and the project snapshot. Compilation uses canonical relative source
+arguments, the two recorded -R aliases, -q and -w +default. Every predecessor
+compiles before the source that imports it. An independent rocq check follows
+for the target module.
+
+The runtime reports Rocq 9.1.1 compiled with OCaml 5.4.0. The project SHA256 is
+5507a888eedd0cb8da4e5414d0882416b1bdcec0d1934fd9b87b189867e883b8 both before
+and after the audit. The runtime binary directory remains a chat-only input.
+
+Exact target denominator
+------------------------
+
+Matching targets (13):
+  theories/BooleanPermutation.v
+  theories/FoldAverageDescent.v
+  theories/TerminalChannelSeparation.v
+  theories/TerminalChannelSeparationReal.v
+  theories/SignCodeProjection.v
+  theories/SchreierSignCode.v
+  theories/SignCodeCardinality.v
+  theories/BooleanCochainFiltration.v
+  theories/SedenionMembershipConstraints.v
+  theories/MinimalUncurvedObstruction.v
+  verified/C958_ZDGraphTopology.v
+  verified/C958b_ZDAdjacencyAnalytical.v
+  verified/C1463_ArithmeticInventory.v
+
+Mismatching target set: empty.
+Compiler invocations: 23, over 16 distinct first-party sources.
+Target kernel checks: 13.
+Every compiler and checker exits 0. Every fresh target object has the Coq!
+header and exactly matches its retained SHA256. object-correspondence.tsv
+records every target, compilation order, exit codes and both object digests.
+
+The audit measures identical before/after hashes for 13 retained receipt
+files, 13 retained proof objects and 16 first-party source files. The project
+file's digest also remains identical. The producer writes only its temporary
+source copies, objects, logs and reports; the database receives no command.
+
+Dependency-first constraints
+----------------------------
+
+  Prelude -> CayleyDicksonAlgebra -> Sedenion -> MinimalUncurvedObstruction
+  Prelude -> CayleyDicksonAlgebra -> Sedenion -> SedenionMembershipConstraints
+  SchreierSignCode -> SignCodeCardinality
+  Prelude -> C958_ZDGraphTopology -> C958b_ZDAdjacencyAnalytical
+
+C958_ZDGraphTopology itself uses the first two nodes of its chain. The other
+eight target closures have one first-party source each. The receipt's source
+list is a set binding, not a compilation-order prescription.
+
+Interface controls
+------------------
+
+The independent controls live in private temporary interface-probe storage.
+They compile identical BooleanPermutation source bytes under altered
+invocation parameters and record fresh digests:
+
+canonical relative argument, fatal default, canonical namespace:
+  7bef72d055875539de9a6df2130afed37428e255ed4651eb67ff97f2b050bf8b
+absolute source argument, fatal default, canonical namespace:
+  c4f9c448a87c9fa75c45466535d0095a5ffa413dce56182f71c9cf56a43c9eb3
+canonical relative argument, fatal all, canonical namespace:
+  7bef72d055875539de9a6df2130afed37428e255ed4651eb67ff97f2b050bf8b
+canonical relative argument, fatal default, altered namespace:
+  611e34729e03c95de62adb87c63064138b431a13902d2b9d4798c2be8de5c1fa
+
+The absolute argument and namespace changes produce different objects.
+The two warning policies produce identical bytes on this target. The replay
+interface must therefore enforce its source spelling, aliases and warning
+profile independently; digest agreement supplies no separate warning-policy
+attestation.
+
+CayleyDicksonAlgebra compiled before Prelude exits 1 with an error locating
+Prelude under OpenGororoba. Compiling Prelude first and then CayleyDicksonAlgebra
+exits 0. A lexical sort of the closure is an invalid ordering for that chain.
+
+The positive determinism result covers these thirteen targets, their exact
+closures, this pinned runtime and the recorded execution interface. Another
+toolchain, namespace, path spelling or warning contract needs its own replay.

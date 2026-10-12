@@ -142,13 +142,18 @@ source in both roots. Source registration has source_only execution state.
 
 `gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>
 --regen-toml false` checks the exact source/import closure and retained role
-files before appending an event and promoting the named theorem. Each
-receipt supplies optimistic prestate values, successful compiler/checker
-exit codes, a warning policy, toolchain identity, declaration headers and
-labeled assumption reports. The receipt records operator-declared execution
-evidence; artifact hashes and log validation provide reproducibility rather
-than process attestation. A changed source, project or retained role file
-invalidates that receipt's execution admission.
+files before compiling the complete source closure in a private scratch tree.
+Fixed relative arguments and the pinned Rocq installation must reproduce the
+retained target object digest. An independent kernel check and fresh labeled
+assumption queries then verify every recognized declaration. The process
+appends a version 2 event with internally-produced command outputs before
+promoting the named theorem. Supplied command descriptions never execute.
+A changed source, project or retained role file invalidates active admission.
+Version 1 operator-declared receipts and raw artifacts remain immutable
+history; a fresh distinct evidence key records trusted replay for activation.
+The boundary trusts the host-selected compiler, libraries and store writer.
+Kernel replay supplies source/object conformance rather than cryptographic
+process attestation or physical/QPU evidence.
 
 The integration exports compatibility views with
 `provenance export-control-plane`, then refreshes registry signatures with

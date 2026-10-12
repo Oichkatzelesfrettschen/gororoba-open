@@ -18,6 +18,10 @@ jobs:
         with:
           components: clippy, rustfmt
 
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: sccache@0.15.0
+
       - name: Resolve process-visible worker count
         run: |
           set -euo pipefail
@@ -32,10 +36,10 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Hosted proof validation uses $worker_budget workers from std::thread::available_parallelism()."
 
-      - name: Install opam
+      - name: Install opam and Rust linker
         run: |
           sudo apt-get update
-          sudo apt-get install -y opam
+          sudo apt-get install -y opam clang mold
 
       - name: Restore opam
         id: opam-cache
@@ -86,6 +90,15 @@ jobs:
           eval "$(opam env --switch=rocq-9.1.1)"
           make --jobs="$MAKE_JOBS" --keep-going extract-check
 
+      - name: Verify genuine theorem receipt replay
+        id: receipt-replay
+        continue-on-error: true
+        run: |
+          eval "$(opam env --switch=rocq-9.1.1)"
+          cargo test --locked -p provenance_store --lib \
+            theorem_execution::tests::genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects \
+            -- --ignored --exact
+
       - name: Report collected proof failures
         if: always()
         env:
@@ -93,10 +106,11 @@ jobs:
           COMPILE_OUTCOME: ${{ steps.compile.outcome }}
           ADMITTED_OUTCOME: ${{ steps.admitted.outcome }}
           EXTRACTION_OUTCOME: ${{ steps.extraction.outcome }}
+          RECEIPT_REPLAY_OUTCOME: ${{ steps.receipt-replay.outcome }}
         run: |
           set -euo pipefail
           failure_count=0
-          for outcome_variable in CACHE_SAVE_OUTCOME COMPILE_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME; do
+          for outcome_variable in CACHE_SAVE_OUTCOME COMPILE_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME RECEIPT_REPLAY_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
             if [ "$outcome" = failure ]; then

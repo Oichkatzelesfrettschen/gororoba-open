@@ -108,3 +108,5 @@ data/output/audit/boolean-permutation-evidence/arithmetic-kernel/*.receipt.toml 
 # Complete-declaration replay retains exact logs, proof objects and receipt bytes.
 data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/** -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/**/*.vo -filter -diff -text
+# Source-replayed receipt inputs preserve the bytes ingested in their events.
+data/output/audit/boolean-permutation-evidence/source-replayed-receipts/** -text whitespace=-blank-at-eof,-blank-at-eol

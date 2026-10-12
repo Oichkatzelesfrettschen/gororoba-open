@@ -76,12 +76,28 @@ for the stable identity and validates the exact live project/source/artifact
 hashes. A changed source, dependency, project, object or log removes its active
 kernel_checked projection on the next sync; the historical receipt is retained.
 
-These receipts are operator-declared execution provenance with byte and scope
-validation. The API validates retained file correspondence and reported exits;
-the API does not launch the compiler, authenticate a process trace, reproduce a
-run, attest an executable/toolchain installation, or cryptographically prove
-that a retained .vo was produced from a particular source. Fresh production and
-independent checking remain the operator's execution obligations. Section
+Version 1 receipts retain operator-declared execution provenance with byte and
+scope validation. Their original admission path checked file correspondence and
+reported exits. Those events/specifications/raw artifacts remain immutable
+history; active admission requires a fresh distinct version 2 event.
+
+Version 2 admission performs a genuine record-time source-closure replay. The
+host PATH/opam switch selects rocq; the version probe verifies Rocq 9.1.1 built
+with OCaml 5.4.0. The API copies and digest-checks every first-party source,
+compiles dependency-first with fixed canonical-relative argument vectors,
+requires exact fresh/retained target object SHA-256 equality, runs the independent
+kernel checker, and queries every named declaration's actual assumptions.
+The internally-produced replay evidence retains actual argument vectors, observed
+exits and separate raw stdout/stderr streams. Fatal policies and warning-free
+successful outputs govern version 2; default_severity remains historical input.
+Replay finishes before the canonical mutation transaction. Pure byte/scope
+freshness checks govern later activation and exact idempotent replay, which
+launch zero compiler processes. Version 1 contributes zero active admissions.
+
+The execution boundary trusts the installed compiler/kernel, external libraries
+and canonical writer. The record proves actual local source/object conformance
+within that boundary; cryptographic process attestation and physical/QPU evidence
+remain separate surfaces. Section
 hypotheses generalized into theorem parameters remain part of the mathematical
 statement even when Print Assumptions reports a closed global context.
 
@@ -93,10 +109,13 @@ The validator accepts fatal_all, fatal_default and default_severity separately.
 Fatal-policy commands require the matching -w argument and reject later warning
 policy overrides, quick/interface-only compilation and checker-admission flags.
 
-Compiler tokens must contain rocq compile or coqc and name the witnessed source.
-Checker tokens must contain rocq check, rocqchk or coqchk and name its logical
-module. An opam exec wrapper is accepted. This bounded token correspondence is
-not a shell interpreter or execution attestation. Repository-relative artifact
+Historical compiler tokens contain rocq compile or coqc and name the witnessed
+source. Historical checker tokens contain rocq check, rocqchk or coqchk and name
+the logical module. An opam exec wrapper is accepted as descriptive data.
+Those witness strings never execute. Version 2 execution_replay fixed argument
+vectors and actual process results supply the execution authority. The API
+launches a resolved rocq executable directly and constructs each argument.
+Repository-relative artifact
 paths keep local machine paths out of retained canonical receipts.
 
 Theorem and claim scope corrections
@@ -387,3 +406,89 @@ with twenty-six historical and complete receipt events. Owning generators refres
 all 1585 claim atoms and 1593 proof skeletons; all 23 declared Rust mirrors were
 emitted. Named semantic diagnostics expose the existing payload-stub skip and do
 not assert Markdown payload completeness.
+
+Trusted source/object execution at receipt admission
+The object finding is reachable through the documented record-kernel-evidence
+command: the original stem/magic check accepts a renamed unrelated object and
+operator-reported clean logs. The operator-declared boundary accurately described
+that implementation; the boundary supplies insufficient protection against an
+accidental wrong-object association. Version 2 closes that admission path with
+mandatory genuine source execution, exact object correspondence and fresh checks.
+
+The public API resolves the host-selected rocq executable, verifies the pinned
+version, and builds every argument vector internally. Witness compile/kernel
+strings retain descriptive token-correspondence semantics and never execute.
+The new private theorem_replay module creates a private fresh scratch directory,
+compiles the complete source closure dependency-first, compares the target object,
+runs the independent checker, and emits/validates all labeled assumptions.
+The method records actual stdout and stderr separately. Fatal-all/fatal-default
+profiles and successful warning-free replay govern active version 2 admission.
+Historical default-severity profiles retain their parsed provenance boundary.
+
+The structured execution receipt is private to the production implementation.
+Public callers supply a specification and retained bytes; public callers supply
+zero executor, mock or verification-result parameters. Synthetic fixtures reach
+only a private test-only state-machine seam. The genuine integration test invokes
+the public method with the actual pinned Rocq compiler/kernel.
+
+Version 1 envelopes remain immutable historical provenance. Activation requires
+version 2 internally-produced replay evidence. Inventory sync consequently
+withdraws legacy admission while retaining original rows and inputs. Reusing a
+legacy event key fails with a fresh-distinct-key requirement. Exact idempotent
+version 2 recording and later activation perform pure freshness checks, and
+replay runs before the canonical transaction. Canonical metadata/file prestates
+are checked again before commit.
+
+Named final diagnostics in the assigned source worktree:
+  cargo test --locked --offline -p provenance_store --lib
+    122 passed; the pinned-toolchain test remains separately selected.
+  cargo test --locked --offline -p provenance_store --lib \
+    genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects -- --ignored
+    1 passed with the Rocq 9.1.1/OCaml 5.4.0 bin directory first in host PATH.
+  cargo clippy --locked --offline -p provenance_store --all-targets -- -D warnings
+    exit 0.
+  rustfmt +nightly --edition 2024 --config skip_children=true --check
+    theorem_execution.rs and theorem_replay.rs: exit 0.
+  git -c core.fsmonitor=false diff --check
+    exit 0.
+
+The genuine public-API test admits the matching object, accepts exact idempotent
+replay, and rejects fabricated Coq! bytes, a renamed genuine unrelated module,
+a stale same-module object and an uncompilable current source. Each rejection
+retains the measured theorem metadata and event count. A supplied shell fragment
+remains descriptive data and produces zero shell execution. The offline tests
+measure legacy checked-to-source-only withdrawal with unchanged historical event
+bytes, missing private replay rejection, warning/failure/assumption/object replay
+mutations and exclusion of descriptive warning profiles from trusted admission.
+
+Independent per-target compiler/checker diagnostics reproduce all thirteen
+retained target object digests over 23 dependency-first source instances and
+sixteen distinct sources. Interface controls establish path/namespace/order
+sensitivity: absolute source arguments and a changed namespace alter object
+bytes, and compiling a dependent source before Prelude fails. Fatal-all and
+fatal-default produce equal target bytes in the measured BooleanPermutation
+control, so the fixed warning contract remains separately validated.
+
+Frozen execution mechanism source hashes:
+75ad9a19d5925a3bb4dd9e609f8f7ef369f38bd6229752ef3aff4b800c99492c
+  crates/provenance_store/src/theorem_execution.rs
+8fcbb884d81bfc5f4734e7317ff1527085f37542b8ee879a234af51c029bb444
+  crates/provenance_store/src/theorem_replay.rs
+7d91e67707611ab5d49cb0c37a2f4f187ca54cb8738a8ca7c6844878f7491d7f
+  docs/engineering/registry_canonical_architecture.md
+
+The source implementer edited the named source/documentation surfaces and used
+private temporary proof/test directories. Canonical synchronization, distinct-key
+version 2 receipt ingestion, generated view refreshes and publication remain the
+integration owner's operations. The compiler/kernel installation, external
+libraries and canonical writer define the trusted execution boundary; process
+attestation and physical/QPU evidence remain distinct obligations.
+
+Final trusted-source replay integration
+The source-replayed-integration.txt observation supersedes active v1 admission.
+All thirteen trusted public API admissions passed in both temporary and canonical
+databases. The final projection is thirteen kernel_checked and 295 source_only,
+with 26 preserved version-one and thirteen internally-produced version-two
+kernel receipts. Original event bytes and all retained raw proof artifacts remain
+preserved. The source-object, width and active-manifest review repairs accompany
+the canonical transition. Hosted current-head review and CI remain merge gates.
