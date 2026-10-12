@@ -96,8 +96,8 @@ jobs:
         run: |
           eval "$(opam env --switch=rocq-9.1.1)"
           cargo test --locked -p provenance_store --lib \
-            theorem_execution::tests::genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects \
-            -- --ignored --exact
+            theorem_execution::tests::genuine_rocq_replay \
+            -- --ignored
 
       - name: Report collected proof failures
         if: always()

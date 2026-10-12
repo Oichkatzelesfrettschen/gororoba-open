@@ -65,6 +65,8 @@ pub(super) struct KernelReplayEvidence {
     project_sha256: String,
     sources: Vec<ProofFileDigest>,
     proof_object_sha256: String,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    flocq_objects: Vec<ProofFileDigest>,
     compilation: Vec<CommandEvidence>,
     checker: CommandEvidence,
     assumptions: CommandEvidence,
@@ -137,6 +139,135 @@ fn checker_arguments(witness: &TheoremKernelWitness) -> Result<Vec<String>> {
     .collect())
 }
 
+fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
+    if flocq {
+        let target = arguments
+            .pop()
+            .expect("fixed Rocq arguments include a target");
+        arguments.extend(["-R", "external/Flocq", "Flocq"].map(str::to_owned));
+        arguments.push(target);
+    }
+    arguments
+}
+
+fn uses_flocq(root: &Path, witness: &TheoremKernelWitness) -> Result<bool> {
+    for source in &witness.sources {
+        let contents = fs::read_to_string(super::verify_file(root, source)?)?;
+        for command in super::source_commands(&contents)? {
+            let words = command.split_whitespace().collect::<Vec<_>>();
+            if (words.first() == Some(&"From")
+                && words.get(2) == Some(&"Require")
+                && words.get(1).is_some_and(|namespace| {
+                    *namespace == "Flocq" || namespace.starts_with("Flocq.")
+                }))
+                || (words.first() == Some(&"Require")
+                    && words
+                        .iter()
+                        .skip(1)
+                        .any(|module| module.starts_with("Flocq.")))
+            {
+                return Ok(true);
+            }
+        }
+    }
+    Ok(false)
+}
+
+fn configured_flocq_root(root: &Path) -> Result<PathBuf> {
+    let configured = if let Some(path) = std::env::var_os("FLOCQ_ROOT") {
+        PathBuf::from(path)
+    } else if let Some(prefix) = std::env::var_os("OPAM_SWITCH_PREFIX") {
+        PathBuf::from(prefix).join("lib/coq/user-contrib/Flocq")
+    } else {
+        let output = Command::new("opam")
+            .args(["var", "lib"])
+            .output()
+            .context("resolve active opam Flocq library")?;
+        ensure!(
+            output.status.success() && output.stderr.is_empty(),
+            "cannot resolve active opam Flocq library"
+        );
+        let library = String::from_utf8(output.stdout)?;
+        ensure!(
+            !library.trim().is_empty(),
+            "active opam library path is empty"
+        );
+        PathBuf::from(library.trim()).join("coq/user-contrib/Flocq")
+    };
+    let configured = if configured.is_absolute() {
+        configured
+    } else {
+        root.join("proofs").join(configured)
+    };
+    ensure!(
+        configured.join("Core/Core.vo").is_file(),
+        "configured Flocq Core.vo is missing"
+    );
+    Ok(configured)
+}
+
+fn copy_flocq_objects(
+    source: &Path,
+    destination: &Path,
+    relative: &Path,
+    objects: &mut Vec<ProofFileDigest>,
+) -> Result<()> {
+    fs::create_dir_all(destination.join(relative))?;
+    for entry in fs::read_dir(source.join(relative))? {
+        let entry = entry?;
+        let kind = entry.file_type()?;
+        ensure!(
+            !kind.is_symlink(),
+            "Flocq replay rejects symbolic library entries"
+        );
+        let relative = relative.join(entry.file_name());
+        if kind.is_dir() {
+            copy_flocq_objects(source, destination, &relative, objects)?;
+        } else if kind.is_file()
+            && relative
+                .extension()
+                .is_some_and(|extension| extension == "vo")
+        {
+            let path = source.join(&relative);
+            let digest = super::file_sha256(&path)?;
+            fs::copy(&path, destination.join(&relative))?;
+            ensure!(
+                super::file_sha256(&destination.join(&relative))? == digest,
+                "Flocq object changed during copy"
+            );
+            objects.push(ProofFileDigest {
+                path: format!(
+                    "external/Flocq/{}",
+                    relative
+                        .to_str()
+                        .context("Flocq object path must be UTF-8")?
+                ),
+                sha256: digest,
+            });
+        }
+    }
+    Ok(())
+}
+
+fn prepare_flocq(
+    root: &Path,
+    directory: &Path,
+    witness: &TheoremKernelWitness,
+) -> Result<Vec<ProofFileDigest>> {
+    if !uses_flocq(root, witness)? {
+        return Ok(Vec::new());
+    }
+    let mut objects = Vec::new();
+    copy_flocq_objects(
+        &configured_flocq_root(root)?,
+        &directory.join("external/Flocq"),
+        Path::new(""),
+        &mut objects,
+    )?;
+    objects.sort_by(|left, right| left.path.cmp(&right.path));
+    Ok(objects)
+}
+
 impl KernelReplayEvidence {
     pub(super) fn validate(&self, witness: &TheoremKernelWitness) -> Result<()> {
         ensure!(
@@ -152,6 +283,39 @@ impl KernelReplayEvidence {
             "trusted Rocq replay differs from witnessed source or object bytes"
         );
         let mut compiled = BTreeSet::new();
+        let flocq = !self.flocq_objects.is_empty();
+        if flocq {
+            ensure!(
+                self.flocq_objects
+                    .iter()
+                    .any(|object| object.path == "external/Flocq/Core/Core.vo"),
+                "Flocq replay lacks its core object"
+            );
+            let mut previous = "";
+            for object in &self.flocq_objects {
+                let relative = object
+                    .path
+                    .strip_prefix("external/Flocq/")
+                    .context("invalid Flocq replay object root")?;
+                ensure!(
+                    object.path.as_str() > previous
+                        && relative.ends_with(".vo")
+                        && Path::new(relative)
+                            .components()
+                            .all(|component| matches!(component, std::path::Component::Normal(_))),
+                    "invalid or repeated Flocq replay object path"
+                );
+                ensure!(
+                    object.sha256.len() == 64
+                        && object
+                            .sha256
+                            .bytes()
+                            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
+                    "invalid Flocq object digest"
+                );
+                previous = &object.path;
+            }
+        }
         for command in &self.compilation {
             let source = command
                 .arguments
@@ -161,7 +325,10 @@ impl KernelReplayEvidence {
                 compiled.insert(format!("proofs/{source}")),
                 "replay repeats a compiled source"
             );
-            command.validate(compiler_arguments(source, witness)?)?;
+            command.validate(external_arguments(
+                compiler_arguments(source, witness)?,
+                flocq,
+            ))?;
         }
         ensure!(
             compiled
@@ -172,13 +339,16 @@ impl KernelReplayEvidence {
                     .collect(),
             "replay compilation differs from complete source closure"
         );
-        self.checker.validate(checker_arguments(witness)?)?;
+        self.checker
+            .validate(external_arguments(checker_arguments(witness)?, flocq))?;
         ensure!(
             self.checker.log().contains("CONTEXT SUMMARY"),
             "trusted checker replay lacks its context summary"
         );
-        self.assumptions
-            .validate(compiler_arguments("KernelReceiptAssumptions.v", witness)?)?;
+        self.assumptions.validate(external_arguments(
+            compiler_arguments("KernelReceiptAssumptions.v", witness)?,
+            flocq,
+        ))?;
         let log = self.assumptions.log();
         let reports = super::labeled_assumption_reports(&log)?;
         ensure!(
@@ -327,12 +497,17 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
             source.path
         );
     }
+    let flocq_objects = prepare_flocq(root, &scratch.0, witness)?;
+    let flocq = !flocq_objects.is_empty();
     let mut compilation = Vec::new();
     for source in ordered {
         compilation.push(run(
             &program,
             &scratch.0,
-            compiler_arguments(relative_source(&source)?, witness)?,
+            external_arguments(
+                compiler_arguments(relative_source(&source)?, witness)?,
+                flocq,
+            ),
         )?);
     }
     let object = scratch
@@ -344,7 +519,11 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
         proof_object_sha256 == witness.proof_object.sha256,
         "retained proof object differs from genuine source-closure compilation"
     );
-    let checker = run(&program, &scratch.0, checker_arguments(witness)?)?;
+    let checker = run(
+        &program,
+        &scratch.0,
+        external_arguments(checker_arguments(witness)?, flocq),
+    )?;
     let logical = logical_module(&witness.proof_path)?;
     let mut query = format!("Require Import {logical}.\n");
     for declaration in &witness.declarations {
@@ -354,14 +533,24 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
     let assumptions = run(
         &program,
         &scratch.0,
-        compiler_arguments("KernelReceiptAssumptions.v", witness)?,
+        external_arguments(
+            compiler_arguments("KernelReceiptAssumptions.v", witness)?,
+            flocq,
+        ),
     )?;
+    for object in &flocq_objects {
+        ensure!(
+            super::file_sha256(&scratch.0.join(&object.path))? == object.sha256,
+            "Flocq replay object changed during execution"
+        );
+    }
     let evidence = KernelReplayEvidence {
         schema_version: 1,
         toolchain: TOOLCHAIN.to_owned(),
         project_sha256: witness.project_sha256.clone(),
         sources: witness.sources.clone(),
         proof_object_sha256,
+        flocq_objects,
         compilation,
         checker,
         assumptions,
@@ -375,12 +564,16 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
 pub(super) fn genuine_fixture_artifacts(root: &Path, witness: &TheoremKernelWitness) -> Result<()> {
     let program = trusted_program()?;
     let directory = root.join("proofs");
+    let flocq = !prepare_flocq(root, &directory, witness)?.is_empty();
     let mut target_log = String::new();
     for source in &witness.sources {
         let evidence = run(
             &program,
             &directory,
-            compiler_arguments(relative_source(&source.path)?, witness)?,
+            external_arguments(
+                compiler_arguments(relative_source(&source.path)?, witness)?,
+                flocq,
+            ),
         )?;
         if source.path == witness.proof_path {
             target_log = evidence.log();
@@ -393,7 +586,11 @@ pub(super) fn genuine_fixture_artifacts(root: &Path, witness: &TheoremKernelWitn
             .with_extension("vo"),
         root.join("evidence/C900_Test.vo"),
     )?;
-    let checked = run(&program, &directory, checker_arguments(witness)?)?;
+    let checked = run(
+        &program,
+        &directory,
+        external_arguments(checker_arguments(witness)?, flocq),
+    )?;
     fs::write(root.join("evidence/kernel.log"), checked.log())?;
     let logical = logical_module(&witness.proof_path)?;
     fs::write(
@@ -405,7 +602,10 @@ pub(super) fn genuine_fixture_artifacts(root: &Path, witness: &TheoremKernelWitn
     let assumptions = run(
         &program,
         &directory,
-        compiler_arguments("KernelReceiptAssumptions.v", witness)?,
+        external_arguments(
+            compiler_arguments("KernelReceiptAssumptions.v", witness)?,
+            flocq,
+        ),
     )?;
     fs::write(root.join("evidence/assumptions.log"), assumptions.log())?;
     Ok(())
@@ -447,6 +647,7 @@ pub(super) fn fixture_evidence(witness: &TheoremKernelWitness) -> Result<KernelR
         project_sha256: witness.project_sha256.clone(),
         sources: witness.sources.clone(),
         proof_object_sha256: witness.proof_object.sha256.clone(),
+        flocq_objects: Vec::new(),
         compilation,
         checker: command(checker_arguments(witness)?, "CONTEXT SUMMARY\n".to_owned()),
         assumptions: command(

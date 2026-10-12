@@ -152,6 +152,14 @@ A changed source, project or retained role file invalidates active admission.
 Version 1 operator-declared receipts and raw artifacts remain immutable
 history; a fresh distinct evidence key records trusted replay for activation.
 The boundary trusts the host-selected compiler, libraries and store writer.
+Closures importing Flocq resolve FLOCQ_ROOT, or the active opam switch's
+documented library path. Replay copies the configured .vo library into a private
+external/Flocq directory, records sorted object digests and supplies the same
+portable -R mapping to compilation, checking and assumption queries. The
+snapshot binds the record-time library bytes without retaining a local path.
+Closures without Flocq preserve their original arguments and event envelopes.
+The proof component route includes replay owners and Cargo/toolchain inputs;
+its ignored genuine tests exercise both object admission and Flocq replay.
 Kernel replay supplies source/object conformance rather than cryptographic
 process attestation or physical/QPU evidence.
 
