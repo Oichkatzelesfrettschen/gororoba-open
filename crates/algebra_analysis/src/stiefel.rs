@@ -174,31 +174,84 @@ fn empty_stiefel_verification() -> StiefelVerification {
     }
 }
 
-/// Check imaginary-frame constraints on numerically singular random candidates.
-/// The search uses at most 100 attempts per requested candidate. An empty
-/// sample or a near-singular matrix supplies neither exact membership nor a
-/// global geometric conclusion. Scalar purity is required exactly; relative
-/// balance and normalized orthogonality use tolerance 0.01.
+/// Construct a unit sedenion from two seeded imaginary-octonion directions.
+fn random_stiefel_candidate(rng: &mut impl rand::Rng) -> Option<[f64; 16]> {
+    use rand::RngExt;
+
+    let mut first_direction = [0.0; 7];
+    let mut second_direction = [0.0; 7];
+    for coordinate in &mut first_direction {
+        *coordinate = rng.random_range(-1.0..1.0);
+    }
+    for coordinate in &mut second_direction {
+        *coordinate = rng.random_range(-1.0..1.0);
+    }
+    let first = normalized_vector(&first_direction)?;
+    let mut second = normalized_vector(&second_direction)?;
+    // Reorthogonalization removes cancellation left by the first projection.
+    for _ in 0..2 {
+        let projection = inner_product(&first, &second);
+        for (second_coordinate, first_coordinate) in second.iter_mut().zip(&first) {
+            *second_coordinate -= projection * first_coordinate;
+        }
+    }
+    if vec_norm(&second) < 1e-12 {
+        return None;
+    }
+    let second = normalized_vector(&second)?;
+    let mut coordinates = [0.0; 16];
+    for (coordinate, direction) in coordinates[1..8].iter_mut().zip(first) {
+        *coordinate = std::f64::consts::FRAC_1_SQRT_2 * direction;
+    }
+    for (coordinate, direction) in coordinates[9..16].iter_mut().zip(second) {
+        *coordinate = std::f64::consts::FRAC_1_SQRT_2 * direction;
+    }
+    Some(coordinates)
+}
+
+/// Check a seeded, constrained finite sample of V_2(R^7) imaginary frames.
+/// Normalized cube draws supply the directions; Gram-Schmidt projection and
+/// equal half scaling construct unit 16D candidates with scalar parts zero.
+/// Relative balance and normalized orthogonality require tolerance 1e-10.
+/// Each recorded candidate also passes a left-multiplication SVD threshold
+/// of 1e-8. The SVD check is a floating diagnostic, rather than an exact
+/// zero-product certificate or a proof of the global geometric identification.
+/// A zero request returns the empty report; every successful nonzero request
+/// returns exactly the requested count.
+///
+/// # Panics
+/// Panics if the requested count overflows the attempt budget or if 100
+/// attempts per requested candidate exhaust before the complete sample passes
+/// both numerical checks.
 pub fn verify_stiefel_condition(n_samples: usize, seed: u64) -> StiefelVerification {
-    use rand::{RngExt, SeedableRng};
+    use rand::SeedableRng;
     use rand_chacha::ChaCha8Rng;
 
     let mut rng = ChaCha8Rng::seed_from_u64(seed);
     let mut result = empty_stiefel_verification();
+    let max_attempts = n_samples
+        .checked_mul(100)
+        .expect("requested Stiefel sample count exceeds finite attempt budget");
     let mut attempts = 0;
-    while result.n_samples < n_samples && attempts < n_samples.saturating_mul(100) {
+    while result.n_samples < n_samples && attempts < max_attempts {
         attempts += 1;
-        let mut coordinates = [0.0f64; 16];
-        for coordinate in &mut coordinates {
-            *coordinate = rng.random_range(-1.0..1.0);
-        }
-        let Some(normalized) = normalized_vector(&coordinates) else {
+        let Some(coordinates) = random_stiefel_candidate(&mut rng) else {
             continue;
         };
-        if is_zero_divisor(&normalized) {
-            record_stiefel_candidate(&mut result, &normalized, 0.01);
+        let Some(residuals) = stiefel_frame_residuals(&coordinates) else {
+            continue;
+        };
+        if residuals.relative_norm_balance >= 1e-10 || residuals.orthogonality >= 1e-10 {
+            continue;
+        }
+        if is_zero_divisor(&coordinates) {
+            record_stiefel_candidate(&mut result, &coordinates, 1e-10);
         }
     }
+    assert_eq!(
+        result.n_samples, n_samples,
+        "Stiefel sample exhausted {max_attempts} attempts before collecting {n_samples} candidates"
+    );
     if result.n_samples > 0 {
         result.stiefel_fraction = result.n_stiefel as f64 / result.n_samples as f64;
     }
@@ -594,18 +647,71 @@ mod tests {
     #[test]
     fn test_stiefel_random_sample() {
         let result = verify_stiefel_condition(20, 42);
-        assert!(result.n_samples <= 20);
-        assert!(result.n_stiefel <= result.n_samples);
-        if result.n_samples == 0 {
-            assert_eq!(result.stiefel_fraction, 0.0);
-            assert_eq!(result.max_norm_violation, 0.0);
-            assert_eq!(result.max_ortho_violation, 0.0);
-        } else {
-            assert_eq!(
-                result.stiefel_fraction,
-                result.n_stiefel as f64 / result.n_samples as f64
-            );
+        assert_eq!(result.n_samples, 20);
+        assert_eq!(result.n_stiefel, 20);
+        assert_eq!(result.stiefel_fraction, 1.0);
+        assert!(result.max_norm_violation < 1e-12);
+        assert!(result.max_ortho_violation < 1e-12);
+    }
+
+    #[test]
+    fn constrained_random_candidates_are_seeded_unit_imaginary_frames() {
+        use rand::SeedableRng;
+        use rand_chacha::ChaCha8Rng;
+
+        let mut first_rng = ChaCha8Rng::seed_from_u64(42);
+        let mut replay_rng = ChaCha8Rng::seed_from_u64(42);
+        let first = random_stiefel_candidate(&mut first_rng).unwrap();
+        let replay = random_stiefel_candidate(&mut replay_rng).unwrap();
+        assert_eq!(first, replay);
+        let mut other_rng = ChaCha8Rng::seed_from_u64(43);
+        assert_ne!(first, random_stiefel_candidate(&mut other_rng).unwrap());
+
+        for seed in [0, 42, u64::MAX] {
+            let mut rng = ChaCha8Rng::seed_from_u64(seed);
+            for _ in 0..20 {
+                let coordinates = random_stiefel_candidate(&mut rng).unwrap();
+                assert_eq!(coordinates[0], 0.0);
+                assert_eq!(coordinates[8], 0.0);
+                assert!((vec_norm(&coordinates) - 1.0).abs() < 1e-12);
+                let first_norm = vec_norm(&coordinates[1..8]);
+                let second_norm = vec_norm(&coordinates[9..16]);
+                assert!((first_norm - std::f64::consts::FRAC_1_SQRT_2).abs() < 1e-12);
+                assert!((second_norm - std::f64::consts::FRAC_1_SQRT_2).abs() < 1e-12);
+                let residuals = stiefel_frame_residuals(&coordinates).unwrap();
+                assert!(residuals.relative_norm_balance < 1e-12);
+                assert!(residuals.orthogonality < 1e-12);
+                let matrix = crate::annihilator::left_multiplication_matrix(&coordinates, 16);
+                let singular_values = matrix.svd(false, false).singular_values;
+                assert!(singular_values.min() < 1e-8);
+            }
+            let result = verify_stiefel_condition(20, seed);
+            assert_eq!(result.n_samples, 20);
+            assert_eq!(result.n_stiefel, 20);
+            assert_eq!(result.stiefel_fraction, 1.0);
+            assert!(result.max_norm_violation < 1e-12);
+            assert!(result.max_ortho_violation < 1e-12);
+            let replay = verify_stiefel_condition(20, seed);
+            assert_eq!(result.max_norm_violation, replay.max_norm_violation);
+            assert_eq!(result.max_ortho_violation, replay.max_ortho_violation);
         }
+    }
+
+    #[test]
+    fn zero_stiefel_sample_request_returns_empty_report() {
+        let result = verify_stiefel_condition(0, 42);
+        assert_eq!(result.dim, 16);
+        assert_eq!(result.n_samples, 0);
+        assert_eq!(result.n_stiefel, 0);
+        assert_eq!(result.stiefel_fraction, 0.0);
+        assert_eq!(result.max_norm_violation, 0.0);
+        assert_eq!(result.max_ortho_violation, 0.0);
+    }
+
+    #[test]
+    #[should_panic(expected = "requested Stiefel sample count exceeds finite attempt budget")]
+    fn oversized_stiefel_sample_request_fails_explicitly() {
+        verify_stiefel_condition(usize::MAX, 42);
     }
 
     #[test]

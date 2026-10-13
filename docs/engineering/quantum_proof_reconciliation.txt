@@ -83,6 +83,11 @@ stiefel verifies the V_2(R^7) imaginary-half frame constraints for sedenion
 elements: finite sixteen-coordinate input, scalar coordinates 0 and 8 zero,
 equal nonzero imaginary-half norms and orthogonality. Numerical admission
 uses normalized residuals; the absolute balance remains a separate diagnostic.
+The seeded sampler constructs imaginary two-frames through normalization and
+Gram-Schmidt projection of cube draws. A separate multiplication-matrix SVD
+checks numerical singularity. Each nonzero request returns its complete count
+or fails explicitly at the bounded attempt budget. The sampler checks finite
+numerical consistency rather than a uniform distribution or a global theorem.
 The finite exact zero-product census counts factor occurrences, including
 repetitions. Generic R8 sphere transport keeps its separate frame domain and
 reports an endpoint comparison. Its angle supplies neither a closed-loop
