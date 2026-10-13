@@ -5,9 +5,9 @@
 updated = "deterministic"
 authoritative = true
 status = "active"
-lacuna_count = 311
-open_count = 140
-high_priority_count = 182
+lacuna_count = 312
+open_count = 141
+high_priority_count = 183
 medium_priority_count = 123
 low_priority_count = 6
 origin_kind_count = 4
@@ -2219,8 +2219,8 @@ priority = "medium"
 status = "open"
 claim_refs = ["C-011"]
 source_refs = ["registry/docs_root_narratives.toml", "docs/PHYSICAL_CLAIM_BOUNDARIES.md"]
-related_marker_ids = ["CM-0120"]
-historical_marker_ids = ["CM-0121"]
+related_marker_ids = ["CM-0121"]
+historical_marker_ids = ["CM-0120", "CM-0121"]
 
 [[lacuna]]
 id = "L-CM-v1-071c22db4848e8b47e60ade54b65f335e6058228b5bd5ba360fe3807c42eedef"
@@ -2499,8 +2499,8 @@ priority = "medium"
 status = "open"
 claim_refs = ["C-657"]
 source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
-related_marker_ids = ["CM-0115"]
-historical_marker_ids = ["CM-0116"]
+related_marker_ids = ["CM-0116"]
+historical_marker_ids = ["CM-0115", "CM-0116"]
 
 [[lacuna]]
 id = "L-CM-v1-380c6ae2249816ecfd0278c734510b6ad5cfbb1df6fe990ea2d6aa3d54f9267b"
@@ -2525,8 +2525,8 @@ priority = "high"
 status = "open"
 claim_refs = ["C-936"]
 source_refs = ["registry/claims.toml", "C-936"]
-related_marker_ids = ["CM-0113"]
-historical_marker_ids = ["CM-0114"]
+related_marker_ids = ["CM-0114"]
+historical_marker_ids = ["CM-0113", "CM-0114"]
 
 [[lacuna]]
 id = "L-CM-v1-3d91f6a70809f903cfcfb0408c1b9717c4746aa9a0555da9131035d36a44edc9"
@@ -2577,8 +2577,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md"]
-related_marker_ids = ["CM-0121"]
-historical_marker_ids = ["CM-0122"]
+related_marker_ids = ["CM-0122"]
+historical_marker_ids = ["CM-0121", "CM-0122"]
 
 [[lacuna]]
 id = "L-CM-v1-451a87784d10afc971a4ff5759c697fe10ffe9b6a5d6ba14bf6a08890fd986d2"
@@ -2730,8 +2730,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/PIONEER_FLYBY_ANOMALY_SOURCES.md"]
-related_marker_ids = ["CM-0126"]
-historical_marker_ids = ["CM-0127"]
+related_marker_ids = ["CM-0127"]
+historical_marker_ids = ["CM-0126", "CM-0127"]
 
 [[lacuna]]
 id = "L-CM-v1-6a2773c595c12bf43064eb222ffcdc538ab7a113e2f329f6d08cf12b39c66f2f"
@@ -2756,8 +2756,8 @@ priority = "medium"
 status = "open"
 claim_refs = ["C-012", "C-430", "C-441"]
 source_refs = ["registry/docs_root_narratives.toml", "docs/SCOPE_GUARDRAILS.md"]
-related_marker_ids = ["CM-0118"]
-historical_marker_ids = ["CM-0119"]
+related_marker_ids = ["CM-0119"]
+historical_marker_ids = ["CM-0118", "CM-0119"]
 
 [[lacuna]]
 id = "L-CM-v1-6e18c2fb67a72ff54df7e84ddd3882ae0eb3e7bcf74f0e65823a067ec5eba146"
@@ -2844,8 +2844,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md"]
-related_marker_ids = ["CM-0123"]
-historical_marker_ids = ["CM-0124"]
+related_marker_ids = ["CM-0124"]
+historical_marker_ids = ["CM-0123", "CM-0124"]
 
 [[lacuna]]
 id = "L-CM-v1-7550d0fdf17a01bce3259edc1e28722df5f3044b38886d5c8a5e12960e04ed5f"
@@ -2959,8 +2959,8 @@ priority = "high"
 status = "open"
 claim_refs = ["C-919"]
 source_refs = ["registry/claims.toml", "C-919"]
-related_marker_ids = ["CM-0111"]
-historical_marker_ids = ["CM-0112"]
+related_marker_ids = ["CM-0112"]
+historical_marker_ids = ["CM-0111", "CM-0112"]
 
 [[lacuna]]
 id = "L-CM-v1-7f2b46b3a1151cbcd47c64238d241857de5786660e1b6b5aab7a4bfa53e496a0"
@@ -2984,8 +2984,8 @@ priority = "medium"
 status = "open"
 claim_refs = ["C-657", "C-670"]
 source_refs = ["registry/docs_root_narratives.toml", "docs/PHASE1_REMAINING_ROADMAP.md"]
-related_marker_ids = ["CM-0117"]
-historical_marker_ids = ["CM-0118"]
+related_marker_ids = ["CM-0118"]
+historical_marker_ids = ["CM-0117", "CM-0118"]
 
 [[lacuna]]
 id = "L-CM-v1-80f9a41a021d3ca5bb4d20a86d8178cf6cc1d480f18408e52c8cba2973e282ae"
@@ -3265,8 +3265,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md"]
-related_marker_ids = ["CM-0125"]
-historical_marker_ids = ["CM-0126"]
+related_marker_ids = ["CM-0126"]
+historical_marker_ids = ["CM-0125", "CM-0126"]
 
 [[lacuna]]
 id = "L-CM-v1-acdc86369204e93aee6081736c5b650cf0b234bfe65b473e37f3fdb0d5f5f961"
@@ -3392,8 +3392,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
-related_marker_ids = ["CM-0116"]
-historical_marker_ids = ["CM-0117"]
+related_marker_ids = ["CM-0117"]
+historical_marker_ids = ["CM-0116", "CM-0117"]
 
 [[lacuna]]
 id = "L-CM-v1-c3c71e74db9f196ea7a4aa1726d4ab77f8a9800ffe997ae790501fc453789534"
@@ -3421,6 +3421,18 @@ source_refs = ["registry/claims.toml", "C-020"]
 related_marker_ids = ["CM-0001"]
 
 [[lacuna]]
+id = "L-CM-v1-c6275327398cdd55d108dcc3e839f0c36b39d0361ea0c9510413f28f1c2542fe"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve claim_status_statement_tension in C-881"
+description = "Verified status conflicts with negative language in statement."
+priority = "high"
+status = "open"
+claim_refs = ["C-881"]
+source_refs = ["registry/claims.toml", "C-881"]
+related_marker_ids = ["CM-0111"]
+
+[[lacuna]]
 id = "L-CM-v1-c6fc8aed575f24459cc7dbe8668d1e4cd71273dd5dbf3a01dcf56a93ba329434"
 origin = "conflict_marker_scan"
 area = "consistency"
@@ -3430,8 +3442,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/docs_root_narratives.toml", "docs/E027_PHASE2_EXECUTION_PLAN.md"]
-related_marker_ids = ["CM-0114"]
-historical_marker_ids = ["CM-0115"]
+related_marker_ids = ["CM-0115"]
+historical_marker_ids = ["CM-0114", "CM-0115"]
 
 [[lacuna]]
 id = "L-CM-v1-d03e7c3af55e5da56642b4055d327f1e0668ffe922f60ec4a3a1f36e99bb6b76"
@@ -3455,8 +3467,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md"]
-related_marker_ids = ["CM-0122"]
-historical_marker_ids = ["CM-0123"]
+related_marker_ids = ["CM-0123"]
+historical_marker_ids = ["CM-0122", "CM-0123"]
 
 [[lacuna]]
 id = "L-CM-v1-db3500c007d35abdd4a0ec36a8844e333e246dbb25a6509bb723f378f2164bee"
@@ -3468,8 +3480,8 @@ priority = "high"
 status = "open"
 claim_refs = ["C-921"]
 source_refs = ["registry/claims.toml", "C-921"]
-related_marker_ids = ["CM-0112"]
-historical_marker_ids = ["CM-0113"]
+related_marker_ids = ["CM-0113"]
+historical_marker_ids = ["CM-0112", "CM-0113"]
 
 [[lacuna]]
 id = "L-CM-v1-db3b5f5e611a806fee79b96c89b5f97661fcf13177a232776078eabb30fbe2d5"
@@ -3546,8 +3558,8 @@ priority = "medium"
 status = "open"
 claim_refs = ["C-012", "C-679"]
 source_refs = ["registry/docs_root_narratives.toml", "docs/SCOPE_GUARDRAILS.md"]
-related_marker_ids = ["CM-0119"]
-historical_marker_ids = ["CM-0120"]
+related_marker_ids = ["CM-0120"]
+historical_marker_ids = ["CM-0119", "CM-0120"]
 
 [[lacuna]]
 id = "L-CM-v1-e29bd461efc8d5eb8c066a72c1542e6e889ef676b3a2218460405159393c4417"
@@ -3571,8 +3583,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/INDEX.md"]
-related_marker_ids = ["CM-0124"]
-historical_marker_ids = ["CM-0125"]
+related_marker_ids = ["CM-0125"]
+historical_marker_ids = ["CM-0124", "CM-0125"]
 
 [[lacuna]]
 id = "L-CM-v1-e384c4875ddaa151e68b99d6d47123c997c248225f99d0fbb9929395e5246227"

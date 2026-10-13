@@ -4,8 +4,8 @@
 [conflict_markers]
 updated = "deterministic"
 authoritative = true
-marker_count = 126
-high_severity_count = 113
+marker_count = 127
+high_severity_count = 114
 medium_severity_count = 13
 low_severity_count = 0
 kind_count = 2
@@ -1885,6 +1885,23 @@ id = "CM-0111"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
+claim_refs = ["C-881"]
+source_registry = "registry/claims.toml"
+source_document = "C-881"
+section_label = "statement"
+line_start = 0
+line_end = 0
+positive_evidence = ["VERIFIED"]
+negative_evidence = ["For the fixed fifteen four-bit labels and Boolean classes in C881_GF2CubicMinDegree, every one of the 2048 coefficient choices over the eleven degree-at-most-two multilinear monomials, including the constant monomial, fails separation. The retained cubic separates and has maximum degree three. The formal theorem concerns these exact lists; correspondence to cross-assessor components uses the separately named Rust implementation test."]
+source_content_sha256 = "85c6b57152f505919b14dc7c4775193118469ff56834b2b03ca37780ad4d6f3e"
+jaccard_overlap = 0.000000
+notes = "Verified status conflicts with negative language in statement."
+
+[[marker]]
+id = "CM-0112"
+marker_kind = "claim_status_statement_tension"
+severity = "high"
+status = "open"
 claim_refs = ["C-919"]
 source_registry = "registry/claims.toml"
 source_document = "C-919"
@@ -1898,7 +1915,7 @@ jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0112"
+id = "CM-0113"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1915,7 +1932,7 @@ jaccard_overlap = 0.000000
 notes = "Verified status conflicts with negative language in statement."
 
 [[marker]]
-id = "CM-0113"
+id = "CM-0114"
 marker_kind = "claim_status_statement_tension"
 severity = "high"
 status = "open"
@@ -1932,7 +1949,7 @@ jaccard_overlap = 0.000000
 notes = "Refuted/negative status conflicts with positive language in statement."
 
 [[marker]]
-id = "CM-0114"
+id = "CM-0115"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1949,7 +1966,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0115"
+id = "CM-0116"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1966,7 +1983,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0116"
+id = "CM-0117"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -1983,7 +2000,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0117"
+id = "CM-0118"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2000,7 +2017,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0118"
+id = "CM-0119"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2017,7 +2034,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0119"
+id = "CM-0120"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2034,7 +2051,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0120"
+id = "CM-0121"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2051,7 +2068,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0121"
+id = "CM-0122"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2068,7 +2085,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0122"
+id = "CM-0123"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2085,7 +2102,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0123"
+id = "CM-0124"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2102,7 +2119,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0124"
+id = "CM-0125"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2119,7 +2136,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0125"
+id = "CM-0126"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2136,7 +2153,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0126"
+id = "CM-0127"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"

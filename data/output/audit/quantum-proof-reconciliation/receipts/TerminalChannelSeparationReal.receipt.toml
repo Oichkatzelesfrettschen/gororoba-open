@@ -1,0 +1,68 @@
+evidence_key = "quantum-source-replay-TerminalChannelSeparationReal-37f986059454"
+actor = "codex"
+reason = "Renew project-bound admission through fresh pinned complete-source compilation, retained object reproduction, independent checking and every recognized declaration assumption query."
+applied_at = "2026-10-13T02:39:01Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-TerminalChannelSeparationReal"
+proof_path = "proofs/theories/TerminalChannelSeparationReal.v"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparationReal.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparationReal"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/TerminalChannelSeparationReal.v"
+sha256 = "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/TerminalChannelSeparationReal.compile.txt"
+sha256 = "50931813f874961585e741e6033e3b8b948bee12e207b52c21e34f3d2a976c2f"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/TerminalChannelSeparationReal.kernel.txt"
+sha256 = "21ac8ced1b33d60841abc171c205fd04d60ccf964fba53cbe53280f32286f864"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/TerminalChannelSeparationReal.assumptions.txt"
+sha256 = "d488255ff44df3f896a34370e85bfa2b6ca82327912dc902725a3b1901679b1b"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/TerminalChannelSeparationReal.vo"
+sha256 = "1def7b92e9945200c0910ef80f201fae7a56a955177d584ca6cacf4c47626676"
+
+[[witness.declarations]]
+name = "binary_channel"
+statement = "Definition binary_channel (false_positive true_positive input_mean : R) : R := false_positive * (1 - input_mean) + true_positive * input_mean"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "binary_channel_contracts_separation"
+statement = "Theorem binary_channel_contracts_separation : forall false_positive true_positive first_mean second_mean, 0 <= false_positive <= 1 -> 0 <= true_positive <= 1 -> Rabs (binary_channel false_positive true_positive first_mean - binary_channel false_positive true_positive second_mean) <= Rabs (first_mean - second_mean)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "absolute_radius_bounds"
+statement = "Lemma absolute_radius_bounds : forall value center radius, Rabs (value - center) <= radius -> center - radius <= value <= center + radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "difference_radius_bound"
+statement = "Theorem difference_radius_bound : forall first second first_center second_center first_radius second_radius, Rabs (first - first_center) <= first_radius -> Rabs (second - second_center) <= second_radius -> Rabs ((first - second) - (first_center - second_center)) <= first_radius + second_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "separation_radius_bound"
+statement = "Theorem separation_radius_bound : forall first second first_center second_center first_radius second_radius, Rabs (first - first_center) <= first_radius -> Rabs (second - second_center) <= second_radius -> Rabs (first - second) <= Rabs (first_center - second_center) + first_radius + second_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "separated_centers_exclude_common_binary_channel"
+statement = "Theorem separated_centers_exclude_common_binary_channel : forall output_first output_second input_first input_second output_first_center output_second_center input_first_center input_second_center output_first_radius output_second_radius input_first_radius input_second_radius, Rabs (output_first - output_first_center) <= output_first_radius -> Rabs (output_second - output_second_center) <= output_second_radius -> Rabs (input_first - input_first_center) <= input_first_radius -> Rabs (input_second - input_second_center) <= input_second_radius -> Rabs (input_first_center - input_second_center) + output_first_radius + output_second_radius + input_first_radius + input_second_radius < Rabs (output_first_center - output_second_center) -> ~ exists false_positive true_positive, 0 <= false_positive <= 1 /\\ 0 <= true_positive <= 1 /\\ output_first = binary_channel false_positive true_positive input_first /\\ output_second = binary_channel false_positive true_positive input_second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

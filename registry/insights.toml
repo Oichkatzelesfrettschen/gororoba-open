@@ -2178,6 +2178,7 @@ date = "2026-02-09"
 id = "I-039"
 sprint = 29
 status = "verified"
+status_note = "The historical research summary retains its original wording. C-586 now records 168 exact zero-product factor occurrences with zero scalar coordinates and imaginary V_2(R^7) frames; full-octonion V_8,2 constraints omit the sedenion scalar domain. The finite diagnostic and global manifold source theorem retain separate evidence scopes."
 summary = "Sprint 29 executed five parallel research directions: (D1) Gresnigt subalgebra decomposition -- 15 alternative subalgebras, uniform structure, depth as mass discriminator (I-038). (D2) Albert algebra J_3(O) -- 27D exceptional Jordan algebra with Cardano eigenvalue solver; Singh delta^2=3/8 NOT reproduced for real trace-free elements, likely requires complexified algebra (C-584, C-585 NEGATIVE). (D3) Koebisu Stiefel manifold -- 168/168 confirmed ZDs satisfy V_{8,2} exactly (C-586). (D4) Tang convention unblocking -- depth-based norms (0.87-2.0 range) insufficient for 3500:1 mass hierarchy (C-587 NEGATIVE). (L4) Imbalance convergence -- reusable compute_imbalance_index() function, dim=2048 test scaffolded (C-588). Two genuine negative results (C-585, C-587) constrain future approaches: raw associator norms and generic real J_3(O) elements are insufficient for mass ratio predictions."
 title = "Five-Direction Research Sprint: Stiefel V_{8,2}, Albert J_3(O), and Negative Results"
 

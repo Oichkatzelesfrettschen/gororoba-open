@@ -1,0 +1,27 @@
+{
+  "schema": "kernel-attachment-proof-obligations-v1",
+  "rocq_status": "deferred-until-approved-run-results",
+  "release_milestone": "The execution owner reports lossless raw collection and preregistered adjudication complete for the approved campaign, or the human supplies a new instruction.",
+  "evidence_boundary": "Run results determine workflow order. Deterministic real-algebraic and topological claims require their own proofs independently of QPU frequencies.",
+  "lemmas": [
+    {"name": "polynomial_generic_rank", "premises": ["M in R[t]^(m x n)", "nonzero rank-sized minor", "independent full rational kernel frame"], "conclusion": "Outside a finite polynomial exceptional set the matrix rank equals the certified generic rank.", "dependencies": ["field elimination", "polynomial root finiteness"]},
+    {"name": "orthogonal_projector_removable_limit", "premises": ["real parameter", "Euclidean Gram metric", "complete generic kernel"], "conclusion": "The rational kernel projector extends through every real endpoint and its limit has the generic rank and lies in the endpoint kernel.", "dependencies": ["Gram positive definiteness", "rational-function pole order", "bounded orthogonal projection", "idempotent trace equals rank"]},
+    {"name": "persistent_chart_radius", "premises": ["nonzero exceptional polynomial", "nonzero constant term after removing endpoint factor"], "conclusion": "The recorded rational radius excludes every other exceptional parameter and certifies the persistent frame.", "dependencies": ["polynomial coefficient bound", "projector limit"]},
+    {"name": "unit_incidence_closure", "premises": ["certified punctured real interval", "continuous projector", "unit partner"], "conclusion": "The closure fiber equals the unit sphere of the limiting projector range.", "dependencies": ["continuity", "positive normalization near the endpoint"]},
+    {"name": "three_coefficient_cone_ranks", "premises": ["x=e1+e18+A e3+B e8+C e27", "A,B,C arbitrary real"], "conclusion": "Nullities are zero off A^2+B^2=C^2, eight on its punctured cone, and twelve at its vertex.", "dependencies": ["XOR sector cover", "block determinants", "positive Gram characteristic coefficient", "two rational circle charts"]},
+    {"name": "cone_kernel_bundle_and_attachment", "premises": ["punctured cone", "global internal pivots", "orthogonal external frames"], "conclusion": "The rank-eight kernel bundle has complete global frames; its limiting planes are C4 plus a circle of rotating four-planes.", "dependencies": ["block elimination", "positive pivot determinant", "quaternion complex structure", "compactified circle coverage"]},
+    {"name": "cone_attachment_image", "premises": ["complete endpoint decomposition C4 plus R4 plus R4", "all circle directions"], "conclusion": "The unit-partner attachment image is homeomorphic to S3*(S1 x S3). Integral homology occurs in degrees zero,five,seven,eight; torsion and positive cup products vanish.", "dependencies": ["rank-one tensor factorization", "diagonal involution quotient", "explicit quaternion homeomorphism", "join coordinates", "product cellular chains", "suspension homology"]},
+    {"name": "cone_total_incidence_retraction", "premises": ["complete continuous global cone frames", "central full kernel sphere"], "conclusion": "Two mapping cylinders describe the restricted incidence and an explicit strong deformation retraction identifies its homotopy type as S11.", "dependencies": ["weighted sphere chart inverse", "compact-band quotient topology", "uniform endpoint frame continuity"]},
+    {"name": "quaternion_automorphism_doubling", "premises": ["unital multiplicative quaternion map", "conjugation commutation"], "conclusion": "Diagonal extension is an orthogonal Cayley-Dickson automorphism at every higher stage.", "dependencies": ["Cayley-Dickson product recursion"]},
+    {"name": "ordinary_embedding_attachment_induction", "premises": ["pure coefficient path", "ordinary zero-padded embedding"], "conclusion": "Projectors, persistent and endpoint kernels, and attachment maps double through every stage. The named cone family has common dimension p=2^(n-3), attachment image S^(p-1)*(S1 x S^(p-1)), and total-incidence homotopy S^(3p-1).", "dependencies": ["right-left conjugation identity", "orthogonal direct sum", "even-dimensional complex structure", "cone attachment and mapping-cylinder proofs"]}
+  ],
+  "remaining_ambient_obligations": [
+    "Classify unrestricted real rank loci, including all coefficient directions.",
+    "Construct compatible smooth strata and prove their coverage.",
+    "Determine every frontier, kernel limit and local link in the complete pair space.",
+    "Construct a certified finite global topological model with explicit gluing maps.",
+    "Compute unrestricted integral homology, torsion, cohomology products and selected homotopy invariants.",
+    "Prove unrestricted all-dimensional classification.",
+    "Port the admitted lemmas into Rocq after the run-results workflow milestone."
+  ]
+}

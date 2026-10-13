@@ -1,0 +1,26 @@
+Declaration: table_lookup_tabulate
+Closed under the global context
+Declaration: table_extensional
+Closed under the global context
+Declaration: supported_tables_spec
+Closed under the global context
+Declaration: nodup_injective_map
+Closed under the global context
+Declaration: nodup_cartesian_product
+Closed under the global context
+Declaration: supported_tables_unique
+Closed under the global context
+Declaration: supported_tables_length
+Closed under the global context
+Declaration: anf_table
+Closed under the global context
+Declaration: anf_table_injective
+Closed under the global context
+Declaration: normalized_code_tables
+Closed under the global context
+Declaration: normalized_code_tables_spec
+Closed under the global context
+Declaration: normalized_code_tables_unique
+Closed under the global context
+Declaration: normalized_code_cardinality
+Closed under the global context

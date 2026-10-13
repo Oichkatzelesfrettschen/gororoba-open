@@ -1,0 +1,241 @@
+[
+  {
+    "submission_complete": true,
+    "backends_without_recorded_job_id": [],
+    "members_without_recorded_job_id": [],
+    "jobs_without_recorded_id": [],
+    "jobs": {
+      "db6p55clf4us73c5nd9g": {
+        "backend": "ibm_kingston",
+        "kind": "dynamic",
+        "usage": {
+          "job_status": "DONE",
+          "usage_status": "final",
+          "usage_source": "job.usage(partial=False)",
+          "submitted_pub_shots": 32768,
+          "qpu_charge_time_seconds": "11",
+          "pub_shots_per_qpu_second": "2978.909",
+          "throughput_unavailable_reason": null,
+          "raw_usage_metadata": {
+            "qpu_charge_time_seconds": 11,
+            "value": 0.1775,
+            "unit": "resource_units",
+            "status": "complete",
+            "details": [
+              {
+                "value": 0.1775,
+                "unit": "resource_units",
+                "metric": {
+                  "id": "caffe3ca-729c-5750-8777-df63bbf8bfd9",
+                  "value": 11
+                }
+              }
+            ]
+          }
+        },
+        "pub_timing": {
+          "ibm_kingston_dynamic_pub_01": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:14:21.586305+00:00",
+            "execution_window_stop": "2026-10-13T02:14:32.997882+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_02": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:14:21.586305+00:00",
+            "execution_window_stop": "2026-10-13T02:14:32.997882+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_03": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:14:21.586305+00:00",
+            "execution_window_stop": "2026-10-13T02:14:32.997882+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_04": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:14:21.586305+00:00",
+            "execution_window_stop": "2026-10-13T02:14:32.997882+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          }
+        },
+        "raw": {
+          "directory": "raw/db6p55clf4us73c5nd9g",
+          "files": {
+            "pub_00.json": "6b4720106b57dc3fadbefda6e4f603b8a514dd2c1750483257770d47d3c55634",
+            "pub_01.json": "ec94ea17305c119f7c441059f4df4d12e17e95361064656c4295883ef5540671",
+            "pub_02.json": "d6bcde97ecdf7e7e0940f8e7a83eafdac9c918f6a7ec8cb097f57c54ee4924f1",
+            "pub_03.json": "8bb2c96e3bd23f30d30f273415649986a3755099559a7c771e3ddb57bc05a01e",
+            "result_metadata.json": "4d2bf1ba03bba7799e5c975590726725267f46fb23d23c43d7a9287dfd09bd15"
+          }
+        }
+      }
+    },
+    "family_analysis": {
+      "schema": "folded-correction-collected-decision-v1",
+      "family": "folded-correction",
+      "decision_available": false,
+      "scientific_scope": "supplied odd-label witnesses; recorded-bit dependence with dispatch retained",
+      "withheld": "correction acquisition or schedule evidence: then and else corrections occupy different time slots"
+    },
+    "invocation_usage": {
+      "known_final_charge_seconds": "11",
+      "total_charge_seconds": "11",
+      "charge_complete": true,
+      "workload_complete": true,
+      "predicted_charge_seconds": 11.588024064000003,
+      "charge_prediction_residual_seconds": -0.5880240640000025,
+      "charge_prediction_residual_withheld": null,
+      "jobs_without_final_charge": []
+    }
+  },
+  {
+    "group": "folded_correction",
+    "backend": "ibm_kingston",
+    "job_id": "db6p55clf4us73c5nd9g",
+    "executed": {
+      "correction_measured_s1": {
+        "pub": "ibm_kingston_dynamic_pub_01",
+        "start": "2026-10-13T02:14:21.586305+00:00",
+        "stop": "2026-10-13T02:14:32.997882+00:00",
+        "calibration": "2026-10-12T18:47:31-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_known_s1": {
+        "pub": "ibm_kingston_dynamic_pub_02",
+        "start": "2026-10-13T02:14:21.586305+00:00",
+        "stop": "2026-10-13T02:14:32.997882+00:00",
+        "calibration": "2026-10-12T18:47:31-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_known_s3": {
+        "pub": "ibm_kingston_dynamic_pub_03",
+        "start": "2026-10-13T02:14:21.586305+00:00",
+        "stop": "2026-10-13T02:14:32.997882+00:00",
+        "calibration": "2026-10-12T18:47:31-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_measured_s3": {
+        "pub": "ibm_kingston_dynamic_pub_04",
+        "start": "2026-10-13T02:14:21.586305+00:00",
+        "stop": "2026-10-13T02:14:32.997882+00:00",
+        "calibration": "2026-10-12T18:47:31-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      }
+    },
+    "packing_schedule": null,
+    "measured": {
+      "correction_measured_s1": [
+        [
+          0.062988,
+          0.712402,
+          0.046997,
+          0.177612
+        ]
+      ],
+      "correction_known_s1": [
+        [
+          0.059448,
+          0.715698,
+          0.050659,
+          0.174194
+        ]
+      ],
+      "correction_known_s3": [
+        [
+          0.047485,
+          0.172852,
+          0.062134,
+          0.717529
+        ]
+      ],
+      "correction_measured_s3": [
+        [
+          0.056641,
+          0.17688,
+          0.046631,
+          0.719849
+        ]
+      ]
+    },
+    "integer_counts": {
+      "correction_measured_s1": [
+        516,
+        5836,
+        385,
+        1455
+      ],
+      "correction_known_s1": [
+        487,
+        5863,
+        415,
+        1427
+      ],
+      "correction_known_s3": [
+        389,
+        1416,
+        509,
+        5878
+      ],
+      "correction_measured_s3": [
+        464,
+        1449,
+        382,
+        5897
+      ]
+    },
+    "inference": "the header family_analysis gates the sole exact-binomial optimizer decision"
+  }
+]

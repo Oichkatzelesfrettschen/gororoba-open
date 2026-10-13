@@ -1,0 +1,215 @@
+{
+  "analysis_digest": "1fdb68508f14279df695988f33ff274254d2a95917c1a28c473175904d10ddd1",
+  "analysis_sources_sha256": {
+    "correction_circuits.py": "1df4b0a7b0681ee680122cd527494ee1323fb73c0524e570d495f572743da0f3",
+    "correction_collection.py": "21a2c164a8b0c975812f477eacd27fa324a5313e3cd01d09747f19bcb15e6fd8",
+    "correction_reanalysis.py": "8a6cc210490f8b55c183489f1031423b8b06877aa61937506e790f0b5a496067",
+    "correction_schedule.py": "ca6f58c9a9b0067ff5b7ca15c7ac1901ebfc2b65682df48765ef1e69325d7033",
+    "correction_statistics.py": "0dcacbc5eab491e9cce6ab811a5c20a3e5c9a88f09a9f047c5342be84423223e"
+  },
+  "backend": "ibm_kingston",
+  "decision_available": true,
+  "inputs_sha256": {
+    "collect.json": "e11c9a43f4596cddb27947c94072b4fe6e8c794add28aac637299c8cfc2e6574",
+    "isa.qpy": "6ad11f4df63879fff798eeecb8350f4c2b8197d8cc3f787dd52dd36ac884e09e",
+    "raw/db6p55clf4us73c5nd9g/pub_00.json": "6b4720106b57dc3fadbefda6e4f603b8a514dd2c1750483257770d47d3c55634",
+    "raw/db6p55clf4us73c5nd9g/pub_01.json": "ec94ea17305c119f7c441059f4df4d12e17e95361064656c4295883ef5540671",
+    "raw/db6p55clf4us73c5nd9g/pub_02.json": "d6bcde97ecdf7e7e0940f8e7a83eafdac9c918f6a7ec8cb097f57c54ee4924f1",
+    "raw/db6p55clf4us73c5nd9g/pub_03.json": "8bb2c96e3bd23f30d30f273415649986a3755099559a7c771e3ddb57bc05a01e",
+    "record.json": "d9441a3b8c613c666657f3abdceb7eab9842db5d97310ec3af0319b21ad020ee"
+  },
+  "integer_counts": {
+    "correction_known_s1": [
+      487,
+      5863,
+      415,
+      1427
+    ],
+    "correction_known_s3": [
+      389,
+      1416,
+      509,
+      5878
+    ],
+    "correction_measured_s1": [
+      516,
+      5836,
+      385,
+      1455
+    ],
+    "correction_measured_s3": [
+      464,
+      1449,
+      382,
+      5897
+    ]
+  },
+  "job_id": "db6p55clf4us73c5nd9g",
+  "original_withheld": "correction acquisition or schedule evidence: then and else corrections occupy different time slots",
+  "schedule_pairs": {
+    "1": {
+      "circuit_duration_dt": 5741,
+      "circuit_duration_seconds": 2.2964000000000002e-05,
+      "circuit_pair_report_sha256": "c68d8e924d53c7990fe71b0fc48f461f086e6f967c01c24043a9212e72860c55",
+      "correction_branch_start_dt": {
+        "feedback": {
+          "else": 4075,
+          "then": 4071
+        },
+        "independent": {
+          "else": 4075,
+          "then": 4071
+        }
+      },
+      "correction_start_dt": 4071,
+      "dt_seconds": 4e-09,
+      "evidence_scope": "exposed native event CSV and validated circuit pair; undisclosed controller behavior excluded",
+      "feedback_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+      "feedback_zero_phase_else_elided": false,
+      "independent_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+      "per_shot_timing_certified": false,
+      "phase_label": 1,
+      "phase_value_evidence": "validated circuit pair; scheduler CSV omits phase values",
+      "protected_event_count": 808,
+      "protected_events_sha256": "bfc2a7ca8aea79fa73c190a565e3327ef1be2185dd53ef139ddc56185d0f3f60",
+      "qualified": true,
+      "schema": "folded-correction-exposed-schedule-pair-v2",
+      "undisclosed_controller_behavior_certified": false
+    },
+    "3": {
+      "circuit_duration_dt": 5741,
+      "circuit_duration_seconds": 2.2964000000000002e-05,
+      "circuit_pair_report_sha256": "82c80c465bbb6764c5495459363914130616b7d7ec6c9b9937778256a4c63a69",
+      "correction_branch_start_dt": {
+        "feedback": {
+          "else": 4075,
+          "then": 4071
+        },
+        "independent": {
+          "else": 4075,
+          "then": 4071
+        }
+      },
+      "correction_start_dt": 4071,
+      "dt_seconds": 4e-09,
+      "evidence_scope": "exposed native event CSV and validated circuit pair; undisclosed controller behavior excluded",
+      "feedback_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+      "feedback_zero_phase_else_elided": false,
+      "independent_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+      "per_shot_timing_certified": false,
+      "phase_label": 3,
+      "phase_value_evidence": "validated circuit pair; scheduler CSV omits phase values",
+      "protected_event_count": 808,
+      "protected_events_sha256": "bfc2a7ca8aea79fa73c190a565e3327ef1be2185dd53ef139ddc56185d0f3f60",
+      "qualified": true,
+      "schema": "folded-correction-exposed-schedule-pair-v2",
+      "undisclosed_controller_behavior_certified": false
+    }
+  },
+  "schema": "folded-correction-second-analysis-v1",
+  "statistical_decision": {
+    "admit_known_correction": false,
+    "alpha": 0.05,
+    "assumptions": [
+      "independent stationary Bernoulli repetitions within each PUB",
+      "four directional bounds have family failure probability at most alpha by a union bound",
+      "dependence between PUBs is unrestricted for the observation bounds",
+      "descriptive first-bit strata supply neither additional inferential claims nor causal attribution",
+      "failure to admit establishes neither equivalence nor absence of improvement"
+    ],
+    "comparisons": [
+      {
+        "gain_estimate": -0.000244140625,
+        "gain_lower_bound": -0.021036548650177345,
+        "known_lower_bound": 0.7646235800991228,
+        "known_member": "correction_known_s1",
+        "known_successes": 6350,
+        "label": 1,
+        "measured_member": "correction_measured_s1",
+        "measured_successes": 6352,
+        "measured_upper_bound": 0.7856601287493001,
+        "passes_minimum_gain": false,
+        "shots_per_arm": 8192
+      },
+      {
+        "gain_estimate": 0.01318359375,
+        "gain_lower_bound": -0.007682588732011553,
+        "known_lower_bound": 0.7692126867360123,
+        "known_member": "correction_known_s3",
+        "known_successes": 6387,
+        "label": 3,
+        "measured_member": "correction_measured_s3",
+        "measured_successes": 6279,
+        "measured_upper_bound": 0.7768952754680238,
+        "passes_minimum_gain": false,
+        "shots_per_arm": 8192
+      }
+    ],
+    "decision": "retain_measured_correction",
+    "decision_rule": "known_lower - measured_upper > minimum_gain for both labels",
+    "descriptive_recorded_first_bit_strata": {
+      "correction_known_s1": [
+        {
+          "recorded_first_bit": 0,
+          "shots": 902,
+          "terminal_success_probability": 0.5399113082039911,
+          "terminal_successes": 487
+        },
+        {
+          "recorded_first_bit": 1,
+          "shots": 7290,
+          "terminal_success_probability": 0.8042524005486968,
+          "terminal_successes": 5863
+        }
+      ],
+      "correction_known_s3": [
+        {
+          "recorded_first_bit": 0,
+          "shots": 898,
+          "terminal_success_probability": 0.566815144766147,
+          "terminal_successes": 509
+        },
+        {
+          "recorded_first_bit": 1,
+          "shots": 7294,
+          "terminal_success_probability": 0.8058678365780093,
+          "terminal_successes": 5878
+        }
+      ],
+      "correction_measured_s1": [
+        {
+          "recorded_first_bit": 0,
+          "shots": 901,
+          "terminal_success_probability": 0.5726970033296337,
+          "terminal_successes": 516
+        },
+        {
+          "recorded_first_bit": 1,
+          "shots": 7291,
+          "terminal_success_probability": 0.8004388972706076,
+          "terminal_successes": 5836
+        }
+      ],
+      "correction_measured_s3": [
+        {
+          "recorded_first_bit": 0,
+          "shots": 846,
+          "terminal_success_probability": 0.4515366430260047,
+          "terminal_successes": 382
+        },
+        {
+          "recorded_first_bit": 1,
+          "shots": 7346,
+          "terminal_success_probability": 0.802749795807242,
+          "terminal_successes": 5897
+        }
+      ]
+    },
+    "method": "four_one_sided_clopper_pearson_bounds",
+    "minimum_gain": 0.01,
+    "numerical_method": "SciPy beta quantiles and binomial tails in float64; math.fsum aggregation; floating-point rounding is not interval-certified",
+    "per_bound_tail": 0.0125,
+    "schema": 1,
+    "scope": "known-label odd witnesses s1 and s3; circuit and schedule conformance require separate checks"
+  }
+}

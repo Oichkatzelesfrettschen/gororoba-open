@@ -1,0 +1,5 @@
+claim_id = "C-586"
+expected_statement = "168/168 confirmed diagonal zero-divisors of sedenions satisfy the Stiefel manifold V_{8,2} condition: decomposing z = (a, b) into octonion halves gives |a| = |b| (exact) and <a, b> = 0 (exact) for all zero-product pairs from cross-assessor structure. Supports Koebisu (arXiv:2512.13002)."
+expected_where_stated = "`crates/algebra_analysis/src/stiefel.rs` (test_verified_zd_count, test_basis_zd_stiefel)"
+statement = "The finite sedenion cross-assessor zero-product census records 168 factor occurrences satisfying zero scalar coordinates at indices 0 and 8, equal nonzero imaginary-half norms, and orthogonal imaginary halves. Normalizing those halves gives V_2(R^7) frames. The count includes repeated factors across returned solutions and partner pairs; the finite diagnostic does not establish a global diffeomorphism."
+where_stated = "crates/algebra_analysis/src/stiefel.rs (test_verified_zd_count, imaginary_frame_domain_requires_scalar_purity_and_nonzero_halves); crates/cd_kernel/src/cayley_dickson/sedenion_membership.rs"

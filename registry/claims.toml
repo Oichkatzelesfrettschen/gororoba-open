@@ -121,13 +121,13 @@ status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C013_AutomorphemesCo
 where_stated = "`docs/DE_MARRAIS_REPLICATION.md`, `crates/algebra_analysis/src/boxkites.rs` (test_automorphemes_cover_assessors_twice, test_production_rule_3_unique_other), `docs/BIBLIOGRAPHY.md`"
 
 [[claim]]
-formal_proof = "proofs/verified/C014_AnnihilatorDim4.v"
+formal_proof = "pending:annihilator dimension-four theorem; exact finite matrix certificates cover the 84 assessor diagonals"
 id = "C-014"
 last_verified = "2026-02-06"
 statement = "The diagonal-form family of 84 sedenion zero divisors `(e_low +/- e_high)` (from de Marrais' 42 primitive assessors) has left and right annihilator dimension 4 (so the annihilator unit sphere is S^3 ~ SU(2))."
 status = "Verified"
-status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C014_AnnihilatorDim4.v"
-where_stated = "`docs/REGGIANI_REPLICATION.md`, `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`, `crates/algebra_analysis/src/reggiani.rs` (test_all_standard_zds_have_nullity_4_4), `crates/algebra_analysis/src/annihilator.rs` (test_all_primitive_assessor_diagonals_have_nullity_4), `docs/BIBLIOGRAPHY.md`"
+status_note = "The exact rational rank-minor and complete-kernel test all_84_assessor_diagonals_have_certified_rank_twelve certifies the finite assessor family. The separately registered C-1773 proposition proves zero-left multiplication and one explicit nonzero partner. Kernel acceptance of that proposition establishes its stated products rather than an annihilator dimension theorem."
+where_stated = "`docs/REGGIANI_REPLICATION.md`, `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`, `crates/algebra_analysis/src/reggiani.rs` (test_all_standard_zds_have_nullity_4_4), `crates/algebra_analysis/src/annihilator.rs` (test_all_primitive_assessor_diagonals_have_nullity_4), `docs/BIBLIOGRAPHY.md`; crates/algebra_analysis/src/exact_annihilator.rs (all_84_assessor_diagonals_have_certified_rank_twelve)"
 
 [[claim]]
 formal_proof = "proofs/verified/C015_FourPartners.v"
@@ -8781,6 +8781,33 @@ status_note = "Scoped formal proposition for THM-LEGACY-C1463_ArithmeticInventor
 where_stated = "proofs/verified/C1463_ArithmeticInventory.v; data/output/audit/boolean-permutation-evidence/arithmetic-kernel/execution-summary.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt"
 
 [[claim]]
+formal_proof = "proofs/verified/C014_AnnihilatorDim4.v"
+id = "C-1773"
+last_verified = "2026-10-13"
+statement = "The concrete sedenion zero annihilates every sedenion on the left. The explicit nonzero partner sed_zd_b annihilates sed_zd_a in the stated product order. These declarations establish zero products and nonzero partner existence; dimension-four annihilators and product closure require separate theorems."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-C014_AnnihilatorDim4. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/verified/C014_AnnihilatorDim4.v; docs/engineering/quantum_proof_reconciliation.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/SedenionFoldTransport.v"
+id = "C-1774"
+last_verified = "2026-10-13"
+statement = "For the concrete sixteen-dimensional CDSed multiplication, average/detail coordinates and reconstruction are mutual inverses. Transported multiplication preserves and reflects zero products. The explicit factors e3+e10 and e6-e15 have zero sedenion product, while the product of their octonion averages equals e5/2 and is nonzero. The transform retains all sixteen real coordinates."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-SedenionFoldTransport. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/SedenionFoldTransport.v; docs/engineering/quantum_proof_reconciliation.txt"
+
+[[claim]]
+formal_proof = "proofs/theories/NullityTwelveQuadraticLocus.v"
+id = "C-1775"
+last_verified = "2026-10-13"
+statement = "For the eight displayed real quadratic generators in coordinates z5,z6,z13,z16,z17,z18,z19,z20, the common zero set equals the union of the two displayed coordinate planes A15 and B17, with thirteen other coordinates free. The two sum-of-squares identities and explicit rejected-direction controls are proved. Correspondence to Cayley-Dickson multiplication matrices, curve realization, Bouligand tangent limits, plane dimensions and topology require separate bridges."
+status = "Verified"
+status_note = "Scoped formal proposition for THM-LEGACY-NullityTwelveQuadraticLocus. Kernel execution status is recorded separately by source-bound receipts. Scope is limited to the stated assumptions and does not establish a physical or implementation claim."
+where_stated = "proofs/theories/NullityTwelveQuadraticLocus.v; docs/engineering/quantum_proof_reconciliation.txt"
+
+[[claim]]
 id = "C-178"
 last_verified = "2026-02-01"
 statement = 'Inner derivation space dimension (via D(a,b)(c) = A(a,b,c) - A(b,a,c) + A(c,a,b)): dim=0 at dim=2,4 (associative -> A=0); dim=21 at dim=8; dim=98 at dim=16; dim=383 at dim=32. Note: at dim=8 (octonions), Der(O) = g2 has dim 14, but this "inner derivation map" spans a 21-dimensional space of linear maps, not all of which satisfy the Leibniz rule.'
@@ -11693,9 +11720,10 @@ where_stated = "`CURRENT::PATH crates/gororoba_algebra/src/construction/albert.r
 [[claim]]
 id = "C-586"
 last_verified = "2026-02-09"
-statement = "168/168 confirmed diagonal zero-divisors of sedenions satisfy the Stiefel manifold V_{8,2} condition: decomposing z = (a, b) into octonion halves gives |a| = |b| (exact) and <a, b> = 0 (exact) for all zero-product pairs from cross-assessor structure. Supports Koebisu (arXiv:2512.13002)."
+statement = "The finite sedenion cross-assessor zero-product census records 168 factor occurrences satisfying zero scalar coordinates at indices 0 and 8, equal nonzero imaginary-half norms, and orthogonal imaginary halves. Normalizing those halves gives V_2(R^7) frames. The count includes repeated factors across returned solutions and partner pairs; the finite diagnostic does not establish a global diffeomorphism."
 status = "Verified"
-where_stated = "`crates/algebra_analysis/src/stiefel.rs` (test_verified_zd_count, test_basis_zd_stiefel)"
+status_note = "The fresh exact zero-product census records 168 factor occurrences with repeated witnesses and imaginary V_2(R^7) frame constraints. Numerical admission checks finite inputs, zero scalar coordinates, nonzero halves, normalized norm balance and normalized orthogonality. Global geometry remains a separate source theorem."
+where_stated = "crates/algebra_analysis/src/stiefel.rs (test_verified_zd_count, imaginary_frame_domain_requires_scalar_purity_and_nonzero_halves); crates/cd_kernel/src/cayley_dickson/sedenion_membership.rs"
 
 [[claim]]
 id = "C-587"
@@ -14019,10 +14047,10 @@ where_stated = "crates/sign_imbalance/src/sedenion_foliation.rs (test_single_sli
 formal_proof = "proofs/verified/C881_GF2CubicMinDegree.v"
 id = "C-881"
 last_verified = "2026-03-01"
-statement = "GF(2) cubic minimum separating degree in PG(3,2): the 8/7 motif class partition at CD dim=32 requires a degree-3 polynomial over GF(2) to separate. Degree 1 (linear) and degree 2 (quadratic) fail exhaustively."
+statement = "For the fixed fifteen four-bit labels and Boolean classes in C881_GF2CubicMinDegree, every one of the 2048 coefficient choices over the eleven degree-at-most-two multilinear monomials, including the constant monomial, fails separation. The retained cubic separates and has maximum degree three. The formal theorem concerns these exact lists; correspondence to cross-assessor components uses the separately named Rust implementation test."
 status = "Verified"
-status_note = "Formal proof: proofs/verified/C881_GF2CubicMinDegree.v (Rocq kernel-checked). Reformulation of refuted C-445: the positive content is that the minimum separating degree is exactly 3, not 1 as C-445 claimed."
-where_stated = "crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)"
+status_note = "The complete 2048-choice degree-two rejection, enumeration completeness and cubic witness concern the fixed fifteen labels and Boolean classes. Declaration-specific source-bound receipts establish execution admission; the Rust component-discovery test supplies a separate correspondence."
+where_stated = "proofs/verified/C881_GF2CubicMinDegree.v (degree2_coefficients_fail, fixed_partition_minimum_separating_degree); crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)"
 
 [[claim]]
 formal_proof = "proofs/verified/C882_ParityCliqueExact.v"

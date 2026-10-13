@@ -67,6 +67,11 @@ between the two doubling halves. Reconstruction returns average+detail and
 average-detail. Both channels retain the original scalar-coordinate count.
 The exact Rust round trips include dimensions 4096 and 65536; the scalar
 Rocq theorem proves the inverse identities over canonical rationals.
+SedenionFoldTransport separately proves the concrete sixteen-real-coordinate
+inverses and zero-product equivalence for transported multiplication.
+The pair e3+e10, e6-e15 has zero sedenion product while multiplication
+of its octonion averages yields e5/2. The all-stage tower bridge remains
+separate from these sixteen-dimensional theorems.
 
 The pair (1,-1) and zero both have average zero. Multiplication by (0,1)
 gives product averages one and zero. An average-only product law therefore
@@ -124,7 +129,10 @@ of its own declaration or executed witness. The principal-skew-atlas source
 snapshot has separate symbolic and runtime checks through dimension 256.
 Its written all-stage argument and the source's completed Schur acceleration
 certificates at snapshot 95fdc7f remain separate from the kernel-checked
-Boolean, fold and channel propositions. The Schur certificates distinguish
+Boolean, fold and channel propositions. The d4e3a7c source snapshot adds
+selected-center curve realizations and restricted cone attachments.
+quantum_proof_reconciliation.txt records their exact boundaries and the
+new polynomial-locus, finite cubic and sixteen-dimensional fold proofs. The Schur certificates distinguish
 first-order admissibility, complete second-order acceleration spaces and
 separating obstructions. Higher-order curves and a full stratum topology
 remain separate obligations.

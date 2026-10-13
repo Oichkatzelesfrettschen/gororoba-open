@@ -1,0 +1,118 @@
+evidence_key = "quantum-source-replay-SignCodeProjection-37f986059454"
+actor = "codex"
+reason = "Renew project-bound admission through fresh pinned complete-source compilation, retained object reproduction, independent checking and every recognized declaration assumption query."
+applied_at = "2026-10-13T02:39:01Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SignCodeProjection"
+proof_path = "proofs/theories/SignCodeProjection.v"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeProjection.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SignCodeProjection"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/SignCodeProjection.v"
+sha256 = "5311372ac352568bd63ecd2f850b82639952ac6f014158f8e5c6767b1cd23d8e"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/SignCodeProjection.compile.txt"
+sha256 = "cc5dd43f8b0636c397510d9da6469c46fe5aecb0d0a80aa7d21e2a610c899187"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/SignCodeProjection.kernel.txt"
+sha256 = "263ae57ce30ab0954cf7211712e543a9280fe82738ec570e04d44859c5405ad3"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/SignCodeProjection.assumptions.txt"
+sha256 = "17009565901cf998dadd43c4906f91edfcff94945fdea58ed789e720d25a7622"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SignCodeProjection.vo"
+sha256 = "0be2f4e254eb2d02f6490a0387f8c980cf5c19817095e37238bc46dcdc201ab9"
+
+[[witness.declarations]]
+name = "word"
+statement = "Definition word := Index -> bool"
+assumptions = []
+
+[[witness.declarations]]
+name = "word_eq"
+statement = "Definition word_eq (left right : word) := forall index, left index = right index"
+assumptions = []
+
+[[witness.declarations]]
+name = "word_add"
+statement = "Definition word_add (left right : word) : word := fun index => xorb (left index) (right index)"
+assumptions = []
+
+[[witness.declarations]]
+name = "constant"
+statement = "Definition constant (value : bool) : word := fun _ => value"
+assumptions = []
+
+[[witness.declarations]]
+name = "project"
+statement = "Definition project (value : word) : word := word_add value (constant (value origin))"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_zero"
+statement = "Theorem projection_zero : forall value, project value origin = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_linear"
+statement = "Theorem projection_linear : forall left right, word_eq (project (word_add left right)) (word_add (project left) (project right))"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_idempotent"
+statement = "Theorem projection_idempotent : forall value, word_eq (project (project value)) (project value)"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_kernel"
+statement = "Theorem projection_kernel : forall value, word_eq (project value) (constant false) <-> word_eq value (constant (value origin))"
+assumptions = []
+
+[[witness.declarations]]
+name = "scalar_decomposition"
+statement = "Theorem scalar_decomposition : forall value, word_eq value (word_add (project value) (constant (value origin)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "scalar_decomposition_unique"
+statement = "Theorem scalar_decomposition_unique : forall value normalized scalar, normalized origin = false -> word_eq value (word_add normalized (constant scalar)) -> scalar = value origin /\\ word_eq normalized (project value)"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_preserves_code"
+statement = "Theorem projection_preserves_code : forall value, kernel_code value -> kernel_code (project value)"
+assumptions = []
+
+[[witness.declarations]]
+name = "projection_image"
+statement = "Theorem projection_image : forall normalized, (exists value, kernel_code value /\\ word_eq (project value) normalized) <-> kernel_code normalized /\\ normalized origin = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "code_direct_sum"
+statement = "Theorem code_direct_sum : forall value, kernel_code value -> kernel_code (project value) /\\ project value origin = false /\\ word_eq value (word_add (project value) (constant (value origin))) /\\ (forall normalized scalar, normalized origin = false -> word_eq value (word_add normalized (constant scalar)) -> scalar = value origin /\\ word_eq normalized (project value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_projection_exact"
+statement = "Theorem controlled_projection_exact : forall control value scalar : bool, andb control value = xorb (andb control (xorb value scalar)) (andb control scalar)"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_scalar_distinguishable"
+statement = "Theorem controlled_scalar_distinguishable : andb false false = andb false true /\\ andb true false <> andb true true"
+assumptions = []

@@ -1,0 +1,20 @@
+correction_key = "quantum-proof-declaration-scopes"
+actor = "codex"
+reason = "Separate exact finite polynomial rejection from dataset correspondence and explicit sedenion partners from a dimension theorem."
+applied_at = "2026-10-13T02:31:47Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C014_AnnihilatorDim4"
+proof_path = "proofs/verified/C014_AnnihilatorDim4.v"
+expected_title = "Zero annihilation and one explicit nonzero sedenion partner"
+expected_claim_ids = ["C-014","C-1773"]
+title = "Zero annihilation and one explicit nonzero sedenion partner"
+claim_ids = ["C-1773"]
+
+[[correction]]
+stable_id = "THM-LEGACY-C881_GF2CubicMinDegree"
+proof_path = "proofs/verified/C881_GF2CubicMinDegree.v"
+expected_title = "GF(2) cubic minimum separating degree in PG(3,2): the 8/7 motif class partition at CD dim=32 requires a degree-3 polynomial over GF(2) to separate. Degree 1 (linear) and degree 2 (quadratic) fail exhaustively."
+expected_claim_ids = ["C-881"]
+title = "Complete degree-two rejection and cubic separation for the fixed fifteen Boolean labels"
+claim_ids = ["C-881"]

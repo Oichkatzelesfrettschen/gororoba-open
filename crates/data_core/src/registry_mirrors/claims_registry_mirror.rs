@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1585
+//! Total claims: 1588
 //!
 //! ## C-001
 //!
@@ -117,7 +117,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: The diagonal-form family of 84 sedenion zero divisors `(e_low +/- e_high)` (from de Marrais' 42 primitive assessors) has left and right annihilator dimension 4 (so the annihilator unit sphere is S^3 ~ SU(2)).
-//! - Where stated: `docs/REGGIANI_REPLICATION.md`, `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`, `crates/algebra_analysis/src/reggiani.rs` (test_all_standard_zds_have_nullity_4_4), `crates/algebra_analysis/src/annihilator.rs` (test_all_primitive_assessor_diagonals_have_nullity_4), `docs/BIBLIOGRAPHY.md`
+//! - Where stated: `docs/REGGIANI_REPLICATION.md`, `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`, `crates/algebra_analysis/src/reggiani.rs` (test_all_standard_zds_have_nullity_4_4), `crates/algebra_analysis/src/annihilator.rs` (test_all_primitive_assessor_diagonals_have_nullity_4), `docs/BIBLIOGRAPHY.md`; crates/algebra_analysis/src/exact_annihilator.rs (all_84_assessor_diagonals_have_certified_rank_twelve)
 //! - What would verify/refute it:
 //!
 //! ## C-015
@@ -4692,8 +4692,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-02-09
-//! - Statement: 168/168 confirmed diagonal zero-divisors of sedenions satisfy the Stiefel manifold V_{8,2} condition: decomposing z = (a, b) into octonion halves gives |a| = |b| (exact) and <a, b> = 0 (exact) for all zero-product pairs from cross-assessor structure. Supports Koebisu (arXiv:2512.13002).
-//! - Where stated: `crates/algebra_analysis/src/stiefel.rs` (test_verified_zd_count, test_basis_zd_stiefel)
+//! - Statement: The finite sedenion cross-assessor zero-product census records 168 factor occurrences satisfying zero scalar coordinates at indices 0 and 8, equal nonzero imaginary-half norms, and orthogonal imaginary halves. Normalizing those halves gives V_2(R^7) frames. The count includes repeated factors across returned solutions and partner pairs; the finite diagnostic does not establish a global diffeomorphism.
+//! - Where stated: crates/algebra_analysis/src/stiefel.rs (test_verified_zd_count, imaginary_frame_domain_requires_scalar_purity_and_nonzero_halves); crates/cd_kernel/src/cayley_dickson/sedenion_membership.rs
 //! - What would verify/refute it:
 //!
 //! ## C-587
@@ -7052,8 +7052,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-03-01
-//! - Statement: GF(2) cubic minimum separating degree in PG(3,2): the 8/7 motif class partition at CD dim=32 requires a degree-3 polynomial over GF(2) to separate. Degree 1 (linear) and degree 2 (quadratic) fail exhaustively.
-//! - Where stated: crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)
+//! - Statement: For the fixed fifteen four-bit labels and Boolean classes in C881_GF2CubicMinDegree, every one of the 2048 coefficient choices over the eleven degree-at-most-two multilinear monomials, including the constant monomial, fails separation. The retained cubic separates and has maximum degree three. The formal theorem concerns these exact lists; correspondence to cross-assessor components uses the separately named Rust implementation test.
+//! - Where stated: proofs/verified/C881_GF2CubicMinDegree.v (degree2_coefficients_fail, fixed_partition_minimum_separating_degree); crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)
 //! - What would verify/refute it:
 //!
 //! ## C-882
@@ -12686,4 +12686,28 @@
 //! - Last verified: 2026-10-12
 //! - Statement: C1463_ArithmeticInventory proves exactly 22 displayed closed equations in natural-number arithmetic using concrete addition, multiplication, natural-number division and powers, including 7*6=42,2^8=256 and256/16=16. The formal scope is the displayed equations. Identification with algebraic object counts, associator laws, conjugation, Clifford-algebra representations, periodicity or runtime measurements requires separate mathematical or execution evidence.
 //! - Where stated: proofs/verified/C1463_ArithmeticInventory.v; data/output/audit/boolean-permutation-evidence/arithmetic-kernel/execution-summary.txt; data/output/audit/boolean-permutation-evidence/provenance-port.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1773
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-13
+//! - Statement: The concrete sedenion zero annihilates every sedenion on the left. The explicit nonzero partner sed_zd_b annihilates sed_zd_a in the stated product order. These declarations establish zero products and nonzero partner existence; dimension-four annihilators and product closure require separate theorems.
+//! - Where stated: proofs/verified/C014_AnnihilatorDim4.v; docs/engineering/quantum_proof_reconciliation.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1774
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-13
+//! - Statement: For the concrete sixteen-dimensional CDSed multiplication, average/detail coordinates and reconstruction are mutual inverses. Transported multiplication preserves and reflects zero products. The explicit factors e3+e10 and e6-e15 have zero sedenion product, while the product of their octonion averages equals e5/2 and is nonzero. The transform retains all sixteen real coordinates.
+//! - Where stated: proofs/theories/SedenionFoldTransport.v; docs/engineering/quantum_proof_reconciliation.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1775
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-13
+//! - Statement: For the eight displayed real quadratic generators in coordinates z5,z6,z13,z16,z17,z18,z19,z20, the common zero set equals the union of the two displayed coordinate planes A15 and B17, with thirteen other coordinates free. The two sum-of-squares identities and explicit rejected-direction controls are proved. Correspondence to Cayley-Dickson multiplication matrices, curve realization, Bouligand tangent limits, plane dimensions and topology require separate bridges.
+//! - Where stated: proofs/theories/NullityTwelveQuadraticLocus.v; docs/engineering/quantum_proof_reconciliation.txt
 //! - What would verify/refute it:

@@ -1,0 +1,146 @@
+Quantum evidence and formal-proof reconciliation
+===============================================
+
+Source and execution boundary
+-----------------------------
+
+The audit reads IBMQuantum commit d4e3a7c7f056bbdadbc2f91e3efdb37d203b655f
+and open_gororoba base b2fd9f624abefb63cab8b3f0056a6cf648aaef14.
+A subsequent read-only delta audit uses ee6608ba481f304f8e3a21573e027a7ba0b5fb86,
+whose tree matches the reviewed 56ae809 correction update. The proof sources,
+mathematical evidence and mathematical notes retain identical bytes across
+that delta. The retained source records live under
+data/output/audit/quantum-proof-reconciliation/sources/.
+Source-byte hashes bind the imported statements and acquisition summary.
+The Rust workspace imports neither the quantum Python runtime nor a QPU job.
+
+The original Kingston collection records job db6p55clf4us73c5nd9g,
+four PUBs of 8192 shots, 32768 shots total, and final charged time 11 seconds.
+The acquisition record names experiment digest
+5a95428f6c3dc0d3c9270f088e4b0d53a4f2c88620d2133f125e74f77172c4a0
+and preparation source bdaa3af9b70a7da8b4db8f142f7385cd2687de21.
+Its decision_available value is false: then and else corrections occupy
+different time slots. The retained counts are endpoint observations, and the original decision
+remains withheld within that immutable collection. The terminal-channel proofs retain
+their earlier count fixture and four deterministic interval premises.
+Statistical coverage and physical realization stay separate from kernel
+acceptance. A separate source-owned reanalysis qualifies matched then/else pulse starts
+at 4071/4075 dt and reports decision_available=true for those unchanged
+counts. Its decision is retain_measured_correction: the known-minus-measured
+gain lower bounds are -0.02103655 and -0.00768259, below the required gain
+greater than 0.01 for both labels.
+
+The later job db6pepklf4us73c5nqcg in the 2026-10-13T022433.333775Z archive
+records four PUBs of 8192 shots and final charge eleven seconds. For labels
+s1 and s3, measured/known successes are 6153/6047 and 6074/6245.
+The corresponding gain estimates are -0.012939453125 and 0.0208740234375;
+their lower bounds are -0.03464701 and -0.00063794. The source again chooses
+retain_measured_correction. The decision conditions on independent stationary
+Bernoulli repetitions per PUB and floating Clopper-Pearson intervals.
+Those numerical bounds have a separate certification frontier. Descriptive
+bit strata and the proposed assignment/state-error model supply neither an
+additional acceptance rule nor a unique causal attribution.
+The reconciliation submits zero quantum jobs.
+
+Formal corrections
+------------------
+
+C881_GF2CubicMinDegree enumerates all 2048 coefficient choices over eleven
+four-variable multilinear monomials of degree at most two, including the
+constant term. Enumeration completeness proves rejection for every
+eleven-entry Boolean coefficient vector. The unchanged cubic witness
+separates the fixed fifteen labels and classes and has degree three.
+The fixed-list theorem and the Rust component-discovery correspondence
+remain separately identified.
+
+SedenionFoldTransport proves both inverse identities for sixteen real
+average/detail coordinates. Its transported product preserves and reflects
+zero products. The concrete pair e3+e10, e6-e15 has zero sedenion product,
+while multiplication of its octonion averages gives e5/2. Retaining both
+octonions closes the concrete sixteen-dimensional zero-product bridge.
+Averaging alone loses the detail channel. An arbitrary tower instance and a
+physical circuit implementation require their own correspondences.
+
+NullityTwelveQuadraticLocus proves the real zero set of the eight displayed
+quadratic generators equals the displayed A15 and B17 coordinate-plane union.
+The proof checks both sum-of-squares identities and rejects the e11 direction
+and the sum of the individually admitted e8 and e15+e28 directions.
+Thirteen undisplayed coordinates are free. The formal result concerns
+polynomial equations; coefficient completeness from multiplication matrices,
+linear-plane dimensions, actual curves and Bouligand limits remain outside
+the stated kernel theorem.
+
+C014_AnnihilatorDim4 proves zero-left multiplication and one explicit nonzero
+partner. Its header and canonical formal proposition state those declarations.
+C-014's finite dimension-four result belongs to the exact rank certificates
+for all 84 assessor diagonals. The source-name suffix supplies no dimension
+proof or multiplicative closure theorem.
+
+Imaginary frame domain
+----------------------
+
+stiefel verifies the V_2(R^7) imaginary-half frame constraints for sedenion
+elements: finite sixteen-coordinate input, scalar coordinates 0 and 8 zero,
+equal nonzero imaginary-half norms and orthogonality. Numerical admission
+uses normalized residuals; the absolute balance remains a separate diagnostic.
+The finite exact zero-product census counts factor occurrences, including
+repetitions. Generic R8 sphere transport keeps its separate frame domain and
+reports an endpoint comparison. Its angle supplies neither a closed-loop
+holonomy witness nor an algebraic nonassociativity result.
+
+Geometric source findings and residuals
+--------------------------------------
+
+The IBMQuantum selected-center proof identifies the norm-squared-two,
+doubly-pure dimension-32 nullity-twelve tangent cone at e1+e18 as A15 union B17,
+with intersection dimension thirteen. The written proof combines a complete
+quadratic coefficient certificate, explicit A15 curve realizations, and the
+published Biss-Christensen-Dugger-Isaksen B17 family plus length scaling.
+The new Rocq polynomial theorem checks the real reduction within that chain.
+The matrix, curve and tangent-limit links retain written/exact-CPU status.
+
+For x=e1+e18+A e3+B e8+C e27, the source gives nullity zero off
+A^2+B^2=C^2, eight on the punctured cone, and twelve at the vertex.
+The unit-partner attachment image is S3*(S1 x S3); the complete incidence
+over that slice retracts onto S11. The two spaces have different meanings.
+The source's ordinary-embedding induction extends the named family; finite
+dimension checks alone supply a separate implementation surface.
+
+The principal skew atlas supplies a written all-real cover of the nonzero
+doubly-pure domain with fifteen dimension-32 principal pivots. Exact symbolic
+regressions retain 247 coordinate-quaternion pivots through dimension 256.
+The four-support family has its own 96-stratum and 1200-cell restricted model.
+Neither result classifies arbitrary unrestricted rank loci or pair-space
+topology. The endpoint product-Pauli analysis likewise limits its unique
+seven-setting cover to the nine declared product-Pauli settings and the named
+population/coherence observables.
+
+The Rust Schur certificate still proves its complete second-order equation
+system in dimension 32. Its e1+e18/e11 obstruction agrees with the new
+quadratic rejection. Generic smooth strata, other centers, all coefficient
+directions, ambient attachments and unrestricted topology require additional
+proofs. Higher-order compatibility and actual curves remain distinct for
+centers outside the specifically realized source family.
+
+Replay and admission
+--------------------
+
+The audit bundle retains a Rust capture helper, exact source closures, proof
+objects, compiler/checker output, complete declaration-specific assumption
+queries, project/source hashes and canonical mutation specifications.
+The pinned execution uses Rocq 9.1.1 with OCaml 5.4.0.
+The configured +default warning profile treats emitted warnings as errors.
+The new polynomial and fold sources also pass the stricter @all probe.
+The source theorem assumptions and the imported checker context are reported
+separately. Changing the project inventory requires renewal of every active
+project-bound kernel receipt.
+
+Canonical mutation uses gororoba-db with an explicitly selected worktree:
+theorem identity sync-inventory, bind, correct-links and record-kernel-evidence;
+claim correct-content, update-formal-proof and update-status-note.
+The native kernel-evidence command freshly compiles the complete source
+closure, reproduces the retained object, runs the independent checker and
+compares every declaration's assumptions before appending its execution event.
+provenance export-control-plane refreshes generated compatibility outputs;
+the typed knowledge/provenance generators and registry-integrity refresh the
+dependent projections. Hosted CI owns repository admission.
