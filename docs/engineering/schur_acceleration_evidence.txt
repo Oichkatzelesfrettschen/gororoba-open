@@ -120,11 +120,18 @@ replay contracts; dimension-4096 or dimension-65536 coordinate round trips do
 not establish those dense matrix computations.
 
 Compatible second-order jets establish the named equations through order two.
-Higher-order obstructions, sufficient curve criteria, complete real tangent
-cones, smooth strata, attachments and global topology remain separate work.
-The quantum replay's coefficient-complete quadratic outer-bound calculation
-also retains its own source and execution boundary. The Rust port adds a new
-implementation witness, while derivative/calculus/stratum Rocq formalization
-remains an explicit proof frontier. Existing Boolean, fold and channel receipts
+The IBMQuantum selected-center proof at snapshot d4e3a7c identifies the
+e1+e18 nullity-twelve tangent cone as A15 union B17 through complete
+coefficient identities and actual curves. Its named three-coefficient slice
+has attachment image S3*(S1 x S3), while the complete incidence over that
+slice retracts onto S11. The principal skew atlas supplies written all-real
+domain coverage. Those written and exact-CPU results have separate execution
+boundaries and leave unrestricted smooth strata and topology open.
+NullityTwelveQuadraticLocus formally checks the displayed real polynomial
+reduction. The multiplication-matrix, curve and tangent-limit correspondences
+retain their separate status in quantum_proof_reconciliation.txt.
+The Rust port adds an implementation witness for its full second-order
+system; derivative/calculus/stratum Rocq formalization remains a proof
+frontier. Existing Boolean, fold and channel receipts
 retain their own theorem scopes. QPU execution supplies neither these polynomial
 identities nor the missing geometric classification.

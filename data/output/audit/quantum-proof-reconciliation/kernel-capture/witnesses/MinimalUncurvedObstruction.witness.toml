@@ -1,0 +1,57 @@
+schema_version = 1
+stable_id = "THM-LEGACY-MinimalUncurvedObstruction"
+proof_path = "proofs/theories/MinimalUncurvedObstruction.v"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/MinimalUncurvedObstruction.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.MinimalUncurvedObstruction"
+toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[sources]]
+path = "proofs/theories/MinimalUncurvedObstruction.v"
+sha256 = "94da87caa2e0225db895125a8e1451f9455fb555637454b93e4eb2980165cf53"
+
+[[sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[sources]]
+path = "proofs/theories/Sedenion.v"
+sha256 = "f7fa97304850eaa6004d3917fe37be555b40568fc65389887bbe489fbc922681"
+
+[compile_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/MinimalUncurvedObstruction.compile.txt"
+sha256 = "2eed6b464e94151ec0874a7aec78a473519b07081320f9900085c436ebc3141c"
+
+[kernel_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/MinimalUncurvedObstruction.kernel.txt"
+sha256 = "21ac8ced1b33d60841abc171c205fd04d60ccf964fba53cbe53280f32286f864"
+
+[assumption_log]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/MinimalUncurvedObstruction.assumptions.txt"
+sha256 = "ce2f17cb25cc7101483f4d88712030b08efdb72ff3663d5081e747e9b5bf0e05"
+
+[proof_object]
+path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/MinimalUncurvedObstruction.vo"
+sha256 = "0a1371ac5a972327a7b8936bd0a72c993e6d690fa8f863194ab5d69a0da35ac8"
+
+[[declarations]]
+name = "uncurved_arity_three"
+statement = "Definition uncurved_arity_three : Prop := forall first second third, m2 (m2 first second) third = add (m2 first (m2 second third)) (add (negate (m1 (m3 first second third))) (add (negate (m3 (m1 first) second third)) (add (negate (m3 first (m1 second) third)) (negate (m3 first second (m1 third))))))"
+assumptions = []
+
+[[declarations]]
+name = "minimal_uncurved_multiplication_associative"
+statement = "Theorem minimal_uncurved_multiplication_associative : uncurved_arity_three -> forall first second third, m2 (m2 first second) third = m2 first (m2 second third)"
+assumptions = []
+
+[[declarations]]
+name = "sedenion_product_nonassociative"
+statement = "Theorem sedenion_product_nonassociative : sed_mul (sed_mul (sed_e 1) (sed_e 2)) (sed_e 4) <> sed_mul (sed_e 1) (sed_mul (sed_e 2) (sed_e 4))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

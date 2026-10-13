@@ -1,15 +1,10 @@
-(** * C-014: Annihilator dimension is 4.
+(** * Sedenion zero and explicit nonzero annihilator witnesses.
 
-    For each sedenion zero-divisor, the left-annihilator subspace has
-    dimension 4 (out of 16). This is verified via Rust SVD nullspace
-    computation. Here we prove the algebraic prerequisites:
-
-    1. sed_zd_b annihilates sed_zd_a (one explicit annihilator exists)
-    2. The zero element annihilates any sedenion (trivially)
-    3. The annihilator is closed under the sedenion product structure
-
-    The dimension=4 result itself is verified computationally in Rust:
-    crates/algebra_analysis/src/zero_divisors.rs *)
+    C014_zero_annihilates proves sed_mul sed_zero a = sed_zero for every
+    sedenion a. C014_nonzero_annihilator_exists proves the explicit product
+    sed_mul sed_zd_b sed_zd_a = sed_zero together with sed_zd_b <> sed_zero.
+    The declarations establish these two products; an annihilator dimension
+    or closure property requires a separate theorem. *)
 
 From OpenGororoba Require Import Prelude CayleyDicksonAlgebra Sedenion OctonionNorm CDNegLemmas.
 From OpenGororobaVerified Require Import C908_SedenionZeroDivisor.

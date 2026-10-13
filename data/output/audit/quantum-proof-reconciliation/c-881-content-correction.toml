@@ -1,0 +1,5 @@
+claim_id = "C-881"
+expected_statement = "GF(2) cubic minimum separating degree in PG(3,2): the 8/7 motif class partition at CD dim=32 requires a degree-3 polynomial over GF(2) to separate. Degree 1 (linear) and degree 2 (quadratic) fail exhaustively."
+expected_where_stated = "crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)"
+statement = "For the fixed fifteen four-bit labels and Boolean classes in C881_GF2CubicMinDegree, every one of the 2048 coefficient choices over the eleven degree-at-most-two multilinear monomials, including the constant monomial, fails separation. The retained cubic separates and has maximum degree three. The formal theorem concerns these exact lists; correspondence to cross-assessor components uses the separately named Rust implementation test."
+where_stated = "proofs/verified/C881_GF2CubicMinDegree.v (degree2_coefficients_fail, fixed_partition_minimum_separating_degree); crates/algebra_analysis/src/projective_geometry.rs (test_determine_exact_degree_dim32)"

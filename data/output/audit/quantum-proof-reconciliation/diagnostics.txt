@@ -1,0 +1,87 @@
+Quantum proof reconciliation diagnostics
+======================================
+
+The source snapshot and execution receipts bind the commands to their named
+surfaces. Repository admission belongs to hosted CI.
+
+Rust 1.97.0; Rocq 9.1.1; OCaml 5.4.0.
+
+cargo test --locked --offline -p algebra_analysis --lib -- stiefel::tests
+  16 passed. The original calibration-domain regression failed before the
+  production correction. The scale-dependent unequal-half control also failed
+  the source-extracted pre-correction harness and passed the corrected harness.
+
+cargo test --locked --offline -p algebra_analysis --lib -- exact_annihilator
+  11 passed, including exact rank twelve and nullity four for all 84 assessor
+  diagonals and both left-action interpretation counterexamples.
+
+cargo test --locked --offline -p algebra_analysis --lib -- schur_acceleration
+  11 passed, including the e1+e18/e11 separating witness.
+
+cargo test --locked --offline -p algebra_analysis --lib --
+  projective_geometry::tests::test_determine_exact_degree_dim32
+  1 passed. This command is one line when replayed.
+
+cargo clippy --locked --offline -p algebra_analysis --all-targets -- -D warnings
+  Exit 0 against the final reviewed source.
+
+cargo +nightly fmt -p algebra_analysis -- --check
+  Exit 0.
+
+rustc --edition=2024 -D warnings --test capture_rocq_receipts.rs
+  Seven capture parser/denominator tests passed.
+
+rocq-project-audit --repo-root .
+  310 listed sources equal 310 inventory sources.
+
+Capture compilation, declaration queries and independent kernel checks
+  25 first-party sources compiled; 17 modules independently checked;
+  318 recognized declarations queried; 263 closed queries;
+  99 printed assumption-name occurrences. The capture retains every output.
+
+gororoba-db theorem identity record-kernel-evidence
+  All 17 receipts admitted through fresh native source closure execution,
+  proof-object reproduction and declaration-specific assumption comparison.
+  The final projection contains 17 kernel_checked and 293 source_only modules.
+
+provenance verify-control-plane --verify-compat-exports
+  Claims 1588; insights 183; experiments 285; binaries 398; theorems 310.
+  Twenty distinct linked claims have active kernel evidence.
+
+knowledge-atoms verify; artifact-scrolls verify; evidence-provenance --verify;
+registry-integrity --verify; project-counter-sync --check;
+markdown-registry verify-all
+  Each named diagnostic exits 0. Project counters change only claims,
+  kernel_checked_claims and proof_files; complete_experiment_count remains zero.
+
+semantic-atoms --verify
+  The named claims, edges, equation, symbol and proof-skeleton checks pass.
+  The existing unbuilt payload lane emits its explicit warning and records
+  zero markdown documents/chunks. This diagnostic supplies no payload coverage.
+
+Legacy xtask ascii-check --help probe
+  The legacy dispatcher treats the argument as a whole-tree ASCII scan.
+  Exit 1 reports 528 paths, including existing Unicode text and binary/build
+  files. The probe supplies no scoped UTF-8 policy verdict. Hosted policy
+  owns repository admission; retained source bytes stay verbatim.
+
+Native regeneration order
+  provenance export-control-plane; registry-emit control-plane-docs;
+  project-counter-sync; knowledge-atoms build; artifact-scrolls build;
+  semantic-atoms; evidence-provenance; registry-integrity;
+  xtask registry-emit-all-mirrors.
+  The tracked 23-mirror fan-out completes.
+
+Optional legacy projections
+  control-plane-docs also emits four unconsumed legacy Rust projections.
+  Their SHA-256 values are retained in optional_legacy_projection_hashes.sha256.
+  The four generated files move to recoverable FreeDesktop trash; the
+  canonical commit contains the required tracked mirror closure.
+  Explicit *_legacy_output options can reproduce them in scratch storage.
+
+Checksum diagnostics
+  The 127-member capture manifest, complete source-closure hashes, imported
+  source hashes and later decision hashes each verify successfully.
+  The capture also verifies identical hashes for 214 historical artifact
+  files before and after compilation. Text/binary local-path checks report
+  zero matches in the capture.

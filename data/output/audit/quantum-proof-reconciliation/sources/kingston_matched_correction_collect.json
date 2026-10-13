@@ -1,0 +1,420 @@
+[
+  {
+    "submission_complete": true,
+    "backends_without_recorded_job_id": [],
+    "members_without_recorded_job_id": [],
+    "jobs_without_recorded_id": [],
+    "jobs": {
+      "db6pepklf4us73c5nqcg": {
+        "backend": "ibm_kingston",
+        "kind": "dynamic",
+        "usage": {
+          "job_status": "DONE",
+          "usage_status": "final",
+          "usage_source": "job.usage(partial=False)",
+          "submitted_pub_shots": 32768,
+          "qpu_charge_time_seconds": "11",
+          "pub_shots_per_qpu_second": "2978.909",
+          "throughput_unavailable_reason": null,
+          "raw_usage_metadata": {
+            "qpu_charge_time_seconds": 11,
+            "value": 0.1775,
+            "unit": "resource_units",
+            "status": "complete",
+            "details": [
+              {
+                "value": 0.1775,
+                "unit": "resource_units",
+                "metric": {
+                  "id": "caffe3ca-729c-5750-8777-df63bbf8bfd9",
+                  "value": 11
+                }
+              }
+            ]
+          }
+        },
+        "pub_timing": {
+          "ibm_kingston_dynamic_pub_01": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:32:18.993364+00:00",
+            "execution_window_stop": "2026-10-13T02:32:31.323816+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_02": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:32:18.993364+00:00",
+            "execution_window_stop": "2026-10-13T02:32:31.323816+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_03": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:32:18.993364+00:00",
+            "execution_window_stop": "2026-10-13T02:32:31.323816+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          },
+          "ibm_kingston_dynamic_pub_04": {
+            "timing_status": "complete",
+            "timing_source": "executor_chunk_timing",
+            "execution_window_start": "2026-10-13T02:32:18.993364+00:00",
+            "execution_window_stop": "2026-10-13T02:32:31.323816+00:00",
+            "planned_target_gate_lower_bound_dt": 3362,
+            "target_gate_lower_bound_dt": 3362,
+            "scheduled_circuit_duration_dt": 5741,
+            "scheduler_residual_dt": 2379,
+            "feed_forward_operation_count": 1,
+            "sequential_stage_count": 1,
+            "parallel_stream_count": 1,
+            "groups": [
+              "folded_correction"
+            ],
+            "timing_unavailable_reason": null
+          }
+        },
+        "raw": {
+          "directory": "raw/db6pepklf4us73c5nqcg",
+          "files": {
+            "pub_00.json": "acc82190be4827e37b5576dcaad89d5d50f7fffa9c43ae5962f77fa39c26d913",
+            "pub_01.json": "af9962423a88613792839257d8c04cb06868af7ffc570839038d04483bae0277",
+            "pub_02.json": "0f820808e57a41e81ef3b601520f4682c52b5653f695d9428834ee3818aa6f73",
+            "pub_03.json": "781dd3de2bd54b7ac13624af151e9eec4a3845c8251480ef278ac75ded46a3dd",
+            "result_metadata.json": "432db4db7ae7cfc6ea9188b829e011ba20ccac3cab1c337a585fb77b6c1905e7"
+          }
+        }
+      }
+    },
+    "family_analysis": {
+      "schema": "folded-correction-collected-decision-v1",
+      "family": "folded-correction",
+      "decision_available": true,
+      "scientific_scope": "supplied odd-label witnesses; recorded-bit dependence with dispatch retained",
+      "integer_counts": {
+        "correction_measured_s1": [
+          503,
+          5650,
+          406,
+          1633
+        ],
+        "correction_known_s1": [
+          485,
+          5562,
+          462,
+          1683
+        ],
+        "correction_known_s3": [
+          389,
+          1558,
+          482,
+          5763
+        ],
+        "correction_measured_s3": [
+          498,
+          1620,
+          374,
+          5700
+        ]
+      },
+      "schedule_pairs": {
+        "1": {
+          "schema": "folded-correction-exposed-schedule-pair-v1",
+          "qualified": true,
+          "evidence_scope": "exposed native event CSV and validated circuit pair; undisclosed controller behavior excluded",
+          "phase_label": 1,
+          "circuit_pair_report_sha256": "c68d8e924d53c7990fe71b0fc48f461f086e6f967c01c24043a9212e72860c55",
+          "feedback_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+          "independent_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+          "protected_events_sha256": "bfc2a7ca8aea79fa73c190a565e3327ef1be2185dd53ef139ddc56185d0f3f60",
+          "protected_event_count": 808,
+          "circuit_duration_dt": 5741,
+          "dt_seconds": 4e-09,
+          "circuit_duration_seconds": 2.2964000000000002e-05,
+          "correction_start_dt": 4071,
+          "feedback_zero_phase_else_elided": false,
+          "phase_value_evidence": "validated circuit pair; scheduler CSV omits phase values",
+          "per_shot_timing_certified": false,
+          "undisclosed_controller_behavior_certified": false
+        },
+        "3": {
+          "schema": "folded-correction-exposed-schedule-pair-v1",
+          "qualified": true,
+          "evidence_scope": "exposed native event CSV and validated circuit pair; undisclosed controller behavior excluded",
+          "phase_label": 3,
+          "circuit_pair_report_sha256": "82c80c465bbb6764c5495459363914130616b7d7ec6c9b9937778256a4c63a69",
+          "feedback_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+          "independent_timing_sha256": "fb09c0f6fcf93759f524b7bc45fa754309e309e9d2f2ba6503bfaf199c5e5014",
+          "protected_events_sha256": "bfc2a7ca8aea79fa73c190a565e3327ef1be2185dd53ef139ddc56185d0f3f60",
+          "protected_event_count": 808,
+          "circuit_duration_dt": 5741,
+          "dt_seconds": 4e-09,
+          "circuit_duration_seconds": 2.2964000000000002e-05,
+          "correction_start_dt": 4071,
+          "feedback_zero_phase_else_elided": false,
+          "phase_value_evidence": "validated circuit pair; scheduler CSV omits phase values",
+          "per_shot_timing_certified": false,
+          "undisclosed_controller_behavior_certified": false
+        }
+      },
+      "statistical_decision": {
+        "schema": 1,
+        "method": "four_one_sided_clopper_pearson_bounds",
+        "alpha": 0.05,
+        "per_bound_tail": 0.0125,
+        "minimum_gain": 0.01,
+        "decision_rule": "known_lower - measured_upper > minimum_gain for both labels",
+        "admit_known_correction": false,
+        "decision": "retain_measured_correction",
+        "comparisons": [
+          {
+            "label": 1,
+            "measured_member": "correction_measured_s1",
+            "known_member": "correction_known_s1",
+            "shots_per_arm": 8192,
+            "measured_successes": 6153,
+            "known_successes": 6047,
+            "gain_estimate": -0.012939453125,
+            "measured_upper_bound": 0.7617517644185812,
+            "known_lower_bound": 0.7271047559998111,
+            "gain_lower_bound": -0.03464700841877011,
+            "passes_minimum_gain": false
+          },
+          {
+            "label": 3,
+            "measured_member": "correction_measured_s3",
+            "known_member": "correction_known_s3",
+            "shots_per_arm": 8192,
+            "measured_successes": 6074,
+            "known_successes": 6245,
+            "gain_estimate": 0.0208740234375,
+            "measured_upper_bound": 0.7522477064104581,
+            "known_lower_bound": 0.7516097654639573,
+            "gain_lower_bound": -0.0006379409465008257,
+            "passes_minimum_gain": false
+          }
+        ],
+        "descriptive_recorded_first_bit_strata": {
+          "correction_measured_s1": [
+            {
+              "recorded_first_bit": 0,
+              "shots": 909,
+              "terminal_successes": 503,
+              "terminal_success_probability": 0.5533553355335533
+            },
+            {
+              "recorded_first_bit": 1,
+              "shots": 7283,
+              "terminal_successes": 5650,
+              "terminal_success_probability": 0.7757792118632432
+            }
+          ],
+          "correction_known_s1": [
+            {
+              "recorded_first_bit": 0,
+              "shots": 947,
+              "terminal_successes": 485,
+              "terminal_success_probability": 0.5121436114044351
+            },
+            {
+              "recorded_first_bit": 1,
+              "shots": 7245,
+              "terminal_successes": 5562,
+              "terminal_success_probability": 0.7677018633540372
+            }
+          ],
+          "correction_known_s3": [
+            {
+              "recorded_first_bit": 0,
+              "shots": 871,
+              "terminal_successes": 482,
+              "terminal_success_probability": 0.5533869115958668
+            },
+            {
+              "recorded_first_bit": 1,
+              "shots": 7321,
+              "terminal_successes": 5763,
+              "terminal_success_probability": 0.7871875426854255
+            }
+          ],
+          "correction_measured_s3": [
+            {
+              "recorded_first_bit": 0,
+              "shots": 872,
+              "terminal_successes": 374,
+              "terminal_success_probability": 0.4288990825688073
+            },
+            {
+              "recorded_first_bit": 1,
+              "shots": 7320,
+              "terminal_successes": 5700,
+              "terminal_success_probability": 0.7786885245901639
+            }
+          ]
+        },
+        "scope": "known-label odd witnesses s1 and s3; circuit and schedule conformance require separate checks",
+        "assumptions": [
+          "independent stationary Bernoulli repetitions within each PUB",
+          "four directional bounds have family failure probability at most alpha by a union bound",
+          "dependence between PUBs is unrestricted for the observation bounds",
+          "descriptive first-bit strata supply neither additional inferential claims nor causal attribution",
+          "failure to admit establishes neither equivalence nor absence of improvement"
+        ],
+        "numerical_method": "SciPy beta quantiles and binomial tails in float64; math.fsum aggregation; floating-point rounding is not interval-certified"
+      },
+      "raw_pub_sha256": {
+        "correction_measured_s1": "acc82190be4827e37b5576dcaad89d5d50f7fffa9c43ae5962f77fa39c26d913",
+        "correction_known_s1": "af9962423a88613792839257d8c04cb06868af7ffc570839038d04483bae0277",
+        "correction_known_s3": "0f820808e57a41e81ef3b601520f4682c52b5653f695d9428834ee3818aa6f73",
+        "correction_measured_s3": "781dd3de2bd54b7ac13624af151e9eec4a3845c8251480ef278ac75ded46a3dd"
+      },
+      "calibration": "2026-10-12T19:15:55-07:00",
+      "job_id": "db6pepklf4us73c5nqcg",
+      "backend": "ibm_kingston"
+    },
+    "invocation_usage": {
+      "known_final_charge_seconds": "11",
+      "total_charge_seconds": "11",
+      "charge_complete": true,
+      "workload_complete": true,
+      "predicted_charge_seconds": 11.588024064000003,
+      "charge_prediction_residual_seconds": -0.5880240640000025,
+      "charge_prediction_residual_withheld": null,
+      "jobs_without_final_charge": []
+    }
+  },
+  {
+    "group": "folded_correction",
+    "backend": "ibm_kingston",
+    "job_id": "db6pepklf4us73c5nqcg",
+    "executed": {
+      "correction_measured_s1": {
+        "pub": "ibm_kingston_dynamic_pub_01",
+        "start": "2026-10-13T02:32:18.993364+00:00",
+        "stop": "2026-10-13T02:32:31.323816+00:00",
+        "calibration": "2026-10-12T19:15:55-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_known_s1": {
+        "pub": "ibm_kingston_dynamic_pub_02",
+        "start": "2026-10-13T02:32:18.993364+00:00",
+        "stop": "2026-10-13T02:32:31.323816+00:00",
+        "calibration": "2026-10-12T19:15:55-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_known_s3": {
+        "pub": "ibm_kingston_dynamic_pub_03",
+        "start": "2026-10-13T02:32:18.993364+00:00",
+        "stop": "2026-10-13T02:32:31.323816+00:00",
+        "calibration": "2026-10-12T19:15:55-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      },
+      "correction_measured_s3": {
+        "pub": "ibm_kingston_dynamic_pub_04",
+        "start": "2026-10-13T02:32:18.993364+00:00",
+        "stop": "2026-10-13T02:32:31.323816+00:00",
+        "calibration": "2026-10-12T19:15:55-07:00",
+        "calibration_changed_during_shots": false,
+        "window_unavailable_reason": null,
+        "shots": 8192
+      }
+    },
+    "packing_schedule": null,
+    "measured": {
+      "correction_measured_s1": [
+        [
+          0.061401,
+          0.689697,
+          0.049561,
+          0.199341
+        ]
+      ],
+      "correction_known_s1": [
+        [
+          0.059204,
+          0.678955,
+          0.056396,
+          0.205444
+        ]
+      ],
+      "correction_known_s3": [
+        [
+          0.047485,
+          0.190186,
+          0.058838,
+          0.703491
+        ]
+      ],
+      "correction_measured_s3": [
+        [
+          0.060791,
+          0.197754,
+          0.045654,
+          0.695801
+        ]
+      ]
+    },
+    "integer_counts": {
+      "correction_measured_s1": [
+        503,
+        5650,
+        406,
+        1633
+      ],
+      "correction_known_s1": [
+        485,
+        5562,
+        462,
+        1683
+      ],
+      "correction_known_s3": [
+        389,
+        1558,
+        482,
+        5763
+      ],
+      "correction_measured_s3": [
+        498,
+        1620,
+        374,
+        5700
+      ]
+    },
+    "inference": "the header family_analysis gates the sole exact-binomial optimizer decision"
+  }
+]

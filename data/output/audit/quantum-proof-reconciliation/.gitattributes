@@ -1,0 +1,18 @@
+# Retained Rocq kernel context output preserves emitted whitespace.
+kernel-capture/BooleanCochainFiltration.kernel.txt -whitespace
+kernel-capture/BooleanPermutation.kernel.txt -whitespace
+kernel-capture/C014_AnnihilatorDim4.kernel.txt -whitespace
+kernel-capture/C1463_ArithmeticInventory.kernel.txt -whitespace
+kernel-capture/C881_GF2CubicMinDegree.kernel.txt -whitespace
+kernel-capture/C958_ZDGraphTopology.kernel.txt -whitespace
+kernel-capture/C958b_ZDAdjacencyAnalytical.kernel.txt -whitespace
+kernel-capture/FoldAverageDescent.kernel.txt -whitespace
+kernel-capture/MinimalUncurvedObstruction.kernel.txt -whitespace
+kernel-capture/NullityTwelveQuadraticLocus.kernel.txt -whitespace
+kernel-capture/SchreierSignCode.kernel.txt -whitespace
+kernel-capture/SedenionFoldTransport.kernel.txt -whitespace
+kernel-capture/SedenionMembershipConstraints.kernel.txt -whitespace
+kernel-capture/SignCodeCardinality.kernel.txt -whitespace
+kernel-capture/SignCodeProjection.kernel.txt -whitespace
+kernel-capture/TerminalChannelSeparation.kernel.txt -whitespace
+kernel-capture/TerminalChannelSeparationReal.kernel.txt -whitespace

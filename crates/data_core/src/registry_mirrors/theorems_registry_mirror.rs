@@ -7,7 +7,7 @@
 //!
 //! # Theorems
 //!
-//! This file is generated from the canonical SQLite control plane and currently indexes 308 Rocq proof files.
+//! This file is generated from the canonical SQLite control plane and currently indexes 310 Rocq proof files.
 //!
 //! | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 //! |---|---|---|---|---|---|
@@ -46,7 +46,7 @@
 //! | `THM-LEGACY-C011_AssociatorObstruction` | `C011_AssociatorObstruction` | `proofs/verified/C011_AssociatorObstruction.v` | source_only | explicit_link | C-011 |
 //! | `THM-LEGACY-C012_NegDimRefuted` | `C012_NegDimRefuted` | `proofs/verified/C012_NegDimRefuted.v` | source_only | explicit_link | C-012 |
 //! | `THM-LEGACY-C013_AutomorphemesCoverage` | `C013_AutomorphemesCoverage` | `proofs/verified/C013_AutomorphemesCoverage.v` | source_only | explicit_link | C-013 |
-//! | `THM-LEGACY-C014_AnnihilatorDim4` | `C014_AnnihilatorDim4` | `proofs/verified/C014_AnnihilatorDim4.v` | source_only | explicit_link | C-014 |
+//! | `THM-LEGACY-C014_AnnihilatorDim4` | `C014_AnnihilatorDim4` | `proofs/verified/C014_AnnihilatorDim4.v` | kernel_checked | explicit_link | C-1773 |
 //! | `THM-LEGACY-C015_FourPartners` | `C015_FourPartners` | `proofs/verified/C015_FourPartners.v` | source_only | explicit_link | C-015 |
 //! | `THM-LEGACY-C016_M3TrilinearSplit` | `C016_M3TrilinearSplit` | `proofs/verified/C016_M3TrilinearSplit.v` | source_only | explicit_link | C-016 |
 //! | `THM-LEGACY-C016_ParityFlips` | `C016_ParityFlips` | `proofs/verified/C016_ParityFlips.v` | source_only | explicit_link | C-016, C-1331 |
@@ -136,7 +136,7 @@
 //! | `THM-LEGACY-C878_ImbalanceAttractor` | `C878_ImbalanceAttractor` | `proofs/verified/C878_ImbalanceAttractor.v` | source_only | explicit_link | C-878 |
 //! | `THM-LEGACY-C879_DimensionBijection` | `C879_DimensionBijection` | `proofs/verified/C879_DimensionBijection.v` | source_only | explicit_link | C-879 |
 //! | `THM-LEGACY-C880_FoliationSlice` | `C880_FoliationSlice` | `proofs/verified/C880_FoliationSlice.v` | source_only | explicit_link | C-880 |
-//! | `THM-LEGACY-C881_GF2CubicMinDegree` | `C881_GF2CubicMinDegree` | `proofs/verified/C881_GF2CubicMinDegree.v` | source_only | explicit_link | C-881 |
+//! | `THM-LEGACY-C881_GF2CubicMinDegree` | `C881_GF2CubicMinDegree` | `proofs/verified/C881_GF2CubicMinDegree.v` | kernel_checked | explicit_link | C-881 |
 //! | `THM-LEGACY-C882_ParityCliqueExact` | `C882_ParityCliqueExact` | `proofs/verified/C882_ParityCliqueExact.v` | source_only | explicit_link | C-882 |
 //! | `THM-LEGACY-C883_CalcagniMonotoneRange` | `C883_CalcagniMonotoneRange` | `proofs/verified/C883_CalcagniMonotoneRange.v` | source_only | explicit_link | C-883 |
 //! | `THM-LEGACY-C884_NegDimDegeneracy` | `C884_NegDimDegeneracy` | `proofs/verified/C884_NegDimDegeneracy.v` | source_only | explicit_link | C-884 |
@@ -267,6 +267,7 @@
 //! | `THM-LEGACY-Moreno1997` | `Moreno1997` | `proofs/theories/Moreno1997.v` | source_only | explicit_link | C-1548 |
 //! | `THM-LEGACY-MorenoKerLaNonAlternative` | `MorenoKerLaNonAlternative` | `proofs/theories/MorenoKerLaNonAlternative.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-MorenoSedenionInstance` | `MorenoSedenionInstance` | `proofs/theories/MorenoSedenionInstance.v` | source_only | unresolved | - |
+//! | `THM-LEGACY-NullityTwelveQuadraticLocus` | `NullityTwelveQuadraticLocus` | `proofs/theories/NullityTwelveQuadraticLocus.v` | kernel_checked | explicit_link | C-1775 |
 //! | `THM-LEGACY-OctonionInverse` | `OctonionInverse` | `proofs/theories/OctonionInverse.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-OctonionNorm` | `OctonionNorm` | `proofs/theories/OctonionNorm.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-OctonionSandwichNorm` | `OctonionSandwichNorm` | `proofs/theories/OctonionSandwichNorm.v` | source_only | unresolved | - |
@@ -291,6 +292,7 @@
 //! | `THM-LEGACY-Sedenion` | `Sedenion` | `proofs/theories/Sedenion.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-SedenionAlternativityFails` | `SedenionAlternativityFails` | `proofs/theories/SedenionAlternativityFails.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-SedenionAssociator` | `SedenionAssociator` | `proofs/theories/SedenionAssociator.v` | source_only | unresolved | - |
+//! | `THM-LEGACY-SedenionFoldTransport` | `SedenionFoldTransport` | `proofs/theories/SedenionFoldTransport.v` | kernel_checked | explicit_link | C-1774 |
 //! | `THM-LEGACY-SedenionGapWitnesses` | `SedenionGapWitnesses` | `proofs/theories/SedenionGapWitnesses.v` | source_only | unresolved | - |
 //! | `THM-LEGACY-SedenionMembershipConstraints` | `SedenionMembershipConstraints` | `proofs/theories/SedenionMembershipConstraints.v` | kernel_checked | explicit_link | C-1461, C-1760, C-1765 |
 //! | `THM-LEGACY-SedenionSignBridge` | `SedenionSignBridge` | `proofs/theories/SedenionSignBridge.v` | source_only | unresolved | - |

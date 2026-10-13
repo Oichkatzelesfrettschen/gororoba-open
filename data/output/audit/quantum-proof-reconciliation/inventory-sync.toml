@@ -1,0 +1,5 @@
+sync_key = "quantum-proof-source-reconciliation"
+actor = "codex"
+reason = "Register the selected real quadratic locus and faithful 16D fold transport; recompute all source-bound execution states."
+applied_at = "2026-10-13T02:31:47Z"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"

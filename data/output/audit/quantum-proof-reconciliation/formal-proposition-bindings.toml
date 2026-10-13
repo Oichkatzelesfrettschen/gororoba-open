@@ -1,0 +1,49 @@
+binding_key = "quantum-proof-bounded-propositions"
+actor = "codex"
+reason = "Bind source propositions at their exact polynomial and concrete sixteen-dimensional multiplication scopes."
+applied_at = "2026-10-13T02:31:47Z"
+
+[[binding]]
+proposal_key = "selected-quadratic-real-zero-set"
+stable_id = "THM-LEGACY-NullityTwelveQuadraticLocus"
+legacy_name = "NullityTwelveQuadraticLocus"
+proof_path = "proofs/theories/NullityTwelveQuadraticLocus.v"
+title = "Real zero set of the selected nullity-twelve quadratic generators"
+statement = "For the eight displayed real quadratic generators in coordinates z5,z6,z13,z16,z17,z18,z19,z20, the common zero set equals the union of the two displayed coordinate planes A15 and B17, with thirteen other coordinates free. The two sum-of-squares identities and explicit rejected-direction controls are proved. Correspondence to Cayley-Dickson multiplication matrices, curve realization, Bouligand tangent limits, plane dimensions and topology require separate bridges."
+initial_status = "Verified"
+where_stated = ["proofs/theories/NullityTwelveQuadraticLocus.v", "docs/engineering/quantum_proof_reconciliation.txt"]
+assumptions = "Theorem-specific assumptions are the standard real-number foundation declarations printed by Rocq. Matrix-coefficient completeness and geometric interpretations are external to the polynomial statement."
+kernel_result = "Source proposition; append-only source-bound execution receipts determine active kernel admission."
+replay_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/NullityTwelveQuadraticLocus.v"
+falsifier = "Change any generator coefficient or the coordinate-plane equations; the equality or rejected-direction witnesses must then be rechecked."
+evidence_artifact_ids = ["LOCAL-QUANTUM-PROOF-RECONCILIATION"]
+
+[[binding]]
+proposal_key = "sedenion-faithful-fold-zero-products"
+stable_id = "THM-LEGACY-SedenionFoldTransport"
+legacy_name = "SedenionFoldTransport"
+proof_path = "proofs/theories/SedenionFoldTransport.v"
+title = "Faithful average-detail transport and zero-product equivalence in sixteen dimensions"
+statement = "For the concrete sixteen-dimensional CDSed multiplication, average/detail coordinates and reconstruction are mutual inverses. Transported multiplication preserves and reflects zero products. The explicit factors e3+e10 and e6-e15 have zero sedenion product, while the product of their octonion averages equals e5/2 and is nonzero. The transform retains all sixteen real coordinates."
+initial_status = "Verified"
+where_stated = ["proofs/theories/SedenionFoldTransport.v", "docs/engineering/quantum_proof_reconciliation.txt"]
+assumptions = "Theorem-specific assumptions are the standard real-number foundation declarations printed by Rocq; all-stage tower transport and physical circuit realization remain separate propositions."
+kernel_result = "Source proposition; append-only source-bound execution receipts determine active kernel admission."
+replay_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionFoldTransport.v"
+falsifier = "Discard the detail half, change the doubling convention, or replace transported multiplication by octonion average multiplication; the retained witness detects the difference."
+evidence_artifact_ids = ["LOCAL-QUANTUM-PROOF-RECONCILIATION"]
+
+[[binding]]
+proposal_key = "sedenion-explicit-annihilation-witness"
+stable_id = "THM-LEGACY-C014_AnnihilatorDim4"
+legacy_name = "C014_AnnihilatorDim4"
+proof_path = "proofs/verified/C014_AnnihilatorDim4.v"
+title = "Zero annihilation and one explicit nonzero sedenion partner"
+statement = "The concrete sedenion zero annihilates every sedenion on the left. The explicit nonzero partner sed_zd_b annihilates sed_zd_a in the stated product order. These declarations establish zero products and nonzero partner existence; dimension-four annihilators and product closure require separate theorems."
+initial_status = "Verified"
+where_stated = ["proofs/verified/C014_AnnihilatorDim4.v", "docs/engineering/quantum_proof_reconciliation.txt"]
+assumptions = "Theorem-specific assumptions are the standard real-number foundation declarations printed by Rocq. The finite dimension-four result for the assessor family is supported separately by exact rational matrix certificates."
+kernel_result = "Source proposition; append-only source-bound execution receipts determine active kernel admission."
+replay_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C014_AnnihilatorDim4.v"
+falsifier = "Change the concrete zero-product witness or product order; independent multiplication must still verify the declared zero product and nonzero partner."
+evidence_artifact_ids = ["LOCAL-QUANTUM-PROOF-RECONCILIATION"]
