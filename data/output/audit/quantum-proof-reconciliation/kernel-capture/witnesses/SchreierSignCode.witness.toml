@@ -4,7 +4,7 @@ proof_path = "proofs/theories/SchreierSignCode.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SchreierSignCode.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SchreierSignCode"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "cd15b42fec9b7258faf3a153aaff6586098808dc188978ccb5d0b33dee277f9a"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SchreierSignCode.vo"
-sha256 = "ee7efc7d64d123c5aa4282ee261b16dc5e045b89d9eb631e21078c168adf2943"
+sha256 = "6a3ceb30410b0086ab43e2eeeefd913ac24f88083eb46faf87ae3db4413b0397"
 
 [[declarations]]
 name = "cube_nonzero"

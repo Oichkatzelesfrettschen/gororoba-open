@@ -1,7 +1,7 @@
-evidence_key = "quantum-source-replay-SchreierSignCode-f55852850efb"
+evidence_key = "quantum-source-replay-SchreierSignCode-b0a756fba16e"
 actor = "claude-code"
-reason = "Renew source-bound admission after proofs/theories/SchreierSignCode.v changed (cube_equal_spec proved without setoid rewriting so it checks under Rocq 9.1.1 and 9.2) through fresh pinned complete-source compilation, retained object reproduction, independent kernel checking and every recognized declaration assumption query."
-applied_at = "2026-10-16T04:26:43Z"
+reason = "Renew project-bound admission under the Rocq 9.2.0 trusted toolchain (OCaml 5.5.0) through fresh pinned complete-source compilation, retained object reproduction, independent kernel checking and every recognized declaration assumption query."
+applied_at = "2026-10-16T05:04:43Z"
 expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
 expected_status = "source_only"
 
@@ -12,7 +12,7 @@ proof_path = "proofs/theories/SchreierSignCode.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SchreierSignCode.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SchreierSignCode"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -35,7 +35,7 @@ sha256 = "cd15b42fec9b7258faf3a153aaff6586098808dc188978ccb5d0b33dee277f9a"
 
 [witness.proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SchreierSignCode.vo"
-sha256 = "ee7efc7d64d123c5aa4282ee261b16dc5e045b89d9eb631e21078c168adf2943"
+sha256 = "6a3ceb30410b0086ab43e2eeeefd913ac24f88083eb46faf87ae3db4413b0397"
 
 [[witness.declarations]]
 name = "cube_nonzero"

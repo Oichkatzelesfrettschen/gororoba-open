@@ -1,7 +1,7 @@
-evidence_key = "quantum-source-replay-C014_AnnihilatorDim4-37f986059454"
-actor = "codex"
-reason = "Renew project-bound admission through fresh pinned complete-source compilation, retained object reproduction, independent checking and every recognized declaration assumption query."
-applied_at = "2026-10-13T02:39:01Z"
+evidence_key = "quantum-source-replay-C014_AnnihilatorDim4-71290fbe3251"
+actor = "claude-code"
+reason = "Renew project-bound admission under the Rocq 9.2.0 trusted toolchain (OCaml 5.5.0) through fresh pinned complete-source compilation, retained object reproduction, independent kernel checking and every recognized declaration assumption query."
+applied_at = "2026-10-16T05:04:43Z"
 expected_kernel_result_sha256 = "5b9f56260d9aec36f4d9566189a6035bb9510c5cc7919ac1e5e95bac3e3c4ab1"
 expected_status = "source_only"
 
@@ -12,7 +12,7 @@ proof_path = "proofs/verified/C014_AnnihilatorDim4.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C014_AnnihilatorDim4.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C014_AnnihilatorDim4"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -63,7 +63,7 @@ sha256 = "05b8b891202c5213f17f3e527ede03dc82895d6b1796bac8565d87e9dba92e36"
 
 [witness.proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/verified/C014_AnnihilatorDim4.vo"
-sha256 = "ff21f2eb40841881fca0159d7cb494fae5d17b74c2a6076606d85c5f17a17d35"
+sha256 = "40c7057dd77bfd6dd2342707c6487f595d23b757b5d71e53ec1d84854f7ce867"
 
 [[witness.declarations]]
 name = "C014_zero_annihilates"

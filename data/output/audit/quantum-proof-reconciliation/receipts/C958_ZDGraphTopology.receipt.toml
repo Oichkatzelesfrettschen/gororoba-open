@@ -1,7 +1,7 @@
-evidence_key = "quantum-source-replay-C958_ZDGraphTopology-37f986059454"
-actor = "codex"
-reason = "Renew project-bound admission through fresh pinned complete-source compilation, retained object reproduction, independent checking and every recognized declaration assumption query."
-applied_at = "2026-10-13T02:39:01Z"
+evidence_key = "quantum-source-replay-C958_ZDGraphTopology-3a08a01a70cd"
+actor = "claude-code"
+reason = "Renew project-bound admission under the Rocq 9.2.0 trusted toolchain (OCaml 5.5.0) through fresh pinned complete-source compilation, retained object reproduction, independent kernel checking and every recognized declaration assumption query."
+applied_at = "2026-10-16T05:04:43Z"
 expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 expected_status = "source_only"
 
@@ -12,7 +12,7 @@ proof_path = "proofs/verified/C958_ZDGraphTopology.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C958_ZDGraphTopology.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C958_ZDGraphTopology"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -39,7 +39,7 @@ sha256 = "cbdef2988e3c0a8a363db1df05e9056346ef1f74d7655e309afab8363aa52468"
 
 [witness.proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/verified/C958_ZDGraphTopology.vo"
-sha256 = "4bd3ec062bb1890a4a2585f769e58ad16c807401ace648028278816f9298ea11"
+sha256 = "2da4399b74e36d88d75aa7ce1e8ba8fddeb0708681473fdd17eed51fb5934ec1"
 
 [[witness.declarations]]
 name = "valid_cd_dim"

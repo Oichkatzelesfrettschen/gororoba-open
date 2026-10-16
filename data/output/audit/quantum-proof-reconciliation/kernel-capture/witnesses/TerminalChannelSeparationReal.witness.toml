@@ -4,7 +4,7 @@ proof_path = "proofs/theories/TerminalChannelSeparationReal.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparationReal.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparationReal"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "d488255ff44df3f896a34370e85bfa2b6ca82327912dc902725a3b1901679b1b"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/TerminalChannelSeparationReal.vo"
-sha256 = "1def7b92e9945200c0910ef80f201fae7a56a955177d584ca6cacf4c47626676"
+sha256 = "ebfcc5f51c296c3106f951d9089543bf5acaa927493a4694b6429c474ca33b9f"
 
 [[declarations]]
 name = "binary_channel"

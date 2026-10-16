@@ -4,7 +4,7 @@ proof_path = "proofs/theories/SignCodeProjection.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeProjection.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SignCodeProjection"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "17009565901cf998dadd43c4906f91edfcff94945fdea58ed789e720d25a7622"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SignCodeProjection.vo"
-sha256 = "0be2f4e254eb2d02f6490a0387f8c980cf5c19817095e37238bc46dcdc201ab9"
+sha256 = "336d2fdf1a31ebd05916f03c3968c605d221fbf3a51608240d9be2d4aa6cad70"
 
 [[declarations]]
 name = "word"

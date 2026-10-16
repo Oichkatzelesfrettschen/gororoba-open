@@ -23,7 +23,7 @@ human-facing compatibility docs from the same source-of-truth.
 - Rust: stable `1.97.0` via `rust-toolchain.toml`
 - Edition: `2024`
 - Python: `3.11` or `3.12` recommended; `3.13+` allowed with optional-extras caveats
-- Formal proofs: Rocq `9.1.1`
+- Formal proofs: Rocq `9.2.0`
 - Formatting/linting: `cargo fmt --all`, `cargo clippy --workspace -- -D warnings`
 
 ## Verification entrypoints

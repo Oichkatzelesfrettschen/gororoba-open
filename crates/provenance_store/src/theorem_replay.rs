@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 
 use super::{ProofFileDigest, TheoremKernelWitness};
 
-const TOOLCHAIN: &str = "Rocq 9.1.1; OCaml 5.4.0";
-const VERSION: &str = "The Rocq Prover, version 9.1.1\ncompiled with OCaml 5.4.0";
+const TOOLCHAIN: &str = "Rocq 9.2; OCaml 5.5.0";
+const VERSION: &str = "The Rocq Prover, version 9.2\ncompiled with OCaml 5.5.0";
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -427,7 +427,7 @@ fn trusted_program() -> Result<PathBuf> {
             output.status.success()
                 && output.stderr.is_empty()
                 && String::from_utf8(output.stdout)?.trim() == VERSION,
-            "trusted replay requires Rocq 9.1.1 compiled with OCaml 5.4.0"
+            "trusted replay requires Rocq 9.2 compiled with OCaml 5.5.0"
         );
         return Ok(candidate);
     }

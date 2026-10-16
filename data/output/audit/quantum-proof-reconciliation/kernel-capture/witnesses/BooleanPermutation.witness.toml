@@ -4,7 +4,7 @@ proof_path = "proofs/theories/BooleanPermutation.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanPermutation.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanPermutation"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "4cc877b0617fda46f2221564101bcf5d3460d58d78f7c4d9bc5c00e08ab184dc"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/BooleanPermutation.vo"
-sha256 = "7bef72d055875539de9a6df2130afed37428e255ed4651eb67ff97f2b050bf8b"
+sha256 = "093d5d8cf3f112c76c14962fd3018a6efc70135212521749fe40687258e295bb"
 
 [[declarations]]
 name = "target_flip"

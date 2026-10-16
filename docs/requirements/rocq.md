@@ -9,8 +9,8 @@ surfaces.
 Install the pinned Rocq and Flocq packages in the same `opam` switch:
 
 ```bash
-opam install rocq-core.9.1.1 rocq-stdlib.9.1.1 coq-flocq.4.2.2
-eval "$(opam env --switch rocq-9.1.1)"
+opam install rocq-core.9.2.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2
+eval "$(opam env --switch rocq-9.2)"
 ```
 
 Then run:
