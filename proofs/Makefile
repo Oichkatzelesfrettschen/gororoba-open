@@ -3,16 +3,16 @@
 # WHY:  Machine-checked proofs elevate claim evidence from "tested at
 #       sample points" to "proven for all valid inputs."
 # WHAT: Compiles .v files to kernel-checked .vo proof objects.
-# HOW:  eval "$(opam env --switch rocq-9.2)" && make all
+# HOW:  opam exec --switch=rocq-9.3 -- make --jobs="$(nproc)" all
 #
-# REQUIRES: opam switch rocq-9.2 with rocq-core >= 9.2.0.
+# REQUIRES: opam switch rocq-9.3 with rocq-core 9.3.0.
 
 # Guard: require an opam switch with the pinned Rocq toolchain and the
 # matching Flocq compiled library. Compiled Flocq objects carry the OCaml
 # runtime identity, so a Rocq binary from one switch cannot consume objects
 # built by another switch.
 ifndef OPAM_SWITCH_PREFIX
-$(error OPAM_SWITCH_PREFIX is not set. Run: eval "$$(opam env --switch rocq-9.2)")
+$(error OPAM_SWITCH_PREFIX is not set. Run: opam exec --switch=rocq-9.3 -- make)
 endif
 
 # FP24Representable.v imports Flocq.Core. Keep the dependency in the active
@@ -29,10 +29,13 @@ ROCQ_EXTERNAL_ARGS := -R "$(FLOCQ_ROOT)" Flocq
 # and consume the installed .vo objects directly.
 ROCQ_PROJECT_FLAGS := -f _RocqProject
 
-ROCQMAKEFILE := rocq makefile
+# The proof corpus has two logical roots and produces local proof objects.
+# Findlib package installation requires exactly one root; select the supported
+# standalone generation mode while retaining the fatal warning check below.
+ROCQMAKEFILE := rocq makefile --no-rocq-package-warning
 ROCQMAKEFILE_WARN_RE := [Ww]arning
 
-# OCaml 5.5.0 GC tuning: only `o=` (space_overhead) is effective.
+# OCaml 5 GC tuning: only `o=` (space_overhead) is effective.
 # WHY: OCaml 5 ignores s= (initial heap), i= (minor heap size), O= (compaction).
 #      o=200 lets major GC tolerate 200% overhead before collecting, reducing
 #      pauses during large `ring` term construction (C912 peaks at ~300MB).
@@ -49,7 +52,7 @@ PROJ_FILE := $(shell if [ -f _RocqProject ]; then echo _RocqProject; else echo _
 # any target whose recipe failed, restoring fail-closed semantics.
 .DELETE_ON_ERROR:
 
-Makefile.rocq: $(PROJ_FILE)
+Makefile.rocq: $(PROJ_FILE) Makefile
 	@tmp_log=$$(mktemp); \
 	if ! $(ROCQMAKEFILE) -f $(PROJ_FILE) -o Makefile.rocq >"$$tmp_log" 2>&1; then \
 	  cat "$$tmp_log"; \
@@ -140,6 +143,9 @@ check-admissions: test-admission-check scan-admissions
 
 check: all check-admissions
 
+check-plugins:
+	rocq compile -q -w +default tests/PluginCompatibility.v
+
 extract: all
 	@echo "Extracting OCaml code from Rocq..."
 	@mkdir -p extraction/golden
@@ -213,4 +219,4 @@ count:
 	@echo "Interfaces .vos: $$(ls theories/*.vos verified/*.vos 2>/dev/null | wc -l)"
 	@echo "Checked .vok:    $$(ls theories/*.vok verified/*.vok 2>/dev/null | wc -l)"
 
-.PHONY: all vos vok clean check extract extract-check extract-c extract-c-check count rocq-makefile-check
+.PHONY: all vos vok clean check check-plugins extract extract-check extract-c extract-c-check count rocq-makefile-check

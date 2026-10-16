@@ -341,7 +341,7 @@ validation-resource-contract-workers:
 	    if ! grep -Fq "$$contract" Makefile; then echo "ERROR: staged validation-tool build can mutate Cargo.lock: $$contract" >&2; status=1; fi; \
 	done; \
 	if ! grep -Fq 'make --jobs="$$MAKE_JOBS" --keep-going all' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to Make." >&2; status=1; fi; \
-	if ! grep -Fq 'opam install rocq-core.9.2.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 --jobs="$$OPAMJOBS" --yes' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to opam." >&2; status=1; fi; \
+	if ! grep -Fq 'opam install rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 dune.3.23.1 --jobs="$$OPAMJOBS" --yes' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to opam." >&2; status=1; fi; \
 	if grep -Fq 'ci-rust-$${{ matrix.lane }}' .github/workflows/ci.yml; then echo "ERROR: Rust matrix jobs retain quota-consuming duplicate target caches." >&2; status=1; fi; \
 	rust_cache_block="$$(sed -n '/^  rust-validation:/,/^  scientific-replay-inputs:/p' .github/workflows/ci.yml)"; \
 	for contract in 'SCCACHE_DIR:' 'SCCACHE_CACHE_SIZE: 2G' 'compiler-content-v1-' 'fromJSON(needs.validation-core.outputs.rust_matrix).include[1].lane' 'mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba' 'version: v0.15.0'; do \

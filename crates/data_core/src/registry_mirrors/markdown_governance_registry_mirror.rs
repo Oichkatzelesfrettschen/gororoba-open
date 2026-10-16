@@ -7,11 +7,11 @@
 //! Authoritative source: `registry/markdown_governance.toml`.
 //!
 //! - Generated at: deterministic
-//! - Document count: 158
+//! - Document count: 159
 //! - TOML generated mirrors: 15
 //! - TOML manual sources: 50
 //! - Generated artifacts: 36
-//! - Manual narratives: 57
+//! - Manual narratives: 58
 //! - Immutable transcripts: 0
 //!
 //! ## Documents
@@ -1202,98 +1202,105 @@
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0145: `tools/vendor/cargo-geiger/README.md`
+//! ### MDG-0145: `proofs/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0146: `tools/vendor/cargo-geiger/cargo-geiger-serde/README.md`
+//! ### MDG-0146: `tools/vendor/cargo-geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0147: `tools/vendor/cargo-geiger/cargo-geiger/README.md`
+//! ### MDG-0147: `tools/vendor/cargo-geiger/cargo-geiger-serde/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0148: `tools/vendor/cargo-geiger/geiger/README.md`
+//! ### MDG-0148: `tools/vendor/cargo-geiger/cargo-geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0149: `tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md`
+//! ### MDG-0149: `tools/vendor/cargo-geiger/geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0150: `tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md`
+//! ### MDG-0150: `tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0151: `tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md`
+//! ### MDG-0151: `tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0152: `tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md`
+//! ### MDG-0152: `tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0153: `tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md`
+//! ### MDG-0153: `tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0154: `tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md`
+//! ### MDG-0154: `tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0155: `tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md`
+//! ### MDG-0155: `tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0156: `tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md`
+//! ### MDG-0156: `tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0157: `vendor/proc-macro-error2/CHANGELOG.md`
+//! ### MDG-0157: `tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0158: `vendor/proc-macro-error2/README.md`
+//! ### MDG-0158: `vendor/proc-macro-error2/CHANGELOG.md`
+//!
+//! - Kind: `manual_source`
+//! - Mode: `manual_narrative`
+//! - Header required: `false`
+//! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
+//!
+//! ### MDG-0159: `vendor/proc-macro-error2/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`

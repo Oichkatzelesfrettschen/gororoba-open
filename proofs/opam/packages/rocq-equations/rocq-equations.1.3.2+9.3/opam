@@ -1,0 +1,26 @@
+opam-version: "2.0"
+synopsis: "Equations upstream Rocq 9.3 branch with release dependency metadata"
+maintainer: "open_gororoba maintainers"
+authors: ["Matthieu Sozeau" "Cyprien Mangin"]
+license: "LGPL-2.1-only"
+homepage: "https://github.com/rocq-prover/equations"
+bug-reports: "https://github.com/rocq-prover/equations/issues"
+dev-repo: "git+https://github.com/rocq-prover/equations.git"
+depends: [
+  "ocaml" {>= "4.10.0"}
+  "dune" {>= "3.21"}
+  "rocq-core" {= "9.3.0"}
+  "rocq-stdlib" {= "9.2.0"}
+]
+patches: ["rocq-release-dependencies.patch"]
+extra-files: [
+  ["rocq-release-dependencies.patch" "sha256=158f8af94fb80e9f1a817e68b1e63878fe32e9580ebc5c4d09e3b75ebfaa7900"]
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs "@install"]
+  ["dune" "build" "-p" "rocq-equations,rocq-equations-tests,rocq-equations-examples" "-j" jobs "@install" "@runtest"] {with-test}
+]
+url {
+  src: "https://github.com/rocq-prover/equations/archive/d56dfc2c38feb5054d75ef43540ee89a6beb1a7e.tar.gz"
+  checksum: "sha256=e631aa8fb74dc47d6f7a8409e28b2ead367ea2ecb35b273bb1d1ec8f4de33e8b"
+}

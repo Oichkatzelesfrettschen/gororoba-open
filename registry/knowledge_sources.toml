@@ -5,8 +5,8 @@
 
 [knowledge_sources]
 generated_at = "deterministic"
-tracked_markdown_count = 158
-manual_source_count = 107
+tracked_markdown_count = 159
+manual_source_count = 108
 markdown_mirror_count = 0
 generated_markdown_count = 51
 artifact_report_count = 0
@@ -22,13 +22,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "agents.toml"
-sha256 = "ff97109ecb5b3a7192b774a470ce385eaee982bbc69282a9cc5f19a6e0b6bb43"
+sha256 = "e332ca24a462a3d902eafd7f32ffb132f2d060d2b42e5b345e1c7e39a7e5ea6e"
 size_bytes = 56750
 line_count = 959
 claim_ref_count = 21
 insight_ref_count = 2
 experiment_ref_count = 1
-link_count = 367
+link_count = 366
 link_sample = ["$(CURDIR)/.cache/gate-target", "$(HOME)/worktrees", "*.md", ".cache", ".cache/", ".cache/exp-<name>-target/", ".cache/gate-target/debug/.cache/gate-target", ".cargo/config.toml"]
 
 [[document]]
@@ -41,13 +41,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "ff97109ecb5b3a7192b774a470ce385eaee982bbc69282a9cc5f19a6e0b6bb43"
+sha256 = "e332ca24a462a3d902eafd7f32ffb132f2d060d2b42e5b345e1c7e39a7e5ea6e"
 size_bytes = 56750
 line_count = 959
 claim_ref_count = 21
 insight_ref_count = 2
 experiment_ref_count = 1
-link_count = 367
+link_count = 366
 link_sample = ["$(CURDIR)/.cache/gate-target", "$(HOME)/worktrees", "*.md", ".cache", ".cache/", ".cache/exp-<name>-target/", ".cache/gate-target/debug/.cache/gate-target", ".cargo/config.toml"]
 
 [[document]]
@@ -60,7 +60,7 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "ec15c3983a281d0fce01f2e83ec5831d8a898b28dd11800cc362cd5d7beb163e"
+sha256 = "769edc7ea482b735ec8d81224db27ce7409468379b8912da7109dd18f94d970e"
 size_bytes = 12521
 line_count = 243
 claim_ref_count = 2
@@ -323,14 +323,14 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/requirements.toml"
-sha256 = "bc64d58c5ba31562f1fd3171382039cb84130c2e0244cc40bc423d8e6352d6b0"
+sha256 = "603f592a2e3cd46d8b125376241bdc2fa24140e8d07021f417d25da62136a3f1"
 size_bytes = 8359
 line_count = 156
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
 link_count = 86
-link_sample = [".cache/gate-target", "1.97.0", "3.11", "3.12", "3.13+", "9.1.1", "GitHub release: https://github.com/google/shaderc/releases (prebuilt glslc tarball). System-pkg fallback: paru -S shaderc on Arch.", "GitHub release: https://github.com/pmd/pmd/releases (Java tool; download tarball + JAVA_HOME). System-package fallback: paru -S pmd on Arch."]
+link_sample = [".cache/gate-target", "1.97.0", "3.11", "3.12", "3.13+", "9.2.0", "GitHub release: https://github.com/google/shaderc/releases (prebuilt glslc tarball). System-pkg fallback: paru -S shaderc on Arch.", "GitHub release: https://github.com/pmd/pmd/releases (Java tool; download tarball + JAVA_HOME). System-package fallback: paru -S pmd on Arch."]
 
 [[document]]
 id = "DOC-0018"
@@ -361,13 +361,13 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/docs_root_narratives.toml"
-sha256 = "b69b586fcf5c0976920a5e05aad8eb4dc949ae00f4abe8235abf2a5e6cff9784"
-size_bytes = 43862
-line_count = 320
-claim_ref_count = 177
+sha256 = "201cb7f9b7f6a4656508f97f1bb490f24f289e02945b68dce2127b0e95361988"
+size_bytes = 44189
+line_count = 322
+claim_ref_count = 179
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 924
+link_count = 930
 link_sample = ["proofs/theories/ADM.v", "proofs/theories/ADMAlgebraBridge.v", "proofs/theories/AlternatorTraceExclusion.v", "proofs/theories/ArchimedeanStratification.v", "proofs/theories/BaezNormedDivAlgebra.v", "proofs/theories/BekensteinEntropy.v", "proofs/theories/BellCHSH.v", "proofs/theories/BinaryEntropy.v"]
 
 [[document]]
@@ -1798,13 +1798,13 @@ authoring_mode = "generated"
 generated = true
 status = "active"
 migration_priority = "critical"
-sha256 = "2e5303901d090487d3b7bc38bb4e87db708bcb1630c1c44dfe1cc3694aad9c5d"
-size_bytes = 43854
-line_count = 320
-claim_ref_count = 177
+sha256 = "2f45747dc378b5771a0f3412acbf82d87193c6774b502665b8da303cf48610eb"
+size_bytes = 44181
+line_count = 322
+claim_ref_count = 179
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 924
+link_count = 930
 link_sample = ["proofs/theories/ADM.v", "proofs/theories/ADMAlgebraBridge.v", "proofs/theories/AlternatorTraceExclusion.v", "proofs/theories/ArchimedeanStratification.v", "proofs/theories/BaezNormedDivAlgebra.v", "proofs/theories/BekensteinEntropy.v", "proofs/theories/BellCHSH.v", "proofs/theories/BinaryEntropy.v"]
 
 [[document]]
@@ -2466,8 +2466,8 @@ authoring_mode = "generated"
 generated = true
 status = "active"
 migration_priority = "critical"
-sha256 = "e288b202c6965d21e3cd1e884a99fe656d12b1332e31879f9247e43dd3f07d9f"
-size_bytes = 1158
+sha256 = "747cd3ae04e4710b3b9367545fd9d8e04880c26c122ba36439e38cb2f73403be"
+size_bytes = 1156
 line_count = 36
 claim_ref_count = 0
 insight_ref_count = 0
@@ -2695,6 +2695,24 @@ link_sample = ["../README_GPU_STEPS.md", "<topic>.md", "<topic>_<YYYY_MM_DD>.tom
 
 [[document]]
 id = "DOC-0145"
+path = "proofs/README.md"
+title = "Rocq proofs and plugin compatibility"
+kind = "manual_source"
+authoring_mode = "manual"
+generated = false
+status = "active"
+migration_priority = "medium"
+sha256 = "3f2d41f0d98fc328b402c7e112c31c8202c53635da02a294d5c11d16926917d3"
+size_bytes = 12314
+line_count = 175
+claim_ref_count = 0
+insight_ref_count = 0
+experiment_ref_count = 0
+link_count = 46
+link_sample = [".vo", "9.3", "ExtractFP24Admit.v", "Flocq.Core", "extraction/RustExtractSpike.v", "theories/FP24Representable.v", "theories/R2VBTransformDP4.v"]
+
+[[document]]
+id = "DOC-0146"
 path = "tools/vendor/cargo-geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2712,7 +2730,7 @@ link_count = 6
 link_sample = ["Cargo.toml"]
 
 [[document]]
-id = "DOC-0146"
+id = "DOC-0147"
 path = "tools/vendor/cargo-geiger/cargo-geiger-serde/README.md"
 title = "README"
 kind = "manual_source"
@@ -2730,7 +2748,7 @@ link_count = 1
 link_sample = []
 
 [[document]]
-id = "DOC-0147"
+id = "DOC-0148"
 path = "tools/vendor/cargo-geiger/cargo-geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2748,7 +2766,7 @@ link_count = 6
 link_sample = ["Cargo.toml"]
 
 [[document]]
-id = "DOC-0148"
+id = "DOC-0149"
 path = "tools/vendor/cargo-geiger/geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2766,7 +2784,7 @@ link_count = 7
 link_sample = ["README.md"]
 
 [[document]]
-id = "DOC-0149"
+id = "DOC-0150"
 path = "tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2784,7 +2802,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0150"
+id = "DOC-0151"
 path = "tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2802,7 +2820,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0151"
+id = "DOC-0152"
 path = "tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md"
 title = "README Title"
 kind = "manual_source"
@@ -2820,7 +2838,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0152"
+id = "DOC-0153"
 path = "tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md"
 title = "README Title"
 kind = "manual_source"
@@ -2838,7 +2856,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0153"
+id = "DOC-0154"
 path = "tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md"
 title = "README_DIFFERENT_NAME"
 kind = "manual_source"
@@ -2856,7 +2874,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0154"
+id = "DOC-0155"
 path = "tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md"
 title = "README_DIFFERENT_NAME"
 kind = "manual_source"
@@ -2874,7 +2892,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0155"
+id = "DOC-0156"
 path = "tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2892,7 +2910,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0156"
+id = "DOC-0157"
 path = "tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2910,7 +2928,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0157"
+id = "DOC-0158"
 path = "vendor/proc-macro-error2/CHANGELOG.md"
 title = "v2.0.1 (2024-09-06)"
 kind = "manual_source"
@@ -2928,7 +2946,7 @@ link_count = 69
 link_sample = ["1.61", "AsRef/AsMut<String> for MacroError", "From<&str/String>", "From<MacroError> for proc_macro/proc_macro2::TokenStream", "Result<T, &str/String>::abort_or_exit()", "build.rs", "v1.*"]
 
 [[document]]
-id = "DOC-0158"
+id = "DOC-0159"
 path = "vendor/proc-macro-error2/README.md"
 title = "Makes error reporting in procedural macros nice and easy"
 kind = "manual_source"

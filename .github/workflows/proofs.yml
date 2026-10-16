@@ -36,30 +36,47 @@ jobs:
           } >> "$GITHUB_ENV"
           echo "Hosted proof validation uses $worker_budget workers from std::thread::available_parallelism()."
 
-      - name: Install opam and Rust linker
+      - name: Install opam 2.6.1 and Rust linker
         run: |
+          set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y opam clang mold
+          sudo apt-get install -y clang mold
+          curl --fail --location --retry 3 \
+            https://github.com/ocaml/opam/releases/download/2.6.1/opam-2.6.1-x86_64-linux \
+            --output "$RUNNER_TEMP/opam"
+          echo "b533d393a6967150d6ef41cb3d71e147e93ecbabeb59e921aa412c0ae79ebe3d  $RUNNER_TEMP/opam" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/opam"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Restore opam
         id: opam-cache
         uses: actions/cache/restore@v4
         with:
           path: ~/.opam
-          key: opam-${{ runner.os }}-${{ runner.arch }}-ubuntu24-ocaml5.5.0-rocq9.2.0-stdlib9.2.0-flocq4.2.2-v1
+          key: opam2.6.1-${{ runner.os }}-${{ runner.arch }}-ubuntu24-ocaml5.5.1-rocq9.3.0-plugins-${{ hashFiles('proofs/opam/**') }}-v1
 
-      - name: Install Rocq 9.1
+      - name: Install Rocq 9.3
         if: steps.opam-cache.outputs.cache-hit != 'true'
         run: |
           opam init --bare --disable-sandboxing --yes
-          opam switch create rocq-9.2 ocaml-base-compiler.5.5.0 --jobs="$OPAMJOBS" --yes
-          opam repository add rocq-released https://rocq-prover.org/opam/released --switch=rocq-9.2 --yes
-          eval "$(opam env --switch=rocq-9.2)"
-          opam install rocq-core.9.2.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 --jobs="$OPAMJOBS" --yes
+          opam switch create rocq-9.3 ocaml-base-compiler.5.5.1 --jobs="$OPAMJOBS" --yes
+          opam repository add rocq-released https://rocq-prover.org/opam/released --switch=rocq-9.3 --yes
+          eval "$(opam env --switch=rocq-9.3)"
+          opam install rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 dune.3.23.1 --jobs="$OPAMJOBS" --yes
+
+      - name: Install and test compatible proof plugins
+        id: plugins
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          opam repository add gororoba-proof-ports "$GITHUB_WORKSPACE/proofs/opam" --switch=rocq-9.3 --yes
+          opam install --switch=rocq-9.3 rocq-elpi.3.5.1 rocq-hierarchy-builder.1.10.3 rocq-mathcomp-ssreflect.2.6.0 coq-ext-lib.0.13.2 --jobs="$OPAMJOBS" --yes
+          opam install --switch=rocq-9.3 rocq-equations.1.3.2+9.3 --with-test --jobs="$OPAMJOBS" --yes
+          opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$MAKE_JOBS" --keep-going check-plugins
 
       - name: Save installed proof toolchain
         id: opam-cache-save
-        if: steps.opam-cache.outputs.cache-hit != 'true'
+        if: steps.opam-cache.outputs.cache-hit != 'true' && steps.plugins.outcome == 'success'
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
@@ -71,7 +88,7 @@ jobs:
         continue-on-error: true
         working-directory: proofs
         run: |
-          eval "$(opam env --switch=rocq-9.2)"
+          eval "$(opam env --switch=rocq-9.3)"
           make --jobs="$MAKE_JOBS" --keep-going all
 
       - name: Zero-Admitted check
@@ -79,7 +96,7 @@ jobs:
         continue-on-error: true
         working-directory: proofs
         run: |
-          eval "$(opam env --switch=rocq-9.2)"
+          eval "$(opam env --switch=rocq-9.3)"
           make --jobs="$MAKE_JOBS" --keep-going check-admissions
 
       - name: Extraction golden-file diff
@@ -87,14 +104,14 @@ jobs:
         continue-on-error: true
         working-directory: proofs
         run: |
-          eval "$(opam env --switch=rocq-9.2)"
+          eval "$(opam env --switch=rocq-9.3)"
           make --jobs="$MAKE_JOBS" --keep-going extract-check
 
       - name: Verify genuine theorem receipt replay
         id: receipt-replay
         continue-on-error: true
         run: |
-          eval "$(opam env --switch=rocq-9.2)"
+          eval "$(opam env --switch=rocq-9.3)"
           cargo test --locked -p provenance_store --lib \
             theorem_execution::tests::genuine_rocq_replay \
             -- --ignored
@@ -103,6 +120,7 @@ jobs:
         if: always()
         env:
           CACHE_SAVE_OUTCOME: ${{ steps.opam-cache-save.outcome }}
+          PLUGINS_OUTCOME: ${{ steps.plugins.outcome }}
           COMPILE_OUTCOME: ${{ steps.compile.outcome }}
           ADMITTED_OUTCOME: ${{ steps.admitted.outcome }}
           EXTRACTION_OUTCOME: ${{ steps.extraction.outcome }}
@@ -110,7 +128,7 @@ jobs:
         run: |
           set -euo pipefail
           failure_count=0
-          for outcome_variable in CACHE_SAVE_OUTCOME COMPILE_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME RECEIPT_REPLAY_OUTCOME; do
+          for outcome_variable in CACHE_SAVE_OUTCOME PLUGINS_OUTCOME COMPILE_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME RECEIPT_REPLAY_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
             if [ "$outcome" = failure ]; then

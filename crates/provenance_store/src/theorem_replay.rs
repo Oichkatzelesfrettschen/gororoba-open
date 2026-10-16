@@ -13,8 +13,9 @@ use serde::{Deserialize, Serialize};
 
 use super::{ProofFileDigest, TheoremKernelWitness};
 
-const TOOLCHAIN: &str = "Rocq 9.2; OCaml 5.5.0";
-const VERSION: &str = "The Rocq Prover, version 9.2\ncompiled with OCaml 5.5.0";
+const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
+const RETAINED_TOOLCHAINS: [&str; 2] = ["Rocq 9.2; OCaml 5.5.0", TOOLCHAIN];
+const VERSION: &str = "The Rocq Prover, version 9.3.0\ncompiled with OCaml 5.5.1";
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -272,8 +273,8 @@ impl KernelReplayEvidence {
     pub(super) fn validate(&self, witness: &TheoremKernelWitness) -> Result<()> {
         ensure!(
             self.schema_version == 1
-                && self.toolchain == TOOLCHAIN
-                && witness.toolchain == TOOLCHAIN,
+                && RETAINED_TOOLCHAINS.contains(&self.toolchain.as_str())
+                && self.toolchain == witness.toolchain,
             "unsupported trusted Rocq replay identity"
         );
         ensure!(
@@ -427,7 +428,7 @@ fn trusted_program() -> Result<PathBuf> {
             output.status.success()
                 && output.stderr.is_empty()
                 && String::from_utf8(output.stdout)?.trim() == VERSION,
-            "trusted replay requires Rocq 9.2 compiled with OCaml 5.5.0"
+            "trusted replay requires Rocq 9.3.0 compiled with OCaml 5.5.1"
         );
         return Ok(candidate);
     }
@@ -527,7 +528,7 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
     let logical = logical_module(&witness.proof_path)?;
     let mut query = format!("Require Import {logical}.\n");
     for declaration in &witness.declarations {
-        query.push_str(&format!("Goal True.\n  idtac \"Declaration: {}\".\n  exact I.\nQed.\nPrint Assumptions {logical}.{}.\n", declaration.name, declaration.name));
+        query.push_str(&format!("Goal True.\nProof.\n  idtac \"Declaration: {}\".\n  exact I.\nQed.\nPrint Assumptions {logical}.{}.\n", declaration.name, declaration.name));
     }
     fs::write(scratch.0.join("KernelReceiptAssumptions.v"), query)?;
     let assumptions = run(
@@ -596,7 +597,7 @@ pub(super) fn genuine_fixture_artifacts(root: &Path, witness: &TheoremKernelWitn
     fs::write(
         directory.join("KernelReceiptAssumptions.v"),
         format!(
-            "Require Import {logical}.\nGoal True. idtac \"Declaration: fixture\". exact I. Qed.\nPrint Assumptions {logical}.fixture.\n"
+            "Require Import {logical}.\nGoal True. Proof. idtac \"Declaration: fixture\". exact I. Qed.\nPrint Assumptions {logical}.fixture.\n"
         ),
     )?;
     let assumptions = run(
