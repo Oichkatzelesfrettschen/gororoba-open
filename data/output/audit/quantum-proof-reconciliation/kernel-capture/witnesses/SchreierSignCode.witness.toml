@@ -11,7 +11,7 @@ warning_policy = "fatal_default"
 
 [[sources]]
 path = "proofs/theories/SchreierSignCode.v"
-sha256 = "54b9e22250f20e185139c53d83e89f362a74d13979ecc0c42b3ddf0efcb0d417"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
 
 [compile_log]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/SchreierSignCode.compile.txt"
@@ -27,7 +27,7 @@ sha256 = "cd15b42fec9b7258faf3a153aaff6586098808dc188978ccb5d0b33dee277f9a"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SchreierSignCode.vo"
-sha256 = "af27f4577041115bd12376343c9cd5766e9dc9a0cec2ba3ffc73ccb5fece3f50"
+sha256 = "ee7efc7d64d123c5aa4282ee261b16dc5e045b89d9eb631e21078c168adf2943"
 
 [[declarations]]
 name = "cube_nonzero"

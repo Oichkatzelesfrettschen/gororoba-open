@@ -74,9 +74,12 @@ Lemma cube_equal_spec : forall order (left right : cube order),
 Proof.
   induction order; intros left right.
   - destruct left, right. split; reflexivity.
-  - destruct left as [left low], right as [right high]. simpl.
-    rewrite andb_true_iff, IHorder, Bool.eqb_true_iff.
-    split; [intros [-> ->]; reflexivity | intros equal; inversion equal; auto].
+  - destruct left as [left low], right as [right high]. simpl. split.
+    + intros equal. apply andb_true_iff in equal as [cube_part bit_part].
+      apply IHorder in cube_part. subst.
+      destruct low, high; simpl in bit_part; try discriminate; reflexivity.
+    + intros equal. injection equal as cube_part bit_part. subst.
+      apply andb_true_iff. split; [apply IHorder; reflexivity | destruct high; reflexivity].
 Qed.
 
 Lemma cube_nonzero_double : forall order (value : cube order) high,

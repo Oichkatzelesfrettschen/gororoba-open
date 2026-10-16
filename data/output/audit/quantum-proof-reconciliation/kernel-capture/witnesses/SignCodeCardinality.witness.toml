@@ -11,7 +11,7 @@ warning_policy = "fatal_default"
 
 [[sources]]
 path = "proofs/theories/SchreierSignCode.v"
-sha256 = "54b9e22250f20e185139c53d83e89f362a74d13979ecc0c42b3ddf0efcb0d417"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
 
 [[sources]]
 path = "proofs/theories/SignCodeCardinality.v"
@@ -31,7 +31,7 @@ sha256 = "86546a870b09d7aabdfd43d81f5a01a332d170b19e6517d5b56f37c3180c077e"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SignCodeCardinality.vo"
-sha256 = "365aabd89a9d413da003fd8294d39730547ffe1454418fbfe995defa9ce85f26"
+sha256 = "2914c773466f5aa009532d2fa7d61f44dc0c32ef3c820c22378578223042bcd9"
 
 [[declarations]]
 name = "table_lookup_tabulate"
