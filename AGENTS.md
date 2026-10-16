@@ -22,7 +22,7 @@ Peer references this document inherits style from:
 
 Where the peer projects deal with hardware reverse engineering, this
 project deals with mathematical structures (Cayley-Dickson algebras),
-fluid dynamics (Lattice Boltzmann), formal verification (Rocq 9.2.0),
+fluid dynamics (Lattice Boltzmann), formal verification (Rocq 9.3.0),
 and a SQLite-canonical claim/insight/experiment registry. The
 hygiene + voice + AI-disclosure rules transfer unchanged; the
 hardware-specific tables are replaced with the scientific stack.
@@ -54,7 +54,7 @@ hardware-specific tables are replaced with the scientific stack.
 | `crates/cd_kernel/`                                   | Cayley-Dickson tower (8D..1024D), TurboQuant, multi-backend kernels.                                        |
 | `crates/lbm_3d/`                                      | CPU D3Q19 reference solver (BGK + MRT).                                                                     |
 | `crates/lbm_vulkan/` + `crates/lbm_3d_cuda/`          | GPU LBM backends.                                                                                           |
-| `proofs/`                                             | Rocq 9.2.0 formal proofs; `make -C proofs vos` for interface check, `make -C proofs vok` for body check.    |
+| `proofs/`                                             | Rocq 9.3.0 formal proofs; toolchain, plugins, and multicore commands in `proofs/README.md`.                 |
 | `docs/engineering/registry_canonical_architecture.md` | Four-layer registry flow: SQLite -> compat TOMLs -> Rust mirrors -> docs.                                   |
 
 ## Top-line operating rules

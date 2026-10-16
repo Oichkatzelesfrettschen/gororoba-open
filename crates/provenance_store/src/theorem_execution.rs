@@ -1256,7 +1256,7 @@ mod tests {
                     schema_version:1,stable_id:"THM-TEST".to_owned(),proof_path:"proofs/verified/C900_Test.v".to_owned(),project_sha256:file_sha256(&self.root.join("proofs/_RocqProject"))?,
                     sources:vec![self.file("proofs/theories/Prelude.v")?,self.file("proofs/verified/C900_Test.v")?],
                     compile_log:self.file("evidence/compile.log")?,kernel_log:self.file("evidence/kernel.log")?,assumption_log:self.file("evidence/assumptions.log")?,proof_object:self.file("evidence/C900_Test.vo")?,
-                    compile_command:"opam exec --switch rocq-9.2 -- rocq compile -q -w +all verified/C900_Test.v".to_owned(),kernel_command:"opam exec --switch rocq-9.2 -- rocq check OpenGororobaVerified.C900_Test".to_owned(),toolchain:"Rocq 9.2; OCaml 5.5.0".to_owned(),compile_exit_code:0,kernel_exit_code:0,warning_policy:"fatal_all".to_owned(),
+                    compile_command:"opam exec --switch rocq-9.3 -- rocq compile -q -w +all verified/C900_Test.v".to_owned(),kernel_command:"opam exec --switch rocq-9.3 -- rocq check OpenGororobaVerified.C900_Test".to_owned(),toolchain:"Rocq 9.3.0; OCaml 5.5.1".to_owned(),compile_exit_code:0,kernel_exit_code:0,warning_policy:"fatal_all".to_owned(),
                     declarations:vec![ProofDeclarationEvidence {name:"fixture".to_owned(),statement:"Theorem fixture : True".to_owned(),assumptions:Vec::new()}],
                 },
             })
@@ -1351,7 +1351,7 @@ mod tests {
     }
 
     #[test]
-    #[ignore = "requires host PATH/opam switch with Rocq 9.2 and OCaml 5.5.0"]
+    #[ignore = "requires host PATH/opam switch with Rocq 9.3.0 and OCaml 5.5.1"]
     fn genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects() -> Result<()> {
         let mut fixture = Fixture::new()?;
         fixture.sync("genuine-prestate")?;
@@ -1476,6 +1476,91 @@ mod tests {
                 .record_theorem_kernel_evidence(&fixture.root, &spec, &toml::to_string(&spec)?)?
                 .exact_replay
         );
+        Ok(())
+    }
+
+    #[test]
+    fn retained_replay_accepts_supported_matching_toolchains() -> Result<()> {
+        let fixture = Fixture::new()?;
+        let current_witness = fixture.witness()?.witness;
+        let evidence = replay::fixture_evidence(&current_witness)?;
+        for toolchain in [
+            "Rocq 9.1.1; OCaml 5.4.0",
+            "Rocq 9.2; OCaml 5.5.0",
+            "Rocq 9.3.0; OCaml 5.5.1",
+        ] {
+            let mut witness = current_witness.clone();
+            witness.toolchain = toolchain.to_owned();
+            let mut encoded = serde_json::to_value(&evidence)?;
+            encoded["toolchain"] = toolchain.into();
+            let retained: replay::KernelReplayEvidence = serde_json::from_value(encoded)?;
+            retained.validate(&witness)?;
+
+            let mut mismatched = witness.clone();
+            mismatched.toolchain = if toolchain == "Rocq 9.2; OCaml 5.5.0" {
+                "Rocq 9.3.0; OCaml 5.5.1"
+            } else {
+                "Rocq 9.2; OCaml 5.5.0"
+            }
+            .to_owned();
+            assert!(retained.validate(&mismatched).is_err());
+        }
+        for toolchain in [
+            "Rocq 9.1; OCaml 5.4.0",
+            "Rocq 9.4; OCaml 5.5.1",
+            "Rocq 9.3.0; OCaml 5.5.0",
+            "Rocq 9.2; OCaml 5.5.1",
+        ] {
+            let mut witness = current_witness.clone();
+            witness.toolchain = toolchain.to_owned();
+            let mut encoded = serde_json::to_value(&evidence)?;
+            encoded["toolchain"] = toolchain.into();
+            let retained: replay::KernelReplayEvidence = serde_json::from_value(encoded)?;
+            assert!(retained.validate(&witness).is_err());
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn retained_historical_receipts_replay_without_admitting_new_execution() -> Result<()> {
+        for (toolchain, switch_name) in [
+            ("Rocq 9.1.1; OCaml 5.4.0", "rocq-9.1.1"),
+            ("Rocq 9.2; OCaml 5.5.0", "rocq-9.2"),
+        ] {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("retained-toolchain-prestate")?;
+            let mut specification = fixture.witness()?;
+            specification.witness.toolchain = toolchain.to_owned();
+            specification.witness.compile_command = specification
+                .witness
+                .compile_command
+                .replace("rocq-9.3", switch_name);
+            specification.witness.kernel_command = specification
+                .witness
+                .kernel_command
+                .replace("rocq-9.3", switch_name);
+            let mut encoded =
+                serde_json::to_value(replay::fixture_evidence(&specification.witness)?)?;
+            encoded["toolchain"] = specification.witness.toolchain.clone().into();
+            let retained = serde_json::from_value(encoded)?;
+            let raw = toml::to_string(&specification)?;
+            fixture.store.record_replayed_theorem_kernel_evidence(
+                &fixture.root,
+                &specification,
+                &raw,
+                Some(retained),
+            )?;
+            let event_count = fixture.events()?;
+            assert!(
+                fixture
+                    .store
+                    .record_theorem_kernel_evidence(&fixture.root, &specification, &raw)?
+                    .exact_replay
+            );
+            assert_eq!(fixture.events()?, event_count);
+            let error = replay::execute(&fixture.root, &specification.witness).unwrap_err();
+            assert!(error.to_string().contains("witness toolchain differs"));
+        }
         Ok(())
     }
 
