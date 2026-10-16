@@ -1,0 +1,5 @@
+sync_key = "quantum-proof-source-schreier-cube-equal"
+actor = "claude-code"
+reason = "Demote the source-bound execution states that the SchreierSignCode source change invalidated (proofs/theories/SchreierSignCode.v, cube_equal_spec proved without setoid rewriting) so that their receipts can be renewed in dependency order; recompute every other source-bound state."
+applied_at = "2026-10-16T04:26:29Z"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
