@@ -569,7 +569,7 @@ fn main() {
     assert!(toolchain.status.success());
     assert_eq!(
         String::from_utf8(toolchain.stdout.clone()).unwrap().trim(),
-        "The Rocq Prover, version 9.1.1\ncompiled with OCaml 5.4.0"
+        "The Rocq Prover, version 9.2\ncompiled with OCaml 5.5.0"
     );
     fs::write(output.join("toolchain.txt"), toolchain.stdout).unwrap();
     let mut union = BTreeSet::new();
@@ -721,7 +721,7 @@ fn main() {
         let compile_command = format!("rocq {}", compiler_arguments(target, "+default").join(" "));
         let kernel_command = format!("rocq {}", checker_arguments(target).join(" "));
         let mut draft = format!(
-            "schema_version = 1\nstable_id = {}\nproof_path = {}\nproject_sha256 = {}\ncompile_command = {}\nkernel_command = {}\ntoolchain = \"Rocq 9.1.1; OCaml 5.4.0\"\ncompile_exit_code = 0\nkernel_exit_code = 0\nwarning_policy = \"fatal_default\"\n",
+            "schema_version = 1\nstable_id = {}\nproof_path = {}\nproject_sha256 = {}\ncompile_command = {}\nkernel_command = {}\ntoolchain = \"Rocq 9.2; OCaml 5.5.0\"\ncompile_exit_code = 0\nkernel_exit_code = 0\nwarning_policy = \"fatal_default\"\n",
             quote(&format!("THM-LEGACY-{stem}")),
             quote(&format!("proofs/{target}")),
             quote(&project_hash),

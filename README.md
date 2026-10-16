@@ -29,7 +29,7 @@ open_gororoba/
   crates/              68 Rust crates (libraries + CLI binaries)
   registry/            TOML registries (claims, insights, experiments, binaries)
   registry/canonical/  SQLite source-of-truth database (control_plane.sqlite3)
-  proofs/              262 Rocq 9.1.1 formal proofs (105 verified theories)
+  proofs/              262 Rocq 9.2.0 formal proofs (105 verified theories)
   data/                External datasets and computed results (LFS-tracked)
   db/migrations/       14 SQLite migration scripts
   docs/                Synthesis documents, evidence notes, architecture references
@@ -235,7 +235,7 @@ superseded runs canceled.
 - **Edition**: 2024
 - **Build**: default LLVM codegen for all profiles (stable pin; no Cranelift)
 - **GPU**: CUDA via `cudarc 0.19.1`, Vulkan via `ash` (feature-gated)
-- **Formal proofs**: Rocq 9.1.1
+- **Formal proofs**: Rocq 9.2.0
 - **Allocator**: mimalloc (workspace default)
 
 ## License

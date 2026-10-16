@@ -98,16 +98,16 @@
 //!
 //! ## Opam Environment
 //!
-//! - Switch: `rocq-9.1.1`
-//! - Rocq: 9.1.1 (OCaml 5.4.0)
+//! - Switch: `rocq-9.2`
+//! - Rocq: 9.2.0 (OCaml 5.5.0)
 //! - No external Rocq dependencies (stdlib only)
-//! - Backup: `opam switch export rocq-9.1.1-backup.export`
+//! - Backup: `opam switch export rocq-9.2-backup.export`
 //!
 //! ## Tool Versions
 //!
 //! | Tool | Version | Purpose |
 //! |------|---------|---------|
-//! | rocq | 9.1.1 | Proof compiler |
+//! | rocq | 9.2.0 | Proof compiler |
 //! | latexmk | system | LaTeX build |
 //! | dot2tex | 2.11.3 | DOT -> TikZ |
 //! | pygmentize | 2.19.2 | Syntax highlighting (minted) |

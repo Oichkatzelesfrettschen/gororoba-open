@@ -417,8 +417,7 @@ module QuatOps =
       qy =
       (F.add
         (F.add
-          (F.add
-            (F.mul (quat_hamilton_entry x (S (S O)) O) (quat_coord xi O))
+          (F.add (F.mul (quat_hamilton_entry x (S (S O)) O) (quat_coord xi O))
             (F.mul (quat_hamilton_entry x (S (S O)) (S O))
               (quat_coord xi (S O))))
           (F.mul (quat_hamilton_entry x (S (S O)) (S (S O)))

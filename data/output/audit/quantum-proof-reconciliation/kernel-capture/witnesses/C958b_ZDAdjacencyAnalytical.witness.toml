@@ -4,7 +4,7 @@ proof_path = "proofs/verified/C958b_ZDAdjacencyAnalytical.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C958b_ZDAdjacencyAnalytical.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C958b_ZDAdjacencyAnalytical"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -35,7 +35,7 @@ sha256 = "d02775d98ba5f7b78bd69792a32d98db55cad961ecab5d6ef62aa8c16a68a489"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/verified/C958b_ZDAdjacencyAnalytical.vo"
-sha256 = "496140b74e036f7e44adcef3e69ec525468ebc710248e2522aca8e8a3efbeea1"
+sha256 = "42af2bede017f341338f1a8d0c53a7cb5ab4733539b600fcdf1f56389a6e4c0b"
 
 [[declarations]]
 name = "is_giant_vertex"

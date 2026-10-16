@@ -4,7 +4,7 @@ proof_path = "proofs/theories/SedenionFoldTransport.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionFoldTransport.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SedenionFoldTransport"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -43,7 +43,7 @@ sha256 = "b2a550d6e8cc3bb27574f6a869bebeb1c9144eb2463e149a76ed60a2a3cc3c5f"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SedenionFoldTransport.vo"
-sha256 = "25cde22d6d3a6438a4124a6bfdede0c58d1fc02f97405418512f206505006a25"
+sha256 = "4144c1b9114ce4150b236b17f7b8e541e61cf60241b16db88678168d5dd09824"
 
 [[declarations]]
 name = "sed_average"

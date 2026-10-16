@@ -1,0 +1,5 @@
+sync_key = "quantum-proof-toolchain-rocq-9.2"
+actor = "claude-code"
+reason = "Demote the source-bound execution states whose retained proof objects and receipts were produced under Rocq 9.1.1, so that the 17 receipts can be renewed under Rocq 9.2.0 and OCaml 5.5.0 in dependency order; the proof sources and proofs/_RocqProject are unchanged."
+applied_at = "2026-10-16T05:04:43Z"
+project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"

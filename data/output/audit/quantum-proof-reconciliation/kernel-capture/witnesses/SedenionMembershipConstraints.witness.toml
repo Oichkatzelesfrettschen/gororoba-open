@@ -4,7 +4,7 @@ proof_path = "proofs/theories/SedenionMembershipConstraints.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionMembershipConstraints.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SedenionMembershipConstraints"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -39,7 +39,7 @@ sha256 = "2482ad2ef78ce66934c47f285665a0f415269a0e1709891c9a15b3def9cfb9aa"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SedenionMembershipConstraints.vo"
-sha256 = "053c985da171e5ac1acf860d8a02fcd671200de0a77f36f537875a1a17f24ea8"
+sha256 = "6684e8825ed06ffffb870d294b168cfabdc2f8778dc538bc6c04ea306a030049"
 
 [[declarations]]
 name = "sedenion_d2"

@@ -3,16 +3,16 @@
 # WHY:  Machine-checked proofs elevate claim evidence from "tested at
 #       sample points" to "proven for all valid inputs."
 # WHAT: Compiles .v files to kernel-checked .vo proof objects.
-# HOW:  eval "$(opam env --switch rocq-9.1.1)" && make all
+# HOW:  eval "$(opam env --switch rocq-9.2)" && make all
 #
-# REQUIRES: opam switch rocq-9.1.1 with rocq-core >= 9.1.1.
+# REQUIRES: opam switch rocq-9.2 with rocq-core >= 9.2.0.
 
 # Guard: require an opam switch with the pinned Rocq toolchain and the
 # matching Flocq compiled library. Compiled Flocq objects carry the OCaml
 # runtime identity, so a Rocq binary from one switch cannot consume objects
 # built by another switch.
 ifndef OPAM_SWITCH_PREFIX
-$(error OPAM_SWITCH_PREFIX is not set. Run: eval "$$(opam env --switch rocq-9.1.1)")
+$(error OPAM_SWITCH_PREFIX is not set. Run: eval "$$(opam env --switch rocq-9.2)")
 endif
 
 # FP24Representable.v imports Flocq.Core. Keep the dependency in the active
@@ -32,7 +32,7 @@ ROCQ_PROJECT_FLAGS := -f _RocqProject
 ROCQMAKEFILE := rocq makefile
 ROCQMAKEFILE_WARN_RE := [Ww]arning
 
-# OCaml 5.4.0 GC tuning: only `o=` (space_overhead) is effective.
+# OCaml 5.5.0 GC tuning: only `o=` (space_overhead) is effective.
 # WHY: OCaml 5 ignores s= (initial heap), i= (minor heap size), O= (compaction).
 #      o=200 lets major GC tolerate 200% overhead before collecting, reducing
 #      pauses during large `ring` term construction (C912 peaks at ~300MB).

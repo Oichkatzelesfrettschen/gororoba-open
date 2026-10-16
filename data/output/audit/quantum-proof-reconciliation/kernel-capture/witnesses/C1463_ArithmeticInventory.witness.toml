@@ -4,7 +4,7 @@ proof_path = "proofs/verified/C1463_ArithmeticInventory.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C1463_ArithmeticInventory"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "db44d626cca460f312c691af8479d6539cc1b008d9a03e1a61f344c27af3120d"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/verified/C1463_ArithmeticInventory.vo"
-sha256 = "460c34efc4385fabe7cb34cfa00e97201b7e947257014970da1580aea9e1eafe"
+sha256 = "3cac9bc79f352cc3cd494080ccd09d05db3638ca1ca77de0ff26d0dc29f0a8bb"
 
 [[declarations]]
 name = "wilmot_table2_u1_total"

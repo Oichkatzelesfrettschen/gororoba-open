@@ -4,7 +4,7 @@ proof_path = "proofs/theories/NullityTwelveQuadraticLocus.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/NullityTwelveQuadraticLocus.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.NullityTwelveQuadraticLocus"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "8f8cfc82d0178dc8b3be6271b961407bf358c15fac43872395f3998ecd5735e3"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/NullityTwelveQuadraticLocus.vo"
-sha256 = "59c376c7f27657610946cd7ed507a11bfb1541dc5ad44d3c278c693d7737b7b8"
+sha256 = "0feab6755250cad07a1b805cec31352c1776192f09b850738a1fbd73dff78b12"
 
 [[declarations]]
 name = "quadratic_common_zero"

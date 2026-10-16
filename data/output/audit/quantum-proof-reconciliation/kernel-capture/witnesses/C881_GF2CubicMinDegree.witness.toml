@@ -4,7 +4,7 @@ proof_path = "proofs/verified/C881_GF2CubicMinDegree.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C881_GF2CubicMinDegree.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C881_GF2CubicMinDegree"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -31,7 +31,7 @@ sha256 = "d49af03b8b589f0b4f8369cda5158fcdfcffb272f54d2aefae3317d750d3955c"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/verified/C881_GF2CubicMinDegree.vo"
-sha256 = "fbf1208cf5c0dae1090b69e7eece5a4497ab67eed9bd5104ad5bde666e7bc6d7"
+sha256 = "88954441d4cb7371da4a4260f40f51ea5e844799a70e0eb7a2ddebc42ed9e8b1"
 
 [[declarations]]
 name = "pg32_labels"

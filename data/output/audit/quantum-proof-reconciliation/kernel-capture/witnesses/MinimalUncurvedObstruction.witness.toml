@@ -4,7 +4,7 @@ proof_path = "proofs/theories/MinimalUncurvedObstruction.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/MinimalUncurvedObstruction.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.MinimalUncurvedObstruction"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -39,7 +39,7 @@ sha256 = "ce2f17cb25cc7101483f4d88712030b08efdb72ff3663d5081e747e9b5bf0e05"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/MinimalUncurvedObstruction.vo"
-sha256 = "0a1371ac5a972327a7b8936bd0a72c993e6d690fa8f863194ab5d69a0da35ac8"
+sha256 = "8203577eff3e187c67c6111b29af87d1481438eec778c848c0c3470d912652e0"
 
 [[declarations]]
 name = "uncurved_arity_three"

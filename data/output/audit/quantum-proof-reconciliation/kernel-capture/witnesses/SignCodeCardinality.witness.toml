@@ -4,7 +4,7 @@ proof_path = "proofs/theories/SignCodeCardinality.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeCardinality.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SignCodeCardinality"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -31,7 +31,7 @@ sha256 = "86546a870b09d7aabdfd43d81f5a01a332d170b19e6517d5b56f37c3180c077e"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/SignCodeCardinality.vo"
-sha256 = "2914c773466f5aa009532d2fa7d61f44dc0c32ef3c820c22378578223042bcd9"
+sha256 = "889ecaa6a4de4a942774896bbdb0eed7d6edf798201e4fc952d4bf7174c92994"
 
 [[declarations]]
 name = "table_lookup_tabulate"

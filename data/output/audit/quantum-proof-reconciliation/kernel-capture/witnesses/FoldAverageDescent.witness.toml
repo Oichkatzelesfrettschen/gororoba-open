@@ -4,7 +4,7 @@ proof_path = "proofs/theories/FoldAverageDescent.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FoldAverageDescent.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FoldAverageDescent"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -27,7 +27,7 @@ sha256 = "438b4ab65308a58802d40ed35ef12a560bdbd5aba989af26ebf5edb638e3376f"
 
 [proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/FoldAverageDescent.vo"
-sha256 = "afbbfddb0e864cab4ed63f465072800daf73cb57c221875b1b05e01a50d0cf61"
+sha256 = "e00d6aa385a36918a349ea582e9a179bc3547693f37779e18a71cea29c35fc87"
 
 [[declarations]]
 name = "scalar_pair"

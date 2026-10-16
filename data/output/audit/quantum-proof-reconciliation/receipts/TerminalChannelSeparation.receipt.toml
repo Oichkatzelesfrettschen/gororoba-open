@@ -1,7 +1,7 @@
-evidence_key = "quantum-source-replay-TerminalChannelSeparation-37f986059454"
-actor = "codex"
-reason = "Renew project-bound admission through fresh pinned complete-source compilation, retained object reproduction, independent checking and every recognized declaration assumption query."
-applied_at = "2026-10-13T02:39:01Z"
+evidence_key = "quantum-source-replay-TerminalChannelSeparation-b186417fc89f"
+actor = "claude-code"
+reason = "Renew project-bound admission under the Rocq 9.2.0 trusted toolchain (OCaml 5.5.0) through fresh pinned complete-source compilation, retained object reproduction, independent kernel checking and every recognized declaration assumption query."
+applied_at = "2026-10-16T05:04:43Z"
 expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
 expected_status = "source_only"
 
@@ -12,7 +12,7 @@ proof_path = "proofs/theories/TerminalChannelSeparation.v"
 project_sha256 = "37f986059454d63bb852ebef96b169ce6fa1646ac85dd12a209156d418b6bcf2"
 compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparation.v"
 kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparation"
-toolchain = "Rocq 9.1.1; OCaml 5.4.0"
+toolchain = "Rocq 9.2; OCaml 5.5.0"
 compile_exit_code = 0
 kernel_exit_code = 0
 warning_policy = "fatal_default"
@@ -35,7 +35,7 @@ sha256 = "0522fefccf6b82d7f694782e4afee9617fb770d49f967b2b0825e8a0d348e546"
 
 [witness.proof_object]
 path = "data/output/audit/quantum-proof-reconciliation/kernel-capture/theories/TerminalChannelSeparation.vo"
-sha256 = "961a07ade913bf21240dc7eab9dfd03db9aba63d60c0764cfcc8cdd6f11f8e48"
+sha256 = "78fd3a992b2d26d41367d2ae20ae4b6e758f218bd719d0df5788a00bc3e49f6a"
 
 [[witness.declarations]]
 name = "binary_channel"
