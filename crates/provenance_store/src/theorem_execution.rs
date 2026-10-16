@@ -1484,7 +1484,11 @@ mod tests {
         let fixture = Fixture::new()?;
         let current_witness = fixture.witness()?.witness;
         let evidence = replay::fixture_evidence(&current_witness)?;
-        for toolchain in ["Rocq 9.2; OCaml 5.5.0", "Rocq 9.3.0; OCaml 5.5.1"] {
+        for toolchain in [
+            "Rocq 9.1.1; OCaml 5.4.0",
+            "Rocq 9.2; OCaml 5.5.0",
+            "Rocq 9.3.0; OCaml 5.5.1",
+        ] {
             let mut witness = current_witness.clone();
             witness.toolchain = toolchain.to_owned();
             let mut encoded = serde_json::to_value(&evidence)?;
@@ -1518,39 +1522,45 @@ mod tests {
     }
 
     #[test]
-    fn retained_rocq_92_receipt_replays_without_admitting_new_execution() -> Result<()> {
-        let mut fixture = Fixture::new()?;
-        fixture.sync("retained-toolchain-prestate")?;
-        let mut specification = fixture.witness()?;
-        specification.witness.toolchain = "Rocq 9.2; OCaml 5.5.0".to_owned();
-        specification.witness.compile_command = specification
-            .witness
-            .compile_command
-            .replace("rocq-9.3", "rocq-9.2");
-        specification.witness.kernel_command = specification
-            .witness
-            .kernel_command
-            .replace("rocq-9.3", "rocq-9.2");
-        let mut encoded = serde_json::to_value(replay::fixture_evidence(&specification.witness)?)?;
-        encoded["toolchain"] = specification.witness.toolchain.clone().into();
-        let retained = serde_json::from_value(encoded)?;
-        let raw = toml::to_string(&specification)?;
-        fixture.store.record_replayed_theorem_kernel_evidence(
-            &fixture.root,
-            &specification,
-            &raw,
-            Some(retained),
-        )?;
-        let event_count = fixture.events()?;
-        assert!(
-            fixture
-                .store
-                .record_theorem_kernel_evidence(&fixture.root, &specification, &raw)?
-                .exact_replay
-        );
-        assert_eq!(fixture.events()?, event_count);
-        let error = replay::execute(&fixture.root, &specification.witness).unwrap_err();
-        assert!(error.to_string().contains("witness toolchain differs"));
+    fn retained_historical_receipts_replay_without_admitting_new_execution() -> Result<()> {
+        for (toolchain, switch_name) in [
+            ("Rocq 9.1.1; OCaml 5.4.0", "rocq-9.1.1"),
+            ("Rocq 9.2; OCaml 5.5.0", "rocq-9.2"),
+        ] {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("retained-toolchain-prestate")?;
+            let mut specification = fixture.witness()?;
+            specification.witness.toolchain = toolchain.to_owned();
+            specification.witness.compile_command = specification
+                .witness
+                .compile_command
+                .replace("rocq-9.3", switch_name);
+            specification.witness.kernel_command = specification
+                .witness
+                .kernel_command
+                .replace("rocq-9.3", switch_name);
+            let mut encoded =
+                serde_json::to_value(replay::fixture_evidence(&specification.witness)?)?;
+            encoded["toolchain"] = specification.witness.toolchain.clone().into();
+            let retained = serde_json::from_value(encoded)?;
+            let raw = toml::to_string(&specification)?;
+            fixture.store.record_replayed_theorem_kernel_evidence(
+                &fixture.root,
+                &specification,
+                &raw,
+                Some(retained),
+            )?;
+            let event_count = fixture.events()?;
+            assert!(
+                fixture
+                    .store
+                    .record_theorem_kernel_evidence(&fixture.root, &specification, &raw)?
+                    .exact_replay
+            );
+            assert_eq!(fixture.events()?, event_count);
+            let error = replay::execute(&fixture.root, &specification.witness).unwrap_err();
+            assert!(error.to_string().contains("witness toolchain differs"));
+        }
         Ok(())
     }
 

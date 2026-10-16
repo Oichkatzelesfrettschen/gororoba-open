@@ -37,6 +37,8 @@ the source archive checksum. The patch changes development dependency
 metadata to Rocq core 9.3.0 and Stdlib 9.2.0. The recipe requests upstream
 examples and tests with `--with-test`. A recipe and an upstream port branch
 establish source availability; the opam test result establishes execution.
+The recipe declares the patch in `extra-files` with its own checksum so opam
+copies the verified payload into the source build.
 
 Elpi 3.5.1 requires Dune below 3.24, so the coherent package set uses Dune
 3.23.1. The hosted bootstrap pins that version before compiling Rocq to avoid
@@ -133,6 +135,17 @@ compiled filenames with the signed interval predicate, then regenerate and
 test the C correspondence artifacts under the ported compiler. The function
 identities express different admission policies and must remain distinct.
 
+Published upstream sources also retain warning debt. Opam installation uses
+each package's build policy; the repository's strict integration tests measure
+a separate surface. The observed upstream diagnostics require source changes
+before those complete packages can claim warning-free builds:
+
+| Source | Observed diagnostic | Required source migration |
+| --- | --- | --- |
+| Flocq 4.2.2 | `missing-proof-command`, `notation-for-abbreviation` | Add explicit proof-entry commands and use abbreviation declarations; rerun the numerical correctness proofs under fatal warnings. |
+| MathComp 2.6.0 | `at-level-200-changed`, `notation-for-abbreviation` | Adapt notation precedence and abbreviation declarations; rerun parsing, reflection and hierarchy consumers. |
+| Retained MetaRocq erasure sources | `ambiguous-paths` between `weaken_env_prop` coercions | Establish one coherent conversion path and rerun the checker, erasure and quotation consumers. |
+
 ## Local verification
 
 The 2026-10-16 run used Rocq 9.3.0 and OCaml 5.5.1 in a fresh worktree.
@@ -144,11 +157,17 @@ The retained ordered source-hash manifest had SHA-256
 | Surface | Command or result |
 | --- | --- |
 | Complete proof bodies | `make -C proofs --jobs=12 --keep-going all`: 310 `.vo` objects, exit 0, 363.96 seconds elapsed, zero warnings and errors in the build log |
+| Complete kernel check | `rocq check -silent -o` over all 310 logical modules and their dependency closure: exit 0, 126.64 seconds elapsed; the context summary retains explicit axioms |
 | Admissions | `check-admissions`: five scanner tests passed; all 310 corpus sources contained zero admission tokens; explicit axioms remain separate assumptions |
 | OCaml extraction | `extract-check`: generated quaternion extraction matched the retained golden file |
 | Compatible plugins | Equations installed through opam with upstream tests enabled; `check-plugins` passed with fatal default warnings |
 | Trusted replay | All 24 theorem-execution tests passed, including genuine compiler/kernel execution, configured Flocq replay, historical receipt retention and rejection of wrong objects |
 | Rust diagnostics | `cargo clippy --locked --offline -p provenance_store --all-targets --profile validation -- -D warnings` passed |
+
+Retained replay validates matching historical Rocq 9.1.1 / OCaml 5.4.0 and
+Rocq 9.2 / OCaml 5.5.0 identities. Fresh execution requires Rocq 9.3.0 /
+OCaml 5.5.1. Historical validation retains its witnessed commands and bytes;
+the historical allowlist supplies no alternate execution path.
 
 The Make jobserver admitted all 12 process-visible CPUs. The dependency graph
 limited ready work during the final Brown chapter chain. Local compilation

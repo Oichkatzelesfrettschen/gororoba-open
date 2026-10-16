@@ -14,7 +14,11 @@ use serde::{Deserialize, Serialize};
 use super::{ProofFileDigest, TheoremKernelWitness};
 
 const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
-const RETAINED_TOOLCHAINS: [&str; 2] = ["Rocq 9.2; OCaml 5.5.0", TOOLCHAIN];
+const RETAINED_TOOLCHAINS: [&str; 3] = [
+    "Rocq 9.1.1; OCaml 5.4.0",
+    "Rocq 9.2; OCaml 5.5.0",
+    TOOLCHAIN,
+];
 const VERSION: &str = "The Rocq Prover, version 9.3.0\ncompiled with OCaml 5.5.1";
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
