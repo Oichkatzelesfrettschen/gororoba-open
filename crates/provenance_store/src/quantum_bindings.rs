@@ -177,7 +177,30 @@ fn verify_hash(bytes: &[u8], expected: &str) -> Result<()> {
 fn json(bytes: &[u8]) -> Result<serde_json::Value> {
     Ok(serde_json::from_slice(bytes)?)
 }
-fn convention(source: &str) -> Result<(&'static str, &'static str)> {
+fn convention(source: &str, declaration: &str) -> Result<(&'static str, &'static str)> {
+    let filename = Path::new(source)
+        .file_name()
+        .and_then(|name| name.to_str())
+        .context("source filename missing")?;
+    if required_semantics(source, declaration)?.0 == "mathematical_only" {
+        match filename {
+            "BranchSignedCoherence.v" => {
+                return Ok((
+                    "source_complex_and_matrix_coordinates",
+                    "normalization_from_theorem_hypotheses",
+                ));
+            }
+            "TerminalChannelSeparation.v"
+            | "TerminalChannelSeparationReal.v"
+            | "TerminalChannelEmpiricalCertificate.v" => {
+                return Ok((
+                    "source_scalar_channel_and_event_definitions",
+                    "normalization_from_theorem_hypotheses",
+                ));
+            }
+            _ => (),
+        }
+    }
     Ok(
         match Path::new(source)
             .file_name()
@@ -198,65 +221,101 @@ fn convention(source: &str) -> Result<(&'static str, &'static str)> {
                 ("binary_zero_one", "probability_unit_interval")
             }
             "BranchSignedCoherence.v" => ("b0_c0_a_c1_b_c2_spectator_c3", "signed_pauli_quarter"),
-            "FiniteProbability.v" | "FiniteBernoulliConcentration.v" => {
-                ("finite_boolean_sample_space", "probability_unit_interval")
-            }
+            "FiniteProbability.v" | "FiniteBernoulliConcentration.v" => (
+                "finite_weighted_sample_space",
+                "normalization_from_theorem_hypotheses",
+            ),
             _ => bail!("unsupported theorem source domain: {source}"),
         },
     )
 }
-fn required_semantics(source: &str) -> Result<(&'static str, &'static [&'static str])> {
-    Ok(
-        match Path::new(source)
-            .file_name()
-            .and_then(|name| name.to_str())
-            .context("source filename missing")?
-        {
+fn required_semantics(
+    source: &str,
+    declaration: &str,
+) -> Result<(&'static str, &'static [&'static str])> {
+    let filename = Path::new(source)
+        .file_name()
+        .and_then(|name| name.to_str())
+        .context("source filename missing")?;
+    Ok(match (filename, declaration) {
+        ("FiniteBernoulliConcentration.v", "terminal_32_mean_family_coverage") => (
+            "conditional_terminal_fixture",
+            &[
+                "finite nonnegative normalized law and exactly 32 indexed means with 8192 samples each",
+                "each within-mean centered sum has its declared IID Bernoulli convolution law; cross-mean dependence is unrestricted",
+                "physical application requires stationarity, shot independence and the verified register decoders; no common terminal channel is assumed by coverage",
+            ],
+        ),
+        (
+            "TerminalChannelEmpiricalCertificate.v",
+            "retained_terminal_exact_margin" | "retained_terminal_margin_positive",
+        ) => (
+            "conditional_terminal_fixture",
+            &[
+                "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion",
+            ],
+        ),
+        (
+            "TerminalChannelSeparation.v" | "TerminalChannelSeparationReal.v",
+            "separated_centers_exclude_common_binary_channel",
+        )
+        | (
+            "TerminalChannelEmpiricalCertificate.v",
+            "terminal_false_rejection_probability" | "terminal_32_mean_false_rejection",
+        ) => (
+            "conditional_terminal_fixture",
+            &[
+                "common binary stochastic channel",
+                "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+                "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+                "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class",
+            ],
+        ),
+        (
+            "BranchSignedCoherence.v",
+            "complex_ext"
+            | "difference_hermitian"
+            | "opposite_branches_cancel"
+            | "rotation_preserves_modulus_squared"
+            | "radius_triangle"
+            | "radius_encloses_euclidean_disk"
+            | "pauli_difference",
+        ) => (
+            "mathematical_only",
+            &["mathematical definitions and hypotheses in the pinned declaration"],
+        ),
+        ("BranchSignedCoherence.v", _) => (
+            "conditional_coherence_fixture",
+            &[
+                "same latent two-work-qubit state across Pauli settings within context",
+                "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+                "stationary within-context marginal distributions and shot independence remain empirical premises",
+                "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+                "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+                "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+                "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture",
+            ],
+        ),
+        (
             "C881_GF2CubicMinDegree.v"
             | "SedenionFoldTransport.v"
             | "FoldAverageDescent.v"
             | "NullityTwelveQuadraticLocus.v"
-            | "C014_AnnihilatorDim4.v" => (
-                "mathematical_only",
-                &["algebraic definitions and hypotheses in the pinned source"],
-            ),
-            "TerminalChannelSeparation.v"
+            | "C014_AnnihilatorDim4.v"
+            | "FiniteProbability.v"
+            | "FiniteBernoulliConcentration.v"
+            | "TerminalChannelSeparation.v"
             | "TerminalChannelSeparationReal.v"
-            | "TerminalChannelEmpiricalCertificate.v" => (
-                "conditional_terminal_fixture",
-                &[
-                    "common binary stochastic channel",
-                    "simultaneous coverage of all 32 means",
-                    "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-                    "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-                ],
-            ),
-            "FiniteProbability.v" | "FiniteBernoulliConcentration.v" => (
-                "conditional_terminal_fixture",
-                &[
-                    "common binary stochastic channel",
-                    "simultaneous coverage of all 32 means",
-                    "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-                    "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-                    "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound",
-                ],
-            ),
-            "BranchSignedCoherence.v" => (
-                "conditional_coherence_fixture",
-                &[
-                    "same latent two-work-qubit state across Pauli settings within context",
-                    "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-                    "stationary within-context marginal distributions and shot independence remain empirical premises",
-                    "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-                    "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-                    "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-                    "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture",
-                ],
-            ),
-            _ => bail!("unsupported theorem semantic domain"),
-        },
-    )
+            | "TerminalChannelEmpiricalCertificate.v",
+            _,
+        ) => (
+            "mathematical_only",
+            &["mathematical definitions and hypotheses in the pinned declaration"],
+        ),
+        _ => bail!("unsupported theorem semantic domain"),
+    })
 }
+
 fn validate_terminal_observations(
     manifest: &QuantumBindingManifest,
     record: &serde_json::Value,
@@ -604,7 +663,7 @@ impl QuantumBindingManifest {
                 "stale theorem declaration: {}",
                 theorem.declaration
             );
-            let (basis, normalization) = convention(&theorem.source)?;
+            let (basis, normalization) = convention(&theorem.source, &theorem.declaration)?;
             ensure!(theorem.basis == basis, "basis convention changed");
             ensure!(
                 theorem.normalization == normalization,
@@ -618,7 +677,8 @@ impl QuantumBindingManifest {
                         .all(|premise| !premise.trim().is_empty()),
                 "explicit premises required"
             );
-            let (required_execution, required_premises) = required_semantics(&theorem.source)?;
+            let (required_execution, required_premises) =
+                required_semantics(&theorem.source, &theorem.declaration)?;
             ensure!(
                 theorem.execution == required_execution,
                 "theorem execution domain mismatch"
@@ -1160,6 +1220,28 @@ mod tests {
         type ManifestMutation = Box<dyn Fn(&mut QuantumBindingManifest)>;
         let mutations: Vec<(&str, ManifestMutation)> = vec![
             (
+                "theorem execution domain",
+                Box::new(|manifest| {
+                    manifest
+                        .theorems
+                        .iter_mut()
+                        .find(|theorem| theorem.declaration == "weighted_markov")
+                        .expect("general Markov theorem")
+                        .execution = "conditional_terminal_fixture".into();
+                }),
+            ),
+            (
+                "theorem execution domain",
+                Box::new(|manifest| {
+                    manifest
+                        .theorems
+                        .iter_mut()
+                        .find(|theorem| theorem.declaration == "terminal_32_mean_family_coverage")
+                        .expect("terminal concentration theorem")
+                        .execution = "mathematical_only".into();
+                }),
+            ),
+            (
                 "source repository locator",
                 Box::new(|manifest| manifest.source_repository = "IBMQuantum".into()),
             ),
@@ -1205,7 +1287,7 @@ mod tests {
                     let theorem = manifest
                         .theorems
                         .iter_mut()
-                        .find(|theorem| theorem.source.ends_with("BranchSignedCoherence.v"))
+                        .find(|theorem| theorem.declaration == "observed_signed_coherence")
                         .expect("coherence theorem");
                     theorem.execution = "mathematical_only".into();
                     theorem.decoder_members.clear();
@@ -1224,7 +1306,7 @@ mod tests {
                     let theorem = manifest
                         .theorems
                         .iter_mut()
-                        .find(|theorem| theorem.source.ends_with("BranchSignedCoherence.v"))
+                        .find(|theorem| theorem.declaration == "observed_signed_coherence")
                         .expect("coherence theorem");
                     theorem.premises.pop();
                 }),
@@ -1535,6 +1617,34 @@ mod tests {
         fs::remove_dir(temporary).expect("remove owned fixture root");
     }
 
+    #[test]
+    fn reusable_support_has_mathematical_semantics() {
+        for (source, declaration) in [
+            ("FiniteProbability.v", "weighted_expectation_ext"),
+            ("FiniteProbability.v", "weighted_markov"),
+            ("FiniteProbability.v", "finite_union_bound"),
+            ("FiniteBernoulliConcentration.v", "centered_moment_envelope"),
+            (
+                "FiniteBernoulliConcentration.v",
+                "bernoulli_tenth_moment_tail",
+            ),
+            ("BranchSignedCoherence.v", "complex_ext"),
+            ("BranchSignedCoherence.v", "radius_triangle"),
+            ("TerminalChannelSeparationReal.v", "difference_radius_bound"),
+            (
+                "TerminalChannelEmpiricalCertificate.v",
+                "terminal_radius_from_centered_sum",
+            ),
+        ] {
+            assert_eq!(
+                required_semantics(source, declaration)
+                    .expect(declaration)
+                    .0,
+                "mathematical_only",
+                "{source}:{declaration}"
+            );
+        }
+    }
     #[test]
     fn source_inventory_rejects_ambiguous_paths() {
         let original = fixture();

@@ -208,9 +208,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -221,9 +221,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -234,9 +234,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -247,9 +247,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -260,9 +260,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -273,9 +273,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -286,9 +286,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -299,9 +299,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -312,9 +312,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -325,9 +325,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -338,9 +338,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -351,9 +351,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -364,9 +364,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -377,9 +377,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -390,9 +390,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -403,9 +403,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -416,9 +416,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -429,9 +429,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -442,9 +442,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -455,9 +455,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -468,9 +468,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -481,9 +481,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -494,9 +494,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -507,9 +507,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -520,9 +520,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -533,9 +533,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -546,9 +546,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -559,9 +559,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -572,9 +572,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -585,9 +585,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -598,9 +598,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -611,9 +611,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -624,9 +624,9 @@
       "basis": "gf2_fixed_labels",
       "normalization": "gf2_unit_coefficients",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -637,9 +637,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -650,9 +650,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -663,9 +663,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -676,9 +676,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -689,9 +689,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -702,9 +702,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -715,9 +715,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -728,9 +728,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -741,9 +741,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -754,9 +754,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -767,9 +767,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -780,9 +780,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -793,9 +793,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -806,9 +806,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -819,9 +819,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -832,9 +832,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -845,9 +845,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -858,9 +858,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -871,9 +871,9 @@
       "basis": "qc_ordered_pair",
       "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -884,9 +884,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -897,9 +897,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -910,9 +910,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -923,9 +923,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -936,9 +936,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -949,9 +949,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -962,9 +962,9 @@
       "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
       "normalization": "unnormalized_quadratic",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -975,9 +975,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "unnormalized_product",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -988,9 +988,9 @@
       "basis": "sedenion_lo_hi",
       "normalization": "unnormalized_product",
       "execution": "mathematical_only",
-      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "algebraic definitions and hypotheses in the pinned source"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
       "decoder_members": []
     },
@@ -998,58 +998,40 @@
       "source": "proofs/theories/TerminalChannelSeparation.v",
       "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
       "declaration": "binary_channel_contracts_separation",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparation.v",
       "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
       "declaration": "difference_radius_bound",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparation.v",
       "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
       "declaration": "separation_radius_bound",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparation.v",
@@ -1061,9 +1043,9 @@
       "not_applicable_reason": "",
       "premises": [
         "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1074,77 +1056,53 @@
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
       "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
       "declaration": "binary_channel_contracts_separation",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
       "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
       "declaration": "absolute_radius_bounds",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
       "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
       "declaration": "difference_radius_bound",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
       "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
       "declaration": "separation_radius_bound",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
@@ -1156,9 +1114,9 @@
       "not_applicable_reason": "",
       "premises": [
         "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1169,39 +1127,27 @@
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "terminal_radius_from_centered_sum",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "terminal_false_rejection_requires_radius_failure",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
@@ -1213,9 +1159,9 @@
       "not_applicable_reason": "",
       "premises": [
         "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1232,9 +1178,9 @@
       "not_applicable_reason": "",
       "premises": [
         "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1250,10 +1196,7 @@
       "execution": "conditional_terminal_fixture",
       "not_applicable_reason": "",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1269,10 +1212,7 @@
       "execution": "conditional_terminal_fixture",
       "not_applicable_reason": "",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -1283,1016 +1223,664 @@
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_ext",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_add",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_scale",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_zero",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_mono",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_nonnegative",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_markov",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "weighted_expectation_sum",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "indicator_union_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "finite_union_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
       "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
       "declaration": "event_probability_monotone",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_expectation_ext",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_expectation_add",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_expectation_scale",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_expectation_one",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_expectation_step",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "unit_power_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "unit_power_square_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "increment_moment_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "absolute_moment_term",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_2",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_2",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_3",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_3",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_4",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_4",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_5",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_5",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_6",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_6",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_7",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_7",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_8",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_8",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_9",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_9",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_recurrence_10",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "moment_envelope_step_10",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "absolute_add_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_zero",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_one",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "centered_moment_envelope",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "tenth_power_nonnegative",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "absolute_tenth_power",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_tenth_moment_tail",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "finite_probability_sum_bound",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "sample_count_8192",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "family_count_32",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "terminal_family_tenth_moment_rational",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "terminal_tenth_moment_envelope_exact",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "terminal_32_mean_family_coverage",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
       "execution": "conditional_terminal_fixture",
       "not_applicable_reason": "",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "finite nonnegative normalized law and exactly 32 indexed means with 8192 samples each",
+        "each within-mean centered sum has its declared IID Bernoulli convolution law; cross-mean dependence is unrestricted",
+        "physical application requires stationarity, shot independence and the verified register decoders; no common terminal channel is assumed by coverage"
       ],
       "decoder_members": [
         "qpe_no_feed_forward_s1",
@@ -2303,153 +1891,92 @@
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "weighted_expectation_append",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "weighted_push_expectation",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_law_expectation",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "weighted_push_nonnegative",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_law_nonnegative",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
       "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
       "declaration": "bernoulli_law_normalized",
-      "basis": "finite_boolean_sample_space",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "simultaneous coverage of all 32 means",
-        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
-        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
-        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "complex_ext",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2487,33 +2014,14 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "difference_hermitian",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2775,33 +2283,14 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "opposite_branches_cancel",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2839,97 +2328,40 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "rotation_preserves_modulus_squared",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "radius_triangle",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "radius_encloses_euclidean_disk",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -3095,33 +2527,14 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "pauli_difference",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",

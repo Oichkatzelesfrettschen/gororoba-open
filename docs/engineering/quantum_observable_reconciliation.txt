@@ -32,7 +32,11 @@ Theorem and observable binding
 ------------------------------
 Every scoped declaration names its source digest, coefficient domain, basis,
 normalization, decoder, observable, execution class and required premises.
-Mathematical-only declarations explicitly mark physical fields inapplicable.
+Execution classes and premises are selected by declaration. General weighted
+probability, Bernoulli-moment, complex-number and radius support lemmas mark
+physical fields inapplicable. The 32-mean coverage theorem binds the terminal
+fixture without assuming a common terminal channel or its own conclusion.
+Retained-margin arithmetic and null rejection have separate premise sets.
 The terminal fixture binds all 16 campaign members times hardware/replay to
 32 means. Formal indices 0 through 3 are hardware no_feed_forward s1/s3,
 then replay no_feed_forward s1/s3. Their counts are 2964, 4911, 4067, 4057,
