@@ -516,6 +516,28 @@ impl QuantumBindingManifest {
         Ok(serde_json::from_slice(&fs::read(path)?)?)
     }
     pub fn validate(&self, root: &Path) -> Result<QuantumBindingReport> {
+        let report = self.validate_recorded_observations(root)?;
+        // The compiled digest anchors the sorted source-path<TAB>SHA256<LF> inventory
+        // independently of the supplied manifest. Every entry was checked against
+        // the Git blobs at a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
+        let mut inventory: Vec<_> = self
+            .assets
+            .iter()
+            .map(|asset| (&asset.source_path, &asset.sha256))
+            .collect();
+        inventory.sort();
+        let canonical: String = inventory
+            .iter()
+            .map(|(path, digest)| format!("{path}\t{digest}\n"))
+            .collect();
+        verify_hash(
+            canonical.as_bytes(),
+            "6164e42a41fac7e091118e03ed6027a4046db9b477967a917bbb3e3730d3ad29",
+        )
+        .context("source asset inventory differs from pinned Git snapshot")?;
+        Ok(report)
+    }
+    fn validate_recorded_observations(&self, root: &Path) -> Result<QuantumBindingReport> {
         ensure!(self.schema_version == 1, "unsupported binding schema");
         ensure!(
             self.source_repository == "https://github.com/Oichkatzelesfrettschen/gororoba-quantum"
@@ -1367,6 +1389,44 @@ mod tests {
             .expect("collection")
             .path
             .clone();
+        let qpy_path = manifest
+            .assets
+            .iter()
+            .find(|asset| asset.path.ends_with("/isa.qpy"))
+            .expect("QPY asset")
+            .path
+            .clone();
+        for relative in [&qpy_path, &hardware_path] {
+            let original = fs::read(temporary.join(relative)).expect("source bytes");
+            let mut altered = original.clone();
+            if relative == &qpy_path {
+                *altered.last_mut().expect("QPY payload") ^= 1;
+            } else {
+                altered.push(b'\n');
+            }
+            fs::write(temporary.join(relative), &altered).expect("write coordinated mutation");
+            let mut coordinated = manifest.clone();
+            coordinated
+                .assets
+                .iter_mut()
+                .find(|asset| &asset.path == relative)
+                .expect("asset digest")
+                .sha256 = Sha256::digest(&altered)
+                .iter()
+                .map(|byte| format!("{byte:02x}"))
+                .collect();
+            coordinated
+                .validate_recorded_observations(&temporary)
+                .expect("substitution preserves decoded observables");
+            let error = format!(
+                "{:#}",
+                coordinated
+                    .validate(&temporary)
+                    .expect_err("coordinated source substitution")
+            );
+            fs::write(temporary.join(relative), original).expect("restore source bytes");
+            assert!(error.contains("source asset inventory"), "{error}");
+        }
         type ObservationMutation = Box<dyn Fn(&mut serde_json::Value)>;
         let cases: Vec<(&str, &str, ObservationMutation)> = vec![
             (
@@ -1447,7 +1507,9 @@ mod tests {
                 .collect();
             let error = format!(
                 "{:#}",
-                modified_manifest.validate(&temporary).expect_err(expected)
+                modified_manifest
+                    .validate_recorded_observations(&temporary)
+                    .expect_err(expected)
             );
             fs::write(temporary.join(relative), original).expect("restore fixture input");
             assert!(error.contains(expected), "expected {expected}, got {error}");

@@ -113,3 +113,5 @@ data/output/audit/boolean-permutation-evidence/source-replayed-receipts/** -text
 
 # Retained tool transcripts preserve their exact line endings and terminal blank lines.
 data/output/audit/quantum-observable-contracts/*.log -text whitespace=-blank-at-eof
+# Frozen quantum inputs retain original-byte identity on every checkout.
+proofs/evidence/quantum_observables/frozen/** -text

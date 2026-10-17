@@ -9,6 +9,13 @@ from gororoba-quantum a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
 proofs/evidence/quantum_observables/bindings.json binds 160 recognized
 lemma/theorem declarations in 11 source files to 39 original-byte assets.
 The validator reconstructs the selected statistics from 30 raw PUB members.
+The validator anchors the sorted source-path<TAB>SHA256<LF> inventory to
+a compiled SHA256 independent of the input manifest:
+6164e42a41fac7e091118e03ed6027a4046db9b477967a917bbb3e3730d3ad29.
+All 39 entries were checked against the original Git blobs at the source
+commit above. Coordinated asset-byte and manifest-digest changes fail the
+anchor even when decoded observables agree. Git disables text conversion
+for the complete frozen tree, preserving original bytes across checkouts.
 Circuit QPY byte identity establishes archive provenance; proving QPY semantic
 correspondence to the mathematical circuit remains an explicit obligation.
 The implementation uses retained files and local proof tooling. Quantum
