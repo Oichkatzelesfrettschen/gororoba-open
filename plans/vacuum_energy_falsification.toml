@@ -1,0 +1,340 @@
+[audit]
+title = "Vacuum energy response, passivity and mechanism falsification"
+date = "2026-10-16"
+scope = "Finite decomposition of the supplied proposal and inspected repository owners; physical validation remains separately gated."
+document = "docs/engineering/vacuum_energy_falsification_audit.txt"
+source_observations = "data/output/audit/vacuum-passivity/source-observations.toml"
+state_vocabulary = [
+  "analytic_counterexample",
+  "conditional_model",
+  "implementation_counterexample",
+  "attribution_resolved",
+  "blocked_source",
+  "blocked_measurement",
+  "requires_separate_repair",
+]
+execution_order = [
+  "define-observables",
+  "test-accounting-and-limits",
+  "recover-source-data",
+  "fit-response-and-calibration",
+  "preregister-held-out-comparisons",
+  "measure-device",
+]
+interpretation = "A closed implementation check establishes its named model behavior; a physical hypothesis retains its own measurements and falsifiers."
+claim_field = "Each claim field names a proposition under test, rather than an assertion endorsed by the ledger. State labels describe the available evidence kind or blocking condition."
+
+[[leaf]]
+id = "ground-state-occupation"
+state = "conditional_model"
+claim = "Zero-point coordinate variance requires occupied real particles."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "Oscillator vacuum has occupation zero and variance hbar/(2*M*omega)>0."
+witness = "vacuum_spectrum_has_absorption_line_and_zero_emission_line"
+residual = "Interacting subsystem particle definitions require a specified detector."
+
+[[leaf]]
+id = "cyclic-ground-state-work"
+state = "conditional_model"
+claim = "A fixed-Hamiltonian ground state supplies positive work under cyclic unitaries."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "The lower spectral bound gives Wout<=0; ground-state ergotropy equals zero."
+witness = "population_inversion_has_extractable_work_and_ground_state_has_none"
+residual = "Resource and subsystem closure must be checked for each device."
+
+[[leaf]]
+id = "absolute-energy-offset-control"
+state = "conditional_model"
+claim = "Increasing a constant vacuum offset increases mechanically available work."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "H+C*I leaves nongravitational energy differences and cyclic work invariant."
+witness = "degenerate_levels_and_large_common_energy_shift_preserve_work"
+residual = "A gravitational action and renormalized stress tensor form a separate model."
+
+[[leaf]]
+id = "ultraviolet-inventory"
+state = "conditional_model"
+claim = "A cutoff sum measures a unique laboratory vacuum-energy inventory."
+owner = "crates/quantum_core/examples/vacuum_falsification.rs"
+falsifier = "Changing the specified cutoff by ten multiplies the mode sum by 10000."
+witness = "cutoff_prescriptions_have_declared_quartic_ratio"
+residual = "Renormalized gravitational parameters and a measurement protocol remain required."
+
+[[leaf]]
+id = "galaxy-energy-equality"
+state = "analytic_counterexample"
+claim = "1e107 J equals 1e11 nominal solar luminosities integrated for 1e10 Julian years."
+owner = "crates/quantum_core/examples/vacuum_falsification.rs"
+falsifier = "The declared luminosity-time calculation gives about 1.21e55 J, a factor 8.28e51 smaller."
+witness = "illustrative_galaxy_energy and infographic_to_galaxy_ratio output rows"
+residual = "The luminosity assumption is illustrative rather than a measured galactic history."
+
+[[leaf]]
+id = "davies-historical-attribution"
+state = "attribution_resolved"
+claim = "Davies endorsed 1e110 J/cm^3 as a physically available energy inventory."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Read the adjacent rejection in the original Liquid space HTML, rather than the isolated number."
+witness = "S1 and S2; publisher HTML lines789-803 and archived author reference42"
+residual = "Original print-page images remain unread."
+
+[[leaf]]
+id = "monograph-page-provenance"
+state = "blocked_source"
+claim = "The 2013 monograph pages34-35 support the original quantitative derivation."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Recover the actual pages and cited derivation, preserving equations and source context."
+witness = "S3 identifies book, contents, abstract and secondary page-specific attribution only."
+residual = "The full monograph pages remain unrecovered."
+
+[[leaf]]
+id = "virtual-pair-rate-population"
+state = "blocked_source"
+claim = "1.7e57 pairs/s establishes a simultaneous population of 1e57 pairs."
+owner = "crates/quantum_core/examples/vacuum_falsification.rs"
+falsifier = "Require an operational particle observable, rate source, stationary process and independently defined lifetime."
+witness = "population_over_rate is conditionally 0.588235 s; S4 attributes a different population statement."
+residual = "The original rate derivation and detector definition remain absent from inspected material."
+
+[[leaf]]
+id = "ordered-vacuum-emission"
+state = "conditional_model"
+claim = "Symmetric classical zero-point noise reproduces vacuum detector excitation and relaxation."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "At T=0 ordered bath emission vanishes while absorption survives; compare signed transition rates."
+witness = "thermal_line_ratio_obeys_detailed_balance_and_classical_limit; S5"
+residual = "Dissipative spectra require response and backaction beyond isolated delta lines."
+
+[[leaf]]
+id = "static-casimir-cycle"
+state = "conditional_model"
+claim = "A conservative fixed-parameter Casimir approach/reset cycle supplies net work."
+owner = "crates/quantum_core/examples/vacuum_falsification.rs"
+falsifier = "The potential difference released on approach equals the reset work."
+witness = "casimir_approach_work, casimir_reset_work and casimir_cycle_residual output rows"
+residual = "Modulation, contact, charges and thermal changes require explicit additional channels."
+
+[[leaf]]
+id = "driven-casimir-energy-source"
+state = "blocked_measurement"
+claim = "Dynamical Casimir photons demonstrate passive vacuum-fuel extraction."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Include boundary-modulation work and changes in stored energy over the repeated protocol."
+witness = "S7 describes SQUID modulation near11GHz and real-photon correlations."
+residual = "The experiment's full energy budget was not reconstructed."
+
+[[leaf]]
+id = "closed-energy-resource-account"
+state = "conditional_model"
+claim = "Output alone or a first-law-closed heat-to-work account proves an unconventional source."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "Measure every boundary transfer and storage change, then separately test entropy and resource closure."
+witness = "ledger_distinguishes_closed_accounting_from_energy_claims"
+residual = "Uncertainty, omitted channels and reservoir temperatures require measured evidence."
+
+[[leaf]]
+id = "passive-exponential-memory"
+state = "conditional_model"
+claim = "A positive causal memory kernel supplies an energy source or guarantees quantum coherence."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "E_dot equals supplied power minus nonnegative dissipation; initial storage is preparation energy."
+witness = "memory_release_and_driven_storage_obey_power_balance"
+residual = "Integrator errors and CPTP quantum dynamics require separate checks."
+
+[[leaf]]
+id = "positive-kernel-quantum-admissibility"
+state = "implementation_counterexample"
+claim = "Positive exponential memory weights guarantee a CPTP depolarizing channel."
+owner = "crates/quantum_core/src/channel_admissibility.rs"
+falsifier = "Compute the normalized Choi minimum eigenvalue at the declared time."
+witness = "positive_exponential_kernel_can_violate_complete_positivity"
+residual = "Existing test scope concerns the specified depolarizing convolution model."
+
+[[leaf]]
+id = "commutator-population-conservation"
+state = "implementation_counterexample"
+claim = "The 16-component ZPE commutator update preserves LBM population sum and positivity."
+owner = "crates/algebra_experimental/src/novel_algorithms/zpe_lbm_collision.rs"
+falsifier = "Apply node=equilibrium=e1 and operand=+/-e2."
+witness = "basis_commutator_changes_population_sum; reversed_operand_creates_negative_population"
+residual = "A physical D3Q19 collision needs an explicit moment map and thermal calibration."
+
+[[leaf]]
+id = "commutator-field-amplitude"
+state = "implementation_counterexample"
+claim = "The normalized commutator perturbation amplitude measures the supplied vacuum-field strength."
+owner = "crates/algebra_experimental/src/novel_algorithms/zpe_lbm_collision.rs"
+falsifier = "Multiply the nonzero operand by1e-12 and compare the output vector."
+witness = "normalization_removes_operand_magnitude"
+residual = "The test covers representable commutator squared norms and normalization arithmetic."
+
+[[leaf]]
+id = "worldline-interaction-oracle"
+state = "requires_separate_repair"
+claim = "Worldline finiteness validates scalar interaction energy, EM normalization and local density."
+owner = "crates/casimir_core/src/energy.rs"
+falsifier = "Derive self-energy subtraction, field multiplicity, observable units and nonnegative estimator uncertainty, then refine loops and proper-time bounds."
+witness = "Inspected source uses any boundary hit, negative error prefactor and EM coefficient for a scalar label."
+residual = "The audit does not supply the independent worldline repair and convergence campaign."
+
+[[leaf]]
+id = "boundary-coherence-mechanism"
+state = "blocked_measurement"
+claim = "Stronger Casimir attraction improves qubit coherence."
+owner = "crates/materials_core/src/multilayer_lifshitz.rs"
+falsifier = "Calibrate force gradient, k_eff, ordered/symmetrized noise and coupling; predict matched Ramsey and echo measurements."
+witness = "Negative ideal attractive curvature and variance k_B*T/k_eff supply a competing noise-increase prediction."
+residual = "A specimen-matched integrated device and coupling calibration remain unmeasured."
+
+[[leaf]]
+id = "empirical-panel-reconstruction"
+state = "blocked_source"
+claim = "Generated poster points reproduce the cited superconducting, transmon and SrTiO3 datasets."
+owner = "crates/materials_core/src/material_records.rs"
+falsifier = "Bind every plotted point to source bytes, dataset columns, conditions, units, uncertainty and license."
+witness = "S8 corrects publication status and points to Zenodo14700381; archives remain uningested."
+residual = "Transmon cooldown and SrTiO3 XLD calibration statements in the attachment need raw source reinspection."
+
+[[leaf]]
+id = "sampling-memory-artifact"
+state = "analytic_counterexample"
+claim = "A slow sampled envelope identifies a newly discovered memory timescale."
+owner = "crates/quantum_core/examples/vacuum_falsification.rs"
+falsifier = "Compare analytic samples of500GHz and0.2GHz at249.9GHz, then refine the sampling frequency."
+witness = "undersampled_fundamental_aliases_to_slow_envelope"
+residual = "The referenced original scripts remain unavailable for line-by-line replay."
+
+[[leaf]]
+id = "fourier-summability-stability"
+state = "analytic_counterexample"
+claim = "Fourier summability proves bounded forced dynamics."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "One undamped resonant forcing mode has solution f*t*sin(omega*t)/(2*omega)."
+witness = "Section8 supplies the closed-form unbounded-response witness."
+residual = "Damping and off-resonant assumptions define different bounded problems."
+
+[[leaf]]
+id = "residue-energy-convergence"
+state = "analytic_counterexample"
+claim = "Weighted absolute summability forces an unweighted finite squared-energy sum."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Choose R(k)=1 and epsilon>0."
+witness = "The weighted p-series converges while sum1 diverges."
+residual = "A valid norm inequality requires explicitly stronger hypotheses."
+
+[[leaf]]
+id = "input-independent-linear-transform"
+state = "analytic_counterexample"
+claim = "A fixed nonzero harmonic expression defines a linear transform of arbitrary input f."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Evaluate the proposed operator at f=0; a linear operator sends zero to zero."
+witness = "The pasted right-hand side is independent of f."
+residual = "Defining input-dependent coefficients still requires independence and completeness proofs."
+
+[[leaf]]
+id = "fractional-oscillator-limit"
+state = "analytic_counterexample"
+claim = "D^alpha x+omega^2*x=0 recovers the ordinary oscillator at alpha=1 with fixed units."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "At alpha=1 the equation is first-order relaxation; the coefficient must have units s^-alpha."
+witness = "Section8 identifies the derivative-order and dimensional mismatch."
+residual = "A chosen fractional operator needs initial conditions, causal domain and passive response."
+
+[[leaf]]
+id = "material-order-device-integration"
+state = "blocked_measurement"
+claim = "Strain-induced polar order or selected tourmaline composition establishes low-loss quantum-memory operation."
+owner = "crates/materials_core/src/material_records.rs"
+falsifier = "Measure specimen-bound phase behavior, dielectric loss, microwave compatibility and matched coherence."
+witness = "The proposal supplies separate material/order branches and unsupported fabrication optima."
+residual = "Specimen records and integrated measurements remain required."
+
+[[leaf]]
+id = "algebraic-physical-uniqueness"
+state = "blocked_measurement"
+claim = "An octonionic encoding, ultrametric statistic or force residual uniquely identifies vacuum microphysics."
+owner = "crates/stats_core/src/calibrated_discrimination.rs"
+falsifier = "Preserve support, parameter count and measurement procedure while scrambling/replacing the structure and profiling physical nuisance models."
+witness = "The causal map and independent calibration must precede mechanism attribution."
+residual = "A discriminating physical prediction remains unprovided by representation alone."
+
+[[leaf]]
+id = "holographic-encoding-physical-interpretation"
+state = "blocked_measurement"
+claim = "A bulk-boundary error-correcting code establishes laboratory gravity control."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Specify encoding, error and recovery channels; compare matched codes; independently derive and measure the gravitational map."
+witness = "Section8 separates mathematical recovery from a physical gravity claim."
+residual = "Encoding fidelity establishes the declared code behavior."
+
+[[leaf]]
+id = "time-crystal-work-resource"
+state = "blocked_measurement"
+claim = "Temporal order permits passive cyclic extraction from the ground state."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "Declare equilibrium or driven regime, include drive and preparation, and measure a resource-closed repeated cycle."
+witness = "Ground-state spectral bound remains conditional on the actual protocol premises."
+residual = "The attachment supplies neither that protocol nor its complete energy measurements."
+
+[[leaf]]
+id = "quantum-energy-teleportation-net-work"
+state = "blocked_measurement"
+claim = "Remote conditional energy extraction establishes net energy gain without preparation and measurement resources."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "Account for Alice's operation, Bob's output, shared-state preparation, controls and repeated-cycle resource restoration."
+witness = "Total energy relative to the initial global ground state remains bounded below."
+residual = "The attachment's specific2026 repeater citation remains independently unverified."
+
+[[leaf]]
+id = "piezo-pyroelectric-conversion"
+state = "blocked_measurement"
+claim = "Electrical output from a piezoelectric or pyroelectric material proves vacuum-energy generation."
+owner = "crates/quantum_core/src/vacuum_audit.rs"
+falsifier = "Measure mechanical and thermal inputs plus electrical storage over a complete cycle, with matched sham instrumentation."
+witness = "The first-law ledger retains those conventional resource channels."
+residual = "A transducer's material name and open-circuit voltage do not determine delivered work."
+
+[[leaf]]
+id = "material-phase-velocity-gravity"
+state = "blocked_measurement"
+claim = "A material phase velocity can replace invariant c in c^4/G because both use speed units."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Derive the effective gravitational action, stress tensor and detector prediction from constitutive electrodynamics before making the substitution."
+witness = "Section8 identifies the missing theory map despite dimensional agreement."
+residual = "A lower material phase velocity alone supplies neither gravity renormalization nor a force prediction."
+
+[[leaf]]
+id = "scalar-field-actuator-definition"
+state = "blocked_measurement"
+claim = "Calling an actuator a scalar generator defines a new physical field."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Specify an action, symmetries, units, bounded Hamiltonian, couplings and a prediction distinct from electromagnetic and mechanical response."
+witness = "A label and energy integral leave the required dynamics unspecified."
+residual = "The new-field model remains undefined by the inspected proposal."
+
+[[leaf]]
+id = "banach-tarski-energy-duplication"
+state = "blocked_measurement"
+claim = "Reassembling nonmeasurable sets defines a finite-energy physical duplication process."
+owner = "crates/verified_core/src/monograph/banach_tarski_resonance.rs"
+falsifier = "Define a physically admissible operation, measurable finite-energy states and a closed work account before predicting replication."
+witness = "The mathematical decomposition alone supplies none of the required dynamics."
+residual = "The source's hypothesized dark-matter mechanism retains an unprovided physical map."
+
+[[leaf]]
+id = "ferroelectric-iteration-phase-boundary"
+state = "analytic_counterexample"
+claim = "An iteration reaching a negative squared frequency establishes a thermodynamic ferroelectric transition."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Compare competing stationary free-energy minima and test algorithm convergence separately from physical stability."
+witness = "An unstable stationary branch or failed iteration can occur without locating the global free-energy crossing."
+residual = "Specimen, temperature/strain-dependent coefficients and a thermodynamic-limit model remain required."
+
+[[leaf]]
+id = "latest-cosmology-laboratory-inventory"
+state = "blocked_source"
+claim = "A2026 DESI model comparison validates a laboratory vacuum-fuel density."
+owner = "docs/engineering/vacuum_energy_falsification_audit.txt"
+falsifier = "Inspect the exact cosmology source and its likelihood; derive the separately measurable laboratory quantity and map."
+witness = "Cosmological inference and laboratory work capacity are distinct observables."
+residual = "The attachment's exact2026 DESI analysis and data were not reingested."

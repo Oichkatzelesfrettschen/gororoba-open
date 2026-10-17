@@ -1,0 +1,37 @@
+[observation]
+date_utc = "2026-10-17"
+evidence_class = "source_inspection"
+notes = "data/output/audit/vacuum-passivity/source-retrieval-notes.txt"
+observed_body_hashes = "data/output/audit/vacuum-passivity/source-body-SHA256SUMS"
+raw_body_location = "/tmp/vacuum-zpe-sources"
+fetched_response_count = 14
+successful_source_response_count = 13
+derived_text_count = 1
+failed_source_response_count = 1
+count_scope = "The failed-source response is included in the14 fetched responses."
+identity_timing = "SHA-256 computed after retrieval; a prerequest body expectation was not declared."
+transport = "curl followed redirects and saved response bodies; request and response headers were not retained."
+time_precision = "Response-file modification times record the completed local writes in UTC; server timestamps remain unmeasured."
+coverage = "Each source's requested URL, title, inspected sections, actual retrieval result and scientific limits appear in source-retrieval-notes.txt."
+retention = "The repository retains notes, brief quotations and observed body digests. Full third-party HTML remains in the local temporary research bundle."
+replay_limit = "A digest identifies the observed raw bytes. Exact reinspection requires retaining that body; remote responses may change."
+scientific_limit = "Source inspection establishes attribution and bounded theoretical premises; measurements, dataset ingestion and physical mechanism attribution require separate evidence."
+
+[davies_attribution]
+url = "https://www.newscientist.com/article/1864405-liquid-space/"
+body_sha256 = "9f28dffa63af3610ac084f74f90ac3860a61290d4a12d3cc7edd735cbc43e370"
+locator = "HTML lines789-803; 10^110 uses a superscript in the source markup."
+context = "That may sound like a wealth of free energy waiting to be mined, but unfortunately it can't be true."
+result = "The original number and the adjacent explicit rejection were recovered. Original print-page images remain unread."
+
+[archive_retrieval]
+url = "https://web.archive.org/web/20200225045258id_/http://www.setterfield.org:80/exploringvacuum.htm"
+body_sha256 = "6d320fd106f23e5b07a062c8f9f40ab2e6dde5173274468f30a22e280fa9d2a3"
+snapshot = "20200225045258"
+result = "Archived author HTML retrieved and inspected, including the energy section and reference42."
+
+[residual_sources]
+monograph = "Author sales page, table of contents, abstract and later pp34-35 citation retrieved; full pages34-35 remain unrecovered."
+pair_rate = "An author page asserts a simultaneous population; the original1.7e57 pairs/s derivation remains unrecovered."
+failed_pdf = "The author-linked2023 PDF endpoint returned Not Found; the retained response hash identifies that failure body."
+datasets = "The superconducting-force article links Zenodo14700381; numerical archive and licenses remain uninspected."

@@ -1,0 +1,49 @@
+[replay]
+date = "2026-10-16"
+timezone = "America/Los_Angeles"
+base_commit = "4706d40eafa524957a9b20384a6a7346fe8536a1"
+evidence_class = "analytic_and_implementation_diagnostics"
+producer = "crates/quantum_core/examples/vacuum_falsification.rs"
+command = "cargo run --locked --offline --quiet -p quantum_core --example vacuum_falsification"
+profile = "dev"
+rustc = "1.97.0 (2d8144b78 2026-07-07)"
+output = "data/output/audit/vacuum-passivity/model-checks.tsv"
+output_sha256 = "a448984c984dda62a407028e3ab3742b2bab3b1788b770398ee3ff6f5a323235"
+output_rows_excluding_header = 19
+repeat_observation = "A second invocation of the compiled example produced byte-identical stdout; cmp returned0 and both SHA-256 values matched."
+model_input_hashes = "data/output/audit/vacuum-passivity/model-input-SHA256SUMS"
+input_identity_scope = "Eight declared model/build inputs, including the exact recursive Cayley-Dickson arithmetic and Casimir constants. The list is not a complete transitive compiler-input manifest."
+build_boundary = "Isolated worktree target directory; existing primary cargo-home and Cargo build-dir shared according to mk/cache_roots.mk. Local worker variables remained unset."
+compiler_wrapper = "RUSTC_WRAPPER= for named diagnostics after sccache returned Operation not permitted; repository compiler flags and scientific code remained in force."
+repository_validation = "Owned by the ordinary scoped hosted workflow; the local checks establish their named surfaces."
+
+[focused_checks]
+quantum_audit_tests_passed = 11
+example_tests_passed = 3
+commutator_tests_passed = 4
+existing_positive_memory_non_cptp_test_passed = 1
+total_distinct_tests_passed = 19
+quantum_clippy = "cargo clippy --locked --offline -p quantum_core --lib --example vacuum_falsification -- -D warnings: passed"
+algebra_clippy = "cargo clippy --locked --offline -p algebra_experimental --lib --tests -- -D warnings: passed"
+rust_format = "rustfmt +nightly --check --edition 2024 on the four changed implementation/example files: passed"
+toml_format_and_syntax = "taplo check and taplo format --check on new ledgers: passed"
+diff_whitespace = "git diff --check: passed"
+source_body_hashes = "All15 saved source/derived response identities matched source-body-SHA256SUMS in the local research bundle."
+model_input_hashes = "All8 declared model/build input hashes matched."
+leaf_ledger = "35 unique nonempty IDs; all declared states belong to the vocabulary; every owner path exists."
+
+[falsification_history]
+population_sum = "A conservation assertion failed under Cargo before the documentation correction: node=equilibrium=e1, operand=e2 gives population sum1.0001. Retained tests assert the counterexample and the reversed negative component."
+small_work = "Independent review reproduced0.5 rather than0.25 beside an unaffected1e16 energy level; population-swap work repaired the cancellation."
+memory_underflow = "Independent review reproduced zero rather than representable1e-200 dissipation through underflowed storage; the API now rejects unrepresentable nonzero storage and evaluates dissipation independently."
+ledger_cancellation = "A1J residual beside1e16J transfers initially returned0; compensated signed summation repaired the regression."
+example_compilation = "An initial ambiguous float type in the alias-frequency test was corrected with explicit f64 types; the final example test run passed."
+
+[limits]
+physical_measurements = "Unperformed by this audit."
+qpu_evidence = "The calculations execute locally on a CPU."
+finite_state_work = "Diagonal finite-dimensional states and arbitrary cyclic unitary control; energy differences remain limited by f64 input resolution."
+noise = "Isolated equilibrium oscillator line weights; continuum response and detector calibration require separate models."
+memory = "Instantaneous continuous classical storage identity; integration error and quantum-channel admissibility remain separate."
+accounting = "A closed first-law residual does not establish entropy admissibility, completeness of measured channels, or vacuum extraction."
+sources = "The monograph pages34-35 and original1.7e57 pairs/s derivation remain unrecovered. Exact2026 QET/DESI references and empirical numerical archives remain independently unverified."

@@ -1,0 +1,481 @@
+Vacuum energy, material response, and bounded falsification
+=========================================================
+
+Audit date: 2026-10-16 America/Los_Angeles.
+Source retrievals completed 2026-10-17 UTC.
+Evidence class: source audit, analytical derivation, implementation diagnostics.
+Physical device performance and energy extraction remain unmeasured.
+
+1. Execution and evidence boundary
+----------------------------------
+
+The input is the 3643-line user attachment named Pasted text.txt, SHA-256
+70c3f77c31930014eb6b1f728db20283a03685eec3ee1c18604f861502deab4f.
+The attachment contains a proposal, a corrective audit, and references to
+documents, plots, and scripts. The available input supplies their quoted
+descriptions rather than the original files. A bounded filename search in
+Documents, Projects, Downloads, and Codex attachments returned zero matching
+evidence_register, numerical_checks, genesis_refined, or boundary_response
+files. Those search results establish the searched names and roots only.
+
+The audit reads the attachment, relevant Rust implementations, canonical
+claim records, and the primary sources listed in section 10. The audit
+does not establish coverage of every adjacent conversation or referenced
+attachment. Attachment statements about absent scripts are reported claims;
+the sampling and mathematical counterexamples are independently derivable.
+
+The code additions evaluate declared mathematical models on a CPU. They
+provide neither a field measurement nor a QPU experiment. The canonical
+SQLite claims remain unchanged. Local falsifier names are engineering
+identifiers rather than newly admitted C-/I-/E- registry records.
+
+2. Decomposition to physical objects and observables
+--------------------------------------------------
+
+The proposition 'ZPE can improve a device or supply work' separates into
+independent objects, state definitions, transformations, and observations:
+
+  A. What fluctuates?
+     A1. An oscillator coordinate q with mass M and frequency omega.
+     A2. Electromagnetic field modes with boundary/material response.
+     A3. A phonon coordinate tied to a specimen, mode and temperature.
+     A4. A classical algebraic vector labelled vacuum in a simulation.
+     A5. A gravitational stress-energy expectation in a cosmological model.
+
+  B. What state exists?
+     B1. Ground state, thermal state, driven state or prepared excited state.
+     B2. A fixed Hamiltonian and declared subsystem/environment partition.
+     B3. State preparation, control, reservoirs and measurement apparatus.
+     B4. Operator ordering and detector coupling for a measured spectrum.
+
+  C. What transformation acts?
+     C1. Static change of plate separation at fixed material response.
+     C2. Driven change of a boundary or dielectric response.
+     C3. Mechanical susceptibility and a causal memory kernel.
+     C4. Displacement-to-qubit frequency coupling with calibration.
+     C5. Cyclic unitary evolution or measurement-conditioned feedback.
+     C6. An algebraic encoding with explicitly defined errors and recovery.
+
+  D. What observable adjudicates?
+     D1. Force/pressure, equilibrium position and mechanical response.
+     D2. Ordered emission/absorption spectrum and symmetrized noise.
+     D3. Ramsey/echo coherence and independently measured relaxation.
+     D4. Work, heat, stored-energy change and entropy/resource accounting.
+     D5. Matched-control prediction error on held-out observations.
+
+Each arrow between objects requires its own map and error budget. A mode's
+zero-point energy does not determine a density of modes, an absolute
+gravitating energy, detector emission, available work, or device coherence.
+
+3. Ground-state fluctuations and available work
+----------------------------------------------
+
+For H = p^2/(2M) + M*omega^2*q^2/2 and [q,p]=i*hbar,
+
+  H = hbar*omega*(a_dagger*a + 1/2),
+  <N>_vac = 0, E0 = hbar*omega/2,
+  <q^2>_vac = hbar/(2*M*omega), Var(H)_vac = 0.
+
+Coordinate fluctuations coexist with definite total energy and zero
+occupation relative to that oscillator's annihilation operator. A claimed
+virtual-pair population needs a detector, field/state, resolution, number
+observable and protocol. Perturbative internal propagators supply amplitudes
+rather than a universal census of temporary particles.
+
+For a system initially in its ground state and a cyclic unitary U,
+
+  W_out = E0 - <0|U_dagger*H*U|0> <= 0.
+
+The lower spectral bound proves the inequality. Its premises name a ground
+state, the same initial/final Hamiltonian, closed unitary evolution, and a
+complete accounted system. Driven devices, heat gradients, prepared states,
+measurements and feedback introduce additional resources. The theorem's
+premises must be checked before applying the conclusion to a device.
+
+For finite diagonal states, diagonal_ergotropy pairs descending populations
+with ascending energies to compute the passive energy. A population-inverted
+two-level state has extractable work; a ground-state population has zero
+ergotropy. The work calculation permits arbitrary cyclic unitaries and a
+finite truncation. Restricted controls can extract less work. Passivity of
+one copy and complete passivity under arbitrary copies are distinct claims.
+
+Adding C*I to a nongravitational Hamiltonian changes a global phase.
+Transition frequencies, forces and cyclic work remain invariant. A likelihood
+constructed only from those observables has zero information about C.
+Gravitating stress-energy requires a separately specified renormalized theory.
+
+4. The cutoff, density, population and comparison claims
+-------------------------------------------------------
+
+Counting two transverse electromagnetic polarizations gives
+
+  dN/V = k^2*dk/pi^2,
+  u_cut = integral_0^K (hbar*c*k/2)*k^2/pi^2 dk
+        = hbar*c*K^4/(8*pi^2).
+
+The fourth-power cutoff dependence is a property of the regulated expression.
+K -> 10K multiplies u_cut by 10000. K=1/l_P and K=2*pi/l_P differ by
+(2*pi)^4. The first prescription gives about 5.87e105 J in one cm^3;
+the second gives about 9.15e108 J. Neither prescription measures a laboratory
+fuel inventory. A sharp three-momentum cutoff additionally selects a frame;
+Lorentz-invariant vacuum stress and radiation-gas stress require different
+equations of state. Renormalization and gravitational parameter matching
+remain separate from the counting integral.
+
+The unit conversion 1e114 erg/cm^3 = 1e107 J/cm^3 is correct. A comparison
+with 1e11 nominal solar luminosities radiating for 1e10 Julian years gives
+about 1.21e55 J. The ratio 1e107/1.21e55 is about 8.28e51. Those assumptions
+refute the proposed numerical equality; the example is an illustrative
+luminosity calculation rather than a reconstruction of galactic history.
+
+For an ordinary stationary population N and event rate R, N=R*mean_lifetime.
+The quoted 1e57 and 1.7e57/s would imply 0.588235 s. That conditional quotient
+exposes the absent link; it does not define a virtual-particle lifetime.
+Real electron-positron creation requires at least 2*m_e*c^2 per pair, about
+1.6374e-13 J. Applying that rest-energy rule to virtual internal lines would
+change the question and lacks an operational justification.
+
+The example vacuum_falsification prints these calculations with units and
+analytic_or_model evidence labels. The example output contains zero measured
+data points. Its constants use rounded CODATA values, exact SI c and k_B,
+the IAU nominal solar luminosity, and the Julian-year definition.
+The retained 19-row table is
+data/output/audit/vacuum-passivity/model-checks.tsv. Replay results bind the
+output digest, declared model inputs, focused diagnostics and their limits in
+data/output/audit/vacuum-passivity/replay-results.toml.
+
+5. Ordered quantum noise supplies the cheapest physical distinction
+------------------------------------------------------------------
+
+Use Sqq(omega)=integral dt exp(+i*omega*t)<q(t)q(0)>.
+For a thermal harmonic oscillator, q0^2=hbar/(2*M*omega0),
+
+  Sqq(omega) = 2*pi*q0^2 * [
+      (n_B+1)*delta(omega-omega0) + n_B*delta(omega+omega0)],
+  n_B = 1/expm1(hbar*omega0/(k_B*T)).
+
+At T=0 the positive-frequency absorption line survives and the
+negative-frequency emission line vanishes. Detailed balance gives
+Sqq(-omega0)/Sqq(+omega0)=exp(-hbar*omega0/(k_B*T)). Line coefficients have
+units m^2; the angular-frequency spectrum has units m^2*s. The integral
+of Sqq/(2*pi) gives <q^2>. The symmetrized spectrum splits the two lines
+equally and cannot alone determine a detector's excitation rate.
+
+A real stationary scalar classical process has an even autocorrelation and
+a symmetric auto-spectrum. Replacing the ordered quantum spectrum with a
+classical zero-point waveform therefore changes emission/absorption unless
+an additional response/backaction construction repairs the model. A
+two-level detector at low temperature provides a decisive check. Classical
+dephasing models retain their own stated regime of usefulness.
+
+6. Boundary mechanics, memory and coherence
+------------------------------------------
+
+Perfect-conductor zero-temperature planar plates have
+
+  U_C(a) = -pi^2*hbar*c*A/(720*a^3),
+  P_C(a) = -pi^2*hbar*c/(240*a^4), F=-dU_C/da.
+
+At a=100 nm and A=1 um^2, U_C is about -4.33e-19 J and P_C about -13 Pa.
+Approach releases a finite interaction-energy change. Resetting the same
+parameters costs the same work in a conservative ideal cycle. Switching
+conductivity, geometry, charges, temperature or phase adds control channels.
+The full cycle must restore each device, store, controller and relevant
+reservoir condition before a repeatable-resource claim can be assessed.
+
+Let U_eff(x)=k*x^2/2+U_C(d+x), where x increases the gap. A supported
+equilibrium satisfies U_eff'=0. Local linear stability requires
+k_eff=U_eff''>0, M>0 and positive dissipation. Attractive ideal Casimir
+curvature is negative: U_C''=-12*C_area/(d+x)^5 for U_C=-C_area/(d+x)^3.
+Increasing attraction can soften the support or cause pull-in. Stability
+at a measured point supplies a local result; a singular potential and
+large excursions require separate analysis.
+
+In the classical thermal harmonic regime, <dx^2>=k_B*T/k_eff. Softening
+increases variance at fixed temperature. The independent displacement-to-
+frequency calibration G=domega_q/dx gives S_frequency=G^2*S_x only when
+other channels and cross-correlations are correctly handled. A large static
+force alone determines neither that spectrum nor a coherence benefit.
+
+For zero-mean classical Gaussian frequency noise and ideal switching y(t),
+
+  W_y(t)=exp[-t/(2*T1) - (1/2)*integral ds ds' y(s)y(s') C_omega(s-s')].
+
+C_omega has units s^-2; the exponent is dimensionless. Prepared-state
+coherence can be defined as 2*abs(rho_01). A signed sine-wave amplitude is
+a different observable. Ramsey and echo predictions require the declared
+pulse sequence, calibrated coupling, physical bath and appropriate quantum
+or classical approximation. Matched cooldowns, temperature, loss, T1,
+drive leakage and drift adjudicate an observed coherence advantage.
+
+For exponential mechanical memory F_j obeying
+
+  M*xddot+eta*xdot+k*x+sum_j F_j=F_drive,
+  Fdot_j=-F_j/tau_j+b_j*xdot,
+  E=M*xdot^2/2+k*x^2/2+sum_j F_j^2/(2*b_j),
+  Edot=F_drive*xdot-eta*xdot^2-sum_j F_j^2/(b_j*tau_j).
+
+M,k,b_j,tau_j>0 and eta>=0 define nonnegative storage and dissipation.
+Positive initial auxiliary forces can release preparation energy. The
+instantaneous identity supplies classical passivity, rather than a quantum
+coherence theorem or global Casimir stability. The existing
+channel_admissibility module independently shows that a positive classical
+memory kernel can produce a non-CPTP reduced quantum channel.
+
+energy_closure_residual computes Win+Qin-Wout-Qout-deltaE in joules. A
+residual beyond a preregistered full uncertainty budget rejects the declared
+account. A zero residual alone accepts neither a second-law violation nor
+vacuum extraction. A heat-to-work cycle may close the first-law account;
+reservoir temperatures, entropy, preparation and information costs still
+determine thermodynamic admissibility.
+
+7. Audit of the repository's ZPE-labelled surfaces
+-------------------------------------------------
+
+algebra_experimental::novel_algorithms::zpe_lbm_collision performs BGK-shaped
+relaxation of a 16-vector followed by a fixed-norm commutator perturbation.
+The basis witness node=equilibrium=e1, operand=e2 and omega=1 gives
+[e1,e2]=2e3 and output e1+1e-4*e3. The component sum changes 1 -> 1.0001.
+Reversing the operand produces a negative component. Reducing its positive
+magnitude to 1e-12 preserves the normalized perturbation in the tested
+representable regime. The fixed norm supplies a dimensionless algorithmic
+scale, rather than a calibrated energy source or quantum fluctuation bath.
+
+The conservation probe failed under Cargo before the documentation correction.
+The retained regression tests assert the actual counterexamples. The algebraic
+API and calculation remain available; documentation and demo output name the
+computed vector perturbation. A physical D3Q19 construction would need 19
+populations or an explicit constrained map, a moment projection satisfying
+sum_i Omega_i=0 and sum_i c_i*Omega_i=0, positivity, stress statistics, thermal
+fluctuation-dissipation calibration, and continuum/convergence evidence.
+Projecting a perturbation alone would establish moments rather than QFT.
+
+lbm_3d/src/zpe_injection.rs contains a placeholder comment and exports an
+empty module. That surface supplies zero implemented fluctuation physics.
+
+materials_core::optical_database::DrudeLorentzParams::zero_point_energy_density
+returns hbar*omega/2 in eV per mode. Its name does not establish a volumetric
+density; a density-of-states measure and integral would be required.
+The neighboring loss/noise helpers take abs(Im epsilon) and lack a full
+observable-specific Green-tensor normalization. They remain insufficient
+for active-medium discrimination or ordered detector transition rates.
+C-763 records implementation tests; those tests support their named helper
+behavior rather than physical ZPE extraction.
+
+The strongest precision Casimir owner is materials_core's multilayer_lifshitz
+implementation. Its pressure/energy derivative and ideal-limit controls align
+with the proposal. The existing casimir-optics-discrimination audit separates
+material-model sensitivity, numerical convergence and nuisance mimicry.
+The live frontier retains an open selected-schedule artifact dependency;
+new vacuum checks do not close that historical evidence gap.
+
+casimir_core's worldline estimator needs a separate repair before use as a
+precision oracle. Source inspection finds a negative error prefactor, a
+single-boundary hit criterion, scalar/EM normalization ambiguity, and local-
+density versus integrated-energy units. Those source findings require their
+own subtraction derivation and scale/convergence tests. The present change
+records the dependency rather than treating a finite Monte Carlo result as
+validated force data.
+
+The monograph modules casimir_vacuum, viscous_vacuum and banach_tarski_resonance
+contain physical interpretations beyond their executable evidence. A force
+residual alone cannot identify algebraic suppression against omitted material
+systematics. A p-value for ultrametric structure cannot identify a unique
+dimensional-reduction mechanism. Banach-Tarski nonmeasurable pieces supply
+neither an engineering operation nor a finite-energy duplication process.
+Those interpretations require explicit observables, dynamics and matched
+alternatives; the audit leaves their historical text and registry status intact.
+
+8. Remaining proposal branches and elementary counterexamples
+------------------------------------------------------------
+
+The finite leaf ledger in plans/vacuum_energy_falsification.toml distinguishes
+refuted inferences, conditional model results and blocked physical tests.
+
+  - Fourier convergence -> bounded response fails for a single resonantly
+    forced mode: q(t)=f*t*sin(omega*t)/(2*omega). A finite Fourier input
+    drives unbounded amplitude in an undamped resonant system.
+  - Sum |R(k)|/k^(1+epsilon)<infinity -> sum R(k)^2<infinity fails at R(k)=1.
+  - An input-independent nonzero expression cannot be a linear transform:
+    a linear operator sends zero to zero. A basis requires separate span
+    and independence/completeness conditions.
+  - D^alpha x+lambda*x=0 at alpha=1 is relaxation, while alpha=2 permits
+    an oscillator. lambda has units s^-alpha; a fixed omega^2 coefficient
+    cannot keep its ordinary units as alpha changes.
+  - 3000 points over 15 ns give a Nyquist frequency about 99.97 GHz.
+    An 800 GHz fundamental is unresolved. A 500 GHz cosine sampled at
+    249.9 GHz equals a 0.2 GHz alias on the grid. The example tests that
+    equality directly; a slow envelope does not identify memory.
+  - S_ref*(omega/omega_ref)^(-beta) preserves spectral units while beta
+    changes. A comparison must choose fixed reference power or fixed
+    band-integrated variance before fitting. Finite bandwidth matters.
+  - Failure of a self-consistent iteration at negative squared frequency
+    establishes failure of that branch/iteration. Competing free-energy
+    minima and thermodynamic limits adjudicate ordered ferroelectric phases.
+  - SrTiO3 strain/XLD, transmon decay and superconducting-drum response
+    are separate studies. An uncalibrated XLD trace remains XLD; a common
+    device, specimen or cooldown cannot be inferred from figure adjacency.
+  - Claimed Raman shifts, doping optima, loss reduction and tourmaline
+    layer recommendations remain unsupported until specimen-bound raw
+    measurements, calibration, units and uncertainties are recovered.
+  - Driven time-crystal order and piezo/pyroelectric conversion retain
+    drive, mechanical or thermal input resources. Temporal order supplies
+    neither a cyclic-work exception nor an unaccounted energy source.
+  - Quantum energy teleportation requires a local/global energy distinction:
+    a local conditional extraction follows state preparation and an earlier
+    operation elsewhere. The full energy account includes both operations,
+    shared-state preparation, controllers and repeated-cycle restoration.
+    The attachment's exact 2026 repeater paper and DESI analysis remain
+    independently unverified here; neither citation stands in for a
+    laboratory energy inventory or complete device-resource account.
+  - Algebraic dimension is a representation property. Physical spacetime
+    dimension needs a measurement map. Holographic codes require channels,
+    errors, matched baselines and recovery metrics; mathematical recovery
+    establishes code behavior rather than laboratory gravity.
+  - Replacing invariant c in gravity by material phase velocity lacks the
+    governing action and constitutive derivation. Shared speed units alone
+    supply insufficient justification for changing c^4/G.
+  - A new scalar field requires an action, symmetries, units, couplings,
+    bounded Hamiltonian, and a discriminating prediction. An actuator
+    label or feature-classifier threshold supplies a different object.
+  - Poster points described as measured need raw-data provenance. A real
+    citation cannot authenticate generated points. Image generation and
+    publication layout follow numerical ingestion and scientific review.
+
+9. Buildable program and dependency gates
+----------------------------------------
+
+The implemented core comprises finite-state ergotropy, ordered oscillator
+line weights, passive exponential-memory power and an explicit first-law
+residual. The deterministic example computes cutoff sensitivity, numerical
+comparison errors, the approach/reset account and the collision witness.
+These components establish a reusable numerical boundary for model checks.
+
+The next physical-model gate is an uncertainty-qualified chain:
+
+  specimen -> measured optical response -> causal constitutive completion
+  -> converged Lifshitz interaction -> measured mechanical susceptibility
+  -> ordered/symmetrized spectrum -> calibrated coupling -> decay likelihood.
+
+Prerequisites remain explicit: archive identity and licensing; column-level
+units and uncertainty; specimen/condition identity; response-model residuals;
+independent coupling calibration; held-out matched-control discrimination.
+Existing material_records and calibrated_discrimination components own those
+boundaries. The implementation must reuse those owners before introducing a
+parallel physical parameter or provenance vocabulary.
+
+A decisive energy experiment preregisters the complete boundary and repeated
+cycle; measures electrical/RF/optical/mechanical/thermal inputs, output,
+storage/preparation changes and apparatus drift; includes a matched sham;
+and declares the uncertainty and abandonment criteria before acquisition.
+An unexplained residual initiates missing-channel and calibration tests.
+Mechanism attribution requires predictions distinguishing competing models.
+
+A decisive coherence experiment holds cooldown, operating point, control
+sequence, T1, temperature and bandwidth comparable; independently calibrates
+G and S_x; predicts Ramsey/echo before fitting decay; and compares active,
+sham, ordinary material-response and support-matched algebraic controls.
+An improvement explained by those alternatives rejects structural uniqueness.
+
+10. Primary-source attribution and retrieval limits
+---------------------------------------------------
+
+[S1] Paul Davies, 'Liquid space', New Scientist, 3 November 2001.
+https://www.newscientist.com/article/1864405-liquid-space/
+Official HTML lines 789-803 preserve 10^110 J/cm^3 and its adjacent context:
+'That may sound like a wealth of free energy waiting to be mined, but
+unfortunately it can't be true.' Davies then describes catastrophic
+antigravity, a cosmological density bound and a required lower-energy sink.
+The historical attribution is recovered. Treating the quoted number as
+Davies's endorsed physical fuel inventory reverses the article's statement.
+Print pagination 30-34 is attributed by Setterfield; print pages were unread.
+
+[S2] Barry Setterfield, 'Exploring the Vacuum', author copy dated 2002-12-26,
+section 'The Energy In The Vacuum', reference 42.
+https://www.barrysetterfield.org/exploringvacuum.htm
+Archived author copy, recovered from the original hostname:
+https://web.archive.org/web/20200225045258id_/http://www.setterfield.org:80/exploringvacuum.htm
+The article states the cutoff estimate and quotes Davies's number while
+omitting Davies's immediately adjacent rejection. Attribution establishes
+what the author wrote; it supplies neither a measured density nor extraction.
+
+[S3] Barry John Setterfield, Cosmology and the Zero Point Energy, NPA, 2013.
+https://www.barrysetterfield.org/GSRdvds.html#cosmology
+https://www.barrysetterfield.org/bookTOC.html
+https://www.barrysetterfield.org/bookAbstract.html
+The author identifies 465 pages and an individually requested PDF.
+https://www.barrysetterfield.org/ZPE%20Presentation/ cites pp.34-35.
+The sales page, contents, abstract and later presentation were read; the
+monograph pages remain unrecovered. Author contact and purchases require
+separate instructions. Those access limits leave a source gap, rather than
+supporting an inference about every argument in the book.
+
+[S4] Barry Setterfield, 'Virtual Particles and the Speed of Light'.
+https://www.barrysetterfield.org/virtual_particles_and_c.html
+The author page attributes about 1e63 pairs/m^3 to a simultaneous population.
+The original 1.7e57 pairs/s derivation remains unverified. An author-linked
+2023 PDF endpoint returned the text 'Not Found'; that response supplies a
+failed retrieval, rather than the cited paper's contents.
+
+[S5] Clerk et al., Introduction to Quantum Noise, Measurement and
+Amplification, Rev. Mod. Phys. 82, 1155 (2010), DOI 10.1103/RevModPhys.82.1155.
+https://arxiv.org/html/0810.4729v2#S2.SS2
+Full HTML inspected for Sec. II.B, equations 6-7, and Appendix D.3.
+Negative-frequency noise excites a detector; positive-frequency noise
+relaxes it under the declared transform. The vacuum emits zero energy
+through the zero-temperature negative-frequency channel.
+
+[S6] Pusz and Woronowicz, Passive states and KMS states for general quantum
+systems, Commun. Math. Phys. 58, 273-290 (1978).
+https://doi.org/10.1007/BF01614224
+Publisher abstract inspected; full proof pages remain unread. The finite
+ground-state inequality in section 3 follows directly from the spectral bound.
+
+[S7] Wilson et al., Observation of the Dynamical Casimir Effect in a
+Superconducting Circuit, Nature 479, 376-379 (2011).
+https://arxiv.org/abs/1105.4714
+Abstract inspected: SQUID inductance modulation near 11 GHz and real-photon
+correlations describe a driven experiment. The full experimental energy
+and calibration budget remains outside the reconstructed evidence.
+
+[S8] de Jong et al., Measurement of a strong nonlinear force between
+superconductors compatible with the Casimir force, Nature Communications
+17, 8827, published 16 July 2026. DOI 10.1038/s41467-026-75261-9.
+https://www.nature.com/articles/s41467-026-75261-9
+https://arxiv.org/abs/2501.13759
+Publisher HTML and arXiv metadata inspected. The attachment's preprint-only
+status is stale. The qualified journal title matches a force inferred from
+nonlinear dynamics and compatibility with the expected gap range. Raw,
+processed and simulation data are linked at DOI 10.5281/zenodo.14700381.
+Archive contents and per-asset permissions remain uninspected.
+
+Source-response identities and excerpt locators are retained in
+data/output/audit/vacuum-passivity/source-observations.toml. Digests were
+computed after retrieval. Raw HTML remained in a local /tmp research bundle;
+the tracked record preserves metadata and short quotations rather than
+republishing the full third-party articles. Retrieval establishes source
+inspection and byte identity of that observation, rather than measurement
+validation. Exact replay requires a matching raw body or reinspection after
+any source change.
+
+11. Replay and interpretation
+-----------------------------
+
+Use the pinned Rust 1.97.0 and a worktree-local absolute CARGO_TARGET_DIR.
+Shared cache roots, when authorized, follow mk/cache_roots.mk. Leave local
+worker-count environment variables unset. Named developer diagnostics:
+
+  cargo test --locked -p quantum_core --lib vacuum_audit
+  cargo test --locked -p quantum_core --example vacuum_falsification
+  cargo run --locked -p quantum_core --example vacuum_falsification
+  cargo test --locked -p algebra_experimental --lib zpe_lbm_collision
+  cargo clippy --locked -p quantum_core --lib --example vacuum_falsification -- -D warnings
+
+Direct diagnostics prove only their named compilation and test surfaces.
+The ordinary scoped GitHub workflow owns repository validation, affected
+consumers, governance and the existing Casimir audit. The first-law helper
+accepts stated channels; completeness and uncertainty require measurement.
+The oscillator helper uses delta lines, rather than a dissipative continuum.
+The memory helper proves an instantaneous continuous identity, rather than
+a sampled-integrator guarantee. Finite numerical checks supplement the
+stated derivations and leave experimental premises open.
