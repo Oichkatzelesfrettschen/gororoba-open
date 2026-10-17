@@ -22,6 +22,8 @@ pub struct QuantumBindingManifest {
     pub theorems: Vec<QuantumTheoremBinding>,
     pub decoders: Vec<QuantumDecoder>,
     pub terminal: TerminalFixture,
+    pub coherence_application: QuantumCoherenceApplication,
+    pub terminal_applications: Vec<QuantumTerminalApplication>,
 }
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -30,7 +32,7 @@ pub struct QuantumAsset {
     pub sha256: String,
     pub source_path: String,
 }
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
 pub struct QuantumTheoremBinding {
     pub source: String,
@@ -42,6 +44,23 @@ pub struct QuantumTheoremBinding {
     pub not_applicable_reason: String,
     pub premises: Vec<String>,
     pub decoder_members: Vec<String>,
+}
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(transparent)]
+pub struct QuantumTerminalApplication {
+    pub binding: QuantumTheoremBinding,
+}
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct QuantumCoherenceApplication {
+    pub execution: String,
+    pub theorem_source: String,
+    pub theorem_declarations: Vec<String>,
+    pub basis: String,
+    pub normalization: String,
+    pub decoder_members: Vec<String>,
+    pub observable_formula: String,
+    pub premises: Vec<String>,
 }
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -124,6 +143,8 @@ pub struct QuantumBindingReport {
     pub verified_theorem_sources: usize,
     pub verified_theorem_declarations: usize,
     pub decoded_members: usize,
+    pub verified_coherence_applications: usize,
+    pub verified_terminal_applications: usize,
     pub terminal_hardware_means: usize,
     pub terminal_replay_means: usize,
     pub replay_retention_boundary: String,
@@ -229,7 +250,18 @@ fn convention(source: &str, declaration: &str) -> Result<(&'static str, &'static
         },
     )
 }
-fn required_semantics(
+fn coherence_application_premises() -> &'static [&'static str] {
+    &[
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture",
+    ]
+}
+fn required_terminal_application_semantics(
     source: &str,
     declaration: &str,
 ) -> Result<(&'static str, &'static [&'static str])> {
@@ -271,30 +303,9 @@ fn required_semantics(
                 "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class",
             ],
         ),
-        (
-            "BranchSignedCoherence.v",
-            "complex_ext"
-            | "difference_hermitian"
-            | "opposite_branches_cancel"
-            | "rotation_preserves_modulus_squared"
-            | "radius_triangle"
-            | "radius_encloses_euclidean_disk"
-            | "pauli_difference",
-        ) => (
+        ("BranchSignedCoherence.v", _) => (
             "mathematical_only",
             &["mathematical definitions and hypotheses in the pinned declaration"],
-        ),
-        ("BranchSignedCoherence.v", _) => (
-            "conditional_coherence_fixture",
-            &[
-                "same latent two-work-qubit state across Pauli settings within context",
-                "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-                "stationary within-context marginal distributions and shot independence remain empirical premises",
-                "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-                "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-                "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-                "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture",
-            ],
         ),
         (
             "C881_GF2CubicMinDegree.v"
@@ -316,6 +327,16 @@ fn required_semantics(
     })
 }
 
+fn required_semantics(
+    source: &str,
+    declaration: &str,
+) -> Result<(&'static str, &'static [&'static str])> {
+    required_terminal_application_semantics(source, declaration)?;
+    Ok((
+        "mathematical_only",
+        &["mathematical definitions and hypotheses in the pinned declaration"],
+    ))
+}
 fn validate_terminal_observations(
     manifest: &QuantumBindingManifest,
     record: &serde_json::Value,
@@ -606,8 +627,118 @@ impl QuantumBindingManifest {
         .context("source asset inventory differs from pinned Git snapshot")?;
         Ok(())
     }
+    fn validate_terminal_applications(&self) -> Result<()> {
+        let mut expected = Vec::new();
+        for (source, declaration) in [
+            (
+                "proofs/theories/FiniteBernoulliConcentration.v",
+                "terminal_32_mean_family_coverage",
+            ),
+            (
+                "proofs/theories/TerminalChannelSeparation.v",
+                "separated_centers_exclude_common_binary_channel",
+            ),
+            (
+                "proofs/theories/TerminalChannelSeparationReal.v",
+                "separated_centers_exclude_common_binary_channel",
+            ),
+            (
+                "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+                "retained_terminal_exact_margin",
+            ),
+            (
+                "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+                "retained_terminal_margin_positive",
+            ),
+            (
+                "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+                "terminal_false_rejection_probability",
+            ),
+            (
+                "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+                "terminal_32_mean_false_rejection",
+            ),
+        ] {
+            let mut binding = self
+                .theorems
+                .iter()
+                .find(|theorem| theorem.source == source && theorem.declaration == declaration)
+                .context("terminal application theorem missing")?
+                .clone();
+            let (execution, premises) =
+                required_terminal_application_semantics(source, declaration)?;
+            ensure!(
+                execution == "conditional_terminal_fixture",
+                "terminal application policy missing"
+            );
+            binding.execution = execution.into();
+            binding.basis = if source.ends_with("FiniteBernoulliConcentration.v") {
+                "finite_weighted_sample_space"
+            } else {
+                "binary_zero_one"
+            }
+            .into();
+            binding.normalization = "probability_unit_interval".into();
+            binding.not_applicable_reason.clear();
+            binding.decoder_members = ["qpe_no_feed_forward_s1", "qpe_no_feed_forward_s3"]
+                .into_iter()
+                .map(str::to_owned)
+                .collect();
+            binding.premises = premises
+                .iter()
+                .map(|premise| (*premise).to_owned())
+                .collect();
+            expected.push(QuantumTerminalApplication { binding });
+        }
+        expected.sort_by(|left, right| {
+            left.binding
+                .source
+                .cmp(&right.binding.source)
+                .then(left.binding.declaration.cmp(&right.binding.declaration))
+        });
+        ensure!(
+            self.terminal_applications == expected,
+            "conditional terminal application contract mismatch"
+        );
+        Ok(())
+    }
+    fn validate_coherence_application(&self) -> Result<()> {
+        let theorem_source = "proofs/theories/BranchSignedCoherence.v";
+        let declarations: BTreeSet<_> = self
+            .theorems
+            .iter()
+            .filter(|theorem| theorem.source == theorem_source)
+            .map(|theorem| theorem.declaration.clone())
+            .collect();
+        let decoder_members: BTreeSet<_> = ["immediate", "matched_idle", "measure_reset"]
+            .into_iter()
+            .flat_map(|context| {
+                ["xx", "xy", "yx", "yy"]
+                    .into_iter()
+                    .map(move |basis| format!("coherence_{context}_{basis}"))
+            })
+            .collect();
+        let expected = QuantumCoherenceApplication {
+            execution: "conditional_coherence_fixture".into(),
+            theorem_source: theorem_source.into(),
+            theorem_declarations: declarations.into_iter().collect(),
+            basis: "b0_c0_a_c1_b_c2_spectator_c3".into(),
+            normalization: "signed_pauli_quarter".into(),
+            decoder_members: decoder_members.into_iter().collect(),
+            observable_formula: "C=(Sxx+Syy+i*(Sxy-Syx))/4;S=E[(-1)^(c0+c1+c2)]".into(),
+            premises: coherence_application_premises()
+                .iter()
+                .map(|premise| (*premise).to_owned())
+                .collect(),
+        };
+        ensure!(
+            self.coherence_application == expected,
+            "conditional coherence application contract mismatch"
+        );
+        Ok(())
+    }
     fn validate_recorded_observations(&self, root: &Path) -> Result<QuantumBindingReport> {
-        ensure!(self.schema_version == 1, "unsupported binding schema");
+        ensure!(self.schema_version == 2, "unsupported binding schema");
         ensure!(
             self.source_repository == "https://github.com/Oichkatzelesfrettschen/gororoba-quantum"
                 && self.source_commit == "a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8",
@@ -701,14 +832,6 @@ impl QuantumBindingManifest {
                         .map(str::to_owned)
                         .collect()
                 }
-                "conditional_coherence_fixture" => ["immediate", "matched_idle", "measure_reset"]
-                    .into_iter()
-                    .flat_map(|context| {
-                        ["xx", "xy", "yx", "yy"]
-                            .into_iter()
-                            .map(move |basis| format!("coherence_{context}_{basis}"))
-                    })
-                    .collect(),
                 _ => bail!("unsupported execution domain"),
             };
             ensure!(
@@ -727,7 +850,7 @@ impl QuantumBindingManifest {
                         && theorem.decoder_members.is_empty(),
                     "mathematical theorem requires explicit circuit/decoder non-applicability"
                 ),
-                "conditional_terminal_fixture" | "conditional_coherence_fixture" => ensure!(
+                "conditional_terminal_fixture" => ensure!(
                     theorem.not_applicable_reason.is_empty() && !theorem.decoder_members.is_empty(),
                     "empirical binding requires decoders"
                 ),
@@ -783,6 +906,8 @@ impl QuantumBindingManifest {
             actual_declarations == expected_declarations,
             "theorem declaration denominator mismatch"
         );
+        self.validate_terminal_applications()?;
+        self.validate_coherence_application()?;
         let mut means = BTreeMap::new();
         for decoder in &self.decoders {
             ensure!(
@@ -1166,6 +1291,8 @@ impl QuantumBindingManifest {
             verified_theorem_sources: required_sources.len(),
             verified_theorem_declarations: self.theorems.len(),
             decoded_members: means.len(),
+            verified_coherence_applications: 1,
+            verified_terminal_applications: self.terminal_applications.len(),
             terminal_hardware_means: 16,
             terminal_replay_means: 16,
             replay_retention_boundary: "Replay count vectors are uniquely reconstructed from retained six-decimal probabilities on the verified 8192-shot grid and cross-checked against exact collected summaries; ordered replay bitstrings were not retained.".into(),
@@ -1220,6 +1347,103 @@ mod tests {
         type ManifestMutation = Box<dyn Fn(&mut QuantumBindingManifest)>;
         let mutations: Vec<(&str, ManifestMutation)> = vec![
             (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications.pop();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0].binding.source =
+                        "proofs/theories/FiniteProbability.v".into();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0].binding.execution =
+                        "hardware_verified".into();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0].binding.basis = "reversed".into();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0].binding.premises.pop();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0]
+                        .binding
+                        .decoder_members
+                        .pop();
+                }),
+            ),
+            (
+                "conditional terminal application contract",
+                Box::new(|manifest| {
+                    manifest.terminal_applications[0].binding.declaration =
+                        "weighted_markov".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.execution = "hardware_verified".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.theorem_source =
+                        "proofs/theories/FiniteProbability.v".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.theorem_declarations.pop();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.decoder_members.pop();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.basis = "reversed".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.normalization = "branch_renormalized".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.observable_formula = "C=unsigned_parity".into();
+                }),
+            ),
+            (
+                "conditional coherence application contract",
+                Box::new(|manifest| {
+                    manifest.coherence_application.premises.pop();
+                }),
+            ),
+            (
                 "theorem execution domain",
                 Box::new(|manifest| {
                     manifest
@@ -1238,7 +1462,7 @@ mod tests {
                         .iter_mut()
                         .find(|theorem| theorem.declaration == "terminal_32_mean_family_coverage")
                         .expect("terminal concentration theorem")
-                        .execution = "mathematical_only".into();
+                        .execution = "conditional_terminal_fixture".into();
                 }),
             ),
             (
@@ -1289,7 +1513,7 @@ mod tests {
                         .iter_mut()
                         .find(|theorem| theorem.declaration == "observed_signed_coherence")
                         .expect("coherence theorem");
-                    theorem.execution = "mathematical_only".into();
+                    theorem.execution = "conditional_coherence_fixture".into();
                     theorem.decoder_members.clear();
                     theorem.not_applicable_reason = "false reclassification".into();
                 }),
@@ -1308,7 +1532,7 @@ mod tests {
                         .iter_mut()
                         .find(|theorem| theorem.declaration == "observed_signed_coherence")
                         .expect("coherence theorem");
-                    theorem.premises.pop();
+                    theorem.premises.push("unproved sampling premise".into());
                 }),
             ),
             (
@@ -1620,6 +1844,14 @@ mod tests {
     #[test]
     fn reusable_support_has_mathematical_semantics() {
         for (source, declaration) in [
+            ("BranchSignedCoherence.v", "signed_score_product"),
+            ("BranchSignedCoherence.v", "spectator_partial_trace"),
+            ("BranchSignedCoherence.v", "independent_branch_flip"),
+            (
+                "BranchSignedCoherence.v",
+                "little_endian_score_reconstruction",
+            ),
+            ("BranchSignedCoherence.v", "setting_bias_radius"),
             ("FiniteProbability.v", "weighted_expectation_ext"),
             ("FiniteProbability.v", "weighted_markov"),
             ("FiniteProbability.v", "finite_union_bound"),
@@ -1644,6 +1876,70 @@ mod tests {
                 "{source}:{declaration}"
             );
         }
+    }
+    #[test]
+    fn coherence_application_is_separate_from_operator_theorems() {
+        let manifest = fixture();
+        let report = manifest
+            .validate(&root())
+            .expect("complete conditional application");
+        assert_eq!(report.verified_coherence_applications, 1);
+        let theorems: Vec<_> = manifest
+            .theorems
+            .iter()
+            .filter(|theorem| theorem.source.ends_with("BranchSignedCoherence.v"))
+            .collect();
+        assert_eq!(theorems.len(), 27);
+        assert!(
+            theorems
+                .iter()
+                .all(|theorem| theorem.execution == "mathematical_only"
+                    && theorem.decoder_members.is_empty()
+                    && !theorem.not_applicable_reason.is_empty())
+        );
+        assert_eq!(
+            manifest.coherence_application.theorem_declarations.len(),
+            27
+        );
+        assert_eq!(manifest.coherence_application.decoder_members.len(), 12);
+        assert!(
+            manifest
+                .coherence_application
+                .premises
+                .iter()
+                .any(|premise| premise.contains("positive semidefinite"))
+        );
+    }
+    #[test]
+    fn theorem_proofs_are_separate_from_terminal_applications() {
+        let manifest = fixture();
+        let report = manifest
+            .validate(&root())
+            .expect("complete terminal applications");
+        assert_eq!(manifest.theorems.len(), 160);
+        assert!(
+            manifest
+                .theorems
+                .iter()
+                .all(|theorem| theorem.execution == "mathematical_only"
+                    && theorem.decoder_members.is_empty()
+                    && !theorem.not_applicable_reason.is_empty())
+        );
+        assert_eq!(report.verified_terminal_applications, 7);
+        let coverage = manifest
+            .terminal_applications
+            .iter()
+            .find(|application| {
+                application.binding.declaration == "terminal_32_mean_family_coverage"
+            })
+            .expect("coverage application");
+        assert!(
+            !coverage
+                .binding
+                .premises
+                .iter()
+                .any(|premise| premise == "common binary stochastic channel")
+        );
     }
     #[test]
     fn source_inventory_rejects_ambiguous_paths() {

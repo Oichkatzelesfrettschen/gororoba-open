@@ -30,11 +30,18 @@ Historical 9.1.1 and 9.2 compiler receipts retain their recorded identities.
 
 Theorem and observable binding
 ------------------------------
-Every scoped declaration names its source digest, coefficient domain, basis,
-normalization, decoder, observable, execution class and required premises.
-Execution classes and premises are selected by declaration. General weighted
-probability, Bernoulli-moment, complex-number and radius support lemmas mark
-physical fields inapplicable. The 32-mean coverage theorem binds the terminal
+Every scoped declaration names its source digest, mathematical basis,
+normalization and formal hypotheses. Typed applications connect declarations
+to circuit digests through decoder records, register maps, observables and
+physical premises.
+Schema version 2 separates all 160 mathematical declarations from physical
+applications. Every theorem marks physical fields inapplicable. Seven typed
+terminal applications link the formal results to the retained counts, decoder
+normalizations and sampling or channel premises. One typed coherence
+application links all 27 operator identities to 12 Pauli decoders and the
+three reconstructed coefficients. Physical Born, assignment-error and nuisance
+assumptions belong to applications rather than mathematical proof evidence.
+The 32-mean coverage theorem binds the terminal
 fixture without assuming a common terminal channel or its own conclusion.
 Retained-margin arithmetic and null rejection have separate premise sets.
 The terminal fixture binds all 16 campaign members times hardware/replay to

@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "source_repository": "https://github.com/Oichkatzelesfrettschen/gororoba-quantum",
   "source_commit": "a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8",
   "semantic_boundary": "Hashes verify QPY byte identity only. Circuit semantics and physical premises remain asserted and unproved by this offline validator.",
@@ -1037,20 +1037,14 @@
       "source": "proofs/theories/TerminalChannelSeparation.v",
       "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
       "declaration": "separated_centers_exclude_common_binary_channel",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
-        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
-        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
@@ -1108,20 +1102,14 @@
       "source": "proofs/theories/TerminalChannelSeparationReal.v",
       "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
       "declaration": "separated_centers_exclude_common_binary_channel",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
-        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
-        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
@@ -1153,71 +1141,53 @@
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "terminal_false_rejection_probability",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
-        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
-        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "terminal_32_mean_false_rejection",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "common binary stochastic channel",
-        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
-        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
-        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "retained_terminal_exact_margin",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
       "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
       "declaration": "retained_terminal_margin_positive",
-      "basis": "binary_zero_one",
-      "normalization": "probability_unit_interval",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteProbability.v",
@@ -1875,17 +1845,12 @@
       "declaration": "terminal_32_mean_family_coverage",
       "basis": "finite_weighted_sample_space",
       "normalization": "normalization_from_theorem_hypotheses",
-      "execution": "conditional_terminal_fixture",
-      "not_applicable_reason": "",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "finite nonnegative normalized law and exactly 32 indexed means with 8192 samples each",
-        "each within-mean centered sum has its declared IID Bernoulli convolution law; cross-mean dependence is unrestricted",
-        "physical application requires stationarity, shot independence and the verified register decoders; no common terminal channel is assumed by coverage"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "qpe_no_feed_forward_s1",
-        "qpe_no_feed_forward_s3"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/FiniteBernoulliConcentration.v",
@@ -1982,33 +1947,14 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "pauli_odd_entry",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2027,257 +1973,105 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "branch_signed_entry",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "recorded_cross_branch_zero",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "recorded_signed_difference",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "signed_score_product",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "score_spectator_invariant",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "spectator_marginal_score",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "spectator_partial_trace",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "independent_branch_flip",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2296,33 +2090,14 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "ordered_z_rotation",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2367,161 +2142,66 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "nuisance_radius_propagation",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "cause_drift_nonidentifiability",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "observed_signed_coherence",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "little_endian_score_reconstruction",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "finite_born_pauli_score",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
@@ -2540,161 +2220,66 @@
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "finite_recorded_born_score",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "estimator_branch_flip_scale",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "opposite_branch_coherence_recovery",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "setting_bias_radius",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
       "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
       "declaration": "balanced_control_zz_attenuation",
-      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
-      "normalization": "signed_pauli_quarter",
-      "execution": "conditional_coherence_fixture",
-      "not_applicable_reason": "",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [
-        "same latent two-work-qubit state across Pauli settings within context",
-        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
-        "stationary within-context marginal distributions and shot independence remain empirical premises",
-        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
-        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
-        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
-        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+        "mathematical definitions and hypotheses in the pinned declaration"
       ],
-      "decoder_members": [
-        "coherence_measure_reset_xx",
-        "coherence_measure_reset_xy",
-        "coherence_measure_reset_yx",
-        "coherence_measure_reset_yy",
-        "coherence_immediate_xx",
-        "coherence_immediate_xy",
-        "coherence_immediate_yx",
-        "coherence_immediate_yy",
-        "coherence_matched_idle_xx",
-        "coherence_matched_idle_xy",
-        "coherence_matched_idle_yx",
-        "coherence_matched_idle_yy"
-      ]
+      "decoder_members": []
     }
   ],
   "decoders": [
@@ -3806,5 +3391,192 @@
         "terminal_numerator": 4057
       }
     ]
-  }
+  },
+  "coherence_application": {
+    "execution": "conditional_coherence_fixture",
+    "theorem_source": "proofs/theories/BranchSignedCoherence.v",
+    "theorem_declarations": [
+      "balanced_control_zz_attenuation",
+      "branch_signed_entry",
+      "cause_drift_nonidentifiability",
+      "complex_ext",
+      "difference_hermitian",
+      "estimator_branch_flip_scale",
+      "finite_born_pauli_score",
+      "finite_recorded_born_score",
+      "independent_branch_flip",
+      "little_endian_score_reconstruction",
+      "nuisance_radius_propagation",
+      "observed_signed_coherence",
+      "opposite_branch_coherence_recovery",
+      "opposite_branches_cancel",
+      "ordered_z_rotation",
+      "pauli_difference",
+      "pauli_odd_entry",
+      "radius_encloses_euclidean_disk",
+      "radius_triangle",
+      "recorded_cross_branch_zero",
+      "recorded_signed_difference",
+      "rotation_preserves_modulus_squared",
+      "score_spectator_invariant",
+      "setting_bias_radius",
+      "signed_score_product",
+      "spectator_marginal_score",
+      "spectator_partial_trace"
+    ],
+    "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+    "normalization": "signed_pauli_quarter",
+    "decoder_members": [
+      "coherence_immediate_xx",
+      "coherence_immediate_xy",
+      "coherence_immediate_yx",
+      "coherence_immediate_yy",
+      "coherence_matched_idle_xx",
+      "coherence_matched_idle_xy",
+      "coherence_matched_idle_yx",
+      "coherence_matched_idle_yy",
+      "coherence_measure_reset_xx",
+      "coherence_measure_reset_xy",
+      "coherence_measure_reset_yx",
+      "coherence_measure_reset_yy"
+    ],
+    "observable_formula": "C=(Sxx+Syy+i*(Sxy-Syx))/4;S=E[(-1)^(c0+c1+c2)]",
+    "premises": [
+      "same latent two-work-qubit state across Pauli settings within context",
+      "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+      "stationary within-context marginal distributions and shot independence remain empirical premises",
+      "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+      "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+      "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+      "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+    ]
+  },
+  "terminal_applications": [
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "terminal_32_mean_family_coverage",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "finite nonnegative normalized law and exactly 32 indexed means with 8192 samples each",
+        "each within-mean centered sum has its declared IID Bernoulli convolution law; cross-mean dependence is unrestricted",
+        "physical application requires stationarity, shot independence and the verified register decoders; no common terminal channel is assumed by coverage"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "retained_terminal_exact_margin",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "retained_terminal_margin_positive",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "exact retained hardware and replay counts, verified register decoders, 8192-shot normalization and radius 21/1000; arithmetic alone supplies no sampling or channel conclusion"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_32_mean_false_rejection",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_false_rejection_probability",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparation.v",
+      "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
+      "declaration": "separated_centers_exclude_common_binary_channel",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "separated_centers_exclude_common_binary_channel",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "deterministic radius inclusions or the simultaneous failure-probability bound stated by the declaration",
+        "physical finite-sample application requires the declared IID Bernoulli marginal laws, stationarity and verified register decoders",
+        "readout error, coherent gate error, drift, crosstalk, leakage and context-dependent noise remain mechanisms outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    }
+  ]
 }

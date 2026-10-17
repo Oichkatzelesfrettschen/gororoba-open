@@ -1,15 +1,17 @@
    Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/quantum-observable-contracts/open_gororoba/crates/provenance_store)
-    Finished `validation` profile [optimized + debuginfo] target(s) in 17.00s
+    Finished `validation` profile [optimized + debuginfo] target(s) in 24.52s
      Running unittests src/lib.rs (/home/eirikr/Github/open_gororoba/.cache/gate-cbuild/8ee62ced707fec8e/validation/deps/provenance_store-30d53851a83fa96f)
 
-running 7 tests
+running 9 tests
 test quantum_bindings::tests::reusable_support_has_mathematical_semantics ... ok
 test quantum_bindings::tests::symlink_artifacts_are_rejected ... ok
 test quantum_bindings::tests::source_inventory_rejects_ambiguous_paths ... ok
 test quantum_bindings::tests::unknown_manifest_fields_are_rejected ... ok
+test quantum_bindings::tests::theorem_proofs_are_separate_from_terminal_applications ... ok
+test quantum_bindings::tests::coherence_application_is_separate_from_operator_theorems ... ok
 test quantum_bindings::tests::retained_observables_reconstruct_exactly ... ok
 test quantum_bindings::tests::unselected_observation_mutations_reach_data_validation ... ok
 test quantum_bindings::tests::contract_mutations_reach_specific_rejections ... ok
 
-test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.60s
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 126 filtered out; finished in 0.87s
 
