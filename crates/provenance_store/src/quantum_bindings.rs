@@ -517,6 +517,16 @@ impl QuantumBindingManifest {
     }
     pub fn validate(&self, root: &Path) -> Result<QuantumBindingReport> {
         let report = self.validate_recorded_observations(root)?;
+        self.validate_source_inventory()?;
+        Ok(report)
+    }
+    fn validate_source_inventory(&self) -> Result<()> {
+        for asset in &self.assets {
+            ensure!(
+                !asset.source_path.contains(['\t', '\r', '\n']),
+                "source asset inventory path contains a delimiter"
+            );
+        }
         // The compiled digest anchors the sorted source-path<TAB>SHA256<LF> inventory
         // independently of the supplied manifest. Every entry was checked against
         // the Git blobs at a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
@@ -535,7 +545,7 @@ impl QuantumBindingManifest {
             "6164e42a41fac7e091118e03ed6027a4046db9b477967a917bbb3e3730d3ad29",
         )
         .context("source asset inventory differs from pinned Git snapshot")?;
-        Ok(report)
+        Ok(())
     }
     fn validate_recorded_observations(&self, root: &Path) -> Result<QuantumBindingReport> {
         ensure!(self.schema_version == 1, "unsupported binding schema");
@@ -1525,6 +1535,27 @@ mod tests {
         fs::remove_dir(temporary).expect("remove owned fixture root");
     }
 
+    #[test]
+    fn source_inventory_rejects_ambiguous_paths() {
+        let original = fixture();
+        original
+            .validate_source_inventory()
+            .expect("pinned source inventory");
+        for delimiter in ['\t', '\r', '\n'] {
+            let mut manifest = original.clone();
+            manifest.assets[0].source_path.push(delimiter);
+            let error = format!(
+                "{:#}",
+                manifest
+                    .validate_source_inventory()
+                    .expect_err("ambiguous inventory path")
+            );
+            assert!(
+                error.contains("inventory path contains a delimiter"),
+                "{error}"
+            );
+        }
+    }
     #[test]
     fn unknown_manifest_fields_are_rejected() {
         let mut value = serde_json::to_value(fixture()).expect("JSON");
