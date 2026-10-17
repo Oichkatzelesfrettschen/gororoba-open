@@ -1,36 +1,37 @@
-//! Zero-Point Energy (ZPE) Lattice Boltzmann Collision
+//! Fixed-norm Cayley-Dickson commutator perturbation of a relaxed vector.
 //!
-//! A novel fluid dynamics operator. Standard LBM conserves mass and momentum
-//! via the BGK collision operator. This algorithm modifies the collision step
-//! to inject pseudo-random microscopic turbulence (ZPE) strictly driven by the
-//! non-commutative structure of the underlying coordinates.
-//!
-//! It simulates quantum hydrodynamic turbulence (e.g., Quark-Gluon Plasma or
-//! Hawking radiation analogs in fluids) without breaking macroscopic conservation.
+//! The 16 components are algebraic coordinates. Interpreting the coordinates
+//! as populations changes their sum and permits negative entries, as the
+//! basis-vector counterexamples demonstrate. A D3Q19 velocity map, conservative
+//! collision construction, and quantum fluctuation model remain required for
+//! a physical fluid interpretation. The ZPE API name supplies compatibility,
+//! rather than evidence for quantum vacuum dynamics.
 
 use cd_kernel::cayley_dickson::cd_multiply;
 #[cfg(test)]
 use cd_kernel::cayley_dickson::cd_norm_sq;
 
-/// A simplified D3Q19 lattice state mapped to a 16D register.
+/// A 16-component algebraic vector, with an unconstrained population sum.
 pub type LbmNode = [f64; 16];
 
-/// **ZPE-Injected Collision Operator**
-/// `f_i` is the distribution function. `omega` is the relaxation frequency.
-/// `vacuum_field` is a background sedenion field representing the ZPE metric.
+/// Relax toward `equilibrium`, then normalize a nonzero commutator to norm 1e-4.
+///
+/// `omega` is dimensionless. `vacuum_field` supplies an algebraic operand;
+/// normalization removes its positive magnitude when the squared norm and
+/// normalization arithmetic remain representable and nonzero.
+/// The function defines neither SI energy nor a
+/// stochastic bath. Population conservation and positivity fail on basis inputs.
 pub fn zpe_bgk_collision(
     node: &mut LbmNode,
     equilibrium: &LbmNode,
     omega: f64,
     vacuum_field: &LbmNode,
 ) {
-    // 1. Standard BGK relaxation towards equilibrium
     let mut relaxation = [0.0; 16];
     for i in 0..16 {
         relaxation[i] = node[i] - omega * (node[i] - equilibrium[i]);
     }
 
-    // 2. Calculate the non-commutative ZPE commutator: [Node, Vacuum] = Node*Vacuum - Vacuum*Node
     let nv: [f64; 16] = cd_multiply(&relaxation, vacuum_field).try_into().unwrap();
     let vn: [f64; 16] = cd_multiply(vacuum_field, &relaxation).try_into().unwrap();
 
@@ -41,9 +42,7 @@ pub fn zpe_bgk_collision(
         zpe_energy += commutator[i].powi(2);
     }
 
-    // 3. Inject the ZPE fluctuation.
-    // The energy is scaled by the commutation failure. If the fluid state commutes
-    // with the vacuum, no ZPE is injected (laminar flow).
+    // Fixed normalization controls vector distance, rather than physical energy.
     let scale = if zpe_energy > 0.0 {
         1e-4 / zpe_energy.sqrt()
     } else {
@@ -60,6 +59,46 @@ mod tests {
     use super::*;
 
     #[test]
+    fn basis_commutator_changes_population_sum() {
+        let mut node = [0.0; 16];
+        node[1] = 1.0;
+        let equilibrium = node;
+        let mut field = [0.0; 16];
+        field[2] = 1.0;
+        zpe_bgk_collision(&mut node, &equilibrium, 1.0, &field);
+        assert!((node[3] - 1e-4).abs() < 1e-15);
+        assert!((node.iter().sum::<f64>() - 1.0001).abs() < 1e-12);
+    }
+
+    #[test]
+    fn reversed_operand_creates_negative_population() {
+        let mut node = [0.0; 16];
+        node[1] = 1.0;
+        let equilibrium = node;
+        let mut field = [0.0; 16];
+        field[2] = -1.0;
+        zpe_bgk_collision(&mut node, &equilibrium, 1.0, &field);
+        assert!((node[3] + 1e-4).abs() < 1e-15);
+        assert!(node[3] < 0.0);
+    }
+
+    #[test]
+    fn normalization_removes_operand_magnitude() {
+        let mut unit_field_node = [0.0; 16];
+        unit_field_node[1] = 1.0;
+        let equilibrium = unit_field_node;
+        let mut tiny_field_node = unit_field_node;
+        let mut field = [0.0; 16];
+        field[2] = 1.0;
+        zpe_bgk_collision(&mut unit_field_node, &equilibrium, 1.0, &field);
+        field[2] = 1e-12;
+        zpe_bgk_collision(&mut tiny_field_node, &equilibrium, 1.0, &field);
+        for (unit_value, tiny_value) in unit_field_node.iter().zip(tiny_field_node) {
+            assert!((unit_value - tiny_value).abs() < 1e-15);
+        }
+    }
+
+    #[test]
     fn test_zpe_injection() {
         let mut node = [0.0; 16];
         node[3] = 1.0; // Specific directional momentum
@@ -71,17 +110,13 @@ mod tests {
         vacuum[1] = 1.0;
         vacuum[2] = 1.0; // e1 and e2 do not commute with e3
 
-        let _initial_dist = cd_norm_sq(&node).sqrt();
         zpe_bgk_collision(&mut node, &eq, 1.0, &vacuum);
 
         let final_dist = cd_norm_sq(&node).sqrt();
 
-        // Due to the non-commutative ZPE commutator, the final state
-        // will not simply be the relaxed state (which would have norm 0.5).
-        // It should have deviated into other dimensions.
         assert!(
             (final_dist - 0.5).abs() > 1e-9,
-            "ZPE should inject turbulent energy"
+            "the normalized commutator should perturb the vector norm"
         );
     }
 }

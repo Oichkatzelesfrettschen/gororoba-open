@@ -1,0 +1,77 @@
+# Vacuum and ZPE primary-source observations
+
+Captured by the source-audit subagent on 2026-10-17 UTC. Response files are local research evidence, outside the repository. SHA256SUMS contains SHA-256 of the saved response bodies after retrieval, including HTML markup. Curl followed redirects and saved response bodies; request/response headers were not retained. A successful curl exit alone does not establish successful source retrieval. Content was inspected as described below. File modification times record the completed local write, rather than the instant the remote server generated its response. HTTP server Date and ETag remain unmeasured.
+
+## Davies attribution and omitted rejection
+
+- URL: https://www.newscientist.com/article/1864405-liquid-space/
+- Saved response: davies-liquid-space.html, local write completed 2026-10-17T03:56:42Z.
+- Title: Liquid space. Author: Paul Davies. Published 3 November 2001. Official issue https://www.newscientist.com/issue/2315/ independently identifies the cover article.
+- Retrieval succeeded: article body appears both in HTML and public JSON-LD. davies-liquid-space-articlebody.txt is the extracted JSON-LD articleBody, not a source-byte copy. Perl selected application/ld+json blocks and jq selected @graph entries with articleBody.
+- Exact HTML locator: lines 789-803; excerpt begins "COULD we tap the quantum ether as a power source?" HTML line 791 preserves `10<sup>110</sup>` joules per cubic centimetre. JSON-LD flattens the exponent to `10110`; use HTML to interpret formatting.
+- The immediately adjacent text explicitly rejects the huge value as a physical inventory: "That may sound like a wealth of free energy waiting to be mined, but unfortunately it can't be true." The next sentence attributes catastrophic antigravity to such a value. The following paragraph says a few joules per cubic kilometre and a lower-energy sink are required in its cosmological discussion.
+- Supported conclusion: Setterfield's cited number occurs in Davies's article, accompanied immediately by a rejection that Setterfield's quotation omits. Davies's 2001 popular article is historical source attribution, not a current precision cosmology measurement or the fundamental passivity proof.
+- Pagination 30-34 is recovered from Setterfield's reference 42; the publisher's HTML has no print-page images. Exact original page placement remains unverified.
+
+## Setterfield author copy and archived copy
+
+- Current author URL: https://www.barrysetterfield.org/exploringvacuum.htm
+- Saved response: setterfield-exploringvacuum.html, completed 2026-10-17T03:56:58Z.
+- Archived URL: https://web.archive.org/web/20200225045258id_/http://www.setterfield.org:80/exploringvacuum.htm
+- Saved response: setterfield-exploringvacuum-20200225045258.html, completed 2026-10-17T03:56:58Z.
+- Both actual full HTML retrievals succeeded. The archive.org availability endpoint for the old setterfield.org hostname returned timestamp 20200225045258; the barrysetterfield.org hostname query returned an empty snapshot map. One CDX query timed out, and broad archive.org title/creator searches returned zero relevant monograph records. Those bounded queries establish only search results, not archive-wide absence.
+- Section "The Energy In The Vacuum" says 10^114 erg/cm^3 imposed by a Planck-length cutoff, quotes 10^110 J/cm^3 from Davies, and references Davies New Scientist pp.30-34, 3 November 2001 as reference 42. The galaxy comparison says one million years. A 10^114 erg/cm^3 conversion equals 10^107 J/cm^3.
+- The author copy is dated 26 December 2002. The author bibliography labels the paper Journal of Theoretics; the captured page itself is the author copy.
+
+## Monograph coverage and residual
+
+- Sales page URL: https://www.barrysetterfield.org/GSRdvds.html#cosmology
+- Saved response: setterfield-monograph-sale.html, completed 2026-10-17T03:56:58Z.
+- TOC URL: https://www.barrysetterfield.org/bookTOC.html
+- Saved response: setterfield-monograph-toc.html, completed 2026-10-17T03:56:58Z.
+- Abstract URL: https://www.barrysetterfield.org/bookAbstract.html
+- Saved response: setterfield-monograph-abstract.html, completed 2026-10-17T03:57:04Z.
+- Actual author pages were retrieved. They identify Cosmology and the Zero Point Energy, Barry John Setterfield, 465 pages, NPA, separately bound from 2013 conference proceedings. The sales page offers the PDF by email request and requests a donation. Neither contacting the author nor purchasing was attempted. TOC and abstract cover the book's declared topics, not its complete arguments or page-specific evidence.
+- https://www.barrysetterfield.org/ZPE%20Presentation/ retrieved as setterfield-2024-presentation.html, completed 2026-10-17T03:56:58Z, explicitly cites the monograph pp34-35 for an energy discussion and galaxy comparison. Several numeric expressions are images in that page; stripped HTML text is incomplete. This is a secondary page-specific attribution, not retrieval of the monograph pages.
+- Exact monograph pp34-35 and the original 1.7e57 pairs/second derivation remain unrecovered.
+
+## Pair population and rate residual
+
+- URL: https://www.barrysetterfield.org/virtual_particles_and_c.html
+- Saved response: setterfield-virtual-particles.html, completed 2026-10-17T03:56:58Z.
+- Actual author page retrieved. Section "Distant Starlight Problem" states "at any given instant" about 10^63 virtual particle pairs per cubic metre, equivalent to 10^57 per cubic centimetre. The page gives neither a number-operator/detector definition nor the cited rate derivation. An author's statement is attribution evidence, not operational validation of a physical virtual-particle census.
+- https://www.onlinescientificresearch.com/articles/reviewing-the-role-of-virtual-particles-in-the-vacuum.pdf returned the text `Not Found` in setterfield-2023-pdf-url-response.txt, completed 2026-10-17T03:57:04Z. PDF text extraction failed because that response is not a PDF. The article URL is still linked by the author bibliography, but article contents were not recovered from that locator.
+- The bounded search did not recover 1.7e57 pairs/s. A rate alone requires a declared lifetime and stationary process before conversion to simultaneous population. The pair-rate number must remain unverified.
+
+## Ordered quantum noise
+
+- URL: https://arxiv.org/html/0810.4729v2
+- Saved response: clerk-0810.4729v2.html, completed 2026-10-17T03:56:58Z.
+- Title: Introduction to Quantum Noise, Measurement and Amplification. A. A. Clerk, M. H. Devoret, S. M. Girvin, F. Marquardt, R. J. Schoelkopf. Review of Modern Physics 82, 1155 (2010), DOI 10.1103/RevModPhys.82.1155; bibliography from abstract page was inspected earlier.
+- Full arXiv HTML retrieved. Sec II.B anchors #S2.SS2, #S2.E6 and #S2.E7 give excitation proportional to S(-omega), relaxation proportional to S(+omega), and detailed balance S(+omega)=exp(beta*hbar*omega) S(-omega), using the declared exp(+i omega t) transform. HTML equation numbers are 6 and 7; the journal may print section-prefixed numbering.
+- Appendix anchor #A4.SS3.p1.6 explicitly says zero-temperature negative-frequency noise vanishes and positive-frequency noise permits absorption by the vacuum. #A4.SS3.p2.4 says the zero-temperature resistor absorbs rather than emits.
+- A real stationary classical scalar noise process has a symmetric spectrum; replacing the ordered quantum spectrum by its symmetrized version cannot preserve those excitation/relaxation rates without extra structure.
+
+## Passivity
+
+- URL: https://link.springer.com/article/10.1007/BF01614224
+- Saved response: pusz-woronowicz-passivity.html, completed 2026-10-17T03:57:05Z.
+- Title: Passive states and KMS states for general quantum systems. W. Pusz and S. L. Woronowicz, Communications in Mathematical Physics 58, 273-290 (1978).
+- Publisher abstract retrieved. It states ground states and beta-KMS states for beta >= 0 are completely passive, and characterizes completely passive states. Full proof pages were not inspected. A finite-dimensional ground-state cyclic-unitary inequality can be proved independently by the lower spectral bound; its premises must remain explicit.
+
+## Driven dynamical Casimir experiment
+
+- URL: https://arxiv.org/abs/1105.4714
+- Saved response: wilson-dce-abstract.html, completed 2026-10-17T03:56:58Z.
+- Title: Observation of the Dynamical Casimir Effect in a Superconducting Circuit. C. M. Wilson et al. Nature 479, 376-379 (2011), DOI 10.1038/nature10561.
+- Actual arXiv abstract retrieved. SQUID inductance modulation near 11 GHz changes the line's effective length; emitted real photons and two-mode squeezing are reported. Pump accounting is required for interpreting the experiment as an energy process. The abstract is evidence of a driven experiment, not passive energy extraction. Full energy/calibration budget was not independently reconstructed.
+
+## Superconducting mechanical force paper status correction
+
+- arXiv URL: https://arxiv.org/abs/2501.13759
+- Saved response: dejong-arxiv.html, completed 2026-10-17T03:57:04Z. v1 23 January 2025, v2 14 January 2026, v3 6 May 2026. Current arXiv title remains Measurement of the Casimir force between superconductors.
+- Journal URL: https://www.nature.com/articles/s41467-026-75261-9
+- Saved response: dejong-journal.html, completed 2026-10-17T03:57:05Z.
+- Published title: Measurement of a strong nonlinear force between superconductors compatible with the Casimir force. Matthijs H. J. de Jong et al. Nature Communications 17, 8827, 16 July 2026. DOI 10.1038/s41467-026-75261-9.
+- Publisher full HTML retrieved. The attachment's preprint-only status is stale. The revised title and abstract preserve compatibility inference: nonlinear drum dynamics indicate a strong force compatible in magnitude with Casimir interaction for expected separations, rather than a directly measured universal force-gap law.
+- Data availability says raw/processed/simulation data at https://doi.org/10.5281/zenodo.14700381 ; code at the same repository. That raw archive was not downloaded or ingested during this subtask. Figure 2 is measured response for combinations of drive parameters. Journal license metadata gives CC BY-NC-ND4.0; dataset license must be inspected independently before reuse.

@@ -1,0 +1,20 @@
+quantity	value	unit	evidence_class	boundary
+planck_length	1.616255023928550e-35	m	analytic_or_model	CODATA-rounded constants
+cutoff_energy_one_cm3	5.867695657364002e105	J	analytic_or_model	k_max=1/l_P; hard 3-momentum cutoff
+wavelength_cutoff_energy_one_cm3	9.145070407167852e108	J	analytic_or_model	k_max=2*pi/l_P
+cutoff_times_ten_density_ratio	1.000000000000000e4	1	analytic_or_model	free electromagnetic mode count
+illustrative_galaxy_energy	1.208024928000000e55	J	analytic_or_model	1e11 nominal solar luminosities for 1e10 Julian years
+infographic_to_galaxy_ratio	8.277974873048314e51	1	analytic_or_model	illustrative luminosity assumption
+population_over_rate	5.882352941176471e-1	s	analytic_or_model	conditional stationary population; rate attribution unverified
+real_pair_rest_energy	1.637421157593690e-13	J	analytic_or_model	real electron and positron; excludes virtual-line interpretation
+ideal_plate_energy	-4.333752574825845e-19	J	analytic_or_model	100 nm gap; 1 um^2; perfect conductors; T=0
+ideal_plate_pressure	-1.300125772447753e1	Pa	analytic_or_model	perfect-conductor planar limit
+casimir_approach_work	3.792033502972614e-19	J	analytic_or_model	200 nm to 100 nm; conservative ideal model
+casimir_reset_work	3.792033502972614e-19	J	analytic_or_model	100 nm to 200 nm; same model and parameters
+casimir_cycle_residual	0.000000000000000e0	J	analytic_or_model	complete ideal approach/reset; fixed boundary parameters
+ground_ergotropy	0.000000000000000e0	hbar*omega	analytic_or_model	three levels; arbitrary cyclic unitary
+vacuum_absorption_line_weight	8.392015876047583e-27	m^2	analytic_or_model	coefficient of 2*pi*delta(omega-omega_0)
+vacuum_emission_line_weight	0.000000000000000e0	m^2	analytic_or_model	coefficient of 2*pi*delta(omega+omega_0)
+memory_storage_rate	8.000000000000000e0	W	analytic_or_model	F=4 N; v=3 m/s; k=2 N/m; tau=2 s
+unaccounted_output_residual	-1.000000000000000e0	J	analytic_or_model	1 J output; zero declared inputs and storage change
+commutator_population_sum_change	9.999999999998899e-5	1	analytic_or_model	node=equilibrium=e1; operand=e2; relaxation=1

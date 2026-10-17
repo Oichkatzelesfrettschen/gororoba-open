@@ -98,7 +98,7 @@ pub fn execute_all_prototypes() {
         frac.is_some()
     );
 
-    // 8. ZPE LBM Collision
+    // Fixed-norm commutator perturbation
     let mut node = [0.0; 16];
     node[3] = 1.0;
     let mut eq = [0.0; 16];
@@ -109,7 +109,7 @@ pub fn execute_all_prototypes() {
     zpe_bgk_collision(&mut node, &eq, 1.0, &vacuum);
     let dev = cd_norm_sq(&node).sqrt();
     println!(
-        "[8/25] ZPE LBM Collision: State deviated to norm {:.8} (equilibrium was 0.50000000)",
+        "[8/25] Normalized commutator: vector norm {:.8} (equilibrium norm 0.50000000)",
         dev
     );
 
