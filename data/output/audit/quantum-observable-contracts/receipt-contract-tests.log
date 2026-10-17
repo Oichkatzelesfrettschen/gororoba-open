@@ -1,0 +1,32 @@
+    Blocking waiting for file lock on build directory
+    Finished `validation` profile [optimized + debuginfo] target(s) in 9.54s
+     Running unittests src/lib.rs (/home/eirikr/Github/open_gororoba/.cache/gate-cbuild/8ee62ced707fec8e/validation/deps/provenance_store-30d53851a83fa96f)
+
+running 24 tests
+test theorem_execution::tests::genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects ... ignored, requires host PATH/opam switch with Rocq 9.3.0 and OCaml 5.5.1
+test theorem_execution::tests::genuine_rocq_replay_retains_configured_flocq_mapping ... ignored, requires pinned Rocq and configured Flocq library
+test theorem_execution::tests::inventory_and_evidence_reject_symlink_paths ... ok
+test theorem_execution::tests::kernel_receipt_promotes_without_overwriting_metadata_and_replays_exactly ... ok
+test theorem_execution::tests::kernel_receipt_project_edits_demote_and_old_sync_replay_rejects_changed_evidence ... ok
+test theorem_execution::tests::inventory_sync_covers_both_roots_and_preserves_canonical_metadata ... ok
+test theorem_execution::tests::inventory_rejects_duplicates_collisions_missing_unlisted_and_traversal ... ok
+test theorem_execution::tests::recognized_declaration_inventory_has_an_explicit_language_boundary ... ok
+test theorem_execution::tests::inventory_sync_stale_guards_and_missing_registered_sources_rollback ... ok
+test theorem_execution::tests::inventory_rejects_a_symlinked_source_root ... ok
+test theorem_execution::tests::inventory_source_only_numeric_stems_need_explicit_scope_before_promotion ... ok
+test theorem_execution::tests::source_parser_preserves_qualified_names_and_nested_comments ... ok
+test theorem_execution::tests::complete_receipt_includes_definition_bodies_and_theorem_contexts ... ok
+test theorem_execution::tests::assumption_scope_and_fatal_default_are_explicit ... ok
+test theorem_execution::tests::legacy_receipts_preserve_history_and_need_distinct_replayed_admission ... ok
+test theorem_execution::tests::trusted_replay_rejects_warnings_failures_and_descriptive_warning_profiles ... ok
+test theorem_execution::tests::version_two_promotion_requires_private_replay_evidence_and_exact_replay_is_pure ... ok
+test theorem_execution::tests::retained_replay_accepts_supported_matching_toolchains ... ok
+test theorem_execution::tests::receipt_rejects_omitted_axiom_theorems_and_dependency_definitions ... ok
+test theorem_execution::tests::retained_historical_receipts_replay_without_admitting_new_execution ... ok
+test theorem_execution::tests::kernel_receipt_rejects_hidden_assumptions_warnings_and_checker_failure_logs ... ok
+test theorem_execution::tests::kernel_receipt_source_dependency_and_artifact_mutations_demote_projection ... ok
+test theorem_execution::tests::receipt_requires_complete_unique_witness_and_assumption_labels ... ok
+test theorem_execution::tests::kernel_receipt_rejects_incomplete_closure_nonzero_exit_false_statement_and_policy ... ok
+
+test result: ok. 22 passed; 0 failed; 2 ignored; 0 measured; 106 filtered out; finished in 0.85s
+

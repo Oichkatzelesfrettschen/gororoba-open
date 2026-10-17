@@ -1,0 +1,115 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FoldAverageDescent"
+proof_path = "proofs/theories/FoldAverageDescent.v"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FoldAverageDescent.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FoldAverageDescent"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FoldAverageDescent.v"
+sha256 = "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23"
+
+[compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FoldAverageDescent.compile.txt"
+sha256 = "7c97b18da34e49eb514d1cad5901f51c328894ece2ffd401a7bec2d34c3040ac"
+
+[kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FoldAverageDescent.kernel.txt"
+sha256 = "6ab673b318a00623c62cd191789fc8932cdf30981865a3044a9538e75c9cd204"
+
+[assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FoldAverageDescent.assumptions.txt"
+sha256 = "438b4ab65308a58802d40ed35ef12a560bdbd5aba989af26ebf5edb638e3376f"
+
+[proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/FoldAverageDescent.vo"
+sha256 = "5a4ad9c1c031dc9d6131443efa576d19a15a8025c2bd96cfd6a93ab31a8b991b"
+
+[[declarations]]
+name = "scalar_pair"
+statement = "Definition scalar_pair := (Qc * Qc)%type"
+assumptions = []
+
+[[declarations]]
+name = "pair_zero"
+statement = "Definition pair_zero : scalar_pair := (0, 0)"
+assumptions = []
+
+[[declarations]]
+name = "pair_product"
+statement = "Definition pair_product (left right : scalar_pair) : scalar_pair := (fst left * fst right - snd right * snd left, snd right * fst left + snd left * fst right)"
+assumptions = []
+
+[[declarations]]
+name = "pair_average"
+statement = "Definition pair_average (value : scalar_pair) : Qc := (fst value + snd value) / (1 + 1)"
+assumptions = []
+
+[[declarations]]
+name = "pair_detail"
+statement = "Definition pair_detail (value : scalar_pair) : Qc := (fst value - snd value) / (1 + 1)"
+assumptions = []
+
+[[declarations]]
+name = "average_detail"
+statement = "Definition average_detail (value : scalar_pair) : scalar_pair := (pair_average value, pair_detail value)"
+assumptions = []
+
+[[declarations]]
+name = "reconstruct"
+statement = "Definition reconstruct (coordinates : scalar_pair) : scalar_pair := (fst coordinates + snd coordinates, fst coordinates - snd coordinates)"
+assumptions = []
+
+[[declarations]]
+name = "kernel_witness"
+statement = "Definition kernel_witness : scalar_pair := (1, Qcopp 1)"
+assumptions = []
+
+[[declarations]]
+name = "right_multiplier"
+statement = "Definition right_multiplier : scalar_pair := (0, 1)"
+assumptions = []
+
+[[declarations]]
+name = "kernel_witness_average"
+statement = "Lemma kernel_witness_average : pair_average kernel_witness = 0"
+assumptions = []
+
+[[declarations]]
+name = "zero_average"
+statement = "Lemma zero_average : pair_average pair_zero = 0"
+assumptions = []
+
+[[declarations]]
+name = "witness_product_average"
+statement = "Lemma witness_product_average : pair_average (pair_product kernel_witness right_multiplier) = 1"
+assumptions = []
+
+[[declarations]]
+name = "zero_product_average"
+statement = "Lemma zero_product_average : pair_average (pair_product pair_zero right_multiplier) = 0"
+assumptions = []
+
+[[declarations]]
+name = "average_product_does_not_descend"
+statement = "Theorem average_product_does_not_descend : ~ exists average_product : Qc -> Qc -> Qc, forall left right : scalar_pair, pair_average (pair_product left right) = average_product (pair_average left) (pair_average right)"
+assumptions = []
+
+[[declarations]]
+name = "reconstruction_after_average_detail"
+statement = "Theorem reconstruction_after_average_detail : forall value, reconstruct (average_detail value) = value"
+assumptions = []
+
+[[declarations]]
+name = "average_detail_after_reconstruction"
+statement = "Theorem average_detail_after_reconstruction : forall coordinates, average_detail (reconstruct coordinates) = coordinates"
+assumptions = []
+
+[[declarations]]
+name = "average_detail_injective"
+statement = "Theorem average_detail_injective : forall left right, average_detail left = average_detail right -> left = right"
+assumptions = []

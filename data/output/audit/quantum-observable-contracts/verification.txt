@@ -1,0 +1,43 @@
+Local diagnostic evidence
+=========================
+The named checks run in the isolated quantum-observable-contracts checkout.
+Hosted CI remains the repository-validation authority.
+
+opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  exit 0; all 314 project modules compiled with fatal-default warnings.
+opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-admissions
+  exit 0; 5 scanner tests passed; 314 sources contain zero admission tokens.
+capture-rocq-receipts REPOSITORY SCRATCH /home/eirikr/.opam/rocq-9.3/bin
+  exit 0; 21 targets, 29 source-closure objects, 483 assumption queries;
+  214 historical artifact names and byte hashes identical before and after.
+cargo test -p provenance_store quantum_bindings --profile validation
+  exit 0; 4 tests including 24 mutation cases passed.
+cargo clippy -p provenance_store --all-targets --profile validation -- -D warnings
+  exit 0.
+cargo run -p provenance_store --example verify_quantum_bindings --profile validation -- proofs/evidence/quantum_observables/bindings.json REPOSITORY
+  exit 0; exact offline asset and observable reconstruction.
+cargo test --locked --offline --profile validation -p provenance_store --lib theorem_execution::tests
+  exit 0; 22 passed; 2 explicitly ignored genuine-replay tests.
+PATH=/home/eirikr/.opam/rocq-9.3/bin:$PATH cargo test --locked --offline --profile validation -p provenance_store --lib theorem_execution::tests::genuine_rocq_replay -- --ignored
+  exit 0; both genuine replay tests passed, including configured Flocq mapping.
+actionlint .github/workflows/proofs.yml
+  exit 0.
+
+The Cargo commands share dependency caches with the canonical checkout while
+retaining a worktree-specific target directory. Local worker variables remain
+unset. The proof Make command explicitly uses every process-visible CPU.
+Retained logs record their actual invocation and worktree paths.
+
+Canonical renewal
+-----------------
+All 21 receipt specifications completed fresh trusted source execution and
+canonical admission with exit 0. The canonical projection contains 21
+kernel_checked proof files and 293 source_only proof files, totaling 314.
+The typed identity validator and control-plane compatibility verifier exited 0.
+The export and registry-integrity operator exited 0. The existing claim count
+remains 1588: the new files receive source-bound kernel evidence and observable
+bindings without promotion into additional physical claims.
+Nightly rustfmt checked the changed Rust implementation and current capture
+helper with exit 0. kernel-capture/capture_rocq_receipts.rs retains the exact
+executed helper snapshot; the top-level helper subsequently groups its imports
+according to the repository formatter. The mathematical capture logic agrees.

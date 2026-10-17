@@ -1,0 +1,108 @@
+Quantum observable contracts and current reconciliation delta
+============================================================
+
+Source and execution boundary
+-----------------------------
+The current contracts extend open_gororoba base
+4706d40eafa524957a9b20384a6a7346fe8536a1 and read retained quantum inputs
+from gororoba-quantum a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
+proofs/evidence/quantum_observables/bindings.json binds 160 recognized
+lemma/theorem declarations in 11 source files to 25 original-byte assets.
+The validator reconstructs the selected statistics from 16 raw PUB members.
+Circuit QPY byte identity establishes archive provenance; proving QPY semantic
+correspondence to the mathematical circuit remains an explicit obligation.
+The implementation uses retained files and local proof tooling. Quantum
+acquisition, simulation and provider service execution remain outside scope.
+
+The historical report docs/engineering/quantum_proof_reconciliation.txt
+retains the old fixed terminal fixture and its original source boundaries.
+The present delta records generalized source theorems, a new finite-sample
+certificate, and new operator identities without rewriting historical receipts.
+The current compiler is Rocq 9.3.0, OCaml 5.5.1, with Stdlib 9.2.0.
+Historical 9.1.1 and 9.2 compiler receipts retain their recorded identities.
+
+Theorem and observable binding
+------------------------------
+Every scoped declaration names its source digest, coefficient domain, basis,
+normalization, decoder, observable, execution class and required premises.
+Mathematical-only declarations explicitly mark physical fields inapplicable.
+The terminal fixture binds all 16 campaign members times hardware/replay to
+32 means. Formal indices 0 through 3 are hardware no_feed_forward s1/s3,
+then replay no_feed_forward s1/s3. Their counts are 2964, 4911, 4067, 4057,
+each divided by 8192. The family validates every covered member and rejects
+a reordered selected mean, changed digest, missing register, altered shot
+count, changed semantic class or omitted premise.
+
+The branch-signed decoder uses little-endian classical bits c0=branch,
+c1=work_a, c2=work_b, c3=spectator. X uses H; Y uses Sdg followed by H.
+Standard Y is [[0,-i],[i,0]]. For trace(rho O), the odd matrix element is
+rho[01,10]=(XX+YY+i*(XY-YX))/4. Subnormalized branch matrices contribute
+with their signed weights; renormalizing each branch changes the estimator.
+Spectator marginalization permits correlation with every retained register.
+
+Certified terminal concentration and multiplicity
+-------------------------------------------------
+FiniteProbability.v proves finite weighted Markov and union bounds.
+FiniteBernoulliConcentration.v proves a degree-ten centered Bernoulli moment
+bound using recursive finite convolution, then applies Markov and a union
+bound to 32 means with 8192 samples each. The exact radius is 21/1000.
+The certified family failure bound is below 1/20 (about 0.04822313).
+The historical floating Hoeffding radius 0.02089696308600546 remains an
+analysis quantity; the new certificate uses the conservative radius 0.021.
+
+TerminalChannelEmpiricalCertificate.v composes simultaneous coverage with
+the common binary stochastic terminal-channel null. A false rejection
+requires a radius failure, so its pre-data probability is at most 1/20.
+The exact observed separation margin after subtracting four radii is
+156109/1024000 = 0.1524501953125. The probability statement describes the
+sampling experiment under the null; fixed observed counts do not receive a
+posterior null probability from that theorem.
+
+The concentration premise requires the full marginal law of each centered
+sum to equal the declared IID Bernoulli convolution. Within-mean stationarity,
+shot independence and decoder correctness remain empirical assumptions.
+The finite union bound permits arbitrary dependence across the 32 means.
+The rejection excludes the stated common terminal channel model; readout
+calibration, gate error, drift, crosstalk, leakage and context-dependent noise
+remain alternative mechanisms outside that null.
+
+Signed coherence and nuisance boundaries
+----------------------------------------
+BranchSignedCoherence.v proves Pauli trace reconstruction, signed decoder
+parity, spectator partial trace, branch assignment attenuation, ordered Z
+rotation, nuisance enclosures, and additive-drift nonidentifiability.
+The phase order is theta_b-theta_a. A symmetric independent branch flip
+model attenuates signed coherence by 1-2*epsilon. A balanced control-ZZ
+mixture attenuates it by cos(coupling), under the stated mixture model.
+A rotation of the measured complex coefficient alone identifies no cause.
+
+The finite Born score identity is algebraic. Physical Born probabilities
+require positive branch matrices whose combined trace is one; separately
+subnormalized blocks alone do not establish normalization of their sum.
+The assignment mixing identity holds algebraically for real epsilon; a
+physical error probability requires 0 <= epsilon <= 1 and the independent
+error model. The factorization predicate is declared separately, and the
+source does not derive mix_matrix from that predicate. These physical links
+remain premises rather than discharged operator theorems.
+
+The three reconstructed complex coefficients are immediate
+(0.413330078125,-0.006103515625), matched_idle
+(0.15478515625,-0.34130859375), and measure_reset
+(0.17724609375,-0.341064453125). The raw fringe counts are dark
+2979/16384 and bright 13573/16384. The registered measure/reset quadrature
+comparison remains unresolved. Exploratory intervals can depend on unsigned
+control bias and cross-job drift. Recorded-branch coherence concerns work
+qubits within classical branches, rather than coherence between branches.
+
+Replay and scope limits
+-----------------------
+The offline Rust entry point is:
+  cargo run --locked --offline --profile validation -p provenance_store \
+    --example verify_quantum_bindings -- \
+    proofs/evidence/quantum_observables/bindings.json "$PWD"
+The proof project contains 314 modules. New source-bound receipts live under
+data/output/audit/quantum-observable-contracts/. Each receipt records full
+source closure, compiler output, independent kernel output, assumptions and
+object digest. Stdlib real foundations remain visible in the assumption logs.
+A kernel check establishes the encoded implication; experimental premises
+and archive-to-circuit semantic correspondence retain separate evidence status.

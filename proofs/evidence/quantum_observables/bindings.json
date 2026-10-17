@@ -1,0 +1,3815 @@
+{
+  "schema_version": 1,
+  "source_repository": "IBMQuantum",
+  "source_commit": "a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8",
+  "semantic_boundary": "Hashes verify QPY byte identity only. Circuit semantics and physical premises remain asserted and unproved by this offline validator.",
+  "assets": [
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/record.json",
+      "sha256": "22c078143a9e266123ad0f9acba9f3c234ac1c6522aa3e669eb4a579aee32c65",
+      "source_path": "results/live/2026-10-15T070853.550532Z/record.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/isa.qpy",
+      "sha256": "c8996f472748a40ae516c130b8b351894ce34aec9de92226af4d8b0db8327bd7",
+      "source_path": "results/live/2026-10-15T070853.550532Z/isa.qpy"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_00.json",
+      "sha256": "098620b4f07fa038c54f7369bbe05a9cc695c5ed647cc6cb222d704d0e1e3c57",
+      "source_path": "results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_00.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_03.json",
+      "sha256": "df992cdcb92ac60dd6ea69bbfaa296b503f8237a31b3b15997559d84c5249d32",
+      "source_path": "results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_03.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "sha256": "c76f608cbf0fb253d5b93045ec47e254e2748182c76bc36a0277b7b5338aaea8",
+      "source_path": "results/live/2026-10-15T030748.903241Z/record.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "sha256": "4c510ab848e9a18658a68b1a826be5cece7680580d7fdda7e55857be849ccf51",
+      "source_path": "results/live/2026-10-15T030748.903241Z/isa.qpy"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_00.json",
+      "sha256": "a5978e1ba8c1212b3209c368c7903875f99b07773a10fe3fc060589333648069",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_00.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_01.json",
+      "sha256": "f27e091bdaf222ffb4d38326a78fce36be05ea5f11e6610f5874a7219e497a19",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_01.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_02.json",
+      "sha256": "1efff9f2b239781dd426303efcf4274c920dc737c64331c5dfc0f42d05bb92bb",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_02.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_03.json",
+      "sha256": "508ec4d00897c8b25a39a8e6d86c5ccaa10c17ce58054b122bd30d9cdde6503d",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_03.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_00.json",
+      "sha256": "93f6a8c1ad5c70b8bb3271948de379252d62ce3f404bb9d1f0180a05cede76ce",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_00.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_01.json",
+      "sha256": "1348466a13012b378f8e85137b6997309c231ee7d27ca74d48219203bfe7d9ca",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_01.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_02.json",
+      "sha256": "6002215ae3c566a332e4d0ba85b5aa3c905887e296262dd9353b0beda9fc1f97",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_02.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_03.json",
+      "sha256": "dd13b64b97ccf857cf7ffba2c33282837d4607b44d8d1df1ff462e6f7bf5d948",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_03.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_05.json",
+      "sha256": "ebac4d63c39c35ccad24144016203af0821e276d42b871886e59a3484fd3c23e",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_05.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_06.json",
+      "sha256": "e974f90d5f1ad7e33552867a03f800b76a3196cd5ebc13aff8925346c3ee8407",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_06.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_07.json",
+      "sha256": "de9bd32795de63e4ed9332aa14592706d7b7d4451ed5fb1653655fd7d386a476",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_07.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_08.json",
+      "sha256": "2726ce5cbae3f02a44c4447efcea7d98a20a9d9ab424deb4335c217f9c1638c9",
+      "source_path": "results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_08.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/coherence-analysis.json",
+      "sha256": "91077c63ee43372590235c6da63a93cafbddb6e0736ec292edf1e42295a9bd1b",
+      "source_path": "results/live/2026-10-15T030748.903241Z/coherence-analysis.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "sha256": "91145c3456e8670a19eea258416412d020ca5e3fa71aa37b91ce7a5cb7f74670",
+      "source_path": "results/live/2026-10-12T055624.091217Z/record.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "sha256": "84b5c3c7703db74fdbd6eb477d131f5353a14d63befb7d3f5375c63a85acf6a1",
+      "source_path": "results/live/2026-10-12T055624.091217Z/isa.qpy"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_09.json",
+      "sha256": "3783ac103bd19477773423f5b41c9dadcd1ff918d0becd6dfdf6b820e2bb5f22",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_09.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_11.json",
+      "sha256": "8082620396bb823b86bfcb8083e5f30bd5802a774d0a7c3b39159cfa82f8b7d1",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_11.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/terminal-channel-check.json",
+      "sha256": "3046cd65adb23bbf78d84c5aaa2371e52ba0a8b024963731edbcd7d071dbbb57",
+      "source_path": "results/live/2026-10-12T055624.091217Z/terminal-channel-check.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/collect.json",
+      "sha256": "6de820a83905e778e7c11b2e75d729ee6a40311003716e47eff9834d2199aed9",
+      "source_path": "results/live/2026-10-12T055624.091217Z/collect.json"
+    }
+  ],
+  "theorems": [
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "pg32_length_labels",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "pg32_length_classes",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_mono1_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_mono2_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_mono4_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_mono8_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_12_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_14_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_18_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_24_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_28_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_48_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_124_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_128_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_148_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_248_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree1_combo_1248_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono3_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono5_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono6_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono9_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono10_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_mono12_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_monomials_filtered",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_monomials_characterization",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_candidate_count",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "coefficient_support_enumerated",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_all_candidates_fail",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_candidate_fails",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "degree2_coefficients_fail",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "cubic_witness_separates",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "cubic_witness_max_degree",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C881_GF2CubicMinDegree.v",
+      "sha256": "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87",
+      "declaration": "fixed_partition_minimum_separating_degree",
+      "basis": "gf2_fixed_labels",
+      "normalization": "gf2_unit_coefficients",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_unfold_after_fold",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_after_unfold",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_injective",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_zero",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_product_transport",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_product_zero_iff",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_preserves_and_reflects_zero_product",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_fold_witness_product_zero",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_average_witness_product",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_average_witness_product_nonzero",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "declaration": "sed_average_loses_zero_product",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "kernel_witness_average",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "zero_average",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "witness_product_average",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "zero_product_average",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "average_product_does_not_descend",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "reconstruction_after_average_detail",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "average_detail_after_reconstruction",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FoldAverageDescent.v",
+      "sha256": "fc8d973306c68e68d70cafd77050f45615c5bc2d474942f0ff44ea805dc11d23",
+      "declaration": "average_detail_injective",
+      "basis": "qc_ordered_pair",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "two_squares_zero_iff",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "four_squares_zero_iff",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "first_obstruction_norm_identity",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "residual_obstruction_norm_identity",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "selected_quadratic_zero_set",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "admitted_directions_fail_additive_closure",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/NullityTwelveQuadraticLocus.v",
+      "sha256": "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f",
+      "declaration": "e11_direction_is_obstructed",
+      "basis": "real_z5_z6_z13_z16_z17_z18_z19_z20",
+      "normalization": "unnormalized_quadratic",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C014_AnnihilatorDim4.v",
+      "sha256": "da60c8dfdd460b4444f429c410db5c1614793ad4aed34a9aa2835f19984b3b72",
+      "declaration": "C014_zero_annihilates",
+      "basis": "sedenion_lo_hi",
+      "normalization": "unnormalized_product",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/verified/C014_AnnihilatorDim4.v",
+      "sha256": "da60c8dfdd460b4444f429c410db5c1614793ad4aed34a9aa2835f19984b3b72",
+      "declaration": "C014_nonzero_annihilator_exists",
+      "basis": "sedenion_lo_hi",
+      "normalization": "unnormalized_product",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns algebraic coordinates only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "algebraic definitions and hypotheses in the pinned source"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparation.v",
+      "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
+      "declaration": "binary_channel_contracts_separation",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparation.v",
+      "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
+      "declaration": "difference_radius_bound",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparation.v",
+      "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
+      "declaration": "separation_radius_bound",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparation.v",
+      "sha256": "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866",
+      "declaration": "separated_centers_exclude_common_binary_channel",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "binary_channel_contracts_separation",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "absolute_radius_bounds",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "difference_radius_bound",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "separation_radius_bound",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelSeparationReal.v",
+      "sha256": "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4",
+      "declaration": "separated_centers_exclude_common_binary_channel",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_radius_from_centered_sum",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_false_rejection_requires_radius_failure",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_false_rejection_probability",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "terminal_32_mean_false_rejection",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "retained_terminal_exact_margin",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "declaration": "retained_terminal_margin_positive",
+      "basis": "binary_zero_one",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_ext",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_add",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_scale",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_zero",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_mono",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_nonnegative",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_markov",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "weighted_expectation_sum",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "indicator_union_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "finite_union_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteProbability.v",
+      "sha256": "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0",
+      "declaration": "event_probability_monotone",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_expectation_ext",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_expectation_add",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_expectation_scale",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_expectation_one",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_expectation_step",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "unit_power_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "unit_power_square_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "increment_moment_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "absolute_moment_term",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_2",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_2",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_3",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_3",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_4",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_4",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_5",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_5",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_6",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_6",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_7",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_7",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_8",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_8",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_9",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_9",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_recurrence_10",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "moment_envelope_step_10",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "absolute_add_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_zero",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_one",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "centered_moment_envelope",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "tenth_power_nonnegative",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "absolute_tenth_power",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_tenth_moment_tail",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "finite_probability_sum_bound",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "sample_count_8192",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "family_count_32",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "terminal_family_tenth_moment_rational",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "terminal_tenth_moment_envelope_exact",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "terminal_32_mean_family_coverage",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "weighted_expectation_append",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "weighted_push_expectation",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_law_expectation",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "weighted_push_nonnegative",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_law_nonnegative",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/FiniteBernoulliConcentration.v",
+      "sha256": "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325",
+      "declaration": "bernoulli_law_normalized",
+      "basis": "finite_boolean_sample_space",
+      "normalization": "probability_unit_interval",
+      "execution": "conditional_terminal_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "common binary stochastic channel",
+        "simultaneous coverage of all 32 means",
+        "independent Bernoulli shots within each mean; stationarity and decoder validity remain empirical assumptions",
+        "readout calibration and assignment errors; coherent gate error; device drift; crosstalk; leakage; and context-dependent noise remain empirical nuisance mechanisms, outside the common terminal channel class",
+        "finite nonnegative normalized law; each within-mean centered sample sum has the declared IID Bernoulli convolution law; cross-mean dependence is unrestricted by the finite union bound"
+      ],
+      "decoder_members": [
+        "qpe_no_feed_forward_s1",
+        "qpe_no_feed_forward_s3"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "complex_ext",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "pauli_odd_entry",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "difference_hermitian",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "branch_signed_entry",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "recorded_cross_branch_zero",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "recorded_signed_difference",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "signed_score_product",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "score_spectator_invariant",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "spectator_marginal_score",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "spectator_partial_trace",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "independent_branch_flip",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "opposite_branches_cancel",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "ordered_z_rotation",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "rotation_preserves_modulus_squared",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "radius_triangle",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "radius_encloses_euclidean_disk",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "nuisance_radius_propagation",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "cause_drift_nonidentifiability",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "observed_signed_coherence",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "little_endian_score_reconstruction",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "finite_born_pauli_score",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "pauli_difference",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "finite_recorded_born_score",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "estimator_branch_flip_scale",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "opposite_branch_coherence_recovery",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "setting_bias_radius",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "declaration": "balanced_control_zz_attenuation",
+      "basis": "b0_c0_a_c1_b_c2_spectator_c3",
+      "normalization": "signed_pauli_quarter",
+      "execution": "conditional_coherence_fixture",
+      "not_applicable_reason": "",
+      "premises": [
+        "same latent two-work-qubit state across Pauli settings within context",
+        "Born projective measurement law with X=H and Y=Sdg then H; b0=c0,a=c1,b=c2,spectator=c3",
+        "stationary within-context marginal distributions and shot independence remain empirical premises",
+        "independent first-bit assignment error is required for the (1-2*epsilon) scaling law",
+        "readout error, drift, leakage, crosstalk and coherent gate errors remain nuisance mechanisms; a C rotation alone cannot identify a physical cause",
+        "both unnormalized branch matrices are positive semidefinite and their combined trace equals one; Born-score identities alone establish neither positivity nor normalization",
+        "0<=epsilon<=1 and the physical independent assignment-error process induces the declared mix_matrix mixture; the factorization predicate is not proved to imply that mixture"
+      ],
+      "decoder_members": [
+        "coherence_measure_reset_xx",
+        "coherence_measure_reset_xy",
+        "coherence_measure_reset_yx",
+        "coherence_measure_reset_yy",
+        "coherence_immediate_xx",
+        "coherence_immediate_xy",
+        "coherence_immediate_yx",
+        "coherence_immediate_yy",
+        "coherence_matched_idle_xx",
+        "coherence_matched_idle_xy",
+        "coherence_matched_idle_yx",
+        "coherence_matched_idle_yy"
+      ]
+    }
+  ],
+  "decoders": [
+    {
+      "member": "design_b_dark_1_10_4_15",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_00.json",
+      "pub_name": "ibm_kingston_static_pub_01",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ],
+        [
+          "g0_r1_c"
+        ],
+        [
+          "g0_r2_c"
+        ],
+        [
+          "g0_r3_c"
+        ],
+        [
+          "g0_r4_c"
+        ],
+        [
+          "g0_r5_c"
+        ],
+        [
+          "g0_r6_c"
+        ],
+        [
+          "g0_r7_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "probability_zero",
+      "numerator": 2979,
+      "denominator": 16384,
+      "basis_convention": "computational_c0",
+      "observable_formula": "p0=count(c0=0)/total",
+      "normalization": "aggregate_eight_replica_mean"
+    },
+    {
+      "member": "design_b_bright_1_10_4_15",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T070853.550532Z/raw/db87o8or1c5c738lu910/pub_03.json",
+      "pub_name": "ibm_kingston_static_pub_04",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ],
+        [
+          "g0_r1_c"
+        ],
+        [
+          "g0_r2_c"
+        ],
+        [
+          "g0_r3_c"
+        ],
+        [
+          "g0_r4_c"
+        ],
+        [
+          "g0_r5_c"
+        ],
+        [
+          "g0_r6_c"
+        ],
+        [
+          "g0_r7_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "probability_zero",
+      "numerator": 13573,
+      "denominator": 16384,
+      "basis_convention": "computational_c0",
+      "observable_formula": "p0=count(c0=0)/total",
+      "normalization": "aggregate_eight_replica_mean"
+    },
+    {
+      "member": "coherence_measure_reset_xx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_00.json",
+      "pub_name": "ibm_kingston_dynamic_pub_01",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 728,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_measure_reset_xy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_01.json",
+      "pub_name": "ibm_kingston_dynamic_pub_02",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": -1384,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_measure_reset_yx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_02.json",
+      "pub_name": "ibm_kingston_dynamic_pub_03",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 1410,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_measure_reset_yy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847nur6oqs7388nen0/pub_03.json",
+      "pub_name": "ibm_kingston_dynamic_pub_04",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 724,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_immediate_xx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_00.json",
+      "pub_name": "ibm_kingston_static_pub_01",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 1668,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_immediate_xy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_01.json",
+      "pub_name": "ibm_kingston_static_pub_02",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": -44,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_immediate_yx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_02.json",
+      "pub_name": "ibm_kingston_static_pub_03",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 6,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_immediate_yy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_03.json",
+      "pub_name": "ibm_kingston_static_pub_04",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 1718,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_matched_idle_xx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_05.json",
+      "pub_name": "ibm_kingston_static_pub_06",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 634,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_matched_idle_xy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_06.json",
+      "pub_name": "ibm_kingston_static_pub_07",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": -1420,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_matched_idle_yx",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_07.json",
+      "pub_name": "ibm_kingston_static_pub_08",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 1376,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "coherence_matched_idle_yy",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-15T030748.903241Z/raw/db847oiraffc73fbmfk0/pub_08.json",
+      "pub_name": "ibm_kingston_static_pub_09",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 4,
+      "shots_per_replica": 2048,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "branch_signed_parity",
+      "numerator": 634,
+      "denominator": 2048,
+      "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
+      "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
+      "normalization": "single_replica_signed_mean_then_quarter"
+    },
+    {
+      "member": "qpe_no_feed_forward_s1",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_09.json",
+      "pub_name": "ibm_kingston_dynamic_pub_10",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "numerator": 2964,
+      "denominator": 8192,
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean"
+    },
+    {
+      "member": "qpe_no_feed_forward_s3",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_11.json",
+      "pub_name": "ibm_kingston_dynamic_pub_12",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "numerator": 4911,
+      "denominator": 8192,
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean"
+    }
+  ],
+  "terminal": {
+    "means": 32,
+    "alpha_numerator": 1,
+    "alpha_denominator": 20,
+    "radius_numerator": 21,
+    "radius_denominator": 1000,
+    "hardware_numerators": [
+      2964,
+      4911
+    ],
+    "replay_numerators": [
+      4067,
+      4057
+    ],
+    "shots": 8192,
+    "margin_numerator": 156109,
+    "margin_denominator": 1024000,
+    "covered_means": [
+      {
+        "member": "qpe_no_feed_forward_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_10",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_no_feed_forward_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_12",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_no_feed_forward_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_10",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_no_feed_forward_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_12",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_coherent_s0",
+        "pub_name": "ibm_kingston_static_pub_01",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_coherent_s0",
+        "pub_name": "ibm_kingston_static_pub_01",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_coherent_s1",
+        "pub_name": "ibm_kingston_static_pub_02",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_coherent_s1",
+        "pub_name": "ibm_kingston_static_pub_02",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_coherent_s2",
+        "pub_name": "ibm_kingston_static_pub_03",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_coherent_s2",
+        "pub_name": "ibm_kingston_static_pub_03",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_coherent_s3",
+        "pub_name": "ibm_kingston_static_pub_04",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_coherent_s3",
+        "pub_name": "ibm_kingston_static_pub_04",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_archived_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_01",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_archived_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_01",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_archived_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_02",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_archived_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_02",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_archived_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_03",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_archived_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_03",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_archived_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_04",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_archived_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_04",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_delay_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_05",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_delay_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_05",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_delay_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_06",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_delay_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_06",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_delay_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_07",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_delay_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_07",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_delay_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_08",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_delay_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_08",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_no_feed_forward_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_09",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_no_feed_forward_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_09",
+        "data_source": "replay"
+      },
+      {
+        "member": "qpe_no_feed_forward_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_11",
+        "data_source": "hardware"
+      },
+      {
+        "member": "qpe_no_feed_forward_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_11",
+        "data_source": "replay"
+      }
+    ],
+    "selected_test_means": [
+      {
+        "theorem_index": 0,
+        "role": "hardware_first",
+        "mean": {
+          "member": "qpe_no_feed_forward_s1",
+          "pub_name": "ibm_kingston_dynamic_pub_10",
+          "data_source": "hardware"
+        }
+      },
+      {
+        "theorem_index": 1,
+        "role": "hardware_second",
+        "mean": {
+          "member": "qpe_no_feed_forward_s3",
+          "pub_name": "ibm_kingston_dynamic_pub_12",
+          "data_source": "hardware"
+        }
+      },
+      {
+        "theorem_index": 2,
+        "role": "replay_first",
+        "mean": {
+          "member": "qpe_no_feed_forward_s1",
+          "pub_name": "ibm_kingston_dynamic_pub_10",
+          "data_source": "replay"
+        }
+      },
+      {
+        "theorem_index": 3,
+        "role": "replay_second",
+        "mean": {
+          "member": "qpe_no_feed_forward_s3",
+          "pub_name": "ibm_kingston_dynamic_pub_12",
+          "data_source": "replay"
+        }
+      }
+    ]
+  }
+}
