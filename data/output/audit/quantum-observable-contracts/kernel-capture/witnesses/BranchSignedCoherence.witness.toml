@@ -1,0 +1,445 @@
+schema_version = 1
+stable_id = "THM-LEGACY-BranchSignedCoherence"
+proof_path = "proofs/theories/BranchSignedCoherence.v"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BranchSignedCoherence.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BranchSignedCoherence"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/BranchSignedCoherence.v"
+sha256 = "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19"
+
+[compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BranchSignedCoherence.compile.txt"
+sha256 = "d922a51c3ce96755a5926684626dd8e6afc1c77f4ab4c00e72c171e1c1d90235"
+
+[kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BranchSignedCoherence.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BranchSignedCoherence.assumptions.txt"
+sha256 = "846fc81a53a8c261125a4ef79352a0b7e8ad09f22a0f5344d73f97c8f04106d8"
+
+[proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/BranchSignedCoherence.vo"
+sha256 = "3da6c4cb5ebae2266a2620780366cae997fc0c00ac539cc32f582d7cc2040412"
+
+[[declarations]]
+name = "zero"
+statement = "Definition zero := complex 0 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "one"
+statement = "Definition one := complex 1 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "imaginary"
+statement = "Definition imaginary := complex 0 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "add"
+statement = "Definition add (left right : Complex) := complex (real_part left + real_part right) (imag_part left + imag_part right)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "scale"
+statement = "Definition scale (factor : R) (value : Complex) := complex (factor * real_part value) (factor * imag_part value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "negate"
+statement = "Definition negate := scale (-1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "subtract"
+statement = "Definition subtract (left right : Complex) := add left (negate right)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "conjugate"
+statement = "Definition conjugate (value : Complex) := complex (real_part value) (-imag_part value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "multiply"
+statement = "Definition multiply (left right : Complex) := complex (real_part left * real_part right - imag_part left * imag_part right) (real_part left * imag_part right + imag_part left * real_part right)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "complex_ext"
+statement = "Lemma complex_ext : forall left right, real_part left = real_part right -> imag_part left = imag_part right -> left = right"
+assumptions = []
+
+[[declarations]]
+name = "Matrix"
+statement = "Definition Matrix := Basis -> Basis -> Complex"
+assumptions = []
+
+[[declarations]]
+name = "first_bit"
+statement = "Definition first_bit (basis : Basis) : bool := match basis with ket10 | ket11 => true | _ => false end"
+assumptions = []
+
+[[declarations]]
+name = "second_bit"
+statement = "Definition second_bit (basis : Basis) : bool := match basis with ket01 | ket11 => true | _ => false end"
+assumptions = []
+
+[[declarations]]
+name = "sum_basis"
+statement = "Definition sum_basis (values : Basis -> Complex) := add (add (values ket00) (values ket01)) (add (values ket10) (values ket11))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "trace_product"
+statement = "Definition trace_product (density observable : Matrix) := sum_basis (fun row => sum_basis (fun column => multiply (density row column) (observable column row)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "hermitian"
+statement = "Definition hermitian (density : Matrix) := forall row column, density row column = conjugate (density column row)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "quadratic_form"
+statement = "Definition quadratic_form (density : Matrix) (vector : Basis -> Complex) := sum_basis (fun row => sum_basis (fun column => multiply (conjugate (vector row)) (multiply (density row column) (vector column))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "positive_semidefinite"
+statement = "Definition positive_semidefinite (density : Matrix) := hermitian density /\\ forall vector, 0 <= real_part (quadratic_form density vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "subnormalized_density"
+statement = "Definition subnormalized_density (density : Matrix) := positive_semidefinite density /\\ 0 <= real_part (sum_basis (fun row => density row row)) <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "pauli"
+statement = "Definition pauli (axis : Axis) (row column : bool) : Complex := if Bool.eqb row column then zero else match axis with | PauliX => one | PauliY => if row then imaginary else negate imaginary end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "tensor_pauli"
+statement = "Definition tensor_pauli (left_axis right_axis : Axis) : Matrix := fun row column => multiply (pauli left_axis (first_bit row) (first_bit column)) (pauli right_axis (second_bit row) (second_bit column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "pauli_expectation"
+statement = "Definition pauli_expectation (density : Matrix) (left_axis right_axis : Axis) := real_part (trace_product density (tensor_pauli left_axis right_axis))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "reconstructed_coherence"
+statement = "Definition reconstructed_coherence (density : Matrix) := complex ((pauli_expectation density PauliX PauliX + pauli_expectation density PauliY PauliY)/4) ((pauli_expectation density PauliX PauliY - pauli_expectation density PauliY PauliX)/4)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "pauli_odd_entry"
+statement = "Theorem pauli_odd_entry : forall density, hermitian density -> reconstructed_coherence density = density ket01 ket10"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "matrix_difference"
+statement = "Definition matrix_difference (branch_zero branch_one : Matrix) : Matrix := fun row column => subtract (branch_zero row column) (branch_one row column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "difference_hermitian"
+statement = "Lemma difference_hermitian : forall branch_zero branch_one, hermitian branch_zero -> hermitian branch_one -> hermitian (matrix_difference branch_zero branch_one)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "branch_signed_entry"
+statement = "Theorem branch_signed_entry : forall branch_zero branch_one, subnormalized_density branch_zero -> subnormalized_density branch_one -> reconstructed_coherence (matrix_difference branch_zero branch_one) = subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "recorded_matrix"
+statement = "Definition recorded_matrix (branch_zero branch_one : Matrix) (left_branch : bool) (left_work : Basis) (right_branch : bool) (right_work : Basis) := if Bool.eqb left_branch right_branch then if left_branch then branch_one left_work right_work else branch_zero left_work right_work else zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "recorded_cross_branch_zero"
+statement = "Theorem recorded_cross_branch_zero : forall branch_zero branch_one left_work right_work, recorded_matrix branch_zero branch_one false left_work true right_work = zero /\\ recorded_matrix branch_zero branch_one true left_work false right_work = zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "recorded_signed_block"
+statement = "Definition recorded_signed_block (branch_zero branch_one : Matrix) : Matrix := fun row column => subtract (recorded_matrix branch_zero branch_one false row false column) (recorded_matrix branch_zero branch_one true row true column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "recorded_signed_difference"
+statement = "Theorem recorded_signed_difference : forall branch_zero branch_one, recorded_signed_block branch_zero branch_one = matrix_difference branch_zero branch_one"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sign"
+statement = "Definition sign (bit : bool) : R := if bit then -1 else 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "signed_score"
+statement = "Definition signed_score (branch work_a work_b spectator : bool) := sign (xorb branch (xorb work_a work_b))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "little_endian_word"
+statement = "Definition little_endian_word (branch work_a work_b spectator : bool) : nat := (if branch then 1 else 0) + (if work_a then 2 else 0) + (if work_b then 4 else 0) + (if spectator then 8 else 0)"
+assumptions = []
+
+[[declarations]]
+name = "signed_score_product"
+statement = "Theorem signed_score_product : forall branch work_a work_b spectator, signed_score branch work_a work_b spectator = sign branch * sign work_a * sign work_b"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "score_spectator_invariant"
+statement = "Theorem score_spectator_invariant : forall branch work_a work_b spectator, signed_score branch work_a work_b spectator = signed_score branch work_a work_b false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sum_bit"
+statement = "Definition sum_bit (values : bool -> R) := values false + values true"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "joint_score"
+statement = "Definition joint_score (law : bool -> bool -> bool -> bool -> R) := sum_bit (fun branch => sum_bit (fun work_a => sum_bit (fun work_b => sum_bit (fun spectator => law branch work_a work_b spectator * signed_score branch work_a work_b spectator))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "marginal_score"
+statement = "Definition marginal_score (law : bool -> bool -> bool -> bool -> R) := sum_bit (fun branch => sum_bit (fun work_a => sum_bit (fun work_b => (law branch work_a work_b false + law branch work_a work_b true) * signed_score branch work_a work_b false)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "spectator_marginal_score"
+statement = "Theorem spectator_marginal_score : forall law, joint_score law = marginal_score law"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "SpectatorMatrix"
+statement = "Definition SpectatorMatrix := Basis -> bool -> Basis -> bool -> Complex"
+assumptions = []
+
+[[declarations]]
+name = "trace_spectator"
+statement = "Definition trace_spectator (density : SpectatorMatrix) : Matrix := fun row column => add (density row false column false) (density row true column true)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "lifted_expectation"
+statement = "Definition lifted_expectation (density : SpectatorMatrix) (observable : Matrix) := sum_basis (fun row => sum_basis (fun column => add (multiply (density row false column false) (observable column row)) (multiply (density row true column true) (observable column row))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "spectator_partial_trace"
+statement = "Theorem spectator_partial_trace : forall density observable, lifted_expectation density observable = trace_product (trace_spectator density) observable"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "mix_matrix"
+statement = "Definition mix_matrix (epsilon : R) (retained flipped : Matrix) : Matrix := fun row column => add (scale (1-epsilon) (retained row column)) (scale epsilon (flipped row column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "independent_branch_flip"
+statement = "Theorem independent_branch_flip : forall epsilon branch_zero branch_one row column, matrix_difference (mix_matrix epsilon branch_zero branch_one) (mix_matrix epsilon branch_one branch_zero) row column = scale (1-2*epsilon) (matrix_difference branch_zero branch_one row column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "opposite_branches_cancel"
+statement = "Theorem opposite_branches_cancel : forall value, add value (negate value) = zero /\\ subtract value (negate value) = scale 2 value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "z_eigenvalue"
+statement = "Definition z_eigenvalue (bit : bool) : R := if bit then -1 else 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "basis_angle"
+statement = "Definition basis_angle (theta_a theta_b : R) (basis : Basis) := -(theta_a*z_eigenvalue (first_bit basis) + theta_b*z_eigenvalue (second_bit basis))/2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "phase"
+statement = "Definition phase (angle : R) := complex (cos angle) (sin angle)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "z_conjugated"
+statement = "Definition z_conjugated (theta_a theta_b : R) (density : Matrix) : Matrix := fun row column => multiply (phase (basis_angle theta_a theta_b row - basis_angle theta_a theta_b column)) (density row column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "ordered_z_rotation"
+statement = "Theorem ordered_z_rotation : forall theta_a theta_b density, z_conjugated theta_a theta_b density ket01 ket10 = multiply (phase (theta_b-theta_a)) (density ket01 ket10)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "modulus_squared"
+statement = "Definition modulus_squared (value : Complex) := real_part value ^ 2 + imag_part value ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "rotation_preserves_modulus_squared"
+statement = "Theorem rotation_preserves_modulus_squared : forall angle value, modulus_squared (multiply (phase angle) value) = modulus_squared value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "radius"
+statement = "Definition radius (value : Complex) := Rabs (real_part value) + Rabs (imag_part value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "radius_triangle"
+statement = "Theorem radius_triangle : forall left right, radius (add left right) <= radius left + radius right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "radius_encloses_euclidean_disk"
+statement = "Theorem radius_encloses_euclidean_disk : forall value bound, radius value <= bound -> modulus_squared value <= bound^2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "nuisance_radius_propagation"
+statement = "Theorem nuisance_radius_propagation : forall signal readout drift sampling readout_bound drift_bound sampling_bound, radius readout <= readout_bound -> radius drift <= drift_bound -> radius sampling <= sampling_bound -> radius (subtract (add (add (add signal readout) drift) sampling) signal) <= readout_bound + drift_bound + sampling_bound"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cause_drift_nonidentifiability"
+statement = "Theorem cause_drift_nonidentifiability : forall angle signal, add (multiply (phase angle) signal) zero = add signal (subtract (multiply (phase angle) signal) signal)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "setting_constant_latent_state"
+statement = "Definition setting_constant_latent_state (states : Axis -> Axis -> Matrix) := forall left_axis right_axis, states left_axis right_axis = states PauliX PauliX"
+assumptions = []
+
+[[declarations]]
+name = "born_score_model"
+statement = "Definition born_score_model (states : Axis -> Axis -> Matrix) (laws : Axis -> Axis -> bool -> bool -> bool -> bool -> R) := forall left_axis right_axis, joint_score (laws left_axis right_axis) = pauli_expectation (states left_axis right_axis) left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "observed_coherence"
+statement = "Definition observed_coherence (laws : Axis -> Axis -> bool -> bool -> bool -> bool -> R) := complex ((joint_score (laws PauliX PauliX) + joint_score (laws PauliY PauliY))/4) ((joint_score (laws PauliX PauliY) - joint_score (laws PauliY PauliX))/4)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "observed_signed_coherence"
+statement = "Theorem observed_signed_coherence : forall states laws, setting_constant_latent_state states -> born_score_model states laws -> hermitian (states PauliX PauliX) -> observed_coherence laws = states PauliX PauliX ket01 ket10"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "stationary_marginals"
+statement = "Definition stationary_marginals (law : nat -> bool -> R) := forall shot outcome, law shot outcome = law 0%nat outcome"
+assumptions = []
+
+[[declarations]]
+name = "independent_binary_pair"
+statement = "Definition independent_binary_pair (joint : bool -> bool -> R) (first second : bool -> R) := forall first_outcome second_outcome, joint first_outcome second_outcome = first first_outcome * second second_outcome"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "readout_error_independent_of_branch_and_work"
+statement = "Definition readout_error_independent_of_branch_and_work (joint : bool -> bool -> Basis -> R) (error_law : bool -> R) (branch_work_law : bool -> Basis -> R) := forall error branch work, joint error branch work = error_law error * branch_work_law branch work"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "cross_job_drift_bound"
+statement = "Definition cross_job_drift_bound (first second : Complex) (bound : R) := radius (subtract second first) <= bound"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "decoded_score"
+statement = "Definition decoded_score (word : nat) := signed_score (Nat.testbit word 0) (Nat.testbit word 1) (Nat.testbit word 2) (Nat.testbit word 3)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "little_endian_score_reconstruction"
+statement = "Theorem little_endian_score_reconstruction : forall branch work_a work_b spectator, decoded_score (little_endian_word branch work_a work_b spectator) = signed_score branch work_a work_b spectator"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "identity_entry"
+statement = "Definition identity_entry (row column : bool) := if Bool.eqb row column then one else zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "pauli_projector"
+statement = "Definition pauli_projector (axis : Axis) (outcome row column : bool) := scale (/2) (add (identity_entry row column) (scale (sign outcome) (pauli axis row column)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "tensor_projector"
+statement = "Definition tensor_projector (left_axis right_axis : Axis) (left_outcome right_outcome : bool) : Matrix := fun row column => multiply (pauli_projector left_axis left_outcome (first_bit row) (first_bit column)) (pauli_projector right_axis right_outcome (second_bit row) (second_bit column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "born_probability"
+statement = "Definition born_probability (density : Matrix) (left_axis right_axis : Axis) (left_outcome right_outcome : bool) := real_part (trace_product density (tensor_projector left_axis right_axis left_outcome right_outcome))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_born_pauli_score"
+statement = "Theorem finite_born_pauli_score : forall density left_axis right_axis, sum_bit (fun left_outcome => sum_bit (fun right_outcome => sign left_outcome * sign right_outcome * born_probability density left_axis right_axis left_outcome right_outcome)) = pauli_expectation density left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "pauli_difference"
+statement = "Lemma pauli_difference : forall branch_zero branch_one left_axis right_axis, pauli_expectation (matrix_difference branch_zero branch_one) left_axis right_axis = pauli_expectation branch_zero left_axis right_axis - pauli_expectation branch_one left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "recorded_born_law"
+statement = "Definition recorded_born_law (branch_zero branch_one : Matrix) (left_axis right_axis : Axis) (branch work_a work_b spectator : bool) := if spectator then 0 else born_probability (if branch then branch_one else branch_zero) left_axis right_axis work_a work_b"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_recorded_born_score"
+statement = "Theorem finite_recorded_born_score : forall branch_zero branch_one left_axis right_axis, joint_score (recorded_born_law branch_zero branch_one left_axis right_axis) = pauli_expectation (matrix_difference branch_zero branch_one) left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "estimator_branch_flip_scale"
+statement = "Theorem estimator_branch_flip_scale : forall epsilon branch_zero branch_one, hermitian branch_zero -> hermitian branch_one -> reconstructed_coherence (matrix_difference (mix_matrix epsilon branch_zero branch_one) (mix_matrix epsilon branch_one branch_zero)) = scale (1-2*epsilon) (reconstructed_coherence (matrix_difference branch_zero branch_one))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "opposite_branch_coherence_recovery"
+statement = "Theorem opposite_branch_coherence_recovery : forall value, add (scale (/2) value) (negate (scale (/2) value)) = zero /\\ subtract (scale (/2) value) (negate (scale (/2) value)) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "setting_bias"
+statement = "Definition setting_bias (bias_xx bias_yy bias_xy bias_yx : R) := complex ((bias_xx+bias_yy)/4) ((bias_xy-bias_yx)/4)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "setting_bias_radius"
+statement = "Theorem setting_bias_radius : forall bias_xx bias_yy bias_xy bias_yx, radius (setting_bias bias_xx bias_yy bias_xy bias_yx) <= (Rabs bias_xx+Rabs bias_yy+Rabs bias_xy+Rabs bias_yx)/4"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "iid_binary_shots"
+statement = "Definition iid_binary_shots (finite_joint_law : list bool -> R) (law : bool -> R) := 0 <= law false /\\ 0 <= law true /\\ law false+law true=1 /\\ forall outcomes, finite_joint_law outcomes = independent_binary_product law outcomes"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "balanced_control_zz_attenuation"
+statement = "Theorem balanced_control_zz_attenuation : forall coupling signal, add (scale (/2) (multiply (phase coupling) signal)) (scale (/2) (multiply (phase (-coupling)) signal)) = scale (cos coupling) signal"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]

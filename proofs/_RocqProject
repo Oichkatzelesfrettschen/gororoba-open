@@ -313,3 +313,7 @@ theories/CDFidelity.v
 verified/C1474_FuelAdequacy.v
 theories/NullityTwelveQuadraticLocus.v
 theories/SedenionFoldTransport.v
+theories/FiniteProbability.v
+theories/FiniteBernoulliConcentration.v
+theories/BranchSignedCoherence.v
+theories/TerminalChannelEmpiricalCertificate.v

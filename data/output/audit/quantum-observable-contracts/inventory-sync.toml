@@ -1,0 +1,5 @@
+sync_key = "quantum-observable-contracts-rocq-9.3"
+actor = "chatgpt-codex"
+reason = "Register four finite probability and coherence sources and renew all project-bound quantum receipts against the current 314-module project under Rocq 9.3.0 and OCaml 5.5.1, preserving historical evidence."
+applied_at = "2026-10-17T04:06:45Z"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"

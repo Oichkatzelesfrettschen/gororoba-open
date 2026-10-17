@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 310 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 314 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -22,6 +22,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-BooleanCochainFiltration` | `BooleanCochainFiltration` | `proofs/theories/BooleanCochainFiltration.v` | kernel_checked | explicit_link | C-1761 |
 | `THM-LEGACY-BooleanPermutation` | `BooleanPermutation` | `proofs/theories/BooleanPermutation.v` | kernel_checked | explicit_link | C-1768 |
 | `THM-LEGACY-BoxKite` | `BoxKite` | `proofs/theories/BoxKite.v` | source_only | unresolved | - |
+| `THM-LEGACY-BranchSignedCoherence` | `BranchSignedCoherence` | `proofs/theories/BranchSignedCoherence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-BransDicke` | `BransDicke` | `proofs/theories/BransDicke.v` | source_only | unresolved | - |
 | `THM-LEGACY-Brown1972` | `Brown1972` | `proofs/theories/Brown1972.v` | source_only | unresolved | - |
 | `THM-LEGACY-Brown1972ChapterIII` | `Brown1972ChapterIII` | `proofs/theories/Brown1972ChapterIII.v` | source_only | unresolved | - |
@@ -243,7 +244,9 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-FanoPlane` | `FanoPlane` | `proofs/theories/FanoPlane.v` | source_only | unresolved | - |
 | `THM-LEGACY-FanoResonance` | `FanoResonance` | `proofs/theories/FanoResonance.v` | source_only | unresolved | - |
 | `THM-LEGACY-FinDimHModule` | `FinDimHModule` | `proofs/theories/FinDimHModule.v` | source_only | unresolved | - |
+| `THM-LEGACY-FiniteBernoulliConcentration` | `FiniteBernoulliConcentration` | `proofs/theories/FiniteBernoulliConcentration.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FiniteBijection` | `FiniteBijection` | `proofs/theories/FiniteBijection.v` | source_only | unresolved | - |
+| `THM-LEGACY-FiniteProbability` | `FiniteProbability` | `proofs/theories/FiniteProbability.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FloatAxioms` | `FloatAxioms` | `proofs/theories/FloatAxioms.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatQuaternion` | `FloatQuaternion` | `proofs/theories/FloatQuaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatRealBridge` | `FloatRealBridge` | `proofs/theories/FloatRealBridge.v` | source_only | unresolved | - |
@@ -302,6 +305,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-SpectralDimension` | `SpectralDimension` | `proofs/theories/SpectralDimension.v` | source_only | unresolved | - |
 | `THM-LEGACY-SymmetricGroup3` | `SymmetricGroup3` | `proofs/theories/SymmetricGroup3.v` | source_only | unresolved | - |
 | `THM-LEGACY-Tanh` | `Tanh` | `proofs/theories/Tanh.v` | source_only | unresolved | - |
+| `THM-LEGACY-TerminalChannelEmpiricalCertificate` | `TerminalChannelEmpiricalCertificate` | `proofs/theories/TerminalChannelEmpiricalCertificate.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-TerminalChannelSeparation` | `TerminalChannelSeparation` | `proofs/theories/TerminalChannelSeparation.v` | kernel_checked | explicit_link | C-1770 |
 | `THM-LEGACY-TerminalChannelSeparationReal` | `TerminalChannelSeparationReal` | `proofs/theories/TerminalChannelSeparationReal.v` | kernel_checked | explicit_link | C-1771 |
 | `THM-LEGACY-ThreeBodyAngMom` | `ThreeBodyAngMom` | `proofs/theories/ThreeBodyAngMom.v` | source_only | explicit_link | C-1101, C-1126 |

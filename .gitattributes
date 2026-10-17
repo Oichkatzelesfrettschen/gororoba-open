@@ -110,3 +110,12 @@ data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/** -t
 data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/**/*.vo -filter -diff -text
 # Source-replayed receipt inputs preserve the bytes ingested in their events.
 data/output/audit/boolean-permutation-evidence/source-replayed-receipts/** -text whitespace=-blank-at-eof,-blank-at-eol
+
+# Retained tool transcripts preserve their exact line endings and terminal blank lines.
+data/output/audit/quantum-observable-contracts/*.log -text whitespace=-blank-at-eof
+# Frozen quantum inputs retain original-byte identity on every checkout.
+proofs/evidence/quantum_observables/frozen/** -text
+# Receipt replay hashes the complete evidence tree and referenced Rocq inputs.
+data/output/audit/quantum-observable-contracts/** -text whitespace=-blank-at-eof,-blank-at-eol
+proofs/_RocqProject -text
+proofs/**/*.v -text

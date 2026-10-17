@@ -1,0 +1,68 @@
+schema_version = 1
+stable_id = "THM-LEGACY-C014_AnnihilatorDim4"
+proof_path = "proofs/verified/C014_AnnihilatorDim4.v"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C014_AnnihilatorDim4.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C014_AnnihilatorDim4"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/CDConjAntimorph.v"
+sha256 = "49d84bdcf1e0b973179da526443218f293a28c7c2d7bcc82d666c03bc80b17c9"
+
+[[sources]]
+path = "proofs/theories/CDNegLemmas.v"
+sha256 = "95447cba8efb0c7669ac2da16e283754bb1ff5bceb3f034ee5224f04e5d70c2d"
+
+[[sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[sources]]
+path = "proofs/theories/OctonionNorm.v"
+sha256 = "3c65bb9f5c84a2775d9a6bebd202e8433f34f174c4d4808e79b582dfec17b51e"
+
+[[sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[sources]]
+path = "proofs/theories/Sedenion.v"
+sha256 = "f7fa97304850eaa6004d3917fe37be555b40568fc65389887bbe489fbc922681"
+
+[[sources]]
+path = "proofs/verified/C014_AnnihilatorDim4.v"
+sha256 = "da60c8dfdd460b4444f429c410db5c1614793ad4aed34a9aa2835f19984b3b72"
+
+[[sources]]
+path = "proofs/verified/C908_SedenionZeroDivisor.v"
+sha256 = "a7dd044b836588c29956c7ed4bfc45cb693d202f8a9208a89c0c84e31d60db90"
+
+[compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C014_AnnihilatorDim4.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C014_AnnihilatorDim4.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C014_AnnihilatorDim4.assumptions.txt"
+sha256 = "05b8b891202c5213f17f3e527ede03dc82895d6b1796bac8565d87e9dba92e36"
+
+[proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/verified/C014_AnnihilatorDim4.vo"
+sha256 = "8ded43956fffc98aafbaae9e3706480a79ebdf18ff9873bf400b414ae465e7d7"
+
+[[declarations]]
+name = "C014_zero_annihilates"
+statement = "Theorem C014_zero_annihilates : forall a : CDSed, sed_mul sed_zero a = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "C014_nonzero_annihilator_exists"
+statement = "Theorem C014_nonzero_annihilator_exists : sed_mul sed_zd_b sed_zd_a = sed_zero /\\ sed_zd_b <> sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

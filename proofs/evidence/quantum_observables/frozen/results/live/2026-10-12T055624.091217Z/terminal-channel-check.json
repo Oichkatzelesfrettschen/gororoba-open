@@ -1,0 +1,28 @@
+{
+  "hypothesis": "one common additional binary stochastic channel maps replay terminal marginals to hardware terminal marginals",
+  "members": [
+    "qpe_no_feed_forward_s1",
+    "qpe_no_feed_forward_s3"
+  ],
+  "terminal_physical_qubit": 93,
+  "hardware_probability_one": [
+    0.36181640625,
+    0.5994873046875
+  ],
+  "replay_probability_one": [
+    0.4964599609375,
+    0.4952392578125
+  ],
+  "shots_per_mean": 8192,
+  "simultaneously_covered_means": 32,
+  "supplemental_alpha": 0.05,
+  "hoeffding_radius": 0.02089696308600546,
+  "hardware_separation_lower": 0.19587697226548909,
+  "replay_separation_upper": 0.04301462929701092,
+  "contraction_violation_margin": 0.15286234296847817,
+  "inputs_sha256": {
+    "record.json": "91145c3456e8670a19eea258416412d020ca5e3fa71aa37b91ce7a5cb7f74670",
+    "collect.json": "6de820a83905e778e7c11b2e75d729ee6a40311003716e47eff9834d2199aed9"
+  },
+  "interpretation": "conditional model-repair-class rejection; additional common stochastic postprocessing only; separate multiplicity family from original contrasts"
+}

@@ -1,6 +1,9 @@
 Quantum evidence and formal-proof reconciliation
 ===============================================
 
+Current reconciliation delta: docs/engineering/quantum_observable_reconciliation.txt.
+The historical source and receipt identities below retain their original scope.
+
 Source and execution boundary
 -----------------------------
 

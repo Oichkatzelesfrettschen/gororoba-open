@@ -1,0 +1,110 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FiniteProbability"
+proof_path = "proofs/theories/FiniteProbability.v"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FiniteProbability.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FiniteProbability"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteProbability.compile.txt"
+sha256 = "65b0fca74e5e897b0338a7d47d8664bb48c46deabec873bd535171baea48f434"
+
+[kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteProbability.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteProbability.assumptions.txt"
+sha256 = "05ce53d6ddfd69e9595dfaa5cc68dc3f204fdcbda031f2e11b74ae05b58e86a9"
+
+[proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/FiniteProbability.vo"
+sha256 = "ff34176ff4ca4613430397ddeef23bce2a720be677b6f1675431760078fa69e9"
+
+[[declarations]]
+name = "weighted_expectation"
+statement = "Definition weighted_expectation {A : Type} (law : list (A * R)) (observable : A -> R) : R := fold_right (fun point total => snd point * observable (fst point) + total) 0 law"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "nonnegative_law"
+statement = "Definition nonnegative_law {A : Type} (law : list (A * R)) : Prop := Forall (fun point => 0 <= snd point) law"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "normalized_law"
+statement = "Definition normalized_law {A : Type} (law : list (A * R)) : Prop := weighted_expectation law (fun _ => 1) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "indicator"
+statement = "Definition indicator {A : Type} (event : A -> bool) (point : A) : R := if event point then 1 else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "event_probability"
+statement = "Definition event_probability {A : Type} (law : list (A * R)) (event : A -> bool) : R := weighted_expectation law (indicator event)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "weighted_expectation_ext"
+statement = "Lemma weighted_expectation_ext {A} (law : list (A * R)) f g : (forall point, f point = g point) -> weighted_expectation law f = weighted_expectation law g"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "weighted_expectation_add"
+statement = "Lemma weighted_expectation_add {A} (law : list (A * R)) f g : weighted_expectation law (fun point => f point + g point) = weighted_expectation law f + weighted_expectation law g"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_expectation_scale"
+statement = "Lemma weighted_expectation_scale {A} (law : list (A * R)) scalar f : weighted_expectation law (fun point => scalar * f point) = scalar * weighted_expectation law f"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_expectation_zero"
+statement = "Lemma weighted_expectation_zero {A} (law : list (A * R)) : weighted_expectation law (fun _ => 0) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_expectation_mono"
+statement = "Lemma weighted_expectation_mono {A} (law : list (A * R)) f g : nonnegative_law law -> (forall point, f point <= g point) -> weighted_expectation law f <= weighted_expectation law g"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_expectation_nonnegative"
+statement = "Lemma weighted_expectation_nonnegative {A} (law : list (A * R)) f : nonnegative_law law -> (forall point, 0 <= f point) -> 0 <= weighted_expectation law f"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_markov"
+statement = "Lemma weighted_markov {A} (law : list (A * R)) event f threshold : nonnegative_law law -> 0 < threshold -> (forall point, 0 <= f point) -> (forall point, event point = true -> threshold <= f point) -> event_probability law event <= weighted_expectation law f / threshold"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_expectation_sum"
+statement = "Lemma weighted_expectation_sum {A} (law : list (A * R)) {I : Type} (indices : list I) (observables : I -> A -> R) : weighted_expectation law (fun point => real_sum (map (fun index => observables index point) indices)) = real_sum (map (fun index => weighted_expectation law (observables index)) indices)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "indicator_union_bound"
+statement = "Lemma indicator_union_bound {A I : Type} (indices : list I) (events : I -> A -> bool) point : indicator (fun sample => existsb (fun index => events index sample) indices) point <= real_sum (map (fun index => indicator (events index) point) indices)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_union_bound"
+statement = "Theorem finite_union_bound {A I : Type} (law : list (A * R)) (indices : list I) (events : I -> A -> bool) : nonnegative_law law -> event_probability law (fun point => existsb (fun index => events index point) indices) <= real_sum (map (fun index => event_probability law (events index)) indices)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "event_probability_monotone"
+statement = "Lemma event_probability_monotone {A : Type} (law : list (A * R)) (smaller larger : A -> bool) : nonnegative_law law -> (forall point, smaller point = true -> larger point = true) -> event_probability law smaller <= event_probability law larger"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
