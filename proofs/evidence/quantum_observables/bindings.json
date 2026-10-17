@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "source_repository": "IBMQuantum",
+  "source_repository": "https://github.com/Oichkatzelesfrettschen/gororoba-quantum",
   "source_commit": "a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8",
   "semantic_boundary": "Hashes verify QPY byte identity only. Circuit semantics and physical premises remain asserted and unproved by this offline validator.",
   "assets": [
@@ -128,6 +128,76 @@
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/collect.json",
       "sha256": "6de820a83905e778e7c11b2e75d729ee6a40311003716e47eff9834d2199aed9",
       "source_path": "results/live/2026-10-12T055624.091217Z/collect.json"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json",
+      "sha256": "03814a661286b0b8bead2949f216fb8ba22193bc5caa7bc9da415af22149f964"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json",
+      "sha256": "8c270b65fd0bb1e09d92c6cd5aea478c17df57c6524bc614b2e2bbedb5cd88f0"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json",
+      "sha256": "479448c8ab214e7a97d1ed24f2105c8d434bb8c273ebe55417159854948dfa90"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json",
+      "sha256": "bf1f1462cbef31125b7c6ff6fa8e1ab81dea6963d90edd2fe5a64250a39957cc"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json",
+      "sha256": "0410eddebbdbc760070b2876f4982360976139ebecba27724ec84d08e4eaa844"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json",
+      "sha256": "6e8c3f67e867d181b17fa9b916cb973ba2236f8d8e86d52140ec471a4dc2eabc"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json",
+      "sha256": "b4cf8ffdcf164740daf8039e3e00b3c53ea91db8ad2197c944576ba3851f0ff3"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json",
+      "sha256": "2155f30ec66bd243d24d7b9b30cfe353643deb2f97642d37d197c45b7ca5767d"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json",
+      "sha256": "f9b8de6a8d522404849da2fa9a271a26530041288751b93c1fcc1d3b55f3e7cb"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json",
+      "sha256": "6a1c284e5c3d9aa57ece00eb79dcd39d30d28185392efab4a9a130a6f38d56d9"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json",
+      "sha256": "f0d2e5417456592966318bfde33d3ae050929204a4837444145ad62b133b5572"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json",
+      "sha256": "0f021cc4ce3f2fc172375863d11c531b98a8341e7b830c6af91d6d7c1e12f286"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json",
+      "sha256": "7e859289c7ebdba1825d17125abb706fe003425e1732664528d64f697f6ce40d"
+    },
+    {
+      "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json",
+      "sha256": "c9cee8c742967e839d669c957e3c0bb8fe71c85548f4691765ef551eb14797b3"
     }
   ],
   "theorems": [
@@ -3592,6 +3662,300 @@
       "basis_convention": "terminal_c1_first_c0",
       "observable_formula": "p1=count(c1=1)/shots",
       "normalization": "single_replica_mean"
+    },
+    {
+      "member": "qpe_archived_s0",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json",
+      "pub_name": "ibm_kingston_dynamic_pub_01",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1528,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_archived_s1",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json",
+      "pub_name": "ibm_kingston_dynamic_pub_02",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1759,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_archived_s2",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json",
+      "pub_name": "ibm_kingston_dynamic_pub_03",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6150,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_archived_s3",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json",
+      "pub_name": "ibm_kingston_dynamic_pub_04",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6241,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_delay_s0",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json",
+      "pub_name": "ibm_kingston_dynamic_pub_05",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_single_bit_one",
+      "basis_convention": "terminal_c0",
+      "observable_formula": "p1=count(c0=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1371,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_delay_s1",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json",
+      "pub_name": "ibm_kingston_dynamic_pub_06",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_single_bit_one",
+      "basis_convention": "terminal_c0",
+      "observable_formula": "p1=count(c0=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1786,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_delay_s2",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json",
+      "pub_name": "ibm_kingston_dynamic_pub_07",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_single_bit_one",
+      "basis_convention": "terminal_c0",
+      "observable_formula": "p1=count(c0=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6183,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_delay_s3",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json",
+      "pub_name": "ibm_kingston_dynamic_pub_08",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 1,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_single_bit_one",
+      "basis_convention": "terminal_c0",
+      "observable_formula": "p1=count(c0=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6364,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_no_feed_forward_s0",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json",
+      "pub_name": "ibm_kingston_dynamic_pub_09",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1450,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_no_feed_forward_s2",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json",
+      "pub_name": "ibm_kingston_dynamic_pub_11",
+      "registers_by_replica": [
+        [
+          "g1_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6195,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_coherent_s0",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json",
+      "pub_name": "ibm_kingston_static_pub_01",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1022,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_coherent_s1",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json",
+      "pub_name": "ibm_kingston_static_pub_02",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 1282,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_coherent_s2",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json",
+      "pub_name": "ibm_kingston_static_pub_03",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 7046,
+      "denominator": 8192
+    },
+    {
+      "member": "qpe_coherent_s3",
+      "record": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/record.json",
+      "qpy": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/isa.qpy",
+      "raw": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json",
+      "pub_name": "ibm_kingston_static_pub_04",
+      "registers_by_replica": [
+        [
+          "g0_r0_c"
+        ]
+      ],
+      "width": 2,
+      "shots_per_replica": 8192,
+      "bit_order": "little_endian_c0_rightmost",
+      "recipe": "terminal_bit_one",
+      "basis_convention": "terminal_c1_first_c0",
+      "observable_formula": "p1=count(c1=1)/shots",
+      "normalization": "single_replica_mean",
+      "numerator": 6882,
+      "denominator": 8192
     }
   ],
   "terminal": {
@@ -3809,6 +4173,224 @@
           "pub_name": "ibm_kingston_dynamic_pub_12",
           "data_source": "replay"
         }
+      }
+    ],
+    "replay_observations": [
+      {
+        "member": "qpe_coherent_s0",
+        "pub_name": "ibm_kingston_static_pub_01",
+        "group": "folded_qpe_ladder_static",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          7448,
+          154,
+          434,
+          156
+        ],
+        "terminal_numerator": 590
+      },
+      {
+        "member": "qpe_coherent_s1",
+        "pub_name": "ibm_kingston_static_pub_02",
+        "group": "folded_qpe_ladder_static",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          225,
+          7350,
+          151,
+          466
+        ],
+        "terminal_numerator": 617
+      },
+      {
+        "member": "qpe_coherent_s2",
+        "pub_name": "ibm_kingston_static_pub_03",
+        "group": "folded_qpe_ladder_static",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          641,
+          123,
+          7298,
+          130
+        ],
+        "terminal_numerator": 7428
+      },
+      {
+        "member": "qpe_coherent_s3",
+        "pub_name": "ibm_kingston_static_pub_04",
+        "group": "folded_qpe_ladder_static",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          187,
+          484,
+          176,
+          7345
+        ],
+        "terminal_numerator": 7521
+      },
+      {
+        "member": "qpe_archived_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_01",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          7486,
+          138,
+          414,
+          154
+        ],
+        "terminal_numerator": 568
+      },
+      {
+        "member": "qpe_archived_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_02",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          219,
+          7346,
+          174,
+          453
+        ],
+        "terminal_numerator": 627
+      },
+      {
+        "member": "qpe_archived_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_03",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          603,
+          153,
+          7270,
+          166
+        ],
+        "terminal_numerator": 7436
+      },
+      {
+        "member": "qpe_archived_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_04",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          223,
+          512,
+          171,
+          7286
+        ],
+        "terminal_numerator": 7457
+      },
+      {
+        "member": "qpe_delay_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_05",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 1,
+        "counts": [
+          7703,
+          489
+        ],
+        "terminal_numerator": 489
+      },
+      {
+        "member": "qpe_delay_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_06",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 1,
+        "counts": [
+          7585,
+          607
+        ],
+        "terminal_numerator": 607
+      },
+      {
+        "member": "qpe_delay_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_07",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 1,
+        "counts": [
+          652,
+          7540
+        ],
+        "terminal_numerator": 7540
+      },
+      {
+        "member": "qpe_delay_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_08",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 1,
+        "counts": [
+          689,
+          7503
+        ],
+        "terminal_numerator": 7503
+      },
+      {
+        "member": "qpe_no_feed_forward_s0",
+        "pub_name": "ibm_kingston_dynamic_pub_09",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          7529,
+          175,
+          383,
+          105
+        ],
+        "terminal_numerator": 488
+      },
+      {
+        "member": "qpe_no_feed_forward_s1",
+        "pub_name": "ibm_kingston_dynamic_pub_10",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          212,
+          3913,
+          160,
+          3907
+        ],
+        "terminal_numerator": 4067
+      },
+      {
+        "member": "qpe_no_feed_forward_s2",
+        "pub_name": "ibm_kingston_dynamic_pub_11",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          557,
+          111,
+          7354,
+          170
+        ],
+        "terminal_numerator": 7524
+      },
+      {
+        "member": "qpe_no_feed_forward_s3",
+        "pub_name": "ibm_kingston_dynamic_pub_12",
+        "group": "folded_qpe_ladder_dynamic",
+        "shots": 8192,
+        "width": 2,
+        "counts": [
+          209,
+          3926,
+          176,
+          3881
+        ],
+        "terminal_numerator": 4057
       }
     ]
   }

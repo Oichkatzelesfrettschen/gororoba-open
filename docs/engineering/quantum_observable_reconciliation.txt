@@ -7,8 +7,8 @@ The current contracts extend open_gororoba base
 4706d40eafa524957a9b20384a6a7346fe8536a1 and read retained quantum inputs
 from gororoba-quantum a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
 proofs/evidence/quantum_observables/bindings.json binds 160 recognized
-lemma/theorem declarations in 11 source files to 25 original-byte assets.
-The validator reconstructs the selected statistics from 16 raw PUB members.
+lemma/theorem declarations in 11 source files to 39 original-byte assets.
+The validator reconstructs the selected statistics from 30 raw PUB members.
 Circuit QPY byte identity establishes archive provenance; proving QPY semantic
 correspondence to the mathematical circuit remains an explicit obligation.
 The implementation uses retained files and local proof tooling. Quantum
@@ -29,7 +29,14 @@ Mathematical-only declarations explicitly mark physical fields inapplicable.
 The terminal fixture binds all 16 campaign members times hardware/replay to
 32 means. Formal indices 0 through 3 are hardware no_feed_forward s1/s3,
 then replay no_feed_forward s1/s3. Their counts are 2964, 4911, 4067, 4057,
-each divided by 8192. The family validates every covered member and rejects
+each divided by 8192. All 16 hardware PUBs require 8192 raw bitstrings,
+matching register maps and exact collected terminal summaries. All 16 replay
+count vectors require the recorded 8192-shot batch identity and member/PUB
+mapping. Their rounded probability entries determine unique counts on that
+shot grid, and the exact record, collection and per-replica terminal summaries
+must agree. Ordered replay bitstrings were not retained; replay count recovery
+and the physical IID premise remain distinct evidence surfaces.
+The family validates every covered member and rejects
 a reordered selected mean, changed digest, missing register, altered shot
 count, changed semantic class or omitted premise.
 

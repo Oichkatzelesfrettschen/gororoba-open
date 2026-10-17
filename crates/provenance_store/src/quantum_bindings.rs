@@ -67,12 +67,14 @@ pub struct QuantumDecoder {
 pub enum DecoderRecipe {
     ProbabilityZero,
     TerminalBitOne,
+    TerminalSingleBitOne,
     BranchSignedParity,
 }
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
 pub struct TerminalFixture {
     pub covered_means: Vec<CoveredMean>,
+    pub replay_observations: Vec<ReplayObservation>,
     pub selected_test_means: Vec<SelectedTestMean>,
     pub means: u32,
     pub alpha_numerator: u32,
@@ -105,12 +107,26 @@ pub struct SelectedTestMean {
     pub role: String,
     pub mean: CoveredMean,
 }
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct ReplayObservation {
+    pub member: String,
+    pub pub_name: String,
+    pub group: String,
+    pub shots: usize,
+    pub width: usize,
+    pub counts: Vec<u64>,
+    pub terminal_numerator: u64,
+}
 #[derive(Debug, Serialize)]
 pub struct QuantumBindingReport {
     pub verified_assets: usize,
     pub verified_theorem_sources: usize,
     pub verified_theorem_declarations: usize,
     pub decoded_members: usize,
+    pub terminal_hardware_means: usize,
+    pub terminal_replay_means: usize,
+    pub replay_retention_boundary: String,
     pub signed_coherence: BTreeMap<String, [f64; 2]>,
     pub terminal_margin: [i64; 2],
     pub physical_premises: String,
@@ -241,6 +257,260 @@ fn required_semantics(source: &str) -> Result<(&'static str, &'static [&'static 
         },
     )
 }
+fn validate_terminal_observations(
+    manifest: &QuantumBindingManifest,
+    record: &serde_json::Value,
+    collect: &serde_json::Value,
+    hardware_means: &BTreeMap<String, (i64, usize)>,
+) -> Result<()> {
+    let expected_members: BTreeSet<_> = ["coherent", "archived", "delay", "no_feed_forward"]
+        .into_iter()
+        .flat_map(|family| (0..4).map(move |stage| format!("qpe_{family}_s{stage}")))
+        .collect();
+    let terminal_decoders: Vec<_> = manifest
+        .decoders
+        .iter()
+        .filter(|decoder| {
+            matches!(
+                decoder.recipe,
+                DecoderRecipe::TerminalBitOne | DecoderRecipe::TerminalSingleBitOne
+            )
+        })
+        .collect();
+    ensure!(
+        terminal_decoders.len() == 16
+            && terminal_decoders
+                .iter()
+                .map(|decoder| decoder.member.clone())
+                .collect::<BTreeSet<_>>()
+                == expected_members,
+        "terminal hardware observation denominator mismatch"
+    );
+    ensure!(
+        manifest.terminal.replay_observations.len() == 16
+            && manifest
+                .terminal
+                .replay_observations
+                .iter()
+                .map(|observation| observation.member.clone())
+                .collect::<BTreeSet<_>>()
+                == expected_members,
+        "terminal replay observation denominator mismatch"
+    );
+    ensure!(
+        record["shots"].as_u64() == Some(8192),
+        "terminal recorded shot count mismatch"
+    );
+    let mut batch_members = BTreeSet::new();
+    for batch in record["evaluation_simulation_batches"]
+        .as_array()
+        .context("replay batch inventory missing")?
+    {
+        ensure!(
+            batch["shots"].as_u64() == Some(8192),
+            "replay batch shot count mismatch"
+        );
+        for member in batch["ordered_circuit_names"]
+            .as_array()
+            .context("replay batch members missing")?
+        {
+            ensure!(
+                batch_members.insert(
+                    member
+                        .as_str()
+                        .context("replay batch member must be text")?
+                        .to_owned()
+                ),
+                "duplicate replay batch member"
+            );
+        }
+    }
+    ensure!(
+        batch_members == expected_members,
+        "replay batch member denominator mismatch"
+    );
+    let mut observed_members = BTreeSet::new();
+    for pub_record in record["execution_pubs"]
+        .as_array()
+        .context("terminal PUB inventory missing")?
+    {
+        let pub_name = pub_record["name"]
+            .as_str()
+            .context("terminal PUB name missing")?;
+        for component in pub_record["components"]
+            .as_array()
+            .context("terminal component inventory missing")?
+        {
+            let member = component["member"]
+                .as_str()
+                .context("terminal member name missing")?;
+            ensure!(
+                observed_members.insert(member.to_owned()),
+                "duplicate terminal observed member"
+            );
+            let width = if member.starts_with("qpe_delay_") {
+                1
+            } else {
+                2
+            };
+            let decoder = terminal_decoders
+                .iter()
+                .find(|decoder| decoder.member == member)
+                .context("terminal hardware observation missing")?;
+            ensure!(
+                decoder.pub_name == pub_name
+                    && decoder.width == width
+                    && decoder.registers_by_replica.len() == 1
+                    && decoder
+                        .record
+                        .ends_with("/2026-10-12T055624.091217Z/record.json"),
+                "terminal hardware decoder identity mismatch"
+            );
+            let hardware = hardware_means
+                .get(member)
+                .context("terminal decoded hardware observation missing")?;
+            ensure!(hardware.1 == 8192, "terminal hardware denominator mismatch");
+            let replay = manifest
+                .terminal
+                .replay_observations
+                .iter()
+                .find(|observation| observation.member == member)
+                .context("terminal replay observation missing")?;
+            ensure!(
+                replay.pub_name == pub_name
+                    && replay.width == width
+                    && replay.shots == 8192
+                    && replay.counts.len() == 1 << width
+                    && replay.counts.iter().all(|count| *count <= 8192)
+                    && replay.counts.iter().sum::<u64>() == 8192,
+                "terminal replay observation identity or shot count mismatch"
+            );
+            let groups: Vec<_> = record["groups"]
+                .as_array()
+                .context("recorded replay groups missing")?
+                .iter()
+                .filter(|group| {
+                    group["members"].as_array().is_some_and(|members| {
+                        members
+                            .iter()
+                            .any(|entry| entry["name"].as_str() == Some(member))
+                    })
+                })
+                .collect();
+            ensure!(
+                groups.len() == 1,
+                "replay member group must resolve uniquely"
+            );
+            let group = groups[0];
+            ensure!(
+                group["group"].as_str() == Some(replay.group.as_str()),
+                "replay group identity mismatch"
+            );
+            let recorded_member = group["members"]
+                .as_array()
+                .context("recorded replay members missing")?
+                .iter()
+                .find(|entry| entry["name"].as_str() == Some(member))
+                .context("recorded replay member missing")?;
+            let replicas = recorded_member["replicas"]
+                .as_array()
+                .context("recorded replay replicas missing")?;
+            ensure!(
+                replicas.len() == 1,
+                "recorded replay replica count mismatch"
+            );
+            let probabilities = replicas[0]["noisy"]
+                .as_array()
+                .context("rounded replay probabilities missing")?;
+            ensure!(
+                probabilities.len() == replay.counts.len(),
+                "replay distribution width mismatch"
+            );
+            // Six decimal rounding intervals are disjoint on the 8192-shot grid.
+            // The source retains probabilities and exact summaries, rather than shot order.
+            for (probability, count) in probabilities.iter().zip(&replay.counts) {
+                let probability = probability
+                    .as_f64()
+                    .context("replay probability must be numeric")?;
+                ensure!(
+                    probability.is_finite()
+                        && (0.0..=1.0).contains(&probability)
+                        && probability == (probability * 1_000_000.).round() / 1_000_000.
+                        && *count <= 8192
+                        && (probability - *count as f64 / 8192.).abs() <= 0.500_000_001e-6,
+                    "replay rounded distribution mismatch: {member}"
+                );
+            }
+            let numerator = replay.counts[(1 << (width - 1))..].iter().sum::<u64>();
+            ensure!(
+                replay.terminal_numerator == numerator,
+                "replay terminal numerator mismatch"
+            );
+            let stage = member
+                .rsplit_once("_s")
+                .context("terminal stage missing")?
+                .1
+                .parse::<usize>()?;
+            ensure!(stage < 4, "terminal stage out of range");
+            let correct = if stage < 2 {
+                8192 - numerator
+            } else {
+                numerator
+            } as f64
+                / 8192.;
+            let summary_key = format!("{member}_terminal_correct");
+            ensure!(
+                group["summary"][&summary_key].as_f64() == Some(correct)
+                    && group["summary_per_replica"]
+                        .as_array()
+                        .is_some_and(|replicas| replicas.len() == 1
+                            && replicas[0][&summary_key].as_f64() == Some(correct)),
+                "recorded replay terminal summary mismatch: {member}"
+            );
+            let collections: Vec<_> = collect
+                .as_array()
+                .context("terminal collection must be an array")?
+                .iter()
+                .filter(|entry| entry["group"].as_str() == Some(replay.group.as_str()))
+                .collect();
+            ensure!(
+                collections.len() == 1,
+                "replay collection group must resolve uniquely"
+            );
+            let collection = collections[0];
+            ensure!(
+                collection["executed"][member]["pub"].as_str() == Some(pub_name),
+                "collected PUB identity mismatch"
+            );
+            let replay_statistics = &collection["replayed_statistics"];
+            ensure!(
+                replay_statistics["summary"][&summary_key].as_f64() == Some(correct)
+                    && replay_statistics["summary_per_replica"]
+                        .as_array()
+                        .is_some_and(|replicas| replicas.len() == 1
+                            && replicas[0][&summary_key].as_f64() == Some(correct)),
+                "collected replay terminal summary mismatch: {member}"
+            );
+            let hardware_correct = if stage < 2 {
+                8192 - hardware.0
+            } else {
+                hardware.0
+            } as f64
+                / 8192.;
+            ensure!(
+                collection["measured_statistics"]["summary"][&summary_key].as_f64()
+                    == Some(hardware_correct),
+                "collected hardware terminal summary mismatch: {member}"
+            );
+        }
+    }
+    ensure!(
+        observed_members == expected_members,
+        "terminal record observation denominator mismatch"
+    );
+    Ok(())
+}
+
 impl QuantumBindingManifest {
     pub fn load(path: &Path) -> Result<Self> {
         Ok(serde_json::from_slice(&fs::read(path)?)?)
@@ -248,9 +518,9 @@ impl QuantumBindingManifest {
     pub fn validate(&self, root: &Path) -> Result<QuantumBindingReport> {
         ensure!(self.schema_version == 1, "unsupported binding schema");
         ensure!(
-            self.source_repository == "IBMQuantum"
+            self.source_repository == "https://github.com/Oichkatzelesfrettschen/gororoba-quantum"
                 && self.source_commit == "a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8",
-            "source snapshot identity changed"
+            "source repository locator or snapshot identity changed"
         );
         ensure!(
             self.semantic_boundary
@@ -432,7 +702,7 @@ impl QuantumBindingManifest {
                 "bit order changed"
             );
             let expected_width = match decoder.recipe {
-                DecoderRecipe::ProbabilityZero => 1,
+                DecoderRecipe::ProbabilityZero | DecoderRecipe::TerminalSingleBitOne => 1,
                 DecoderRecipe::TerminalBitOne => 2,
                 DecoderRecipe::BranchSignedParity => 4,
             };
@@ -443,6 +713,9 @@ impl QuantumBindingManifest {
                     "p0=count(c0=0)/total",
                     "aggregate_eight_replica_mean",
                 ),
+                DecoderRecipe::TerminalSingleBitOne => {
+                    ("terminal_c0", "p1=count(c0=1)/shots", "single_replica_mean")
+                }
                 DecoderRecipe::TerminalBitOne => (
                     "terminal_c1_first_c0",
                     "p1=count(c1=1)/shots",
@@ -468,7 +741,10 @@ impl QuantumBindingManifest {
             );
             ensure!(
                 decoder.shots_per_replica
-                    == if decoder.recipe == DecoderRecipe::TerminalBitOne {
+                    == if matches!(
+                        decoder.recipe,
+                        DecoderRecipe::TerminalBitOne | DecoderRecipe::TerminalSingleBitOne
+                    ) {
                         8192
                     } else {
                         2048
@@ -565,7 +841,9 @@ impl QuantumBindingManifest {
                     );
                     numerator += match decoder.recipe {
                         DecoderRecipe::ProbabilityZero => i64::from(bits == "0"),
-                        DecoderRecipe::TerminalBitOne => i64::from(bits.as_bytes()[0] == b'1'),
+                        DecoderRecipe::TerminalBitOne | DecoderRecipe::TerminalSingleBitOne => {
+                            i64::from(bits.as_bytes()[0] == b'1')
+                        }
                         DecoderRecipe::BranchSignedParity => {
                             if bits
                                 .bytes()
@@ -731,6 +1009,7 @@ impl QuantumBindingManifest {
         let expected = TerminalFixture {
             selected_test_means,
             covered_means,
+            replay_observations: self.terminal.replay_observations.clone(),
             means: 32,
             alpha_numerator: 1,
             alpha_denominator: 20,
@@ -762,6 +1041,7 @@ impl QuantumBindingManifest {
             })
             .context("terminal replay collection missing")?;
         let collect = json(&assets[collect_path.path.as_str()])?;
+        validate_terminal_observations(self, &terminal_record, &collect, &means)?;
         let replay_summary = &collect[1]["replayed_statistics"]["summary"];
         ensure!(
             replay_summary["qpe_no_feed_forward_s1_terminal_correct"].as_f64()
@@ -794,6 +1074,9 @@ impl QuantumBindingManifest {
             verified_theorem_sources: required_sources.len(),
             verified_theorem_declarations: self.theorems.len(),
             decoded_members: means.len(),
+            terminal_hardware_means: 16,
+            terminal_replay_means: 16,
+            replay_retention_boundary: "Replay count vectors are uniquely reconstructed from retained six-decimal probabilities on the verified 8192-shot grid and cross-checked against exact collected summaries; ordered replay bitstrings were not retained.".into(),
             signed_coherence,
             terminal_margin: [margin_numerator, 1024000],
             physical_premises: self.semantic_boundary.clone(),
@@ -827,7 +1110,9 @@ mod tests {
     #[test]
     fn retained_observables_reconstruct_exactly() {
         let report = fixture().validate(&root()).expect("valid frozen fixture");
-        assert_eq!(report.decoded_members, 16);
+        assert_eq!(report.decoded_members, 30);
+        assert_eq!(report.terminal_hardware_means, 16);
+        assert_eq!(report.terminal_replay_means, 16);
         assert_eq!(report.terminal_margin, [156109, 1024000]);
         assert_eq!(
             report.signed_coherence["immediate"],
@@ -842,6 +1127,39 @@ mod tests {
             .expect("baseline reaches all validators");
         type ManifestMutation = Box<dyn Fn(&mut QuantumBindingManifest)>;
         let mutations: Vec<(&str, ManifestMutation)> = vec![
+            (
+                "source repository locator",
+                Box::new(|manifest| manifest.source_repository = "IBMQuantum".into()),
+            ),
+            (
+                "terminal hardware observation denominator",
+                Box::new(|manifest| {
+                    manifest
+                        .decoders
+                        .retain(|decoder| decoder.member != "qpe_coherent_s0")
+                }),
+            ),
+            (
+                "terminal replay observation denominator",
+                Box::new(|manifest| {
+                    manifest
+                        .terminal
+                        .replay_observations
+                        .retain(|observation| observation.member != "qpe_coherent_s0")
+                }),
+            ),
+            (
+                "terminal replay observation identity or shot count",
+                Box::new(|manifest| manifest.terminal.replay_observations[0].shots = 8191),
+            ),
+            (
+                "replay rounded distribution",
+                Box::new(|manifest| {
+                    let observation = &mut manifest.terminal.replay_observations[0];
+                    observation.counts[0] -= 1;
+                    observation.counts[1] += 1;
+                }),
+            ),
             (
                 "theorem execution domain",
                 Box::new(|manifest| {
@@ -988,6 +1306,163 @@ mod tests {
             );
         }
     }
+    #[test]
+    fn unselected_observation_mutations_reach_data_validation() {
+        let manifest = fixture();
+        manifest
+            .validate(&root())
+            .expect("complete observation baseline");
+        let temporary =
+            std::env::temp_dir().join(format!("quantum-observations-{}", std::process::id()));
+        fs::create_dir(&temporary).expect("unique temporary fixture");
+        let files: BTreeSet<_> = manifest
+            .assets
+            .iter()
+            .map(|asset| asset.path.clone())
+            .chain(
+                manifest
+                    .theorems
+                    .iter()
+                    .map(|theorem| theorem.source.clone()),
+            )
+            .collect();
+        let mut directories = BTreeSet::new();
+        for relative in &files {
+            let destination = temporary.join(relative);
+            let mut parent = destination.parent().expect("fixture parent");
+            while parent != temporary {
+                directories.insert(parent.to_path_buf());
+                parent = parent.parent().expect("bounded fixture parent");
+            }
+            fs::create_dir_all(destination.parent().expect("fixture parent"))
+                .expect("fixture directories");
+            fs::copy(root().join(relative), destination).expect("copy immutable fixture input");
+        }
+        let hardware_path = manifest
+            .decoders
+            .iter()
+            .find(|decoder| decoder.member == "qpe_coherent_s0")
+            .expect("unselected hardware decoder")
+            .raw
+            .clone();
+        let record_path = manifest
+            .assets
+            .iter()
+            .find(|asset| {
+                asset
+                    .path
+                    .ends_with("/2026-10-12T055624.091217Z/record.json")
+            })
+            .expect("record")
+            .path
+            .clone();
+        let collect_path = manifest
+            .assets
+            .iter()
+            .find(|asset| {
+                asset
+                    .path
+                    .ends_with("/2026-10-12T055624.091217Z/collect.json")
+            })
+            .expect("collection")
+            .path
+            .clone();
+        type ObservationMutation = Box<dyn Fn(&mut serde_json::Value)>;
+        let cases: Vec<(&str, &str, ObservationMutation)> = vec![
+            (
+                &hardware_path,
+                "reconstructed observable mismatch: qpe_coherent_s0",
+                Box::new(|value| {
+                    let register = value["registers"]
+                        .as_object_mut()
+                        .expect("register map")
+                        .values_mut()
+                        .next()
+                        .expect("register");
+                    let word = register["bitstrings"][0].as_str().expect("word");
+                    register["bitstrings"][0] = format!(
+                        "{}{}",
+                        if word.starts_with('0') { '1' } else { '0' },
+                        &word[1..]
+                    )
+                    .into();
+                }),
+            ),
+            (
+                &hardware_path,
+                "raw register shots mismatch",
+                Box::new(|value| {
+                    value["registers"]
+                        .as_object_mut()
+                        .expect("register map")
+                        .values_mut()
+                        .next()
+                        .expect("register")["num_shots"] = 8191.into();
+                }),
+            ),
+            (
+                &collect_path,
+                "collected replay terminal summary mismatch: qpe_coherent_s0",
+                Box::new(|value| {
+                    value[2]["replayed_statistics"]["summary"]
+                        .as_object_mut()
+                        .expect("summary")
+                        .remove("qpe_coherent_s0_terminal_correct");
+                }),
+            ),
+            (
+                &record_path,
+                "replay distribution width mismatch",
+                Box::new(|value| {
+                    value["groups"][0]["members"][0]["replicas"][0]["noisy"]
+                        .as_array_mut()
+                        .expect("probabilities")
+                        .pop();
+                }),
+            ),
+            (
+                &record_path,
+                "replay batch shot count mismatch",
+                Box::new(|value| {
+                    value["evaluation_simulation_batches"][0]["shots"] = 4096.into();
+                }),
+            ),
+        ];
+        for (relative, expected, mutate) in cases {
+            let original = fs::read(temporary.join(relative)).expect("original fixture input");
+            let mut value: serde_json::Value =
+                serde_json::from_slice(&original).expect("source JSON");
+            mutate(&mut value);
+            let altered = serde_json::to_vec(&value).expect("mutated JSON");
+            fs::write(temporary.join(relative), &altered).expect("write bounded mutation");
+            let mut modified_manifest = manifest.clone();
+            modified_manifest
+                .assets
+                .iter_mut()
+                .find(|asset| asset.path == relative)
+                .expect("asset digest")
+                .sha256 = Sha256::digest(&altered)
+                .iter()
+                .map(|byte| format!("{byte:02x}"))
+                .collect();
+            let error = format!(
+                "{:#}",
+                modified_manifest.validate(&temporary).expect_err(expected)
+            );
+            fs::write(temporary.join(relative), original).expect("restore fixture input");
+            assert!(error.contains(expected), "expected {expected}, got {error}");
+        }
+        for relative in files {
+            fs::remove_file(temporary.join(relative)).expect("remove owned fixture file");
+        }
+        let mut directories: Vec<_> = directories.into_iter().collect();
+        directories.sort_by_key(|directory| std::cmp::Reverse(directory.components().count()));
+        for directory in directories {
+            fs::remove_dir(directory).expect("remove owned fixture directory");
+        }
+        fs::remove_dir(temporary).expect("remove owned fixture root");
+    }
+
     #[test]
     fn unknown_manifest_fields_are_rejected() {
         let mut value = serde_json::to_value(fixture()).expect("JSON");

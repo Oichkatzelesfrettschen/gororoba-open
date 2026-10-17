@@ -36,8 +36,9 @@ Ordered implementation
    Acceptance: present-tense toolchain references distinguish current 9.3 from
    historical 9.1.1/9.2 receipts and their recorded source fixtures.
 7. Validate sources, independent kernel checks, assumptions and negative tests.
-   Complete: 314-module build, 21 receipts, 24 receipt tests, binding mutations,
-   Clippy, nightly formatting, admission scan and typed registry checks passed.
+   Complete: all 32 observations validated, 39 source assets verified, stable
+   repository locator enforced, 5 focused tests and 34 mutations passed,
+   project counter synchronized to 314, and independent repair review cleared.
    Acceptance: fatal-default-warning proof builds, kernel checks, focused Rust
    diagnostics, immutable raw-count reproduction, and independent review pass.
 8. Publish focused repository changes and integrate after hosted validation.

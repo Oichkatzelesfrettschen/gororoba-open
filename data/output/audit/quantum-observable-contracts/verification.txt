@@ -41,3 +41,24 @@ Nightly rustfmt checked the changed Rust implementation and current capture
 helper with exit 0. kernel-capture/capture_rocq_receipts.rs retains the exact
 executed helper snapshot; the top-level helper subsequently groups its imports
 according to the repository formatter. The mathematical capture logic agrees.
+
+Complete observation validation
+-------------------------------
+The final review repair checks all 16 hardware PUBs and all 16 replay results
+before accepting the 32-mean family. There are 39 frozen original-byte assets
+and 30 raw decoders. Replay counts are recovered uniquely from the retained
+six-decimal probabilities on the 8192-shot grid and must match exact record,
+collection and per-replica summaries. Ordered replay bitstrings were not retained.
+All 39 original assets match their Git blobs at quantum commit a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
+The stable source locator is https://github.com/Oichkatzelesfrettschen/gororoba-quantum.
+
+The final focused tests passed five tests and 34 mutation cases. Five of those
+mutations alter unselected observations and refresh their asset digests, reaching
+the observation-level checks. The final all-targets Clippy and example exited 0.
+The project-counter-sync operator updates proof_files from 310 to 314, and its
+check mode passes against canonical counts. Registry signatures and control-plane
+compatibility verification pass. Proof sources, project hash and all 21 retained
+kernel witnesses agree with the earlier capture; those receipts remain applicable.
+The first published head also passed hosted proof/plugin compilation, extraction,
+admission, genuine replay and observable checks; the repaired head requires its
+own complete hosted validation and review.
