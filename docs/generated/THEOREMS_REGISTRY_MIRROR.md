@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 326 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 329 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -255,12 +255,14 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-FiniteBernoulliConcentration` | `FiniteBernoulliConcentration` | `proofs/theories/FiniteBernoulliConcentration.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FiniteBijection` | `FiniteBijection` | `proofs/theories/FiniteBijection.v` | source_only | unresolved | - |
 | `THM-LEGACY-FiniteMatrixConventions` | `FiniteMatrixConventions` | `proofs/theories/FiniteMatrixConventions.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-FinitePlannedLookCoverage` | `FinitePlannedLookCoverage` | `proofs/theories/FinitePlannedLookCoverage.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FiniteProbability` | `FiniteProbability` | `proofs/theories/FiniteProbability.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FloatAxioms` | `FloatAxioms` | `proofs/theories/FloatAxioms.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatQuaternion` | `FloatQuaternion` | `proofs/theories/FloatQuaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatRealBridge` | `FloatRealBridge` | `proofs/theories/FloatRealBridge.v` | source_only | unresolved | - |
 | `THM-LEGACY-FoldAverageDescent` | `FoldAverageDescent` | `proofs/theories/FoldAverageDescent.v` | kernel_checked | explicit_link | C-1769 |
 | `THM-LEGACY-Foliation` | `Foliation` | `proofs/theories/Foliation.v` | source_only | unresolved | - |
+| `THM-LEGACY-FourStateMatrixAlgebra` | `FourStateMatrixAlgebra` | `proofs/theories/FourStateMatrixAlgebra.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FractalMetricPositivity` | `FractalMetricPositivity` | `proofs/theories/FractalMetricPositivity.v` | source_only | explicit_link | C-1131 |
 | `THM-LEGACY-G2OctonionAutomorphisms` | `G2OctonionAutomorphisms` | `proofs/theories/G2OctonionAutomorphisms.v` | source_only | unresolved | - |
 | `THM-LEGACY-G2StabilizerDimension` | `G2StabilizerDimension` | `proofs/theories/G2StabilizerDimension.v` | source_only | unresolved | - |
@@ -295,6 +297,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-Quaternion` | `Quaternion` | `proofs/theories/Quaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-R2VBTransformDP4` | `R2VBTransformDP4` | `proofs/theories/R2VBTransformDP4.v` | source_only | explicit_link | C-1645 |
 | `THM-LEGACY-RationalSignBlockRanks` | `RationalSignBlockRanks` | `proofs/theories/RationalSignBlockRanks.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-RecordedFeedbackInstrument` | `RecordedFeedbackInstrument` | `proofs/theories/RecordedFeedbackInstrument.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SStructuralGaps` | `SStructuralGaps` | `proofs/theories/SStructuralGaps.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3JacobiFull` | `SU3JacobiFull` | `proofs/theories/SU3JacobiFull.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3StructureConstants` | `SU3StructureConstants` | `proofs/theories/SU3StructureConstants.v` | source_only | unresolved | - |

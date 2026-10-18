@@ -21,8 +21,12 @@ PROVED: sparse affine support, complete sectors, block kernel/rank and norm tran
         and decoded actual rational sparse-matrix restriction correspondences.
 DONE: Batch 3 326-module multicore rebuild, admission/plugin checks and ten rejected mutations.
 DONE: stable-source capture, 33 trusted receipt replays and canonical export.
-PENDING: RecordedFeedbackInstrument; BranchSignedCoherence extension;
-         FinitePlannedLookCoverage; TerminalChannelEmpiricalCertificate extension.
+PROVED: RecordedFeedbackInstrument; BranchSignedCoherence extension;
+        FinitePlannedLookCoverage; TerminalChannelEmpiricalCertificate extension.
+DONE: independent review repairs, fourteen rejected mutations, five kernel captures.
+DONE: synchronized 329-module build and all 36 fresh trusted receipt replays.
+DONE: canonical exports, theorem identities, registry integrity and SQLite checks.
+ACTIVE: instrument/coverage PR publication and exact-head hosted validation.
 PENDING: ExactRankCertificate; SchurKernelTransport; CDPureDoublingKernel;
          SedenionFoldTransport extension.
 PENDING: SchurAccelerationObstruction; NullityTwelveQuadraticLocus coefficient
@@ -86,5 +90,5 @@ DONE: replay receipt entries 13 through 26 in sorted order.
 DONE: replay all 33 sorted receipt closures under the owned runner.
 DONE: regenerate compatibility exports, signatures and canonical inventory.
 DONE: verify SQLite, theorem identities and retained evidence hashes.
-ACTIVE: publish focused PR and collect exact-head hosted validation.
-PENDING: merge, synchronize canonical main and archive the owned checkout.
+INTEGRATED: PR 225; hosted run 39162461432 passed at c3b311cf.
+DONE: canonical main synchronized to d8a0298a; owned archival requested.

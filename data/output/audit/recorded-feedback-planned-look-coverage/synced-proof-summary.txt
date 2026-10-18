@@ -1,0 +1,9 @@
+registered_modules=329
+recognized_declarations=285
+closed_queries=30
+assumption_queries=255
+proofs/theories/FinitePlannedLookCoverage.v: OK
+proofs/theories/FourStateMatrixAlgebra.v: OK
+proofs/theories/RecordedFeedbackInstrument.v: OK
+proofs/theories/BranchSignedCoherence.v: OK
+proofs/theories/TerminalChannelEmpiricalCertificate.v: OK

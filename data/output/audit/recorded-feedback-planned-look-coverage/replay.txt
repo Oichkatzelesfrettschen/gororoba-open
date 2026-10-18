@@ -31,3 +31,14 @@ while retaining the 27 selected coherence declarations, seven terminal applicati
 and all thirty-nine frozen assets. The binding-scope regression fails before the
 policy correction and passes afterward. All eleven binding tests pass; Clippy
 passes with -D warnings. The repository's nightly formatter passes without warnings.
+
+Synchronized project: 329 modules; final multicore Make exits zero. Admission
+and plugin diagnostics pass. All eight captured first-party source hashes
+match the synchronized sources. The five independent kernel captures cover
+285 recognized declarations: 30 closed and 255 with retained standard real
+foundations. All 36 current-project receipt specifications pass fresh trusted
+replay; raw capture snapshots retain their actual earlier project identity.
+Canonical export and compatibility verification pass through the current-source
+provenance executable. Project counters, theorem identities, registry signatures
+and SQLite integrity pass. Final inventory: 329 total, 36 kernel_checked and
+293 source_only. Historical receipts and empirical application scopes remain.

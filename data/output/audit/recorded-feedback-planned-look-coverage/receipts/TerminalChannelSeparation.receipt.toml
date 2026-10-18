@@ -1,0 +1,63 @@
+evidence_key = "feedback-coverage-project-TerminalChannelSeparation"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-TerminalChannelSeparation"
+proof_path = "proofs/theories/TerminalChannelSeparation.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparation.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparation"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/TerminalChannelSeparation.v"
+sha256 = "c487b426eee58b442e29a2d45e52bb11551dfd634972f6107eafd5d6c25e5866"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/TerminalChannelSeparation.compile.txt"
+sha256 = "f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/TerminalChannelSeparation.kernel.txt"
+sha256 = "6ab673b318a00623c62cd191789fc8932cdf30981865a3044a9538e75c9cd204"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/TerminalChannelSeparation.assumptions.txt"
+sha256 = "0522fefccf6b82d7f694782e4afee9617fb770d49f967b2b0825e8a0d348e546"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/TerminalChannelSeparation.vo"
+sha256 = "8553bfdcd4c929e812506453af942738198ae71dc572f1f90e8aa46e253675e1"
+
+[[witness.declarations]]
+name = "binary_channel"
+statement = "Definition binary_channel (false_positive true_positive input_mean : Q) : Q := false_positive * (1 - input_mean) + true_positive * input_mean"
+assumptions = []
+
+[[witness.declarations]]
+name = "binary_channel_contracts_separation"
+statement = "Theorem binary_channel_contracts_separation : forall false_positive true_positive first_mean second_mean, 0 <= false_positive <= 1 -> 0 <= true_positive <= 1 -> Qabs (binary_channel false_positive true_positive first_mean - binary_channel false_positive true_positive second_mean) <= Qabs (first_mean - second_mean)"
+assumptions = []
+
+[[witness.declarations]]
+name = "difference_radius_bound"
+statement = "Theorem difference_radius_bound : forall first second first_center second_center first_radius second_radius, Qabs (first - first_center) <= first_radius -> Qabs (second - second_center) <= second_radius -> Qabs ((first - second) - (first_center - second_center)) <= first_radius + second_radius"
+assumptions = []
+
+[[witness.declarations]]
+name = "separation_radius_bound"
+statement = "Theorem separation_radius_bound : forall first second first_center second_center first_radius second_radius, Qabs (first - first_center) <= first_radius -> Qabs (second - second_center) <= second_radius -> Qabs (first - second) <= Qabs (first_center - second_center) + first_radius + second_radius"
+assumptions = []
+
+[[witness.declarations]]
+name = "separated_centers_exclude_common_binary_channel"
+statement = "Theorem separated_centers_exclude_common_binary_channel : forall output_first output_second input_first input_second output_first_center output_second_center input_first_center input_second_center output_first_radius output_second_radius input_first_radius input_second_radius, Qabs (output_first - output_first_center) <= output_first_radius -> Qabs (output_second - output_second_center) <= output_second_radius -> Qabs (input_first - input_first_center) <= input_first_radius -> Qabs (input_second - input_second_center) <= input_second_radius -> Qabs (input_first_center - input_second_center) + output_first_radius + output_second_radius + input_first_radius + input_second_radius < Qabs (output_first_center - output_second_center) -> ~ exists false_positive true_positive, 0 <= false_positive <= 1 /\\ 0 <= true_positive <= 1 /\\ output_first == binary_channel false_positive true_positive input_first /\\ output_second == binary_channel false_positive true_positive input_second"
+assumptions = []

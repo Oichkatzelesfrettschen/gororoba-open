@@ -1,0 +1,8 @@
+proofs/theories/FiniteBernoulliConcentration.v: OK
+proofs/theories/FourStateMatrixAlgebra.v: OK
+proofs/theories/RecordedFeedbackInstrument.v: OK
+proofs/theories/FiniteProbability.v: OK
+proofs/theories/TerminalChannelSeparationReal.v: OK
+proofs/theories/BranchSignedCoherence.v: OK
+proofs/theories/TerminalChannelEmpiricalCertificate.v: OK
+proofs/theories/FinitePlannedLookCoverage.v: OK

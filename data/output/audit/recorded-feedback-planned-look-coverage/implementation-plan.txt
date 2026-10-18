@@ -19,12 +19,17 @@ DONE: connect the instrument output to Pauli/register decoding.
 DONE: reject fourteen coverage, terminal, instrument, assignment and decoder mutations.
 DONE: close independent review findings with column and constructive Born-decoder proofs.
 DONE: reproduce and correct mathematical-to-empirical binding scope expansion.
-ACTIVE: verify refreshed binding policy and complete source/provenance checks.
-PENDING: synchronize the prerequisite integration base before final project-bound capture.
-PENDING: run full multicore build and independent kernels for the five changed closures.
-PENDING: refresh declaration/physical-application bindings for changed bound modules.
-PENDING: renew current-project receipts and canonical exports after base sync.
-PENDING: obtain independent whole-branch review and exact-head hosted validation.
+DONE: verify refreshed binding policy and complete source/provenance checks.
+DONE: synchronize prerequisite main d8a0298a; all five source hashes match.
+DONE: synchronized 329-module build exits zero; all 36 fresh receipt replays pass.
+DONE: current-source provenance build, canonical exports, signatures and all consistency checks pass.
+ACTIVE: publish the focused PR and collect exact-head hosted validation.
+DONE: all five independent kernels and 285 declaration assumption queries.
+DONE: refresh mathematical declarations while preserving empirical application families.
+DONE: renew all 36 current-project receipts after base sync.
+DONE: regenerate and verify canonical exports after fresh replay.
+DONE: independent whole-source review and two verified correspondence repairs.
+PENDING: obtain exact-head hosted validation.
 PENDING: integrate, synchronize main and archive the owned checkout.
 
 The finite family indexes estimator/look pairs and requires a valid marginal
@@ -39,5 +44,7 @@ hosted run continues. The raw capture retains its actual project snapshot. After
 the prerequisite integration, compare source closures and perform fresh trusted
 receipt replay against the synchronized project identity. A source change requires
 a new capture; capture completion alone supplies zero current-project admissions.
-BACKGROUND: capture the five independently checked kernels and complete assumptions.
-ACTIVE: monitor prerequisite hosted integration and verify the binding/evidence tooling.
+DONE: capture the five independently checked kernels and complete assumptions.
+DONE: prerequisite PR 225 integrated with successful hosted checks.
+Ruling: preserve both additive .gitattributes evidence-byte policies during base
+synchronization. Census evidence and feedback evidence each retain exact bytes.
