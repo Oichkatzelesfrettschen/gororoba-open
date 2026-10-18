@@ -1,0 +1,237 @@
+evidence_key = "numeric-sign-project-C881_GF2CubicMinDegree"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T17:26:13Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-C881_GF2CubicMinDegree"
+proof_path = "proofs/verified/C881_GF2CubicMinDegree.v"
+project_sha256 = "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C881_GF2CubicMinDegree.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C881_GF2CubicMinDegree"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/GF2Algebra.v"
+sha256 = "f8e659d01b358c673dd33f2f9eae87285bc165d85b99ec2410f29435c26df7bf"
+
+[[witness.sources]]
+path = "proofs/verified/C881_GF2CubicMinDegree.v"
+sha256 = "e72a6a1ae0ab345e482346c264451abe9acc0b959ac2bee645856d946a461a87"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C881_GF2CubicMinDegree.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C881_GF2CubicMinDegree.kernel.txt"
+sha256 = "6ab673b318a00623c62cd191789fc8932cdf30981865a3044a9538e75c9cd204"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C881_GF2CubicMinDegree.assumptions.txt"
+sha256 = "d49af03b8b589f0b4f8369cda5158fcdfcffb272f54d2aefae3317d750d3955c"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/verified/C881_GF2CubicMinDegree.vo"
+sha256 = "4990b966a7f8f675f911aeccb229685b562c50bb9d3cd9e3ed6e3923e7ccfe03"
+
+[[witness.declarations]]
+name = "pg32_labels"
+statement = "Definition pg32_labels : list nat := [3; 2; 5; 4; 7; 6; 9; 8; 11; 10; 13; 12; 15; 14; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "pg32_classes"
+statement = "Definition pg32_classes : list bool := [true; true; true; true; true; true; false; true; false; false; false; false; false; false; true]"
+assumptions = []
+
+[[witness.declarations]]
+name = "pg32_length_labels"
+statement = "Theorem pg32_length_labels : length pg32_labels = 15"
+assumptions = []
+
+[[witness.declarations]]
+name = "pg32_length_classes"
+statement = "Theorem pg32_length_classes : length pg32_classes = 15"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_monomials"
+statement = "Definition degree1_monomials : list nat := [1; 2; 4; 8]"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_mono1_fails"
+statement = "Theorem degree1_mono1_fails : separates_b pg32_labels pg32_classes [1] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_mono2_fails"
+statement = "Theorem degree1_mono2_fails : separates_b pg32_labels pg32_classes [2] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_mono4_fails"
+statement = "Theorem degree1_mono4_fails : separates_b pg32_labels pg32_classes [4] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_mono8_fails"
+statement = "Theorem degree1_mono8_fails : separates_b pg32_labels pg32_classes [8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_12_fails"
+statement = "Theorem degree1_combo_12_fails : separates_b pg32_labels pg32_classes [1; 2] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_14_fails"
+statement = "Theorem degree1_combo_14_fails : separates_b pg32_labels pg32_classes [1; 4] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_18_fails"
+statement = "Theorem degree1_combo_18_fails : separates_b pg32_labels pg32_classes [1; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_24_fails"
+statement = "Theorem degree1_combo_24_fails : separates_b pg32_labels pg32_classes [2; 4] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_28_fails"
+statement = "Theorem degree1_combo_28_fails : separates_b pg32_labels pg32_classes [2; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_48_fails"
+statement = "Theorem degree1_combo_48_fails : separates_b pg32_labels pg32_classes [4; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_124_fails"
+statement = "Theorem degree1_combo_124_fails : separates_b pg32_labels pg32_classes [1; 2; 4] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_128_fails"
+statement = "Theorem degree1_combo_128_fails : separates_b pg32_labels pg32_classes [1; 2; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_148_fails"
+statement = "Theorem degree1_combo_148_fails : separates_b pg32_labels pg32_classes [1; 4; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_248_fails"
+statement = "Theorem degree1_combo_248_fails : separates_b pg32_labels pg32_classes [2; 4; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree1_combo_1248_fails"
+statement = "Theorem degree1_combo_1248_fails : separates_b pg32_labels pg32_classes [1; 2; 4; 8] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono3_fails"
+statement = "Theorem degree2_mono3_fails : separates_b pg32_labels pg32_classes [3] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono5_fails"
+statement = "Theorem degree2_mono5_fails : separates_b pg32_labels pg32_classes [5] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono6_fails"
+statement = "Theorem degree2_mono6_fails : separates_b pg32_labels pg32_classes [6] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono9_fails"
+statement = "Theorem degree2_mono9_fails : separates_b pg32_labels pg32_classes [9] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono10_fails"
+statement = "Theorem degree2_mono10_fails : separates_b pg32_labels pg32_classes [10] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_mono12_fails"
+statement = "Theorem degree2_mono12_fails : separates_b pg32_labels pg32_classes [12] = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_monomials"
+statement = "Definition degree2_monomials : list nat := [0; 1; 2; 3; 4; 5; 6; 8; 9; 10; 12]"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_monomials_filtered"
+statement = "Theorem degree2_monomials_filtered : degree2_monomials = filter (fun monomial => Nat.leb (monomial_degree monomial 4) 2) (seq 0 16)"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_monomials_characterization"
+statement = "Theorem degree2_monomials_characterization : forall monomial, In monomial degree2_monomials <-> monomial < 16 /\\ monomial_degree monomial 4 <= 2"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_candidates"
+statement = "Definition degree2_candidates : list (list nat) := monomial_subsets degree2_monomials"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_candidate_count"
+statement = "Theorem degree2_candidate_count : length degree2_candidates = 2048"
+assumptions = []
+
+[[witness.declarations]]
+name = "coefficient_support_enumerated"
+statement = "Theorem coefficient_support_enumerated : forall monomials coefficients, length coefficients = length monomials -> In (coefficient_support monomials coefficients) (monomial_subsets monomials)"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_all_candidates_fail"
+statement = "Theorem degree2_all_candidates_fail : forallb (fun candidate => negb (separates_b pg32_labels pg32_classes candidate)) degree2_candidates = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_candidate_fails"
+statement = "Theorem degree2_candidate_fails : forall candidate, In candidate degree2_candidates -> separates_b pg32_labels pg32_classes candidate = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree2_coefficients_fail"
+statement = "Theorem degree2_coefficients_fail : forall coefficients, length coefficients = 11 -> separates_b pg32_labels pg32_classes (coefficient_support degree2_monomials coefficients) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "cubic_witness"
+statement = "Definition cubic_witness : list nat := [1; 2; 3; 4; 5; 6; 7; 8]"
+assumptions = []
+
+[[witness.declarations]]
+name = "cubic_witness_separates"
+statement = "Theorem cubic_witness_separates : separates_b pg32_labels pg32_classes cubic_witness = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "cubic_witness_max_degree"
+statement = "Theorem cubic_witness_max_degree : max_degree cubic_witness 4 = 3"
+assumptions = []
+
+[[witness.declarations]]
+name = "fixed_partition_minimum_separating_degree"
+statement = "Theorem fixed_partition_minimum_separating_degree : (forall coefficients, length coefficients = 11 -> separates_b pg32_labels pg32_classes (coefficient_support degree2_monomials coefficients) = false) /\\ separates_b pg32_labels pg32_classes cubic_witness = true /\\ max_degree cubic_witness 4 = 3"
+assumptions = []

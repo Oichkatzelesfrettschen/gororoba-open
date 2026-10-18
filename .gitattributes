@@ -122,3 +122,8 @@ proofs/**/*.v -text
 # Associator lifting receipts preserve compiler and kernel output bytes.
 data/output/audit/cd-associator-sign-lifting/** -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/cd-associator-sign-lifting/kernel-capture/**/*.vo -filter -diff -text
+# Numeric sign receipts preserve exact compiler and kernel evidence bytes.
+data/output/audit/cd-numeric-sign-correspondence/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-numeric-sign-correspondence/kernel-capture/**/*.vo -filter -diff -text
+# Frozen upstream package descriptions preserve original metadata whitespace.
+proofs/opam/qualified-rocq-9.3.export -text whitespace=-blank-at-eof,-blank-at-eol

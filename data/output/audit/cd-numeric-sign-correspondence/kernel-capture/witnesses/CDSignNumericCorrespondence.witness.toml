@@ -1,0 +1,146 @@
+schema_version = 1
+stable_id = "THM-LEGACY-CDSignNumericCorrespondence"
+proof_path = "proofs/theories/CDSignNumericCorrespondence.v"
+project_sha256 = "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDSignNumericCorrespondence.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDSignNumericCorrespondence"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[compile_log]
+path = "data/output/audit/cd-numeric-sign-correspondence/kernel-capture/CDSignNumericCorrespondence.compile.txt"
+sha256 = "99a6704258822ca71cbc86001bd22c279bfa19b98dd2513510b2a59528c8e97f"
+
+[kernel_log]
+path = "data/output/audit/cd-numeric-sign-correspondence/kernel-capture/CDSignNumericCorrespondence.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[assumption_log]
+path = "data/output/audit/cd-numeric-sign-correspondence/kernel-capture/CDSignNumericCorrespondence.assumptions.txt"
+sha256 = "83cc873d4a46133dabdfb36dd4c6f5059b8072d704277147dfe78279d872014a"
+
+[proof_object]
+path = "data/output/audit/cd-numeric-sign-correspondence/kernel-capture/theories/CDSignNumericCorrespondence.vo"
+sha256 = "07a22cac67d9fa292343b50615095e3977301e482465ce28b960ca43b83f4d9d"
+
+[[declarations]]
+name = "cube_encode_bound"
+statement = "Lemma cube_encode_bound : forall order (value : cube order), cube_encode order value < 2 ^ order"
+assumptions = []
+
+[[declarations]]
+name = "cube_decode_encode"
+statement = "Lemma cube_decode_encode : forall order (value : cube order), cube_decode order (cube_encode order value) = value"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_decode"
+statement = "Lemma cube_encode_decode : forall order value, value < 2 ^ order -> cube_encode order (cube_decode order value) = value"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_injective"
+statement = "Lemma cube_encode_injective : forall order (left right : cube order), cube_encode order left = cube_encode order right -> left = right"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_zero"
+statement = "Lemma cube_encode_zero : forall order, cube_encode order (cube_zero order) = 0"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_zero_iff"
+statement = "Lemma cube_encode_zero_iff : forall order (value : cube order), cube_encode order value = 0 <-> value = cube_zero order"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_nonzero"
+statement = "Lemma cube_encode_nonzero : forall order (value : cube order), negb (Nat.eqb (cube_encode order value) 0) = cube_nonzero order value"
+assumptions = []
+
+[[declarations]]
+name = "bounded_land_high_zero"
+statement = "Lemma bounded_land_high_zero : forall order value, value < 2 ^ order -> Nat.land value (2 ^ order) = 0"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_high_xor"
+statement = "Lemma cube_encode_high_xor : forall order (value : cube order) high, cube_encode (S order) (value, high) = Nat.lxor (cube_encode order value) (if high then 2 ^ order else 0)"
+assumptions = []
+
+[[declarations]]
+name = "cube_encode_xor"
+statement = "Theorem cube_encode_xor : forall order (left right : cube order), cube_encode order (cube_xor order left right) = Nat.lxor (cube_encode order left) (cube_encode order right)"
+assumptions = []
+
+[[declarations]]
+name = "sign_diagonal"
+statement = "Lemma sign_diagonal : forall order (value : cube order), sign_exponent order value value = cube_nonzero order value"
+assumptions = []
+
+[[declarations]]
+name = "power_half"
+statement = "Lemma power_half : forall order, (2 ^ S order) / 2 = 2 ^ order"
+assumptions = []
+
+[[declarations]]
+name = "numeric_cube_sign"
+statement = "Theorem numeric_cube_sign : forall order fuel (left right : cube order), order <= fuel -> M3IsAssociator.cd_sign_fuel fuel (2 ^ order) (cube_encode order left) (cube_encode order right) = phase_sign (sign_exponent order left right)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_sign_fuel_irrelevant"
+statement = "Theorem numeric_sign_fuel_irrelevant : forall order first second left right, order <= first -> order <= second -> left < 2 ^ order -> right < 2 ^ order -> M3IsAssociator.cd_sign_fuel first (2 ^ order) left right = M3IsAssociator.cd_sign_fuel second (2 ^ order) left right"
+assumptions = []
+
+[[declarations]]
+name = "numeric_associator_sign"
+statement = "Definition numeric_associator_sign order fuel left middle right := (M3IsAssociator.cd_sign_fuel fuel (2 ^ order) middle right * M3IsAssociator.cd_sign_fuel fuel (2 ^ order) left (Nat.lxor middle right) * M3IsAssociator.cd_sign_fuel fuel (2 ^ order) (Nat.lxor left middle) right * M3IsAssociator.cd_sign_fuel fuel (2 ^ order) left middle)%Z"
+assumptions = []
+
+[[declarations]]
+name = "numeric_cube_associator"
+statement = "Theorem numeric_cube_associator : forall order fuel (left middle right : cube order), order <= fuel -> numeric_associator_sign order fuel (cube_encode order left) (cube_encode order middle) (cube_encode order right) = phase_sign (associator_phase order left middle right)"
+assumptions = []
+
+[[declarations]]
+name = "insufficient_fuel_changes_sign"
+statement = "Example insufficient_fuel_changes_sign : M3IsAssociator.cd_sign_fuel 0 4 1 1 <> M3IsAssociator.cd_sign_fuel 2 4 1 1"
+assumptions = []
+
+[[declarations]]
+name = "sign_arguments_do_not_commute"
+statement = "Example sign_arguments_do_not_commute : M3IsAssociator.cd_sign_fuel 2 4 1 2 <> M3IsAssociator.cd_sign_fuel 2 4 2 1"
+assumptions = []
+
+[[declarations]]
+name = "highest_bit_encoding"
+statement = "Example highest_bit_encoding : cube_encode 3 (((tt, true), false), true) = 5"
+assumptions = []
+
+[[declarations]]
+name = "high_high_zero_branch"
+statement = "Example high_high_zero_branch : M3IsAssociator.cd_sign_fuel 3 8 5 4 = (-1)%Z"
+assumptions = []

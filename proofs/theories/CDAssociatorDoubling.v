@@ -2,7 +2,7 @@
     Boolean true denotes coefficient -1. The phase compares bracketings of
     basis units; matrix composition remains associative. Walsh sums are
     unnormalized integer amplitudes, distinct from the ANF transform. *)
-From Stdlib Require Import Bool BinInt ZArithRing btauto.Btauto.
+From Stdlib Require Import Arith Lia Bool ZArith ZArithRing btauto.Btauto.
 From OpenGororoba Require Import SchreierSignCode.
 
 Definition associator_phase order (left middle right : cube order) : bool :=
@@ -194,3 +194,92 @@ Proof. reflexivity. Qed.
 Print Assumptions sign_doubling.
 Print Assumptions independent_pair_coefficient.
 Print Assumptions degenerate_pair_coefficient.
+
+(** Repeated embeddings retain the lower pair and expose every appended bit. *)
+Fixpoint cube_append order extra : cube order -> cube extra -> cube (extra + order) :=
+  match extra with
+  | O => fun value _ => value
+  | S smaller => fun value tail => (cube_append order smaller value (fst tail), snd tail)
+  end.
+Fixpoint constant_cube extra (coefficient : bool) : cube extra :=
+  match extra with O => tt | S smaller => (constant_cube smaller coefficient, coefficient) end.
+Definition cube_embed order extra (value : cube order) :=
+  cube_append order extra value (constant_cube extra false).
+Fixpoint cube_parity extra : cube extra -> bool :=
+  match extra with O => fun _ => false | S smaller => fun value =>
+    xorb (cube_parity smaller (fst value)) (snd value) end.
+Lemma pair_coefficient_low : forall order (left right : cube order),
+  pair_coefficient (S order) (left, false) (right, false) = pair_coefficient order left right.
+Proof.
+  intros. unfold pair_coefficient. cbn [cube_xor fst snd].
+  rewrite !cube_nonzero_double. now rewrite !orb_false_r.
+Qed.
+Lemma pair_coefficient_embed : forall extra order (left right : cube order),
+  pair_coefficient (extra + order) (cube_embed order extra left) (cube_embed order extra right) =
+  pair_coefficient order left right.
+Proof.
+  induction extra; intros; [reflexivity|].
+  change (pair_coefficient (S (extra + order))
+    (cube_embed order extra left, false) (cube_embed order extra right, false) = pair_coefficient order left right).
+  rewrite pair_coefficient_low. apply IHextra.
+Qed.
+Theorem associator_iterated_lifting : forall extra order (left middle input : cube order) tail,
+  associator_phase (extra + order) (cube_embed order extra left) (cube_embed order extra middle)
+    (cube_append order extra input tail) =
+  xorb (associator_phase order left middle input)
+    (andb (cube_parity extra tail) (pair_coefficient order left middle)).
+Proof.
+  induction extra; intros order left middle input tail.
+  - cbn [cube_embed cube_append cube_parity constant_cube Nat.add]. btauto.
+  - destruct tail as [tail high].
+    change (associator_phase (S (extra + order))
+      (cube_embed order extra left, false) (cube_embed order extra middle, false)
+      (cube_append order extra input tail, high) = xorb (associator_phase order left middle input) (andb (cube_parity (S extra) (tail, high)) (pair_coefficient order left middle))).
+    rewrite lower_pair_lifting, pair_coefficient_embed, IHextra.
+    cbn [cube_parity fst snd]. btauto.
+Qed.
+Fixpoint parity_extension order extra (function : cube order -> bool) coefficient : cube (extra + order) -> bool :=
+  match extra with
+  | O => function
+  | S smaller => fun value => xorb (parity_extension order smaller function coefficient (fst value))
+      (andb (snd value) coefficient)
+  end.
+Theorem walsh_iterated_parity : forall extra order function coefficient frequency tail,
+  walsh (extra + order) (parity_extension order extra function coefficient)
+    (cube_append order extra frequency tail) =
+  if cube_equal extra tail (constant_cube extra coefficient)
+  then (Z.of_nat (Nat.pow 2 extra) * walsh order function frequency)%Z else 0%Z.
+Proof.
+  induction extra; intros order function coefficient frequency tail.
+  - cbn [parity_extension cube_append cube_equal Nat.add Nat.pow Z.of_nat]. ring.
+  - destruct tail as [tail high].
+    change (walsh (S (extra + order))
+      (fun value => xorb (parity_extension order extra function coefficient (fst value))
+        (andb (snd value) coefficient)) (cube_append order extra frequency tail, high) = if cube_equal (S extra) (tail, high) (constant_cube (S extra) coefficient) then (Z.of_nat (Nat.pow 2 (S extra)) * walsh order function frequency)%Z else 0%Z).
+    rewrite walsh_parity_extension, IHextra.
+    cbn [cube_equal constant_cube fst snd].
+    destruct (Bool.eqb high coefficient), (cube_equal extra tail (constant_cube extra coefficient));
+      cbn [andb]; rewrite ?Nat.pow_succ_r', ?Nat2Z.inj_mul; cbn [Z.of_nat]; ring.
+Qed.
+Lemma associator_iterated_function : forall extra order (left middle : cube order) input,
+  associator_phase (extra + order) (cube_embed order extra left) (cube_embed order extra middle) input =
+  parity_extension order extra (associator_phase order left middle) (pair_coefficient order left middle) input.
+Proof.
+  induction extra; intros; [reflexivity|]. destruct input as [input high].
+  change (associator_phase (S (extra + order)) (cube_embed order extra left, false)
+    (cube_embed order extra middle, false) (input, high) = parity_extension order (S extra) (associator_phase order left middle) (pair_coefficient order left middle) (input, high)).
+  rewrite lower_pair_lifting, pair_coefficient_embed, IHextra. reflexivity.
+Qed.
+Theorem associator_iterated_walsh : forall extra order (left middle frequency : cube order) tail,
+  walsh (extra + order)
+    (associator_phase (extra + order) (cube_embed order extra left) (cube_embed order extra middle))
+    (cube_append order extra frequency tail) =
+  if cube_equal extra tail (constant_cube extra (pair_coefficient order left middle))
+  then (Z.of_nat (Nat.pow 2 extra) * walsh order (associator_phase order left middle) frequency)%Z else 0%Z.
+Proof.
+  intros. rewrite <- walsh_iterated_parity. unfold walsh.
+  apply integer_cube_sum_ext. intro input. rewrite associator_iterated_function. reflexivity.
+Qed.
+Print Assumptions associator_iterated_lifting.
+Print Assumptions walsh_iterated_parity.
+Print Assumptions associator_iterated_walsh.

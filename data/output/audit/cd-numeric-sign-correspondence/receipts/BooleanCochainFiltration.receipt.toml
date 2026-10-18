@@ -1,0 +1,103 @@
+evidence_key = "numeric-sign-project-BooleanCochainFiltration"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T17:26:13Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-BooleanCochainFiltration"
+proof_path = "proofs/theories/BooleanCochainFiltration.v"
+project_sha256 = "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanCochainFiltration.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanCochainFiltration"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanCochainFiltration.v"
+sha256 = "b9672d8df27dabe052e0ba32f53e9e84230b3735d570efeb311e808678454e69"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BooleanCochainFiltration.compile.txt"
+sha256 = "85a3b45103e22b997503de8b34fc3dab00d0e705ae5dc6469e29fdd4024cd4a1"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BooleanCochainFiltration.kernel.txt"
+sha256 = "6ab673b318a00623c62cd191789fc8932cdf30981865a3044a9538e75c9cd204"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/BooleanCochainFiltration.assumptions.txt"
+sha256 = "09ddec52709464b411a244c6cd92b5316bfa967761743d5c5e2e85cfc37cbd51"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/BooleanCochainFiltration.vo"
+sha256 = "c647d18bc0087974dedd096c85bbf0ae6335c763755770c7c7b0c991d8a62f37"
+
+[[witness.declarations]]
+name = "linear_substitution_preserves_degree"
+statement = "Theorem linear_substitution_preserves_degree : forall polynomial substitution, (forall variable, polynomial_degree (substitution variable) <= 1) -> polynomial_degree (polynomial_substitute polynomial substitution) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "substitution_evaluation"
+statement = "Theorem substitution_evaluation : forall polynomial substitution point, polynomial_evaluate (polynomial_substitute polynomial substitution) point = polynomial_evaluate polynomial (fun variable => polynomial_evaluate (substitution variable) point)"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree_at_most"
+statement = "Definition degree_at_most (function : (nat -> bool) -> bool) (bound : nat) : Prop := exists polynomial, polynomial_degree polynomial <= bound /\\ forall point, polynomial_evaluate polynomial point = function point"
+assumptions = []
+
+[[witness.declarations]]
+name = "addition_preserves_filtration"
+statement = "Theorem addition_preserves_filtration : forall left right bound, degree_at_most left bound -> degree_at_most right bound -> degree_at_most (fun point => xorb (left point) (right point)) bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "linear_pullback_preserves_filtration"
+statement = "Theorem linear_pullback_preserves_filtration : forall function bound substitution, degree_at_most function bound -> (forall variable, polynomial_degree (substitution variable) <= 1) -> degree_at_most (fun point => function (fun variable => polynomial_evaluate (substitution variable) point)) bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "cochain_differential_preserves_degree"
+statement = "Theorem cochain_differential_preserves_degree : forall polynomial faces, Forall (fun face => forall variable, polynomial_degree (face variable) <= 1) faces -> polynomial_degree (face_sum polynomial faces) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "ordinary_coboundary"
+statement = "Definition ordinary_coboundary (left right input : Group) : bool := xorb (xorb (sign_cochain right input) (sign_cochain left (add right input))) (xorb (sign_cochain (add left right) input) (sign_cochain left right))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_exponent"
+statement = "Definition schreier_exponent (left right input : Group) : bool := xorb (xorb (sign_cochain right input) (sign_cochain left (add right input))) (sign_cochain (add left right) input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_schreier_is_coboundary"
+statement = "Theorem normalized_schreier_is_coboundary : forall left right input, xorb (schreier_exponent left right input) (schreier_exponent left right identity) = ordinary_coboundary left right input"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_face"
+statement = "Definition xor_group_face (block_dimension arity face variable : nat) : boolean_polynomial := if Nat.eqb face 0 then PolynomialVariable (variable + block_dimension) else if Nat.leb face arity then let argument := variable / block_dimension in if Nat.ltb argument (face - 1) then PolynomialVariable variable else if Nat.eqb argument (face - 1) then PolynomialSum (PolynomialVariable variable) (PolynomialVariable (variable + block_dimension)) else PolynomialVariable (variable + block_dimension) else PolynomialVariable variable"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_face_linear"
+statement = "Theorem xor_group_face_linear : forall block_dimension arity face variable, polynomial_degree (xor_group_face block_dimension arity face variable) <= 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_differential"
+statement = "Definition xor_group_differential (block_dimension arity : nat) (polynomial : boolean_polynomial) : boolean_polynomial := face_sum polynomial (map (xor_group_face block_dimension arity) (seq 0 (arity + 2)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_differential_preserves_degree"
+statement = "Theorem xor_group_differential_preserves_degree : forall block_dimension arity polynomial, polynomial_degree (xor_group_differential block_dimension arity polynomial) <= polynomial_degree polynomial"
+assumptions = []

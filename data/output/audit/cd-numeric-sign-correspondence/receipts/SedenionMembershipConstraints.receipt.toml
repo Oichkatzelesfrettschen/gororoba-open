@@ -1,0 +1,115 @@
+evidence_key = "numeric-sign-project-SedenionMembershipConstraints"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T17:26:13Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SedenionMembershipConstraints"
+proof_path = "proofs/theories/SedenionMembershipConstraints.v"
+project_sha256 = "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionMembershipConstraints.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SedenionMembershipConstraints"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/theories/Sedenion.v"
+sha256 = "f7fa97304850eaa6004d3917fe37be555b40568fc65389887bbe489fbc922681"
+
+[[witness.sources]]
+path = "proofs/theories/SedenionMembershipConstraints.v"
+sha256 = "ff8cd71e981c4b8d6270837e2c4d78ec2f97027559ab3c84730eb299a5258b57"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionMembershipConstraints.compile.txt"
+sha256 = "5e9615c22eec0884fc3ed7c9fded682a717e12badb0931d31159765bd3b806e1"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionMembershipConstraints.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionMembershipConstraints.assumptions.txt"
+sha256 = "2482ad2ef78ce66934c47f285665a0f415269a0e1709891c9a15b3def9cfb9aa"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/SedenionMembershipConstraints.vo"
+sha256 = "5c25a506247a8cf09ffede2db4ca89bf8bfea1f40170ff15c47c5cfae2b5c4af"
+
+[[witness.declarations]]
+name = "sedenion_d2"
+statement = "Definition sedenion_d2 (scalar_left scalar_right norm_left norm_right inner : R) : R := let scalar_norm := scalar_left^2 + scalar_right^2 in scalar_norm^2 + 2 * scalar_norm * (norm_left + norm_right) + (norm_left - norm_right)^2 + 4 * inner^2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "sedenion_d2_zero_iff"
+statement = "Theorem sedenion_d2_zero_iff : forall scalar_left scalar_right norm_left norm_right inner, 0 <= norm_left -> 0 <= norm_right -> (sedenion_d2 scalar_left scalar_right norm_left norm_right inner = 0 <-> scalar_left = 0 /\\ scalar_right = 0 /\\ norm_left = norm_right /\\ inner = 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sedenion_d2_gradient"
+statement = "Definition sedenion_d2_gradient (scalar_left scalar_right norm_left norm_right inner : R) : R * R * R * R * R := let total := scalar_left^2 + scalar_right^2 + norm_left + norm_right in (4 * scalar_left * total, 4 * scalar_right * total, 2 * (scalar_left^2 + scalar_right^2) + 2 * (norm_left - norm_right), 2 * (scalar_left^2 + scalar_right^2) - 2 * (norm_left - norm_right), 8 * inner)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "sedenion_d2_gradient_vanishes"
+statement = "Theorem sedenion_d2_gradient_vanishes : forall norm, sedenion_d2_gradient 0 0 norm norm 0 = (0, 0, 0, 0, 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "membership_sed_scale"
+statement = "Definition membership_sed_scale (factor : R) (value : CDSed) : CDSed := mkSed (mkOct (quat_scale factor (oct_lo (sed_lo value))) (quat_scale factor (oct_hi (sed_lo value)))) (mkOct (quat_scale factor (oct_lo (sed_hi value))) (quat_scale factor (oct_hi (sed_hi value))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "parallel_imaginary_halves"
+statement = "Definition parallel_imaginary_halves : CDSed := mkSed (oct_e 1) (oct_e 1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "scalar_and_imaginary_halves"
+statement = "Definition scalar_and_imaginary_halves : CDSed := mkSed (oct_e 0) (oct_e 1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "scalar_and_imaginary_left_inverse"
+statement = "Definition scalar_and_imaginary_left_inverse : CDSed := mkSed (oct_e 0) (mkOct (mkQuat 0 (-1) 0 0) quat_zero)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "parallel_halves_left_square"
+statement = "Theorem parallel_halves_left_square : forall value, sed_mul parallel_imaginary_halves (sed_mul parallel_imaginary_halves value) = membership_sed_scale (-2) value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_halves_left_inverse"
+statement = "Theorem scalar_halves_left_inverse : forall value, sed_mul scalar_and_imaginary_left_inverse (sed_mul scalar_and_imaginary_halves value) = membership_sed_scale 2 value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "membership_scale_injective_at_zero"
+statement = "Theorem membership_scale_injective_at_zero : forall factor value, factor <> 0 -> membership_sed_scale factor value = sed_zero -> value = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "parallel_halves_trivial_kernel"
+statement = "Theorem parallel_halves_trivial_kernel : forall value, sed_mul parallel_imaginary_halves value = sed_zero -> value = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_halves_trivial_kernel"
+statement = "Theorem scalar_halves_trivial_kernel : forall value, sed_mul scalar_and_imaginary_halves value = sed_zero -> value = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

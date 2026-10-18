@@ -1,0 +1,40 @@
+Declaration: cube_encode_bound
+Closed under the global context
+Declaration: cube_decode_encode
+Closed under the global context
+Declaration: cube_encode_decode
+Closed under the global context
+Declaration: cube_encode_injective
+Closed under the global context
+Declaration: cube_encode_zero
+Closed under the global context
+Declaration: cube_encode_zero_iff
+Closed under the global context
+Declaration: cube_encode_nonzero
+Closed under the global context
+Declaration: bounded_land_high_zero
+Closed under the global context
+Declaration: cube_encode_high_xor
+Closed under the global context
+Declaration: cube_encode_xor
+Closed under the global context
+Declaration: sign_diagonal
+Closed under the global context
+Declaration: power_half
+Closed under the global context
+Declaration: numeric_cube_sign
+Closed under the global context
+Declaration: numeric_sign_fuel_irrelevant
+Closed under the global context
+Declaration: numeric_associator_sign
+Closed under the global context
+Declaration: numeric_cube_associator
+Closed under the global context
+Declaration: insufficient_fuel_changes_sign
+Closed under the global context
+Declaration: sign_arguments_do_not_commute
+Closed under the global context
+Declaration: highest_bit_encoding
+Closed under the global context
+Declaration: high_high_zero_branch
+Closed under the global context

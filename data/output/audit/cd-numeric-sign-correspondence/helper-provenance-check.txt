@@ -1,0 +1,1 @@
+Fresh corrected-helper capture reproduces all referenced raw compiler, kernel, assumption, witness, source-closure and proof-object bytes. The retained executed helper now matches the outer source exactly. Historical helper attribution was corrected through a new execution.
