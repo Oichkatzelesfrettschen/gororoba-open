@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 315 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 316 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -213,6 +213,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDScalarExtension` | `CDScalarExtension` | `proofs/theories/CDScalarExtension.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSignBridge` | `CDSignBridge` | `proofs/theories/CDSignBridge.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSignHalfStep` | `CDSignHalfStep` | `proofs/theories/CDSignHalfStep.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDSignNumericCorrespondence` | `CDSignNumericCorrespondence` | `proofs/theories/CDSignNumericCorrespondence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDSignSection` | `CDSignSection` | `proofs/theories/CDSignSection.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDTowerInstantiation` | `CDTowerInstantiation` | `proofs/theories/CDTowerInstantiation.v` | source_only | explicit_link | C-1503 |
 | `THM-LEGACY-CDTraceZero` | `CDTraceZero` | `proofs/theories/CDTraceZero.v` | source_only | unresolved | - |

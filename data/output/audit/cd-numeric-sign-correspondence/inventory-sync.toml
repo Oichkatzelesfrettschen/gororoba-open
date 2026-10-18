@@ -1,0 +1,5 @@
+sync_key = "cd-numeric-sign-correspondence"
+actor = "chatgpt-codex"
+reason = "Register all-order numeric sign correspondence and repeated lifting while preserving existing theorem histories."
+applied_at = "2026-10-18T17:25:35Z"
+project_sha256 = "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c"

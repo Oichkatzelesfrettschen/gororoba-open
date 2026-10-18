@@ -144,6 +144,7 @@ check-admissions: test-admission-check scan-admissions
 check: all check-admissions
 
 check-plugins:
+	rocq compile -q -w +default tests/MathCompMatrixCompatibility.v
 	rocq compile -q -w +default tests/PluginCompatibility.v
 
 extract: all

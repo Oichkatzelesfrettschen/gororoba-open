@@ -1,0 +1,51 @@
+Rocq formalization program
+==========================
+Base: 7eb2f542ce27b1185c6d1bbf55dc0422e348d156.
+Execution contract: twelve new modules, six extensions, focused dependency PRs,
+fresh kernel receipts, hosted validation, canonical sync, owned-worktree cleanup.
+IBMQuantum is read-only. Quantum submissions are prohibited for this program.
+
+Ordered work queue
+------------------
+ACTIVE: qualify MathComp algebra/field 2.6.0 in Rocq 9.3.0; freeze exact pins.
+PENDING: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
+PENDING: WalshProbability; BooleanANFDegree; BooleanCochainFiltration extension;
+         CDPhaseDegree.
+PENDING: CDAssociatorCensus; CDSparseBlockTransport and photonic mapping.
+PENDING: RecordedFeedbackInstrument; BranchSignedCoherence extension;
+         FinitePlannedLookCoverage; TerminalChannelEmpiricalCertificate extension.
+PENDING: ExactRankCertificate; SchurKernelTransport; CDPureDoublingKernel;
+         SedenionFoldTransport extension.
+PENDING: SchurAccelerationObstruction; NullityTwelveQuadraticLocus coefficient
+         correspondence and explicit rational curve certificates.
+PENDING: investigate complex-skew representation, persistent kernel limits,
+         full selected-center tangent cone, and determinant-line transport.
+
+Each capability follows statement/input freeze, diagnostic fixtures, supporting
+lemmas, theorem proof, rejected mutations, captured evidence, independent review,
+hosted CI, integration, sync and cleanup. Only one task is active at a time.
+The kernel and receipt gates retain assumptions and distinguish physical models.
+
+Decisions and observations
+--------------------------
+MathComp finite matrices use repository column/right-kernel adapters.
+Exact finite certificates use rationals with a proved real specialization.
+Existing theorem statements and historical inputs remain preserved.
+SchreierSignCode already proves ANF involution, uniqueness and monomial
+independence. BooleanANFDegree will reuse those declarations.
+
+Progress: numeric sign correspondence and repeated lifting compile; the
+316-module multicore build exits zero. Three altered-law compiles fail at
+proof obligations. Independent source review found zero mathematical blockers.
+The dependency closure is frozen by qualified-rocq-9.3.export and imported by
+hosted installation; same-switch dry-run import reports Nothing to do.
+Fresh project-bound receipt renewal is in progress before export and integration.
+Next-module scratch: WalshProbability proves integer Parseval, orthogonality,
+finite real-law normalization and parity probability transport. Its real results
+report the Stdlib real/functional-extensionality foundations explicitly.
+Batch 1 local verification complete: 316 proof objects, zero admissions,
+47 closed declaration queries, three rejected sign mutations, independent
+source review and MathComp kernel replay. All 23 project-bound receipts were
+admitted through fresh replay. Canonical export, integrity and identity
+verification passed; final inventory is 23 kernel_checked and 293 source_only.
+Integration remains pending hosted CI and review of the final payload.

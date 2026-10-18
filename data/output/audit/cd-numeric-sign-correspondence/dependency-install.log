@@ -1,0 +1,18 @@
+The following actions will be performed:
+=== install 5 packages
+  ∗ rocq-mathcomp-algebra      2.6.0
+  ∗ rocq-mathcomp-field        2.6.0
+  ∗ rocq-mathcomp-finite-group 2.6.0
+  ∗ rocq-mathcomp-solvable     2.6.0
+  ∗ rocq-micromega-plugin      1.1.1
+
+<><> Processing actions <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+⬇ retrieved rocq-mathcomp-algebra.2.6.0, rocq-mathcomp-field.2.6.0, rocq-mathcomp-finite-group.2.6.0, rocq-mathcomp-solvable.2.6.0  (cached)
+⬇ retrieved rocq-micromega-plugin.1.1.1  (https://github.com/rocq-community/micromega-plugin/archive/refs/tags/v1.1.1.tar.gz)
+∗ installed rocq-micromega-plugin.1.1.1
+∗ installed rocq-mathcomp-finite-group.2.6.0
+∗ installed rocq-mathcomp-algebra.2.6.0
+∗ installed rocq-mathcomp-solvable.2.6.0
+∗ installed rocq-mathcomp-field.2.6.0
+Done.
+# To update the current shell environment, run: eval $(opam env)

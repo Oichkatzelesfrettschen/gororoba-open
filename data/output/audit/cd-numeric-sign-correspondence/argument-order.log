@@ -1,0 +1,4 @@
+File "/tmp/rocq-sign-mutations.pRtboH/Mutation.v", line 128, characters 8-70:
+Error: Found no subterm matching "sign_exponent order (cube_zero order) left"
+in the current goal.
+

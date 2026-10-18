@@ -1,0 +1,34 @@
+Run from the repository root with the qualified rocq-9.3 switch.
+
+opam switch import --switch=rocq-9.3 --yes proofs/opam/qualified-rocq-9.3.export
+opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+opam exec --switch=rocq-9.3 -- make -C proofs check-admissions check-plugins
+
+The full build exits zero and full-build-objects.sha256 lists 316 objects.
+The independent capture retains 47 recognized declaration queries, all closed
+under the global context. Its kernel-capture directory includes the executed
+Rust helper, source closure, raw logs, proof objects and byte manifest.
+MathComp matching-rank and rational-transpose probes are closed; checking their
+complete imported context additionally lists upstream primitive declarations.
+The full opam export pins versions, source metadata and the Equations patch.
+
+Compile capture_rocq_receipts.rs with rustc --edition=2024 -D warnings and run:
+  capture REPOSITORY FRESH_SCRATCH /path/to/rocq-9.3/bin
+Then run:
+  capture organize FRESH_SCRATCH/kernel
+The checked-in helper enforces this batch's exact project digest. Use its
+--test build to execute seven source/declaration-parser regression tests.
+
+Each mutated compile starts from CDSignNumericCorrespondence.v in a fresh
+scratch directory as Mutation.v and changes exactly one surface:
+argument-order: phase_sign (sign_exponent order left right). -> swapped pair
+high-bit-order: if snd value then 2 ^ lower else 0 -> high contribution 1
+insufficient-fuel: order <= fuel -> 0 <= fuel
+The retained logs show proof failures. Concrete examples separately witness
+asymmetric signs, the highest-bit encoding and insufficient-fuel disagreement.
+
+Receipt specifications are canonical events with explicit prior-state hashes.
+Their CLI admissions perform fresh trusted replay. Reapplying an old prestate
+after a different canonical update is expected to fail its applicability gate.
+The receipt preparation note distinguishes the initial candidate-input count
+from the 23 unique admitted specifications. Historical inputs remain retained.

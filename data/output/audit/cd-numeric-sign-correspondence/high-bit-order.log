@@ -1,0 +1,4 @@
+File "/tmp/rocq-sign-mutations.pRtboH/Mutation.v", line 26, characters 4-17:
+Error: Found no subterm matching
+"cube_encode order value + 2 ^ order <? 2 ^ order" in the current goal.
+

@@ -17,9 +17,10 @@ opam switch create rocq-9.3 ocaml-base-compiler.5.5.1 --jobs="$(nproc)" --yes
 opam repository add rocq-released https://rocq-prover.org/opam/released --switch=rocq-9.3 --yes
 opam update
 opam install --switch=rocq-9.3 rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 --jobs="$(nproc)" --yes
-opam install --switch=rocq-9.3 rocq-elpi.3.5.1 rocq-hierarchy-builder.1.10.3 rocq-mathcomp-ssreflect.2.6.0 coq-ext-lib.0.13.2 --jobs="$(nproc)" --yes
 opam repository add gororoba-proof-ports "$PWD/proofs/opam" --switch=rocq-9.3 --yes
+opam install --switch=rocq-9.3 rocq-elpi.3.5.1 rocq-hierarchy-builder.1.10.3 rocq-mathcomp-ssreflect.2.6.0 rocq-mathcomp-algebra.2.6.0 rocq-mathcomp-field.2.6.0 rocq-mathcomp-finite-group.2.6.0 rocq-mathcomp-solvable.2.6.0 rocq-micromega-plugin.1.1.1 coq-ext-lib.0.13.2 --jobs="$(nproc)" --yes
 opam install --switch=rocq-9.3 rocq-equations.1.3.2+9.3 --with-test --jobs="$(nproc)" --yes
+opam switch import --switch=rocq-9.3 --jobs="$(nproc)" --yes proofs/opam/qualified-rocq-9.3.export
 opam list --switch=rocq-9.3 --installed
 opam exec --switch=rocq-9.3 -- rocq --version
 opam exec --switch=rocq-9.3 -- make -C proofs check-plugins
@@ -202,3 +203,25 @@ the authority for integrating the branch.
 - [WasmCert development port](https://github.com/WasmCert/WasmCert-Coq/tree/882c621bd9316eff815f49a251c77e9547eb35c7)
 - [CertiRocq](https://github.com/CertiRocq/certirocq)
 - [Rust extraction](https://github.com/AU-COBRA/coq-rust-extraction)
+
+## Numeric sign correspondence
+
+`theories/CDSignNumericCorrespondence.v` connects highest-bit Boolean cubes
+to numeric XOR indices at every power-of-two dimension. The sign theorem
+requires fuel at least the order, proves stability under excess fuel, and
+covers the high/high zero-index branch. The associator correspondence compares
+all four sign factors. Repeated lifting and Walsh factorization in
+`CDAssociatorDoubling.v` expose the entire deterministic appended frequency
+mask. These results establish mathematical correspondence; physical gate
+semantics and Born-law applications retain their separate contracts.
+
+MathComp algebra and field 2.6.0 supply the matrix foundation for the follow-on
+formalization program. The repository opam overlay retains source-checksummed
+recipes for algebra, field, finite-group, solvable and micromega-plugin 1.1.1.
+
+`proofs/opam/qualified-rocq-9.3.export` freezes the complete qualified switch,
+including transitive versions and source metadata. Hosted installation imports
+the lock before compatibility tests. A package inventory records an observation;
+the switch import enforces that observation on installation. The retained
+same-switch import dry run reports `Nothing to do.`. Fresh hosted installation
+remains the cross-platform replay gate.

@@ -1,0 +1,8 @@
+proof_path	compilation_position	source_path
+proofs/theories/CDAssociatorDoubling.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/CDAssociatorDoubling.v	1	proofs/theories/CDAssociatorDoubling.v
+proofs/theories/CDSignNumericCorrespondence.v	0	proofs/theories/M3IsAssociator.v
+proofs/theories/CDSignNumericCorrespondence.v	1	proofs/theories/CDSignHalfStep.v
+proofs/theories/CDSignNumericCorrespondence.v	2	proofs/theories/SchreierSignCode.v
+proofs/theories/CDSignNumericCorrespondence.v	3	proofs/theories/CDAssociatorDoubling.v
+proofs/theories/CDSignNumericCorrespondence.v	4	proofs/theories/CDSignNumericCorrespondence.v

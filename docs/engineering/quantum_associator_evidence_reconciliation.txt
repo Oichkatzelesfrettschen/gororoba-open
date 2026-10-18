@@ -236,3 +236,13 @@ The rebuilt current-source control-plane verifier confirms 315 proof files,
 315 theorem records and the retained 20 kernel-checked claim links. SQLite
 integrity and theorem identity checks pass. Hosted validation owns repository
 integration; the retained local commands establish their named surfaces.
+
+Numeric correspondence update
+-----------------------------
+CDSignNumericCorrespondence proves all-order cube/numeric encoding, XOR,
+sign and associator correspondence for power-of-two dimensions with sufficient
+fuel. Excess fuel preserves the sign. CDAssociatorDoubling additionally proves
+iterated lifting and the complete appended Walsh frequency mask. The earlier
+numeric-bridge frontier above describes the historical reconciliation state;
+these declarations close that mathematical correspondence. They leave physical
+circuit semantics and Born normalization as separate application obligations.
