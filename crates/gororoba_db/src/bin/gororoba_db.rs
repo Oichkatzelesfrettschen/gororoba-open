@@ -1688,9 +1688,7 @@ fn declared_binary_targets(repo_root: &Path) -> Result<Vec<provenance_store::Bin
             }
             let name = target["name"].as_str().unwrap_or_default().to_string();
             records.push(provenance_store::BinaryRecord {
-                description: format!(
-                    "Workspace binary discovered from cargo metadata in crate {crate_name}; registry metadata pending."
-                ),
+                description: format!("Workspace executable {name} declared by crate {crate_name}."),
                 name,
                 crate_name: crate_name.clone(),
                 experiment: None,

@@ -400,7 +400,10 @@ pub fn parse_soho_celias_bundle_file(path: &Path) -> Result<Vec<SohoCeliasRecord
             let mut member = zip
                 .by_index(i)
                 .map_err(|e| FetchError::Validation(format!("zip member error: {}", e)))?;
-            let member_name = member.name().to_ascii_lowercase();
+            let member_name = member
+                .name()
+                .map_err(|error| FetchError::Validation(format!("zip member name error: {error}")))?
+                .to_ascii_lowercase();
             if !member_name.ends_with(".txt") {
                 continue;
             }

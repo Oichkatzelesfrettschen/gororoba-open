@@ -67,3 +67,31 @@ test. Final retained source, object and numerical identities were refreshed.
 In progress: hosted CI and integration.
 Pending: exact-head hosted CI, merge, canonical synchronization and managed
 worktree archival. Existing dirty worktrees remain separately retained.
+
+Hosted dependency repair
+------------------------
+The first hosted run39006288031 passed hygiene and failed current dependency
+policy: rustls0.23.45 triggers RUSTSEC-2026-0346 through0349; zip8.5.0 triggers
+RUSTSEC-2026-0367 through0369. The dependency owner must upgrade to patched
+versions, preserve the advisory policy, verify affected consumers and refresh
+all retained source manifests through their producers before exact-head replay.
+ZIP9 changes ZipFile::name() from a borrowed string to a decoding Result.
+The compatibility repair propagates name-decoding failures through the existing
+catalog/ingestion error contracts before using entry names. Focused archive
+reader tests and the changed binary's Clippy diagnosis accompany the upgrade.
+
+Canonical integration repair
+----------------------------
+Hosted governance also requires canonical registration of vacuum-response-audit
+and a refreshed source-bound BooleanCochainFiltration execution receipt after
+_RocqProject grew. Synchronize the eight new proof module inventory entries,
+record trusted per-module kernel replay evidence where supported, regenerate
+compatibility exports and signatures through the canonical CLI. Preserve claim
+statuses and append-only history; source registration establishes its own layer.
+Hosted documentation lint interpreted indexed phase-weight notation as links;
+the Rustdoc source now marks the complete indexed expression as inline code.
+The scientific table failure is a measured2.406e-17 residual-fraction difference
+inside an ill-conditioned nuisance projection. Preserve the exact-output gate;
+retain fresh hosted producer artifacts after final source changes and then
+require a second exact-head hosted replay. Cross-platform bitwise identity
+remains unproved.

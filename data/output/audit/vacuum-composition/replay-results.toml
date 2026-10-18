@@ -61,3 +61,27 @@ worldline = "Real scalar Dirichlet interaction in3+1 dimensions. At5000 loops,51
 materials = "Ideal and reference local gold Drude models; specimen binding and measured optical response remain unprovided."
 sources = "Recovered QET/DESI primary texts do not establish net work or laboratory energy inventory. Monograph pp34-35 and original1.7e57 pairs/s derivation remain unrecovered."
 formal_boundary = "Real arithmetic kernel proofs do not certify floating-point execution or physical hypotheses. Finite partial-sum results do not establish an infinite-series limit."
+
+[first_hosted_run]
+run_id = 39006288031
+head = "080acb9c954ed198927e350363e7c8a6283c03da"
+passed_jobs = 29
+failure_leaves = ["dependency_advisories", "canonical_inventory_and_stale_project_receipts", "casimir_residual_output_portability", "rustdoc_indexed_notation_links"]
+proof_verification = "passed"
+completion = "All independent leaves reached terminal outcomes; aggregate validation failed."
+casimir_absolute_residual_fraction_difference = 2.40610694e-17
+casimir_projection_condition_estimate = 1.2054e7
+portability_scope = "Equivalent floating-point projection reconstructions produce comparable rounding differences. Exact platform mechanism and cross-platform bitwise identity remain unproved. Preserve exact gate and retain fresh hosted producer outputs before replay."
+
+[dependency_policy_repair]
+rustls = "0.23.46"
+zip = "9.0.0"
+prior_model_input_manifest_sha256 = "3bd9a4bea0122645bbc4b5fbd57f490c7a135ecea72381e2b0da99d6a6153cb1"
+repair_inputs = "data/output/audit/vacuum-composition/dependency-input-SHA256SUMS"
+compatibility = "Fallible ZIP entry names propagate through existing JARVIS, SOHO CELIAS and orix error contracts; existing CP437 support remains."
+behavior_tests = "SOHO ZIP writer/reader and malformed JARVIS filename-length/destination-preservation tests passed."
+consumer_checks = "provenance_ops library and cr-modulation-sweep compile; affected library/test and CLI Clippy with -D warnings passed."
+policy = "cargo-deny0.20.2 advisories/bans/licenses/sources:0 errors;4 advisory warnings,59 duplicate-version warnings,2 unused-license-allowance warnings. Policy unchanged."
+policy_warning_scope = "ZIP requires new major AES/SHA1 coexistence. Existing duplicate/yanked/unused-ignore/allowance warnings remain separately reported."
+rustdoc = "RUSTDOCFLAGS='-D warnings' cargo doc --locked --offline -p quantum_core --lib --no-deps: passed after indexed expression markup repair."
+canonical_cli_clippy = "cargo clippy --locked --offline -p gororoba_db --bin gororoba-db -- -D warnings: passed."

@@ -458,7 +458,7 @@ pub struct GaussianCoherence {
 /// Coupling supplies angular-frequency/displacement derivatives (rad/s/m).
 /// Empirical prediction requires independent calibration; investigator-selected
 /// values instead define a conditional model. Phase variance is w^T C w with
-/// w[time,coordinate] = signed_weight[time]*coupling[coordinate].
+/// `w[time,coordinate] = signed_weight[time]*coupling[coordinate]`.
 /// Duration is seconds and bounds sum(abs(weights)); T1, when supplied, is a
 /// positive relaxation time in seconds; empirical use requires independent
 /// measurement. Coherence is

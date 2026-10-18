@@ -55,7 +55,11 @@ pub(crate) fn extract_json_from_zip(zip_path: &Path, json_dest: &Path) -> Result
         let mut entry = archive
             .by_index(i)
             .map_err(|e| FetchError::Validation(format!("ZIP entry error: {e}")))?;
-        if entry.name().ends_with(".json") {
+        let entry_name = entry
+            .name()
+            .map_err(|error| FetchError::Validation(format!("ZIP entry name error: {error}")))?
+            .into_owned();
+        if entry_name.ends_with(".json") {
             let mut out = std::fs::File::create(json_dest)?;
             std::io::copy(&mut entry, &mut out)?;
             return Ok(());
@@ -351,5 +355,36 @@ mod tests {
         let mats = parse_jarvis_json(temp.path()).expect("lenient parse");
         assert_eq!(mats.len(), 1);
         assert_eq!(mats[0].jid, "JVASP-TEST");
+    }
+
+    #[test]
+    fn zip_malformed_name_length_preserves_json_destination() {
+        use std::io::{Cursor, Write};
+        use zip::write::SimpleFileOptions;
+        let mut writer = zip::ZipWriter::new(Cursor::new(Vec::new()));
+        writer
+            .start_file(
+                "sample.json",
+                SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored),
+            )
+            .unwrap();
+        writer.write_all(b"{}").unwrap();
+        let mut archive_bytes = writer.finish().unwrap().into_inner();
+        let central = archive_bytes
+            .windows(4)
+            .position(|signature| signature == [0x50, 0x4b, 0x01, 0x02])
+            .unwrap();
+        // A declared filename extending beyond the central directory is an
+        // invalid archive, independent of supported UTF-8 and CP437 decoding.
+        archive_bytes[central + 28..central + 30].copy_from_slice(&u16::MAX.to_le_bytes());
+        let mut source = tempfile::NamedTempFile::new().unwrap();
+        source.write_all(&archive_bytes).unwrap();
+        let mut destination = tempfile::NamedTempFile::new().unwrap();
+        destination.write_all(b"retained").unwrap();
+        let result = extract_json_from_zip(source.path(), destination.path());
+        assert!(
+            matches!(result, Err(FetchError::Validation(message)) if message.contains("ZIP open error"))
+        );
+        assert_eq!(std::fs::read(destination.path()).unwrap(), b"retained");
     }
 }

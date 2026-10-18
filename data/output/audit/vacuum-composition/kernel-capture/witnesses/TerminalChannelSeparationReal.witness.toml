@@ -1,0 +1,60 @@
+schema_version = 1
+stable_id = "THM-LEGACY-TerminalChannelSeparationReal"
+proof_path = "proofs/theories/TerminalChannelSeparationReal.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelSeparationReal.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelSeparationReal"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/TerminalChannelSeparationReal.v"
+sha256 = "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4"
+
+[compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/TerminalChannelSeparationReal.compile.txt"
+sha256 = "50931813f874961585e741e6033e3b8b948bee12e207b52c21e34f3d2a976c2f"
+
+[kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/TerminalChannelSeparationReal.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/TerminalChannelSeparationReal.assumptions.txt"
+sha256 = "d488255ff44df3f896a34370e85bfa2b6ca82327912dc902725a3b1901679b1b"
+
+[proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/TerminalChannelSeparationReal.vo"
+sha256 = "0e84917567b1c4efaed5b58e1a5e1817d1a7ba4abe5fa65d16fbc67a53a04631"
+
+[[declarations]]
+name = "binary_channel"
+statement = "Definition binary_channel (false_positive true_positive input_mean : R) : R := false_positive * (1 - input_mean) + true_positive * input_mean"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "binary_channel_contracts_separation"
+statement = "Theorem binary_channel_contracts_separation : forall false_positive true_positive first_mean second_mean, 0 <= false_positive <= 1 -> 0 <= true_positive <= 1 -> Rabs (binary_channel false_positive true_positive first_mean - binary_channel false_positive true_positive second_mean) <= Rabs (first_mean - second_mean)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "absolute_radius_bounds"
+statement = "Lemma absolute_radius_bounds : forall value center radius, Rabs (value - center) <= radius -> center - radius <= value <= center + radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "difference_radius_bound"
+statement = "Theorem difference_radius_bound : forall first second first_center second_center first_radius second_radius, Rabs (first - first_center) <= first_radius -> Rabs (second - second_center) <= second_radius -> Rabs ((first - second) - (first_center - second_center)) <= first_radius + second_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "separation_radius_bound"
+statement = "Theorem separation_radius_bound : forall first second first_center second_center first_radius second_radius, Rabs (first - first_center) <= first_radius -> Rabs (second - second_center) <= second_radius -> Rabs (first - second) <= Rabs (first_center - second_center) + first_radius + second_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "separated_centers_exclude_common_binary_channel"
+statement = "Theorem separated_centers_exclude_common_binary_channel : forall output_first output_second input_first input_second output_first_center output_second_center input_first_center input_second_center output_first_radius output_second_radius input_first_radius input_second_radius, Rabs (output_first - output_first_center) <= output_first_radius -> Rabs (output_second - output_second_center) <= output_second_radius -> Rabs (input_first - input_first_center) <= input_first_radius -> Rabs (input_second - input_second_center) <= input_second_radius -> Rabs (input_first_center - input_second_center) + output_first_radius + output_second_radius + input_first_radius + input_second_radius < Rabs (output_first_center - output_second_center) -> ~ exists false_positive true_positive, 0 <= false_positive <= 1 /\\ 0 <= true_positive <= 1 /\\ output_first = binary_channel false_positive true_positive input_first /\\ output_second = binary_channel false_positive true_positive input_second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

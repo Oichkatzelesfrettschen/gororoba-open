@@ -40,6 +40,10 @@ pub fn download_orix_dataset(target_dir: &Path) -> Result<()> {
 
     for i in 0..archive.len() {
         let mut file = archive.by_index(i)?;
+        let member_name = file
+            .name()
+            .context("Failed to decode ZIP entry name")?
+            .into_owned();
         let name = file.enclosed_name().context("Invalid file name in ZIP")?;
 
         // Skip the top-level directory (e.g., "orix-data-master/")
@@ -53,7 +57,7 @@ pub fn download_orix_dataset(target_dir: &Path) -> Result<()> {
 
         let outpath = target_dir.join(relative_path);
 
-        if (*file.name()).ends_with('/') {
+        if member_name.ends_with('/') {
             create_dir_all(&outpath)?;
         } else {
             if let Some(p) = outpath.parent()

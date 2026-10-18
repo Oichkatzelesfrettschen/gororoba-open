@@ -1,0 +1,81 @@
+schema_version = 1
+stable_id = "THM-LEGACY-VacuumCounterexamples"
+proof_path = "proofs/theories/VacuumCounterexamples.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/VacuumCounterexamples.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.VacuumCounterexamples"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[sources]]
+path = "proofs/theories/FiniteComplexPassivity.v"
+sha256 = "87859b845f0de51a747a5559a497fd571a305eca8a6d87a8e33da41a00106f60"
+
+[[sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[[sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[sources]]
+path = "proofs/theories/VacuumCounterexamples.v"
+sha256 = "a0e05efba6c9dcbf145fcb4d593e276efdc97b37beecfd925a56d43323586c81"
+
+[compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumCounterexamples.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumCounterexamples.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumCounterexamples.assumptions.txt"
+sha256 = "135415f86e93bee5b33fffa46d79de02783bb402f416a24f532ba8bcd385269c"
+
+[proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/VacuumCounterexamples.vo"
+sha256 = "5360ac259083d03561957d96f50e54e2b4e72473a795a1ee51e0c968bf7ee6e1"
+
+[[declarations]]
+name = "complex_difference"
+statement = "Definition complex_difference first second := complex_add first (complex_scale (-1) second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "complex_real_pair"
+statement = "Definition complex_real_pair first second := cre first * cre second + cim first * cim second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "depolarizing_choi_form"
+statement = "Definition depolarizing_choi_form parameter first second third fourth := ((1 + parameter) * (complex_norm_sq first + complex_norm_sq fourth) + (1 - parameter) * (complex_norm_sq second + complex_norm_sq third) + 4 * parameter * complex_real_pair first fourth) / 4"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "depolarizing_choi_psd"
+statement = "Definition depolarizing_choi_psd parameter := forall first second third fourth, 0 <= depolarizing_choi_form parameter first second third fourth"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "depolarizing_choi_bell_decomposition"
+statement = "Theorem depolarizing_choi_bell_decomposition : forall parameter first second third fourth, depolarizing_choi_form parameter first second third fourth = (1 + 3 * parameter) / 8 * complex_norm_sq (complex_add first fourth) + (1 - parameter) / 8 * complex_norm_sq (complex_difference first fourth) + (1 - parameter) / 4 * (complex_norm_sq second + complex_norm_sq third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "depolarizing_choi_psd_interval"
+statement = "Theorem depolarizing_choi_psd_interval : forall parameter, depolarizing_choi_psd parameter <-> -1/3 <= parameter <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "depolarizing_negative_half_witness"
+statement = "Theorem depolarizing_negative_half_witness : depolarizing_choi_form (-1/2) complex_one complex_zero complex_zero complex_one = -1/4"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

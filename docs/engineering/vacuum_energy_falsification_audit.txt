@@ -139,10 +139,6 @@ The example vacuum_falsification prints these calculations with units and
 analytic_or_model evidence labels. The example output contains zero measured
 data points. Its constants use rounded CODATA values, exact SI c and k_B,
 the IAU nominal solar luminosity, and the Julian-year definition.
-The retained 19-row table is
-data/output/audit/vacuum-passivity/model-checks.tsv. Replay results bind the
-output digest, declared model inputs, focused diagnostics and their limits in
-data/output/audit/vacuum-passivity/replay-results.toml.
 
 5. Ordered quantum noise supplies the cheapest physical distinction
 ------------------------------------------------------------------

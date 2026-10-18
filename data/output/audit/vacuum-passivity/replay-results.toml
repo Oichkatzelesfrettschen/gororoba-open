@@ -54,3 +54,9 @@ reason = "The compositional module export changes the declared lib.rs input iden
 prior_input_manifest_sha256 = "df7d988b80fce547289795f9ffd655c340ac47684246ba0c33c0c2515d5d00e6"
 command = "cargo run --locked --offline --quiet -p quantum_core --example vacuum_falsification"
 output_comparison = "cmp against the retained model-checks.tsv; refresh the declared input hashes only after exact output equality."
+
+[dependency_policy_replay]
+reason = "Hosted policy required patched rustls and ZIP; the original19-row numerical output replayed byte-identically before refreshing the declared lockfile hash."
+prior_input_manifest_sha256 = "2ef2ac546d5521f5c8e04a594748394ffc4dd05e50b59b721c549a52ff6419d0"
+command = "cargo run --locked --offline --quiet -p quantum_core --example vacuum_falsification"
+output_comparison = "cmp returned0 against retained model-checks.tsv."

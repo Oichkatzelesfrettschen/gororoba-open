@@ -1,0 +1,78 @@
+Declaration: pg32_labels
+Closed under the global context
+Declaration: pg32_classes
+Closed under the global context
+Declaration: pg32_length_labels
+Closed under the global context
+Declaration: pg32_length_classes
+Closed under the global context
+Declaration: degree1_monomials
+Closed under the global context
+Declaration: degree1_mono1_fails
+Closed under the global context
+Declaration: degree1_mono2_fails
+Closed under the global context
+Declaration: degree1_mono4_fails
+Closed under the global context
+Declaration: degree1_mono8_fails
+Closed under the global context
+Declaration: degree1_combo_12_fails
+Closed under the global context
+Declaration: degree1_combo_14_fails
+Closed under the global context
+Declaration: degree1_combo_18_fails
+Closed under the global context
+Declaration: degree1_combo_24_fails
+Closed under the global context
+Declaration: degree1_combo_28_fails
+Closed under the global context
+Declaration: degree1_combo_48_fails
+Closed under the global context
+Declaration: degree1_combo_124_fails
+Closed under the global context
+Declaration: degree1_combo_128_fails
+Closed under the global context
+Declaration: degree1_combo_148_fails
+Closed under the global context
+Declaration: degree1_combo_248_fails
+Closed under the global context
+Declaration: degree1_combo_1248_fails
+Closed under the global context
+Declaration: degree2_mono3_fails
+Closed under the global context
+Declaration: degree2_mono5_fails
+Closed under the global context
+Declaration: degree2_mono6_fails
+Closed under the global context
+Declaration: degree2_mono9_fails
+Closed under the global context
+Declaration: degree2_mono10_fails
+Closed under the global context
+Declaration: degree2_mono12_fails
+Closed under the global context
+Declaration: degree2_monomials
+Closed under the global context
+Declaration: degree2_monomials_filtered
+Closed under the global context
+Declaration: degree2_monomials_characterization
+Closed under the global context
+Declaration: degree2_candidates
+Closed under the global context
+Declaration: degree2_candidate_count
+Closed under the global context
+Declaration: coefficient_support_enumerated
+Closed under the global context
+Declaration: degree2_all_candidates_fail
+Closed under the global context
+Declaration: degree2_candidate_fails
+Closed under the global context
+Declaration: degree2_coefficients_fail
+Closed under the global context
+Declaration: cubic_witness
+Closed under the global context
+Declaration: cubic_witness_separates
+Closed under the global context
+Declaration: cubic_witness_max_degree
+Closed under the global context
+Declaration: fixed_partition_minimum_separating_degree
+Closed under the global context

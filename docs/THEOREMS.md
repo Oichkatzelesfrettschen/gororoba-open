@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 310 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 318 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -244,6 +244,8 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-FanoResonance` | `FanoResonance` | `proofs/theories/FanoResonance.v` | source_only | unresolved | - |
 | `THM-LEGACY-FinDimHModule` | `FinDimHModule` | `proofs/theories/FinDimHModule.v` | source_only | unresolved | - |
 | `THM-LEGACY-FiniteBijection` | `FiniteBijection` | `proofs/theories/FiniteBijection.v` | source_only | unresolved | - |
+| `THM-LEGACY-FiniteComplexPassivity` | `FiniteComplexPassivity` | `proofs/theories/FiniteComplexPassivity.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-FiniteCompositePassivity` | `FiniteCompositePassivity` | `proofs/theories/FiniteCompositePassivity.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FloatAxioms` | `FloatAxioms` | `proofs/theories/FloatAxioms.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatQuaternion` | `FloatQuaternion` | `proofs/theories/FloatQuaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatRealBridge` | `FloatRealBridge` | `proofs/theories/FloatRealBridge.v` | source_only | unresolved | - |
@@ -253,6 +255,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-G2OctonionAutomorphisms` | `G2OctonionAutomorphisms` | `proofs/theories/G2OctonionAutomorphisms.v` | source_only | unresolved | - |
 | `THM-LEGACY-G2StabilizerDimension` | `G2StabilizerDimension` | `proofs/theories/G2StabilizerDimension.v` | source_only | unresolved | - |
 | `THM-LEGACY-GF2Algebra` | `GF2Algebra` | `proofs/theories/GF2Algebra.v` | source_only | unresolved | - |
+| `THM-LEGACY-GaussianCoherence` | `GaussianCoherence` | `proofs/theories/GaussianCoherence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-HModuleDim` | `HModuleDim` | `proofs/theories/HModuleDim.v` | source_only | explicit_link | C-1542 |
 | `THM-LEGACY-HeatKernel` | `HeatKernel` | `proofs/theories/HeatKernel.v` | source_only | explicit_link | C-931 |
 | `THM-LEGACY-HigherCD` | `HigherCD` | `proofs/theories/HigherCD.v` | source_only | unresolved | - |
@@ -272,6 +275,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-OctonionSandwichNorm` | `OctonionSandwichNorm` | `proofs/theories/OctonionSandwichNorm.v` | source_only | unresolved | - |
 | `THM-LEGACY-OctonionStandardModel` | `OctonionStandardModel` | `proofs/theories/OctonionStandardModel.v` | source_only | unresolved | - |
 | `THM-LEGACY-ParityClique` | `ParityClique` | `proofs/theories/ParityClique.v` | source_only | unresolved | - |
+| `THM-LEGACY-PassiveMechanicalMemory` | `PassiveMechanicalMemory` | `proofs/theories/PassiveMechanicalMemory.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-Pathion` | `Pathion` | `proofs/theories/Pathion.v` | source_only | unresolved | - |
 | `THM-LEGACY-PathionAssociator` | `PathionAssociator` | `proofs/theories/PathionAssociator.v` | source_only | unresolved | - |
 | `THM-LEGACY-PathionZDGraph` | `PathionZDGraph` | `proofs/theories/PathionZDGraph.v` | source_only | unresolved | - |
@@ -306,6 +310,9 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-TerminalChannelSeparationReal` | `TerminalChannelSeparationReal` | `proofs/theories/TerminalChannelSeparationReal.v` | kernel_checked | explicit_link | C-1771 |
 | `THM-LEGACY-ThreeBodyAngMom` | `ThreeBodyAngMom` | `proofs/theories/ThreeBodyAngMom.v` | source_only | explicit_link | C-1101, C-1126 |
 | `THM-LEGACY-TightBindingTopology` | `TightBindingTopology` | `proofs/theories/TightBindingTopology.v` | source_only | unresolved | - |
+| `THM-LEGACY-VacuumAnalyticLimits` | `VacuumAnalyticLimits` | `proofs/theories/VacuumAnalyticLimits.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-VacuumCounterexamples` | `VacuumCounterexamples` | `proofs/theories/VacuumCounterexamples.v` | source_only | unresolved | - |
+| `THM-LEGACY-VacuumSpectralModels` | `VacuumSpectralModels` | `proofs/theories/VacuumSpectralModels.v` | source_only | unresolved | - |
 | `THM-LEGACY-WalkerFermatAlgebras` | `WalkerFermatAlgebras` | `proofs/theories/WalkerFermatAlgebras.v` | source_only | unresolved | - |
 | `THM-LEGACY-WarpShapeFunction` | `WarpShapeFunction` | `proofs/theories/WarpShapeFunction.v` | source_only | unresolved | - |
 | `THM-LEGACY-WedderburnPrimitive` | `WedderburnPrimitive` | `proofs/theories/WedderburnPrimitive.v` | source_only | unresolved | - |
@@ -313,6 +320,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-WilmotPathionRetraction` | `WilmotPathionRetraction` | `proofs/theories/WilmotPathionRetraction.v` | source_only | unresolved | - |
 | `THM-LEGACY-WilmotRetractionTheorem` | `WilmotRetractionTheorem` | `proofs/theories/WilmotRetractionTheorem.v` | source_only | unresolved | - |
 | `THM-LEGACY-WorldlineBound` | `WorldlineBound` | `proofs/theories/WorldlineBound.v` | source_only | unresolved | - |
+| `THM-LEGACY-WorldlineInteraction` | `WorldlineInteraction` | `proofs/theories/WorldlineInteraction.v` | source_only | unresolved | - |
 | `THM-LEGACY-ZDGraph` | `ZDGraph` | `proofs/theories/ZDGraph.v` | source_only | unresolved | - |
 | `THM-LEGACY-ZD_Criterion` | `ZD_Criterion` | `proofs/theories/ZD_Criterion.v` | source_only | unresolved | - |
 | `THM-OCTONION-DOWNCAST-ZERO-DIVISORS-001` | `C1638_OctonionDowncastNoZeroDivisors` | `proofs/verified/C1638_OctonionDowncastNoZeroDivisors.v` | source_only | explicit_link | C-1647 |
