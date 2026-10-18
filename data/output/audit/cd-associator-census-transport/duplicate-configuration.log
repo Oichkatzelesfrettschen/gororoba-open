@@ -1,0 +1,4 @@
+
+thread 'main' (1574673) panicked at data/output/audit/cd-associator-census-transport/ingest_photonic_witnesses.rs:56:13:
+duplicate matrix/sign configuration
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

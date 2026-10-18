@@ -1,0 +1,8 @@
+{
+  "event_key": "proof-inventory:cd-associator-census-sparse-transport",
+  "theorem_count": 326,
+  "source_only_count": 326,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}
+skipped TOML regen (--regen-toml false); run `make registry-export-markdown` later.

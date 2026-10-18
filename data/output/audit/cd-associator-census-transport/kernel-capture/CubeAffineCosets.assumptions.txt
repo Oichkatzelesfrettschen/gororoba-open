@@ -1,0 +1,42 @@
+Declaration: same_coset
+Closed under the global context
+Declaration: same_coset_reflexive
+Closed under the global context
+Declaration: same_coset_symmetric
+Closed under the global context
+Declaration: cube_xor_associative
+Closed under the global context
+Declaration: same_coset_transitive
+Closed under the global context
+Declaration: cube_points_complete
+Closed under the global context
+Declaration: coset_minimum_member
+Closed under the global context
+Declaration: coset_minimum_seed_bound
+Closed under the global context
+Declaration: coset_minimum_candidate_bound
+Closed under the global context
+Declaration: coset_representative
+Closed under the global context
+Declaration: coset_representative_member
+Closed under the global context
+Declaration: coset_representative_minimal
+Closed under the global context
+Declaration: same_coset_representatives
+Closed under the global context
+Declaration: complete_coset_partition
+Closed under the global context
+Declaration: coset_representative_idempotent
+Closed under the global context
+Declaration: canonical_sector_gate
+Closed under the global context
+Declaration: same_coset_equivalent_left
+Closed under the global context
+Declaration: cube_xor_four_swap
+Closed under the global context
+Declaration: same_coset_translation
+Closed under the global context
+Declaration: pair_xor_subgroup
+Closed under the global context
+Declaration: pair_xor_coset_members
+Closed under the global context

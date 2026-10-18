@@ -1,0 +1,8 @@
+make: Entering directory '/home/eirikr/.codex/worktrees/cd-associator-census-transport/open_gororoba/proofs'
+make --keep-going -f Makefile.rocq all \
+	COQEXTRAFLAGS="-R "/home/eirikr/.opam/rocq-9.3/lib/coq/user-contrib/Flocq" Flocq" VDFILE_FLAGS="-f _RocqProject"
+make[1]: Entering directory '/home/eirikr/.codex/worktrees/cd-associator-census-transport/open_gororoba/proofs'
+ROCQ DEP VFILES
+make[2]: Nothing to be done for 'real-all'.
+make[1]: Leaving directory '/home/eirikr/.codex/worktrees/cd-associator-census-transport/open_gororoba/proofs'
+make: Leaving directory '/home/eirikr/.codex/worktrees/cd-associator-census-transport/open_gororoba/proofs'

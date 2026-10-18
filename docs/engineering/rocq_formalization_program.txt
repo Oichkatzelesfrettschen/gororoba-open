@@ -8,12 +8,19 @@ IBMQuantum is read-only. Quantum submissions are prohibited for this program.
 Ordered work queue
 ------------------
 DONE: qualify MathComp algebra/field 2.6.0; freeze exact transitive pins.
-VERIFIED: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
-          PR 223 awaits exact-head hosted validation and integration.
+INTEGRATED: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
+            PR 223 merged; canonical main 84cefcaf; owned checkout archival queued.
 PROVED: WalshProbability; BooleanANFDegree; BooleanCochainFiltration extension;
         CDPhaseDegree, including numeric and first-appearance correspondences.
-ACTIVE: validate the complete Batch 2 corpus and capture independent evidence.
-PENDING: CDAssociatorCensus; CDSparseBlockTransport and photonic mapping.
+INTEGRATED: Batch 2 full build, kernel evidence, 26 receipts and canonical checks.
+          PR 224 merged; canonical main 2b72e552; owned checkout archival queued.
+PROVED: CDAssociatorCensus count, relation classes and dependent associativity.
+PROVED: sparse affine support, complete sectors, block kernel/rank and norm transport,
+        exact rational sign ranks and 32 photonic witnesses. Review gaps are closed
+        by full-product norm, unit signed operands, normalized product probability
+        and decoded actual rational sparse-matrix restriction correspondences.
+DONE: Batch 3 326-module multicore rebuild, admission/plugin checks and ten rejected mutations.
+DONE: stable-source capture, 33 trusted receipt replays and canonical export.
 PENDING: RecordedFeedbackInstrument; BranchSignedCoherence extension;
          FinitePlannedLookCoverage; TerminalChannelEmpiricalCertificate extension.
 PENDING: ExactRankCertificate; SchurKernelTransport; CDPureDoublingKernel;
@@ -62,3 +69,22 @@ source_only records remain, with 20 kernel-checked claim links.
 Census scratch research proves the general exact count and integrality,
 relation-class lifting, dependent-triple associativity, and numeric counts at
 4/8/16/32. Its integration belongs to the subsequent census/transport batch.
+
+Census/sparse evidence closure queue
+-----------------------------------
+DONE: inspect independent source review and classify both correspondence gaps.
+DONE: prove full product support-to-norm equality and normalized probability.
+DONE: identify decoded rational operator restriction and transport its rank.
+DONE: bind source digests to parsed bytes and compare generated certificates.
+DONE: reject five malformed input families and five altered mathematical laws.
+DONE: rebuild 326 registered modules; run admission and plugin diagnostics.
+DONE: all seven fresh kernels pass; 246 declarations queried, 208 closed.
+      The other 38 retain named Stdlib real foundations.
+DONE: organize source-bound witnesses and prepare 33 receipt specifications.
+DONE: replay receipt entries 1 through 12 in sorted order.
+DONE: replay receipt entries 13 through 26 in sorted order.
+DONE: replay all 33 sorted receipt closures under the owned runner.
+DONE: regenerate compatibility exports, signatures and canonical inventory.
+DONE: verify SQLite, theorem identities and retained evidence hashes.
+ACTIVE: publish focused PR and collect exact-head hosted validation.
+PENDING: merge, synchronize canonical main and archive the owned checkout.

@@ -1,0 +1,31 @@
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+File "/tmp/rocq-transport-final-mutations/Mutation.v", line 88, characters 24-44:
+Error:
+In environment
+order : nat
+group : xor_subgroup order
+vector : cube order -> R
+sector : cube order
+Unable to unify "real_cube_sum ?order (fun _ : cube ?order => 0) = 0" with
+ "real_cube_sum order
+    (fun input : cube order =>
+     if false && same_coset order group input sector
+     then vector input ^ 2
+     else 0) =
+  1".
+

@@ -1,0 +1,6 @@
+2026-10-18T19:30:11Z
+2c94fbcb964596c130de9f94c3c8f583fd592c82
+?? results/live/2026-10-17T080522.648289Z/
+d6a2aef41c72e8d0146733d9af1af263aa6abb99052cb1311a4520b7de036cc7  /home/eirikr/Projects/IBMQuantum/docs/notes/cd_associator_defect_census.md
+ec14af7ed1f4a8d10919db276d7bd230a7c0f4b9826e7719c6e50026f5c0045e  /home/eirikr/Projects/IBMQuantum/scripts/cd_two_blade_blocks.py
+0f709892c09a64b7d32f7b259b81e6bc50962ac293afcd6c705cfd8ab51467ca  /home/eirikr/Projects/IBMQuantum/scripts/qd_box_kite_cases.py

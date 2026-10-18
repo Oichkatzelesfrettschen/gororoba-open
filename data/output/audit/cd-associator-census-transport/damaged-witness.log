@@ -1,0 +1,6 @@
+retained_configurations=32
+retained_witnesses=32
+independent_measurement_count=requires_physical_application_contract
+File "/tmp/photonic-final-mutations/damaged-witness/proposed/SparsePhotonicCertificates.v", line 12, characters 19-30:
+Error: Unable to unify "[1; 1; 1; -1]" with "[-1; -1; -1; 1]".
+

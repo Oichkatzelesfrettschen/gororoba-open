@@ -1,0 +1,5 @@
+ragged-matrix: rejected
+invalid-sign: rejected
+omitted-configuration: rejected
+duplicate-configuration: rejected
+damaged-witness: rejected

@@ -127,3 +127,6 @@ data/output/audit/cd-numeric-sign-correspondence/** -text whitespace=-blank-at-e
 data/output/audit/cd-numeric-sign-correspondence/kernel-capture/**/*.vo -filter -diff -text
 # Frozen upstream package descriptions preserve original metadata whitespace.
 proofs/opam/qualified-rocq-9.3.export -text whitespace=-blank-at-eof,-blank-at-eol
+# Census and sparse-operator receipts preserve exact source and tool bytes.
+data/output/audit/cd-associator-census-transport/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-associator-census-transport/kernel-capture/**/*.vo -filter -diff -text
