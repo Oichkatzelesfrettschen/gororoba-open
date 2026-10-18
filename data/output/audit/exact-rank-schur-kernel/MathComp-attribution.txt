@@ -1,0 +1,13 @@
+RationalRealSpecialization.v adapts denominator-clearing proof arguments from
+MathComp algebra 2.6.0, algebra/rat.v. The adapted arguments are identified in
+that source's comment preceding real_rational.
+
+Upstream notice:
+(c) Copyright 2006-2016 Microsoft Corporation and Inria.
+Distributed under the terms of CeCILL-B.
+
+Pinned source:
+https://github.com/math-comp/math-comp/blob/mathcomp-2.6.0/mathcomp/algebra/rat.v
+License:
+https://github.com/math-comp/math-comp/blob/mathcomp-2.6.0/LICENCE
+The complete upstream license is retained as MathComp-2.6.0-LICENCE.txt.

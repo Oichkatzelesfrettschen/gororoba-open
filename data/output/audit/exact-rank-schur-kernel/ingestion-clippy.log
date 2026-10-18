@@ -1,0 +1,7 @@
+    Checking serde_core v1.0.229
+    Checking zmij v1.0.23
+    Checking itoa v1.0.18
+    Checking memchr v2.8.3
+    Checking serde_json v1.0.149
+    Checking exact-rank-ingestion v0.1.0 (/tmp/exact-rank-ingestion-build)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 15.04s

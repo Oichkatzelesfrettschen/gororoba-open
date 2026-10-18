@@ -1,0 +1,22 @@
+     Locking 11 packages to latest Rust 1.97.0 compatible versions
+      Adding serde_json v1.0.149 (available: v1.0.154)
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.149
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling exact-rank-ingestion v0.1.0 (/tmp/exact-rank-ingestion-build)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.29s
+     Running unittests src/main.rs (.cache/gate-target/debug/deps/exact_rank_ingestion-97739d2ad430b849)
+
+running 5 tests
+test tests::encode_negative_predecessor ... ok
+test tests::reject_ragged_and_incompatible_matrices ... ok
+test tests::reject_bad_scalars ... ok
+test tests::reject_unknown_fields_and_invalid_dimensions ... ok
+test tests::preserve_empty_dimensions ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling exact-rank-ingestion v0.1.0 (/tmp/exact-rank-ingestion-build)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.43s

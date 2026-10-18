@@ -1,0 +1,28 @@
+File "/tmp/exact-rank-convention-mutations/lift_sign.v", line 114, characters 7-13:
+Error:
+In environment
+scalar : fieldType
+pivot_size, residual_size : nat
+pivot, pivot_inverse : 'M_pivot_size
+upper : 'M_(pivot_size, residual_size)
+lower : 'M_(residual_size, pivot_size)
+trailing : 'M_residual_size
+vector : 'cV_residual_size
+inverse_left : pivot_inverse *m pivot = 1%:M
+inverse_right : pivot *m pivot_inverse = 1%:M
+residual : schur_complement *m vector = 0
+lifted :
+  block_mx pivot upper lower trailing *m col_mx
+                                           (-
+                                            (pivot_inverse *m upper *m vector))
+                                           vector =
+  0
+The term "lifted" has type
+ "block_mx pivot upper lower trailing *m col_mx
+                                           (-
+                                            (pivot_inverse *m upper *m vector))
+                                           vector =
+  0"
+while it is expected to have type
+ "block_mx pivot upper lower trailing *m schur_kernel_lift vector = 0".
+

@@ -1,0 +1,12 @@
+Declaration: rank_certificate_check
+Closed under the global context
+Declaration: rank_certificate_check_sound
+Closed under the global context
+Declaration: full_dimension_column_kernel
+Closed under the global context
+Declaration: kernel_frame_check
+Closed under the global context
+Declaration: checked_kernel_frame_complete
+Closed under the global context
+Declaration: left_inverse_coordinates_unique
+Closed under the global context

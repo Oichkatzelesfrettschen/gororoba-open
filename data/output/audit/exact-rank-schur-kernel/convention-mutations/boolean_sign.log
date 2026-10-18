@@ -1,0 +1,6 @@
+File "/tmp/exact-rank-convention-mutations/boolean_sign.v", line 15, characters 40-54:
+Error: In environment
+order : nat
+Unable to unify "tower_neg ?order (tower_zero ?order) = tower_zero ?order"
+with "tower_zero order = tower_zero order".
+

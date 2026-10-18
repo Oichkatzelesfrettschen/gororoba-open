@@ -1,0 +1,3 @@
+    Checking provenance_core v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_core)
+    Checking provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store)
+    Finished `validation` profile [optimized + debuginfo] target(s) in 14.39s

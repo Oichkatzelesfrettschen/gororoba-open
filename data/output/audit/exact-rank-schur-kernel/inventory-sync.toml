@@ -1,0 +1,5 @@
+sync_key = "exact-rank-schur-kernel"
+actor = "chatgpt-codex"
+reason = "Register exact rank, Schur and recursive CD kernel/fold proofs with explicit real and basis adapters; renew current-project receipts."
+applied_at = "2026-10-18T22:15:46Z"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"

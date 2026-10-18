@@ -632,7 +632,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_unfold_after_fold",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -645,7 +645,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_after_unfold",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -658,7 +658,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_injective",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -671,7 +671,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_zero",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -684,7 +684,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_product_transport",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -697,7 +697,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_product_zero_iff",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -710,7 +710,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_preserves_and_reflects_zero_product",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -723,7 +723,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_fold_witness_product_zero",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -736,7 +736,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_average_witness_product",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -749,7 +749,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_average_witness_product_nonzero",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -762,7 +762,7 @@
     },
     {
       "source": "proofs/theories/SedenionFoldTransport.v",
-      "sha256": "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
       "declaration": "sed_average_loses_zero_product",
       "basis": "sedenion_lo_hi",
       "normalization": "half_sum_half_difference",
@@ -3951,6 +3951,84 @@
       "declaration": "terminal_planned_false_rejection_probability",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "sed_fold_norm_scaling",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "sed_unfold_norm_scaling",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "tower_average_loses_zero_product",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "tower_sedenion_average_correspondence",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "tower_sedenion_fold_correspondence",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/SedenionFoldTransport.v",
+      "sha256": "43471b945aa2465c93fa00199bf90c977139c774438ad539310cc44ec9718eef",
+      "declaration": "tower_sedenion_unfold_correspondence",
+      "basis": "sedenion_lo_hi",
+      "normalization": "half_sum_half_difference",
       "execution": "mathematical_only",
       "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
       "premises": [

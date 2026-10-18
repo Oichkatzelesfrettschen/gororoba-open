@@ -1,0 +1,34 @@
+Declaration: schur_complement
+Closed under the global context
+Declaration: schur_left_elimination
+Closed under the global context
+Declaration: schur_right_elimination
+Closed under the global context
+Declaration: schur_block_elimination
+Closed under the global context
+Declaration: schur_left_reconstruction
+Closed under the global context
+Declaration: schur_right_reconstruction
+Closed under the global context
+Declaration: schur_left_inverse
+Closed under the global context
+Declaration: schur_right_inverse
+Closed under the global context
+Declaration: schur_block_reconstruction
+Closed under the global context
+Declaration: schur_rank_decomposition
+Closed under the global context
+Declaration: schur_column_kernel_coordinates
+Closed under the global context
+Declaration: schur_kernel_lift
+Closed under the global context
+Declaration: schur_kernel_lift_sound
+Closed under the global context
+Declaration: schur_kernel_lift_decode
+Closed under the global context
+Declaration: schur_kernel_lift_complete
+Closed under the global context
+Declaration: schur_transported_gram
+Closed under the global context
+Declaration: skew_schur_plus_sign
+Closed under the global context

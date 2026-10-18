@@ -1,0 +1,88 @@
+evidence_key = "rank-kernel-project-NullityTwelveQuadraticLocus"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "5b9f56260d9aec36f4d9566189a6035bb9510c5cc7919ac1e5e95bac3e3c4ab1"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-NullityTwelveQuadraticLocus"
+proof_path = "proofs/theories/NullityTwelveQuadraticLocus.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/NullityTwelveQuadraticLocus.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.NullityTwelveQuadraticLocus"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/NullityTwelveQuadraticLocus.v"
+sha256 = "ce0bd4a0571c4cf8aa20174b700f977b1c48c5a5fa0f4f59eb77e75ba726d37f"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/NullityTwelveQuadraticLocus.compile.txt"
+sha256 = "5e9615c22eec0884fc3ed7c9fded682a717e12badb0931d31159765bd3b806e1"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/NullityTwelveQuadraticLocus.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/NullityTwelveQuadraticLocus.assumptions.txt"
+sha256 = "8f8cfc82d0178dc8b3be6271b961407bf358c15fac43872395f3998ecd5735e3"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/NullityTwelveQuadraticLocus.vo"
+sha256 = "420b90e3906db2faf4bb1758b0e32e6aeae1a63d16eaac86976d936936efa83e"
+
+[[witness.declarations]]
+name = "quadratic_common_zero"
+statement = "Definition quadratic_common_zero (z5 z6 z13 z16 z17 z18 z19 z20 : R) : Prop := z6^2-z16^2 = 0 /\\ z5*z6-z13*z16 = 0 /\\ z13*z6+z16*z5 = 0 /\\ z17*z5-z13*z20+z16*z17+z20*z6 = 0 /\\ z13*z19+z18*z5+z16*z18-z19*z6 = 0 /\\ z19*z5-z13*z18+z16*z19+z18*z6 = 0 /\\ z13*z17+z20*z5+z16*z20-z17*z6 = 0 /\\ z16*z6 = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "coordinate_plane_a15"
+statement = "Definition coordinate_plane_a15 (z6 z16 z17 z18 z19 z20 : R) : Prop := z6=0 /\\ z16=0 /\\ z17=0 /\\ z18=0 /\\ z19=0 /\\ z20=0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "coordinate_plane_b17"
+statement = "Definition coordinate_plane_b17 (z5 z6 z13 z16 : R) : Prop := z6=0 /\\ z16=0 /\\ z5=0 /\\ z13=0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "two_squares_zero_iff"
+statement = "Lemma two_squares_zero_iff : forall first second : R, first^2+second^2=0 <-> first=0 /\\ second=0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "four_squares_zero_iff"
+statement = "Lemma four_squares_zero_iff : forall first second third fourth : R, first^2+second^2+third^2+fourth^2=0 <-> first=0 /\\ second=0 /\\ third=0 /\\ fourth=0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "first_obstruction_norm_identity"
+statement = "Theorem first_obstruction_norm_identity : forall z6 z16 : R, (z6^2-z16^2)^2+4*(z16*z6)^2=(z6^2+z16^2)^2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "residual_obstruction_norm_identity"
+statement = "Theorem residual_obstruction_norm_identity : forall z5 z13 z17 z18 z19 z20 : R, (z5*z17-z13*z20)^2+(z5*z18+z13*z19)^2+ (z5*z19-z13*z18)^2+(z5*z20+z13*z17)^2 = (z5^2+z13^2)*(z17^2+z18^2+z19^2+z20^2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "selected_quadratic_zero_set"
+statement = "Theorem selected_quadratic_zero_set : forall z5 z6 z13 z16 z17 z18 z19 z20, quadratic_common_zero z5 z6 z13 z16 z17 z18 z19 z20 <-> coordinate_plane_a15 z6 z16 z17 z18 z19 z20 \\/ coordinate_plane_b17 z5 z6 z13 z16"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "admitted_directions_fail_additive_closure"
+statement = "Theorem admitted_directions_fail_additive_closure : quadratic_common_zero 1 0 0 0 0 0 0 0 /\\ quadratic_common_zero 0 0 0 0 1 0 0 0 /\\ ~ quadratic_common_zero 1 0 0 0 1 0 0 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "e11_direction_is_obstructed"
+statement = "Theorem e11_direction_is_obstructed : ~ quadratic_common_zero 0 1 0 0 0 0 0 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

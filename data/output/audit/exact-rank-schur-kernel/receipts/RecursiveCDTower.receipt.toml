@@ -1,0 +1,163 @@
+evidence_key = "rank-kernel-project-RecursiveCDTower"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-RecursiveCDTower"
+proof_path = "proofs/theories/RecursiveCDTower.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/RecursiveCDTower.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.RecursiveCDTower"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RecursiveCDTower.compile.txt"
+sha256 = "7b8c84767225e3997de30c6b733b5c5adcaf48dc32fbb1dab9cd762aaeb829fe"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RecursiveCDTower.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RecursiveCDTower.assumptions.txt"
+sha256 = "7d8d874aad785d406ce2038d40f02b0b4a957210146d784843cc1e1579733139"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/RecursiveCDTower.vo"
+sha256 = "a28870da8f83412f602eeb83d7a7714d37c9da1bad0874badab83dc5449a83a7"
+
+[[witness.declarations]]
+name = "tower_sub"
+statement = "Definition tower_sub order first second := tower_add order first (tower_neg order second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_pure"
+statement = "Definition tower_pure order value := tower_real_part order value = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_add_comm"
+statement = "Lemma tower_add_comm order : forall first second, tower_add order first second = tower_add order second first"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_add_assoc"
+statement = "Lemma tower_add_assoc order : forall first second third, tower_add order (tower_add order first second) third = tower_add order first (tower_add order second third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_add_zero"
+statement = "Lemma tower_add_zero order : forall value, tower_add order (tower_zero order) value = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_neg_involution"
+statement = "Lemma tower_neg_involution order : forall value, tower_neg order (tower_neg order value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_neg_zero"
+statement = "Lemma tower_neg_zero order : tower_neg order (tower_zero order) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_neg_add"
+statement = "Lemma tower_neg_add order : forall first second, tower_neg order (tower_add order first second) = tower_add order (tower_neg order first) (tower_neg order second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_add_neg"
+statement = "Lemma tower_add_neg order : forall value, tower_add order value (tower_neg order value) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conj_zero"
+statement = "Lemma tower_conj_zero order : tower_conj order (tower_zero order) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_zero_absorption"
+statement = "Lemma tower_zero_absorption order : (forall value, tower_mul order value (tower_zero order) = tower_zero order) /\\ (forall value, tower_mul order (tower_zero order) value = tower_zero order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_mul_zero_right"
+statement = "Lemma tower_mul_zero_right order : forall value, tower_mul order value (tower_zero order) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_mul_zero_left"
+statement = "Lemma tower_mul_zero_left order : forall value, tower_mul order (tower_zero order) value = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conj_neg"
+statement = "Lemma tower_conj_neg order : forall value, tower_conj order (tower_neg order value) = tower_neg order (tower_conj order value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_conj_add"
+statement = "Lemma tower_conj_add order : forall first second, tower_conj order (tower_add order first second) = tower_add order (tower_conj order first) (tower_conj order second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conj_involution"
+statement = "Lemma tower_conj_involution order : forall value, tower_conj order (tower_conj order value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_mul_neg_laws"
+statement = "Lemma tower_mul_neg_laws order : (forall first second, tower_mul order (tower_neg order first) second = tower_neg order (tower_mul order first second)) /\\ (forall first second, tower_mul order first (tower_neg order second) = tower_neg order (tower_mul order first second))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_mul_neg_left"
+statement = "Lemma tower_mul_neg_left order : forall first second, tower_mul order (tower_neg order first) second = tower_neg order (tower_mul order first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_mul_neg_right"
+statement = "Lemma tower_mul_neg_right order : forall first second, tower_mul order first (tower_neg order second) = tower_neg order (tower_mul order first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conj_antimorphism"
+statement = "Lemma tower_conj_antimorphism order : forall first second, tower_conj order (tower_mul order first second) = tower_mul order (tower_conj order second) (tower_conj order first)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_pure_conj_neg"
+statement = "Lemma tower_pure_conj_neg order : forall value, tower_pure order value -> tower_conj order value = tower_neg order value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_scale_zero"
+statement = "Lemma tower_scale_zero order factor : tower_scale order factor (tower_zero order) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_norm_neg"
+statement = "Lemma tower_norm_neg order : forall value, tower_norm_sq order (tower_neg order value) = tower_norm_sq order value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_norm_conj"
+statement = "Lemma tower_norm_conj order : forall value, tower_norm_sq order (tower_conj order value) = tower_norm_sq order value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_norm_scale"
+statement = "Lemma tower_norm_scale order factor : forall value, tower_norm_sq order (tower_scale order factor value) = factor^2 * tower_norm_sq order value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

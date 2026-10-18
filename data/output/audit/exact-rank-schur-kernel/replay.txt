@@ -1,0 +1,52 @@
+Use the pinned rocq-9.3 switch and the synchronized 339-module project:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  opam exec --switch=rocq-9.3 -- make -C proofs --keep-going check-admissions check-plugins
+The pre-integration full-build log binds full-build-project.snapshot (336 sources).
+The synchronized build binds synced-project.snapshot (339 sources). Both exit zero.
+
+Build ingestion and boundary drivers with the retained Cargo manifest and lock,
+Rust 1.97.0 and serde_json 1.0.149. Ingestion proposes source; Rocq validates its
+rank and complete-kernel equations. Four positive boundary families compile.
+Five malformed input families fail ingestion; four damaged algebraic witnesses
+fail Rocq. Seven convention mutations fail at proof obligations.
+
+The oversized failed whole-matrix diagnostic remains losslessly retained as
+rank-one-certificate.log.zst. Decompression SHA256 equals the raw digest in
+rank-one-certificate.raw.sha256. The loose original remains under
+/tmp/exact-rank-retained-loose. The successful emitter uses entrywise reduction.
+
+Compile capture_rocq_receipts.rs with rustc --edition=2024 -D warnings. Its nine
+regressions validate declaration names and anonymous HB factory classification.
+Create a fresh scratch parent before capture, then run:
+  capture REPOSITORY FRESH_SCRATCH /home/eirikr/.opam/rocq-9.3/bin
+  capture organize FRESH_SCRATCH/kernel
+The raw capture binds its exact source closure, project and installed toolchain.
+Fresh trusted receipt replay is required before current-project admission.
+
+The full-rank real specialization applies to map_mx real_rational. An independently
+defined operator still requires its entrywise correspondence. The arbitrary
+sparse-field/recursive-tower operator identity remains a geometry prerequisite.
+The Boolean and bounded numeric basis-product correspondences are proved.
+
+Refresh bindings through the retained typed Rust manifest producer using the
+original prestate ordering. Mathematical source growth preserves the 27-name
+coherence application family, seven terminal applications and all frozen assets.
+
+Read-only quantum source refresh records IBMQuantum HEAD and four geometry-source
+hashes. Pre-existing live untracked outputs belong to the observed source checkout.
+The proof program submits zero quantum jobs.
+
+Final qualification: all eleven independent kernels pass. Capture covers 21
+first-party sources and 197 declarations (43 closed, 154 with disclosed standard
+foundations). All 46 current-project receipts pass; the owned tmux runner records
+aggregate exit zero and terminates. Canonical export, compatibility, theorem
+identity, project-counter, signature and SQLite checks pass. Final theorem inventory
+is 339 total, 46 kernel_checked and 293 source_only; kernel-checked claims remain20.
+
+The canonical parser's exact anonymous-HB-header repair has a red unit regression,
+an actual pre-repair receipt rejection, independent review, 136 passing library
+tests and two passing genuine replay tests. All-target Clippy passes -D warnings.
+The package-wide nightly formatter retains an unchanged two-file baseline; direct
+format checks of both changed Rust files pass. The baseline content check verifies
+claim_proofs.rs and lib.rs equal HEAD. The Makefile records formatter convergence
+as a separate existing repository frontier.

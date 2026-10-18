@@ -1,0 +1,19 @@
+   Compiling exact-rank-ingestion v0.1.0 (/tmp/exact-rank-ingestion-build)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.79s
+     Running unittests src/main.rs (.cache/exp-rank-ingestion-target/debug/deps/exact_rank_ingestion-97739d2ad430b849)
+
+running 5 tests
+test tests::reject_bad_scalars ... ok
+test tests::encode_negative_predecessor ... ok
+test tests::reject_unknown_fields_and_invalid_dimensions ... ok
+test tests::preserve_empty_dimensions ... ok
+test tests::reject_ragged_and_incompatible_matrices ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/mutate_rank_certificates.rs (.cache/exp-rank-ingestion-target/debug/deps/mutate_rank_certificates-d993f576a26bd78a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

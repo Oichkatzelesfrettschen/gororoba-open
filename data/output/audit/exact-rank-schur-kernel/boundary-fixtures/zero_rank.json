@@ -1,0 +1,111 @@
+{
+  "columns": 2,
+  "field": "rational",
+  "kernel": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "kernel_left_inverse": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "lower_left": {
+    "columns": 2,
+    "entries": [],
+    "rows": 0
+  },
+  "lower_right": {
+    "columns": 0,
+    "entries": [
+      [],
+      []
+    ],
+    "rows": 2
+  },
+  "operator": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "rank": 0,
+  "rows": 2,
+  "schema": "exact-rank-kernel-v1",
+  "upper_left": {
+    "columns": 0,
+    "entries": [
+      [],
+      []
+    ],
+    "rows": 2
+  },
+  "upper_right": {
+    "columns": 2,
+    "entries": [],
+    "rows": 0
+  }
+}

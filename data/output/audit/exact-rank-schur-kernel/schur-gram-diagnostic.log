@@ -1,0 +1,19 @@
+1 goal
+  
+  scalar : fieldType
+  pivot_size, residual_size : nat
+  pivot, pivot_inverse : 'M_pivot_size
+  upper : 'M_(pivot_size, residual_size)
+  lower : 'M_(residual_size, pivot_size)
+  trailing : 'M_residual_size
+  first, second : 'cV_residual_size
+  ============================
+  -
+  ((- (pivot_inverse *m upper *m first))^T *m (pivot_inverse *m upper *m second)) +
+  first^T *m second =
+  first^T *m (1%:M + (pivot_inverse *m upper)^T *m (pivot_inverse *m upper)) *m second
+File "./proofs/theories/SchurKernelTransport.v", line 149, characters 1-33:
+Error: The LHS of mulNmx
+    (- _ *m _)
+does not match any subterm of the goal
+

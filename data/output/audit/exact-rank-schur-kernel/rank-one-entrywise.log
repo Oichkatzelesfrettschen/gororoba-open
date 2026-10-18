@@ -1,0 +1,8 @@
+File "/tmp/RetainedRankOneEntrywise.v", line 28, characters 43-66:
+Error:
+The term "retained_rank_equations" has type
+ "rank_certificate_check rat_rat__canonical__GRing_Field operator upper_left
+    upper_right lower_left lower_right =
+  true"
+while it is expected to have type "fieldType".
+

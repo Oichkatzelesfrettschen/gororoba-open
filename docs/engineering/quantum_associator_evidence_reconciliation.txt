@@ -292,8 +292,9 @@ the squared CD product norm. The proofs derive unit operand norms and output
 label distinctness from the support/sign domain rather than assuming them.
 The rational sparse-field operator, restricted through the declared row and
 column decoders, equals the retained sign block. Exact rational upper/lower
-certificates establish its rank. Real rank specialization remains a separate
-matrix-adapter obligation; the real norm statements already use Stdlib reals.
+certificates establish its rank. The exact-rank extension proves real specialization for map_mx real_rational;
+an independently defined real operator still requires its entrywise identity.
+The real norm statements already use Stdlib reals.
 
 The Rust ingestor freezes the census and thirty-two physical configuration
 manifests, verifies the identities of parsed bytes, and emits witnesses whose

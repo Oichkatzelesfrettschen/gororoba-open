@@ -1,0 +1,39 @@
+Diff in /home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store/src/claim_proofs.rs:38:
+ /// unrelated proof file.
+ pub fn is_formal_proof_disposition(value: &str) -> bool {
+     let value = value.trim();
+[31m-    ["na_empirical", "na_observational", "na_methodology", "pending"]
+(B[m[31m-        .iter()
+(B[m[31m-        .any(|prefix| {
+(B[m[31m-            value == *prefix
+(B[m[31m-                || value
+(B[m[31m-                    .strip_prefix(prefix)
+(B[m[31m-                    .is_some_and(|rest| rest.starts_with(':'))
+(B[m[31m-        })
+(B[m[31m-        || value.starts_with("external:")
+(B[m[32m+    [
+(B[m[32m+        "na_empirical",
+(B[m[32m+        "na_observational",
+(B[m[32m+        "na_methodology",
+(B[m[32m+        "pending",
+(B[m[32m+    ]
+(B[m[32m+    .iter()
+(B[m[32m+    .any(|prefix| {
+(B[m[32m+        value == *prefix
+(B[m[32m+            || value
+(B[m[32m+                .strip_prefix(prefix)
+(B[m[32m+                .is_some_and(|rest| rest.starts_with(':'))
+(B[m[32m+    }) || value.starts_with("external:")
+(B[m }
+ 
+ pub(crate) fn canonical_formal_proof_for_claim(
+Diff in /home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store/src/lib.rs:37:
+     InsightExecutionStatus, InsightOutcome, InsightPredicate, InsightPredicateKind,
+     InsightReferenceRole,
+ };
+[31m-pub mod retained_archive;
+(B[m pub mod quantum_bindings;
+[32m+pub mod retained_archive;
+(B[m pub use artifact_retrieval::{
+     ArtifactRetrievalSpec, DocumentIdentityStatus, RetrievalEvidenceFile, RetrievalRequestEvidence,
+ };

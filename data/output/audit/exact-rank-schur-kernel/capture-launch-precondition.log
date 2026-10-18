@@ -1,0 +1,4 @@
+
+thread 'main' (3108420) panicked at data/output/audit/exact-rank-schur-kernel/capture_rocq_receipts.rs:541:29:
+scratch kernel output already exists or cannot be created: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

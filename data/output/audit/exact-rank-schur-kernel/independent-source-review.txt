@@ -1,0 +1,41 @@
+Independent read-only source review
+===================================
+Scope: ten new proof sources and the SedenionFoldTransport source diff
+against base d8a0298a. The reviewer ran zero builds and edited zero files.
+Result: zero blocking mathematical correctness findings.
+
+Reviewed capabilities: upper/lower exact rank certificates; complete independent
+kernel frames; arbitrary-real kernel spanning after rational specialization;
+column Schur elimination, pivot domain, inverse maps and Gram identity; recursive
+left/right operator realization; pure conjugacy, rank/nullity and frame doubling;
+concrete quaternion/octonion/sedenion arithmetic/norm adapters; both faithful fold
+inverses and norm scaling; all-order Boolean basis/sign correspondence.
+Existing exported sedenion theorem signatures remain intact. Reviewed declarations
+contain zero target-specific Axiom, Parameter or Admitted commands. Captured
+assumption reports disclose standard real/classical foundations.
+
+Applicability obligations:
+- Arbitrary sparse_field_matrix equals recursive tower_left_matrix only after
+  proving numeric/column coordinate correspondence and entrywise realization.
+  The basis/sign correspondence supplies an essential component, not that full
+  arbitrary-operand operator identity.
+- An independently defined real operator requires a proved entrywise identity
+  with map_mx real_rational before inheriting a rational certificate's rank.
+- The Rust ingestor emits rational rank/kernel conclusions. The unconditional
+  real specialization theorem is a separate proved application step.
+
+The subsequent numeric-index corollary requires its own delta review.
+
+Numeric-index delta review: zero actionable defects at lines 80-98. The corollary
+requires bounded indices and order <= fuel; encode/decode inverse and XOR proofs
+transport the numeric sign to actual recursive tower basis multiplication.
+The corollary carries zero correspondence premises or target-specific axioms.
+
+Canonical Rust delta review: zero actionable defects. Only the exact token header
+HB.instance Definition _ := becomes compiled context. Source commands split before
+classification; subsequent named declarations remain inventoried. Named factories,
+wrappers and other HB forms still reject. Source closure, compilation, kernel and
+object identity checks remain enforced. Anonymous infrastructure is compiled
+context; named results retain transitive assumption reports. Removal of the literal
+289 assertion preserves validate()'s complete 14-source declaration-set comparison
+and the separate 27 coherence / seven terminal application checks.

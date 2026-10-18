@@ -1,0 +1,135 @@
+{
+  "columns": 2,
+  "field": "rational",
+  "kernel": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "kernel_left_inverse": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "lower_left": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "lower_right": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "operator": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "0",
+          "numerator": "1"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "rank": 1,
+  "rows": 2,
+  "schema": "exact-rank-kernel-v1",
+  "upper_left": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ],
+      [
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 2
+  },
+  "upper_right": {
+    "columns": 2,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        },
+        {
+          "denominator": "1",
+          "numerator": "0"
+        }
+      ]
+    ],
+    "rows": 1
+  }
+}

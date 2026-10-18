@@ -1,0 +1,33 @@
+   Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store)
+    Finished `dev` profile [optimized + debuginfo] target(s) in 5.63s
+     Running `.cache/exp-rank-bindings-target/debug/examples/verify_quantum_bindings proofs/evidence/quantum_observables/bindings.json /home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba`
+{
+  "verified_assets": 39,
+  "verified_theorem_sources": 14,
+  "verified_theorem_declarations": 295,
+  "decoded_members": 30,
+  "verified_coherence_applications": 1,
+  "verified_terminal_applications": 7,
+  "terminal_hardware_means": 16,
+  "terminal_replay_means": 16,
+  "replay_retention_boundary": "Replay count vectors are uniquely reconstructed from retained six-decimal probabilities on the verified 8192-shot grid and cross-checked against exact collected summaries; ordered replay bitstrings were not retained.",
+  "signed_coherence": {
+    "immediate": [
+      0.413330078125,
+      -0.006103515625
+    ],
+    "matched_idle": [
+      0.15478515625,
+      -0.34130859375
+    ],
+    "measure_reset": [
+      0.17724609375,
+      -0.341064453125
+    ]
+  },
+  "terminal_margin": [
+    156109,
+    1024000
+  ],
+  "physical_premises": "Hashes verify QPY byte identity only. Circuit semantics and physical premises remain asserted and unproved by this offline validator."
+}
