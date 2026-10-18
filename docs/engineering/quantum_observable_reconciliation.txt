@@ -125,7 +125,7 @@ The offline Rust entry point is:
   cargo run --locked --offline --profile validation -p provenance_store \
     --example verify_quantum_bindings -- \
     proofs/evidence/quantum_observables/bindings.json "$PWD"
-The proof project contains 314 modules. New source-bound receipts live under
+The original observable-contracts project contained 314 modules. New source-bound receipts live under
 data/output/audit/quantum-observable-contracts/. Each receipt records full
 source closure, compiler output, independent kernel output, assumptions and
 object digest. Stdlib real foundations remain visible in the assumption logs.
@@ -134,7 +134,7 @@ and archive-to-circuit semantic correspondence retain separate evidence status.
 
 Instrument and planned-look mathematical extension
 --------------------------------------------------
-The extended declaration inventory covers 289 lemma/theorem/corollary records
+The instrument and planned-look extension admitted 289 lemma/theorem/corollary records
 across fourteen sources. The retained coherence application selects its 27
 explicit declarations; seven terminal applications and all 39 frozen input
 identities remain unchanged. Adding a mathematical declaration cannot widen
@@ -171,3 +171,44 @@ mixture identity describes pre-feedback branches. Distinct recorded-bit work
 channels require the full instrument formula. The constructed Born expression,
 integer score and four-setting observed coherence compose by proof; measured
 hardware agreement still requires the explicit physical application premises.
+
+Exact rank, recursive kernels and faithful tower coordinates
+----------------------------------------------------------
+The rank/kernel extension builds 339 registered proof modules. Its scoped
+quantum manifest records 295 mathematical declarations across the same fourteen
+sources, including six new fold/embedding results. The 27-name coherence family,
+seven terminal applications and all 39 frozen assets retain their identities.
+The source refresh observes IBMQuantum at
+8098eb4dfdadda910419b96924bfc6c5ca974a1e; four geometry-source byte identities
+live under data/output/audit/exact-rank-schur-kernel/. The read-only observation
+also records pre-existing live output directories separately from those sources.
+
+ExactRankCertificate checks rational upper factorizations, lower identity
+witnesses and complete independent kernel frames. RationalRealSpecialization
+proves rank preservation and full real kernel spanning for map_mx real_rational,
+including arbitrary real frame coefficients. Independently defined real operators
+still require their entrywise equality with that mapped matrix.
+SchurKernelTransport proves column elimination, rank and inverse kernel maps
+on the explicit pivot domain. The skew convention gives D+B^T A^-1 B, and the
+lifted Gram form is I+(A^-1 B)^T(A^-1 B).
+
+The recursive CD adapters realize actual left/right multiplication matrices.
+For every pure operand, right action equals minus conjugated left action;
+zero-high-half doubling doubles rank and nullity and transports a complete
+kernel frame with conjugation on the second half. All-order basis multiplication
+matches the Schreier Boolean law. A separate corollary binds bounded numeric
+indices, sufficient fuel, numeric XOR decoding and the same actual basis product.
+The faithful average/detail fold has both inverse identities at every order,
+transports multiplication and scales squared norm by one half. The concrete
+sedenion results follow through proved arithmetic/norm embeddings. The retained
+average-only zero-product information-loss witness transfers through that bridge.
+
+The independent eleven-target capture checks 197 declarations, with 43 closed
+and 154 carrying disclosed standard real/classical foundations. Exact finite
+certificate and sign/basis/fold mutation evidence remains in the audit bundle.
+Current-project receipt admission and hosted integration have separate records.
+Arbitrary sparse-field-to-recursive-operator realization remains a prerequisite
+for dimension-32 coefficient, rank and curve certificates. The eight-generator
+polynomial zero-set theorem retains its existing scope until those correspondences
+and explicit curve certificates are proved. Full tangent-cone equality remains
+part of the subsequent investigation. The program submits zero quantum jobs.

@@ -1,0 +1,58 @@
+compile StdlibRealFieldAdapter exit 0
+compile FiniteMatrixConventions exit 0
+compile ExactRankCertificate exit 0
+compile RationalRealSpecialization exit 0
+compile SchurKernelTransport exit 0
+compile RecursiveCDTower exit 0
+compile CDTowerMatrixAdapter exit 0
+compile CDPureDoublingKernel exit 0
+compile Prelude exit 0
+compile CayleyDicksonAlgebra exit 0
+compile Sedenion exit 0
+compile OctonionNorm exit 0
+compile CDConcreteTowerAdapter exit 0
+compile CDTowerFoldTransport exit 0
+compile SchreierSignCode exit 0
+compile M3IsAssociator exit 0
+compile CDSignHalfStep exit 0
+compile CDAssociatorDoubling exit 0
+compile CDSignNumericCorrespondence exit 0
+compile CDTowerSignCorrespondence exit 0
+compile SedenionFoldTransport exit 0
+assumptions StdlibRealFieldAdapter exit 0 declarations 14
+assumptions RationalRealSpecialization exit 0 declarations 16
+assumptions ExactRankCertificate exit 0 declarations 6
+assumptions SchurKernelTransport exit 0 declarations 17
+assumptions RecursiveCDTower exit 0 declarations 25
+assumptions CDTowerMatrixAdapter exit 0 declarations 14
+assumptions CDPureDoublingKernel exit 0 declarations 22
+assumptions CDConcreteTowerAdapter exit 0 declarations 34
+assumptions CDTowerFoldTransport exit 0 declarations 17
+assumptions CDTowerSignCorrespondence exit 0 declarations 10
+assumptions SedenionFoldTransport exit 0 declarations 22
+kernel SedenionFoldTransport exit 0
+kernel CDTowerSignCorrespondence exit 0
+kernel RecursiveCDTower exit 0
+kernel CDTowerFoldTransport exit 0
+kernel CDConcreteTowerAdapter exit 0
+kernel SchurKernelTransport exit 0
+kernel ExactRankCertificate exit 0
+kernel RationalRealSpecialization exit 0
+kernel StdlibRealFieldAdapter exit 0
+kernel CDPureDoublingKernel exit 0
+kernel CDTowerMatrixAdapter exit 0
+targets=11
+first_party_sources=21
+retained_proof_objects=21
+witnessed_declarations=197
+closed_declaration_queries=43
+printed_assumption_name_occurrences=368
+project_sha256=4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56
+warning_policy=fatal_default
+raw_log_transformation=none
+recognized_source_witness_log_name_sets=equal
+historical_artifact_name_sets_and_bytes=identical
+historical_artifact_files=404
+recognized_Definition_declarations=36
+recognized_Lemma_declarations=97
+recognized_Theorem_declarations=64

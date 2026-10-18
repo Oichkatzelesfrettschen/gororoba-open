@@ -1,0 +1,127 @@
+evidence_key = "rank-kernel-project-CDTowerFoldTransport"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDTowerFoldTransport"
+proof_path = "proofs/theories/CDTowerFoldTransport.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDTowerFoldTransport.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDTowerFoldTransport"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDTowerFoldTransport.v"
+sha256 = "a109063738c53c6194a69f0d1b52f114b9ee1cdbdaab3daa349ae3a88ef645be"
+
+[[witness.sources]]
+path = "proofs/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerFoldTransport.compile.txt"
+sha256 = "9fe3a98df9e72bf75d4469a9bcb806738a3fb096d1bdac72e5d3f0289bc8fa4c"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerFoldTransport.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerFoldTransport.assumptions.txt"
+sha256 = "fcc5341154afe190c079863e8d093c702c7f3885a70c1b4142b570d0ff12abad"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/CDTowerFoldTransport.vo"
+sha256 = "844a832e0932fbe10c1f3b04642fee444338786fa98bf29975354bdd117b6b6d"
+
+[[witness.declarations]]
+name = "tower_half_sum_reconstruction"
+statement = "Lemma tower_half_sum_reconstruction order : forall first second, tower_add order (tower_scale order (1/2) (tower_add order first second)) (tower_scale order (1/2) (tower_sub order first second)) = first"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_half_difference_reconstruction"
+statement = "Lemma tower_half_difference_reconstruction order : forall first second, tower_sub order (tower_scale order (1/2) (tower_add order first second)) (tower_scale order (1/2) (tower_sub order first second)) = second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_average_reconstruction"
+statement = "Lemma tower_average_reconstruction order : forall first second, tower_scale order (1/2) (tower_add order (tower_add order first second) (tower_sub order first second)) = first"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_detail_reconstruction"
+statement = "Lemma tower_detail_reconstruction order : forall first second, tower_scale order (1/2) (tower_sub order (tower_add order first second) (tower_sub order first second)) = second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold"
+statement = "Definition tower_fold order (value : cd_tower (S order)) : cd_tower (S order) := (tower_scale order (1/2) (tower_add order (fst value) (snd value)), tower_scale order (1/2) (tower_sub order (fst value) (snd value)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_unfold"
+statement = "Definition tower_unfold order (value : cd_tower (S order)) : cd_tower (S order) := (tower_add order (fst value) (snd value),tower_sub order (fst value) (snd value))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_unfold_after_fold"
+statement = "Theorem tower_unfold_after_fold order value : tower_unfold order (tower_fold order value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_after_unfold"
+statement = "Theorem tower_fold_after_unfold order value : tower_fold order (tower_unfold order value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_injective"
+statement = "Theorem tower_fold_injective order first second : tower_fold order first = tower_fold order second -> first = second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_zero"
+statement = "Theorem tower_fold_zero order : tower_fold order (tower_zero (S order)) = tower_zero (S order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_eq_zero"
+statement = "Theorem tower_fold_eq_zero order value : tower_fold order value = tower_zero (S order) <-> value = tower_zero (S order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_product"
+statement = "Definition tower_fold_product order first second := tower_fold order (tower_mul (S order) (tower_unfold order first) (tower_unfold order second))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_product_correspondence"
+statement = "Theorem tower_fold_product_correspondence order first second : tower_fold_product order (tower_fold order first) (tower_fold order second) = tower_fold order (tower_mul (S order) first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_zero_product"
+statement = "Theorem tower_fold_zero_product order first second : tower_fold_product order first second = tower_zero (S order) <-> tower_mul (S order) (tower_unfold order first) (tower_unfold order second) = tower_zero (S order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_half_norm_identity"
+statement = "Lemma tower_half_norm_identity order : forall first second, tower_norm_sq order (tower_scale order (1/2) (tower_add order first second)) + tower_norm_sq order (tower_scale order (1/2) (tower_sub order first second)) = (1/2) * (tower_norm_sq order first + tower_norm_sq order second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_fold_norm_scaling"
+statement = "Theorem tower_fold_norm_scaling order value : tower_norm_sq (S order) (tower_fold order value) = (1/2) * tower_norm_sq (S order) value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_unfold_norm_scaling"
+statement = "Theorem tower_unfold_norm_scaling order value : tower_norm_sq (S order) (tower_unfold order value) = 2 * tower_norm_sq (S order) value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

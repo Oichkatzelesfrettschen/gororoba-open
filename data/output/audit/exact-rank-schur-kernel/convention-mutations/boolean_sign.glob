@@ -1,0 +1,62 @@
+DIGEST 1a06b62500922243ba4d948cc4cba76f
+Fboolean_sign
+R160:164 Stdlib.Reals.Reals <> <> lib
+R166:169 Stdlib.Bool.Bool <> <> lib
+R205:220 OpenGororoba.RecursiveCDTower <> <> lib
+R222:237 OpenGororoba.SchreierSignCode <> <> lib
+def 251:262 <> tower_signed
+binder 264:268 <> order:1
+R282:285 Corelib.Init.Datatypes <> bool ind
+binder 271:278 <> negative:2
+R297:304 OpenGororoba.RecursiveCDTower <> cd_tower def
+R306:310 boolean_sign <> order:1 var
+binder 289:293 <> value:3
+R320:327 boolean_sign <> negative:2 var
+R345:353 OpenGororoba.RecursiveCDTower <> tower_neg def
+R355:359 boolean_sign <> order:1 var
+R361:365 boolean_sign <> value:3 var
+R334:338 boolean_sign <> value:3 var
+def 377:387 <> tower_basis
+binder 389:393 <> order:4
+R407:410 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R397:400 OpenGororoba.SchreierSignCode <> cube def
+R402:406 boolean_sign <> order:4 var
+R411:418 OpenGororoba.RecursiveCDTower <> cd_tower def
+R420:424 boolean_sign <> order:4 var
+R436:440 boolean_sign <> order:4 var
+R476:479 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R462:465 OpenGororoba.SchreierSignCode <> cube def
+R467:475 boolean_sign <> dimension:6 var
+R480:487 OpenGororoba.RecursiveCDTower <> cd_tower def
+R489:497 boolean_sign <> dimension:6 var
+R507:507 Corelib.Init.Datatypes <> O constr
+R528:528 Corelib.Init.Datatypes <> S constr
+binder 543:547 <> value:7
+R555:557 Corelib.Init.Datatypes <> snd def
+R559:563 boolean_sign <> value:7 var
+R630:630 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R660:660 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R677:677 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R631:641 boolean_sign <> tower_basis:5 def
+R650:652 Corelib.Init.Datatypes <> fst def
+R654:658 boolean_sign <> value:7 var
+R661:670 OpenGororoba.RecursiveCDTower <> tower_zero def
+R573:573 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R590:590 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R620:620 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R574:583 OpenGororoba.RecursiveCDTower <> tower_zero def
+R591:601 boolean_sign <> tower_basis:5 def
+R610:612 Corelib.Init.Datatypes <> fst def
+R614:618 boolean_sign <> value:7 var
+prf 690:706 <> tower_signed_zero
+binder 708:712 <> order:8
+binder 714:721 <> negative:9
+R772:774 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R726:737 boolean_sign <> tower_signed def
+R739:743 boolean_sign <> order:8 var
+R745:752 boolean_sign <> negative:9 var
+R755:764 OpenGororoba.RecursiveCDTower <> tower_zero def
+R766:770 boolean_sign <> order:8 var
+R775:784 OpenGororoba.RecursiveCDTower <> tower_zero def
+R786:790 boolean_sign <> order:8 var
+R833:846 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm

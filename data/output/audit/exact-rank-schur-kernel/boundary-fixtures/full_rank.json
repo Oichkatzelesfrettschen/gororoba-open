@@ -1,0 +1,79 @@
+{
+  "columns": 1,
+  "field": "rational",
+  "kernel": {
+    "columns": 0,
+    "entries": [
+      []
+    ],
+    "rows": 1
+  },
+  "kernel_left_inverse": {
+    "columns": 1,
+    "entries": [],
+    "rows": 0
+  },
+  "lower_left": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "2",
+          "numerator": "-3"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "lower_right": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "operator": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "3",
+          "numerator": "-2"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "rank": 1,
+  "rows": 1,
+  "schema": "exact-rank-kernel-v1",
+  "upper_left": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "3",
+          "numerator": "-2"
+        }
+      ]
+    ],
+    "rows": 1
+  },
+  "upper_right": {
+    "columns": 1,
+    "entries": [
+      [
+        {
+          "denominator": "1",
+          "numerator": "1"
+        }
+      ]
+    ],
+    "rows": 1
+  }
+}

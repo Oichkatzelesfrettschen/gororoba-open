@@ -10,11 +10,12 @@
     sedenion product zero, while its octonion average product is [oct_e 5]/2.
 
     Every theorem uses the concrete [CDSed] and [sed_mul] convention from
-    [Sedenion]. The file establishes the 16D instance; a generic all-stage
-    Cayley-Dickson transport theorem requires a separate tower bridge. *)
+    [Sedenion]. The 16D inverse laws instantiate the all-order transport through
+    the proved recursive-tower and concrete-record correspondence. *)
 
 From OpenGororoba Require Import
   Prelude CayleyDicksonAlgebra Sedenion OctonionNorm.
+From OpenGororoba Require Import RecursiveCDTower CDTowerFoldTransport CDConcreteTowerAdapter.
 
 Open Scope R_scope.
 
@@ -33,30 +34,43 @@ Definition sed_unfold (coordinates : CDSed) : CDSed :=
     (oct_add (sed_lo coordinates) (sed_hi coordinates))
     (oct_sub (sed_lo coordinates) (sed_hi coordinates)).
 
+Lemma tower_sedenion_fold_correspondence value :
+ tower_sedenion (tower_fold 3 value) = sed_fold (tower_sedenion value).
+Proof.
+ destruct value as [low high].
+ change (mkSed
+   (tower_octonion (tower_scale 3 (1/2) (tower_add 3 low high)))
+   (tower_octonion (tower_scale 3 (1/2) (tower_sub 3 low high))) =
+   mkSed (oct_scale (1/2) (oct_add (tower_octonion low) (tower_octonion high)))
+   (oct_scale (1/2) (oct_sub (tower_octonion low) (tower_octonion high)))).
+ rewrite !tower_octonion_scale, tower_octonion_add.
+ unfold tower_sub, oct_sub. rewrite tower_octonion_add, tower_octonion_neg. reflexivity.
+Qed.
+Lemma tower_sedenion_unfold_correspondence value :
+ tower_sedenion (tower_unfold 3 value) = sed_unfold (tower_sedenion value).
+Proof.
+ destruct value as [low high].
+ change (mkSed (tower_octonion (tower_add 3 low high)) (tower_octonion (tower_sub 3 low high)) =
+   mkSed (oct_add (tower_octonion low) (tower_octonion high)) (oct_sub (tower_octonion low) (tower_octonion high))).
+ unfold tower_sub, oct_sub. rewrite !tower_octonion_add, tower_octonion_neg. reflexivity.
+Qed.
+
 Theorem sed_unfold_after_fold :
   forall value, sed_unfold (sed_fold value) = value.
 Proof.
-  intros [[[low_low_real low_low_i low_low_j low_low_k]
-           [low_high_real low_high_i low_high_j low_high_k]]
-          [[high_low_real high_low_i high_low_j high_low_k]
-           [high_high_real high_high_i high_high_j high_high_k]]].
-  cbv [sed_unfold sed_fold sed_average sed_detail oct_add oct_sub oct_neg
-       oct_scale quat_add quat_neg quat_scale
-       sed_lo sed_hi oct_lo oct_hi qa qb qc qd].
-  f_equal; f_equal; f_equal; field.
+  intro value.
+  pose proof (f_equal tower_sedenion (tower_unfold_after_fold 3 (sedenion_tower value))) as transported.
+  rewrite tower_sedenion_unfold_correspondence, tower_sedenion_fold_correspondence,
+    tower_sedenion_round_trip in transported. exact transported.
 Qed.
 
 Theorem sed_fold_after_unfold :
   forall coordinates, sed_fold (sed_unfold coordinates) = coordinates.
 Proof.
-  intros [[[average_low_real average_low_i average_low_j average_low_k]
-           [average_high_real average_high_i average_high_j average_high_k]]
-          [[detail_low_real detail_low_i detail_low_j detail_low_k]
-           [detail_high_real detail_high_i detail_high_j detail_high_k]]].
-  cbv [sed_unfold sed_fold sed_average sed_detail oct_add oct_sub oct_neg
-       oct_scale quat_add quat_neg quat_scale
-       sed_lo sed_hi oct_lo oct_hi qa qb qc qd].
-  f_equal; f_equal; f_equal; field.
+  intro coordinates.
+  pose proof (f_equal tower_sedenion (tower_fold_after_unfold 3 (sedenion_tower coordinates))) as transported.
+  rewrite tower_sedenion_fold_correspondence, tower_sedenion_unfold_correspondence,
+    tower_sedenion_round_trip in transported. exact transported.
 Qed.
 
 Theorem sed_fold_injective :
@@ -159,3 +173,38 @@ Proof.
   - exact sed_zd_product_zero.
   - exact sed_average_witness_product_nonzero.
 Qed.
+Theorem sed_fold_norm_scaling value :
+ sed_norm_sq (sed_fold value) = (1/2) * sed_norm_sq value.
+Proof.
+ pose proof (tower_fold_norm_scaling 3 (sedenion_tower value)) as transported.
+ rewrite !tower_sedenion_norm, tower_sedenion_fold_correspondence,
+   tower_sedenion_round_trip in transported. exact transported.
+Qed.
+Theorem sed_unfold_norm_scaling value :
+ sed_norm_sq (sed_unfold value) = 2 * sed_norm_sq value.
+Proof.
+ pose proof (tower_unfold_norm_scaling 3 (sedenion_tower value)) as transported.
+ rewrite !tower_sedenion_norm, tower_sedenion_unfold_correspondence,
+   tower_sedenion_round_trip in transported. exact transported.
+Qed.
+Lemma tower_sedenion_average_correspondence value :
+ tower_octonion (fst (tower_fold 3 value)) = sed_average (tower_sedenion value).
+Proof. exact (f_equal sed_lo (tower_sedenion_fold_correspondence value)). Qed.
+Theorem tower_average_loses_zero_product :
+ exists first second : cd_tower 4,
+ tower_mul 4 first second = tower_zero 4 /\
+ tower_mul 3 (fst (tower_fold 3 first)) (fst (tower_fold 3 second)) <> tower_zero 3.
+Proof.
+ exists (sedenion_tower sed_zd_a), (sedenion_tower sed_zd_b). split.
+ - apply tower_sedenion_injective.
+   rewrite tower_sedenion_mul, !tower_sedenion_round_trip, tower_sedenion_zero.
+   exact sed_zd_product_zero.
+ - intro equal. apply (f_equal tower_octonion) in equal.
+   rewrite tower_octonion_mul, !tower_sedenion_average_correspondence,
+     !tower_sedenion_round_trip, tower_octonion_zero in equal.
+   exact (sed_average_witness_product_nonzero equal).
+Qed.
+Print Assumptions sed_unfold_after_fold.
+Print Assumptions sed_fold_after_unfold.
+Print Assumptions sed_fold_norm_scaling.
+Print Assumptions tower_average_loses_zero_product.

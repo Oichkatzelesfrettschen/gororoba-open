@@ -1,0 +1,122 @@
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.24
+   Compiling stable_deref_trait v1.2.1
+   Compiling serde_core v1.0.228
+   Compiling shlex v1.3.0
+   Compiling find-msvc-tools v0.1.9
+   Compiling typenum v1.19.0
+   Compiling litemap v0.8.2
+   Compiling writeable v0.6.3
+   Compiling utf8_iter v1.0.4
+   Compiling foldhash v0.2.0
+   Compiling smallvec v1.15.1
+   Compiling icu_normalizer_data v2.2.0
+   Compiling icu_properties_data v2.2.0
+   Compiling cc v1.2.59
+   Compiling pkg-config v0.3.32
+   Compiling vcpkg v0.2.15
+   Compiling serde v1.0.228
+   Compiling hashbrown v0.16.1
+   Compiling cfg-if v1.0.4
+   Compiling autocfg v1.5.0
+   Compiling winnow v1.0.1
+   Compiling crc32fast v1.5.0
+   Compiling zmij v1.0.21
+   Compiling camino v1.2.2
+   Compiling equivalent v1.0.2
+   Compiling hybrid-array v0.4.10
+   Compiling const-oid v0.10.2
+   Compiling anyhow v1.0.103
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling hashlink v0.11.0
+   Compiling num-traits v0.2.19
+   Compiling bitflags v2.11.0
+   Compiling rusqlite_migration v2.5.0
+   Compiling libsqlite3-sys v0.37.0
+   Compiling blake3 v1.8.4
+   Compiling serde_json v1.0.149
+   Compiling toml_writer v1.1.1+spec-1.1.0
+   Compiling fallible-iterator v0.3.0
+   Compiling adler2 v2.0.1
+   Compiling percent-encoding v2.3.2
+   Compiling simd-adler32 v0.3.9
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.0
+   Compiling cpufeatures v0.3.0
+   Compiling syn v2.0.117
+   Compiling toml_parser v1.1.2+spec-1.1.0
+   Compiling indexmap v2.13.1
+   Compiling form_urlencoded v1.2.2
+   Compiling miniz_oxide v0.8.9
+   Compiling itoa v1.0.18
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling rusqlite v0.39.0
+   Compiling serde_spanned v1.1.1
+   Compiling arrayvec v0.7.6
+   Compiling constant_time_eq v0.4.2
+   Compiling log v0.4.29
+   Compiling memchr v2.8.0
+   Compiling arrayref v0.3.9
+   Compiling iana-time-zone v0.1.65
+   Compiling digest v0.11.2
+   Compiling toml_edit v0.25.10+spec-1.1.0
+   Compiling toml v1.1.2+spec-1.1.0
+   Compiling flate2 v1.1.9
+   Compiling sha2 v0.11.0
+   Compiling synstructure v0.13.2
+   Compiling zerovec-derive v0.11.3
+   Compiling displaydoc v0.2.5
+   Compiling serde_derive v1.0.228
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+   Compiling zerofrom v0.1.7
+   Compiling yoke v0.8.2
+   Compiling zerovec v0.11.6
+   Compiling zerotrie v0.2.4
+   Compiling tinystr v0.8.3
+   Compiling potential_utf v0.1.5
+   Compiling chrono v0.4.41
+   Compiling provenance_core v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_core)
+   Compiling icu_collections v2.2.0
+   Compiling icu_locale_core v2.2.0
+   Compiling icu_provider v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store)
+    Finished `test` profile [optimized + debuginfo] target(s) in 2m 11s
+     Running unittests src/lib.rs (/home/eirikr/Github/open_gororoba/.cache/gate-cbuild/8ee62ced707fec8e/debug/deps/provenance_store-0bd16fb90340b7ea)
+
+running 11 tests
+test quantum_bindings::tests::mathematical_additions_preserve_retained_coherence_scope ... ok
+test quantum_bindings::tests::reusable_support_has_mathematical_semantics ... ok
+test quantum_bindings::tests::symlink_artifacts_are_rejected ... ok
+test quantum_bindings::tests::instrument_foundations_have_mathematical_domains ... ok
+test quantum_bindings::tests::source_inventory_rejects_ambiguous_paths ... ok
+test quantum_bindings::tests::unknown_manifest_fields_are_rejected ... ok
+test quantum_bindings::tests::retained_observables_reconstruct_exactly ... ok
+test quantum_bindings::tests::coherence_application_is_separate_from_operator_theorems ... ok
+test quantum_bindings::tests::theorem_proofs_are_separate_from_terminal_applications ... FAILED
+test quantum_bindings::tests::unselected_observation_mutations_reach_data_validation ... ok
+test quantum_bindings::tests::contract_mutations_reach_specific_rejections ... ok
+
+failures:
+
+---- quantum_bindings::tests::theorem_proofs_are_separate_from_terminal_applications stdout ----
+
+thread 'quantum_bindings::tests::theorem_proofs_are_separate_from_terminal_applications' (3254133) panicked at crates/provenance_store/src/quantum_bindings.rs:1966:9:
+assertion `left == right` failed
+  left: 295
+ right: 289
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    quantum_bindings::tests::theorem_proofs_are_separate_from_terminal_applications
+
+test result: FAILED. 10 passed; 1 failed; 0 ignored; 0 measured; 126 filtered out; finished in 1.73s
+
+error: test failed, to rerun pass `-p provenance_store --lib`

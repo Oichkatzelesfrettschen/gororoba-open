@@ -1,0 +1,130 @@
+evidence_key = "rank-kernel-project-RationalRealSpecialization"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-RationalRealSpecialization"
+proof_path = "proofs/theories/RationalRealSpecialization.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/RationalRealSpecialization.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.RationalRealSpecialization"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/ExactRankCertificate.v"
+sha256 = "c03fb9b60c24aec2326fd694ead5bbcd31070bd0b3a4cdcfdd1db8c4acb84999"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[witness.sources]]
+path = "proofs/theories/RationalRealSpecialization.v"
+sha256 = "06c3278789ad94cf3b7ec13346d590513ab06ac2ef60b3dc04a4dea1f02c0f58"
+
+[[witness.sources]]
+path = "proofs/theories/StdlibRealFieldAdapter.v"
+sha256 = "389794e3108e50f45cedb1f1c97b85b14913cdd4f04c10eb9562645bfad23693"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RationalRealSpecialization.compile.txt"
+sha256 = "8e24833b01fd2c310b1d0a961579bff02d48cf6830f854a3b95ca8ce6682f8cc"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RationalRealSpecialization.kernel.txt"
+sha256 = "6ace46064a6cc8378432c131a530671780cb3f080ee50933b45de87d5d8364c6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/RationalRealSpecialization.assumptions.txt"
+sha256 = "68959ad9b59ae8f6a30e57d1b6a9e1f546c4351ab2b29647b8ffc94b42433c44"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/RationalRealSpecialization.vo"
+sha256 = "0d27eb1ce3964dcecef8a45326f8650d901f5465f622d7d2950668c96326f7f5"
+
+[[witness.declarations]]
+name = "real_natmul_INR"
+statement = "Lemma real_natmul_INR : forall n, @nmodule.Algebra.natmul _ R1 n = INR n"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_integer"
+statement = "Definition real_integer (value : ssrint.int) : R := @ssrint.intmul _ R1 value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_integer_nonzero"
+statement = "Lemma real_integer_nonzero (value : ssrint.int) : value != ssrint.Posz 0 -> real_integer value <> 0%R"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_denominator_nonzero"
+statement = "Lemma real_denominator_nonzero value : real_integer (rat.denq value) <> 0%R"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational"
+statement = "Definition real_rational (value : rat) : R := ratr value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_is_zmod_morphism"
+statement = "Lemma real_rational_is_zmod_morphism : zmod_morphism real_rational"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_is_monoid_morphism"
+statement = "Lemma real_rational_is_monoid_morphism : monoid_morphism real_rational"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_zero"
+statement = "Lemma real_rational_zero : real_rational 0 = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_add"
+statement = "Lemma real_rational_add : {morph real_rational : x y / x + y}"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_is_nmod_morphism"
+statement = "Lemma real_rational_is_nmod_morphism : nmod_morphism real_rational"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "actual_rational_real_rank"
+statement = "Theorem actual_rational_real_rank rows columns (operator : matrix.matrix rat rows columns) : @mxalgebra.mxrank stdlib_real_field rows columns (matrix.map_mx real_rational operator) = @mxalgebra.mxrank mathcomp_rational_field rows columns operator"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "integer_coordinate"
+statement = "Definition integer_coordinate (value : int) : Z := match value with Posz natural => Z.of_nat natural | Negz natural => Z.opp (Z.of_nat (S natural)) end"
+assumptions = []
+
+[[witness.declarations]]
+name = "real_integer_IZR"
+statement = "Lemma real_integer_IZR value : real_integer value = IZR (integer_coordinate value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_integer"
+statement = "Lemma real_rational_integer value : real_rational (ratz value) = IZR (integer_coordinate value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_rational_fraction"
+statement = "Lemma real_rational_fraction numerator denominator : real_rational (divq (ratz numerator) (ratz denominator)) = (IZR (integer_coordinate numerator) / IZR (integer_coordinate denominator))%R"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "rational_frame_real_complete"
+statement = "Theorem rational_frame_real_complete rows columns width (operator : matrix.matrix rat rows columns) (frame : matrix.matrix rat columns width) : matrix.mulmx operator frame = FiniteMatrixConventions.matrix_zero mathcomp_rational_field rows width -> @mxalgebra.mxrank mathcomp_rational_field columns width frame = ssrnat.subn columns (@mxalgebra.mxrank mathcomp_rational_field rows columns operator) -> forall vector : matrix.matrix R columns 1, matrix.mulmx (matrix.map_mx real_rational operator) vector = FiniteMatrixConventions.matrix_zero stdlib_real_field rows 1 -> exists coefficients : matrix.matrix R width 1, vector = matrix.mulmx (matrix.map_mx real_rational frame) coefficients"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]

@@ -1,0 +1,195 @@
+DIGEST 4574de4d4b0469ecd07be4ba3878aa07
+Fhighest_bit
+R160:164 Stdlib.Reals.Reals <> <> lib
+R166:169 Stdlib.Bool.Bool <> <> lib
+R205:220 OpenGororoba.RecursiveCDTower <> <> lib
+R222:237 OpenGororoba.SchreierSignCode <> <> lib
+def 251:262 <> tower_signed
+binder 264:268 <> order:1
+R282:285 Corelib.Init.Datatypes <> bool ind
+binder 271:278 <> negative:2
+R297:304 OpenGororoba.RecursiveCDTower <> cd_tower def
+R306:310 highest_bit <> order:1 var
+binder 289:293 <> value:3
+R320:327 highest_bit <> negative:2 var
+R361:365 highest_bit <> value:3 var
+R334:342 OpenGororoba.RecursiveCDTower <> tower_neg def
+R344:348 highest_bit <> order:1 var
+R350:354 highest_bit <> value:3 var
+def 377:387 <> tower_basis
+binder 389:393 <> order:4
+R407:410 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R397:400 OpenGororoba.SchreierSignCode <> cube def
+R402:406 highest_bit <> order:4 var
+R411:418 OpenGororoba.RecursiveCDTower <> cd_tower def
+R420:424 highest_bit <> order:4 var
+R436:440 highest_bit <> order:4 var
+R476:479 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R462:465 OpenGororoba.SchreierSignCode <> cube def
+R467:475 highest_bit <> dimension:6 var
+R480:487 OpenGororoba.RecursiveCDTower <> cd_tower def
+R489:497 highest_bit <> dimension:6 var
+R507:507 Corelib.Init.Datatypes <> O constr
+R528:528 Corelib.Init.Datatypes <> S constr
+binder 543:547 <> value:7
+R555:557 Corelib.Init.Datatypes <> snd def
+R559:563 highest_bit <> value:7 var
+R630:630 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R660:660 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R677:677 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R631:641 highest_bit <> tower_basis:5 def
+R650:652 Corelib.Init.Datatypes <> fst def
+R654:658 highest_bit <> value:7 var
+R661:670 OpenGororoba.RecursiveCDTower <> tower_zero def
+R573:573 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R603:603 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R620:620 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R574:584 highest_bit <> tower_basis:5 def
+R593:595 Corelib.Init.Datatypes <> fst def
+R597:601 highest_bit <> value:7 var
+R604:613 OpenGororoba.RecursiveCDTower <> tower_zero def
+prf 690:706 <> tower_signed_zero
+binder 708:712 <> order:8
+binder 714:721 <> negative:9
+R772:774 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R726:737 highest_bit <> tower_signed def
+R739:743 highest_bit <> order:8 var
+R745:752 highest_bit <> negative:9 var
+R755:764 OpenGororoba.RecursiveCDTower <> tower_zero def
+R766:770 highest_bit <> order:8 var
+R775:784 OpenGororoba.RecursiveCDTower <> tower_zero def
+R786:790 highest_bit <> order:8 var
+R833:846 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+prf 873:896 <> tower_signed_composition
+binder 898:902 <> order:10
+binder 904:908 <> first:11
+binder 910:915 <> second:12
+binder 917:921 <> value:13
+R984:987 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R926:937 highest_bit <> tower_signed def
+R939:943 highest_bit <> order:10 var
+R945:949 highest_bit <> first:11 var
+R952:963 highest_bit <> tower_signed def
+R965:969 highest_bit <> order:10 var
+R971:976 highest_bit <> second:12 var
+R978:982 highest_bit <> value:13 var
+R988:999 highest_bit <> tower_signed def
+R1001:1005 highest_bit <> order:10 var
+R1008:1011 Corelib.Init.Datatypes <> xorb def
+R1019:1024 highest_bit <> second:12 var
+R1013:1017 highest_bit <> first:11 var
+R1027:1031 highest_bit <> value:13 var
+R1095:1114 OpenGororoba.RecursiveCDTower <> tower_neg_involution thm
+prf 1128:1148 <> tower_signed_mul_left
+binder 1150:1154 <> order:14
+binder 1156:1163 <> negative:15
+binder 1165:1169 <> first:16
+binder 1171:1176 <> second:17
+R1239:1242 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1181:1189 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1191:1195 highest_bit <> order:14 var
+R1198:1209 highest_bit <> tower_signed def
+R1211:1215 highest_bit <> order:14 var
+R1217:1224 highest_bit <> negative:15 var
+R1226:1230 highest_bit <> first:16 var
+R1233:1238 highest_bit <> second:17 var
+R1243:1254 highest_bit <> tower_signed def
+R1256:1260 highest_bit <> order:14 var
+R1262:1269 highest_bit <> negative:15 var
+R1272:1280 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1282:1286 highest_bit <> order:14 var
+R1288:1292 highest_bit <> first:16 var
+R1294:1299 highest_bit <> second:17 var
+R1343:1360 OpenGororoba.RecursiveCDTower <> tower_mul_neg_left thm
+prf 1387:1408 <> tower_signed_mul_right
+binder 1410:1414 <> order:18
+binder 1416:1423 <> negative:19
+binder 1425:1429 <> first:20
+binder 1431:1436 <> second:21
+R1499:1502 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1441:1449 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1451:1455 highest_bit <> order:18 var
+R1457:1461 highest_bit <> first:20 var
+R1464:1475 highest_bit <> tower_signed def
+R1477:1481 highest_bit <> order:18 var
+R1483:1490 highest_bit <> negative:19 var
+R1492:1497 highest_bit <> second:21 var
+R1503:1514 highest_bit <> tower_signed def
+R1516:1520 highest_bit <> order:18 var
+R1522:1529 highest_bit <> negative:19 var
+R1532:1540 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1542:1546 highest_bit <> order:18 var
+R1548:1552 highest_bit <> first:20 var
+R1554:1559 highest_bit <> second:21 var
+R1603:1621 OpenGororoba.RecursiveCDTower <> tower_mul_neg_right thm
+prf 1648:1663 <> tower_signed_low
+binder 1665:1669 <> order:22
+binder 1671:1678 <> negative:23
+binder 1680:1684 <> value:24
+R1745:1748 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1689:1700 highest_bit <> tower_signed def
+R1703:1703 Corelib.Init.Datatypes <> S constr
+R1705:1709 highest_bit <> order:22 var
+R1712:1719 highest_bit <> negative:23 var
+R1721:1721 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1727:1727 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1744:1744 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1722:1726 highest_bit <> value:24 var
+R1728:1737 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1739:1743 highest_bit <> order:22 var
+R1749:1749 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1783:1783 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1800:1800 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1750:1761 highest_bit <> tower_signed def
+R1763:1767 highest_bit <> order:22 var
+R1769:1776 highest_bit <> negative:23 var
+R1778:1782 highest_bit <> value:24 var
+R1784:1793 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1795:1799 highest_bit <> order:22 var
+R1845:1858 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+prf 1887:1903 <> tower_signed_high
+binder 1905:1909 <> order:25
+binder 1911:1918 <> negative:26
+binder 1920:1924 <> value:27
+R1985:1988 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1929:1940 highest_bit <> tower_signed def
+R1943:1943 Corelib.Init.Datatypes <> S constr
+R1945:1949 highest_bit <> order:25 var
+R1952:1959 highest_bit <> negative:26 var
+R1961:1961 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1978:1978 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1984:1984 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1962:1971 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1973:1977 highest_bit <> order:25 var
+R1979:1983 highest_bit <> value:27 var
+R1989:1989 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2006:2006 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2040:2040 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1990:1999 OpenGororoba.RecursiveCDTower <> tower_zero def
+R2001:2005 highest_bit <> order:25 var
+R2007:2018 highest_bit <> tower_signed def
+R2020:2024 highest_bit <> order:25 var
+R2026:2033 highest_bit <> negative:26 var
+R2035:2039 highest_bit <> value:27 var
+R2085:2098 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+prf 2129:2151 <> tower_basis_conjugation
+binder 2153:2157 <> order:28
+binder 2168:2172 <> value:29
+R2218:2221 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2176:2185 OpenGororoba.RecursiveCDTower <> tower_conj def
+R2187:2191 highest_bit <> order:28 var
+R2194:2204 highest_bit <> tower_basis def
+R2206:2210 highest_bit <> order:28 var
+R2212:2216 highest_bit <> value:29 var
+R2222:2233 highest_bit <> tower_signed def
+R2235:2239 highest_bit <> order:28 var
+R2242:2253 OpenGororoba.SchreierSignCode <> cube_nonzero def
+R2255:2259 highest_bit <> order:28 var
+R2261:2265 highest_bit <> value:29 var
+R2269:2279 highest_bit <> tower_basis def
+R2281:2285 highest_bit <> order:28 var
+R2287:2291 highest_bit <> value:29 var
+R2436:2454 OpenGororoba.SchreierSignCode <> cube_nonzero_double thm
+R2488:2497 Stdlib.Bool.Bool <> orb_true_r thm
+R2515:2529 OpenGororoba.RecursiveCDTower <> tower_conj_zero thm
+R2532:2545 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm

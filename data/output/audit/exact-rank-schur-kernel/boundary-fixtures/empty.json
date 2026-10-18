@@ -1,0 +1,42 @@
+{
+  "columns": 0,
+  "field": "rational",
+  "kernel": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "kernel_left_inverse": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "lower_left": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "lower_right": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "operator": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "rank": 0,
+  "rows": 0,
+  "schema": "exact-rank-kernel-v1",
+  "upper_left": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  },
+  "upper_right": {
+    "columns": 0,
+    "entries": [],
+    "rows": 0
+  }
+}

@@ -1,0 +1,15 @@
+File "/tmp/exact-rank-convention-mutations/fold_scale.v", line 95, characters 55-79:
+Error: In environment
+order : nat
+c, c0 : cd_tower order
+Unable to unify
+ "tower_norm_sq ?order
+    (tower_scale ?order (1 / 2) (tower_add ?order ?first ?second)) +
+  tower_norm_sq ?order
+    (tower_scale ?order (1 / 2) (tower_sub ?order ?first ?second)) =
+  1 / 2 * (tower_norm_sq ?order ?first + tower_norm_sq ?order ?second)"
+with
+ "tower_norm_sq order (tower_scale order (1 / 2) (tower_add order c c0)) +
+  tower_norm_sq order (tower_scale order (1 / 2) (tower_sub order c c0)) =
+  2 * (tower_norm_sq order c + tower_norm_sq order c0)".
+

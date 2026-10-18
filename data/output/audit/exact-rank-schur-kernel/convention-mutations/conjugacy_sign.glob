@@ -1,0 +1,353 @@
+DIGEST c87ff25a02773dbb23650f0bc855d6e6
+Fconjugacy_sign
+R106:110 Stdlib.Reals.Reals <> <> lib
+R146:161 OpenGororoba.RecursiveCDTower <> <> lib
+prf 170:186 <> tower_neg_eq_zero
+binder 188:192 <> order:1
+binder 194:198 <> value:2
+R243:247 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R224:226 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R203:211 OpenGororoba.RecursiveCDTower <> tower_neg def
+R213:217 conjugacy_sign <> order:1 var
+R219:223 conjugacy_sign <> value:2 var
+R227:236 OpenGororoba.RecursiveCDTower <> tower_zero def
+R238:242 conjugacy_sign <> order:1 var
+R253:255 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R248:252 conjugacy_sign <> value:2 var
+R256:265 OpenGororoba.RecursiveCDTower <> tower_zero def
+R267:271 conjugacy_sign <> order:1 var
+R312:318 Corelib.Init.Logic <> f_equal thm
+R321:329 OpenGororoba.RecursiveCDTower <> tower_neg def
+R360:379 OpenGororoba.RecursiveCDTower <> tower_neg_involution thm
+R382:395 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+R438:451 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+prf 478:495 <> tower_conj_eq_zero
+binder 497:501 <> order:3
+binder 503:507 <> value:4
+R553:557 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R534:536 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R512:521 OpenGororoba.RecursiveCDTower <> tower_conj def
+R523:527 conjugacy_sign <> order:3 var
+R529:533 conjugacy_sign <> value:4 var
+R537:546 OpenGororoba.RecursiveCDTower <> tower_zero def
+R548:552 conjugacy_sign <> order:3 var
+R563:565 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R558:562 conjugacy_sign <> value:4 var
+R566:575 OpenGororoba.RecursiveCDTower <> tower_zero def
+R577:581 conjugacy_sign <> order:3 var
+R622:628 Corelib.Init.Logic <> f_equal thm
+R631:640 OpenGororoba.RecursiveCDTower <> tower_conj def
+R671:691 OpenGororoba.RecursiveCDTower <> tower_conj_involution thm
+R694:708 OpenGororoba.RecursiveCDTower <> tower_conj_zero thm
+R751:765 OpenGororoba.RecursiveCDTower <> tower_conj_zero thm
+prf 794:818 <> pure_right_left_conjugacy
+binder 820:824 <> order:5
+binder 826:832 <> operand:6
+R861:864 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R837:846 OpenGororoba.RecursiveCDTower <> tower_pure def
+R848:852 conjugacy_sign <> order:5 var
+R854:860 conjugacy_sign <> operand:6 var
+binder 872:877 <> vector:7
+R911:913 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R881:889 OpenGororoba.RecursiveCDTower <> tower_mul def
+R891:895 conjugacy_sign <> order:5 var
+R897:902 conjugacy_sign <> vector:7 var
+R904:910 conjugacy_sign <> operand:6 var
+R914:922 OpenGororoba.RecursiveCDTower <> tower_neg def
+R924:928 conjugacy_sign <> order:5 var
+R934:943 OpenGororoba.RecursiveCDTower <> tower_conj def
+R945:949 conjugacy_sign <> order:5 var
+R952:960 OpenGororoba.RecursiveCDTower <> tower_mul def
+R962:966 conjugacy_sign <> order:5 var
+R968:974 conjugacy_sign <> operand:6 var
+R977:986 OpenGororoba.RecursiveCDTower <> tower_conj def
+R988:992 conjugacy_sign <> order:5 var
+R994:999 conjugacy_sign <> vector:7 var
+R1042:1064 OpenGororoba.RecursiveCDTower <> tower_conj_antimorphism thm
+R1067:1087 OpenGororoba.RecursiveCDTower <> tower_conj_involution thm
+R1094:1112 OpenGororoba.RecursiveCDTower <> tower_pure_conj_neg thm
+R1135:1153 OpenGororoba.RecursiveCDTower <> tower_mul_neg_right thm
+R1156:1175 OpenGororoba.RecursiveCDTower <> tower_neg_involution thm
+prf 1205:1226 <> pure_right_left_kernel
+binder 1228:1232 <> order:8
+binder 1234:1240 <> operand:9
+R1269:1272 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R1245:1254 OpenGororoba.RecursiveCDTower <> tower_pure def
+R1256:1260 conjugacy_sign <> order:8 var
+R1262:1268 conjugacy_sign <> operand:9 var
+binder 1280:1285 <> vector:10
+R1338:1343 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R1319:1321 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1289:1297 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1299:1303 conjugacy_sign <> order:8 var
+R1305:1310 conjugacy_sign <> vector:10 var
+R1312:1318 conjugacy_sign <> operand:9 var
+R1322:1331 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1333:1337 conjugacy_sign <> order:8 var
+R1393:1395 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1344:1352 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1354:1358 conjugacy_sign <> order:8 var
+R1360:1366 conjugacy_sign <> operand:9 var
+R1369:1378 OpenGororoba.RecursiveCDTower <> tower_conj def
+R1380:1384 conjugacy_sign <> order:8 var
+R1386:1391 conjugacy_sign <> vector:10 var
+R1396:1405 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1407:1411 conjugacy_sign <> order:8 var
+R1451:1475 conjugacy_sign <> pure_right_left_conjugacy thm
+R1514:1530 conjugacy_sign <> tower_neg_eq_zero thm
+R1533:1550 conjugacy_sign <> tower_conj_eq_zero thm
+prf 1577:1596 <> tower_add_zero_right
+binder 1598:1602 <> order:11
+binder 1604:1608 <> value:12
+R1652:1654 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1612:1620 OpenGororoba.RecursiveCDTower <> tower_add def
+R1622:1626 conjugacy_sign <> order:11 var
+R1628:1632 conjugacy_sign <> value:12 var
+R1635:1644 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1646:1650 conjugacy_sign <> order:11 var
+R1655:1659 conjugacy_sign <> value:12 var
+R1677:1690 OpenGororoba.RecursiveCDTower <> tower_add_comm thm
+R1693:1706 OpenGororoba.RecursiveCDTower <> tower_add_zero thm
+prf 1735:1757 <> zero_upper_half_product
+binder 1759:1763 <> order:13
+binder 1765:1771 <> operand:14
+binder 1773:1777 <> first:15
+binder 1779:1784 <> second:16
+R1850:1853 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1789:1797 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1800:1800 Corelib.Init.Datatypes <> S constr
+R1802:1806 conjugacy_sign <> order:13 var
+R1809:1809 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1817:1817 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1834:1834 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1810:1816 conjugacy_sign <> operand:14 var
+R1818:1827 OpenGororoba.RecursiveCDTower <> tower_zero def
+R1829:1833 conjugacy_sign <> order:13 var
+R1836:1836 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1842:1842 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1849:1849 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1837:1841 conjugacy_sign <> first:15 var
+R1843:1848 conjugacy_sign <> second:16 var
+R1854:1854 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1884:1884 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1915:1915 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1855:1863 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1865:1869 conjugacy_sign <> order:13 var
+R1871:1877 conjugacy_sign <> operand:14 var
+R1879:1883 conjugacy_sign <> first:15 var
+R1885:1893 OpenGororoba.RecursiveCDTower <> tower_mul def
+R1895:1899 conjugacy_sign <> order:13 var
+R1901:1906 conjugacy_sign <> second:16 var
+R1908:1914 conjugacy_sign <> operand:14 var
+R1940:1948 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1959:1978 OpenGororoba.RecursiveCDTower <> tower_mul_zero_right thm
+R1981:1999 OpenGororoba.RecursiveCDTower <> tower_mul_zero_left thm
+R2003:2016 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+R2019:2038 conjugacy_sign <> tower_add_zero_right thm
+R2041:2060 conjugacy_sign <> tower_add_zero_right thm
+prf 2089:2122 <> pure_doubling_kernel_decomposition
+binder 2124:2128 <> order:17
+binder 2130:2136 <> operand:18
+binder 2138:2142 <> first:19
+binder 2144:2149 <> second:20
+R2178:2183 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2395:2395 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2154:2163 OpenGororoba.RecursiveCDTower <> tower_pure def
+R2165:2169 conjugacy_sign <> order:17 var
+R2171:2177 conjugacy_sign <> operand:18 var
+R2268:2273 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2245:2247 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2184:2192 OpenGororoba.RecursiveCDTower <> tower_mul def
+R2195:2195 Corelib.Init.Datatypes <> S constr
+R2197:2201 conjugacy_sign <> order:17 var
+R2204:2204 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2212:2212 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2229:2229 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2205:2211 conjugacy_sign <> operand:18 var
+R2213:2222 OpenGororoba.RecursiveCDTower <> tower_zero def
+R2224:2228 conjugacy_sign <> order:17 var
+R2231:2231 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2237:2237 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2244:2244 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2232:2236 conjugacy_sign <> first:19 var
+R2238:2243 conjugacy_sign <> second:20 var
+R2248:2257 OpenGororoba.RecursiveCDTower <> tower_zero def
+R2260:2260 Corelib.Init.Datatypes <> S constr
+R2262:2266 conjugacy_sign <> order:17 var
+R2322:2326 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R2303:2305 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2274:2282 OpenGororoba.RecursiveCDTower <> tower_mul def
+R2284:2288 conjugacy_sign <> order:17 var
+R2290:2296 conjugacy_sign <> operand:18 var
+R2298:2302 conjugacy_sign <> first:19 var
+R2306:2315 OpenGororoba.RecursiveCDTower <> tower_zero def
+R2317:2321 conjugacy_sign <> order:17 var
+R2376:2378 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2327:2335 OpenGororoba.RecursiveCDTower <> tower_mul def
+R2337:2341 conjugacy_sign <> order:17 var
+R2343:2349 conjugacy_sign <> operand:18 var
+R2352:2361 OpenGororoba.RecursiveCDTower <> tower_conj def
+R2363:2367 conjugacy_sign <> order:17 var
+R2369:2374 conjugacy_sign <> second:20 var
+R2379:2388 OpenGororoba.RecursiveCDTower <> tower_zero def
+R2390:2394 conjugacy_sign <> order:17 var
+R2426:2448 conjugacy_sign <> zero_upper_half_product thm
+R2494:2500 Corelib.Init.Logic <> f_equal thm
+R2502:2504 Corelib.Init.Datatypes <> fst def
+R2544:2550 Corelib.Init.Logic <> f_equal thm
+R2552:2554 Corelib.Init.Datatypes <> snd def
+R2658:2662 Corelib.Init.Logic <> proj1 thm
+R2665:2686 conjugacy_sign <> pure_right_left_kernel thm
+R2783:2787 Corelib.Init.Logic <> proj2 thm
+R2790:2811 conjugacy_sign <> pure_right_left_kernel thm
+def 2922:2947 <> pure_kernel_pair_transport
+binder 2949:2953 <> order:21
+R2977:2979 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2963:2970 OpenGororoba.RecursiveCDTower <> cd_tower def
+R2972:2976 conjugacy_sign <> order:21 var
+R2980:2987 OpenGororoba.RecursiveCDTower <> cd_tower def
+R2989:2993 conjugacy_sign <> order:21 var
+binder 2956:2959 <> pair:22
+R3000:3000 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3009:3009 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3037:3037 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3001:3003 Corelib.Init.Datatypes <> fst def
+R3005:3008 conjugacy_sign <> pair:22 var
+R3010:3019 OpenGororoba.RecursiveCDTower <> tower_conj def
+R3021:3025 conjugacy_sign <> order:21 var
+R3028:3030 Corelib.Init.Datatypes <> snd def
+R3032:3035 conjugacy_sign <> pair:22 var
+prf 3048:3084 <> pure_kernel_pair_transport_involution
+binder 3086:3090 <> order:23
+binder 3092:3095 <> pair:24
+R3172:3174 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3100:3125 conjugacy_sign <> pure_kernel_pair_transport def
+R3127:3131 conjugacy_sign <> order:23 var
+R3134:3159 conjugacy_sign <> pure_kernel_pair_transport def
+R3161:3165 conjugacy_sign <> order:23 var
+R3167:3170 conjugacy_sign <> pair:24 var
+R3175:3178 conjugacy_sign <> pair:24 var
+R3210:3235 conjugacy_sign <> pure_kernel_pair_transport def
+R3253:3273 OpenGororoba.RecursiveCDTower <> tower_conj_involution thm
+prf 3302:3338 <> pure_kernel_pair_transport_membership
+binder 3340:3344 <> order:25
+binder 3346:3352 <> operand:26
+R3376:3378 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3362:3369 OpenGororoba.RecursiveCDTower <> cd_tower def
+R3371:3375 conjugacy_sign <> order:25 var
+R3379:3386 OpenGororoba.RecursiveCDTower <> cd_tower def
+R3388:3392 conjugacy_sign <> order:25 var
+binder 3355:3358 <> pair:27
+R3422:3427 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3654:3654 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R3398:3407 OpenGororoba.RecursiveCDTower <> tower_pure def
+R3409:3413 conjugacy_sign <> order:25 var
+R3415:3421 conjugacy_sign <> operand:26 var
+R3537:3542 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R3514:3516 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3428:3436 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3439:3439 Corelib.Init.Datatypes <> S constr
+R3441:3445 conjugacy_sign <> order:25 var
+R3448:3448 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3456:3456 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3473:3473 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3449:3455 conjugacy_sign <> operand:26 var
+R3457:3466 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3468:3472 conjugacy_sign <> order:25 var
+R3476:3501 conjugacy_sign <> pure_kernel_pair_transport def
+R3503:3507 conjugacy_sign <> order:25 var
+R3509:3512 conjugacy_sign <> pair:27 var
+R3517:3526 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3529:3529 Corelib.Init.Datatypes <> S constr
+R3531:3535 conjugacy_sign <> order:25 var
+R3596:3600 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3577:3579 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3543:3551 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3553:3557 conjugacy_sign <> order:25 var
+R3559:3565 conjugacy_sign <> operand:26 var
+R3568:3570 Corelib.Init.Datatypes <> fst def
+R3572:3575 conjugacy_sign <> pair:27 var
+R3580:3589 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3591:3595 conjugacy_sign <> order:25 var
+R3635:3637 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3601:3609 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3611:3615 conjugacy_sign <> order:25 var
+R3617:3623 conjugacy_sign <> operand:26 var
+R3626:3628 Corelib.Init.Datatypes <> snd def
+R3630:3633 conjugacy_sign <> pair:27 var
+R3638:3647 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3649:3653 conjugacy_sign <> order:25 var
+R3820:3825 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R3797:3799 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3719:3727 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3730:3730 Corelib.Init.Datatypes <> S constr
+R3739:3739 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3747:3747 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3764:3764 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3748:3757 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3766:3766 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3772:3772 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3796:3796 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3773:3782 OpenGororoba.RecursiveCDTower <> tower_conj def
+R3800:3809 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3812:3812 Corelib.Init.Datatypes <> S constr
+R3874:3877 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3855:3857 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3826:3834 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3858:3867 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3908:3910 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3878:3886 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3911:3920 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3940:3973 conjugacy_sign <> pure_doubling_kernel_decomposition thm
+R4000:4020 OpenGororoba.RecursiveCDTower <> tower_conj_involution thm
+R4060:4084 conjugacy_sign <> pure_right_left_conjugacy thm
+R4105:4138 conjugacy_sign <> pure_doubling_kernel_decomposition thm
+R4159:4195 conjugacy_sign <> pure_kernel_pair_transport_membership thm
+R4231:4252 OpenGororoba.StdlibRealFieldAdapter <> <> lib
+R4254:4273 OpenGororoba.CDTowerMatrixAdapter <> <> lib
+R4275:4297 OpenGororoba.FiniteMatrixConventions <> <> lib
+R4327:4329 Stdlib.micromega.Lia <> <> lib
+R4354:4357 mathcomp.boot.boot <> <> lib
+R4359:4363 mathcomp.order.order <> <> lib
+R4365:4371 mathcomp.algebra.algebra <> <> lib
+R4381:4389 mathcomp.boot.ssreflect <> <> mod
+R4391:4397 mathcomp.boot.ssrbool <> <> mod
+R4399:4404 mathcomp.algebra.algebraic_hierarchy.divalg <> <> mod
+R4406:4411 mathcomp.algebra.matrix <> <> mod
+R4413:4421 mathcomp.algebra.mxalgebra <> <> mod
+prf 4432:4454 <> pure_operator_conjugacy
+binder 4456:4460 <> order:28
+binder 4462:4468 <> operand:29
+R4497:4501 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R4473:4482 OpenGororoba.RecursiveCDTower <> tower_pure def
+R4484:4488 conjugacy_sign <> order:28 var
+R4490:4496 conjugacy_sign <> operand:29 var
+R4534:4536 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4502:4519 OpenGororoba.CDTowerMatrixAdapter <> tower_right_matrix def
+R4521:4525 conjugacy_sign <> order:28 var
+R4527:4533 conjugacy_sign <> operand:29 var
+binder 4542:4546 <> value:30
+R4551:4555 conjugacy_sign <> value:30 var
+R4560:4571 mathcomp.algebra.matrix <> mulmx def
+R4656:4679 OpenGororoba.CDTowerMatrixAdapter <> tower_conjugation_matrix def
+R4681:4685 conjugacy_sign <> order:28 var
+R4574:4585 mathcomp.algebra.matrix <> mulmx def
+R4621:4637 OpenGororoba.CDTowerMatrixAdapter <> tower_left_matrix def
+R4639:4643 conjugacy_sign <> order:28 var
+R4645:4651 conjugacy_sign <> operand:29 var
+R4588:4611 OpenGororoba.CDTowerMatrixAdapter <> tower_conjugation_matrix def
+R4613:4617 conjugacy_sign <> order:28 var
+R4716:4742 OpenGororoba.CDTowerMatrixAdapter <> tower_matrix_extensionality thm
+R4772:4778 Corelib.Init.Logic <> f_equal thm
+R4802:4826 conjugacy_sign <> pure_right_left_conjugacy thm
+R4781:4792 OpenGororoba.CDTowerMatrixAdapter <> tower_column def
+R4879:4894 OpenGororoba.CDTowerMatrixAdapter <> tower_column_neg thm
+R4896:4919 OpenGororoba.CDTowerMatrixAdapter <> tower_column_conjugation thm
+R4923:4927 Corelib.Init.Logic <> proj1 thm
+R4976:4985 OpenGororoba.RecursiveCDTower <> tower_conj def
+R4930:4958 OpenGororoba.CDTowerMatrixAdapter <> tower_multiplication_matrices thm
+R5003:5026 OpenGororoba.CDTowerMatrixAdapter <> tower_column_conjugation thm
+R5030:5034 Corelib.Init.Logic <> proj2 thm
+R5037:5065 OpenGororoba.CDTowerMatrixAdapter <> tower_multiplication_matrices thm
+R5113:5118 mathcomp.algebra.matrix <> mulNmx thm
+R5122:5127 mathcomp.algebra.matrix <> mulmxA thm

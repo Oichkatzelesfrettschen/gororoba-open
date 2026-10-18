@@ -1,0 +1,4 @@
+File "/tmp/exact-rank-convention-mutations/highest_bit.v", line 44, characters 32-71:
+Error: Found no subterm matching "tower_conj ?M1990 (tower_zero ?M1990)"
+in the current goal.
+

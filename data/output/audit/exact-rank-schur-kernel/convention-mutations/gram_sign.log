@@ -1,0 +1,17 @@
+File "/tmp/exact-rank-convention-mutations/gram_sign.v", line 150, characters 11-22:
+Error:
+In environment
+scalar : fieldType
+pivot_size, residual_size : nat
+pivot, pivot_inverse : 'M_pivot_size
+upper : 'M_(pivot_size, residual_size)
+lower : 'M_(residual_size, pivot_size)
+trailing : 'M_residual_size
+first, second : 'cV_residual_size
+Unable to unify
+ "first^T *m second +
+  first^T *m - (upper^T *m pivot_inverse^T *m pivot_inverse *m upper) *m second"
+with
+ "first^T *m second +
+  first^T *m upper^T *m pivot_inverse^T *m pivot_inverse *m upper *m second".
+

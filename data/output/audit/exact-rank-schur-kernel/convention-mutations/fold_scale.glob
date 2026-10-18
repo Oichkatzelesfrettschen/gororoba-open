@@ -1,0 +1,351 @@
+DIGEST c69c743132547d33e698f7536efa9de3
+Ffold_scale
+R111:115 Stdlib.Reals.Reals <> <> lib
+R117:119 Stdlib.micromega.Lra <> <> lib
+R155:170 OpenGororoba.RecursiveCDTower <> <> lib
+prf 205:233 <> tower_half_sum_reconstruction
+binder 235:239 <> order:1
+binder 250:254 <> first:2
+binder 256:261 <> second:3
+R396:398 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R265:273 OpenGororoba.RecursiveCDTower <> tower_add def
+R275:279 fold_scale <> order:1 var
+R283:293 OpenGororoba.RecursiveCDTower <> tower_scale def
+R295:299 fold_scale <> order:1 var
+R303:303 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R308:316 OpenGororoba.RecursiveCDTower <> tower_add def
+R318:322 fold_scale <> order:1 var
+R324:328 fold_scale <> first:2 var
+R330:335 fold_scale <> second:3 var
+R341:351 OpenGororoba.RecursiveCDTower <> tower_scale def
+R353:357 fold_scale <> order:1 var
+R361:361 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R366:374 OpenGororoba.RecursiveCDTower <> tower_sub def
+R376:380 fold_scale <> order:1 var
+R382:386 fold_scale <> first:2 var
+R388:393 fold_scale <> second:3 var
+R399:403 fold_scale <> first:2 var
+R497:505 OpenGororoba.RecursiveCDTower <> tower_sub def
+R563:571 OpenGororoba.RecursiveCDTower <> tower_sub def
+prf 632:667 <> tower_half_difference_reconstruction
+binder 669:673 <> order:4
+binder 684:688 <> first:5
+binder 690:695 <> second:6
+R830:832 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R699:707 OpenGororoba.RecursiveCDTower <> tower_sub def
+R709:713 fold_scale <> order:4 var
+R717:727 OpenGororoba.RecursiveCDTower <> tower_scale def
+R729:733 fold_scale <> order:4 var
+R737:737 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R742:750 OpenGororoba.RecursiveCDTower <> tower_add def
+R752:756 fold_scale <> order:4 var
+R758:762 fold_scale <> first:5 var
+R764:769 fold_scale <> second:6 var
+R775:785 OpenGororoba.RecursiveCDTower <> tower_scale def
+R787:791 fold_scale <> order:4 var
+R795:795 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R800:808 OpenGororoba.RecursiveCDTower <> tower_sub def
+R810:814 fold_scale <> order:4 var
+R816:820 fold_scale <> first:5 var
+R822:827 fold_scale <> second:6 var
+R833:838 fold_scale <> second:6 var
+R925:933 OpenGororoba.RecursiveCDTower <> tower_sub def
+R984:992 OpenGororoba.RecursiveCDTower <> tower_sub def
+prf 1053:1080 <> tower_average_reconstruction
+binder 1082:1086 <> order:7
+binder 1097:1101 <> first:8
+binder 1103:1108 <> second:9
+R1215:1217 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1112:1122 OpenGororoba.RecursiveCDTower <> tower_scale def
+R1124:1128 fold_scale <> order:7 var
+R1132:1132 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1137:1145 OpenGororoba.RecursiveCDTower <> tower_add def
+R1147:1151 fold_scale <> order:7 var
+R1154:1162 OpenGororoba.RecursiveCDTower <> tower_add def
+R1164:1168 fold_scale <> order:7 var
+R1170:1174 fold_scale <> first:8 var
+R1176:1181 fold_scale <> second:9 var
+R1185:1193 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1195:1199 fold_scale <> order:7 var
+R1201:1205 fold_scale <> first:8 var
+R1207:1212 fold_scale <> second:9 var
+R1218:1222 fold_scale <> first:8 var
+R1309:1317 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1368:1376 OpenGororoba.RecursiveCDTower <> tower_sub def
+prf 1437:1463 <> tower_detail_reconstruction
+binder 1465:1469 <> order:10
+binder 1480:1484 <> first:11
+binder 1486:1491 <> second:12
+R1598:1600 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1495:1505 OpenGororoba.RecursiveCDTower <> tower_scale def
+R1507:1511 fold_scale <> order:10 var
+R1515:1515 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1520:1528 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1530:1534 fold_scale <> order:10 var
+R1537:1545 OpenGororoba.RecursiveCDTower <> tower_add def
+R1547:1551 fold_scale <> order:10 var
+R1553:1557 fold_scale <> first:11 var
+R1559:1564 fold_scale <> second:12 var
+R1568:1576 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1578:1582 fold_scale <> order:10 var
+R1584:1588 fold_scale <> first:11 var
+R1590:1595 fold_scale <> second:12 var
+R1601:1606 fold_scale <> second:12 var
+R1693:1701 OpenGororoba.RecursiveCDTower <> tower_sub def
+R1752:1760 OpenGororoba.RecursiveCDTower <> tower_sub def
+def 1826:1835 <> tower_fold
+binder 1837:1841 <> order:13
+R1852:1859 OpenGororoba.RecursiveCDTower <> cd_tower def
+R1862:1862 Corelib.Init.Datatypes <> S constr
+R1864:1868 fold_scale <> order:13 var
+binder 1844:1848 <> value:14
+R1874:1881 OpenGororoba.RecursiveCDTower <> cd_tower def
+R1884:1884 Corelib.Init.Datatypes <> S constr
+R1886:1890 fold_scale <> order:13 var
+R1897:1897 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1963:1966 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2032:2032 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1898:1908 OpenGororoba.RecursiveCDTower <> tower_scale def
+R1910:1914 fold_scale <> order:13 var
+R1918:1918 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1923:1931 OpenGororoba.RecursiveCDTower <> tower_add def
+R1933:1937 fold_scale <> order:13 var
+R1940:1942 Corelib.Init.Datatypes <> fst def
+R1944:1948 fold_scale <> value:14 var
+R1952:1954 Corelib.Init.Datatypes <> snd def
+R1956:1960 fold_scale <> value:14 var
+R1967:1977 OpenGororoba.RecursiveCDTower <> tower_scale def
+R1979:1983 fold_scale <> order:13 var
+R1987:1987 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1992:2000 OpenGororoba.RecursiveCDTower <> tower_sub def
+R2002:2006 fold_scale <> order:13 var
+R2009:2011 Corelib.Init.Datatypes <> fst def
+R2013:2017 fold_scale <> value:14 var
+R2021:2023 Corelib.Init.Datatypes <> snd def
+R2025:2029 fold_scale <> value:14 var
+def 2046:2057 <> tower_unfold
+binder 2059:2063 <> order:15
+R2074:2081 OpenGororoba.RecursiveCDTower <> cd_tower def
+R2084:2084 Corelib.Init.Datatypes <> S constr
+R2086:2090 fold_scale <> order:15 var
+binder 2066:2070 <> value:16
+R2096:2103 OpenGororoba.RecursiveCDTower <> cd_tower def
+R2106:2106 Corelib.Init.Datatypes <> S constr
+R2108:2112 fold_scale <> order:15 var
+R2119:2119 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2159:2159 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2199:2199 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2120:2128 OpenGororoba.RecursiveCDTower <> tower_add def
+R2130:2134 fold_scale <> order:15 var
+R2137:2139 Corelib.Init.Datatypes <> fst def
+R2141:2145 fold_scale <> value:16 var
+R2149:2151 Corelib.Init.Datatypes <> snd def
+R2153:2157 fold_scale <> value:16 var
+R2160:2168 OpenGororoba.RecursiveCDTower <> tower_sub def
+R2170:2174 fold_scale <> order:15 var
+R2177:2179 Corelib.Init.Datatypes <> fst def
+R2181:2185 fold_scale <> value:16 var
+R2189:2191 Corelib.Init.Datatypes <> snd def
+R2193:2197 fold_scale <> value:16 var
+prf 2210:2232 <> tower_unfold_after_fold
+binder 2234:2238 <> order:17
+binder 2240:2244 <> value:18
+R2291:2293 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2248:2259 fold_scale <> tower_unfold def
+R2261:2265 fold_scale <> order:17 var
+R2268:2277 fold_scale <> tower_fold def
+R2279:2283 fold_scale <> order:17 var
+R2285:2289 fold_scale <> value:18 var
+R2294:2298 fold_scale <> value:18 var
+R2332:2343 fold_scale <> tower_unfold def
+R2346:2355 fold_scale <> tower_fold def
+R2374:2402 fold_scale <> tower_half_sum_reconstruction thm
+R2405:2440 fold_scale <> tower_half_difference_reconstruction thm
+prf 2469:2491 <> tower_fold_after_unfold
+binder 2493:2497 <> order:19
+binder 2499:2503 <> value:20
+R2550:2552 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2507:2516 fold_scale <> tower_fold def
+R2518:2522 fold_scale <> order:19 var
+R2525:2536 fold_scale <> tower_unfold def
+R2538:2542 fold_scale <> order:19 var
+R2544:2548 fold_scale <> value:20 var
+R2553:2557 fold_scale <> value:20 var
+R2591:2602 fold_scale <> tower_unfold def
+R2605:2614 fold_scale <> tower_fold def
+R2633:2660 fold_scale <> tower_average_reconstruction thm
+R2663:2689 fold_scale <> tower_detail_reconstruction thm
+prf 2718:2737 <> tower_fold_injective
+binder 2739:2743 <> order:21
+binder 2745:2749 <> first:22
+binder 2751:2756 <> second:23
+R2808:2811 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2782:2784 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2760:2769 fold_scale <> tower_fold def
+R2771:2775 fold_scale <> order:21 var
+R2777:2781 fold_scale <> first:22 var
+R2785:2794 fold_scale <> tower_fold def
+R2796:2800 fold_scale <> order:21 var
+R2802:2807 fold_scale <> second:23 var
+R2817:2819 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2812:2816 fold_scale <> first:22 var
+R2820:2825 fold_scale <> second:23 var
+R2856:2862 Corelib.Init.Logic <> f_equal thm
+R2865:2876 fold_scale <> tower_unfold def
+R2906:2928 fold_scale <> tower_unfold_after_fold thm
+prf 2966:2980 <> tower_fold_zero
+binder 2982:2986 <> order:24
+R3029:3031 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2990:2999 fold_scale <> tower_fold def
+R3001:3005 fold_scale <> order:24 var
+R3008:3017 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3020:3020 Corelib.Init.Datatypes <> S constr
+R3022:3026 fold_scale <> order:24 var
+R3032:3041 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3044:3044 Corelib.Init.Datatypes <> S constr
+R3046:3050 fold_scale <> order:24 var
+R3069:3078 fold_scale <> tower_fold def
+R3095:3103 OpenGororoba.RecursiveCDTower <> tower_sub def
+R3115:3128 OpenGororoba.RecursiveCDTower <> tower_neg_zero thm
+R3132:3145 OpenGororoba.RecursiveCDTower <> tower_add_zero thm
+R3148:3163 OpenGororoba.RecursiveCDTower <> tower_scale_zero thm
+prf 3192:3209 <> tower_fold_eq_zero
+binder 3211:3215 <> order:25
+binder 3217:3221 <> value:26
+R3270:3274 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R3247:3249 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3225:3234 fold_scale <> tower_fold def
+R3236:3240 fold_scale <> order:25 var
+R3242:3246 fold_scale <> value:26 var
+R3250:3259 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3262:3262 Corelib.Init.Datatypes <> S constr
+R3264:3268 fold_scale <> order:25 var
+R3280:3282 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3275:3279 fold_scale <> value:26 var
+R3283:3292 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3295:3295 Corelib.Init.Datatypes <> S constr
+R3297:3301 fold_scale <> order:25 var
+R3343:3362 fold_scale <> tower_fold_injective thm
+R3377:3386 OpenGororoba.RecursiveCDTower <> tower_zero def
+R3389:3389 Corelib.Init.Datatypes <> S constr
+R3416:3430 fold_scale <> tower_fold_zero thm
+R3464:3478 fold_scale <> tower_fold_zero thm
+def 3510:3527 <> tower_fold_product
+binder 3529:3533 <> order:27
+binder 3535:3539 <> first:28
+binder 3541:3546 <> second:29
+R3552:3561 fold_scale <> tower_fold def
+R3563:3567 fold_scale <> order:27 var
+R3570:3578 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3581:3581 Corelib.Init.Datatypes <> S constr
+R3583:3587 fold_scale <> order:27 var
+R3591:3602 fold_scale <> tower_unfold def
+R3604:3608 fold_scale <> order:27 var
+R3610:3614 fold_scale <> first:28 var
+R3618:3629 fold_scale <> tower_unfold def
+R3631:3635 fold_scale <> order:27 var
+R3637:3642 fold_scale <> second:29 var
+prf 3655:3687 <> tower_fold_product_correspondence
+binder 3689:3693 <> order:30
+binder 3695:3699 <> first:31
+binder 3701:3706 <> second:32
+R3786:3788 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3711:3728 fold_scale <> tower_fold_product def
+R3730:3734 fold_scale <> order:30 var
+R3737:3746 fold_scale <> tower_fold def
+R3748:3752 fold_scale <> order:30 var
+R3754:3758 fold_scale <> first:31 var
+R3762:3771 fold_scale <> tower_fold def
+R3773:3777 fold_scale <> order:30 var
+R3779:3784 fold_scale <> second:32 var
+R3789:3798 fold_scale <> tower_fold def
+R3800:3804 fold_scale <> order:30 var
+R3807:3815 OpenGororoba.RecursiveCDTower <> tower_mul def
+R3818:3818 Corelib.Init.Datatypes <> S constr
+R3820:3824 fold_scale <> order:30 var
+R3827:3831 fold_scale <> first:31 var
+R3833:3838 fold_scale <> second:32 var
+R3856:3873 fold_scale <> tower_fold_product def
+R3885:3907 fold_scale <> tower_unfold_after_fold thm
+prf 3936:3958 <> tower_fold_zero_product
+binder 3960:3964 <> order:33
+binder 3966:3970 <> first:34
+binder 3972:3977 <> second:35
+R4042:4047 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R4019:4021 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R3982:3999 fold_scale <> tower_fold_product def
+R4001:4005 fold_scale <> order:33 var
+R4007:4011 fold_scale <> first:34 var
+R4013:4018 fold_scale <> second:35 var
+R4022:4031 OpenGororoba.RecursiveCDTower <> tower_zero def
+R4034:4034 Corelib.Init.Datatypes <> S constr
+R4036:4040 fold_scale <> order:33 var
+R4122:4124 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4048:4056 OpenGororoba.RecursiveCDTower <> tower_mul def
+R4059:4059 Corelib.Init.Datatypes <> S constr
+R4061:4065 fold_scale <> order:33 var
+R4069:4080 fold_scale <> tower_unfold def
+R4082:4086 fold_scale <> order:33 var
+R4088:4092 fold_scale <> first:34 var
+R4096:4107 fold_scale <> tower_unfold def
+R4109:4113 fold_scale <> order:33 var
+R4115:4120 fold_scale <> second:35 var
+R4125:4134 OpenGororoba.RecursiveCDTower <> tower_zero def
+R4137:4137 Corelib.Init.Datatypes <> S constr
+R4139:4143 fold_scale <> order:33 var
+R4161:4178 fold_scale <> tower_fold_product def
+R4187:4204 fold_scale <> tower_fold_eq_zero thm
+prf 4218:4241 <> tower_half_norm_identity
+binder 4243:4247 <> order:36
+binder 4258:4262 <> first:37
+binder 4264:4269 <> second:38
+R4429:4432 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4349:4352 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4273:4285 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4287:4291 fold_scale <> order:36 var
+R4294:4304 OpenGororoba.RecursiveCDTower <> tower_scale def
+R4306:4310 fold_scale <> order:36 var
+R4314:4314 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4319:4327 OpenGororoba.RecursiveCDTower <> tower_add def
+R4329:4333 fold_scale <> order:36 var
+R4335:4339 fold_scale <> first:37 var
+R4341:4346 fold_scale <> second:38 var
+R4353:4365 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4367:4371 fold_scale <> order:36 var
+R4374:4384 OpenGororoba.RecursiveCDTower <> tower_scale def
+R4386:4390 fold_scale <> order:36 var
+R4394:4394 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4399:4407 OpenGororoba.RecursiveCDTower <> tower_sub def
+R4409:4413 fold_scale <> order:36 var
+R4415:4419 fold_scale <> first:37 var
+R4421:4426 fold_scale <> second:38 var
+R4433:4433 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4437:4441 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4496:4496 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4435:4435 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4467:4469 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4442:4454 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4456:4460 fold_scale <> order:36 var
+R4462:4466 fold_scale <> first:37 var
+R4470:4482 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4484:4488 fold_scale <> order:36 var
+R4490:4495 fold_scale <> second:38 var
+R4583:4591 OpenGororoba.RecursiveCDTower <> tower_sub def
+R4841:4849 OpenGororoba.RecursiveCDTower <> tower_sub def
+prf 4887:4909 <> tower_fold_norm_scaling
+binder 4911:4915 <> order:39
+binder 4917:4921 <> value:40
+R4974:4976 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4926:4938 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4941:4941 Corelib.Init.Datatypes <> S constr
+R4943:4947 fold_scale <> order:39 var
+R4951:4960 fold_scale <> tower_fold def
+R4962:4966 fold_scale <> order:39 var
+R4968:4972 fold_scale <> value:40 var
+R4978:4980 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4981:4993 OpenGororoba.RecursiveCDTower <> tower_norm_sq def
+R4996:4996 Corelib.Init.Datatypes <> S constr
+R4998:5002 fold_scale <> order:39 var
+R5005:5009 fold_scale <> value:40 var
+R5042:5051 fold_scale <> tower_fold def
+R5067:5090 fold_scale <> tower_half_norm_identity thm
