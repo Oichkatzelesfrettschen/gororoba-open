@@ -133,3 +133,7 @@ data/output/audit/cd-associator-census-transport/kernel-capture/**/*.vo -filter 
 # Recorded-feedback receipts preserve exact compiler and kernel evidence bytes.
 data/output/audit/recorded-feedback-planned-look-coverage/** -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/**/*.vo -filter -diff -text
+
+# Exact rank and kernel receipts preserve source and tool bytes.
+data/output/audit/exact-rank-schur-kernel/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/exact-rank-schur-kernel/**/*.vo -filter -diff -text

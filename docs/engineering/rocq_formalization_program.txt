@@ -13,7 +13,7 @@ INTEGRATED: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
 PROVED: WalshProbability; BooleanANFDegree; BooleanCochainFiltration extension;
         CDPhaseDegree, including numeric and first-appearance correspondences.
 INTEGRATED: Batch 2 full build, kernel evidence, 26 receipts and canonical checks.
-          PR 224 merged; canonical main 2b72e552; owned checkout archival queued.
+          PR 224 merged; canonical main 2b72e552; owned checkout confirmed archived.
 PROVED: CDAssociatorCensus count, relation classes and dependent associativity.
 PROVED: sparse affine support, complete sectors, block kernel/rank and norm transport,
         exact rational sign ranks and 32 photonic witnesses. Review gaps are closed
@@ -26,9 +26,18 @@ PROVED: RecordedFeedbackInstrument; BranchSignedCoherence extension;
 DONE: independent review repairs, fourteen rejected mutations, five kernel captures.
 DONE: synchronized 329-module build and all 36 fresh trusted receipt replays.
 DONE: canonical exports, theorem identities, registry integrity and SQLite checks.
-ACTIVE: instrument/coverage PR publication and exact-head hosted validation.
-PENDING: ExactRankCertificate; SchurKernelTransport; CDPureDoublingKernel;
-         SedenionFoldTransport extension.
+INTEGRATED: instrument/coverage PR 232 at d7a43311; all 37 hosted checks pass.
+DONE: canonical main synchronized; feedback worktree confirmed archived.
+PROVED: ExactRankCertificate; SchurKernelTransport; CDPureDoublingKernel;
+        recursive SedenionFoldTransport extension and explicit real/tower adapters.
+PROVED: all-order Boolean and bounded numeric tower basis sign correspondence.
+DONE: independent source/numeric-delta review and seven rejected convention mutations.
+DONE: empty, rank-zero, signed-fraction and full-rank certificate fixtures.
+DONE: complete 336-module pre-integration build; branch rebased onto d7a43311.
+DONE: synchronized 339-module build, eleven independent kernels and 197 declaration queries.
+DONE: all 46 current-project receipt replays and canonical export/integrity checks.
+DONE: 136 provenance library tests plus two genuine replay tests; Clippy -D warnings.
+ACTIVE: exact payload publication, hosted validation, focused integration and cleanup.
 PENDING: SchurAccelerationObstruction; NullityTwelveQuadraticLocus coefficient
          correspondence and explicit rational curve certificates.
 PENDING: investigate complex-skew representation, persistent kernel limits,
@@ -61,7 +70,7 @@ Batch 1 local verification complete: 316 proof objects, zero admissions,
 source review and MathComp kernel replay. All 23 project-bound receipts were
 admitted through fresh replay. Canonical export, integrity and identity
 verification passed; final inventory is 23 kernel_checked and 293 source_only.
-Integration remains pending hosted CI and review of the final payload.
+The numeric-sign payload subsequently integrated through PR 223.
 Batch 2 local verification complete: all 319 proof objects built with multicore
 Make and keep-going execution; admission and plugin checks pass. Independent
 capture covers 122 declarations in four modules: 109 closed, 13 with explicitly
@@ -91,4 +100,28 @@ DONE: replay all 33 sorted receipt closures under the owned runner.
 DONE: regenerate compatibility exports, signatures and canonical inventory.
 DONE: verify SQLite, theorem identities and retained evidence hashes.
 INTEGRATED: PR 225; hosted run 39162461432 passed at c3b311cf.
-DONE: canonical main synchronized to d8a0298a; owned archival requested.
+DONE: canonical main synchronized to d8a0298a; owned checkout confirmed archived.
+
+Operator applicability obligations before dimension-32 geometry
+-------------------------------------------------------------
+The recursive basis/sign theorem is unconditional. Arbitrary sparse numeric
+operators still require a proved numeric/column coordinate and entrywise
+realization correspondence with recursive tower_left_matrix. A rational
+certificate applies to an independently defined real operator only after its
+entrywise equality with map_mx real_rational is proved. Ingestion emits exact
+rational conclusions; the real specialization step remains separately named.
+The geometry batch must discharge those operator identities before using its
+retained rank, coefficient or curve certificates.
+
+Mechanisms clarified by the exact-rank and kernel proofs
+-------------------------------------------------------
+For pure tower operands, the new coordinate bridge identifies right action as
+minus conjugated left action. A zero high half therefore doubles both rank and
+nullity; the second kernel frame is conjugated, rather than copied unchanged.
+The two-part fold retains multiplication information through an invertible
+coordinate map while scaling squared norm by one half. Discarding detail
+coordinates loses zero-product information even for a proved embedded witness.
+A Schur kernel lift carries the Gram form I+(A^-1 B)^T(A^-1 B). Residual
+coordinates therefore require that metric when comparing norms of lifted vectors.
+These statements certify mathematical coordinate mechanisms. Physical calibration
+and quantum observables continue to require their separate application contracts.

@@ -1,0 +1,6 @@
+proposed_source_sha256=f39dc7ccc61bab42417482f38593c15c88cacb29f1126e05a38fed605e9ace68; Rocq compilation must validate every equation
+File "/tmp/rank-certificate-mutations-checked/damaged_independence_witness.v", line 41, characters 81-92:
+Error: In environment
+row_bound, column_bound : ssrnat.leq 1 1
+Unable to unify "true" with "false".
+

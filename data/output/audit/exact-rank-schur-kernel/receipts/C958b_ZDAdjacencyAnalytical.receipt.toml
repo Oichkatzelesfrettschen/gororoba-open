@@ -1,0 +1,71 @@
+evidence_key = "rank-kernel-project-C958b_ZDAdjacencyAnalytical"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-C958b_ZDAdjacencyAnalytical"
+proof_path = "proofs/verified/C958b_ZDAdjacencyAnalytical.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C958b_ZDAdjacencyAnalytical.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C958b_ZDAdjacencyAnalytical"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/verified/C958_ZDGraphTopology.v"
+sha256 = "9ddc4131269209a2ceb1d78986f385117ac7b279d0cd9765f8b29ef553dc09ed"
+
+[[witness.sources]]
+path = "proofs/verified/C958b_ZDAdjacencyAnalytical.v"
+sha256 = "05efc0b8d996a01a2eb289e4e4239dab6f363f2acbfb0b30822768e336799d09"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C958b_ZDAdjacencyAnalytical.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C958b_ZDAdjacencyAnalytical.kernel.txt"
+sha256 = "8174359bb837259f5323c0acfab56cd728fc317a941b067287b70c85ee2bad51"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C958b_ZDAdjacencyAnalytical.assumptions.txt"
+sha256 = "d02775d98ba5f7b78bd69792a32d98db55cad961ecab5d6ef62aa8c16a68a489"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/verified/C958b_ZDAdjacencyAnalytical.vo"
+sha256 = "a909cf1ab5f60b6191c9e1f270ceee62f327348c9698538edda8bd7308465b6c"
+
+[[witness.declarations]]
+name = "is_giant_vertex"
+statement = "Definition is_giant_vertex (dim v : N) : bool := negb (N.eqb v 0) && negb (N.eqb v (dim / 2))"
+assumptions = []
+
+[[witness.declarations]]
+name = "is_zd_edge"
+statement = "Definition is_zd_edge (dim i j : N) : bool := is_giant_vertex dim i && is_giant_vertex dim j && negb (N.eqb (N.lxor i j) (dim / 2))"
+assumptions = []
+
+[[witness.declarations]]
+name = "analytical_edge_count"
+statement = "Definition analytical_edge_count (dim : N) : N := count_edges_from dim 0 (N.to_nat dim)"
+assumptions = []
+
+[[witness.declarations]]
+name = "analytical_edges_16"
+statement = "Theorem analytical_edges_16 : analytical_edge_count 16 = 84"
+assumptions = []
+
+[[witness.declarations]]
+name = "analytical_edges_32"
+statement = "Theorem analytical_edges_32 : analytical_edge_count 32 = 420"
+assumptions = []

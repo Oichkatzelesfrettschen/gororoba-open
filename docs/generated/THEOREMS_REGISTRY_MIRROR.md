@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 329 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 339 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -200,6 +200,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDAssociator` | `CDAssociator` | `proofs/theories/CDAssociator.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDAssociatorCensus` | `CDAssociatorCensus` | `proofs/theories/CDAssociatorCensus.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDAssociatorDoubling` | `CDAssociatorDoubling` | `proofs/theories/CDAssociatorDoubling.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDConcreteTowerAdapter` | `CDConcreteTowerAdapter` | `proofs/theories/CDConcreteTowerAdapter.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDConjAntimorph` | `CDConjAntimorph` | `proofs/theories/CDConjAntimorph.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleFunctor` | `CDDoubleFunctor` | `proofs/theories/CDDoubleFunctor.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleTower` | `CDDoubleTower` | `proofs/theories/CDDoubleTower.v` | source_only | explicit_link | C-1495 |
@@ -212,6 +213,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDPhaseDegree` | `CDPhaseDegree` | `proofs/theories/CDPhaseDegree.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDPowerAssociative` | `CDPowerAssociative` | `proofs/theories/CDPowerAssociative.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDPropertyTower` | `CDPropertyTower` | `proofs/theories/CDPropertyTower.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDPureDoublingKernel` | `CDPureDoublingKernel` | `proofs/theories/CDPureDoublingKernel.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDQuatRotationMatrix` | `CDQuatRotationMatrix` | `proofs/theories/CDQuatRotationMatrix.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDScalarExtension` | `CDScalarExtension` | `proofs/theories/CDScalarExtension.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSignBridge` | `CDSignBridge` | `proofs/theories/CDSignBridge.v` | source_only | unresolved | - |
@@ -220,7 +222,10 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDSignSection` | `CDSignSection` | `proofs/theories/CDSignSection.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSparseBlockTransport` | `CDSparseBlockTransport` | `proofs/theories/CDSparseBlockTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDSparseMatrixTransport` | `CDSparseMatrixTransport` | `proofs/theories/CDSparseMatrixTransport.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDTowerFoldTransport` | `CDTowerFoldTransport` | `proofs/theories/CDTowerFoldTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTowerInstantiation` | `CDTowerInstantiation` | `proofs/theories/CDTowerInstantiation.v` | source_only | explicit_link | C-1503 |
+| `THM-LEGACY-CDTowerMatrixAdapter` | `CDTowerMatrixAdapter` | `proofs/theories/CDTowerMatrixAdapter.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDTowerSignCorrespondence` | `CDTowerSignCorrespondence` | `proofs/theories/CDTowerSignCorrespondence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTraceZero` | `CDTraceZero` | `proofs/theories/CDTraceZero.v` | source_only | unresolved | - |
 | `THM-LEGACY-C_ConjugateInvolution` | `C_ConjugateInvolution` | `proofs/verified/C_ConjugateInvolution.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-C_NormConjugate` | `C_NormConjugate` | `proofs/verified/C_NormConjugate.v` | source_only | legacy_alias | - |
@@ -247,6 +252,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-E7CartanDerivation` | `E7CartanDerivation` | `proofs/theories/E7CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-E8CartanDerivation` | `E8CartanDerivation` | `proofs/theories/E8CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-EnergyConditions` | `EnergyConditions` | `proofs/theories/EnergyConditions.v` | source_only | unresolved | - |
+| `THM-LEGACY-ExactRankCertificate` | `ExactRankCertificate` | `proofs/theories/ExactRankCertificate.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-F4CartanDerivation` | `F4CartanDerivation` | `proofs/theories/F4CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-FP24Representable` | `FP24Representable` | `proofs/theories/FP24Representable.v` | source_only | unresolved | - |
 | `THM-LEGACY-FanoPlane` | `FanoPlane` | `proofs/theories/FanoPlane.v` | source_only | unresolved | - |
@@ -296,14 +302,17 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-QuatTranscendental` | `QuatTranscendental` | `proofs/theories/QuatTranscendental.v` | source_only | unresolved | - |
 | `THM-LEGACY-Quaternion` | `Quaternion` | `proofs/theories/Quaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-R2VBTransformDP4` | `R2VBTransformDP4` | `proofs/theories/R2VBTransformDP4.v` | source_only | explicit_link | C-1645 |
+| `THM-LEGACY-RationalRealSpecialization` | `RationalRealSpecialization` | `proofs/theories/RationalRealSpecialization.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-RationalSignBlockRanks` | `RationalSignBlockRanks` | `proofs/theories/RationalSignBlockRanks.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-RecordedFeedbackInstrument` | `RecordedFeedbackInstrument` | `proofs/theories/RecordedFeedbackInstrument.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-RecursiveCDTower` | `RecursiveCDTower` | `proofs/theories/RecursiveCDTower.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SStructuralGaps` | `SStructuralGaps` | `proofs/theories/SStructuralGaps.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3JacobiFull` | `SU3JacobiFull` | `proofs/theories/SU3JacobiFull.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3StructureConstants` | `SU3StructureConstants` | `proofs/theories/SU3StructureConstants.v` | source_only | unresolved | - |
 | `THM-LEGACY-Schafer1954` | `Schafer1954` | `proofs/theories/Schafer1954.v` | source_only | unresolved | - |
 | `THM-LEGACY-SchaferDivAlg16` | `SchaferDivAlg16` | `proofs/theories/SchaferDivAlg16.v` | source_only | unresolved | - |
 | `THM-LEGACY-SchreierSignCode` | `SchreierSignCode` | `proofs/theories/SchreierSignCode.v` | kernel_checked | explicit_link | C-1764 |
+| `THM-LEGACY-SchurKernelTransport` | `SchurKernelTransport` | `proofs/theories/SchurKernelTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-Sedenion` | `Sedenion` | `proofs/theories/Sedenion.v` | source_only | unresolved | - |
 | `THM-LEGACY-SedenionAlternativityFails` | `SedenionAlternativityFails` | `proofs/theories/SedenionAlternativityFails.v` | source_only | unresolved | - |
 | `THM-LEGACY-SedenionAssociator` | `SedenionAssociator` | `proofs/theories/SedenionAssociator.v` | source_only | unresolved | - |
@@ -317,6 +326,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-SparsePhotonicCertificates` | `SparsePhotonicCertificates` | `proofs/theories/SparsePhotonicCertificates.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SpatialAlgebra` | `SpatialAlgebra` | `proofs/theories/SpatialAlgebra.v` | source_only | unresolved | - |
 | `THM-LEGACY-SpectralDimension` | `SpectralDimension` | `proofs/theories/SpectralDimension.v` | source_only | unresolved | - |
+| `THM-LEGACY-StdlibRealFieldAdapter` | `StdlibRealFieldAdapter` | `proofs/theories/StdlibRealFieldAdapter.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SymmetricGroup3` | `SymmetricGroup3` | `proofs/theories/SymmetricGroup3.v` | source_only | unresolved | - |
 | `THM-LEGACY-Tanh` | `Tanh` | `proofs/theories/Tanh.v` | source_only | unresolved | - |
 | `THM-LEGACY-TerminalChannelEmpiricalCertificate` | `TerminalChannelEmpiricalCertificate` | `proofs/theories/TerminalChannelEmpiricalCertificate.v` | kernel_checked | unresolved | - |

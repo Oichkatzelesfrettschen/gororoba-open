@@ -1,0 +1,9 @@
+[package]
+name = "exact-rank-ingestion"
+version = "0.1.0"
+edition = "2024"
+[workspace]
+[dependencies]
+serde_json = "=1.0.149"
+[lints.rust]
+warnings = "deny"

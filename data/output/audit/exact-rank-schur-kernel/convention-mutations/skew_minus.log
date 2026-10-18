@@ -1,0 +1,12 @@
+Closed under the global context
+File "/tmp/exact-rank-convention-mutations/skew_minus.v", line 162, characters 56-67:
+Error:
+In environment
+scalar : fieldType
+pivot_size, residual_size : nat
+pivot_inverse : 'M_pivot_size
+upper : 'M_(pivot_size, residual_size)
+trailing : 'M_residual_size
+Unable to unify "trailing - upper^T *m pivot_inverse *m upper" with
+ "trailing + upper^T *m pivot_inverse *m upper".
+

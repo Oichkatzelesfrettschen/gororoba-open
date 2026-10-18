@@ -1,0 +1,129 @@
+Exact rational rank and Schur kernel transport
+=============================================
+Prerequisite main: d8a0298a. Instrument receipt replay runs in its owned checkout.
+IBMQuantum remains read-only; quantum submissions are prohibited.
+
+DONE: inspect FiniteMatrixConventions rank witnesses, transpose kernels and MathComp APIs.
+DONE: freeze and prove the checked rank and complete-kernel interfaces.
+DONE: prove rational certificate-checker soundness and column-kernel completeness.
+DONE: qualify warning-free Stdlib real field and actual rational specialization.
+DONE: implement dimension/field-encoding checked Rust certificate ingestion.
+DONE: reject malformed certificates and altered rank/kernel equations.
+DONE: prove Schur elimination and inverse kernel maps on the pivot domain.
+DONE: prove skew Schur plus-sign specialization and transported Gram metric.
+DONE: build recursive CD arithmetic and all-order matrix coordinate adapters.
+DONE: prove pure doubling kernel and numerical nullity/complete frame transport.
+PENDING: extend faithful average/detail tower transport and concrete sedenion compatibility.
+PENDING: finish current-project trusted replay, canonical exports and integration.
+
+All rank statements concern column-action operators. Rational computations precede
+semantic transport to Stdlib reals. Generic kernels require spanning as well as
+residual and independence; the checker must establish matching dimension.
+Each pending capability expands to statement freeze, negative diagnostic, supporting
+lemmas, theorem, mutations and retained evidence before integration.
+DONE: generic Boolean rank-checker soundness compiles, closed assumptions.
+DONE: complete column-kernel spanning follows from residual and matching rank.
+DONE: checked independent kernel frames have complete unique coordinates.
+DONE: warning-free actual Stdlib R field adapter with disclosed standard foundations.
+Ruling: import HB factory owners excluding notation/coercion object categories;
+retain -w +default unchanged. The factory alias issue is an import-boundary issue.
+DISCOVERED: MathComp rat.ratr's registered morphisms require numFieldType. The
+actual R field adapter establishes fieldType only. Construct and prove the rational
+ring morphism before using rational-to-real rank or kernel specialization. The
+conditional rank-map helper explicitly retains the missing morphism premise.
+DONE: prove the actual real_rational additive/monoid embedding and unconditional
+actual_rational_real_rank. Fatal-warning compilation reports exactly the four
+standard foundations already disclosed by StdlibRealFieldAdapter.
+Ruling: pass a named opaque nmod_morphism proof to HB. Direct conjunction or
+product terms reuse global projection heads and trigger redundant-canonical
+warnings. The named proof gives the concrete embedding its own canonical identity.
+PENDING: connect rational literals and actual sparse/operator entries to the map.
+DISCOVERED: whole-matrix vm_compute on the 2x2 emitted Boolean equality consumed
+about 2.9 GiB after 52 seconds. Stop the owned compile and emit entrywise matrix
+proofs with finite ordinal cases and rational scalar reduction. Preserve the
+checker semantics; change the evaluation granularity rather than weaken equations.
+DONE: exact Schur elimination and reconstruction, rank decomposition and both
+kernel directions compile with closed assumption reports. The skew plus-sign
+specialization compiles. The transported Gram equation compiles.
+DONE: ingestion fixture proves rank and complete kernel spanning. Five malformed
+input families fail ingestion; four damaged algebraic witness families fail Rocq.
+DONE: actual rational literals map to IZR fractions, and rational complete frames
+span the full mapped real kernel with arbitrary real coefficients. Final Rust
+parser tests and warnings-as-errors Clippy pass. Entrywise fixture checks retain
+closed rank/kernel assumptions; matrix/field foundational reports remain explicit.
+DONE: actual recursive real CD arithmetic, conjugation involution/anti-morphism
+and purity-to-negated-conjugation correspondence compile by general induction.
+DONE: pure right/left kernel conjugacy, doubled-kernel decomposition and explicit
+kernel-pair transport involution compile. Numerical nullity/frame transport
+remains pending the matrix/coordinate correspondence.
+DONE: tower column-vector adapter round-trips in both directions; zero, addition,
+negation and real scaling preservation compile. The explicit conjugation matrix
+represents tower conjugation and squares to the identity.
+DONE: actual left/right multiplication matrices match recursive multiplication.
+DONE: pure R_x=-C L_x C, rank doubling and numerical nullity doubling compile.
+DONE: complete doubled real kernel frames preserve residual, independent columns
+and full real spanning. The concrete order-4 adapter and fold extension remain.
+DONE: prove the concrete quaternion/octonion/sedenion coordinate adapters.
+DONE: concrete quaternion/octonion/sedenion adapters preserve arithmetic and norm.
+DONE: faithful average/detail transport, both inverses, multiplication and norm.
+DONE: existing sedenion inverse statements use generic tower proofs; average-only
+information loss transfers through the proved concrete embedding.
+DONE: refresh matrix/pure proofs after recursive norm additions.
+DONE: prove tower_dimension order = 2^order by general induction.
+DONE: prove all-order basis conjugation/multiplication correspondence with the
+Schreier Boolean sign law, including argument reversal and the high/high sign.
+DONE: empty operator and nonempty rank-zero certificate fixtures compile.
+DONE: compile registered 336-module pre-integration corpus with fatal warnings and keep-going, exit zero.
+NEXT: finish fraction/full-rank fixtures and targeted convention mutations.
+DONE: PR 232 merged at d7a43311 with 37 successful hosted checks; canonical main synchronized.
+DONE: feedback owned worktree confirmed archived by app artifact inventory.
+NEXT: checkpoint/rebase this batch onto d7a43311; rebuild synchronized 339-module corpus.
+NEXT: independently review, capture new proof closures and renew project receipts.
+NEXT: synchronize canonical declarations/bindings, validate, publish and integrate.
+DONE: seven convention mutations reject skew-minus, lift-sign, Gram-sign,
+pure-conjugacy-sign, fold-scale, Boolean-sign and highest-bit errors.
+DONE: independent whole-source review reports zero blocking mathematical defects.
+APPLICABILITY BOUNDARY: basis/sign correspondence is proved; full equality of
+arbitrary sparse_field_matrix and recursive tower_left_matrix remains a required
+operator-realization obligation before using sparse dimension-32 certificates.
+APPLICABILITY BOUNDARY: independently defined real operators require a proved
+entrywise identity with map_mx real_rational; ingestion emits rational theorems.
+NEXT: retain the independent review and complete zero/full-rank/fraction evidence.
+DONE: all four boundary fixtures (empty, nonempty rank zero, signed fractions,
+full rank) prove exact rational rank and complete kernel coverage, exit zero.
+DONE: retain all positive/mutated certificate sources, inputs and compiler logs.
+DONE: pre-integration 336-module Make exits zero; source checkpoint rebased cleanly.
+DONE: numeric basis corollary compiles and independent delta review accepts it.
+DONE: capture parser passes nine regressions, including anonymous HB factories.
+DONE: synchronized 339-module Make and eleven source-closed captures pass.
+DONE: synchronized 339-module build, admission scan and plugin checks exit zero.
+DONE: canonical inventory sync records 339 source_only identities before replay.
+DONE: all eleven independent declaration queries compile and retain assumptions.
+DONE: eleven independent kernel exits pass; organize witnesses and prepare 46 receipts.
+DONE: capture 197 declarations in eleven targets; 43 closed and 154 with disclosed
+standard foundations. All 404 measured historical artifact files retain names/bytes.
+DISCOVERED: canonical replay rejects anonymous HB.instance Definition _ := headers.
+DONE: reproduce rejection against the actual real-field receipt and a new unit test.
+DONE: classify only that exact anonymous factory header as compiled context; keep
+named factories, wrappers and subsequent named declarations visible/rejected.
+DONE: independent Rust delta review accepts the admission boundary.
+DONE: full provenance library suite passes (136 passed, two host-dependent ignored).
+DISCOVERED: a binding test pins the obsolete total289; source inventory validation
+already checks full declarations. Remove that size-only assertion; semantic scope
+and seven terminal applications remain tested. Typed manifest verifies 295 names.
+DONE: both genuine replay regressions pass, current CLI rebuild succeeds and real factory receipts admit.
+DONE: all-target provenance Clippy passes with -D warnings; changed Rust format passes.
+DONE: all 46 current-project receipt replays pass, aggregate exit zero; owned tmux session terminates.
+NEXT: finish 46 receipt replays and retry parser-specific failures with repaired CLI.
+NEXT: verify Clippy/format, refresh canonical exports/signatures and payload hashes.
+NEXT: review exact public payload, hosted CI, focused PR merge and owned cleanup.
+FORMAT BASELINE: package nightly check reports unchanged claim_proofs.rs and lib.rs.
+Both byte contents equal HEAD; the Makefile records the repository format baseline.
+Retain the package diagnostic and direct changed-file formatting result separately.
+DONE: current-source exporter regenerates 339 theorem records and project counters.
+DONE: compatibility, theorem identities, signatures and SQLite integrity all pass.
+DONE: final inventory reports 46 kernel_checked and 293 source_only records.
+DONE: retain pinned MathComp 2.6.0 license and adapted-proof attribution.
+ACTIVE: seal evidence hashes and inspect exact branch publication payload.
+NEXT: publish focused PR, obtain exact-head hosted validation, merge and synchronize.
+NEXT: archive only the owned exact-rank worktree after confirmed integration.

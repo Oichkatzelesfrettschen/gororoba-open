@@ -1,0 +1,40 @@
+   Compiling syn v2.0.117
+   Compiling utf8parse v0.2.2
+   Compiling anstyle v1.0.14
+   Compiling anstyle-query v1.1.5
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling clap_lex v1.1.0
+   Compiling strsim v0.11.1
+   Compiling heck v0.5.0
+   Compiling anstyle-parse v1.0.0
+   Compiling anstream v1.0.0
+   Compiling clap_builder v4.6.0
+   Compiling synstructure v0.13.2
+   Compiling zerovec-derive v0.11.3
+   Compiling displaydoc v0.2.5
+   Compiling serde_derive v1.0.228
+   Compiling clap_derive v4.6.0
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+   Compiling zerofrom v0.1.7
+   Compiling yoke v0.8.2
+   Compiling serde v1.0.228
+   Compiling clap v4.6.0
+   Compiling zerovec v0.11.6
+   Compiling zerotrie v0.2.4
+   Compiling chrono v0.4.41
+   Compiling provenance_core v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_core)
+   Compiling tinystr v0.8.3
+   Compiling potential_utf v0.1.5
+   Compiling icu_collections v2.2.0
+   Compiling icu_locale_core v2.2.0
+   Compiling icu_provider v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/provenance_store)
+   Compiling gororoba_db v0.1.0 (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba/crates/gororoba_db)
+    Finished `dev` profile [optimized + debuginfo] target(s) in 1m 38s

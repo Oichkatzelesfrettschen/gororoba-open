@@ -299,6 +299,11 @@ fn source_declarations(source: &str) -> Result<BTreeMap<String, String>> {
     let mut declarations = BTreeMap::new();
     for command in source_commands(source)? {
         let words = command.split_whitespace().collect::<Vec<_>>();
+        // Anonymous hierarchy factories remain compiled and kernel-checked context;
+        // their underscore source name cannot identify an assumption query.
+        if words.starts_with(&["HB.instance", "Definition", "_", ":="]) {
+            continue;
+        }
         let position = usize::from(matches!(
             words.first(),
             Some(&"Local" | &"Global" | &"Polymorphic" | &"Monomorphic")
@@ -1589,6 +1594,27 @@ mod tests {
         descriptive.compile_command = descriptive.compile_command.replace("+all", "default");
         assert!(validate_kernel_witness(&fixture.root, &descriptive, true).is_ok());
         assert!(replay::fixture_evidence(&descriptive).is_err());
+        Ok(())
+    }
+
+    #[test]
+    fn anonymous_hierarchy_factories_keep_named_results_visible() -> Result<()> {
+        let source = "HB.instance Definition _ := eqtype.hasDecEq.Build R real_eqP.\n\
+            HB.instance Definition _ := GRing.isNmodMorphism.Build _ _ embedding additive.\n\
+            Theorem named_result : True. Proof. exact I. Qed.\n\
+            Definition named_dependency : True := named_result.\n";
+        let declarations = source_declarations(source)?;
+        assert_eq!(declarations.len(), 2);
+        assert!(declarations.contains_key("named_result"));
+        assert!(declarations.contains_key("named_dependency"));
+        for unsupported in [
+            "HB.instance Definition named_factory := factory.",
+            "Local HB.instance Definition _ := factory.",
+            "Time HB.instance Definition _ := factory.",
+            "HB.instance Lemma hidden : True.",
+        ] {
+            assert!(source_declarations(unsupported).is_err(), "{unsupported}");
+        }
         Ok(())
     }
 

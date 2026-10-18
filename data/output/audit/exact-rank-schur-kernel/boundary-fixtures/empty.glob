@@ -1,0 +1,113 @@
+DIGEST 1855146edc7997e2413a26accd8dd62b
+Fempty
+R201:204 Stdlib.Lists.List <> <> lib
+R229:232 mathcomp.boot.boot <> <> lib
+R234:238 mathcomp.order.order <> <> lib
+R240:246 mathcomp.algebra.algebra <> <> lib
+R282:304 OpenGororoba.FiniteMatrixConventions <> <> lib
+R306:325 OpenGororoba.ExactRankCertificate <> <> lib
+R335:343 mathcomp.boot.ssreflect <> <> mod
+R345:351 mathcomp.boot.ssrbool <> <> mod
+R353:358 mathcomp.algebra.algebraic_hierarchy.divalg <> <> mod
+R360:365 mathcomp.algebra.matrix <> <> mod
+R367:375 mathcomp.algebra.mxalgebra <> <> mod
+R377:379 mathcomp.algebra.rat <> <> mod
+def 393:400 <> operator
+R405:427 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R434:436 Corelib.Init.Datatypes <> nil constr
+def 451:460 <> upper_left
+R465:487 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R494:496 Corelib.Init.Datatypes <> nil constr
+def 511:521 <> upper_right
+R526:548 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R555:557 Corelib.Init.Datatypes <> nil constr
+def 572:581 <> lower_left
+R586:608 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R615:617 Corelib.Init.Datatypes <> nil constr
+def 632:642 <> lower_right
+R647:669 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R676:678 Corelib.Init.Datatypes <> nil constr
+def 693:698 <> kernel
+R703:725 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R732:734 Corelib.Init.Datatypes <> nil constr
+def 749:767 <> kernel_left_inverse
+R772:794 OpenGororoba.FiniteMatrixConventions <> rational_literal_matrix def
+R801:803 Corelib.Init.Datatypes <> nil constr
+def 815:837 <> retained_rank_equations
+R954:956 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R841:862 OpenGororoba.ExactRankCertificate <> rank_certificate_check def
+R943:953 empty <> lower_right def
+R932:941 empty <> lower_left def
+R920:930 empty <> upper_right def
+R909:918 empty <> upper_left def
+R900:907 empty <> operator def
+R864:898 mathcomp.algebra.rat <> rat_rat__canonical__GRing_Field def
+R957:960 Corelib.Init.Datatypes <> true constr
+R977:998 OpenGororoba.ExactRankCertificate <> rank_certificate_check def
+R1007:1024 Stdlib.Bool.Bool <> andb_true_iff thm
+R1043:1056 Corelib.ssr.ssrbool <> introT thm
+R1058:1067 mathcomp.boot.eqtype <> eqP def
+R1078:1082 Corelib.Init.Logic <> proj1 thm
+R1085:1098 mathcomp.algebra.matrix <> matrixP thm
+R1178:1191 Corelib.ssr.ssrbool <> introT thm
+R1193:1202 mathcomp.boot.eqtype <> eqP def
+R1213:1217 Corelib.Init.Logic <> proj1 thm
+R1220:1233 mathcomp.algebra.matrix <> matrixP thm
+prf 1317:1335 <> retained_exact_rank
+R1364:1366 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1339:1354 mathcomp.algebra.mxalgebra <> mxrank abbrev
+R1356:1363 empty <> operator def
+R1385:1412 OpenGororoba.ExactRankCertificate <> rank_certificate_check_sound thm
+R1414:1448 mathcomp.algebra.rat <> rat_rat__canonical__GRing_Field def
+R1456:1463 empty <> operator def
+R1465:1474 empty <> upper_left def
+R1476:1486 empty <> upper_right def
+R1488:1497 empty <> lower_left def
+R1499:1509 empty <> lower_right def
+R1511:1533 empty <> retained_rank_equations ex
+def 1550:1574 <> retained_kernel_equations
+R1670:1672 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1578:1595 OpenGororoba.ExactRankCertificate <> kernel_frame_check def
+R1651:1669 empty <> kernel_left_inverse def
+R1644:1649 empty <> kernel def
+R1635:1642 empty <> operator def
+R1597:1631 mathcomp.algebra.rat <> rat_rat__canonical__GRing_Field def
+R1673:1676 Corelib.Init.Datatypes <> true constr
+R1693:1710 OpenGororoba.ExactRankCertificate <> kernel_frame_check def
+R1719:1736 Stdlib.Bool.Bool <> andb_true_iff thm
+R1755:1768 Corelib.ssr.ssrbool <> introT thm
+R1770:1779 mathcomp.boot.eqtype <> eqP def
+R1790:1794 Corelib.Init.Logic <> proj1 thm
+R1797:1810 mathcomp.algebra.matrix <> matrixP thm
+R1889:1906 Stdlib.Bool.Bool <> andb_true_iff thm
+R1927:1940 Corelib.ssr.ssrbool <> introT thm
+R1942:1951 mathcomp.boot.eqtype <> eqP def
+R1962:1966 Corelib.Init.Logic <> proj1 thm
+R1969:1982 mathcomp.algebra.matrix <> matrixP thm
+prf 2083:2103 <> retained_kernel_spans
+R2123:2135 mathcomp.algebra.matrix <> matrix variant
+R2137:2143 mathcomp.algebra.rat <> rat rec
+binder 2114:2119 <> vector:1
+R2198:2201 Corelib.Init.Notations <> ::type_scope:x_'->'_x not
+R2178:2180 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2150:2161 mathcomp.algebra.matrix <> mulmx def
+R2172:2177 empty <> vector:1 var
+R2163:2170 empty <> operator def
+R2181:2191 OpenGororoba.FiniteMatrixConventions <> matrix_zero def
+R2202:2208 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2221:2222 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2209:2220 <> coefficients:2
+R2229:2231 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2223:2228 empty <> vector:1 var
+R2232:2243 mathcomp.algebra.matrix <> mulmx def
+R2252:2263 empty <> coefficients:2 var
+R2245:2250 empty <> kernel def
+R2281:2309 OpenGororoba.ExactRankCertificate <> checked_kernel_frame_complete thm
+R2311:2345 mathcomp.algebra.rat <> rat_rat__canonical__GRing_Field def
+R2355:2362 empty <> operator def
+R2364:2369 empty <> kernel def
+R2371:2389 empty <> kernel_left_inverse def
+R2391:2409 empty <> retained_exact_rank thm
+R2411:2435 empty <> retained_kernel_equations ex
+R2462:2480 empty <> retained_exact_rank thm
+R2501:2521 empty <> retained_kernel_spans thm

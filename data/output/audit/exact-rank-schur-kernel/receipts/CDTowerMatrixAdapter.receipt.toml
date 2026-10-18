@@ -1,0 +1,116 @@
+evidence_key = "rank-kernel-project-CDTowerMatrixAdapter"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T22:20:40Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDTowerMatrixAdapter"
+proof_path = "proofs/theories/CDTowerMatrixAdapter.v"
+project_sha256 = "4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDTowerMatrixAdapter.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDTowerMatrixAdapter"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDTowerMatrixAdapter.v"
+sha256 = "2a0373bbca04c40f2d75d46018c99fb486c7d44ebc827151156f8b4ec207a680"
+
+[[witness.sources]]
+path = "proofs/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[[witness.sources]]
+path = "proofs/theories/StdlibRealFieldAdapter.v"
+sha256 = "389794e3108e50f45cedb1f1c97b85b14913cdd4f04c10eb9562645bfad23693"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerMatrixAdapter.compile.txt"
+sha256 = "231eb1245fb2fa8964826da66763d714efdfe9022a644deb1ffaaa3f6b61a1f9"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerMatrixAdapter.kernel.txt"
+sha256 = "6ace46064a6cc8378432c131a530671780cb3f080ee50933b45de87d5d8364c6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDTowerMatrixAdapter.assumptions.txt"
+sha256 = "347ba952b39b99d3af1cc78457ef383ed29d51edcf1f064350051c652904b609"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/CDTowerMatrixAdapter.vo"
+sha256 = "122d1a9f418ab15b8aab8286e0ad6e1d5282fdea36c73679a472922cd098d7d4"
+
+[[witness.declarations]]
+name = "tower_dimension_power"
+statement = "Theorem tower_dimension_power order : tower_dimension order = Nat.pow 2 order"
+assumptions = []
+
+[[witness.declarations]]
+name = "column_tower_round_trip"
+statement = "Theorem column_tower_round_trip order : forall value, column_tower order (tower_column order value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_column_round_trip"
+statement = "Theorem tower_column_round_trip order : forall value, tower_column order (column_tower order value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_column_injective"
+statement = "Theorem tower_column_injective order : forall first second, tower_column order first = tower_column order second -> first = second"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_column_zero"
+statement = "Lemma tower_column_zero order : tower_column order (tower_zero order) = nmodule.Algebra.zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_column_add"
+statement = "Lemma tower_column_add order : forall first second, tower_column order (tower_add order first second) = nmodule.Algebra.add (tower_column order first) (tower_column order second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_column_neg"
+statement = "Lemma tower_column_neg order : forall value, tower_column order (tower_neg order value) = nmodule.Algebra.opp (tower_column order value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_column_scale"
+statement = "Lemma tower_column_scale order factor : forall value, tower_column order (tower_scale order factor value) = matrix.scalemx factor (tower_column order value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_column_conjugation"
+statement = "Theorem tower_column_conjugation order : forall value, tower_column order (tower_conj order value) = matrix.mulmx (tower_conjugation_matrix order) (tower_column order value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conjugation_matrix_involution"
+statement = "Theorem tower_conjugation_matrix_involution order : matrix.mulmx (tower_conjugation_matrix order) (tower_conjugation_matrix order) = matrix.scalar_mx R1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_multiplication_matrices"
+statement = "Theorem tower_multiplication_matrices order : (forall first second, tower_column order (tower_mul order first second) = matrix.mulmx (tower_left_matrix order first) (tower_column order second)) /\\ (forall first second, tower_column order (tower_mul order first second) = matrix.mulmx (tower_right_matrix order second) (tower_column order first))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_matrix_equal_on_columns"
+statement = "Lemma real_matrix_equal_on_columns rows columns (first second : matrix.matrix R rows columns) : (forall vector : matrix.matrix R columns 1, matrix.mulmx first vector = matrix.mulmx second vector) -> first = second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_matrix_extensionality"
+statement = "Theorem tower_matrix_extensionality order (first second : matrix.matrix R (tower_dimension order) (tower_dimension order)) : (forall vector, matrix.mulmx first (tower_column order vector) = matrix.mulmx second (tower_column order vector)) -> first = second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_zero_multiplication_matrices"
+statement = "Theorem tower_zero_multiplication_matrices order : tower_left_matrix order (tower_zero order) = nmodule.Algebra.zero /\\ tower_right_matrix order (tower_zero order) = nmodule.Algebra.zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]

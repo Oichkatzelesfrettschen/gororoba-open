@@ -1,0 +1,8 @@
+{
+  "event_key": "proof-inventory:exact-rank-schur-kernel",
+  "theorem_count": 339,
+  "source_only_count": 339,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}
+skipped TOML regen (--regen-toml false); run `make registry-export-markdown` later.

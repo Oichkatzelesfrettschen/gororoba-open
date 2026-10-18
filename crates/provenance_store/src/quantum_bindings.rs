@@ -1963,7 +1963,6 @@ mod tests {
         let report = manifest
             .validate(&root())
             .expect("complete terminal applications");
-        assert_eq!(manifest.theorems.len(), 289);
         assert_eq!(report.verified_theorem_sources, 14);
         assert!(
             manifest

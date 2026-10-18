@@ -1,0 +1,1 @@
+Nightly package-format differences occur in unchanged claim_proofs.rs and lib.rs. Their tracked contents equal HEAD. Makefile validate-static explicitly records the repository formatter baseline. The two changed Rust files pass a direct nightly check.

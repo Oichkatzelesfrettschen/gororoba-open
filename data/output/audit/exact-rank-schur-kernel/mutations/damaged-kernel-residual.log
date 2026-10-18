@@ -1,0 +1,8 @@
+proposed_source_sha256=41ac343ef9d3f0beefff5f5d34c61a761e0eae4a98ce8d7ded0f61d3c4ef99a6; Rocq compilation must validate every equation
+File "/tmp/rank-certificate-mutations-checked/damaged_kernel_residual.v", line 35, characters 81-92:
+Error:
+In environment
+row_bound : ssrnat.leq 1 2
+column_bound : ssrnat.leq 1 1
+Unable to unify "true" with "false".
+

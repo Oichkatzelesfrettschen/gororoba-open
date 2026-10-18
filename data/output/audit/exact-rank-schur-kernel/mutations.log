@@ -1,0 +1,9 @@
+ragged-matrix: rejected
+incorrect-field: rejected
+zero-denominator: rejected
+incompatible-dimensions: rejected
+incomplete-frame: rejected
+damaged-upper-factor: rejected
+damaged-lower-witness: rejected
+damaged-kernel-residual: rejected
+damaged-independence-witness: rejected
