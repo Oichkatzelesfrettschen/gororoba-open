@@ -1,0 +1,7 @@
+Closed under the global context
+Closed under the global context
+File "/tmp/rocq_degree_mutations/Mutation.v", line 110, characters 41-52:
+Error: In environment
+nonzero : true = true
+Unable to unify "2" with "1".
+

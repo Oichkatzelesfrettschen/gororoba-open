@@ -1,0 +1,62 @@
+Quantum theorem and observable contracts
+======================================
+
+The implementation binds formal conclusions to immutable experiment inputs and
+explicit observation models. The user authorized the four scoped implementation
+items after the read-only audit. The work runs offline against retained data;
+quantum acquisition and service submission remain outside its execution scope.
+
+Source boundaries
+-----------------
+open_gororoba base: 4706d40eafa524957a9b20384a6a7346fe8536a1.
+gororoba-quantum base: a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
+Historical receipts retain their original version and source identities.
+
+Ordered implementation
+----------------------
+1. Inspect current proof statements, source inventories and retained results.
+   Complete: relevant proof and decoder sources retain audit identities.
+2. Define exact finite-law proof and typed binding interfaces.
+   Complete: finite Bernoulli convolution, exact moment concentration and union
+   coverage; explicit Pauli traces and subnormalized classical branch states;
+   strict source/artifact digests and register decoders.
+3. Implement typed bindings and bounded original-byte input snapshots.\n   Complete: offline validation and independent contract re-review.
+   Acceptance: source/declaration, basis, normalization, circuit digest,
+   member/register map and shot-count mutations fail offline validation.
+4. Prove within-PUB Bernoulli concentration and arbitrary-joint multiplicity.\n   Complete: sources compile and kernel-check with declared foundations.
+   Acceptance: n=8192, radius=21/1000, family=32, failure probability <=1/20
+   follows from the declared finite IID marginal law. Concentration is proved,
+   rather than asserted as an axiom. Cross-PUB independence is unnecessary.
+5. Prove signed-coherence reconstruction and explicit nuisance bounds.\n   Complete: operator identities and nuisance assumptions independently reviewed.
+   Acceptance: density-matrix Pauli traces, signed bit parity, spectator trace,
+   branch flips and ordered Z rotations agree with the exact decoder; physical
+   sampling and drift conditions remain empirical model hypotheses.
+6. Register proof inventory and publish current reconciliation documentation.\n   Complete: retain current source-bound receipts, synchronize canonical records,
+   and bind a retained quantum-side source snapshot to the published commit.
+   Acceptance: present-tense toolchain references distinguish current 9.3 from
+   historical 9.1.1/9.2 receipts and their recorded source fixtures.
+7. Validate sources, independent kernel checks, assumptions and negative tests.
+   Complete: all 32 observations validated, 39 source assets verified, stable
+   repository locator enforced, 5 focused tests and 34 mutations passed,
+   project counter synchronized to 314, and independent repair review cleared.
+   Acceptance: fatal-default-warning proof builds, kernel checks, focused Rust
+   diagnostics, immutable raw-count reproduction, and independent review pass.
+8. Publish focused repository changes and integrate after hosted validation.
+   Publication and integration status live in the attached PRs and native goal.
+   Acceptance: exact published heads pass checks and reviews; primary checkouts
+   synchronize while unrelated files and other worktrees remain accounted for.
+
+Implementation ownership
+------------------------
+FiniteBernoulliConcentration.v and optional FiniteProbability.v own probability.
+BranchSignedCoherence.v owns the operator and nuisance identities.
+provenance_store::quantum_bindings and its example own offline binding checks.
+The primary agent owns inventory, hosted wiring, registry and documentation.
+
+Review focus
+------------
+Reject reversed bit significance, missing or substituted registers, changed
+normalization or coefficient domain, stale source and QPY digests, altered
+family denominators, and claims that mathematical-only results have hardware
+realization. Keep model assumptions distinct from proven concentration. Keep
+recorded-branch correlations distinct from coherence between recorded branches.

@@ -1,0 +1,30 @@
+2026-10-18T033336Z-qpu_belenos-belenos_mesh-job-02
+{
+  "settings": 16,
+  "single_click_denominators_match": true,
+  "shots_per_setting": [
+    1500
+  ],
+  "a_mean_by_kind": {
+    "bright": 0.979098,
+    "dark": 0.047586
+  },
+  "contrast": 0.931512,
+  "verdict": "no class fits"
+}
+raw_identity_match=c6323f8fd522e9785c592ecd703fe9daed06275660d20a2d1b5881d2b64be0b7
+2026-10-18T042456Z-qpu_belenos-belenos_mesh-job-07
+{
+  "settings": 32,
+  "single_click_denominators_match": true,
+  "shots_per_setting": [
+    1500
+  ],
+  "a_mean_by_kind": {
+    "bright": 0.937723,
+    "dark": 0.028098
+  },
+  "contrast": 0.909625,
+  "verdict": "no class fits"
+}
+raw_identity_match=44bdb2518d01077dc54ecdaa8cd38a5e878a4cc797dd79926d5245484cb32330

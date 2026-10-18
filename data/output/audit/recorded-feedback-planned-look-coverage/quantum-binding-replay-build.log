@@ -1,0 +1,3 @@
+   Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/recorded-feedback-planned-look-coverage/open_gororoba/crates/provenance_store)
+    Finished `dev` profile [optimized + debuginfo] target(s) in 0.52s
+     Running `.cache/exp-feedback-target/debug/examples/verify_quantum_bindings proofs/evidence/quantum_observables/bindings.json /home/eirikr/.codex/worktrees/recorded-feedback-planned-look-coverage/open_gororoba`

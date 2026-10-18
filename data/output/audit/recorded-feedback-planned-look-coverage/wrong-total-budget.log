@@ -1,0 +1,23 @@
+File "/tmp/rocq-look-mutations/Mutation.v", line 33, characters 70-76:
+Error:
+In environment
+Sample : Type
+Estimator : Type
+Look : Type
+law : list (Sample * R)
+declared : list (Estimator * Look)
+failure : Estimator * Look -> Sample -> bool
+allocation : Estimator * Look -> R
+total_budget : R
+nonnegative : nonnegative_law law
+allocations :
+  forall pair : Estimator * Look, In pair declared -> 0 <= allocation pair
+marginal :
+  forall pair : Estimator * Look,
+  In pair declared -> event_probability law (failure pair) <= allocation pair
+budget : real_sum (map allocation declared) <= total_budget + 1
+The term "budget" has type
+ "real_sum (map allocation declared) <= total_budget + 1"
+while it is expected to have type
+ "real_sum (map allocation declared) <= total_budget".
+

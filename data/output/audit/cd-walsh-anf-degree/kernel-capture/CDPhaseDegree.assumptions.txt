@@ -1,0 +1,82 @@
+Declaration: phase_cube_xor_self
+Closed under the global context
+Declaration: phase_cube_xor_involution
+Closed under the global context
+Declaration: phase_cube_equal_cancel
+Closed under the global context
+Declaration: phase_cube_xor_nonzero
+Closed under the global context
+Declaration: commutation_pair_coefficient
+Closed under the global context
+Declaration: sign_row_involution
+Closed under the global context
+Declaration: degenerate_associator_zero
+Closed under the global context
+Declaration: phase_nonzero_distinct_zero
+Closed under the global context
+Declaration: nonzero_indicator_degree
+Closed under the global context
+Declaration: commutation_row_degree
+Closed under the global context
+Declaration: sign_row_append
+Closed under the global context
+Declaration: sign_row_degree
+Closed under the global context
+Declaration: commutation_delta
+Closed under the global context
+Declaration: pair_coefficient_delta
+Closed under the global context
+Declaration: shifted_commutation_delta
+Closed under the global context
+Declaration: associator_slice_left
+Closed under the global context
+Declaration: associator_slice_right
+Closed under the global context
+Declaration: associator_slice_both
+Closed under the global context
+Declaration: associator_as_parity_extension
+Closed under the global context
+Declaration: quaternion_associator_all
+Closed under the global context
+Declaration: two_point_defect_degree
+Closed under the global context
+Declaration: cube_zero_distinct
+Closed under the global context
+Declaration: cube_xor_right_cancel
+Closed under the global context
+Declaration: associator_step_degree
+Closed under the global context
+Declaration: associator_degenerate_degree
+Closed under the global context
+Declaration: associator_degree_bound
+Closed under the global context
+Declaration: pair_first_order_bound
+Closed under the global context
+Declaration: associator_phase_degree
+Closed under the global context
+Declaration: numeric_bit_length
+Closed under the global context
+Declaration: numeric_bit_length_high
+Closed under the global context
+Declaration: pair_first_order_numeric
+Closed under the global context
+Declaration: associator_degree_numeric_indices
+Closed under the global context
+Declaration: numeric_sign_row
+Closed under the global context
+Declaration: numeric_phase_row
+Closed under the global context
+Declaration: numeric_sign_row_adapter
+Closed under the global context
+Declaration: numeric_phase_row_adapter
+Closed under the global context
+Declaration: numeric_sign_row_degree
+Closed under the global context
+Declaration: numeric_associator_phase_degree
+Closed under the global context
+Declaration: quaternion_degree_zero
+Closed under the global context
+Declaration: embedded_pair_degree_one
+Closed under the global context
+Declaration: new_sedenion_pair_degree_two
+Closed under the global context

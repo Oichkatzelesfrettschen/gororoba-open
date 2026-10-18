@@ -1,0 +1,46 @@
+compile SchreierSignCode exit 0
+compile CDAssociatorDoubling exit 0
+compile M3IsAssociator exit 0
+compile CDSignHalfStep exit 0
+compile CDSignNumericCorrespondence exit 0
+compile BooleanANFDegree exit 0
+compile CDPhaseDegree exit 0
+compile FiniteProbability exit 0
+compile WalshProbability exit 0
+compile CDAssociatorCensus exit 0
+compile CubeAffineCosets exit 0
+compile FiniteMatrixConventions exit 0
+compile RationalSignBlockRanks exit 0
+compile SparsePhotonicCertificates exit 0
+compile CDSparseMatrixTransport exit 0
+compile CDSparseBlockTransport exit 0
+assumptions CDAssociatorCensus exit 0 declarations 49
+assumptions CubeAffineCosets exit 0 declarations 21
+assumptions FiniteMatrixConventions exit 0 declarations 19
+assumptions RationalSignBlockRanks exit 0 declarations 17
+assumptions SparsePhotonicCertificates exit 0 declarations 73
+assumptions CDSparseMatrixTransport exit 0 declarations 13
+assumptions CDSparseBlockTransport exit 0 declarations 54
+kernel SparsePhotonicCertificates exit 0
+kernel CubeAffineCosets exit 0
+kernel CDAssociatorCensus exit 0
+kernel RationalSignBlockRanks exit 0
+kernel FiniteMatrixConventions exit 0
+kernel CDSparseMatrixTransport exit 0
+kernel CDSparseBlockTransport exit 0
+targets=7
+first_party_sources=16
+retained_proof_objects=16
+witnessed_declarations=246
+closed_declaration_queries=208
+printed_assumption_name_occurrences=72
+project_sha256=bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432
+warning_policy=fatal_default
+raw_log_transformation=none
+recognized_source_witness_log_name_sets=equal
+historical_artifact_name_sets_and_bytes=identical
+historical_artifact_files=288
+recognized_Definition_declarations=77
+recognized_Example_declarations=39
+recognized_Lemma_declarations=75
+recognized_Theorem_declarations=55

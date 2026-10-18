@@ -17,9 +17,10 @@ opam switch create rocq-9.3 ocaml-base-compiler.5.5.1 --jobs="$(nproc)" --yes
 opam repository add rocq-released https://rocq-prover.org/opam/released --switch=rocq-9.3 --yes
 opam update
 opam install --switch=rocq-9.3 rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 --jobs="$(nproc)" --yes
-opam install --switch=rocq-9.3 rocq-elpi.3.5.1 rocq-hierarchy-builder.1.10.3 rocq-mathcomp-ssreflect.2.6.0 coq-ext-lib.0.13.2 --jobs="$(nproc)" --yes
 opam repository add gororoba-proof-ports "$PWD/proofs/opam" --switch=rocq-9.3 --yes
+opam install --switch=rocq-9.3 rocq-elpi.3.5.1 rocq-hierarchy-builder.1.10.3 rocq-mathcomp-ssreflect.2.6.0 rocq-mathcomp-algebra.2.6.0 rocq-mathcomp-field.2.6.0 rocq-mathcomp-finite-group.2.6.0 rocq-mathcomp-solvable.2.6.0 rocq-micromega-plugin.1.1.1 coq-ext-lib.0.13.2 --jobs="$(nproc)" --yes
 opam install --switch=rocq-9.3 rocq-equations.1.3.2+9.3 --with-test --jobs="$(nproc)" --yes
+opam switch import --switch=rocq-9.3 --jobs="$(nproc)" --yes proofs/opam/qualified-rocq-9.3.export
 opam list --switch=rocq-9.3 --installed
 opam exec --switch=rocq-9.3 -- rocq --version
 opam exec --switch=rocq-9.3 -- make -C proofs check-plugins
@@ -55,6 +56,16 @@ outside that solution: the Rocq Elpi bridge requires Dune below 3.24 and Elpi
 below 3.8. A bridge port must adapt and test the engine API and Dune build
 metadata, then pass its native-plugin, command, HB and MathComp consumers.
 Removing the bounds alone establishes dependency resolution, not compatibility.
+
+## Associator dimension growth
+
+`theories/CDAssociatorDoubling.v` proves the all-order associator doubling
+law and exact Walsh spectrum factorization for embedded fixed pairs.
+The bounded [quantum evidence reconciliation](../docs/engineering/quantum_associator_evidence_reconciliation.txt)
+compares retained hardware, simulation and algebraic results and records the
+remaining numeric-sign and circuit-semantic bridges. Source identities and
+compiler/kernel evidence live in `data/output/audit/cd-associator-sign-lifting/`
+at the repository root.
 
 ## Build every registered proof with all visible CPUs
 
@@ -193,6 +204,55 @@ the authority for integrating the branch.
 - [CertiRocq](https://github.com/CertiRocq/certirocq)
 - [Rust extraction](https://github.com/AU-COBRA/coq-rust-extraction)
 
+## Numeric sign correspondence
+
+`theories/CDSignNumericCorrespondence.v` connects highest-bit Boolean cubes
+to numeric XOR indices at every power-of-two dimension. The sign theorem
+requires fuel at least the order, proves stability under excess fuel, and
+covers the high/high zero-index branch. The associator correspondence compares
+all four sign factors. Repeated lifting and Walsh factorization in
+`CDAssociatorDoubling.v` expose the entire deterministic appended frequency
+mask. These results establish mathematical correspondence; physical gate
+semantics and Born-law applications retain their separate contracts.
+
+MathComp algebra and field 2.6.0 supply the matrix foundation for the follow-on
+formalization program. The repository opam overlay retains source-checksummed
+recipes for algebra, field, finite-group, solvable and micromega-plugin 1.1.1.
+
+`proofs/opam/qualified-rocq-9.3.export` freezes the complete qualified switch,
+including transitive versions and source metadata. Hosted installation imports
+the lock before compatibility tests. A package inventory records an observation;
+the switch import enforces that observation on installation. The retained
+same-switch import dry run reports `Nothing to do.`. Fresh hosted installation
+remains the cross-platform replay gate.
+
+## Canonical Boolean degree and normalized Walsh laws
+
+`WalshProbability.v` proves integer Parseval and character orthogonality for
+unnormalized Walsh sums, then defines the ideal law as `W^2 / (2^n)^2`.
+The law has nonnegative weights and total mass one. Parity extension preserves
+the lower probabilities and fixes the appended frequency bit.
+
+`BooleanANFDegree.v` uses canonical finite multilinear coefficients. The zero
+function and constants have degree zero. A point indicator has degree `n`;
+two distinct indicators have XOR degree `n-1`. Strict degree separation supplies
+noncancellation, while fresh-variable lifting requires an explicit nonzero
+coefficient. `BooleanCochainFiltration.v` connects its existing syntactic
+polynomial bounds to these semantic degrees.
+
+`CDPhaseDegree.v` proves degree `n-1` for every nonzero sign row at `n >= 2`.
+For distinct nonzero pairs at `n >= 3`, the associator degree is
+`max(1, bitlen(max(i,j))-2)`. Bounded numeric indices, highest-bit doubling and
+sufficient evaluator fuel appear in the numeric corollaries. Degenerate pairs
+and quaternion phases have degree zero. The degree freezes when a pair first
+appears; adding dimensions appends parity without increasing the degree.
+
+The retained `data/output/audit/cd-walsh-anf-degree/kernel-capture/` bundle
+checks all 122 recognized declarations from the four affected modules.
+109 queries are closed; the other queries retain their printed foundations,
+including Stdlib classical reals and functional extensionality. These proofs
+describe mathematical laws. Circuit realization and experimental sampling
+require their named physical contracts.
 ## Vacuum response composition
 
 The registered vacuum modules separate finite-dimensional mathematics from

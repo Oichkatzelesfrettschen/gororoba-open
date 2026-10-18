@@ -1,0 +1,155 @@
+evidence_key = "feedback-coverage-project-WalshProbability"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-WalshProbability"
+proof_path = "proofs/theories/WalshProbability.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/WalshProbability.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.WalshProbability"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/WalshProbability.v"
+sha256 = "8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7"
+
+[witness.compile_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/WalshProbability.compile.txt"
+sha256 = "92cdf350e0bf38a9db226b0681b209cf00281a23952b350dea1e1d929ebb0513"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/WalshProbability.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/WalshProbability.assumptions.txt"
+sha256 = "717a9e7209997dc8ed74c94ab51f410ed0c6b75e484ba372719d37ae89ac1eae"
+
+[witness.proof_object]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/theories/WalshProbability.vo"
+sha256 = "2f2a0754c0a5564ebd3290a9d9cbbbe346f684e7e89fb2e46c62a8cab16f156f"
+
+[[witness.declarations]]
+name = "integer_cube_sum_add"
+statement = "Lemma integer_cube_sum_add : forall order first second, integer_cube_sum order (fun input => first input + second input) = integer_cube_sum order first + integer_cube_sum order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "integer_cube_sum_constant"
+statement = "Lemma integer_cube_sum_constant : forall order value, integer_cube_sum order (fun _ => value) = Z.of_nat (Nat.pow 2 order) * value"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh_slices"
+statement = "Lemma walsh_slices : forall order function frequency high, walsh (S order) function (frequency, high) = walsh order (fun input => function (input, false)) frequency + phase_sign high * walsh order (fun input => function (input, true)) frequency"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh_parseval_integer"
+statement = "Theorem walsh_parseval_integer : forall order function, integer_cube_sum order (fun frequency => walsh order function frequency ^ 2) = Z.of_nat (Nat.pow 2 order) ^ 2"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_dot_xor"
+statement = "Lemma cube_dot_xor : forall order (left right input : cube order), cube_dot order (cube_xor order left right) input = xorb (cube_dot order left input) (cube_dot order right input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_dot_zero"
+statement = "Lemma cube_dot_zero : forall order input, cube_dot order (cube_zero order) input = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh_character_sum"
+statement = "Theorem walsh_character_sum : forall order (frequency : cube order), integer_cube_sum order (fun input => phase_sign (cube_dot order frequency input)) = if cube_equal order frequency (cube_zero order) then Z.of_nat (Nat.pow 2 order) else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh_character_orthogonality"
+statement = "Theorem walsh_character_orthogonality : forall order (left right : cube order), integer_cube_sum order (fun input => phase_sign (cube_dot order left input) * phase_sign (cube_dot order right input)) = if cube_equal order left right then Z.of_nat (Nat.pow 2 order) else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "real_cube_sum_ext"
+statement = "Lemma real_cube_sum_ext : forall order first second, (forall input, first input = second input) -> real_cube_sum order first = real_cube_sum order second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "real_cube_sum_scale"
+statement = "Lemma real_cube_sum_scale : forall order factor function, real_cube_sum order (fun input => factor * function input) = factor * real_cube_sum order function"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_cube_sum_IZR"
+statement = "Lemma real_cube_sum_IZR : forall order function, real_cube_sum order (fun input => IZR (function input)) = IZR (integer_cube_sum order function)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "IZR_square"
+statement = "Lemma IZR_square : forall value, IZR (value ^ 2) = IZR value ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_probability"
+statement = "Definition walsh_probability order function frequency := IZR (walsh order function frequency) ^ 2 / INR (Nat.pow 2 order) ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "cube_cardinality_positive"
+statement = "Lemma cube_cardinality_positive : forall order, 0 < INR (Nat.pow 2 order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_probability_nonnegative"
+statement = "Theorem walsh_probability_nonnegative : forall order function frequency, 0 <= walsh_probability order function frequency"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_probability_total"
+statement = "Theorem walsh_probability_total : forall order function, real_cube_sum order (walsh_probability order function) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "cube_points_sum"
+statement = "Lemma cube_points_sum : forall order function, real_sum (map function (cube_points order)) = real_cube_sum order function"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_law"
+statement = "Definition walsh_law order function : list (cube order * R) := map (fun frequency => (frequency, walsh_probability order function frequency)) (cube_points order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_law_nonnegative"
+statement = "Theorem walsh_law_nonnegative : forall order function, nonnegative_law (walsh_law order function)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_law_normalized"
+statement = "Theorem walsh_law_normalized : forall order function, normalized_law (walsh_law order function)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "walsh_probability_parity_extension"
+statement = "Theorem walsh_probability_parity_extension : forall order function coefficient frequency high, walsh_probability (S order) (fun input => xorb (function (fst input)) (andb (snd input) coefficient)) (frequency, high) = if Bool.eqb high coefficient then walsh_probability order function frequency else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

@@ -1,0 +1,119 @@
+schema_version = 1
+stable_id = "THM-LEGACY-RationalSignBlockRanks"
+proof_path = "proofs/theories/RationalSignBlockRanks.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/RationalSignBlockRanks.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.RationalSignBlockRanks"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[sources]]
+path = "proofs/theories/RationalSignBlockRanks.v"
+sha256 = "076720438ee3944932dc4b341e7170fa5f752a6f115c35ef6a7a158c3ce0c53a"
+
+[compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/RationalSignBlockRanks.compile.txt"
+sha256 = "e48860f73316a42d574e923cda848bcb6d474abd18fef10499e88630d5a78335"
+
+[kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/RationalSignBlockRanks.kernel.txt"
+sha256 = "50cdcdcc52dda623595212888fbc49c50363306db3f55217700684a800127c10"
+
+[assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/RationalSignBlockRanks.assumptions.txt"
+sha256 = "716191e2acebcea569fa9e316fcd45d0990d7215d30dd94ea58b180b7ff5f639"
+
+[proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/RationalSignBlockRanks.vo"
+sha256 = "cf18783b81b510eac6bd647a7f8d7b64b866f764877e8e30c04663a11b6f073b"
+
+[[declarations]]
+name = "rational_sign_rank_0"
+statement = "Lemma rational_sign_rank_0 : mxalgebra.mxrank (rational_sign_block false false false false) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_1"
+statement = "Lemma rational_sign_rank_1 : mxalgebra.mxrank (rational_sign_block true false false false) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_2"
+statement = "Lemma rational_sign_rank_2 : mxalgebra.mxrank (rational_sign_block false true false false) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_3"
+statement = "Lemma rational_sign_rank_3 : mxalgebra.mxrank (rational_sign_block true true false false) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_4"
+statement = "Lemma rational_sign_rank_4 : mxalgebra.mxrank (rational_sign_block false false true false) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_5"
+statement = "Lemma rational_sign_rank_5 : mxalgebra.mxrank (rational_sign_block true false true false) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_6"
+statement = "Lemma rational_sign_rank_6 : mxalgebra.mxrank (rational_sign_block false true true false) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_7"
+statement = "Lemma rational_sign_rank_7 : mxalgebra.mxrank (rational_sign_block true true true false) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_8"
+statement = "Lemma rational_sign_rank_8 : mxalgebra.mxrank (rational_sign_block false false false true) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_9"
+statement = "Lemma rational_sign_rank_9 : mxalgebra.mxrank (rational_sign_block true false false true) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_10"
+statement = "Lemma rational_sign_rank_10 : mxalgebra.mxrank (rational_sign_block false true false true) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_11"
+statement = "Lemma rational_sign_rank_11 : mxalgebra.mxrank (rational_sign_block true true false true) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_12"
+statement = "Lemma rational_sign_rank_12 : mxalgebra.mxrank (rational_sign_block false false true true) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_13"
+statement = "Lemma rational_sign_rank_13 : mxalgebra.mxrank (rational_sign_block true false true true) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_14"
+statement = "Lemma rational_sign_rank_14 : mxalgebra.mxrank (rational_sign_block false true true true) = 2"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_rank_15"
+statement = "Lemma rational_sign_rank_15 : mxalgebra.mxrank (rational_sign_block true true true true) = 1"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_block_rank"
+statement = "Theorem rational_sign_block_rank : forall first second third fourth, mxalgebra.mxrank (rational_sign_block first second third fourth) = if xorb (xorb first second) (xorb third fourth) then 2 else 1"
+assumptions = []

@@ -1,0 +1,1 @@
+The initial preparation counted 24 inputs and wrote 23 unique specs: the new CDAssociatorDoubling witness replaced its historical spec. The final helper excludes replaced originals before counting. All admitted specs use the fresh changed-module witness.

@@ -1,0 +1,4 @@
+work_matrix_round_trip
+     : forall (operator : Matrix) (row column : Basis),
+       work_matrix_decode (work_matrix_encode operator) row column =
+       operator row column

@@ -1,0 +1,35 @@
+compile SchreierSignCode exit 0
+compile CDAssociatorDoubling exit 0
+compile FiniteProbability exit 0
+compile WalshProbability exit 0
+compile BooleanANFDegree exit 0
+compile BooleanCochainFiltration exit 0
+compile M3IsAssociator exit 0
+compile CDSignHalfStep exit 0
+compile CDSignNumericCorrespondence exit 0
+compile CDPhaseDegree exit 0
+assumptions WalshProbability exit 0 declarations 21
+assumptions BooleanANFDegree exit 0 declarations 35
+assumptions BooleanCochainFiltration exit 0 declarations 25
+assumptions CDPhaseDegree exit 0 declarations 41
+kernel BooleanCochainFiltration exit 0
+kernel BooleanANFDegree exit 0
+kernel CDPhaseDegree exit 0
+kernel WalshProbability exit 0
+targets=4
+first_party_sources=10
+retained_proof_objects=10
+witnessed_declarations=122
+closed_declaration_queries=109
+printed_assumption_name_occurrences=25
+project_sha256=87bba793d00636221daeaf2bd49f5091349412ea3322e24563b2a0fc079f28f6
+warning_policy=fatal_default
+raw_log_transformation=none
+recognized_source_witness_log_name_sets=equal
+historical_artifact_name_sets_and_bytes=identical
+historical_artifact_files=214
+recognized_Corollary_declarations=1
+recognized_Definition_declarations=15
+recognized_Example_declarations=3
+recognized_Lemma_declarations=57
+recognized_Theorem_declarations=46

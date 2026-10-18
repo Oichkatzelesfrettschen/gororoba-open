@@ -1,0 +1,5 @@
+sync_key = "cd-associator-census-sparse-transport"
+actor = "chatgpt-codex"
+reason = "Register exact associator census and sparse coordinate, norm and rank correspondences; renew current-project kernel receipts."
+applied_at = "2026-10-18T19:29:02Z"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"

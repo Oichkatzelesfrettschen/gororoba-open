@@ -1,0 +1,6 @@
+
+thread 'main' (1574606) panicked at data/output/audit/cd-associator-census-transport/ingest_photonic_witnesses.rs:85:5:
+assertion `left == right` failed: complete 16-matrix/two-sign family
+  left: 31
+ right: 32
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

@@ -1,0 +1,109 @@
+sparse_two_blade_full_squared_norm
+     : forall (order : nat)
+         (left upper lower partner : SchreierSignCode.cube order)
+         (sign_x sign_y : Rdefinitions.RbaseSymbolsImpl.R),
+       left <> upper ->
+       SchreierSignCode.cube_xor order left upper =
+       SchreierSignCode.cube_xor order lower partner ->
+       cube_squared_norm order
+         (sparse_cd_apply order (two_blade_vector order left upper sign_x)
+            (two_blade_vector order lower partner sign_y)) =
+       two_label_squared_norm
+         (two_label_output
+            (Rdefinitions.IZR
+               (CDAssociatorDoubling.phase_sign
+                  (SchreierSignCode.sign_exponent order left lower)))
+            (Rdefinitions.RbaseSymbolsImpl.Rmult sign_x
+               (Rdefinitions.IZR
+                  (CDAssociatorDoubling.phase_sign
+                     (SchreierSignCode.sign_exponent order upper partner))))
+            (Rdefinitions.RbaseSymbolsImpl.Rmult sign_x
+               (Rdefinitions.IZR
+                  (CDAssociatorDoubling.phase_sign
+                     (SchreierSignCode.sign_exponent order upper lower))))
+            (Rdefinitions.IZR
+               (CDAssociatorDoubling.phase_sign
+                  (SchreierSignCode.sign_exponent order left partner)))
+            sign_y)
+normalized_two_blade_unit_norm
+     : forall (order : nat) (lower upper : SchreierSignCode.cube order)
+         (phase : bool),
+       lower <> upper ->
+       cube_squared_norm order
+         (normalized_two_blade order lower upper
+            (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase))) =
+       Rdefinitions.IZR (BinInt.Z.pos BinNums.xH)
+sparse_photonic_normalized_product
+     : forall (order : nat)
+         (left upper lower partner : SchreierSignCode.cube order)
+         (phase_x phase_y : bool),
+       left <> upper ->
+       SchreierSignCode.cube_xor order left upper =
+       SchreierSignCode.cube_xor order lower partner ->
+       two_label_squared_norm
+         (photonic_label_output
+            (Rdefinitions.IZR
+               (CDAssociatorDoubling.phase_sign
+                  (SchreierSignCode.sign_exponent order left lower)))
+            (Rdefinitions.RbaseSymbolsImpl.Rmult
+               (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase_x))
+               (Rdefinitions.IZR
+                  (CDAssociatorDoubling.phase_sign
+                     (SchreierSignCode.sign_exponent order upper partner))))
+            (Rdefinitions.RbaseSymbolsImpl.Rmult
+               (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase_x))
+               (Rdefinitions.IZR
+                  (CDAssociatorDoubling.phase_sign
+                     (SchreierSignCode.sign_exponent order upper lower))))
+            (Rdefinitions.IZR
+               (CDAssociatorDoubling.phase_sign
+                  (SchreierSignCode.sign_exponent order left partner)))
+            (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase_y))) =
+       Rdefinitions.Rdiv
+         (cube_squared_norm order
+            (sparse_cd_apply order
+               (normalized_two_blade order left upper
+                  (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase_x)))
+               (normalized_two_blade order lower partner
+                  (Rdefinitions.IZR (CDAssociatorDoubling.phase_sign phase_y)))))
+         (Rdefinitions.IZR (BinInt.Z.pos (BinNums.xO BinNums.xH)))
+sparse_two_blade_decoded_restriction
+     : forall (order : nat)
+         (left upper lower partner : SchreierSignCode.cube order)
+         (phase : bool),
+       left <> upper ->
+       SchreierSignCode.cube_xor order left upper =
+       SchreierSignCode.cube_xor order lower partner ->
+       matrix.mxsub
+         (two_blade_decoder order
+            (SchreierSignCode.cube_xor order left lower)
+            (SchreierSignCode.cube_xor order left partner))
+         (two_blade_decoder order lower partner)
+         (CDSparseMatrixTransport.sparse_field_matrix
+            rat.rat_rat__canonical__GRing_Field order
+            (rational_two_blade order left upper phase)) =
+       sparse_rational_sign_block order left upper lower partner phase
+sparse_two_blade_decoded_rank
+     : forall (order : nat)
+         (left upper lower partner : SchreierSignCode.cube order)
+         (phase : bool),
+       left <> upper ->
+       SchreierSignCode.cube_xor order left upper =
+       SchreierSignCode.cube_xor order lower partner ->
+       mxalgebra.mxrank
+         (matrix.mxsub
+            (two_blade_decoder order
+               (SchreierSignCode.cube_xor order left lower)
+               (SchreierSignCode.cube_xor order left partner))
+            (two_blade_decoder order lower partner)
+            (CDSparseMatrixTransport.sparse_field_matrix
+               rat.rat_rat__canonical__GRing_Field order
+               (rational_two_blade order left upper phase))) =
+       (if
+         xorb
+           (xorb (SchreierSignCode.sign_exponent order left lower)
+              (SchreierSignCode.sign_exponent order upper partner))
+           (xorb (SchreierSignCode.sign_exponent order upper lower)
+              (SchreierSignCode.sign_exponent order left partner))
+        then 2
+        else 1)

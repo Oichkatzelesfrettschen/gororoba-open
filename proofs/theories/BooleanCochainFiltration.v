@@ -8,7 +8,7 @@
     face maps. For XOR groups, each face substitutes linear XOR expressions.
     The theorem applies in every cochain degree and every finite dimension. *)
 
-From Stdlib Require Import Bool Arith Lia List.
+From Stdlib Require Import Bool Arith Lia List btauto.Btauto.
 Import ListNotations.
 
 Inductive boolean_polynomial : Type :=
@@ -192,3 +192,129 @@ Proof.
   apply xor_group_face_linear.
 Qed.
 Print Assumptions xor_group_differential_preserves_degree.
+
+(** Finite-coordinate evaluation connects syntactic bounds to canonical ANF. *)
+From OpenGororoba Require Import SchreierSignCode BooleanANFDegree.
+Local Open Scope nat_scope.
+Fixpoint filtration_mask_union order : cube order -> cube order -> cube order :=
+  match order with O => fun _ _ => tt | S lower => fun left right =>
+    (filtration_mask_union lower (fst left) (fst right), orb (snd left) (snd right)) end.
+Fixpoint filtration_singleton_mask order variable : cube order :=
+  match order with O => tt | S lower =>
+    if Nat.eqb variable lower then (cube_zero lower, true)
+    else (filtration_singleton_mask lower variable, false) end.
+Definition filtration_coordinate order variable (input : cube order) :=
+  andb (Nat.ltb variable order) (monomial order (filtration_singleton_mask order variable) input).
+Fixpoint filtration_monomial_sum order (masks : list (cube order)) (input : cube order) : bool :=
+  match masks with [] => false | mask :: rest =>
+    xorb (monomial order mask input) (filtration_monomial_sum order rest input) end.
+Fixpoint polynomial_masks order (polynomial : boolean_polynomial) : list (cube order) :=
+  match polynomial with
+  | PolynomialZero => []
+  | PolynomialOne => [cube_zero order]
+  | PolynomialVariable variable => if Nat.ltb variable order then [filtration_singleton_mask order variable] else []
+  | PolynomialSum first second => polynomial_masks order first ++ polynomial_masks order second
+  | PolynomialProduct first second => flat_map (fun left =>
+      map (filtration_mask_union order left) (polynomial_masks order second)) (polynomial_masks order first)
+  end.
+Lemma filtration_union_weight : forall order (left right : cube order),
+  cube_weight order (filtration_mask_union order left right) <= cube_weight order left + cube_weight order right.
+Proof.
+  induction order; intros; [reflexivity|]. destruct left as [left low], right as [right high].
+  specialize (IHorder left right). cbn [filtration_mask_union cube_weight fst snd]. destruct low, high; simpl; lia.
+Qed.
+Lemma filtration_singleton_weight : forall order variable,
+  cube_weight order (filtration_singleton_mask order variable) <= 1.
+Proof.
+  induction order; intros; [simpl; lia|]. cbn [filtration_singleton_mask].
+  destruct (Nat.eqb variable order); cbn [cube_weight fst snd].
+  - rewrite cube_weight_zero. lia.
+  - specialize (IHorder variable). lia.
+Qed.
+Lemma filtration_union_monomial : forall order (left right input : cube order),
+  monomial order (filtration_mask_union order left right) input =
+  andb (monomial order left input) (monomial order right input).
+Proof.
+  induction order; intros; [reflexivity|]. destruct left as [left low], right as [right high], input as [input bit].
+  cbn [filtration_mask_union monomial fst snd]. rewrite IHorder. btauto.
+Qed.
+Lemma filtration_sum_append : forall order first second input,
+  filtration_monomial_sum order (first ++ second) input =
+  xorb (filtration_monomial_sum order first input) (filtration_monomial_sum order second input).
+Proof. intros order first. induction first; intros; simpl; [reflexivity|]. rewrite IHfirst. btauto. Qed.
+Lemma filtration_sum_union : forall order left right input,
+  filtration_monomial_sum order (map (filtration_mask_union order left) right) input =
+  andb (monomial order left input) (filtration_monomial_sum order right input).
+Proof.
+  intros order left right. induction right; intros; simpl; [btauto|].
+  rewrite filtration_union_monomial, IHright. btauto.
+Qed.
+Lemma filtration_sum_product : forall order first second input,
+  filtration_monomial_sum order
+    (flat_map (fun left => map (filtration_mask_union order left) second) first) input =
+  andb (filtration_monomial_sum order first input) (filtration_monomial_sum order second input).
+Proof.
+  intros order first. induction first; intros; simpl; [reflexivity|].
+  rewrite filtration_sum_append, filtration_sum_union, IHfirst. btauto.
+Qed.
+Theorem polynomial_masks_evaluate : forall polynomial order input,
+  polynomial_evaluate polynomial (fun variable => filtration_coordinate order variable input) =
+  filtration_monomial_sum order (polynomial_masks order polynomial) input.
+Proof.
+  induction polynomial; intros order input; cbn [polynomial_evaluate polynomial_masks].
+  - reflexivity.
+  - cbn [filtration_monomial_sum]. rewrite monomial_zero. reflexivity.
+  - unfold filtration_coordinate. destruct (Nat.ltb variable order); cbn [filtration_monomial_sum andb].
+    + rewrite xorb_false_r. reflexivity.
+    + reflexivity.
+  - rewrite filtration_sum_append, IHpolynomial1, IHpolynomial2. reflexivity.
+  - rewrite filtration_sum_product, IHpolynomial1, IHpolynomial2. reflexivity.
+Qed.
+Theorem polynomial_masks_weight : forall polynomial order,
+  Forall (fun mask => cube_weight order mask <= polynomial_degree polynomial) (polynomial_masks order polynomial).
+Proof.
+  induction polynomial; intros order; cbn [polynomial_masks polynomial_degree].
+  - constructor.
+  - constructor; [rewrite cube_weight_zero; lia|constructor].
+  - destruct (Nat.ltb variable order); [constructor; [apply filtration_singleton_weight|constructor]|constructor].
+  - apply Forall_app. split.
+    + eapply Forall_impl; [|apply IHpolynomial1]. intros mask bounded. cbn beta in bounded. lia.
+    + eapply Forall_impl; [|apply IHpolynomial2]. intros mask bounded. cbn beta in bounded. lia.
+  - apply Forall_forall. intros mask member. apply in_flat_map in member as [left [left_member pair_member]].
+    apply in_map_iff in pair_member as [right [<- right_member]].
+    pose proof (IHpolynomial1 order) as left_bound. apply Forall_forall with (x := left) in left_bound; [|exact left_member].
+    pose proof (IHpolynomial2 order) as right_bound. apply Forall_forall with (x := right) in right_bound; [|exact right_member].
+    pose proof (filtration_union_weight order left right). lia.
+Qed.
+Lemma filtration_sum_degree : forall order masks bound,
+  Forall (fun mask => cube_weight order mask <= bound) masks ->
+  anf_degree order (filtration_monomial_sum order masks) <= bound.
+Proof.
+  intros order masks bound bounded. induction bounded.
+  - cbn [filtration_monomial_sum]. rewrite anf_degree_zero. lia.
+  - change (anf_degree order (fun input => xorb (monomial order x input)
+      (filtration_monomial_sum order l input)) <= bound).
+    eapply Nat.le_trans; [apply anf_degree_xor_bound|]. rewrite monomial_degree. apply Nat.max_lub; assumption.
+Qed.
+Theorem polynomial_canonical_degree_bound : forall polynomial order,
+  anf_degree order (fun input => polynomial_evaluate polynomial
+    (fun variable => filtration_coordinate order variable input)) <= polynomial_degree polynomial.
+Proof.
+  intros. transitivity (anf_degree order (filtration_monomial_sum order (polynomial_masks order polynomial))).
+  - apply Nat.eq_le_incl, anf_degree_ext. intro input. apply polynomial_masks_evaluate.
+  - apply filtration_sum_degree, polynomial_masks_weight.
+Qed.
+Theorem representative_canonical_degree_bound : forall function bound order,
+  degree_at_most function bound ->
+  anf_degree order (fun input => function (fun variable => filtration_coordinate order variable input)) <= bound.
+Proof.
+  intros function bound order [polynomial [bounded evaluated]].
+  eapply Nat.le_trans; [|exact bounded].
+  transitivity (anf_degree order (fun input => polynomial_evaluate polynomial
+    (fun variable => filtration_coordinate order variable input))).
+  - apply Nat.eq_le_incl, anf_degree_ext. intro input. symmetry. apply evaluated.
+  - apply polynomial_canonical_degree_bound.
+Qed.
+Print Assumptions polynomial_masks_evaluate.
+Print Assumptions polynomial_canonical_degree_bound.
+Print Assumptions representative_canonical_degree_bound.

@@ -1907,11 +1907,6 @@ crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; registry metadata pending."
 
 [[binary]]
-name = "vacuum-response-audit"
-crate = "gororoba_cli_physics"
-description = "Workspace executable vacuum-response-audit declared by crate gororoba_cli_physics."
-
-[[binary]]
 name = "validate-j1j2-kubo"
 crate = "gororoba_cli_physics"
 description = "J1-J2 spin chain transport validation: Drude ratio, ballistic fraction, C_V phase detection, and CD interpolation cross-validation diagnostics"

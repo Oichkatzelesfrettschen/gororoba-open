@@ -1,0 +1,107 @@
+evidence_key = "census-sparse-project-SignCodeCardinality"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T19:36:02Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SignCodeCardinality"
+proof_path = "proofs/theories/SignCodeCardinality.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SignCodeCardinality.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SignCodeCardinality"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/SignCodeCardinality.v"
+sha256 = "b21c09a7bfdcdeb4aae66ef804a8bd7b0e46edc720864b045689b28b0e2f52b7"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SignCodeCardinality.compile.txt"
+sha256 = "003974cb4fe114d51c7d2eed462e080514b2036c2028e95effd020fa8e9fb5fb"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SignCodeCardinality.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SignCodeCardinality.assumptions.txt"
+sha256 = "86546a870b09d7aabdfd43d81f5a01a332d170b19e6517d5b56f37c3180c077e"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/SignCodeCardinality.vo"
+sha256 = "3631784b213e114f1b28268fb663864599f6e3dd54ff62578d7862a7a710e83a"
+
+[[witness.declarations]]
+name = "table_lookup_tabulate"
+statement = "Lemma table_lookup_tabulate : forall order function input, table_lookup order (tabulate order function) input = function input"
+assumptions = []
+
+[[witness.declarations]]
+name = "table_extensional"
+statement = "Lemma table_extensional : forall order (first second : boolean_table order), (forall input, table_lookup order first input = table_lookup order second input) -> first = second"
+assumptions = []
+
+[[witness.declarations]]
+name = "supported_tables_spec"
+statement = "Lemma supported_tables_spec : forall order allowed table, In table (supported_tables order allowed) <-> forall mask, allowed mask = false -> table_lookup order table mask = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "nodup_injective_map"
+statement = "Lemma nodup_injective_map : forall (Input Output : Type) (function : Input -> Output) values, (forall first second, function first = function second -> first = second) -> NoDup values -> NoDup (map function values)"
+assumptions = []
+
+[[witness.declarations]]
+name = "nodup_cartesian_product"
+statement = "Lemma nodup_cartesian_product : forall (Left Right : Type) (left : list Left) (right : list Right), NoDup left -> NoDup right -> NoDup (list_prod left right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "supported_tables_unique"
+statement = "Lemma supported_tables_unique : forall order allowed, NoDup (supported_tables order allowed)"
+assumptions = []
+
+[[witness.declarations]]
+name = "supported_tables_length"
+statement = "Lemma supported_tables_length : forall order allowed, length (supported_tables order allowed) = 2 ^ (cube_count order allowed)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_table"
+statement = "Definition anf_table (order : nat) (coefficients : boolean_table order) : boolean_table order := tabulate order (anf_evaluate order (table_lookup order coefficients))"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_table_injective"
+statement = "Lemma anf_table_injective : forall order first second, anf_table order first = anf_table order second -> first = second"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_code_tables"
+statement = "Definition normalized_code_tables (order : nat) : list (boolean_table (S (S (S order)))) := map (anf_table (S (S (S order)))) (supported_tables (S (S (S order))) (normalized_basis_mask (S (S order))))"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_code_tables_spec"
+statement = "Theorem normalized_code_tables_spec : forall order table, In table (normalized_code_tables order) <-> normalized_sign_span (S (S (S order))) (table_lookup (S (S (S order))) table)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_code_tables_unique"
+statement = "Theorem normalized_code_tables_unique : forall order, NoDup (normalized_code_tables order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_code_cardinality"
+statement = "Theorem normalized_code_cardinality : forall order, length (normalized_code_tables order) = 2 ^ (2 ^ (S (S order)) - 1)"
+assumptions = []

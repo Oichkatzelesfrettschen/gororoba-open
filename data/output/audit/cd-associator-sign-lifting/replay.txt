@@ -1,0 +1,54 @@
+Run from the repository root with the pinned rocq-9.3 opam switch:
+
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" all
+  opam exec --switch=rocq-9.3 -- make -C proofs check-admissions
+  (cd proofs && opam exec --switch=rocq-9.3 -- rocq compile -q -w +default -R theories OpenGororoba theories/CDAssociatorDoubling.v)
+  (cd proofs && opam exec --switch=rocq-9.3 -- rocq check -silent -o -R theories OpenGororoba OpenGororoba.CDAssociatorDoubling)
+
+The new module's eight queried declarations print:
+  Closed under the global context
+The kernel context summary lists Axioms: <none>.
+proof-sources.sha256 identifies the source closure, project and compiled object.
+The object hash applies to the recorded compiler and source bytes.
+
+Verify the fourteen external source identities in a read-only checkout of
+Oichkatzelesfrettschen/gororoba-quantum at
+8c9106089fff212044951e49996b9a8508bad8c9:
+
+  (cd /path/to/quantum-checkout && sha256sum -c /absolute/path/to/quantum-sources.sha256)
+
+The three altered-law checks each copy CDAssociatorDoubling.v into a fresh
+/tmp directory as Mutation.v and apply exactly one replacement:
+
+  walsh-scale:
+    sed 's/then 2 \* walsh/then 3 * walsh/'
+  pair-coefficient:
+    sed 's/pair_coefficient order left right = true\./pair_coefficient order left right = false./'
+  sign-character:
+    sed 's/if phase then -1 else 1/if phase then 1 else -1/'
+
+Run each filter on the original source, rather than chaining mutations.
+From proofs/, compile the temporary copy with:
+
+  opam exec --switch=rocq-9.3 -- rocq compile -q -w +default -R theories OpenGororoba /tmp/your-mutation-directory/Mutation.v
+
+Every altered-law compile must exit nonzero at a failed proof obligation.
+mutations.log retains those actual proof errors, rather than treating a
+missing import or a parse failure as a successful negative check.
+
+The bounded audit records source-level and retained-analysis comparisons.
+Quantum acquisition and provider calls remain outside these replay commands.
+
+Canonical receipt renewal uses the typed specs under receipts/. Each spec
+pins the exact project, source closure, retained object and historical logs.
+Run the current-source gororoba-db with the pinned switch, explicit --repo-root,
+and `theorem identity record-kernel-evidence --spec SPEC --regen-toml false`.
+The CLI performs fresh trusted replay before its canonical status mutation.
+The prestate and distinct evidence keys make the specs auditable and bounded.
+The Oct-12 debug CLI rejected the toolchain before replay; its rejection is
+retained. registry-tools.sha256 identifies the Rocq-9.3-capable retained CLI
+used for actual admissions. Source builds use `cargo run -p gororoba_db --bin
+gororoba-db -- ...` with the same typed arguments. Canonical mutations then
+require export-control-plane, project-counter-sync and registry-integrity.
+
+The current-source provenance verifier replaces the older cached verifier for final control-plane validation. Its build log and binary hash are retained. All22 receipt admissions precede final counter/signature generation.

@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 318 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 339 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -19,9 +19,11 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-BekensteinEntropy` | `BekensteinEntropy` | `proofs/theories/BekensteinEntropy.v` | source_only | unresolved | - |
 | `THM-LEGACY-BellCHSH` | `BellCHSH` | `proofs/theories/BellCHSH.v` | source_only | explicit_link | C-1130 |
 | `THM-LEGACY-BinaryEntropy` | `BinaryEntropy` | `proofs/theories/BinaryEntropy.v` | source_only | unresolved | - |
+| `THM-LEGACY-BooleanANFDegree` | `BooleanANFDegree` | `proofs/theories/BooleanANFDegree.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-BooleanCochainFiltration` | `BooleanCochainFiltration` | `proofs/theories/BooleanCochainFiltration.v` | kernel_checked | explicit_link | C-1761 |
 | `THM-LEGACY-BooleanPermutation` | `BooleanPermutation` | `proofs/theories/BooleanPermutation.v` | kernel_checked | explicit_link | C-1768 |
 | `THM-LEGACY-BoxKite` | `BoxKite` | `proofs/theories/BoxKite.v` | source_only | unresolved | - |
+| `THM-LEGACY-BranchSignedCoherence` | `BranchSignedCoherence` | `proofs/theories/BranchSignedCoherence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-BransDicke` | `BransDicke` | `proofs/theories/BransDicke.v` | source_only | unresolved | - |
 | `THM-LEGACY-Brown1972` | `Brown1972` | `proofs/theories/Brown1972.v` | source_only | unresolved | - |
 | `THM-LEGACY-Brown1972ChapterIII` | `Brown1972ChapterIII` | `proofs/theories/Brown1972ChapterIII.v` | source_only | unresolved | - |
@@ -196,6 +198,9 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-C993_CarlsonBranchFree` | `C993_CarlsonBranchFree` | `proofs/verified/C993_CarlsonBranchFree.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-C999_PathionEntropyBound` | `C999_PathionEntropyBound` | `proofs/verified/C999_PathionEntropyBound.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-CDAssociator` | `CDAssociator` | `proofs/theories/CDAssociator.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDAssociatorCensus` | `CDAssociatorCensus` | `proofs/theories/CDAssociatorCensus.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDAssociatorDoubling` | `CDAssociatorDoubling` | `proofs/theories/CDAssociatorDoubling.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDConcreteTowerAdapter` | `CDConcreteTowerAdapter` | `proofs/theories/CDConcreteTowerAdapter.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDConjAntimorph` | `CDConjAntimorph` | `proofs/theories/CDConjAntimorph.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleFunctor` | `CDDoubleFunctor` | `proofs/theories/CDDoubleFunctor.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleTower` | `CDDoubleTower` | `proofs/theories/CDDoubleTower.v` | source_only | explicit_link | C-1495 |
@@ -205,14 +210,22 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDInverse` | `CDInverse` | `proofs/theories/CDInverse.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDLinearLemmas` | `CDLinearLemmas` | `proofs/theories/CDLinearLemmas.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDNegLemmas` | `CDNegLemmas` | `proofs/theories/CDNegLemmas.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDPhaseDegree` | `CDPhaseDegree` | `proofs/theories/CDPhaseDegree.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDPowerAssociative` | `CDPowerAssociative` | `proofs/theories/CDPowerAssociative.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDPropertyTower` | `CDPropertyTower` | `proofs/theories/CDPropertyTower.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDPureDoublingKernel` | `CDPureDoublingKernel` | `proofs/theories/CDPureDoublingKernel.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDQuatRotationMatrix` | `CDQuatRotationMatrix` | `proofs/theories/CDQuatRotationMatrix.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDScalarExtension` | `CDScalarExtension` | `proofs/theories/CDScalarExtension.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSignBridge` | `CDSignBridge` | `proofs/theories/CDSignBridge.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDSignHalfStep` | `CDSignHalfStep` | `proofs/theories/CDSignHalfStep.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDSignNumericCorrespondence` | `CDSignNumericCorrespondence` | `proofs/theories/CDSignNumericCorrespondence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDSignSection` | `CDSignSection` | `proofs/theories/CDSignSection.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDSparseBlockTransport` | `CDSparseBlockTransport` | `proofs/theories/CDSparseBlockTransport.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDSparseMatrixTransport` | `CDSparseMatrixTransport` | `proofs/theories/CDSparseMatrixTransport.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDTowerFoldTransport` | `CDTowerFoldTransport` | `proofs/theories/CDTowerFoldTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTowerInstantiation` | `CDTowerInstantiation` | `proofs/theories/CDTowerInstantiation.v` | source_only | explicit_link | C-1503 |
+| `THM-LEGACY-CDTowerMatrixAdapter` | `CDTowerMatrixAdapter` | `proofs/theories/CDTowerMatrixAdapter.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-CDTowerSignCorrespondence` | `CDTowerSignCorrespondence` | `proofs/theories/CDTowerSignCorrespondence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTraceZero` | `CDTraceZero` | `proofs/theories/CDTraceZero.v` | source_only | unresolved | - |
 | `THM-LEGACY-C_ConjugateInvolution` | `C_ConjugateInvolution` | `proofs/verified/C_ConjugateInvolution.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-C_NormConjugate` | `C_NormConjugate` | `proofs/verified/C_NormConjugate.v` | source_only | legacy_alias | - |
@@ -230,6 +243,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CasimirF4` | `CasimirF4` | `proofs/theories/CasimirF4.v` | source_only | unresolved | - |
 | `THM-LEGACY-CayleyDicksonAlgebra` | `CayleyDicksonAlgebra` | `proofs/theories/CayleyDicksonAlgebra.v` | source_only | unresolved | - |
 | `THM-LEGACY-ComplexTimeEIH` | `ComplexTimeEIH` | `proofs/theories/ComplexTimeEIH.v` | source_only | explicit_link | C-1132 |
+| `THM-LEGACY-CubeAffineCosets` | `CubeAffineCosets` | `proofs/theories/CubeAffineCosets.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-DarkEnergyEOS` | `DarkEnergyEOS` | `proofs/theories/DarkEnergyEOS.v` | source_only | explicit_link | C-1357 |
 | `THM-LEGACY-DeMarraisAssessors` | `DeMarraisAssessors` | `proofs/theories/DeMarraisAssessors.v` | source_only | unresolved | - |
 | `THM-LEGACY-Dickson1921` | `Dickson1921` | `proofs/theories/Dickson1921.v` | source_only | unresolved | - |
@@ -238,24 +252,27 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-E7CartanDerivation` | `E7CartanDerivation` | `proofs/theories/E7CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-E8CartanDerivation` | `E8CartanDerivation` | `proofs/theories/E8CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-EnergyConditions` | `EnergyConditions` | `proofs/theories/EnergyConditions.v` | source_only | unresolved | - |
+| `THM-LEGACY-ExactRankCertificate` | `ExactRankCertificate` | `proofs/theories/ExactRankCertificate.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-F4CartanDerivation` | `F4CartanDerivation` | `proofs/theories/F4CartanDerivation.v` | source_only | unresolved | - |
 | `THM-LEGACY-FP24Representable` | `FP24Representable` | `proofs/theories/FP24Representable.v` | source_only | unresolved | - |
 | `THM-LEGACY-FanoPlane` | `FanoPlane` | `proofs/theories/FanoPlane.v` | source_only | unresolved | - |
 | `THM-LEGACY-FanoResonance` | `FanoResonance` | `proofs/theories/FanoResonance.v` | source_only | unresolved | - |
 | `THM-LEGACY-FinDimHModule` | `FinDimHModule` | `proofs/theories/FinDimHModule.v` | source_only | unresolved | - |
+| `THM-LEGACY-FiniteBernoulliConcentration` | `FiniteBernoulliConcentration` | `proofs/theories/FiniteBernoulliConcentration.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FiniteBijection` | `FiniteBijection` | `proofs/theories/FiniteBijection.v` | source_only | unresolved | - |
-| `THM-LEGACY-FiniteComplexPassivity` | `FiniteComplexPassivity` | `proofs/theories/FiniteComplexPassivity.v` | kernel_checked | unresolved | - |
-| `THM-LEGACY-FiniteCompositePassivity` | `FiniteCompositePassivity` | `proofs/theories/FiniteCompositePassivity.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-FiniteMatrixConventions` | `FiniteMatrixConventions` | `proofs/theories/FiniteMatrixConventions.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-FinitePlannedLookCoverage` | `FinitePlannedLookCoverage` | `proofs/theories/FinitePlannedLookCoverage.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-FiniteProbability` | `FiniteProbability` | `proofs/theories/FiniteProbability.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FloatAxioms` | `FloatAxioms` | `proofs/theories/FloatAxioms.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatQuaternion` | `FloatQuaternion` | `proofs/theories/FloatQuaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-FloatRealBridge` | `FloatRealBridge` | `proofs/theories/FloatRealBridge.v` | source_only | unresolved | - |
 | `THM-LEGACY-FoldAverageDescent` | `FoldAverageDescent` | `proofs/theories/FoldAverageDescent.v` | kernel_checked | explicit_link | C-1769 |
 | `THM-LEGACY-Foliation` | `Foliation` | `proofs/theories/Foliation.v` | source_only | unresolved | - |
+| `THM-LEGACY-FourStateMatrixAlgebra` | `FourStateMatrixAlgebra` | `proofs/theories/FourStateMatrixAlgebra.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-FractalMetricPositivity` | `FractalMetricPositivity` | `proofs/theories/FractalMetricPositivity.v` | source_only | explicit_link | C-1131 |
 | `THM-LEGACY-G2OctonionAutomorphisms` | `G2OctonionAutomorphisms` | `proofs/theories/G2OctonionAutomorphisms.v` | source_only | unresolved | - |
 | `THM-LEGACY-G2StabilizerDimension` | `G2StabilizerDimension` | `proofs/theories/G2StabilizerDimension.v` | source_only | unresolved | - |
 | `THM-LEGACY-GF2Algebra` | `GF2Algebra` | `proofs/theories/GF2Algebra.v` | source_only | unresolved | - |
-| `THM-LEGACY-GaussianCoherence` | `GaussianCoherence` | `proofs/theories/GaussianCoherence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-HModuleDim` | `HModuleDim` | `proofs/theories/HModuleDim.v` | source_only | explicit_link | C-1542 |
 | `THM-LEGACY-HeatKernel` | `HeatKernel` | `proofs/theories/HeatKernel.v` | source_only | explicit_link | C-931 |
 | `THM-LEGACY-HigherCD` | `HigherCD` | `proofs/theories/HigherCD.v` | source_only | unresolved | - |
@@ -275,7 +292,6 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-OctonionSandwichNorm` | `OctonionSandwichNorm` | `proofs/theories/OctonionSandwichNorm.v` | source_only | unresolved | - |
 | `THM-LEGACY-OctonionStandardModel` | `OctonionStandardModel` | `proofs/theories/OctonionStandardModel.v` | source_only | unresolved | - |
 | `THM-LEGACY-ParityClique` | `ParityClique` | `proofs/theories/ParityClique.v` | source_only | unresolved | - |
-| `THM-LEGACY-PassiveMechanicalMemory` | `PassiveMechanicalMemory` | `proofs/theories/PassiveMechanicalMemory.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-Pathion` | `Pathion` | `proofs/theories/Pathion.v` | source_only | unresolved | - |
 | `THM-LEGACY-PathionAssociator` | `PathionAssociator` | `proofs/theories/PathionAssociator.v` | source_only | unresolved | - |
 | `THM-LEGACY-PathionZDGraph` | `PathionZDGraph` | `proofs/theories/PathionZDGraph.v` | source_only | unresolved | - |
@@ -286,12 +302,17 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-QuatTranscendental` | `QuatTranscendental` | `proofs/theories/QuatTranscendental.v` | source_only | unresolved | - |
 | `THM-LEGACY-Quaternion` | `Quaternion` | `proofs/theories/Quaternion.v` | source_only | unresolved | - |
 | `THM-LEGACY-R2VBTransformDP4` | `R2VBTransformDP4` | `proofs/theories/R2VBTransformDP4.v` | source_only | explicit_link | C-1645 |
+| `THM-LEGACY-RationalRealSpecialization` | `RationalRealSpecialization` | `proofs/theories/RationalRealSpecialization.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-RationalSignBlockRanks` | `RationalSignBlockRanks` | `proofs/theories/RationalSignBlockRanks.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-RecordedFeedbackInstrument` | `RecordedFeedbackInstrument` | `proofs/theories/RecordedFeedbackInstrument.v` | kernel_checked | unresolved | - |
+| `THM-LEGACY-RecursiveCDTower` | `RecursiveCDTower` | `proofs/theories/RecursiveCDTower.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SStructuralGaps` | `SStructuralGaps` | `proofs/theories/SStructuralGaps.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3JacobiFull` | `SU3JacobiFull` | `proofs/theories/SU3JacobiFull.v` | source_only | unresolved | - |
 | `THM-LEGACY-SU3StructureConstants` | `SU3StructureConstants` | `proofs/theories/SU3StructureConstants.v` | source_only | unresolved | - |
 | `THM-LEGACY-Schafer1954` | `Schafer1954` | `proofs/theories/Schafer1954.v` | source_only | unresolved | - |
 | `THM-LEGACY-SchaferDivAlg16` | `SchaferDivAlg16` | `proofs/theories/SchaferDivAlg16.v` | source_only | unresolved | - |
 | `THM-LEGACY-SchreierSignCode` | `SchreierSignCode` | `proofs/theories/SchreierSignCode.v` | kernel_checked | explicit_link | C-1764 |
+| `THM-LEGACY-SchurKernelTransport` | `SchurKernelTransport` | `proofs/theories/SchurKernelTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-Sedenion` | `Sedenion` | `proofs/theories/Sedenion.v` | source_only | unresolved | - |
 | `THM-LEGACY-SedenionAlternativityFails` | `SedenionAlternativityFails` | `proofs/theories/SedenionAlternativityFails.v` | source_only | unresolved | - |
 | `THM-LEGACY-SedenionAssociator` | `SedenionAssociator` | `proofs/theories/SedenionAssociator.v` | source_only | unresolved | - |
@@ -302,25 +323,25 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-SedenionXorGroup` | `SedenionXorGroup` | `proofs/theories/SedenionXorGroup.v` | source_only | unresolved | - |
 | `THM-LEGACY-SignCodeCardinality` | `SignCodeCardinality` | `proofs/theories/SignCodeCardinality.v` | kernel_checked | explicit_link | C-1766 |
 | `THM-LEGACY-SignCodeProjection` | `SignCodeProjection` | `proofs/theories/SignCodeProjection.v` | kernel_checked | explicit_link | C-1767 |
+| `THM-LEGACY-SparsePhotonicCertificates` | `SparsePhotonicCertificates` | `proofs/theories/SparsePhotonicCertificates.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SpatialAlgebra` | `SpatialAlgebra` | `proofs/theories/SpatialAlgebra.v` | source_only | unresolved | - |
 | `THM-LEGACY-SpectralDimension` | `SpectralDimension` | `proofs/theories/SpectralDimension.v` | source_only | unresolved | - |
+| `THM-LEGACY-StdlibRealFieldAdapter` | `StdlibRealFieldAdapter` | `proofs/theories/StdlibRealFieldAdapter.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-SymmetricGroup3` | `SymmetricGroup3` | `proofs/theories/SymmetricGroup3.v` | source_only | unresolved | - |
 | `THM-LEGACY-Tanh` | `Tanh` | `proofs/theories/Tanh.v` | source_only | unresolved | - |
+| `THM-LEGACY-TerminalChannelEmpiricalCertificate` | `TerminalChannelEmpiricalCertificate` | `proofs/theories/TerminalChannelEmpiricalCertificate.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-TerminalChannelSeparation` | `TerminalChannelSeparation` | `proofs/theories/TerminalChannelSeparation.v` | kernel_checked | explicit_link | C-1770 |
 | `THM-LEGACY-TerminalChannelSeparationReal` | `TerminalChannelSeparationReal` | `proofs/theories/TerminalChannelSeparationReal.v` | kernel_checked | explicit_link | C-1771 |
 | `THM-LEGACY-ThreeBodyAngMom` | `ThreeBodyAngMom` | `proofs/theories/ThreeBodyAngMom.v` | source_only | explicit_link | C-1101, C-1126 |
 | `THM-LEGACY-TightBindingTopology` | `TightBindingTopology` | `proofs/theories/TightBindingTopology.v` | source_only | unresolved | - |
-| `THM-LEGACY-VacuumAnalyticLimits` | `VacuumAnalyticLimits` | `proofs/theories/VacuumAnalyticLimits.v` | kernel_checked | unresolved | - |
-| `THM-LEGACY-VacuumCounterexamples` | `VacuumCounterexamples` | `proofs/theories/VacuumCounterexamples.v` | source_only | unresolved | - |
-| `THM-LEGACY-VacuumSpectralModels` | `VacuumSpectralModels` | `proofs/theories/VacuumSpectralModels.v` | source_only | unresolved | - |
 | `THM-LEGACY-WalkerFermatAlgebras` | `WalkerFermatAlgebras` | `proofs/theories/WalkerFermatAlgebras.v` | source_only | unresolved | - |
+| `THM-LEGACY-WalshProbability` | `WalshProbability` | `proofs/theories/WalshProbability.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-WarpShapeFunction` | `WarpShapeFunction` | `proofs/theories/WarpShapeFunction.v` | source_only | unresolved | - |
 | `THM-LEGACY-WedderburnPrimitive` | `WedderburnPrimitive` | `proofs/theories/WedderburnPrimitive.v` | source_only | unresolved | - |
 | `THM-LEGACY-WilmotCDStructure` | `WilmotCDStructure` | `proofs/theories/WilmotCDStructure.v` | source_only | unresolved | - |
 | `THM-LEGACY-WilmotPathionRetraction` | `WilmotPathionRetraction` | `proofs/theories/WilmotPathionRetraction.v` | source_only | unresolved | - |
 | `THM-LEGACY-WilmotRetractionTheorem` | `WilmotRetractionTheorem` | `proofs/theories/WilmotRetractionTheorem.v` | source_only | unresolved | - |
 | `THM-LEGACY-WorldlineBound` | `WorldlineBound` | `proofs/theories/WorldlineBound.v` | source_only | unresolved | - |
-| `THM-LEGACY-WorldlineInteraction` | `WorldlineInteraction` | `proofs/theories/WorldlineInteraction.v` | source_only | unresolved | - |
 | `THM-LEGACY-ZDGraph` | `ZDGraph` | `proofs/theories/ZDGraph.v` | source_only | unresolved | - |
 | `THM-LEGACY-ZD_Criterion` | `ZD_Criterion` | `proofs/theories/ZD_Criterion.v` | source_only | unresolved | - |
 | `THM-OCTONION-DOWNCAST-ZERO-DIVISORS-001` | `C1638_OctonionDowncastNoZeroDivisors` | `proofs/verified/C1638_OctonionDowncastNoZeroDivisors.v` | source_only | explicit_link | C-1647 |

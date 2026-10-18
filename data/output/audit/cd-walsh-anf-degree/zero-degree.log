@@ -1,0 +1,7 @@
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+File "/tmp/rocq_degree_mutations/Mutation.v", line 145, characters 35-38:
+Error: Tactic failure:  Cannot find witness.
+

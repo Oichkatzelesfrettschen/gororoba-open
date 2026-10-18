@@ -110,6 +110,34 @@ data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/** -t
 data/output/audit/boolean-permutation-evidence/complete-declaration-kernel/**/*.vo -filter -diff -text
 # Source-replayed receipt inputs preserve the bytes ingested in their events.
 data/output/audit/boolean-permutation-evidence/source-replayed-receipts/** -text whitespace=-blank-at-eof,-blank-at-eol
+
+# Retained tool transcripts preserve their exact line endings and terminal blank lines.
+data/output/audit/quantum-observable-contracts/*.log -text whitespace=-blank-at-eof
+# Frozen quantum inputs retain original-byte identity on every checkout.
+proofs/evidence/quantum_observables/frozen/** -text
+# Receipt replay hashes the complete evidence tree and referenced Rocq inputs.
+data/output/audit/quantum-observable-contracts/** -text whitespace=-blank-at-eof,-blank-at-eol
+proofs/_RocqProject -text
+proofs/**/*.v -text
+# Associator lifting receipts preserve compiler and kernel output bytes.
+data/output/audit/cd-associator-sign-lifting/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-associator-sign-lifting/kernel-capture/**/*.vo -filter -diff -text
+# Numeric sign receipts preserve exact compiler and kernel evidence bytes.
+data/output/audit/cd-numeric-sign-correspondence/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-numeric-sign-correspondence/kernel-capture/**/*.vo -filter -diff -text
+# Frozen upstream package descriptions preserve original metadata whitespace.
+proofs/opam/qualified-rocq-9.3.export -text whitespace=-blank-at-eof,-blank-at-eol
+# Census and sparse-operator receipts preserve exact source and tool bytes.
+data/output/audit/cd-associator-census-transport/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-associator-census-transport/kernel-capture/**/*.vo -filter -diff -text
+# Recorded-feedback receipts preserve exact compiler and kernel evidence bytes.
+data/output/audit/recorded-feedback-planned-look-coverage/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/**/*.vo -filter -diff -text
+
+# Exact rank and kernel receipts preserve source and tool bytes.
+data/output/audit/exact-rank-schur-kernel/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/exact-rank-schur-kernel/**/*.vo -filter -diff -text
+
 # Canonical Rocq receipts bind exact compiler output and retained object bytes.
 data/output/audit/vacuum-composition/kernel-capture/** -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/vacuum-composition/kernel-capture/**/*.vo -filter -diff -text

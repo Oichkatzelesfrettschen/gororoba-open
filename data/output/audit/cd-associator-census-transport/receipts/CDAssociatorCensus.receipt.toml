@@ -1,0 +1,319 @@
+evidence_key = "census-sparse-project-CDAssociatorCensus"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T19:36:02Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDAssociatorCensus"
+proof_path = "proofs/theories/CDAssociatorCensus.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDAssociatorCensus.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDAssociatorCensus"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorCensus.v"
+sha256 = "f2e95d4134e5ed4e353d44da98ce7bac982f2df74cd48f81fa805f647b649b94"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[witness.sources]]
+path = "proofs/theories/CDPhaseDegree.v"
+sha256 = "f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[witness.sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/WalshProbability.v"
+sha256 = "8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7"
+
+[witness.compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDAssociatorCensus.compile.txt"
+sha256 = "308b14375eb599e10c9320eefc5e0fef85a89b5ebeee30d98ec395be842e7d86"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDAssociatorCensus.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDAssociatorCensus.assumptions.txt"
+sha256 = "b05f4997902eab541f4e0560fedefefa68db15a602f885ebc7a3f63713e6c69f"
+
+[witness.proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/CDAssociatorCensus.vo"
+sha256 = "b5a25e3bde35e7240d855fd584daef69a0d5e799bb0d31855fb1ae9421f3e741"
+
+[[witness.declarations]]
+name = "census_pair_zero_left"
+statement = "Lemma census_pair_zero_left : forall order (value : cube order), pair_coefficient order (cube_zero order) value = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_zero_right"
+statement = "Lemma census_pair_zero_right : forall order (value : cube order), pair_coefficient order value (cube_zero order) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_diagonal"
+statement = "Lemma census_pair_diagonal : forall order (value : cube order), pair_coefficient order value value = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_false"
+statement = "Lemma census_pair_false : forall order (left right : cube order), pair_coefficient order left right = false <-> left = cube_zero order \\/ right = cube_zero order \\/ left = right"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_translate"
+statement = "Lemma census_pair_translate : forall order (left right : cube order), pair_coefficient order left (cube_xor order left right) = pair_coefficient order left right"
+assumptions = []
+
+[[witness.declarations]]
+name = "thin_triple"
+statement = "Definition thin_triple order (left middle right : cube order) := negb (orb (pair_coefficient order left middle) (orb (pair_coefficient order left right) (pair_coefficient order middle right)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_top_coefficients"
+statement = "Lemma census_top_coefficients : forall order (left middle right : cube order), andb (negb (pair_coefficient order left middle)) (andb (negb (pair_coefficient order middle right)) (negb (xorb (pair_coefficient order left middle) (pair_coefficient order left (cube_xor order middle right))))) = thin_triple order left middle right"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_top_bit_law"
+statement = "Theorem census_top_bit_law : forall order (left middle right : cube order) low high top, associator_phase (S order) (left,low) (middle,high) (right,top) = xorb (associator_phase order left middle right) (xorb (andb low (pair_coefficient order middle right)) (xorb (andb high (xorb (pair_coefficient order left middle) (pair_coefficient order left (cube_xor order middle right)))) (andb top (pair_coefficient order left middle))))"
+assumptions = []
+
+[[witness.declarations]]
+name = "boolean_triple_sum"
+statement = "Definition boolean_triple_sum (function : bool -> bool -> bool -> Z) : Z := (function false false false + function false false true + function false true false + function false true true + function true false false + function true false true + function true true false + function true true true)%Z"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_boolean_character"
+statement = "Lemma census_boolean_character : forall phase first second third, boolean_triple_sum (fun low high top => phase_sign (xorb phase (xorb (andb low first) (xorb (andb high second) (andb top third))))) = (if andb (negb first) (andb (negb second) (negb third)) then 8 * phase_sign phase else 0)%Z"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_associates"
+statement = "Lemma census_thin_associates : forall order (left middle right : cube order), thin_triple order left middle right = true -> associator_phase order left middle right = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_top_bit_cancellation"
+statement = "Theorem census_top_bit_cancellation : forall order (left middle right : cube order), boolean_triple_sum (fun low high top => phase_sign (associator_phase (S order) (left,low) (middle,high) (right,top))) = (if thin_triple order left middle right then 8 else 0)%Z"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_delta"
+statement = "Definition census_delta order (target input : cube order) : Z := if cube_equal order input target then 1 else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_delta_sum"
+statement = "Lemma census_delta_sum : forall order (target : cube order), integer_cube_sum order (census_delta order target) = 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_sum_single_exception"
+statement = "Lemma census_sum_single_exception : forall order (target : cube order) ordinary exceptional, integer_cube_sum order (fun input => if cube_equal order input target then exceptional else ordinary) = Z.of_nat (Nat.pow 2 order) * ordinary + (exceptional - ordinary)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_zero_mask"
+statement = "Lemma census_pair_zero_mask : forall order (left input : cube order), cube_nonzero order left = true -> (if pair_coefficient order left input then 0 else 1) = census_delta order (cube_zero order) input + census_delta order left input"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_zero_count"
+statement = "Lemma census_pair_zero_count : forall order (left : cube order), integer_cube_sum order (fun input => if pair_coefficient order left input then 0 else 1) = if cube_nonzero order left then 2 else Z.of_nat (Nat.pow 2 order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_inner"
+statement = "Lemma census_thin_inner : forall order (left middle right : cube order), thin_triple order left middle right = if pair_coefficient order left middle then false else if cube_nonzero order left then negb (pair_coefficient order left right) else negb (pair_coefficient order middle right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_completion_count"
+statement = "Lemma census_thin_completion_count : forall order (left middle : cube order), integer_cube_sum order (fun right => if thin_triple order left middle right then 1 else 0) = if pair_coefficient order left middle then 0 else if cube_nonzero order left then 2 else if cube_nonzero order middle then 2 else Z.of_nat (Nat.pow 2 order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_pair_count"
+statement = "Lemma census_thin_pair_count : forall order (left : cube order), integer_cube_sum order (fun middle => integer_cube_sum order (fun right => if thin_triple order left middle right then 1 else 0)) = if cube_nonzero order left then 4 else 3 * Z.of_nat (Nat.pow 2 order) - 2"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_triple_sum"
+statement = "Definition census_triple_sum order (function : cube order -> cube order -> cube order -> Z) := integer_cube_sum order (fun left => integer_cube_sum order (fun middle => integer_cube_sum order (fun right => function left middle right)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_triple_count"
+statement = "Theorem census_thin_triple_count : forall order, census_triple_sum order (fun left middle right => if thin_triple order left middle right then 1 else 0) = 7 * Z.of_nat (Nat.pow 2 order) - 6"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_triple_slices"
+statement = "Lemma census_triple_slices : forall order function, census_triple_sum (S order) function = census_triple_sum order (fun left middle right => boolean_triple_sum (fun low high top => function (left,low) (middle,high) (right,top)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_triple_scale"
+statement = "Lemma census_triple_scale : forall order factor function, census_triple_sum order (fun left middle right => factor * function left middle right) = factor * census_triple_sum order function"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_total_phase_sum"
+statement = "Theorem census_total_phase_sum : forall order, census_triple_sum (S order) (fun left middle right => phase_sign (associator_phase (S order) left middle right)) = 8 * (7 * Z.of_nat (Nat.pow 2 order) - 6)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_triple_add"
+statement = "Lemma census_triple_add : forall order first second, census_triple_sum order (fun left middle right => first left middle right + second left middle right) = census_triple_sum order first + census_triple_sum order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_triple_constant"
+statement = "Lemma census_triple_constant : forall order value, census_triple_sum order (fun _ _ _ => value) = Z.of_nat (Nat.pow 2 order) ^ 3 * value"
+assumptions = []
+
+[[witness.declarations]]
+name = "associator_defect_count"
+statement = "Definition associator_defect_count order : Z := census_triple_sum order (fun left middle right => if associator_phase order left middle right then 1 else 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_phase_count_identity"
+statement = "Lemma census_phase_count_identity : forall order, census_triple_sum order (fun left middle right => phase_sign (associator_phase order left middle right)) = Z.of_nat (Nat.pow 2 order) ^ 3 - 2 * associator_defect_count order"
+assumptions = []
+
+[[witness.declarations]]
+name = "associator_census_integrality"
+statement = "Theorem associator_census_integrality : forall order, 2 * associator_defect_count (S order) = (Z.of_nat (Nat.pow 2 (S order)) - 2) * (Z.of_nat (Nat.pow 2 (S order)) - 4) * (Z.of_nat (Nat.pow 2 (S order)) + 6)"
+assumptions = []
+
+[[witness.declarations]]
+name = "associator_census_formula"
+statement = "Theorem associator_census_formula : forall order, associator_defect_count (S order) = ((Z.of_nat (Nat.pow 2 (S order)) - 2) * (Z.of_nat (Nat.pow 2 (S order)) - 4) * (Z.of_nat (Nat.pow 2 (S order)) + 6)) / 2"
+assumptions = []
+
+[[witness.declarations]]
+name = "numeric_associator_defect_count"
+statement = "Definition numeric_associator_defect_count order := census_triple_sum order (fun left middle right => if Z.eqb (numeric_associator_sign order order (cube_encode order left) (cube_encode order middle) (cube_encode order right)) (-1) then 1 else 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_numeric_dimension_four"
+statement = "Example census_numeric_dimension_four : numeric_associator_defect_count 2 = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_numeric_dimension_eight"
+statement = "Example census_numeric_dimension_eight : numeric_associator_defect_count 3 = 168"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_numeric_dimension_sixteen"
+statement = "Example census_numeric_dimension_sixteen : numeric_associator_defect_count 4 = 1848"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_numeric_dimension_thirty_two"
+statement = "Example census_numeric_dimension_thirty_two : numeric_associator_defect_count 5 = 15960"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_pair_symmetric"
+statement = "Lemma census_pair_symmetric : forall order (left right : cube order), pair_coefficient order left right = pair_coefficient order right left"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_sign_transpose"
+statement = "Lemma census_sign_transpose : forall order (left right : cube order), sign_exponent order right left = xorb (sign_exponent order left right) (pair_coefficient order left right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_phase_zero_input"
+statement = "Lemma census_phase_zero_input : forall order (left middle : cube order), associator_phase order left middle (cube_zero order) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_phase_left_input"
+statement = "Lemma census_phase_left_input : forall order (left middle : cube order), associator_phase order left middle left = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_phase_middle_input"
+statement = "Lemma census_phase_middle_input : forall order (left middle : cube order), associator_phase order left middle middle = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_phase_sum_input"
+statement = "Lemma census_phase_sum_input : forall order (left middle : cube order), associator_phase order left middle (cube_xor order left middle) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "dependent_basis_triple"
+statement = "Definition dependent_basis_triple order (left middle right : cube order) : Prop := left = cube_zero order \\/ middle = cube_zero order \\/ right = cube_zero order \\/ left = middle \\/ left = right \\/ middle = right \\/ cube_xor order left middle = right"
+assumptions = []
+
+[[witness.declarations]]
+name = "dependent_basis_triple_associates"
+statement = "Theorem dependent_basis_triple_associates : forall order (left middle right : cube order), dependent_basis_triple order left middle right -> associator_phase order left middle right = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_lifting_vector"
+statement = "Definition census_lifting_vector order (left middle right : cube order) : bool * bool * bool := (pair_coefficient order middle right, xorb (pair_coefficient order left middle) (pair_coefficient order left (cube_xor order middle right)), pair_coefficient order left middle)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_zero_relation_classes"
+statement = "Theorem census_zero_relation_classes : forall order (left middle right : cube order), census_lifting_vector order (cube_zero order) middle right = (pair_coefficient order middle right, false, false) /\\ census_lifting_vector order left (cube_zero order) right = (false, pair_coefficient order left right, false) /\\ census_lifting_vector order left middle (cube_zero order) = (false, false, pair_coefficient order left middle)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_repeated_relation_classes"
+statement = "Theorem census_repeated_relation_classes : forall order (left middle : cube order), census_lifting_vector order left left middle = (pair_coefficient order left middle, pair_coefficient order left middle, false) /\\ census_lifting_vector order left middle left = (pair_coefficient order left middle, false, pair_coefficient order left middle) /\\ census_lifting_vector order left middle middle = (false, pair_coefficient order left middle, pair_coefficient order left middle) /\\ census_lifting_vector order left middle (cube_xor order left middle) = (pair_coefficient order left middle, pair_coefficient order left middle, pair_coefficient order left middle)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_independent_relation_class"
+statement = "Theorem census_independent_relation_class : forall order (left middle right : cube order), ~ dependent_basis_triple order left middle right -> census_lifting_vector order left middle right = (true, false, true)"
+assumptions = []
+
+[[witness.declarations]]
+name = "census_thin_relation_class"
+statement = "Theorem census_thin_relation_class : forall order (left middle right : cube order), thin_triple order left middle right = true <-> census_lifting_vector order left middle right = (false, false, false)"
+assumptions = []

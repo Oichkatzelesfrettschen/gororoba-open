@@ -1,0 +1,14 @@
+docs/notes/cd_associator_defect_census.md: OK
+docs/notes/cd_phase_degree.md: OK
+docs/notes/quandela/strategy.md: OK
+results/quantum_inspire/tuna_17_shot_record_line.json: OK
+docs/evidence/ghost_error_scale_branching/README.md: OK
+results/live/N21_ORBIT_RCA.md: OK
+docs/notes/complex_skew_rank_geometry.md: OK
+docs/notes/schur_acceleration_certificates.md: OK
+results/quandela/runs/2026-10-18T033336Z-qpu_belenos-belenos_mesh-job-02/analysis.json: OK
+results/quandela/runs/2026-10-18T033336Z-qpu_belenos-belenos_mesh-job-02/results.json: OK
+results/quandela/runs/2026-10-18T033336Z-qpu_belenos-belenos_mesh-job-02/raw/result.json: OK
+results/quandela/runs/2026-10-18T042456Z-qpu_belenos-belenos_mesh-job-07/analysis.json: OK
+results/quandela/runs/2026-10-18T042456Z-qpu_belenos-belenos_mesh-job-07/results.json: OK
+results/quandela/runs/2026-10-18T042456Z-qpu_belenos-belenos_mesh-job-07/raw/result.json: OK

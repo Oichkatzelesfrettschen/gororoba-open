@@ -1,0 +1,125 @@
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+File "/tmp/rocq-transport-final-mutations/Mutation.v", line 333, characters 65-76:
+Error:
+In environment
+order : nat
+left, upper, lower, partner : cube order
+sign_x, sign_y : R
+distinct : left <> upper
+same_label : cube_xor order left upper = cube_xor order lower partner
+inputs_distinct : lower <> partner
+coordinates :
+  two_label_squared_norm
+    (sparse_cd_apply order (two_blade_vector order left upper sign_x)
+       (two_blade_vector order lower partner sign_y)
+       (cube_xor order left lower),
+     sparse_cd_apply order (two_blade_vector order left upper sign_x)
+       (two_blade_vector order lower partner sign_y)
+       (cube_xor order left partner)) =
+  two_label_squared_norm
+    (two_label_output (IZR (phase_sign (sign_exponent order left lower)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper partner)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper lower)))
+       (IZR (phase_sign (sign_exponent order left partner))) sign_y)
+The term "coordinates" has type
+ "two_label_squared_norm
+    (sparse_cd_apply order (two_blade_vector order left upper sign_x)
+       (two_blade_vector order lower partner sign_y)
+       (cube_xor order left lower),
+     sparse_cd_apply order (two_blade_vector order left upper sign_x)
+       (two_blade_vector order lower partner sign_y)
+       (cube_xor order left partner)) =
+  two_label_squared_norm
+    (two_label_output (IZR (phase_sign (sign_exponent order left lower)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper partner)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper lower)))
+       (IZR (phase_sign (sign_exponent order left partner))) sign_y)"
+while it is expected to have type
+ "sparse_cd_apply order (two_blade_vector order left upper sign_x)
+    (two_blade_vector order lower partner sign_y) 
+    (cube_xor order left lower)
+  ^ 2 +
+  sparse_cd_apply order (two_blade_vector order left upper sign_x)
+    (two_blade_vector order lower partner sign_y)
+    (cube_xor order left partner)
+  ^ 2 =
+  2 *
+  two_label_squared_norm
+    (two_label_output (IZR (phase_sign (sign_exponent order left lower)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper partner)))
+       (sign_x * IZR (phase_sign (sign_exponent order upper lower)))
+       (IZR (phase_sign (sign_exponent order left partner))) sign_y)".
+

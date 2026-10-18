@@ -1,0 +1,64 @@
+Local diagnostic evidence
+=========================
+The named checks run in the isolated quantum-observable-contracts checkout.
+Hosted CI remains the repository-validation authority.
+
+opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  exit 0; all 314 project modules compiled with fatal-default warnings.
+opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-admissions
+  exit 0; 5 scanner tests passed; 314 sources contain zero admission tokens.
+capture-rocq-receipts REPOSITORY SCRATCH /home/eirikr/.opam/rocq-9.3/bin
+  exit 0; 21 targets, 29 source-closure objects, 483 assumption queries;
+  214 historical artifact names and byte hashes identical before and after.
+cargo test -p provenance_store quantum_bindings --profile validation
+  exit 0; 4 tests including 24 mutation cases passed.
+cargo clippy -p provenance_store --all-targets --profile validation -- -D warnings
+  exit 0.
+cargo run -p provenance_store --example verify_quantum_bindings --profile validation -- proofs/evidence/quantum_observables/bindings.json REPOSITORY
+  exit 0; exact offline asset and observable reconstruction.
+cargo test --locked --offline --profile validation -p provenance_store --lib theorem_execution::tests
+  exit 0; 22 passed; 2 explicitly ignored genuine-replay tests.
+PATH=/home/eirikr/.opam/rocq-9.3/bin:$PATH cargo test --locked --offline --profile validation -p provenance_store --lib theorem_execution::tests::genuine_rocq_replay -- --ignored
+  exit 0; both genuine replay tests passed, including configured Flocq mapping.
+actionlint .github/workflows/proofs.yml
+  exit 0.
+
+The Cargo commands share dependency caches with the canonical checkout while
+retaining a worktree-specific target directory. Local worker variables remain
+unset. The proof Make command explicitly uses every process-visible CPU.
+Retained logs record their actual invocation and worktree paths.
+
+Canonical renewal
+-----------------
+All 21 receipt specifications completed fresh trusted source execution and
+canonical admission with exit 0. The canonical projection contains 21
+kernel_checked proof files and 293 source_only proof files, totaling 314.
+The typed identity validator and control-plane compatibility verifier exited 0.
+The export and registry-integrity operator exited 0. The existing claim count
+remains 1588: the new files receive source-bound kernel evidence and observable
+bindings without promotion into additional physical claims.
+Nightly rustfmt checked the changed Rust implementation and current capture
+helper with exit 0. kernel-capture/capture_rocq_receipts.rs retains the exact
+executed helper snapshot; the top-level helper subsequently groups its imports
+according to the repository formatter. The mathematical capture logic agrees.
+
+Complete observation validation
+-------------------------------
+The final review repair checks all 16 hardware PUBs and all 16 replay results
+before accepting the 32-mean family. There are 39 frozen original-byte assets
+and 30 raw decoders. Replay counts are recovered uniquely from the retained
+six-decimal probabilities on the 8192-shot grid and must match exact record,
+collection and per-replica summaries. Ordered replay bitstrings were not retained.
+All 39 original assets match their Git blobs at quantum commit a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
+The stable source locator is https://github.com/Oichkatzelesfrettschen/gororoba-quantum.
+
+The final focused tests passed five tests and 34 mutation cases. Five of those
+mutations alter unselected observations and refresh their asset digests, reaching
+the observation-level checks. The final all-targets Clippy and example exited 0.
+The project-counter-sync operator updates proof_files from 310 to 314, and its
+check mode passes against canonical counts. Registry signatures and control-plane
+compatibility verification pass. Proof sources, project hash and all 21 retained
+kernel witnesses agree with the earlier capture; those receipts remain applicable.
+The first published head also passed hosted proof/plugin compilation, extraction,
+admission, genuine replay and observable checks; the repaired head requires its
+own complete hosted validation and review.

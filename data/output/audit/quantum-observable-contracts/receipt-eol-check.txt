@@ -1,0 +1,1 @@
+Git checkout-index with core.autocrlf=true: all 560 receipt-tree, project, Rocq-source and frozen-asset paths retain identical bytes.

@@ -1,0 +1,294 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FiniteBernoulliConcentration"
+proof_path = "proofs/theories/FiniteBernoulliConcentration.v"
+project_sha256 = "5c4c7da3f34716d42fe9629e88287067f1e2f9939cda7b0757976a3fabdeada9"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FiniteBernoulliConcentration.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FiniteBernoulliConcentration"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FiniteBernoulliConcentration.v"
+sha256 = "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325"
+
+[[sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteBernoulliConcentration.compile.txt"
+sha256 = "1187954cbe82bd562514385adb19b5c810f11698f3a26ad01225ec79061f74ee"
+
+[kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteBernoulliConcentration.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/FiniteBernoulliConcentration.assumptions.txt"
+sha256 = "41e7960ca8cbb2cb80c372307d002e71f9e93abc9452294ed2603c200602e77e"
+
+[proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/FiniteBernoulliConcentration.vo"
+sha256 = "34ac83e483336d5da5033969c53cc558c924afa9e8612f6c8c3adbac3536e676"
+
+[[declarations]]
+name = "bernoulli_expectation_ext"
+statement = "Lemma bernoulli_expectation_ext samples parameter f g : (forall centered, f centered = g centered) -> bernoulli_expectation samples parameter f = bernoulli_expectation samples parameter g"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "bernoulli_expectation_add"
+statement = "Lemma bernoulli_expectation_add samples parameter f g : bernoulli_expectation samples parameter (fun centered => f centered + g centered) = bernoulli_expectation samples parameter f + bernoulli_expectation samples parameter g"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_expectation_scale"
+statement = "Lemma bernoulli_expectation_scale samples parameter scalar f : bernoulli_expectation samples parameter (fun centered => scalar * f centered) = scalar * bernoulli_expectation samples parameter f"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_expectation_one"
+statement = "Lemma bernoulli_expectation_one samples parameter : bernoulli_expectation samples parameter (fun _ => 1) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_expectation_step"
+statement = "Lemma bernoulli_expectation_step samples parameter f : bernoulli_expectation (S samples) parameter f = bernoulli_expectation samples parameter (fun centered => (1-parameter)*f(centered-parameter)+parameter*f(centered+(1-parameter)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment"
+statement = "Definition centered_moment samples parameter degree := bernoulli_expectation samples parameter (fun centered => centered ^ degree)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "increment_moment"
+statement = "Definition increment_moment parameter degree := (1-parameter)*(-parameter)^degree + parameter*(1-parameter)^degree"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "unit_power_bound"
+statement = "Lemma unit_power_bound value degree : 0 <= value <= 1 -> 0 <= value ^ degree <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "unit_power_square_bound"
+statement = "Lemma unit_power_square_bound value degree : 0 <= value <= 1 -> (2 <= degree)%nat -> value ^ degree <= value ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "increment_moment_bound"
+statement = "Lemma increment_moment_bound parameter degree : 0 <= parameter <= 1 -> (2 <= degree)%nat -> Rabs (increment_moment parameter degree) <= 1/4"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "absolute_moment_term"
+statement = "Lemma absolute_moment_term scalar increment moment bound : 0 <= scalar -> Rabs increment <= 1/4 -> Rabs moment <= bound -> Rabs (scalar * increment * moment) <= scalar * bound / 4"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope"
+statement = "Definition moment_envelope (degree : nat) (count : R) : R := match degree with | 0%nat => 1 | 1%nat => 0 | 2%nat => (1 * count ^ 1 / 4) | 3%nat => (1 * count ^ 1 / 4) | 4%nat => (1 * count ^ 1 / 4) + (3 * count ^ 2 / 16) | 5%nat => (1 * count ^ 1 / 4) + (10 * count ^ 2 / 16) | 6%nat => (1 * count ^ 1 / 4) + (25 * count ^ 2 / 16) + (15 * count ^ 3 / 64) | 7%nat => (1 * count ^ 1 / 4) + (56 * count ^ 2 / 16) + (105 * count ^ 3 / 64) | 8%nat => (1 * count ^ 1 / 4) + (119 * count ^ 2 / 16) + (490 * count ^ 3 / 64) + (105 * count ^ 4 / 256) | 9%nat => (1 * count ^ 1 / 4) + (246 * count ^ 2 / 16) + (1918 * count ^ 3 / 64) + (1260 * count ^ 4 / 256) | 10%nat => (1 * count ^ 1 / 4) + (501 * count ^ 2 / 16) + (6825 * count ^ 3 / 64) + (9450 * count ^ 4 / 256) + (945 * count ^ 5 / 1024) | _ => 0 end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_2"
+statement = "Lemma centered_moment_recurrence_2 samples parameter : centered_moment (S samples) parameter 2 = centered_moment samples parameter 2 + (1 * increment_moment parameter 2 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_2"
+statement = "Lemma moment_envelope_step_2 count : 0 <= count -> moment_envelope 2 count + (1 * moment_envelope 0 count / 4) <= moment_envelope 2 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_3"
+statement = "Lemma centered_moment_recurrence_3 samples parameter : centered_moment (S samples) parameter 3 = centered_moment samples parameter 3 + (3 * increment_moment parameter 2 * centered_moment samples parameter 1) + (1 * increment_moment parameter 3 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_3"
+statement = "Lemma moment_envelope_step_3 count : 0 <= count -> moment_envelope 3 count + (3 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 3 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_4"
+statement = "Lemma centered_moment_recurrence_4 samples parameter : centered_moment (S samples) parameter 4 = centered_moment samples parameter 4 + (6 * increment_moment parameter 2 * centered_moment samples parameter 2) + (4 * increment_moment parameter 3 * centered_moment samples parameter 1) + (1 * increment_moment parameter 4 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_4"
+statement = "Lemma moment_envelope_step_4 count : 0 <= count -> moment_envelope 4 count + (6 * moment_envelope 2 count / 4) + (4 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 4 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_5"
+statement = "Lemma centered_moment_recurrence_5 samples parameter : centered_moment (S samples) parameter 5 = centered_moment samples parameter 5 + (10 * increment_moment parameter 2 * centered_moment samples parameter 3) + (10 * increment_moment parameter 3 * centered_moment samples parameter 2) + (5 * increment_moment parameter 4 * centered_moment samples parameter 1) + (1 * increment_moment parameter 5 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_5"
+statement = "Lemma moment_envelope_step_5 count : 0 <= count -> moment_envelope 5 count + (10 * moment_envelope 3 count / 4) + (10 * moment_envelope 2 count / 4) + (5 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 5 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_6"
+statement = "Lemma centered_moment_recurrence_6 samples parameter : centered_moment (S samples) parameter 6 = centered_moment samples parameter 6 + (15 * increment_moment parameter 2 * centered_moment samples parameter 4) + (20 * increment_moment parameter 3 * centered_moment samples parameter 3) + (15 * increment_moment parameter 4 * centered_moment samples parameter 2) + (6 * increment_moment parameter 5 * centered_moment samples parameter 1) + (1 * increment_moment parameter 6 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_6"
+statement = "Lemma moment_envelope_step_6 count : 0 <= count -> moment_envelope 6 count + (15 * moment_envelope 4 count / 4) + (20 * moment_envelope 3 count / 4) + (15 * moment_envelope 2 count / 4) + (6 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 6 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_7"
+statement = "Lemma centered_moment_recurrence_7 samples parameter : centered_moment (S samples) parameter 7 = centered_moment samples parameter 7 + (21 * increment_moment parameter 2 * centered_moment samples parameter 5) + (35 * increment_moment parameter 3 * centered_moment samples parameter 4) + (35 * increment_moment parameter 4 * centered_moment samples parameter 3) + (21 * increment_moment parameter 5 * centered_moment samples parameter 2) + (7 * increment_moment parameter 6 * centered_moment samples parameter 1) + (1 * increment_moment parameter 7 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_7"
+statement = "Lemma moment_envelope_step_7 count : 0 <= count -> moment_envelope 7 count + (21 * moment_envelope 5 count / 4) + (35 * moment_envelope 4 count / 4) + (35 * moment_envelope 3 count / 4) + (21 * moment_envelope 2 count / 4) + (7 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 7 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_8"
+statement = "Lemma centered_moment_recurrence_8 samples parameter : centered_moment (S samples) parameter 8 = centered_moment samples parameter 8 + (28 * increment_moment parameter 2 * centered_moment samples parameter 6) + (56 * increment_moment parameter 3 * centered_moment samples parameter 5) + (70 * increment_moment parameter 4 * centered_moment samples parameter 4) + (56 * increment_moment parameter 5 * centered_moment samples parameter 3) + (28 * increment_moment parameter 6 * centered_moment samples parameter 2) + (8 * increment_moment parameter 7 * centered_moment samples parameter 1) + (1 * increment_moment parameter 8 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_8"
+statement = "Lemma moment_envelope_step_8 count : 0 <= count -> moment_envelope 8 count + (28 * moment_envelope 6 count / 4) + (56 * moment_envelope 5 count / 4) + (70 * moment_envelope 4 count / 4) + (56 * moment_envelope 3 count / 4) + (28 * moment_envelope 2 count / 4) + (8 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 8 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_9"
+statement = "Lemma centered_moment_recurrence_9 samples parameter : centered_moment (S samples) parameter 9 = centered_moment samples parameter 9 + (36 * increment_moment parameter 2 * centered_moment samples parameter 7) + (84 * increment_moment parameter 3 * centered_moment samples parameter 6) + (126 * increment_moment parameter 4 * centered_moment samples parameter 5) + (126 * increment_moment parameter 5 * centered_moment samples parameter 4) + (84 * increment_moment parameter 6 * centered_moment samples parameter 3) + (36 * increment_moment parameter 7 * centered_moment samples parameter 2) + (9 * increment_moment parameter 8 * centered_moment samples parameter 1) + (1 * increment_moment parameter 9 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_9"
+statement = "Lemma moment_envelope_step_9 count : 0 <= count -> moment_envelope 9 count + (36 * moment_envelope 7 count / 4) + (84 * moment_envelope 6 count / 4) + (126 * moment_envelope 5 count / 4) + (126 * moment_envelope 4 count / 4) + (84 * moment_envelope 3 count / 4) + (36 * moment_envelope 2 count / 4) + (9 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 9 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_recurrence_10"
+statement = "Lemma centered_moment_recurrence_10 samples parameter : centered_moment (S samples) parameter 10 = centered_moment samples parameter 10 + (45 * increment_moment parameter 2 * centered_moment samples parameter 8) + (120 * increment_moment parameter 3 * centered_moment samples parameter 7) + (210 * increment_moment parameter 4 * centered_moment samples parameter 6) + (252 * increment_moment parameter 5 * centered_moment samples parameter 5) + (210 * increment_moment parameter 6 * centered_moment samples parameter 4) + (120 * increment_moment parameter 7 * centered_moment samples parameter 3) + (45 * increment_moment parameter 8 * centered_moment samples parameter 2) + (10 * increment_moment parameter 9 * centered_moment samples parameter 1) + (1 * increment_moment parameter 10 * centered_moment samples parameter 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "moment_envelope_step_10"
+statement = "Lemma moment_envelope_step_10 count : 0 <= count -> moment_envelope 10 count + (45 * moment_envelope 8 count / 4) + (120 * moment_envelope 7 count / 4) + (210 * moment_envelope 6 count / 4) + (252 * moment_envelope 5 count / 4) + (210 * moment_envelope 4 count / 4) + (120 * moment_envelope 3 count / 4) + (45 * moment_envelope 2 count / 4) + (10 * moment_envelope 1 count / 4) + (1 * moment_envelope 0 count / 4) <= moment_envelope 10 (count+1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "absolute_add_bound"
+statement = "Lemma absolute_add_bound left right left_bound right_bound : Rabs left <= left_bound -> Rabs right <= right_bound -> Rabs (left+right) <= left_bound+right_bound"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_zero"
+statement = "Lemma centered_moment_zero samples parameter : centered_moment samples parameter 0 = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_one"
+statement = "Lemma centered_moment_one samples parameter : centered_moment samples parameter 1 = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "centered_moment_envelope"
+statement = "Theorem centered_moment_envelope samples parameter : 0 <= parameter <= 1 -> forall degree, (degree <= 10)%nat -> Rabs (centered_moment samples parameter degree) <= moment_envelope degree (INR samples)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "tenth_power_nonnegative"
+statement = "Lemma tenth_power_nonnegative value : 0 <= value ^ 10"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "absolute_tenth_power"
+statement = "Lemma absolute_tenth_power value : Rabs value ^ 10 = value ^ 10"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "radius_failure"
+statement = "Definition radius_failure {A : Type} (centered_sum : A -> R) (radius : R) (point : A) : bool := if Rle_dec radius (Rabs (centered_sum point)) then true else false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_tenth_moment_tail"
+statement = "Theorem bernoulli_tenth_moment_tail {A : Type} (law : list (A * R)) samples parameter (centered_sum : A -> R) radius : nonnegative_law law -> 0 <= parameter <= 1 -> 0 < radius -> (forall observable, weighted_expectation law (fun point => observable (centered_sum point)) = bernoulli_expectation samples parameter observable) -> event_probability law (radius_failure centered_sum radius) <= moment_envelope 10 (INR samples) / radius ^ 10"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_probability_sum_bound"
+statement = "Lemma finite_probability_sum_bound {A I : Type} (law : list (A * R)) (indices : list I) (events : I -> A -> bool) bound : (forall index, In index indices -> event_probability law (events index) <= bound) -> real_sum (map (fun index => event_probability law (events index)) indices) <= INR (length indices) * bound"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "terminal_samples"
+statement = "Definition terminal_samples : nat := Nat.pow 2 13"
+assumptions = []
+
+[[declarations]]
+name = "sample_count_8192"
+statement = "Lemma sample_count_8192 : INR terminal_samples = 8192"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "family_count_32"
+statement = "Lemma family_count_32 : INR 32 = 32"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "terminal_family_tenth_moment_rational"
+statement = "Lemma terminal_family_tenth_moment_rational : 32 * moment_envelope 10 8192 / (8192 * (21/1000)) ^ 10 < 1/20"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "terminal_tenth_moment_envelope_exact"
+statement = "Lemma terminal_tenth_moment_envelope_exact : 1024 * moment_envelope 10 8192 = 35034642400712314585088"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "terminal_32_mean_family_coverage"
+statement = "Theorem terminal_32_mean_family_coverage {A I : Type} (law : list (A * R)) (indices : list I) (parameter : I -> R) (centered_sum : I -> A -> R) : nonnegative_law law -> normalized_law law -> length indices = 32%nat -> (forall index, In index indices -> 0 <= parameter index <= 1) -> (forall index, In index indices -> forall observable, weighted_expectation law (fun point => observable (centered_sum index point)) = bernoulli_expectation terminal_samples (parameter index) observable) -> event_probability law (fun point => existsb (fun index => radius_failure (centered_sum index) (8192 * (21/1000)) point) indices) <= 1/20"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_push"
+statement = "Definition weighted_push (law : list (R * R)) (transform : R -> R) (mass : R) : list (R * R) := map (fun point => (transform (fst point), mass * snd point)) law"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "weighted_expectation_append"
+statement = "Lemma weighted_expectation_append {A : Type} (left right : list (A * R)) observable : weighted_expectation (left ++ right) observable = weighted_expectation left observable + weighted_expectation right observable"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_push_expectation"
+statement = "Lemma weighted_push_expectation law transform mass observable : weighted_expectation (weighted_push law transform mass) observable = mass * weighted_expectation law (fun centered => observable (transform centered))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_law_expectation"
+statement = "Lemma bernoulli_law_expectation samples parameter observable : weighted_expectation (bernoulli_law samples parameter) observable = bernoulli_expectation samples parameter observable"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_push_nonnegative"
+statement = "Lemma weighted_push_nonnegative law transform mass : nonnegative_law law -> 0 <= mass -> nonnegative_law (weighted_push law transform mass)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_law_nonnegative"
+statement = "Lemma bernoulli_law_nonnegative samples parameter : 0 <= parameter <= 1 -> nonnegative_law (bernoulli_law samples parameter)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "bernoulli_law_normalized"
+statement = "Lemma bernoulli_law_normalized samples parameter : normalized_law (bernoulli_law samples parameter)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

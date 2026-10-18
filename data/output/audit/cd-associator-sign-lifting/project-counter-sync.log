@@ -1,0 +1,3 @@
+drift: kernel_checked_claims: 20 -> 0
+drift: proof_files: 314 -> 315
+project-counter-sync: updated 2 counter entries in registry/project.toml

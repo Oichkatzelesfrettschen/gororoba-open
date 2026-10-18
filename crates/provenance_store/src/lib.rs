@@ -38,6 +38,7 @@ pub use insight_admission::{
     InsightReferenceRole,
 };
 pub mod retained_archive;
+pub mod quantum_bindings;
 pub use artifact_retrieval::{
     ArtifactRetrievalSpec, DocumentIdentityStatus, RetrievalEvidenceFile, RetrievalRequestEvidence,
 };

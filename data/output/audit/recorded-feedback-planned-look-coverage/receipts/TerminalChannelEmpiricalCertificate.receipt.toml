@@ -1,0 +1,184 @@
+evidence_key = "feedback-coverage-project-TerminalChannelEmpiricalCertificate"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-TerminalChannelEmpiricalCertificate"
+proof_path = "proofs/theories/TerminalChannelEmpiricalCertificate.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/TerminalChannelEmpiricalCertificate.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.TerminalChannelEmpiricalCertificate"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteBernoulliConcentration.v"
+sha256 = "036579e9b2a8da787c62e3b23c5a6a301bbacfa37e029952ac7781719c64a325"
+
+[[witness.sources]]
+path = "proofs/theories/FinitePlannedLookCoverage.v"
+sha256 = "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[witness.sources]]
+path = "proofs/theories/TerminalChannelEmpiricalCertificate.v"
+sha256 = "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d"
+
+[[witness.sources]]
+path = "proofs/theories/TerminalChannelSeparationReal.v"
+sha256 = "6b66fad871e68ddc1bc998fda940de13a88354b799aab61c90f3d4f03f0985e4"
+
+[witness.compile_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/TerminalChannelEmpiricalCertificate.compile.txt"
+sha256 = "eb9d156a1fa48d7bf0663d270eaae039231c58487b76c2c31821122ab808c392"
+
+[witness.kernel_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/TerminalChannelEmpiricalCertificate.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/TerminalChannelEmpiricalCertificate.assumptions.txt"
+sha256 = "68b806bbd589cc0c485efb42409d380a4f0524613378cd9d3228e182c568ebae"
+
+[witness.proof_object]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/theories/TerminalChannelEmpiricalCertificate.vo"
+sha256 = "eb7345c5329b8b79a9680bc033537851b35baf30947d4b0b61c97e84dc0a434c"
+
+[[witness.declarations]]
+name = "terminal_radius"
+statement = "Definition terminal_radius : R := 21 / 1000"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_sample_count"
+statement = "Definition terminal_sample_count : R := 8192"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "terminal_family"
+statement = "Definition terminal_family : list nat := seq 0 32"
+assumptions = []
+
+[[witness.declarations]]
+name = "terminal_center"
+statement = "Definition terminal_center {A} (parameters : nat -> R) (centered_sum : nat -> A -> R) (index : nat) (point : A) : R := parameters index + centered_sum index point / terminal_sample_count"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_radius_failure"
+statement = "Definition terminal_radius_failure {A} (centered_sum : nat -> A -> R) (index : nat) (point : A) : bool := if Rle_dec (terminal_sample_count * terminal_radius) (Rabs (centered_sum index point)) then true else false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_rejection"
+statement = "Definition terminal_rejection {A} (parameters : nat -> R) (centered_sum : nat -> A -> R) (point : A) : bool := if Rlt_dec (Rabs (terminal_center parameters centered_sum 2%nat point - terminal_center parameters centered_sum 3%nat point) + 4 * terminal_radius) (Rabs (terminal_center parameters centered_sum 0%nat point - terminal_center parameters centered_sum 1%nat point)) then true else false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "common_terminal_channel"
+statement = "Definition common_terminal_channel (parameters : nat -> R) : Prop := exists false_positive true_positive, 0 <= false_positive <= 1 /\\ 0 <= true_positive <= 1 /\\ parameters 0%nat = binary_channel false_positive true_positive (parameters 2%nat) /\\ parameters 1%nat = binary_channel false_positive true_positive (parameters 3%nat)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "terminal_radius_from_centered_sum"
+statement = "Lemma terminal_radius_from_centered_sum {A} parameters centered_sum index (point : A) : terminal_radius_failure centered_sum index point = false -> Rabs (parameters index - terminal_center parameters centered_sum index point) <= terminal_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_false_rejection_requires_radius_failure"
+statement = "Theorem terminal_false_rejection_requires_radius_failure {A} parameters centered_sum (point : A) : common_terminal_channel parameters -> terminal_rejection parameters centered_sum point = true -> existsb (fun index => terminal_radius_failure centered_sum index point) terminal_family = true"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_false_rejection_probability"
+statement = "Theorem terminal_false_rejection_probability {A} (law : list (A * R)) parameters centered_sum : nonnegative_law law -> common_terminal_channel parameters -> event_probability law (fun point => existsb (fun index => terminal_radius_failure centered_sum index point) terminal_family) <= 1 / 20 -> event_probability law (terminal_rejection parameters centered_sum) <= 1 / 20"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_32_mean_false_rejection"
+statement = "Theorem terminal_32_mean_false_rejection {A} (law : list (A * R)) (parameters : nat -> R) (centered_sum : nat -> A -> R) : nonnegative_law law -> normalized_law law -> (forall index, In index terminal_family -> 0 <= parameters index <= 1) -> (forall index, In index terminal_family -> forall observable, weighted_expectation law (fun point => observable (centered_sum index point)) = bernoulli_expectation terminal_samples (parameters index) observable) -> common_terminal_channel parameters -> event_probability law (terminal_rejection parameters centered_sum) <= 1 / 20"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "retained_terminal_center"
+statement = "Definition retained_terminal_center (index : nat) : R := match index with | 0%nat => 2964 / 8192 | 1%nat => 4911 / 8192 | 2%nat => 4067 / 8192 | 3%nat => 4057 / 8192 | _ => 0 end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "retained_terminal_exact_margin"
+statement = "Theorem retained_terminal_exact_margin : Rabs (retained_terminal_center 0%nat - retained_terminal_center 1%nat) - Rabs (retained_terminal_center 2%nat - retained_terminal_center 3%nat) - 4 * terminal_radius = 156109 / 1024000"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "retained_terminal_margin_positive"
+statement = "Theorem retained_terminal_margin_positive : 0 < Rabs (retained_terminal_center 0%nat - retained_terminal_center 1%nat) - Rabs (retained_terminal_center 2%nat - retained_terminal_center 3%nat) - 4 * terminal_radius"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_parameterized_rejection"
+statement = "Definition terminal_parameterized_rejection {Sample} (center : nat -> Sample -> R) (radius : nat -> R) sample := if Rlt_dec (Rabs (center 2%nat sample - center 3%nat sample) + radius 0%nat + radius 1%nat + radius 2%nat + radius 3%nat) (Rabs (center 0%nat sample - center 1%nat sample)) then true else false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_parameterized_radius_failure"
+statement = "Definition terminal_parameterized_radius_failure {Sample} parameters (center : nat -> Sample -> R) (radius : nat -> R) index sample := if Rlt_dec (radius index) (Rabs (parameters index - center index sample)) then true else false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_parameterized_deterministic_certificate"
+statement = "Theorem terminal_parameterized_deterministic_certificate {Sample} parameters center radius (sample : Sample) : (forall index, (index < 4)%nat -> Rabs (parameters index - center index sample) <= radius index) -> terminal_parameterized_rejection center radius sample = true -> ~ common_terminal_channel parameters"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_parameterized_false_rejection"
+statement = "Theorem terminal_parameterized_false_rejection {Sample} parameters center radius (sample : Sample) : common_terminal_channel parameters -> terminal_parameterized_rejection center radius sample = true -> exists index, (index < 4)%nat /\\ terminal_parameterized_radius_failure parameters center radius index sample = true"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_parameterized_probability"
+statement = "Theorem terminal_parameterized_probability {Sample} (law : list (Sample * R)) parameters center radius (declared : list nat) total_budget : nonnegative_law law -> common_terminal_channel parameters -> (forall index, (index < 4)%nat -> In index declared) -> event_probability law (fun sample => existsb (fun index => terminal_parameterized_radius_failure parameters center radius index sample) declared) <= total_budget -> event_probability law (terminal_parameterized_rejection center radius) <= total_budget"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_selected_rejection"
+statement = "Definition terminal_selected_rejection {Sample Look} (selection : Sample -> option Look) (center : Look -> nat -> Sample -> R) (radius : Look -> nat -> R) sample := match selection sample with Some look => terminal_parameterized_rejection (center look) (radius look) sample | None => false end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_planned_false_rejection_probability"
+statement = "Theorem terminal_planned_false_rejection_probability {Sample Look} (law : list (Sample * R)) parameters (declared : list (nat * Look)) selection (center : Look -> nat -> Sample -> R) (radius : Look -> nat -> R) allocation total_budget : nonnegative_law law -> common_terminal_channel parameters -> (forall pair, In pair declared -> 0 <= allocation pair) -> (forall pair, In pair declared -> event_probability law (terminal_parameterized_radius_failure parameters (center (snd pair)) (radius (snd pair)) (fst pair)) <= allocation pair) -> real_sum (map allocation declared) <= total_budget -> (forall sample look, selection sample = Some look -> forall index, (index < 4)%nat -> In (index,look) declared) -> event_probability law (terminal_selected_rejection selection center radius) <= total_budget"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_historical_rejection_specialization"
+statement = "Theorem terminal_historical_rejection_specialization {Sample} parameters centered_sum (sample : Sample) : terminal_rejection parameters centered_sum sample = terminal_parameterized_rejection (terminal_center parameters centered_sum) (fun _ => terminal_radius) sample"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_historical_radius_specialization"
+statement = "Theorem terminal_historical_radius_specialization {Sample} parameters centered_sum index (sample : Sample) : terminal_radius_failure centered_sum index sample = false -> terminal_parameterized_radius_failure parameters (terminal_center parameters centered_sum) (fun _ => terminal_radius) index sample = false"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "retained_terminal_parameterized_exact_margin"
+statement = "Theorem retained_terminal_parameterized_exact_margin : Rabs (retained_terminal_center 0%nat - retained_terminal_center 1%nat) - (Rabs (retained_terminal_center 2%nat - retained_terminal_center 3%nat) + terminal_radius + terminal_radius + terminal_radius + terminal_radius) = 156109 / 1024000"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_historical_32_mean_specialization"
+statement = "Corollary terminal_historical_32_mean_specialization {Sample} (law : list (Sample * R)) parameters centered_sum : nonnegative_law law -> normalized_law law -> (forall index, In index terminal_family -> 0 <= parameters index <= 1) -> (forall index, In index terminal_family -> forall observable, weighted_expectation law (fun sample => observable (centered_sum index sample)) = bernoulli_expectation terminal_samples (parameters index) observable) -> common_terminal_channel parameters -> event_probability law (terminal_parameterized_rejection (terminal_center parameters centered_sum) (fun _ => terminal_radius)) <= 1 / 20"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "terminal_historical_fixture_parameters"
+statement = "Example terminal_historical_fixture_parameters : terminal_sample_count = 8192 /\\ length terminal_family = 32%nat /\\ terminal_radius = 21 / 1000"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

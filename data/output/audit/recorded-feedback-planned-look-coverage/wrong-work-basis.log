@@ -1,0 +1,4 @@
+File "/tmp/rocq-instrument-reviewed-mutations/Mutation.v", line 14, characters 23-34:
+Error: Unable to unify "ket01" with
+ "work_basis_decode (work_basis_index ket01)".
+

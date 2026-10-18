@@ -1,0 +1,5 @@
+sync_key = "cd-associator-sign-lifting"
+actor = "chatgpt-codex"
+reason = "Register the all-order associator doubling and Walsh lifting source while preserving existing theorem evidence and claim histories."
+applied_at = "2026-10-18T09:18:26Z"
+project_sha256 = "001d746815ddbdde26c8c95679184a4846c7fd0290f27cd5cf4ba7e87aad8cc8"

@@ -1,0 +1,146 @@
+Declaration: photonic_witness_block
+Closed under the global context
+Declaration: retained_sparse_witness_0
+Closed under the global context
+Declaration: retained_sparse_block_0
+Closed under the global context
+Declaration: retained_sparse_witness_1
+Closed under the global context
+Declaration: retained_sparse_block_1
+Closed under the global context
+Declaration: retained_sparse_witness_2
+Closed under the global context
+Declaration: retained_sparse_block_2
+Closed under the global context
+Declaration: retained_sparse_witness_3
+Closed under the global context
+Declaration: retained_sparse_block_3
+Closed under the global context
+Declaration: retained_sparse_witness_4
+Closed under the global context
+Declaration: retained_sparse_block_4
+Closed under the global context
+Declaration: retained_sparse_witness_5
+Closed under the global context
+Declaration: retained_sparse_block_5
+Closed under the global context
+Declaration: retained_sparse_witness_6
+Closed under the global context
+Declaration: retained_sparse_block_6
+Closed under the global context
+Declaration: retained_sparse_witness_7
+Closed under the global context
+Declaration: retained_sparse_block_7
+Closed under the global context
+Declaration: retained_sparse_witness_8
+Closed under the global context
+Declaration: retained_sparse_block_8
+Closed under the global context
+Declaration: retained_sparse_witness_9
+Closed under the global context
+Declaration: retained_sparse_block_9
+Closed under the global context
+Declaration: retained_sparse_witness_10
+Closed under the global context
+Declaration: retained_sparse_block_10
+Closed under the global context
+Declaration: retained_sparse_witness_11
+Closed under the global context
+Declaration: retained_sparse_block_11
+Closed under the global context
+Declaration: retained_sparse_witness_12
+Closed under the global context
+Declaration: retained_sparse_block_12
+Closed under the global context
+Declaration: retained_sparse_witness_13
+Closed under the global context
+Declaration: retained_sparse_block_13
+Closed under the global context
+Declaration: retained_sparse_witness_14
+Closed under the global context
+Declaration: retained_sparse_block_14
+Closed under the global context
+Declaration: retained_sparse_witness_15
+Closed under the global context
+Declaration: retained_sparse_block_15
+Closed under the global context
+Declaration: retained_sparse_witness_16
+Closed under the global context
+Declaration: retained_sparse_block_16
+Closed under the global context
+Declaration: retained_sparse_witness_17
+Closed under the global context
+Declaration: retained_sparse_block_17
+Closed under the global context
+Declaration: retained_sparse_witness_18
+Closed under the global context
+Declaration: retained_sparse_block_18
+Closed under the global context
+Declaration: retained_sparse_witness_19
+Closed under the global context
+Declaration: retained_sparse_block_19
+Closed under the global context
+Declaration: retained_sparse_witness_20
+Closed under the global context
+Declaration: retained_sparse_block_20
+Closed under the global context
+Declaration: retained_sparse_witness_21
+Closed under the global context
+Declaration: retained_sparse_block_21
+Closed under the global context
+Declaration: retained_sparse_witness_22
+Closed under the global context
+Declaration: retained_sparse_block_22
+Closed under the global context
+Declaration: retained_sparse_witness_23
+Closed under the global context
+Declaration: retained_sparse_block_23
+Closed under the global context
+Declaration: retained_sparse_witness_24
+Closed under the global context
+Declaration: retained_sparse_block_24
+Closed under the global context
+Declaration: retained_sparse_witness_25
+Closed under the global context
+Declaration: retained_sparse_block_25
+Closed under the global context
+Declaration: retained_sparse_witness_26
+Closed under the global context
+Declaration: retained_sparse_block_26
+Closed under the global context
+Declaration: retained_sparse_witness_27
+Closed under the global context
+Declaration: retained_sparse_block_27
+Closed under the global context
+Declaration: retained_sparse_witness_28
+Closed under the global context
+Declaration: retained_sparse_block_28
+Closed under the global context
+Declaration: retained_sparse_witness_29
+Closed under the global context
+Declaration: retained_sparse_block_29
+Closed under the global context
+Declaration: retained_sparse_witness_30
+Closed under the global context
+Declaration: retained_sparse_block_30
+Closed under the global context
+Declaration: retained_sparse_witness_31
+Closed under the global context
+Declaration: retained_sparse_block_31
+Closed under the global context
+Declaration: retained_sparse_configurations
+Closed under the global context
+Declaration: retained_sparse_configuration_coverage
+Closed under the global context
+Declaration: retained_sparse_witnesses
+Closed under the global context
+Declaration: photonic_witness_configuration
+Closed under the global context
+Declaration: retained_sparse_witness_map
+Closed under the global context
+Declaration: retained_sparse_witness_total
+Closed under the global context
+Declaration: photonic_witness_domain
+Closed under the global context
+Declaration: retained_sparse_witness_domains
+Closed under the global context

@@ -1,0 +1,360 @@
+schema_version = 1
+stable_id = "THM-LEGACY-CDSparseBlockTransport"
+proof_path = "proofs/theories/CDSparseBlockTransport.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDSparseBlockTransport.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDSparseBlockTransport"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[sources]]
+path = "proofs/theories/CDAssociatorCensus.v"
+sha256 = "f2e95d4134e5ed4e353d44da98ce7bac982f2df74cd48f81fa805f647b649b94"
+
+[[sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[sources]]
+path = "proofs/theories/CDPhaseDegree.v"
+sha256 = "f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c"
+
+[[sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[sources]]
+path = "proofs/theories/CDSparseBlockTransport.v"
+sha256 = "9bacc03722db58b2deee99c9a411f0959d0b3886e582082f270bc2313548d312"
+
+[[sources]]
+path = "proofs/theories/CDSparseMatrixTransport.v"
+sha256 = "9103e9e9017c00453681fd016490994fa75893915dee6118f8efd968d5a62353"
+
+[[sources]]
+path = "proofs/theories/CubeAffineCosets.v"
+sha256 = "8c69e4e5bbaaa6644d21650a23716810e531f8146b8d7d66360cf259d946298b"
+
+[[sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[sources]]
+path = "proofs/theories/RationalSignBlockRanks.v"
+sha256 = "076720438ee3944932dc4b341e7170fa5f752a6f115c35ef6a7a158c3ce0c53a"
+
+[[sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[sources]]
+path = "proofs/theories/SparsePhotonicCertificates.v"
+sha256 = "8e8c4317809de59a515ea654bcbfe614b72b2ee5755440538a1e100abd1b05c4"
+
+[[sources]]
+path = "proofs/theories/WalshProbability.v"
+sha256 = "8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7"
+
+[compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseBlockTransport.compile.txt"
+sha256 = "41ab17d923071550f75b960bf6e2329a3b549ae8bf33580a74723fb2bf3ba41c"
+
+[kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseBlockTransport.kernel.txt"
+sha256 = "6c3ceb4f7f864fe03b9fef2e19f3c025e3b18fc29101b85f0ae80814bd0f54a2"
+
+[assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseBlockTransport.assumptions.txt"
+sha256 = "e41b8cadda2c7f83ffa9fe210ccd0315f35d51d52cf8caad6ad2af94bfbd314f"
+
+[proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/CDSparseBlockTransport.vo"
+sha256 = "17d544f89767ccfdf0c7a3c36daa692984195c2a73d7ef462184c7b2dec0b5cd"
+
+[[declarations]]
+name = "sparse_cd_entry"
+statement = "Definition sparse_cd_entry order (operand : cube order -> R) (output input : cube order) := operand (cube_xor order output input) * IZR (phase_sign (sign_exponent order (cube_xor order output input) input))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "affine_supported"
+statement = "Definition affine_supported order group (anchor : cube order) (vector : cube order -> R) := forall input, same_coset order group input anchor = false -> vector input = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sparse_cross_sector_zero"
+statement = "Theorem sparse_cross_sector_zero : forall order group anchor operand output input, affine_supported order group anchor operand -> same_coset order group output (cube_xor order anchor input) = false -> sparse_cd_entry order operand output input = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_cd_apply"
+statement = "Definition sparse_cd_apply order operand vector output := real_cube_sum order (fun input => sparse_cd_entry order operand output input * vector input)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sparse_real_sum_zero"
+statement = "Lemma sparse_real_sum_zero : forall order, real_cube_sum order (fun _ => 0) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_support_transport"
+statement = "Theorem sparse_support_transport : forall order group anchor seed operand vector, affine_supported order group anchor operand -> affine_supported order group seed vector -> affine_supported order group (cube_xor order anchor seed) (sparse_cd_apply order operand vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_real_sum_add"
+statement = "Lemma sparse_real_sum_add : forall order first second, real_cube_sum order (fun input => first input + second input) = real_cube_sum order first + real_cube_sum order second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_real_sum_swap"
+statement = "Lemma sparse_real_sum_swap : forall first_order second_order function, real_cube_sum first_order (fun first => real_cube_sum second_order (function first)) = real_cube_sum second_order (fun second => real_cube_sum first_order (fun first => function first second))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_real_delta_sum"
+statement = "Lemma sparse_real_delta_sum : forall order (target : cube order) amount, real_cube_sum order (fun input => if cube_equal order input target then amount else 0) = amount"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sector_projection"
+statement = "Definition sector_projection order group sector (vector : cube order -> R) input := if same_coset order group input sector then vector input else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "cube_squared_norm"
+statement = "Definition cube_squared_norm order (vector : cube order -> R) := real_cube_sum order (fun input => vector input ^ 2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "canonical_sector_squared_norm"
+statement = "Definition canonical_sector_squared_norm order group sector vector := if cube_equal order (coset_representative order group sector) sector then cube_squared_norm order (sector_projection order group sector vector) else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sparse_squared_norm_decomposition"
+statement = "Theorem sparse_squared_norm_decomposition : forall order group vector, cube_squared_norm order vector = real_cube_sum order (fun sector => canonical_sector_squared_norm order group sector vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_block_intertwining"
+statement = "Theorem sparse_block_intertwining : forall order group anchor sector operand vector output, affine_supported order group anchor operand -> sector_projection order group (cube_xor order anchor sector) (sparse_cd_apply order operand vector) output = sparse_cd_apply order operand (sector_projection order group sector vector) output"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_kernel_decomposition"
+statement = "Theorem sparse_kernel_decomposition : forall order group anchor operand vector, affine_supported order group anchor operand -> (forall output, sparse_cd_apply order operand vector output = 0) <-> (forall sector, coset_representative order group sector = sector -> forall output, sparse_cd_apply order operand (sector_projection order group sector vector) output = 0)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_sign_configuration"
+statement = "Definition sparse_sign_configuration order (left upper lower partner : cube order) sign_x sign_y := ([phase_sign (sign_exponent order left lower); phase_sign (xorb sign_x (sign_exponent order upper partner)); phase_sign (xorb sign_x (sign_exponent order upper lower)); phase_sign (sign_exponent order left partner)], phase_sign sign_y)"
+assumptions = []
+
+[[declarations]]
+name = "sparse_photonic_configuration_coverage"
+statement = "Theorem sparse_photonic_configuration_coverage : forall order left upper lower partner sign_x sign_y, In (sparse_sign_configuration order left upper lower partner sign_x sign_y) retained_sparse_configurations"
+assumptions = []
+
+[[declarations]]
+name = "sparse_photonic_witness_coverage"
+statement = "Theorem sparse_photonic_witness_coverage : forall order left upper lower partner sign_x sign_y, exists witness, In witness retained_sparse_witnesses /\\ photonic_witness_configuration witness = sparse_sign_configuration order left upper lower partner sign_x sign_y"
+assumptions = []
+
+[[declarations]]
+name = "two_label_output"
+statement = "Definition two_label_output (first second third fourth input_sign : R) := (first + input_sign * second, third + input_sign * fourth)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "photonic_label_output"
+statement = "Definition photonic_label_output (first second third fourth input_sign : R) := ((first / 2 + input_sign * (second / 2)) / sqrt 2, (third / 2 + input_sign * (fourth / 2)) / sqrt 2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "two_label_squared_norm"
+statement = "Definition two_label_squared_norm (output : R * R) := fst output ^ 2 + snd output ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sparse_photonic_normalization"
+statement = "Theorem sparse_photonic_normalization : forall first second third fourth input_sign, two_label_squared_norm (photonic_label_output first second third fourth input_sign) = two_label_squared_norm (two_label_output first second third fourth input_sign) / 8"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_rational_sign_block"
+statement = "Definition sparse_rational_sign_block order (left upper lower partner : cube order) sign_x := rational_sign_block (sign_exponent order left lower) (xorb sign_x (sign_exponent order upper partner)) (xorb sign_x (sign_exponent order upper lower)) (sign_exponent order left partner)"
+assumptions = []
+
+[[declarations]]
+name = "sparse_rational_sign_block_rank"
+statement = "Theorem sparse_rational_sign_block_rank : forall order left upper lower partner sign_x, mxalgebra.mxrank (sparse_rational_sign_block order left upper lower partner sign_x) = if xorb (xorb (sign_exponent order left lower) (sign_exponent order upper partner)) (xorb (sign_exponent order upper lower) (sign_exponent order left partner)) then 2%nat else 1%nat"
+assumptions = []
+
+[[declarations]]
+name = "cube_real_delta"
+statement = "Definition cube_real_delta order (target input : cube order) : R := if cube_equal order input target then 1 else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "two_blade_vector"
+statement = "Definition two_blade_vector order (lower upper : cube order) coefficient input := cube_real_delta order lower input + coefficient * cube_real_delta order upper input"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "sparse_weighted_delta_sum"
+statement = "Lemma sparse_weighted_delta_sum : forall order target function, real_cube_sum order (fun input => function input * cube_real_delta order target input) = function target"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_two_blade_apply"
+statement = "Theorem sparse_two_blade_apply : forall order operand lower upper coefficient output, sparse_cd_apply order operand (two_blade_vector order lower upper coefficient) output = sparse_cd_entry order operand output lower + coefficient * sparse_cd_entry order operand output upper"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "two_blade_lower_coordinate"
+statement = "Lemma two_blade_lower_coordinate : forall order lower upper coefficient, lower <> upper -> two_blade_vector order lower upper coefficient lower = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "two_blade_upper_coordinate"
+statement = "Lemma two_blade_upper_coordinate : forall order lower upper coefficient, lower <> upper -> two_blade_vector order lower upper coefficient upper = coefficient"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_two_label_output_coordinates"
+statement = "Theorem sparse_two_label_output_coordinates : forall order (left upper lower partner : cube order) sign_x sign_y, left <> upper -> cube_xor order left upper = cube_xor order lower partner -> (sparse_cd_apply order (two_blade_vector order left upper sign_x) (two_blade_vector order lower partner sign_y) (cube_xor order left lower), sparse_cd_apply order (two_blade_vector order left upper sign_x) (two_blade_vector order lower partner sign_y) (cube_xor order left partner)) = two_label_output (IZR (phase_sign (sign_exponent order left lower))) (sign_x * IZR (phase_sign (sign_exponent order upper partner))) (sign_x * IZR (phase_sign (sign_exponent order upper lower))) (IZR (phase_sign (sign_exponent order left partner))) sign_y"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "photonic_bright_squared_norm"
+statement = "Example photonic_bright_squared_norm : two_label_squared_norm (two_label_output 1 1 1 1 1) = 8"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "photonic_dark_squared_norm"
+statement = "Example photonic_dark_squared_norm : two_label_squared_norm (two_label_output 1 1 1 1 (-1)) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "photonic_strut_probability"
+statement = "Example photonic_strut_probability : two_label_squared_norm (photonic_label_output 1 1 1 (-1) 1) = 1 / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "two_blade_affine_support"
+statement = "Theorem two_blade_affine_support : forall order lower upper coefficient, affine_supported order (pair_xor_subgroup order (cube_xor order lower upper)) lower (two_blade_vector order lower upper coefficient)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "two_blade_product_support"
+statement = "Theorem two_blade_product_support : forall order (left upper lower partner : cube order) sign_x sign_y, cube_xor order left upper = cube_xor order lower partner -> affine_supported order (pair_xor_subgroup order (cube_xor order left upper)) (cube_xor order left lower) (sparse_cd_apply order (two_blade_vector order left upper sign_x) (two_blade_vector order lower partner sign_y))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cube_two_point_squared_norm"
+statement = "Lemma cube_two_point_squared_norm : forall order (first second : cube order) vector, first <> second -> (forall input, input <> first -> input <> second -> vector input = 0) -> cube_squared_norm order vector = vector first ^ 2 + vector second ^ 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cube_xor_left_injective"
+statement = "Lemma cube_xor_left_injective : forall order (anchor first second : cube order), cube_xor order anchor first = cube_xor order anchor second -> first = second"
+assumptions = []
+
+[[declarations]]
+name = "pair_coset_exact"
+statement = "Lemma pair_coset_exact : forall order (first second input : cube order), same_coset order (pair_xor_subgroup order (cube_xor order first second)) input first = true -> input = first \\/ input = second"
+assumptions = []
+
+[[declarations]]
+name = "sparse_two_blade_full_squared_norm"
+statement = "Theorem sparse_two_blade_full_squared_norm : forall order (left upper lower partner : cube order) sign_x sign_y, left <> upper -> cube_xor order left upper = cube_xor order lower partner -> cube_squared_norm order (sparse_cd_apply order (two_blade_vector order left upper sign_x) (two_blade_vector order lower partner sign_y)) = two_label_squared_norm (two_label_output (IZR (phase_sign (sign_exponent order left lower))) (sign_x * IZR (phase_sign (sign_exponent order upper partner))) (sign_x * IZR (phase_sign (sign_exponent order upper lower))) (IZR (phase_sign (sign_exponent order left partner))) sign_y)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cube_squared_norm_scale"
+statement = "Lemma cube_squared_norm_scale : forall order factor vector, cube_squared_norm order (fun input => factor * vector input) = factor ^ 2 * cube_squared_norm order vector"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_cd_apply_scale"
+statement = "Lemma sparse_cd_apply_scale : forall order left_scale right_scale operand vector output, sparse_cd_apply order (fun input => left_scale * operand input) (fun input => right_scale * vector input) output = (left_scale * right_scale) * sparse_cd_apply order operand vector output"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "normalized_two_blade"
+statement = "Definition normalized_two_blade order lower upper coefficient input := two_blade_vector order lower upper coefficient input / sqrt 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "normalized_two_blade_unit_norm"
+statement = "Theorem normalized_two_blade_unit_norm : forall order lower upper phase, lower <> upper -> cube_squared_norm order (normalized_two_blade order lower upper (IZR (phase_sign phase))) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "sparse_photonic_normalized_product"
+statement = "Theorem sparse_photonic_normalized_product : forall order (left upper lower partner : cube order) phase_x phase_y, left <> upper -> cube_xor order left upper = cube_xor order lower partner -> two_label_squared_norm (photonic_label_output (IZR (phase_sign (sign_exponent order left lower))) (IZR (phase_sign phase_x) * IZR (phase_sign (sign_exponent order upper partner))) (IZR (phase_sign phase_x) * IZR (phase_sign (sign_exponent order upper lower))) (IZR (phase_sign (sign_exponent order left partner))) (IZR (phase_sign phase_y))) = cube_squared_norm order (sparse_cd_apply order (normalized_two_blade order left upper (IZR (phase_sign phase_x))) (normalized_two_blade order lower partner (IZR (phase_sign phase_y)))) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cube_matrix_index"
+statement = "Definition cube_matrix_index order (value : cube order) : fintype.ordinal (Nat.pow 2 order)"
+assumptions = []
+
+[[declarations]]
+name = "two_blade_decoder"
+statement = "Definition two_blade_decoder order (first second : cube order) (index : fintype.ordinal 2) := cube_matrix_index order (if Nat.eqb (fintype.nat_of_ord index) 0 then first else second)"
+assumptions = []
+
+[[declarations]]
+name = "rational_two_blade"
+statement = "Definition rational_two_blade order (left upper : cube order) phase input : rat.rat := if cube_equal order input left then rational_phase_sign false else if cube_equal order input upper then rational_phase_sign phase else rat.ratz (ssrint.Posz 0)"
+assumptions = []
+
+[[declarations]]
+name = "rational_two_blade_left"
+statement = "Lemma rational_two_blade_left order left upper phase : rational_two_blade order left upper phase left = rational_phase_sign false"
+assumptions = []
+
+[[declarations]]
+name = "rational_two_blade_upper"
+statement = "Lemma rational_two_blade_upper order left upper phase : left <> upper -> rational_two_blade order left upper phase upper = rational_phase_sign phase"
+assumptions = []
+
+[[declarations]]
+name = "rational_scalar_phase"
+statement = "Lemma rational_scalar_phase phase : @scalar_phase _ phase = rational_phase_sign phase"
+assumptions = []
+
+[[declarations]]
+name = "rational_phase_product"
+statement = "Lemma rational_phase_product first second : rings_modules_and_algebras.GRing.mul (rational_phase_sign first) (rational_phase_sign second) = rational_phase_sign (xorb first second)"
+assumptions = []
+
+[[declarations]]
+name = "sparse_two_blade_decoded_restriction"
+statement = "Theorem sparse_two_blade_decoded_restriction order (left upper lower partner : cube order) phase : left <> upper -> cube_xor order left upper = cube_xor order lower partner -> matrix.mxsub (two_blade_decoder order (cube_xor order left lower) (cube_xor order left partner)) (two_blade_decoder order lower partner) (@sparse_field_matrix _ order (rational_two_blade order left upper phase)) = sparse_rational_sign_block order left upper lower partner phase"
+assumptions = []
+
+[[declarations]]
+name = "sparse_two_blade_decoded_rank"
+statement = "Theorem sparse_two_blade_decoded_rank order (left upper lower partner : cube order) phase : left <> upper -> cube_xor order left upper = cube_xor order lower partner -> mxalgebra.mxrank (matrix.mxsub (two_blade_decoder order (cube_xor order left lower) (cube_xor order left partner)) (two_blade_decoder order lower partner) (@sparse_field_matrix _ order (rational_two_blade order left upper phase))) = if xorb (xorb (sign_exponent order left lower) (sign_exponent order upper partner)) (xorb (sign_exponent order upper lower) (sign_exponent order left partner)) then 2%nat else 1%nat"
+assumptions = []

@@ -1,0 +1,14 @@
+terminal_parameterized_false_rejection
+     : forall (parameters : nat -> Rdefinitions.RbaseSymbolsImpl.R)
+         (center : nat -> ?Sample -> Rdefinitions.RbaseSymbolsImpl.R)
+         (radius : nat -> Rdefinitions.RbaseSymbolsImpl.R) 
+         (sample : ?Sample),
+       common_terminal_channel parameters ->
+       terminal_parameterized_rejection center radius sample = true ->
+       exists index : nat,
+         index < 4 /\
+         terminal_parameterized_radius_failure parameters center radius index
+           sample =
+         true
+where
+?Sample : [ |- Type]

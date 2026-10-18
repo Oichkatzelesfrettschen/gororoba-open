@@ -1,0 +1,19 @@
+Independent whole-source review: zero substantive blockers.
+Walsh law: integer unnormalized Parseval and W^2/(2^n)^2 normalization;
+parity-extension scale cancels correctly.
+Canonical ANF: reconstruction and uniqueness reuse the proved involution;
+point and two-point exact degrees carry coefficient witnesses. Constants
+and zero have degree zero. Variable-dependent degree lifting requires an
+explicit nonzero coefficient.
+Cochain: syntactic polynomial bounds imply canonical semantic degree bounds.
+CD: lower-degree induction obligations are proved. Numeric adapters require
+bounded indices and sufficient fuel. Quaternion, embedded-pair and new-pair
+examples check the tower transition. Target-specific axioms and admissions
+are absent in the reviewed source. git diff --check passed.
+Review scope: the four source files; receipt admission, hosted checks and
+physical circuit correspondence require separate evidence.
+Reviewed source identities:
+8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7 WalshProbability.v
+e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026 BooleanANFDegree.v
+f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c CDPhaseDegree.v
+c3435f779ed396e30f8f81a3387fdd49a44e52bc9bf6069f339841cb77d266ab BooleanCochainFiltration.v

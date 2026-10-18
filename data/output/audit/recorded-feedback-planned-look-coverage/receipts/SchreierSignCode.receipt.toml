@@ -1,0 +1,413 @@
+evidence_key = "feedback-coverage-project-SchreierSignCode"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SchreierSignCode"
+proof_path = "proofs/theories/SchreierSignCode.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SchreierSignCode.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SchreierSignCode"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SchreierSignCode.compile.txt"
+sha256 = "bf16c3153c6189bc1b234cfbd0f1384b0ab432069b361cb7699697dce29b2bda"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SchreierSignCode.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SchreierSignCode.assumptions.txt"
+sha256 = "cd15b42fec9b7258faf3a153aaff6586098808dc188978ccb5d0b33dee277f9a"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/SchreierSignCode.vo"
+sha256 = "c8a2d6a7a5502a9ffa14432d4c6b7b10ded7586a6eda7efba48a89e9c6f4780d"
+
+[[witness.declarations]]
+name = "cube_nonzero"
+statement = "Definition cube_nonzero (order : nat) (value : cube order) : bool := negb (cube_equal order value (cube_zero order))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier"
+statement = "Definition schreier (order : nat) (left right input : cube order) : bool := xorb (xorb (sign_exponent order right input) (sign_exponent order left (cube_xor order right input))) (sign_exponent order (cube_xor order left right) input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_equal_reflexive"
+statement = "Lemma cube_equal_reflexive : forall order (value : cube order), cube_equal order value value = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_equal_symmetric"
+statement = "Lemma cube_equal_symmetric : forall order (left right : cube order), cube_equal order left right = cube_equal order right left"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_equal_spec"
+statement = "Lemma cube_equal_spec : forall order (left right : cube order), cube_equal order left right = true <-> left = right"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_nonzero_double"
+statement = "Lemma cube_nonzero_double : forall order (value : cube order) high, cube_nonzero (S order) (value, high) = orb (cube_nonzero order value) high"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_nonzero_zero"
+statement = "Lemma cube_nonzero_zero : forall order, cube_nonzero order (cube_zero order) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_xor_zero"
+statement = "Lemma cube_xor_zero : forall order (value : cube order), cube_xor order value (cube_zero order) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_xor_commutative"
+statement = "Lemma cube_xor_commutative : forall order (left right : cube order), cube_xor order left right = cube_xor order right left"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_equal_translate"
+statement = "Lemma cube_equal_translate : forall order (left right input : cube order), cube_equal order (cube_xor order left input) right = cube_equal order input (cube_xor order left right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_zero_left"
+statement = "Lemma sign_zero_left : forall order input, sign_exponent order (cube_zero order) input = false /\\ sign_exponent order input (cube_zero order) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_commutator"
+statement = "Lemma sign_commutator : forall order (left right : cube order), xorb (sign_exponent order left right) (sign_exponent order right left) = xorb (cube_nonzero order left) (xorb (negb (cube_nonzero order right)) (cube_equal order left right))"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_extensional"
+statement = "Lemma cube_sum_extensional : forall order (left right : cube order -> bool), (forall input, left input = right input) -> cube_sum order left = cube_sum order right"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_xor"
+statement = "Lemma cube_sum_xor : forall order (left right : cube order -> bool), cube_sum order (fun input => xorb (left input) (right input)) = xorb (cube_sum order left) (cube_sum order right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_false"
+statement = "Lemma cube_sum_false : forall order, cube_sum order (fun _ => false) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_constant"
+statement = "Lemma cube_sum_constant : forall order value, cube_sum (S order) (fun _ => value) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_and_constant"
+statement = "Lemma cube_sum_and_constant : forall order (function : cube order -> bool) constant, cube_sum order (fun input => andb constant (function input)) = andb constant (cube_sum order function)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_delta"
+statement = "Lemma cube_sum_delta : forall order (target : cube order), cube_sum order (fun input => cube_equal order input target) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_translation"
+statement = "Lemma cube_sum_translation : forall order (shift : cube order) function, cube_sum order (fun input => function (cube_xor order shift input)) = cube_sum order function"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_row_column_parity_equal"
+statement = "Lemma sign_row_column_parity_equal : forall order (value : cube (S order)), cube_sum (S order) (fun input => sign_exponent (S order) value input) = cube_sum (S order) (fun input => sign_exponent (S order) input value)"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_row_even"
+statement = "Lemma sign_row_even : forall order (value : cube (S (S order))), cube_sum (S (S order)) (fun input => sign_exponent (S (S order)) value input) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_column_even"
+statement = "Lemma sign_column_even : forall order (value : cube (S (S order))), cube_sum (S (S order)) (fun input => sign_exponent (S (S order)) input value) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_transpose"
+statement = "Lemma sign_transpose : forall order (left right : cube order), sign_exponent order right left = xorb (sign_exponent order left right) (xorb (cube_nonzero order left) (xorb (negb (cube_nonzero order right)) (cube_equal order left right)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_high_difference"
+statement = "Lemma schreier_high_difference : forall order (left right input : cube order) left_high right_high, xorb (schreier (S order) (left, left_high) (right, right_high) (input, false)) (schreier (S order) (left, left_high) (right, right_high) (input, true)) = xorb (cube_nonzero order left) (xorb (cube_nonzero order right) (cube_nonzero order (cube_xor order left right)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_closed_form"
+statement = "Lemma schreier_closed_form : forall order (left right input : cube order) left_high right_high input_high, schreier (S order) (left, left_high) (right, right_high) (input, input_high) = xorb (xorb (if input_high then sign_exponent order input right else sign_exponent order right input) (if input_high then sign_exponent order input (cube_xor order left right) else sign_exponent order (cube_xor order left right) input)) (xorb (if xorb right_high input_high then sign_exponent order (cube_xor order right input) left else sign_exponent order left (cube_xor order right input)) (andb left_high (xorb (xorb (cube_equal order input (cube_zero order)) (cube_equal order input right)) right_high)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_low_even"
+statement = "Lemma schreier_low_even : forall order (left right : cube (S (S order))) left_high right_high, cube_sum (S (S order)) (fun input => schreier (S (S (S order))) (left, left_high) (right, right_high) (input, false)) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "even_lower_code"
+statement = "Definition even_lower_code (order : nat) (function : cube (S order) -> bool) : Prop := exists lower_function high_coefficient, cube_sum order lower_function = false /\\ forall lower high, function (lower, high) = xorb (lower_function lower) (andb high_coefficient high)"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_span_upper"
+statement = "Theorem schreier_span_upper : forall order function, sign_span (S (S (S order))) function -> even_lower_code (S (S order)) function"
+assumptions = []
+
+[[witness.declarations]]
+name = "span_cube_sum"
+statement = "Lemma span_cube_sum : forall parameter_order order (family : cube parameter_order -> cube order -> bool), (forall parameter, sign_span order (family parameter)) -> sign_span order (fun input => cube_sum parameter_order (fun parameter => family parameter input))"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_sum_sampling"
+statement = "Lemma cube_sum_sampling : forall order (function : cube order -> bool) target, cube_sum order (fun input => andb (function input) (cube_equal order input target)) = function target"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_delta_pair"
+statement = "Lemma schreier_delta_pair : forall order (target input : cube order) high, schreier (S order) (cube_zero order, true) (target, false) (input, high) = xorb (cube_equal order input (cube_zero order)) (cube_equal order input target)"
+assumptions = []
+
+[[witness.declarations]]
+name = "even_function_delta_expansion"
+statement = "Lemma even_function_delta_expansion : forall order (function : cube order -> bool), cube_sum order function = false -> forall input, cube_sum order (fun target => andb (function target) (xorb (cube_equal order input (cube_zero order)) (cube_equal order input target))) = function input"
+assumptions = []
+
+[[witness.declarations]]
+name = "even_lower_in_span"
+statement = "Lemma even_lower_in_span : forall order (function : cube order -> bool), cube_sum order function = false -> sign_span (S order) (fun input => function (fst input))"
+assumptions = []
+
+[[witness.declarations]]
+name = "independent_first"
+statement = "Definition independent_first (order : nat) : cube (S (S order)) := ((cube_zero order, true), false)"
+assumptions = []
+
+[[witness.declarations]]
+name = "independent_second"
+statement = "Definition independent_second (order : nat) : cube (S (S order)) := ((cube_zero order, false), true)"
+assumptions = []
+
+[[witness.declarations]]
+name = "independent_high_coefficient"
+statement = "Lemma independent_high_coefficient : forall order, xorb (cube_nonzero (S (S order)) (independent_first order)) (xorb (cube_nonzero (S (S order)) (independent_second order)) (cube_nonzero (S (S order)) (cube_xor (S (S order)) (independent_first order) (independent_second order)))) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "high_coordinate_in_span"
+statement = "Lemma high_coordinate_in_span : forall order, sign_span (S (S (S order))) (fun input => snd input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_span_lower"
+statement = "Theorem schreier_span_lower : forall order function, even_lower_code (S (S order)) function -> sign_span (S (S (S order))) function"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_span_characterization"
+statement = "Theorem schreier_span_characterization : forall order function, sign_span (S (S (S order))) function <-> even_lower_code (S (S order)) function"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_sign_span"
+statement = "Definition normalized_sign_span (order : nat) (function : cube order -> bool) : Prop := exists raw, sign_span order raw /\\ forall input, function input = xorb (raw input) (raw (cube_zero order))"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_even_lower_code"
+statement = "Definition normalized_even_lower_code (order : nat) (function : cube (S order) -> bool) : Prop := exists lower_function high_coefficient, cube_sum order lower_function = false /\\ lower_function (cube_zero order) = false /\\ forall lower high, function (lower, high) = xorb (lower_function lower) (andb high_coefficient high)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_schreier_characterization"
+statement = "Theorem normalized_schreier_characterization : forall order function, normalized_sign_span (S (S (S order))) function <-> normalized_even_lower_code (S (S order)) function"
+assumptions = []
+
+[[witness.declarations]]
+name = "scalar_sign_in_span"
+statement = "Theorem scalar_sign_in_span : forall order, sign_span (S (S (S order))) (fun _ => true)"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_generator_constant"
+statement = "Lemma quaternion_generator_constant : forall left right input : cube 2, schreier 2 left right input = schreier 2 left right (cube_zero 2)"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_span_constant"
+statement = "Theorem quaternion_span_constant : forall function, sign_span 2 function -> forall input, function input = function (cube_zero 2)"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_normalized_code_zero"
+statement = "Theorem quaternion_normalized_code_zero : forall function, normalized_sign_span 2 function <-> forall input, function input = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_extensional"
+statement = "Lemma anf_evaluate_extensional : forall order left right, (forall mask, left mask = right mask) -> forall input, anf_evaluate order left input = anf_evaluate order right input"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_xor"
+statement = "Lemma anf_evaluate_xor : forall order left right input, anf_evaluate order (fun mask => xorb (left mask) (right mask)) input = xorb (anf_evaluate order left input) (anf_evaluate order right input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_false"
+statement = "Lemma anf_evaluate_false : forall order input, anf_evaluate order (fun _ => false) input = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_involutive"
+statement = "Theorem anf_evaluate_involutive : forall order coefficients input, anf_evaluate order (anf_evaluate order coefficients) input = coefficients input"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_injective"
+statement = "Theorem anf_evaluate_injective : forall order left right, (forall input, anf_evaluate order left input = anf_evaluate order right input) -> forall mask, left mask = right mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_zero"
+statement = "Lemma anf_evaluate_zero : forall order coefficients, anf_evaluate order coefficients (cube_zero order) = coefficients (cube_zero order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_ones"
+statement = "Lemma anf_evaluate_ones : forall order coefficients, anf_evaluate order coefficients (cube_ones order) = cube_sum order coefficients"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_parity"
+statement = "Lemma anf_evaluate_parity : forall order coefficients, cube_sum order (anf_evaluate order coefficients) = coefficients (cube_ones order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_evaluate_monomial_sum"
+statement = "Lemma anf_evaluate_monomial_sum : forall order coefficients input, anf_evaluate order coefficients input = cube_sum order (fun mask => andb (coefficients mask) (monomial order mask input))"
+assumptions = []
+
+[[witness.declarations]]
+name = "monomial_basis_independent"
+statement = "Theorem monomial_basis_independent : forall order coefficients, (forall input, cube_sum order (fun mask => andb (coefficients mask) (monomial order mask input)) = false) -> forall mask, coefficients mask = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "monomial_zero"
+statement = "Lemma monomial_zero : forall order input, monomial order (cube_zero order) input = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_monomial_basis"
+statement = "Lemma anf_monomial_basis : forall order mask input, anf_evaluate order (fun selected => cube_equal order selected mask) input = monomial order mask input"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_scalar_delta"
+statement = "Lemma anf_scalar_delta : forall order scalar input, anf_evaluate order (fun mask => andb scalar (cube_equal order mask (cube_zero order))) input = scalar"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_basis_mask"
+statement = "Definition normalized_basis_mask (order : nat) (mask : cube (S order)) : bool := if snd mask then cube_equal order (fst mask) (cube_zero order) else andb (cube_nonzero order (fst mask)) (negb (cube_equal order (fst mask) (cube_ones order)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "supported_anf"
+statement = "Definition supported_anf (order : nat) (coefficients : cube (S order) -> bool) : Prop := forall mask, normalized_basis_mask order mask = false -> coefficients mask = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_anf_spanning"
+statement = "Theorem normalized_anf_spanning : forall order function, normalized_sign_span (S (S (S order))) function <-> exists coefficients, supported_anf (S (S order)) coefficients /\\ forall input, function input = anf_evaluate (S (S (S order))) coefficients input"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_anf_coefficients_unique"
+statement = "Theorem normalized_anf_coefficients_unique : forall order function first second, (forall input, function input = anf_evaluate (S (S (S order))) first input) -> (forall input, function input = anf_evaluate (S (S (S order))) second input) -> forall mask, first mask = second mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_monomial_member"
+statement = "Theorem normalized_monomial_member : forall order mask, normalized_basis_mask (S (S order)) mask = true -> normalized_sign_span (S (S (S order))) (monomial (S (S (S order))) mask)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_extensional"
+statement = "Lemma cube_count_extensional : forall order left right, (forall input, left input = right input) -> cube_count order left = cube_count order right"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_false"
+statement = "Lemma cube_count_false : forall order, cube_count order (fun _ => false) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_and_constant"
+statement = "Lemma cube_count_and_constant : forall order predicate constant, cube_count order (fun input => andb constant (predicate input)) = if constant then cube_count order predicate else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_delta"
+statement = "Lemma cube_count_delta : forall order target, cube_count order (fun input => cube_equal order input target) = 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_complement"
+statement = "Lemma cube_count_complement : forall order predicate, cube_count order predicate + cube_count order (fun input => negb (predicate input)) = 2 ^ order"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_count_union"
+statement = "Lemma cube_count_union : forall order left right, cube_count order (fun input => orb (left input) (right input)) + cube_count order (fun input => andb (left input) (right input)) = cube_count order left + cube_count order right"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_zero_ones_distinct"
+statement = "Lemma cube_zero_ones_distinct : forall order, cube_equal (S order) (cube_zero (S order)) (cube_ones (S order)) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "proper_nonempty_mask_count"
+statement = "Lemma proper_nonempty_mask_count : forall order, cube_count (S order) (fun mask => andb (cube_nonzero (S order) mask) (negb (cube_equal (S order) mask (cube_ones (S order))))) + 2 = 2 ^ (S order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_anf_basis_cardinality"
+statement = "Theorem normalized_anf_basis_cardinality : forall order, cube_count (S (S (S order))) (normalized_basis_mask (S (S order))) = 2 ^ (S (S order)) - 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_span_intersection"
+statement = "Theorem normalized_span_intersection : forall order function, normalized_sign_span (S (S (S order))) function <-> sign_span (S (S (S order))) function /\\ function (cube_zero (S (S (S order)))) = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_scalar_direct_sum"
+statement = "Theorem schreier_scalar_direct_sum : forall order raw, sign_span (S (S (S order))) raw -> normalized_sign_span (S (S (S order))) (fun input => xorb (raw input) (raw (cube_zero (S (S (S order)))))) /\\ (forall input, raw input = xorb (xorb (raw input) (raw (cube_zero (S (S (S order)))))) (raw (cube_zero (S (S (S order)))))) /\\ (forall normalized scalar, normalized_sign_span (S (S (S order))) normalized -> (forall input, raw input = xorb (normalized input) scalar) -> scalar = raw (cube_zero (S (S (S order)))) /\\ forall input, normalized input = xorb (raw input) (raw (cube_zero (S (S (S order))))))"
+assumptions = []
