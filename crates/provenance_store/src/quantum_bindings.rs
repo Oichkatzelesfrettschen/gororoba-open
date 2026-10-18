@@ -205,7 +205,9 @@ fn convention(source: &str, declaration: &str) -> Result<(&'static str, &'static
         .context("source filename missing")?;
     if required_semantics(source, declaration)?.0 == "mathematical_only" {
         match filename {
-            "BranchSignedCoherence.v" => {
+            "BranchSignedCoherence.v"
+            | "FourStateMatrixAlgebra.v"
+            | "RecordedFeedbackInstrument.v" => {
                 return Ok((
                     "source_complex_and_matrix_coordinates",
                     "normalization_from_theorem_hypotheses",
@@ -242,7 +244,9 @@ fn convention(source: &str, declaration: &str) -> Result<(&'static str, &'static
                 ("binary_zero_one", "probability_unit_interval")
             }
             "BranchSignedCoherence.v" => ("b0_c0_a_c1_b_c2_spectator_c3", "signed_pauli_quarter"),
-            "FiniteProbability.v" | "FiniteBernoulliConcentration.v" => (
+            "FiniteProbability.v"
+            | "FiniteBernoulliConcentration.v"
+            | "FinitePlannedLookCoverage.v" => (
                 "finite_weighted_sample_space",
                 "normalization_from_theorem_hypotheses",
             ),
@@ -250,6 +254,37 @@ fn convention(source: &str, declaration: &str) -> Result<(&'static str, &'static
         },
     )
 }
+// The retained fixture admits an explicit theorem family independently of source growth.
+const RETAINED_COHERENCE_DECLARATIONS: [&str; 27] = [
+    "balanced_control_zz_attenuation",
+    "branch_signed_entry",
+    "cause_drift_nonidentifiability",
+    "complex_ext",
+    "difference_hermitian",
+    "estimator_branch_flip_scale",
+    "finite_born_pauli_score",
+    "finite_recorded_born_score",
+    "independent_branch_flip",
+    "little_endian_score_reconstruction",
+    "nuisance_radius_propagation",
+    "observed_signed_coherence",
+    "opposite_branch_coherence_recovery",
+    "opposite_branches_cancel",
+    "ordered_z_rotation",
+    "pauli_difference",
+    "pauli_odd_entry",
+    "radius_encloses_euclidean_disk",
+    "radius_triangle",
+    "recorded_cross_branch_zero",
+    "recorded_signed_difference",
+    "rotation_preserves_modulus_squared",
+    "score_spectator_invariant",
+    "setting_bias_radius",
+    "signed_score_product",
+    "spectator_marginal_score",
+    "spectator_partial_trace",
+];
+
 fn coherence_application_premises() -> &'static [&'static str] {
     &[
         "same latent two-work-qubit state across Pauli settings within context",
@@ -314,6 +349,9 @@ fn required_terminal_application_semantics(
             | "NullityTwelveQuadraticLocus.v"
             | "C014_AnnihilatorDim4.v"
             | "FiniteProbability.v"
+            | "FinitePlannedLookCoverage.v"
+            | "FourStateMatrixAlgebra.v"
+            | "RecordedFeedbackInstrument.v"
             | "FiniteBernoulliConcentration.v"
             | "TerminalChannelSeparation.v"
             | "TerminalChannelSeparationReal.v"
@@ -704,12 +742,18 @@ impl QuantumBindingManifest {
     }
     fn validate_coherence_application(&self) -> Result<()> {
         let theorem_source = "proofs/theories/BranchSignedCoherence.v";
-        let declarations: BTreeSet<_> = self
-            .theorems
+        let declarations: BTreeSet<_> = RETAINED_COHERENCE_DECLARATIONS
             .iter()
-            .filter(|theorem| theorem.source == theorem_source)
-            .map(|theorem| theorem.declaration.clone())
+            .map(|name| (*name).to_owned())
             .collect();
+        ensure!(
+            declarations
+                .iter()
+                .all(|name| self.theorems.iter().any(
+                    |theorem| theorem.source == theorem_source && &theorem.declaration == name
+                )),
+            "retained coherence theorem missing"
+        );
         let decoder_members: BTreeSet<_> = ["immediate", "matched_idle", "measure_reset"]
             .into_iter()
             .flat_map(|context| {
@@ -877,6 +921,9 @@ impl QuantumBindingManifest {
             "proofs/theories/FiniteProbability.v",
             "proofs/theories/FiniteBernoulliConcentration.v",
             "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+            "proofs/theories/FinitePlannedLookCoverage.v",
+            "proofs/theories/FourStateMatrixAlgebra.v",
+            "proofs/theories/RecordedFeedbackInstrument.v",
         ];
         let mut expected_declarations = BTreeSet::new();
         for source in required_sources {
@@ -1889,7 +1936,7 @@ mod tests {
             .iter()
             .filter(|theorem| theorem.source.ends_with("BranchSignedCoherence.v"))
             .collect();
-        assert_eq!(theorems.len(), 27);
+        assert_eq!(theorems.len(), 36);
         assert!(
             theorems
                 .iter()
@@ -1916,7 +1963,8 @@ mod tests {
         let report = manifest
             .validate(&root())
             .expect("complete terminal applications");
-        assert_eq!(manifest.theorems.len(), 160);
+        assert_eq!(manifest.theorems.len(), 289);
+        assert_eq!(report.verified_theorem_sources, 14);
         assert!(
             manifest
                 .theorems
@@ -1981,6 +2029,41 @@ mod tests {
             fs::remove_file(link).expect("remove fixture link");
             fs::remove_dir(directory).expect("remove temporary directory");
             assert!(error.to_string().contains("symlink"));
+        }
+    }
+    #[test]
+    fn mathematical_additions_preserve_retained_coherence_scope() {
+        let mut manifest = fixture();
+        let mut addition = manifest
+            .theorems
+            .iter()
+            .find(|binding| binding.source == "proofs/theories/BranchSignedCoherence.v")
+            .expect("coherence theorem")
+            .clone();
+        addition.declaration = "asymmetric_assignment_scope_probe".into();
+        manifest.theorems.push(addition.clone());
+        manifest
+            .validate_coherence_application()
+            .expect("new mathematical declarations keep the retained application scope");
+        manifest
+            .coherence_application
+            .theorem_declarations
+            .push(addition.declaration);
+        manifest.coherence_application.theorem_declarations.sort();
+        assert!(manifest.validate_coherence_application().is_err());
+    }
+    #[test]
+    fn instrument_foundations_have_mathematical_domains() {
+        for source in [
+            "proofs/theories/FinitePlannedLookCoverage.v",
+            "proofs/theories/FourStateMatrixAlgebra.v",
+            "proofs/theories/RecordedFeedbackInstrument.v",
+        ] {
+            assert_eq!(
+                required_semantics(source, "domain_probe").unwrap().0,
+                "mathematical_only"
+            );
+            assert!(convention(source, "domain_probe").is_ok());
         }
     }
 }

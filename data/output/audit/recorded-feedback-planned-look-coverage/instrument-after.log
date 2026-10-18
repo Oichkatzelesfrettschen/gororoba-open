@@ -1,0 +1,12 @@
+recorded_feedback_branch_summation
+     : forall (outcomes : list ?Outcome)
+         (measurement : ?Outcome -> list Matrix)
+         (assignment : bool -> ?Outcome -> Rdefinitions.RbaseSymbolsImpl.R)
+         (feedback : bool -> list Matrix) (density : Matrix)
+         (recorded : bool),
+       recorded_feedback_branch outcomes measurement assignment feedback
+         density recorded =
+       explicit_feedback_branch outcomes measurement assignment feedback
+         density recorded
+where
+?Outcome : [ |- Type]

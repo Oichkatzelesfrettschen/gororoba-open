@@ -1,0 +1,13 @@
+File "/tmp/rocq-instrument-reviewed-mutations/Mutation.v", line 81, characters 79-94:
+Error:
+In environment
+Outcome : Type
+outcomes : list Outcome
+measurement : Outcome -> list Matrix
+assignment : bool -> Outcome -> R
+feedback : bool -> list Matrix
+density : Matrix
+recorded : bool
+outcome : Outcome
+Unable to unify "feedback recorded" with "feedback false".
+

@@ -1,0 +1,50 @@
+Recorded feedback and planned-look coverage
+==========================================
+IBMQuantum stays read-only; quantum submissions are prohibited.
+The census/sparse branch owns its separate SQLite mutations and trusted replay.
+This branch defers inventory changes until its prerequisite integration.
+
+DONE: freeze the finite-look statement, examples and coverage premises.
+DONE: prove allocated simultaneous coverage and declared stopping selection.
+DONE: reject omitted-look selection, marginal and total-budget mutations.
+DONE: freeze the parameterized terminal deterministic rejection statement.
+DONE: extract the deterministic certificate and generic/planned coverage connection.
+DONE: retain historical terminal radius/count/margin and coverage corollaries.
+DONE: prove four-state MathComp matrix/column adapters and matrix algebra.
+DONE: prove Kraus positivity and trace/completeness identities.
+DONE: compose stochastic assignment with recorded-bit feedback and joint positivity.
+DONE: prove a normalized complete feedback/relabeling counterexample.
+DONE: prove asymmetric assignment identity, symmetric reduction and bias bound.
+DONE: connect the instrument output to Pauli/register decoding.
+DONE: reject fourteen coverage, terminal, instrument, assignment and decoder mutations.
+DONE: close independent review findings with column and constructive Born-decoder proofs.
+DONE: reproduce and correct mathematical-to-empirical binding scope expansion.
+DONE: verify refreshed binding policy and complete source/provenance checks.
+DONE: synchronize prerequisite main d8a0298a; all five source hashes match.
+DONE: synchronized 329-module build exits zero; all 36 fresh receipt replays pass.
+DONE: current-source provenance build, canonical exports, signatures and all consistency checks pass.
+ACTIVE: publish the focused PR and collect exact-head hosted validation.
+DONE: all five independent kernels and 285 declaration assumption queries.
+DONE: refresh mathematical declarations while preserving empirical application families.
+DONE: renew all 36 current-project receipts after base sync.
+DONE: regenerate and verify canonical exports after fresh replay.
+DONE: independent whole-source review and two verified correspondence repairs.
+PENDING: obtain exact-head hosted validation.
+PENDING: integrate, synchronize main and archive the owned checkout.
+
+The finite family indexes estimator/look pairs and requires a valid marginal
+failure bound at every admitted pair. Allocations are nonnegative and their
+sum is at most the declared total. Stopping selection remains inside the family.
+The theorem assumes a finite law with nonnegative weights, with normalized
+mass required for a probability interpretation. Sampling independence and
+stationarity remain assumptions of the marginal-coverage producer.
+
+Ruling: capture the stable five-source mathematical closure while the prerequisite
+hosted run continues. The raw capture retains its actual project snapshot. After
+the prerequisite integration, compare source closures and perform fresh trusted
+receipt replay against the synchronized project identity. A source change requires
+a new capture; capture completion alone supplies zero current-project admissions.
+DONE: capture the five independently checked kernels and complete assumptions.
+DONE: prerequisite PR 225 integrated with successful hosted checks.
+Ruling: preserve both additive .gitattributes evidence-byte policies during base
+synchronization. Census evidence and feedback evidence each retain exact bytes.

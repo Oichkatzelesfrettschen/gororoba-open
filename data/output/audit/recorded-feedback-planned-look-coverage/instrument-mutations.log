@@ -1,0 +1,8 @@
+wrong-feedback-bit: rejected
+wrong-work-basis: rejected
+asymmetric-bias-sign: rejected
+asymmetric-common-mode: rejected
+wrong-column-readback: rejected
+wrong-decoded-sign: rejected
+wrong-observed-imaginary-sign: rejected
+pauli-y-convention: rejected

@@ -1,0 +1,19 @@
+recorded_feedback_decoded_observed_coherence
+     : forall (outcomes : list ?Outcome)
+         (measurement : ?Outcome -> list Matrix)
+         (assignment : bool -> ?Outcome -> Rdefinitions.RbaseSymbolsImpl.R)
+         (feedback : bool -> list Matrix) (density : Matrix),
+       assignment_stochastic outcomes assignment ->
+       measurement_complete outcomes measurement ->
+       (forall bit : bool, kraus_complete (feedback bit)) ->
+       subnormalized_density density ->
+       decoded_observed_coherence
+         (recorded_feedback_born_law outcomes measurement assignment feedback
+            density) =
+       subtract
+         (explicit_feedback_branch outcomes measurement assignment feedback
+            density false ket01 ket10)
+         (explicit_feedback_branch outcomes measurement assignment feedback
+            density true ket01 ket10)
+where
+?Outcome : [ |- Type]

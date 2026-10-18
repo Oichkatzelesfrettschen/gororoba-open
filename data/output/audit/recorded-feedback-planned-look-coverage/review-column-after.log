@@ -1,0 +1,9 @@
+work_column_round_trip
+     : forall
+         (vector : BranchSignedCoherence.Basis ->
+                   BranchSignedCoherence.Complex)
+         (basis : BranchSignedCoherence.Basis),
+       work_column_decode (work_column_encode vector) basis = vector basis
+work_column_storage_round_trip
+     : forall vector : matrix.matrix BranchSignedCoherence.Complex 4 1,
+       work_column_encode (work_column_decode vector) = vector

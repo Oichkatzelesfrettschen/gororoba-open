@@ -1,0 +1,4 @@
+File "/tmp/AsymmetricBranchRegression.v", line 2, characters 6-43:
+Error: The reference asymmetric_branch_assignment_identity was not found
+in the current environment.
+

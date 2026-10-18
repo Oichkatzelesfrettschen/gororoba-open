@@ -1,0 +1,134 @@
+evidence_key = "feedback-coverage-project-SedenionFoldTransport"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "5b9f56260d9aec36f4d9566189a6035bb9510c5cc7919ac1e5e95bac3e3c4ab1"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SedenionFoldTransport"
+proof_path = "proofs/theories/SedenionFoldTransport.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SedenionFoldTransport.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SedenionFoldTransport"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[witness.sources]]
+path = "proofs/theories/OctonionNorm.v"
+sha256 = "3c65bb9f5c84a2775d9a6bebd202e8433f34f174c4d4808e79b582dfec17b51e"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/theories/Sedenion.v"
+sha256 = "f7fa97304850eaa6004d3917fe37be555b40568fc65389887bbe489fbc922681"
+
+[[witness.sources]]
+path = "proofs/theories/SedenionFoldTransport.v"
+sha256 = "a50e59ea72f677b7128595c6c5e863b8b89ea5ad1ba786b43cf1a66aa4a59509"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionFoldTransport.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionFoldTransport.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/SedenionFoldTransport.assumptions.txt"
+sha256 = "b2a550d6e8cc3bb27574f6a869bebeb1c9144eb2463e149a76ed60a2a3cc3c5f"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/theories/SedenionFoldTransport.vo"
+sha256 = "bae8072581228061c2413a3b226d7138798a4e06e5a3c2e64ef00fa375256f42"
+
+[[witness.declarations]]
+name = "sed_average"
+statement = "Definition sed_average (value : CDSed) : CDOct := oct_scale (1 / 2) (oct_add (sed_lo value) (sed_hi value))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_detail"
+statement = "Definition sed_detail (value : CDSed) : CDOct := oct_scale (1 / 2) (oct_sub (sed_lo value) (sed_hi value))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold"
+statement = "Definition sed_fold (value : CDSed) : CDSed := mkSed (sed_average value) (sed_detail value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_unfold"
+statement = "Definition sed_unfold (coordinates : CDSed) : CDSed := mkSed (oct_add (sed_lo coordinates) (sed_hi coordinates)) (oct_sub (sed_lo coordinates) (sed_hi coordinates))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "sed_unfold_after_fold"
+statement = "Theorem sed_unfold_after_fold : forall value, sed_unfold (sed_fold value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_after_unfold"
+statement = "Theorem sed_fold_after_unfold : forall coordinates, sed_fold (sed_unfold coordinates) = coordinates"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_injective"
+statement = "Theorem sed_fold_injective : forall left right, sed_fold left = sed_fold right -> left = right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_zero"
+statement = "Lemma sed_fold_zero : sed_fold sed_zero = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_product"
+statement = "Definition sed_fold_product (left right : CDSed) : CDSed := sed_fold (sed_mul (sed_unfold left) (sed_unfold right))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_product_transport"
+statement = "Theorem sed_fold_product_transport : forall left right, sed_fold_product (sed_fold left) (sed_fold right) = sed_fold (sed_mul left right)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_product_zero_iff"
+statement = "Theorem sed_fold_product_zero_iff : forall left right, sed_fold_product left right = sed_zero <-> sed_mul (sed_unfold left) (sed_unfold right) = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_preserves_and_reflects_zero_product"
+statement = "Theorem sed_fold_preserves_and_reflects_zero_product : forall left right, sed_fold_product (sed_fold left) (sed_fold right) = sed_zero <-> sed_mul left right = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_fold_witness_product_zero"
+statement = "Theorem sed_fold_witness_product_zero : sed_fold_product (sed_fold sed_zd_a) (sed_fold sed_zd_b) = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_average_witness_product"
+statement = "Theorem sed_average_witness_product : oct_mul (sed_average sed_zd_a) (sed_average sed_zd_b) = oct_scale (1 / 2) (oct_e 5)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_average_witness_product_nonzero"
+statement = "Theorem sed_average_witness_product_nonzero : oct_mul (sed_average sed_zd_a) (sed_average sed_zd_b) <> oct_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "sed_average_loses_zero_product"
+statement = "Theorem sed_average_loses_zero_product : exists left right : CDSed, sed_mul left right = sed_zero /\\ oct_mul (sed_average left) (sed_average right) <> oct_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

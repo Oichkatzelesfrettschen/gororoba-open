@@ -1,0 +1,361 @@
+evidence_key = "feedback-coverage-project-RecordedFeedbackInstrument"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T20:37:19Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-RecordedFeedbackInstrument"
+proof_path = "proofs/theories/RecordedFeedbackInstrument.v"
+project_sha256 = "9e9dac02c192dda4f88f041a0796128220a6bec4bba48e87f51a764f61c9a248"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/RecordedFeedbackInstrument.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.RecordedFeedbackInstrument"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BranchSignedCoherence.v"
+sha256 = "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1"
+
+[[witness.sources]]
+path = "proofs/theories/FourStateMatrixAlgebra.v"
+sha256 = "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729"
+
+[[witness.sources]]
+path = "proofs/theories/RecordedFeedbackInstrument.v"
+sha256 = "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015"
+
+[witness.compile_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/RecordedFeedbackInstrument.compile.txt"
+sha256 = "66582fcfb625393d88dc89f20fd59d0a99881b55283e1489dfca521cecc3f41c"
+
+[witness.kernel_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/RecordedFeedbackInstrument.kernel.txt"
+sha256 = "6c3ceb4f7f864fe03b9fef2e19f3c025e3b18fc29101b85f0ae80814bd0f54a2"
+
+[witness.assumption_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/RecordedFeedbackInstrument.assumptions.txt"
+sha256 = "0d91fd57e76efe69ab425a97f33aaeab852073ef9df2ab6a8e5d0e57586dab22"
+
+[witness.proof_object]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/theories/RecordedFeedbackInstrument.vo"
+sha256 = "c90b7b3c252efe592b4a08534778122df4a1154fdc915a9dbe8d9306f2f29ce7"
+
+[[witness.declarations]]
+name = "kraus_effect"
+statement = "Definition kraus_effect (operators : list Matrix) := work_matrix_sum (map (fun operator => work_product (work_adjoint operator) operator) operators)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "kraus_map"
+statement = "Definition kraus_map (operators : list Matrix) density := work_matrix_sum (map (fun operator => work_congruence operator density) operators)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "kraus_complete"
+statement = "Definition kraus_complete operators := kraus_effect operators = work_identity"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "kraus_map_positive"
+statement = "Lemma kraus_map_positive : forall operators density, positive_semidefinite density -> positive_semidefinite (kraus_map operators density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_map_trace"
+statement = "Lemma kraus_map_trace : forall operators density, work_trace (kraus_map operators density) = work_trace (work_product (kraus_effect operators) density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complete_kraus_trace_preserving"
+statement = "Theorem complete_kraus_trace_preserving : forall operators density, kraus_complete operators -> work_trace (kraus_map operators density) = work_trace density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_map_zero"
+statement = "Lemma kraus_map_zero : forall operators, kraus_map operators work_zero = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_map_add"
+statement = "Lemma kraus_map_add : forall operators first second, kraus_map operators (work_matrix_add first second) = work_matrix_add (kraus_map operators first) (kraus_map operators second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_map_scale"
+statement = "Lemma kraus_map_scale : forall operators factor density, kraus_map operators (work_matrix_scale factor density) = work_matrix_scale factor (kraus_map operators density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_map_sum"
+statement = "Lemma kraus_map_sum : forall operators densities, kraus_map operators (work_matrix_sum densities) = work_matrix_sum (map (kraus_map operators) densities)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "measurement_effect"
+statement = "Definition measurement_effect := work_matrix_sum (map (fun outcome => kraus_effect (measurement outcome)) outcomes)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "measurement_complete"
+statement = "Definition measurement_complete := measurement_effect = work_identity"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "assignment_stochastic"
+statement = "Definition assignment_stochastic := forall outcome, In outcome outcomes -> 0 <= assignment false outcome /\\ 0 <= assignment true outcome /\\ assignment false outcome + assignment true outcome = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "assigned_branch"
+statement = "Definition assigned_branch density recorded := work_matrix_sum (map (fun outcome => work_matrix_scale (assignment recorded outcome) (kraus_map (measurement outcome) density)) outcomes)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_feedback_branch"
+statement = "Definition recorded_feedback_branch density recorded := kraus_map (feedback recorded) (assigned_branch density recorded)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "explicit_feedback_branch"
+statement = "Definition explicit_feedback_branch density recorded := work_matrix_sum (map (fun outcome => work_matrix_scale (assignment recorded outcome) (kraus_map (feedback recorded) (kraus_map (measurement outcome) density))) outcomes)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_feedback_branch_summation"
+statement = "Theorem recorded_feedback_branch_summation : forall density recorded, recorded_feedback_branch density recorded = explicit_feedback_branch density recorded"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "assigned_branch_positive"
+statement = "Theorem assigned_branch_positive : forall density recorded, assignment_stochastic -> positive_semidefinite density -> positive_semidefinite (assigned_branch density recorded)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_branch_positive"
+statement = "Theorem recorded_feedback_branch_positive : forall density recorded, assignment_stochastic -> positive_semidefinite density -> positive_semidefinite (recorded_feedback_branch density recorded)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "measurement_trace_sum"
+statement = "Lemma measurement_trace_sum : forall density, work_trace (work_matrix_sum (map (fun outcome => kraus_map (measurement outcome) density) outcomes)) = work_trace (work_product measurement_effect density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "assigned_branch_trace_sum"
+statement = "Lemma assigned_branch_trace_sum : forall density, assignment_stochastic -> add (work_trace (assigned_branch density false)) (work_trace (assigned_branch density true)) = work_trace (work_matrix_sum (map (fun outcome => kraus_map (measurement outcome) density) outcomes))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_trace_preserving"
+statement = "Theorem recorded_feedback_trace_preserving : forall density, assignment_stochastic -> measurement_complete -> (forall recorded, kraus_complete (feedback recorded)) -> add (work_trace (recorded_feedback_branch density false)) (work_trace (recorded_feedback_branch density true)) = work_trace density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_joint"
+statement = "Definition recorded_feedback_joint density := recorded_matrix (recorded_feedback_branch density false) (recorded_feedback_branch density true)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_feedback_joint_blocks"
+statement = "Theorem recorded_feedback_joint_blocks : forall density recorded row column, recorded_feedback_joint density recorded row recorded column = explicit_feedback_branch density recorded row column"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_quadratic"
+statement = "Definition recorded_quadratic (joint : bool -> Basis -> bool -> Basis -> Complex) (vector : bool -> Basis -> Complex) := add (sum_basis (fun row => add (sum_basis (fun column => multiply (conjugate (vector false row)) (multiply (joint false row false column) (vector false column)))) (sum_basis (fun column => multiply (conjugate (vector false row)) (multiply (joint false row true column) (vector true column)))))) (sum_basis (fun row => add (sum_basis (fun column => multiply (conjugate (vector true row)) (multiply (joint true row false column) (vector false column)))) (sum_basis (fun column => multiply (conjugate (vector true row)) (multiply (joint true row true column) (vector true column))))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_positive"
+statement = "Definition recorded_positive (joint : bool -> Basis -> bool -> Basis -> Complex) := (forall left row right column, joint left row right column = conjugate (joint right column left row)) /\\ forall vector, 0 <= real_part (recorded_quadratic joint vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_block_quadratic"
+statement = "Lemma recorded_block_quadratic : forall branch_zero branch_one vector, recorded_quadratic (recorded_matrix branch_zero branch_one) vector = add (quadratic_form branch_zero (vector false)) (quadratic_form branch_one (vector true))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_block_positive"
+statement = "Theorem recorded_block_positive : forall branch_zero branch_one, positive_semidefinite branch_zero -> positive_semidefinite branch_one -> recorded_positive (recorded_matrix branch_zero branch_one)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_joint_positive"
+statement = "Theorem recorded_feedback_joint_positive {Outcome} (outcomes : list Outcome) measurement assignment feedback density : assignment_stochastic outcomes assignment -> positive_semidefinite density -> recorded_positive (recorded_feedback_joint outcomes measurement assignment feedback density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_subnormalized"
+statement = "Theorem recorded_feedback_subnormalized {Outcome} (outcomes : list Outcome) measurement assignment feedback density recorded : assignment_stochastic outcomes assignment -> measurement_complete outcomes measurement -> (forall bit, kraus_complete (feedback bit)) -> subnormalized_density density -> subnormalized_density (recorded_feedback_branch outcomes measurement assignment feedback density recorded)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_pauli_estimator"
+statement = "Theorem recorded_feedback_pauli_estimator {Outcome} (outcomes : list Outcome) measurement assignment feedback density : assignment_stochastic outcomes assignment -> measurement_complete outcomes measurement -> (forall bit, kraus_complete (feedback bit)) -> subnormalized_density density -> reconstructed_coherence (recorded_signed_block (recorded_feedback_branch outcomes measurement assignment feedback density false) (recorded_feedback_branch outcomes measurement assignment feedback density true)) = subtract (explicit_feedback_branch outcomes measurement assignment feedback density false ket01 ket10) (explicit_feedback_branch outcomes measurement assignment feedback density true ket01 ket10)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "binary_assignment"
+statement = "Definition binary_assignment (zero_to_one one_to_zero : R) (recorded outcome : bool) := if outcome then (if recorded then 1-one_to_zero else one_to_zero) else (if recorded then zero_to_one else 1-zero_to_one)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "binary_assignment_stochastic"
+statement = "Lemma binary_assignment_stochastic : forall zero_to_one one_to_zero, 0 <= zero_to_one <= 1 -> 0 <= one_to_zero <= 1 -> assignment_stochastic [false;true] (binary_assignment zero_to_one one_to_zero)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "binary_assignment_before_feedback"
+statement = "Theorem binary_assignment_before_feedback : forall measurement zero_to_one one_to_zero density, assigned_branch [false;true] measurement (binary_assignment zero_to_one one_to_zero) density false = asymmetric_assigned_zero zero_to_one one_to_zero (kraus_map (measurement false) density) (kraus_map (measurement true) density) /\\ assigned_branch [false;true] measurement (binary_assignment zero_to_one one_to_zero) density true = asymmetric_assigned_one zero_to_one one_to_zero (kraus_map (measurement false) density) (kraus_map (measurement true) density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_singleton"
+statement = "Lemma kraus_singleton : forall operator density, kraus_map [operator] density = work_congruence operator density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "kraus_identity"
+statement = "Lemma kraus_identity : forall density, kraus_map [work_identity] density = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "feedback_flip_basis"
+statement = "Definition feedback_flip_basis basis := match basis with ket00 => ket10 | ket01 => ket11 | ket10 => ket00 | ket11 => ket01 end"
+assumptions = []
+
+[[witness.declarations]]
+name = "feedback_flip_operator"
+statement = "Definition feedback_flip_operator : Matrix := fun row column => if work_basis_equal row (feedback_flip_basis column) then one else zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_density"
+statement = "Definition feedback_counterexample_density : Matrix := fun row column => if andb (work_basis_equal row ket00) (work_basis_equal column ket00) then one else zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_measurement"
+statement = "Definition feedback_counterexample_measurement (outcome : bool) := if outcome then [] else [work_identity]"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_channels"
+statement = "Definition feedback_counterexample_channels (recorded : bool) := if recorded then [feedback_flip_operator] else [work_identity]"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "feedback_flip_complete"
+statement = "Lemma feedback_flip_complete : kraus_complete [feedback_flip_operator]"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "feedback_identity_complete"
+statement = "Lemma feedback_identity_complete : kraus_complete [work_identity]"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_complete"
+statement = "Lemma feedback_counterexample_complete : measurement_complete [false;true] feedback_counterexample_measurement /\\ (forall recorded, kraus_complete (feedback_counterexample_channels recorded))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_density_normalized"
+statement = "Lemma feedback_counterexample_density_normalized : subnormalized_density feedback_counterexample_density /\\ work_trace feedback_counterexample_density = one"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "feedback_counterexample_assigned_true"
+statement = "Lemma feedback_counterexample_assigned_true : assigned_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_density true = feedback_counterexample_density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "true_outcome_feedback_branch"
+statement = "Definition true_outcome_feedback_branch {Outcome} (outcomes : list Outcome) (measurement : Outcome -> list Matrix) (assignment : bool -> Outcome -> R) (feedback : Outcome -> list Matrix) (density : Matrix) (recorded : bool) := work_matrix_sum (map (fun outcome => work_matrix_scale (assignment recorded outcome) (kraus_map (feedback outcome) (kraus_map (measurement outcome) density))) outcomes)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "recorded_bit_feedback_counterexample"
+statement = "Theorem recorded_bit_feedback_counterexample : recorded_feedback_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true ket10 ket10 = one /\\ true_outcome_feedback_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true ket10 ket10 = zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_bit_feedback_differs_from_true_outcome"
+statement = "Theorem recorded_bit_feedback_differs_from_true_outcome : recorded_feedback_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true <> true_outcome_feedback_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "posthoc_work_histogram"
+statement = "Definition posthoc_work_histogram {Outcome} (outcomes : list Outcome) (measurement : Outcome -> list Matrix) (assignment : bool -> Outcome -> R) (feedback : Outcome -> list Matrix) density recorded work := fold_right (fun outcome total => assignment recorded outcome * real_part (kraus_map (feedback outcome) (kraus_map (measurement outcome) density) work work) + total) 0 outcomes"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "posthoc_histogram_branch_diagonal"
+statement = "Lemma posthoc_histogram_branch_diagonal {Outcome} (outcomes : list Outcome) measurement assignment feedback density recorded work : posthoc_work_histogram outcomes measurement assignment feedback density recorded work = real_part (true_outcome_feedback_branch outcomes measurement assignment feedback density recorded work work)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "posthoc_histogram_cannot_replace_recorded_feedback"
+statement = "Theorem posthoc_histogram_cannot_replace_recorded_feedback : real_part (recorded_feedback_branch [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true ket10 ket10) = 1 /\\ posthoc_work_histogram [false;true] feedback_counterexample_measurement (binary_assignment 1 1) feedback_counterexample_channels feedback_counterexample_density true ket10 = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_register_decoder"
+statement = "Theorem recorded_feedback_register_decoder {Outcome} (outcomes : list Outcome) measurement assignment feedback density left_axis right_axis law : pauli_recorded_moment_law (recorded_feedback_branch outcomes measurement assignment feedback density) left_axis right_axis law -> joint_score law = pauli_expectation (recorded_feedback_branch outcomes measurement assignment feedback density false) left_axis right_axis - pauli_expectation (recorded_feedback_branch outcomes measurement assignment feedback density true) left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_basis_word"
+statement = "Theorem recorded_feedback_basis_word : forall recorded work spectator, little_endian_word recorded (first_bit work) (second_bit work) spectator = ((if recorded then 1 else 0) + 2 * (work_basis_number work / 2) + 4 * (work_basis_number work mod 2) + (if spectator then 8 else 0))%nat"
+assumptions = []
+
+[[witness.declarations]]
+name = "decoded_joint_score"
+statement = "Definition decoded_joint_score (law : bool -> bool -> bool -> bool -> R) := sum_bit (fun branch => sum_bit (fun work_a => sum_bit (fun work_b => sum_bit (fun spectator => law branch work_a work_b spectator * decoded_score (little_endian_word branch work_a work_b spectator)))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "decoded_joint_score_reconstruction"
+statement = "Theorem decoded_joint_score_reconstruction : forall law, decoded_joint_score law = joint_score law"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "decoded_observed_coherence"
+statement = "Definition decoded_observed_coherence (laws : Axis -> Axis -> bool -> bool -> bool -> bool -> R) := complex ((decoded_joint_score (laws PauliX PauliX) + decoded_joint_score (laws PauliY PauliY))/4) ((decoded_joint_score (laws PauliX PauliY) - decoded_joint_score (laws PauliY PauliX))/4)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "decoded_observed_coherence_reconstruction"
+statement = "Theorem decoded_observed_coherence_reconstruction : forall laws, decoded_observed_coherence laws = observed_coherence laws"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "finite_recorded_decoded_born_score"
+statement = "Theorem finite_recorded_decoded_born_score : forall branch_zero branch_one left_axis right_axis, decoded_joint_score (recorded_born_law branch_zero branch_one left_axis right_axis) = pauli_expectation (matrix_difference branch_zero branch_one) left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "finite_recorded_born_observed_coherence"
+statement = "Theorem finite_recorded_born_observed_coherence : forall branch_zero branch_one, hermitian branch_zero -> hermitian branch_one -> observed_coherence (recorded_born_law branch_zero branch_one) = subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_born_law"
+statement = "Definition recorded_feedback_born_law {Outcome} outcomes measurement assignment feedback density := recorded_born_law (@recorded_feedback_branch Outcome outcomes measurement assignment feedback density false) (@recorded_feedback_branch Outcome outcomes measurement assignment feedback density true)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_decoded_born_score"
+statement = "Theorem recorded_feedback_decoded_born_score {Outcome} outcomes measurement assignment feedback density left_axis right_axis : decoded_joint_score (@recorded_feedback_born_law Outcome outcomes measurement assignment feedback density left_axis right_axis) = pauli_expectation (matrix_difference (recorded_feedback_branch outcomes measurement assignment feedback density false) (recorded_feedback_branch outcomes measurement assignment feedback density true)) left_axis right_axis"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "recorded_feedback_decoded_observed_coherence"
+statement = "Theorem recorded_feedback_decoded_observed_coherence {Outcome} outcomes measurement assignment feedback density : assignment_stochastic outcomes assignment -> measurement_complete outcomes measurement -> (forall bit, kraus_complete (feedback bit)) -> subnormalized_density density -> decoded_observed_coherence (@recorded_feedback_born_law Outcome outcomes measurement assignment feedback density) = subtract (explicit_feedback_branch outcomes measurement assignment feedback density false ket01 ket10) (explicit_feedback_branch outcomes measurement assignment feedback density true ket01 ket10)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

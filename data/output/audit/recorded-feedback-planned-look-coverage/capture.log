@@ -1,0 +1,35 @@
+compile FiniteProbability exit 0
+compile FinitePlannedLookCoverage exit 0
+compile BranchSignedCoherence exit 0
+compile FourStateMatrixAlgebra exit 0
+compile RecordedFeedbackInstrument exit 0
+compile FiniteBernoulliConcentration exit 0
+compile TerminalChannelSeparationReal exit 0
+compile TerminalChannelEmpiricalCertificate exit 0
+assumptions FinitePlannedLookCoverage exit 0 declarations 14
+assumptions FourStateMatrixAlgebra exit 0 declarations 85
+assumptions RecordedFeedbackInstrument exit 0 declarations 63
+assumptions BranchSignedCoherence exit 0 declarations 97
+assumptions TerminalChannelEmpiricalCertificate exit 0 declarations 26
+kernel TerminalChannelEmpiricalCertificate exit 0
+kernel FinitePlannedLookCoverage exit 0
+kernel BranchSignedCoherence exit 0
+kernel RecordedFeedbackInstrument exit 0
+kernel FourStateMatrixAlgebra exit 0
+targets=5
+first_party_sources=8
+retained_proof_objects=8
+witnessed_declarations=285
+closed_declaration_queries=30
+printed_assumption_name_occurrences=431
+project_sha256=7d5e471e197045aa759e521a064f0cc28cef9fa33fe55e19b07c61ebe2023155
+warning_policy=fatal_default
+raw_log_transformation=none
+recognized_source_witness_log_name_sets=equal
+historical_artifact_name_sets_and_bytes=identical
+historical_artifact_files=288
+recognized_Corollary_declarations=1
+recognized_Definition_declarations=118
+recognized_Example_declarations=5
+recognized_Lemma_declarations=85
+recognized_Theorem_declarations=76

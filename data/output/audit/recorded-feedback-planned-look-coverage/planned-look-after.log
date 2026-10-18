@@ -1,0 +1,18 @@
+finite_planned_look_budget
+     : forall (law : list (?Sample * R))
+         (declared : list (?Estimator * ?Look))
+         (failure : ?Estimator * ?Look -> ?Sample -> bool)
+         (allocation : ?Estimator * ?Look -> R) (total_budget : R),
+       nonnegative_law law ->
+       (forall pair : ?Estimator * ?Look,
+        In pair declared -> 0 <= allocation pair) ->
+       (forall pair : ?Estimator * ?Look,
+        In pair declared ->
+        event_probability law (failure pair) <= allocation pair) ->
+       real_sum (map allocation declared) <= total_budget ->
+       event_probability law (planned_failure declared failure) <=
+       total_budget
+where
+?Sample : [ |- Type]
+?Estimator : [ |- Type]
+?Look : [ |- Type]

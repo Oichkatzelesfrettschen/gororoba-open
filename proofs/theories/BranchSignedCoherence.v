@@ -390,3 +390,98 @@ Proof.
     rewrite cos_neg, sin_neg; field.
 Qed.
 Print Assumptions balanced_control_zz_attenuation.
+
+(** Assignment maps pre-feedback true-outcome branches to recorded branches.
+    Distinct recorded-bit feedback channels require the instrument formula. *)
+Definition asymmetric_assigned_zero (zero_to_one one_to_zero : R) (branch_zero branch_one : Matrix) : Matrix :=
+  fun row column => add (scale (1-zero_to_one) (branch_zero row column))
+    (scale one_to_zero (branch_one row column)).
+Definition asymmetric_assigned_one (zero_to_one one_to_zero : R) (branch_zero branch_one : Matrix) : Matrix :=
+  fun row column => add (scale zero_to_one (branch_zero row column))
+    (scale (1-one_to_zero) (branch_one row column)).
+Definition matrix_sum (branch_zero branch_one : Matrix) : Matrix := fun row column => add (branch_zero row column) (branch_one row column).
+Theorem asymmetric_branch_assignment_identity : forall zero_to_one one_to_zero branch_zero branch_one row column,
+  matrix_difference (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero branch_one)
+    (asymmetric_assigned_one zero_to_one one_to_zero branch_zero branch_one) row column =
+  add (scale (1-zero_to_one-one_to_zero) (matrix_difference branch_zero branch_one row column))
+    (scale (one_to_zero-zero_to_one) (matrix_sum branch_zero branch_one row column)).
+Proof.
+  intros; apply complex_ext; unfold matrix_difference, asymmetric_assigned_zero, asymmetric_assigned_one, matrix_sum,
+    subtract, add, negate, scale; simpl; ring.
+Qed.
+Lemma asymmetric_assigned_hermitian : forall zero_to_one one_to_zero branch_zero branch_one,
+  hermitian branch_zero -> hermitian branch_one ->
+  hermitian (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero branch_one) /\
+  hermitian (asymmetric_assigned_one zero_to_one one_to_zero branch_zero branch_one).
+Proof.
+  intros zero_to_one one_to_zero branch_zero branch_one zero_symmetry one_symmetry.
+  split; intros row column; unfold asymmetric_assigned_zero, asymmetric_assigned_one;
+    rewrite zero_symmetry, one_symmetry; apply complex_ext; unfold conjugate, scale, add; simpl; ring.
+Qed.
+Theorem asymmetric_pauli_coherence : forall zero_to_one one_to_zero branch_zero branch_one,
+  hermitian branch_zero -> hermitian branch_one ->
+  reconstructed_coherence (matrix_difference
+    (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero branch_one)
+    (asymmetric_assigned_one zero_to_one one_to_zero branch_zero branch_one)) =
+  add (scale (1-zero_to_one-one_to_zero) (subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)))
+    (scale (one_to_zero-zero_to_one) (add (branch_zero ket01 ket10) (branch_one ket01 ket10))).
+Proof.
+  intros zero_to_one one_to_zero branch_zero branch_one zero_symmetry one_symmetry.
+  rewrite pauli_odd_entry.
+  - apply asymmetric_branch_assignment_identity.
+  - apply difference_hermitian;
+      destruct (asymmetric_assigned_hermitian zero_to_one one_to_zero branch_zero branch_one zero_symmetry one_symmetry); assumption.
+Qed.
+Theorem asymmetric_branch_symmetric_specialization : forall epsilon branch_zero branch_one row column,
+  matrix_difference (asymmetric_assigned_zero epsilon epsilon branch_zero branch_one)
+    (asymmetric_assigned_one epsilon epsilon branch_zero branch_one) row column =
+  scale (1-2*epsilon) (matrix_difference branch_zero branch_one row column).
+Proof.
+  intros. rewrite asymmetric_branch_assignment_identity. apply complex_ext; unfold matrix_sum, add, scale; simpl; ring.
+Qed.
+Theorem asymmetric_coherence_bias_identity : forall zero_to_one one_to_zero branch_zero branch_one,
+  hermitian branch_zero -> hermitian branch_one ->
+  subtract (reconstructed_coherence (matrix_difference
+    (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero branch_one)
+    (asymmetric_assigned_one zero_to_one one_to_zero branch_zero branch_one)))
+    (subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)) =
+  add (scale (-(zero_to_one+one_to_zero)) (subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)))
+    (scale (one_to_zero-zero_to_one) (add (branch_zero ket01 ket10) (branch_one ket01 ket10))).
+Proof.
+  intros. rewrite asymmetric_pauli_coherence by assumption.
+  apply complex_ext; unfold subtract, add, negate, scale; simpl; ring.
+Qed.
+Lemma radius_scale : forall factor value, radius (scale factor value) = Rabs factor * radius value.
+Proof. intros. unfold radius, scale; simpl. rewrite !Rabs_mult. ring. Qed.
+Theorem asymmetric_coherence_bias_bound : forall zero_to_one one_to_zero branch_zero branch_one,
+  0 <= zero_to_one -> 0 <= one_to_zero -> hermitian branch_zero -> hermitian branch_one ->
+  radius (subtract (reconstructed_coherence (matrix_difference
+    (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero branch_one)
+    (asymmetric_assigned_one zero_to_one one_to_zero branch_zero branch_one)))
+    (subtract (branch_zero ket01 ket10) (branch_one ket01 ket10))) <=
+  (zero_to_one+one_to_zero) * radius (subtract (branch_zero ket01 ket10) (branch_one ket01 ket10)) +
+  Rabs (one_to_zero-zero_to_one) * radius (add (branch_zero ket01 ket10) (branch_one ket01 ket10)).
+Proof.
+  intros zero_to_one one_to_zero branch_zero branch_one zero_nonnegative one_nonnegative zero_symmetry one_symmetry.
+  rewrite asymmetric_coherence_bias_identity by assumption.
+  eapply Rle_trans; [apply radius_triangle|]. rewrite !radius_scale, Rabs_Ropp, Rabs_right by lra. reflexivity.
+Qed.
+Definition recorded_work_parity_moment (law : bool -> bool -> bool -> bool -> R) branch :=
+  sum_bit (fun work_a => sum_bit (fun work_b => sum_bit (fun spectator =>
+    law branch work_a work_b spectator * sign work_a * sign work_b))).
+Theorem signed_register_decoder_difference : forall law,
+  joint_score law = recorded_work_parity_moment law false - recorded_work_parity_moment law true.
+Proof. intros; unfold joint_score, recorded_work_parity_moment, sum_bit, signed_score, sign; simpl; ring. Qed.
+Definition pauli_recorded_moment_law (density : bool -> Matrix)
+    (left_axis right_axis : Axis) (law : bool -> bool -> bool -> bool -> R) :=
+  forall branch, recorded_work_parity_moment law branch = pauli_expectation (density branch) left_axis right_axis.
+Theorem calibrated_signed_register_moment : forall density left_axis right_axis law,
+  pauli_recorded_moment_law density left_axis right_axis law ->
+  joint_score law = pauli_expectation (density false) left_axis right_axis - pauli_expectation (density true) left_axis right_axis.
+Proof. intros density left_axis right_axis law calibrated. rewrite signed_register_decoder_difference, !calibrated. reflexivity. Qed.
+Print Assumptions asymmetric_branch_assignment_identity.
+Print Assumptions asymmetric_pauli_coherence.
+Print Assumptions asymmetric_branch_symmetric_specialization.
+Print Assumptions asymmetric_coherence_bias_identity.
+Print Assumptions asymmetric_coherence_bias_bound.
+Print Assumptions calibrated_signed_register_moment.

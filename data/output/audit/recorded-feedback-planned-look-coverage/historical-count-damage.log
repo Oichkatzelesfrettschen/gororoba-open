@@ -1,0 +1,4 @@
+File "/tmp/rocq-terminal-mutations/Mutation.v", line 143, characters 2-26:
+Error: Found no subterm matching "Rabs (2964 / 8192 - 4911 / 8192)"
+in the current goal.
+

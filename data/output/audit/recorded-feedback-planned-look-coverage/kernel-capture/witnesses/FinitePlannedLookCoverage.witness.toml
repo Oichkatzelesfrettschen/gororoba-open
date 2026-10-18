@@ -1,0 +1,104 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FinitePlannedLookCoverage"
+proof_path = "proofs/theories/FinitePlannedLookCoverage.v"
+project_sha256 = "7d5e471e197045aa759e521a064f0cc28cef9fa33fe55e19b07c61ebe2023155"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FinitePlannedLookCoverage.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FinitePlannedLookCoverage"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FinitePlannedLookCoverage.v"
+sha256 = "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b"
+
+[[sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[compile_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FinitePlannedLookCoverage.compile.txt"
+sha256 = "9fe3a98df9e72bf75d4469a9bcb806738a3fb096d1bdac72e5d3f0289bc8fa4c"
+
+[kernel_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FinitePlannedLookCoverage.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FinitePlannedLookCoverage.assumptions.txt"
+sha256 = "7ea86deb5801a0e8e674fc4bce200cd85b0b40f9365a8e371fd688503801e499"
+
+[proof_object]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/theories/FinitePlannedLookCoverage.vo"
+sha256 = "4e9b104da745f3f5a7dfe396962eae60056cfb035a3722207ce7d79f9733da75"
+
+[[declarations]]
+name = "planned_sum_monotone"
+statement = "Lemma planned_sum_monotone {Index} (indices : list Index) first second : (forall index, In index indices -> first index <= second index) -> real_sum (map first indices) <= real_sum (map second indices)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "planned_failure"
+statement = "Definition planned_failure {Sample Estimator Look} (declared : list (Estimator * Look)) (failure : Estimator * Look -> Sample -> bool) sample := existsb (fun pair => failure pair sample) declared"
+assumptions = []
+
+[[declarations]]
+name = "finite_planned_look_budget"
+statement = "Theorem finite_planned_look_budget {Sample Estimator Look} (law : list (Sample * R)) (declared : list (Estimator * Look)) (failure : Estimator * Look -> Sample -> bool) (allocation : Estimator * Look -> R) total_budget : nonnegative_law law -> (forall pair, In pair declared -> 0 <= allocation pair) -> (forall pair, In pair declared -> event_probability law (failure pair) <= allocation pair) -> real_sum (map allocation declared) <= total_budget -> event_probability law (planned_failure declared failure) <= total_budget"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "planned_complement_probability"
+statement = "Lemma planned_complement_probability {Sample} (law : list (Sample * R)) event : normalized_law law -> event_probability law (fun sample => negb (event sample)) = 1 - event_probability law event"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_planned_simultaneous_coverage"
+statement = "Theorem finite_planned_simultaneous_coverage {Sample Estimator Look} (law : list (Sample * R)) (declared : list (Estimator * Look)) (failure : Estimator * Look -> Sample -> bool) allocation total_budget : nonnegative_law law -> normalized_law law -> (forall pair, In pair declared -> 0 <= allocation pair) -> (forall pair, In pair declared -> event_probability law (failure pair) <= allocation pair) -> real_sum (map allocation declared) <= total_budget -> 1 - total_budget <= event_probability law (fun sample => negb (planned_failure declared failure sample))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "selected_look_failure"
+statement = "Definition selected_look_failure {Sample Estimator Look} (selection : Sample -> option (Estimator * Look)) (failure : Estimator * Look -> Sample -> bool) sample := match selection sample with Some selected_pair => failure selected_pair sample | None => false end"
+assumptions = []
+
+[[declarations]]
+name = "declared_selection_failure_subset"
+statement = "Theorem declared_selection_failure_subset {Sample Estimator Look} (declared : list (Estimator * Look)) selection failure : (forall sample pair, selection sample = Some pair -> In pair declared) -> forall sample, @selected_look_failure Sample Estimator Look selection failure sample = true -> planned_failure declared failure sample = true"
+assumptions = []
+
+[[declarations]]
+name = "finite_declared_stopping_coverage"
+statement = "Theorem finite_declared_stopping_coverage {Sample Estimator Look} (law : list (Sample * R)) (declared : list (Estimator * Look)) selection (failure : Estimator * Look -> Sample -> bool) allocation total_budget : nonnegative_law law -> (forall pair, In pair declared -> 0 <= allocation pair) -> (forall pair, In pair declared -> event_probability law (failure pair) <= allocation pair) -> real_sum (map allocation declared) <= total_budget -> (forall sample pair, selection sample = Some pair -> In pair declared) -> event_probability law (selected_look_failure selection failure) <= total_budget"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "omitted_look_law"
+statement = "Definition omitted_look_law : list (unit * R) := [(tt,1)]"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "omitted_look_failure"
+statement = "Definition omitted_look_failure (pair : nat * nat) (_ : unit) := Nat.eqb (snd pair) 1"
+assumptions = []
+
+[[declarations]]
+name = "omitted_look_declared_probability"
+statement = "Example omitted_look_declared_probability : event_probability omitted_look_law (planned_failure [(0%nat,0%nat)] omitted_look_failure) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "omitted_look_selected_probability"
+statement = "Example omitted_look_selected_probability : event_probability omitted_look_law (selected_look_failure (fun _ => Some (0%nat,1%nat)) omitted_look_failure) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "omitted_look_exceeds_zero_budget"
+statement = "Example omitted_look_exceeds_zero_budget : ~ event_probability omitted_look_law (selected_look_failure (fun _ => Some (0%nat,1%nat)) omitted_look_failure) <= 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "invalid_marginal_allocation"
+statement = "Example invalid_marginal_allocation : ~ event_probability omitted_look_law (omitted_look_failure (0%nat,1%nat)) <= 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
