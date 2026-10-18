@@ -536,7 +536,7 @@ fn main() {
     fs::create_dir_all(output.join("theories")).unwrap();
     fs::create_dir_all(output.join("verified")).unwrap();
     fs::copy(
-        root.join("data/output/audit/cd-associator-sign-lifting/capture_rocq_receipts.rs"),
+        root.join(Path::new(ARTIFACT_ROOT).parent().expect("artifact parent")).join("capture_rocq_receipts.rs"),
         output.join("capture_rocq_receipts.rs"),
     )
     .unwrap();

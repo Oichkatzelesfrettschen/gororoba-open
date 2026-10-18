@@ -5,10 +5,10 @@ use std::{
     process::{Command, Stdio},
 };
 
-const TARGETS: [&str; 1] = ["theories/CDAssociatorDoubling.v"];
-const ARTIFACT_ROOT: &str = "data/output/audit/cd-associator-sign-lifting/kernel-capture";
+const TARGETS: [&str; 2] = ["theories/CDAssociatorDoubling.v", "theories/CDSignNumericCorrespondence.v"];
+const ARTIFACT_ROOT: &str = "data/output/audit/cd-numeric-sign-correspondence/kernel-capture";
 const EXPECTED_PROJECT_SHA256: &str =
-    "001d746815ddbdde26c8c95679184a4846c7fd0290f27cd5cf4ba7e87aad8cc8";
+    "78e8936349a7b1b874603cdf632e4d00cad99fe952e9299a3311030f0e10101c";
 const HISTORICAL_ROOTS: [&str; 3] = [
     "data/output/audit/boolean-permutation-evidence/kernel",
     "data/output/audit/boolean-permutation-evidence/arithmetic-kernel",
@@ -536,7 +536,7 @@ fn main() {
     fs::create_dir_all(output.join("theories")).unwrap();
     fs::create_dir_all(output.join("verified")).unwrap();
     fs::copy(
-        root.join("data/output/audit/cd-associator-sign-lifting/capture_rocq_receipts.rs"),
+        root.join(Path::new(ARTIFACT_ROOT).parent().expect("artifact parent")).join("capture_rocq_receipts.rs"),
         output.join("capture_rocq_receipts.rs"),
     )
     .unwrap();

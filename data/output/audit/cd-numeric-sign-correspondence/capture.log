@@ -5,8 +5,8 @@ compile CDSignHalfStep exit 0
 compile CDSignNumericCorrespondence exit 0
 assumptions CDAssociatorDoubling exit 0 declarations 27
 assumptions CDSignNumericCorrespondence exit 0 declarations 20
-kernel CDSignNumericCorrespondence exit 0
 kernel CDAssociatorDoubling exit 0
+kernel CDSignNumericCorrespondence exit 0
 targets=2
 first_party_sources=5
 retained_proof_objects=5
