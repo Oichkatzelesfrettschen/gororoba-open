@@ -1,0 +1,7 @@
+make: Entering directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'
+rocq compile -q -w +default tests/MathCompMatrixCompatibility.v
+Closed under the global context
+Closed under the global context
+rocq compile -q -w +default tests/PluginCompatibility.v
+Elpi command executed
+make: Leaving directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'

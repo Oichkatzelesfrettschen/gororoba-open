@@ -1,0 +1,23 @@
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Section Variables:
+sign_identity
+: forall value : Group, sign_cochain value identity = false
+sign_cochain
+: Group -> Group -> bool
+identity
+: Group
+add_identity
+: forall value : Group, add value identity = value
+add
+: Group -> Group -> Group
+Group
+: Type
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context

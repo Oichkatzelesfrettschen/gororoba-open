@@ -225,3 +225,31 @@ the lock before compatibility tests. A package inventory records an observation;
 the switch import enforces that observation on installation. The retained
 same-switch import dry run reports `Nothing to do.`. Fresh hosted installation
 remains the cross-platform replay gate.
+
+## Canonical Boolean degree and normalized Walsh laws
+
+`WalshProbability.v` proves integer Parseval and character orthogonality for
+unnormalized Walsh sums, then defines the ideal law as `W^2 / (2^n)^2`.
+The law has nonnegative weights and total mass one. Parity extension preserves
+the lower probabilities and fixes the appended frequency bit.
+
+`BooleanANFDegree.v` uses canonical finite multilinear coefficients. The zero
+function and constants have degree zero. A point indicator has degree `n`;
+two distinct indicators have XOR degree `n-1`. Strict degree separation supplies
+noncancellation, while fresh-variable lifting requires an explicit nonzero
+coefficient. `BooleanCochainFiltration.v` connects its existing syntactic
+polynomial bounds to these semantic degrees.
+
+`CDPhaseDegree.v` proves degree `n-1` for every nonzero sign row at `n >= 2`.
+For distinct nonzero pairs at `n >= 3`, the associator degree is
+`max(1, bitlen(max(i,j))-2)`. Bounded numeric indices, highest-bit doubling and
+sufficient evaluator fuel appear in the numeric corollaries. Degenerate pairs
+and quaternion phases have degree zero. The degree freezes when a pair first
+appears; adding dimensions appends parity without increasing the degree.
+
+The retained `data/output/audit/cd-walsh-anf-degree/kernel-capture/` bundle
+checks all 122 recognized declarations from the four affected modules.
+109 queries are closed; the other queries retain their printed foundations,
+including Stdlib classical reals and functional extensionality. These proofs
+describe mathematical laws. Circuit realization and experimental sampling
+require their named physical contracts.

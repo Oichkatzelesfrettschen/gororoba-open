@@ -1,0 +1,12 @@
+
+running 7 tests
+test tests::compile_context_forms_remain_outside_the_named_denominator ... ok
+test tests::declaration_markers_without_spacing_are_visible_and_duplicate_checked ... ok
+test tests::duplicate_source_and_labeled_log_names_are_rejected ... ok
+test tests::unsupported_attributes_and_wrappers_fail_visibly ... ok
+test tests::seven_recognized_kinds_and_single_modifiers_are_complete ... ok
+test tests::mutual_headers_reject_while_definition_match_bodies_remain_complete ... ok
+test tests::quoted_attribute_literals_preserve_the_ordinary_command_boundary ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

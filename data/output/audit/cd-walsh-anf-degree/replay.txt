@@ -1,0 +1,31 @@
+Run the registered corpus with the qualified rocq-9.3 switch:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  opam exec --switch=rocq-9.3 -- make -C proofs check-admissions check-plugins
+The full build exit is zero; full-build-objects.sha256 lists 319 proof objects.
+
+Compile capture_rocq_receipts.rs with rustc --edition=2024 -D warnings and run:
+  capture REPOSITORY FRESH_SCRATCH /path/to/rocq-9.3/bin
+  capture organize FRESH_SCRATCH/kernel
+The four-module capture retains all 122 recognized declarations and ten
+first-party source/object closures. All four independent kernel checks pass.
+109 declaration queries are closed. The other 13 report Stdlib classical real
+foundations; 25 assumption-name occurrences remain in raw logs and witnesses.
+The seven parser regression tests pass.
+
+Compile run_degree_mutations.rs with rustc --edition=2024 -D warnings and run
+from the repository root with a fresh scratch path. Six mutated source laws
+fail proof obligations: Walsh denominator scale, two-point degree, zero degree,
+strict noncancellation, sign-row degree and associator first-appearance degree.
+Finite examples check quaternion zero phase, embedded pair degree one, and new
+sedenion pair degree two. General inductive proofs establish the all-order laws.
+
+Inventory synchronization invalidates the old project-bound applications.
+Prepare 26 unique receipt specifications from the previous 23, replacing the
+changed cochain closure and adding the three new modules. Run every canonical
+record-kernel-evidence command under opam exec --switch=rocq-9.3, then export
+and verify the canonical store. Historical receipts remain retained.
+Final canonical state: 319 theorem records, 26 kernel_checked and 293
+source_only; 20 kernel-checked claim links. All 26 receipt replays pass.
+Canonical export, compatibility export verification, theorem identities,
+registry signatures and SQLite integrity pass. Integration requires exact-head
+hosted validation and dependency-ordered review/merge.

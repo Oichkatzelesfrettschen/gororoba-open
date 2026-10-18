@@ -1,0 +1,5 @@
+sync_key = "cd-walsh-anf-degree-clock-correction"
+actor = "chatgpt-codex"
+reason = "Register normalized Walsh laws and exact canonical Boolean/CD degrees; renew source-bound receipts against the extended project."
+applied_at = "2026-10-18T18:15:46Z"
+project_sha256 = "87bba793d00636221daeaf2bd49f5091349412ea3322e24563b2a0fc079f28f6"

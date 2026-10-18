@@ -1,0 +1,1217 @@
+make: Entering directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'
+make --keep-going -f Makefile.rocq all \
+	COQEXTRAFLAGS="-R "/home/eirikr/.opam/rocq-9.3/lib/coq/user-contrib/Flocq" Flocq" VDFILE_FLAGS="-f _RocqProject"
+make[1]: Entering directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'
+ROCQ DEP VFILES
+ROCQ compile theories/Prelude.v
+ROCQ compile theories/FiniteBijection.v
+ROCQ compile theories/E6CartanDerivation.v
+ROCQ compile theories/E8CartanDerivation.v
+ROCQ compile theories/E7CartanDerivation.v
+ROCQ compile theories/F4CartanDerivation.v
+ROCQ compile theories/GF2Algebra.v
+ROCQ compile theories/ParityClique.v
+ROCQ compile theories/SymmetricGroup3.v
+ROCQ compile theories/SignCodeProjection.v
+ROCQ compile theories/SchreierSignCode.v
+ROCQ compile theories/BooleanPermutation.v
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+Index
+: Type
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_extensional
+: forall left right : word,
+  word_eq left right -> kernel_code left -> kernel_code right
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+ROCQ compile theories/FoldAverageDescent.v
+Section Variables:
+origin
+: Index
+kernel_code
+: word -> Prop
+code_zero
+: kernel_code (constant false)
+code_one
+: kernel_code (constant true)
+code_add
+: forall left right : word,
+  kernel_code left -> kernel_code right -> kernel_code (word_add left right)
+Index
+: Type
+Closed under the global context
+ROCQ compile theories/TerminalChannelSeparation.v
+Closed under the global context
+ROCQ compile theories/TerminalChannelSeparationReal.v
+ROCQ compile theories/BinaryEntropy.v
+ROCQ compile theories/M3IsAssociator.v
+ROCQ compile theories/FanoPlane.v
+ROCQ compile theories/BoxKite.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/CasimirF4.v
+ROCQ compile verified/C018_WheelsAxioms.v
+Closed under the global context
+ROCQ compile verified/C021_LatticeInconsistency.v
+ROCQ compile verified/C022_OrdinalAnalogy.v
+Closed under the global context
+ROCQ compile verified/C029_FermionGenerations.v
+ROCQ compile verified/C033_SU5GeneratorsWellDefined.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C036_TrialityClusteringBound.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C009_EntropyScalingRefuted.v
+Closed under the global context
+ROCQ compile verified/C027_DeffHorizonToy.v
+ROCQ compile theories/CarlsonIntegrals.v
+ROCQ compile theories/BekensteinEntropy.v
+ROCQ compile theories/ThreeBodyAngMom.v
+Closed under the global context
+ROCQ compile theories/FractalMetricPositivity.v
+ROCQ compile theories/BellCHSH.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/ComplexTimeEIH.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C958_ZDGraphTopology.v
+Closed under the global context
+ROCQ compile verified/C1141_ZDGraphGeneralStructure.v
+ROCQ compile verified/C1142_XORScatterGatherDuality.v
+ROCQ compile theories/TightBindingTopology.v
+ROCQ compile verified/C1262_FlatBandFractionHalf.v
+ROCQ compile verified/C1313_Thesis42Arithmetic.v
+ROCQ compile verified/C1363_HarmonicHaloExactRecovery.v
+Closed under the global context
+ROCQ compile verified/C1364_HomotopyBridgeLaw.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C016_ParityFlips.v
+Closed under the global context
+ROCQ compile verified/C1463_ArithmeticInventory.v
+ROCQ compile verified/C1466_SubalgebraClosure.v
+ROCQ compile verified/C1467_XORSignCocycle.v
+Closed under the global context
+ROCQ compile verified/C1468_SlotShiftEquivariance.v
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C1469_TowerTrilinearity.v
+ROCQ compile theories/G2StabilizerDimension.v
+Closed under the global context
+ROCQ compile theories/SU3StructureConstants.v
+ROCQ compile theories/SU3JacobiFull.v
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/SedenionAlternativityFails.v
+ROCQ compile theories/CDDoubleFunctor.v
+ROCQ compile theories/HomotopyTransferAssociator.v
+ROCQ compile theories/CDTraceZero.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/FinDimHModule.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/C1539_MorSkewSymm.v
+ROCQ compile theories/SedenionXorGroup.v
+ROCQ compile theories/WalkerFermatAlgebras.v
+ROCQ compile theories/WilmotCDStructure.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/BaezNormedDivAlgebra.v
+ROCQ compile theories/IDCT8DP4ExactBound.v
+ROCQ compile theories/IDCT8EvenOdd.v
+ROCQ compile theories/FP24Representable.v
+ROCQ compile theories/ArchimedeanStratification.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/CardanoEigensolver.v
+Closed under the global context
+ROCQ compile theories/CDScalarExtension.v
+ROCQ compile theories/CDTowerInstantiation.v
+ROCQ compile theories/M3IsAssociatorPathion.v
+ROCQ compile theories/WilmotPathionRetraction.v
+ROCQ compile theories/WilmotRetractionTheorem.v
+ROCQ compile theories/AlternatorTraceExclusion.v
+ROCQ compile theories/CDFidelity.v
+Closed under the global context
+SedenionG.carrier
+     : Type
+SedenionG.mul_scale_left
+     : forall (r : R) (x y : SedenionG.carrier),
+       SedenionG.cd_mul (SedenionG.cd_scale r x) y =
+       SedenionG.cd_scale r (SedenionG.cd_mul x y)
+SedenionG.mul_scale_right
+     : forall (r : R) (x y : SedenionG.carrier),
+       SedenionG.cd_mul x (SedenionG.cd_scale r y) =
+       SedenionG.cd_scale r (SedenionG.cd_mul x y)
+SedenionG.conj_scale
+     : forall (r : R) (x : SedenionG.carrier),
+       SedenionG.cd_conj (SedenionG.cd_scale r x) =
+       SedenionG.cd_scale r (SedenionG.cd_conj x)
+SedenionG.neg_scale
+     : forall (r : R) (x : SedenionG.carrier),
+       SedenionG.cd_neg (SedenionG.cd_scale r x) =
+       SedenionG.cd_scale r (SedenionG.cd_neg x)
+SedenionG.scale_add
+     : forall (r : R) (x y : SedenionG.carrier),
+       SedenionG.cd_scale r (SedenionG.cd_add x y) =
+       SedenionG.cd_add (SedenionG.cd_scale r x) (SedenionG.cd_scale r y)
+SedenionG.scale_sub
+     : forall (r : R) (x y : SedenionG.carrier),
+       SedenionG.cd_scale r (SedenionG.cd_sub x y) =
+       SedenionG.cd_sub (SedenionG.cd_scale r x) (SedenionG.cd_scale r y)
+SedenionG.sub_def
+     : forall x y : SedenionG.carrier,
+       SedenionG.cd_sub x y = SedenionG.cd_add x (SedenionG.cd_neg y)
+ROCQ compile verified/C1474_FuelAdequacy.v
+Complex.carrier
+     : Type
+Complex.cd_mul
+     : Complex.carrier -> Complex.carrier -> Complex.carrier
+Complex.mul_scale_left
+     : forall (r : R) (x y : Complex.carrier),
+       Complex.cd_mul (Complex.cd_scale r x) y =
+       Complex.cd_scale r (Complex.cd_mul x y)
+Complex.mul_scale_right
+     : forall (r : R) (x y : Complex.carrier),
+       Complex.cd_mul x (Complex.cd_scale r y) =
+       Complex.cd_scale r (Complex.cd_mul x y)
+Complex.conj_scale
+     : forall (r : R) (x : Complex.carrier),
+       Complex.cd_conj (Complex.cd_scale r x) =
+       Complex.cd_scale r (Complex.cd_conj x)
+Complex.neg_scale
+     : forall (r : R) (x : Complex.carrier),
+       Complex.cd_neg (Complex.cd_scale r x) =
+       Complex.cd_scale r (Complex.cd_neg x)
+Complex.scale_add
+     : forall (r : R) (x y : Complex.carrier),
+       Complex.cd_scale r (Complex.cd_add x y) =
+       Complex.cd_add (Complex.cd_scale r x) (Complex.cd_scale r y)
+Complex.scale_sub
+     : forall (r : R) (x y : Complex.carrier),
+       Complex.cd_scale r (Complex.cd_sub x y) =
+       Complex.cd_sub (Complex.cd_scale r x) (Complex.cd_scale r y)
+Complex.sub_def
+     : forall x y : Complex.carrier,
+       Complex.cd_sub x y = Complex.cd_add x (Complex.cd_neg y)
+Quaternion.carrier
+     : Type
+Quaternion.mul_scale_left
+     : forall (r : R) (x y : Quaternion.carrier),
+       Quaternion.cd_mul (Quaternion.cd_scale r x) y =
+       Quaternion.cd_scale r (Quaternion.cd_mul x y)
+Octonion.carrier
+     : Type
+Octonion.mul_scale_left
+     : forall (r : R) (x y : Octonion.carrier),
+       Octonion.cd_mul (Octonion.cd_scale r x) y =
+       Octonion.cd_scale r (Octonion.cd_mul x y)
+Sedenion.carrier
+     : Type
+Sedenion.mul_scale_left
+     : forall (r : R) (x y : Sedenion.carrier),
+       Sedenion.cd_mul (Sedenion.cd_scale r x) y =
+       Sedenion.cd_scale r (Sedenion.cd_mul x y)
+Sedenion.mul_scale_right
+     : forall (r : R) (x y : Sedenion.carrier),
+       Sedenion.cd_mul x (Sedenion.cd_scale r y) =
+       Sedenion.cd_scale r (Sedenion.cd_mul x y)
+Sedenion.conj_scale
+     : forall (r : R) (x : Sedenion.carrier),
+       Sedenion.cd_conj (Sedenion.cd_scale r x) =
+       Sedenion.cd_scale r (Sedenion.cd_conj x)
+ROCQ compile theories/NullityTwelveQuadraticLocus.v
+ROCQ compile theories/FiniteProbability.v
+ROCQ compile theories/BranchSignedCoherence.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/Tanh.v
+ROCQ compile theories/Quaternion.v
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/ADM.v
+ROCQ compile theories/ADMAlgebraBridge.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/Casimir.v
+ROCQ compile theories/Foliation.v
+Closed under the global context
+ROCQ compile theories/WorldlineBound.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/FloatAxioms.v
+ROCQ compile theories/QuantumInequalities.v
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/EnergyConditions.v
+ROCQ compile theories/CayleyDicksonAlgebra.v
+ROCQ compile theories/SpatialAlgebra.v
+ROCQ compile verified/C879_DimensionBijection.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+ROCQ compile verified/C877_ZeroCoupling.v
+ROCQ compile verified/C878_ImbalanceAttractor.v
+ROCQ compile verified/C880_FoliationSlice.v
+Closed under the global context
+ROCQ compile verified/C875_HamiltonianVacuum.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C871_CasimirExact.v
+ROCQ compile verified/C868_PainleveGullstrand.v
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C876_QuaternionRotation.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C872_PillarCasimirFinite.v
+ROCQ compile verified/C873_SphereInCylinderFinite.v
+ROCQ compile verified/C_QIBoundNegative.v
+ROCQ compile verified/C_QITauScaling.v
+ROCQ compile verified/C_WarpEnergyNonpositive.v
+Closed under the global context
+ROCQ compile verified/C_WECImpliesNEC.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C_TraceTracefreeVanishes.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C_OverImbalancedSign.v
+ROCQ compile theories/SpectralDimension.v
+ROCQ compile verified/C881_GF2CubicMinDegree.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C882_ParityCliqueExact.v
+ROCQ compile verified/C884_NegDimDegeneracy.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C885_DemocraticMixing.v
+ROCQ compile theories/CDAssociator.v
+ROCQ compile theories/CDInverse.v
+Closed under the global context
+ROCQ compile theories/BransDicke.v
+ROCQ compile theories/Sedenion.v
+ROCQ compile theories/FanoResonance.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C892_DichroismRatio.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C893_ComplexCommutativity.v
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C894_ComplexAssociativity.v
+ROCQ compile verified/C895_ComplexNormMultiplicative.v
+ROCQ compile verified/C896_ComplexConjAntimorph.v
+ROCQ compile verified/C897_QuatAssociativity.v
+ROCQ compile verified/C898_QuatNormMultiplicative.v
+ROCQ compile verified/C899_QuatConjAntimorph.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C900_QuatReComm.v
+Closed under the global context
+ROCQ compile verified/C901_QuatQuadraticIdentity.v
+ROCQ compile verified/C902_QuatImaginarySquare.v
+ROCQ compile verified/C903_QuatReSquare.v
+ROCQ compile verified/C906_QuatInverse.v
+ROCQ compile verified/C907_QuatNonCommutative.v
+ROCQ compile theories/OctonionNorm.v
+ROCQ compile verified/C909_OctonionNonAssociative.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C910_OctonionAlternative.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C911_RotationPreservesNorm.v
+ROCQ compile verified/C912_RotationComposition.v
+ROCQ compile verified/C913_FanoAntiresonance.v
+ROCQ compile verified/C914_TCMTUnitarity.v
+Closed under the global context
+ROCQ compile verified/C915_EntropySymmetry.v
+ROCQ compile verified/C916_EntropyMaxValue.v
+Closed under the global context
+ROCQ compile verified/C917_EntropyNonneg.v
+ROCQ compile verified/C918_ComplexIsCommutative.v
+ROCQ compile verified/C919_QuatLosesCommutativity.v
+ROCQ compile verified/C920_QuatIsAssociative.v
+ROCQ compile verified/C921_OctLosesAssociativity.v
+ROCQ compile theories/CDSignHalfStep.v
+ROCQ compile theories/ZDGraph.v
+Closed under the global context
+ROCQ compile theories/HeatKernel.v
+ROCQ compile verified/C012_NegDimRefuted.v
+ROCQ compile verified/C003_AssessorsBoxkites.v
+Closed under the global context
+ROCQ compile verified/C004_PSL27Order168.v
+ROCQ compile verified/C010_ZDGraphDisconnected.v
+ROCQ compile verified/C013_AutomorphemesCoverage.v
+ROCQ compile verified/C016_M3TrilinearSplit.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C017_XORBucketNecessary.v
+ROCQ compile verified/C026_ZDGraphBlocks.v
+ROCQ compile verified/C035_CasimirQuarter.v
+ROCQ compile verified/C037_EpsilonNotGamma.v
+ROCQ compile verified/C008_AlphaFreeParameter.v
+Closed under the global context
+ROCQ compile verified/C_OctConjInvolution.v
+ROCQ compile theories/CDPropertyTower.v
+ROCQ compile theories/PathionZDGraph.v
+ROCQ compile verified/C993_CarlsonBranchFree.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C954_ThreeBodyBlocks.v
+ROCQ compile verified/C955_CrossBlockCoupling.v
+ROCQ compile verified/C956_RoutonAVT.v
+ROCQ compile verified/C958b_ZDAdjacencyAnalytical.v
+ROCQ compile verified/C959_CHSHClassicalBound.v
+Closed under the global context
+ROCQ compile theories/SedenionAssociator.v
+ROCQ compile theories/SedenionSignBridge.v
+ROCQ compile theories/CDLinearLemmas.v
+Closed under the global context
+ROCQ compile theories/Pathion.v
+ROCQ compile verified/C1133_BraidParityPreservation.v
+ROCQ compile verified/C1138_WickDampingFriction.v
+Closed under the global context
+ROCQ compile verified/C1233_ChernSumZero.v
+ROCQ compile verified/C1234_ValleyChernAntisymmetry.v
+Closed under the global context
+ROCQ compile verified/C1236_FlatBandGroupVelocity.v
+ROCQ compile verified/C010_ConnectivityObstruction.v
+ROCQ compile verified/C1464_SedenionAnticommutation.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C1465_KoebisuEqualNorm.v
+ROCQ compile theories/HigherCD.v
+ROCQ compile theories/CDDoubleTower.v
+ROCQ compile theories/CDInnerProduct.v
+ROCQ compile theories/HModuleDim.v
+ROCQ compile theories/C1543_MorMod4Bound.v
+ROCQ compile theories/DicksonCDProcess.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/CDPowerAssociative.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/SchaferDivAlg16.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/BrownGeneralizedCD.v
+ROCQ compile theories/QuatNormalize.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/R2VBTransformDP4.v
+ROCQ compile verified/C1628_IDCT8ButterflyCompaction.v
+ROCQ compile verified/C1629_IDCT8DP4ExactBound.v
+ROCQ compile verified/C1636_Cariow2013SedenionSchedule.v
+ROCQ compile theories/CDQuatRotationMatrix.v
+ROCQ compile theories/QuatTranscendental.v
+ROCQ compile theories/SedenionFoldTransport.v
+ROCQ compile theories/FiniteBernoulliConcentration.v
+ROCQ compile theories/CDAssociatorDoubling.v
+ROCQ compile theories/QuatRotationLaws.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/WarpShapeFunction.v
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/FloatQuaternion.v
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C869_InteriorFlat.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C870_NacelleModulationDistinct.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C874_YorkTimeVanishesInterior.v
+ROCQ compile verified/C_ConjugateInvolution.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C_NormConjugate.v
+ROCQ compile verified/C883_CalcagniMonotoneRange.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/SedenionMembershipConstraints.v
+ROCQ compile theories/MinimalUncurvedObstruction.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/SignCodeCardinality.v
+ROCQ compile theories/BooleanANFDegree.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C886_BDGammaDeviation.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C887_BDGammaRange.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C888_BDGammaMonotone.v
+ROCQ compile verified/C889_CassiniBound.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C890_NordtvedtBound.v
+Closed under the global context
+ROCQ compile verified/C891_GPBGeodetic.v
+ROCQ compile verified/C904_QuatAssociatorZero.v
+ROCQ compile verified/C905_QuatJordanIdentity.v
+Closed under the global context
+ROCQ compile verified/C908_SedenionZeroDivisor.v
+Closed under the global context
+ROCQ compile theories/CDSignBridge.v
+ROCQ compile theories/CDSignSection.v
+Closed under the global context
+ROCQ compile theories/HurwitzTheorem.v
+ROCQ compile theories/DarkEnergyEOS.v
+Closed under the global context
+ROCQ compile verified/C931_OrthoplexHeatKernel.v
+ROCQ compile verified/C932_OrthoplexThawing.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C001_CDNonAssociative.v
+ROCQ compile verified/C002_SedenionZDAndNormFail.v
+ROCQ compile verified/C030_AssociatorNonzero.v
+ROCQ compile verified/C039_SpectralDimensionRunning.v
+ROCQ compile verified/C005_ZDAnnihilatorGeometry.v
+ROCQ compile theories/CDConjAntimorph.v
+ROCQ compile verified/C015_FourPartners.v
+ROCQ compile verified/C019_WheelsNoContent.v
+ROCQ compile verified/C020_BasisNonzero.v
+ROCQ compile verified/C023_AssociatorNotHolonomy.v
+ROCQ compile verified/C028_SedenionAutGroup.v
+ROCQ compile verified/C038_WDarkEnergy.v
+ROCQ compile verified/C006_GWAlgebraicAnchor.v
+ROCQ compile verified/C007_BHMassAlgebraicAnchor.v
+ROCQ compile verified/C024_NormMultiplicativeAnchor.v
+ROCQ compile verified/C025_SkyAlgebraicAnchor.v
+ROCQ compile verified/C032_TangAssociatorAnchor.v
+ROCQ compile verified/C040_PrimordialTiltRefuted.v
+ROCQ compile verified/C_SedConjInvolution.v
+ROCQ compile verified/C910_Right_e0.v
+ROCQ compile verified/C910_Right_e1.v
+ROCQ compile verified/C910_Right_e2.v
+ROCQ compile verified/C910_Right_e3.v
+ROCQ compile verified/C910_Right_e4.v
+ROCQ compile verified/C910_Right_e5.v
+ROCQ compile verified/C910_Right_e6.v
+ROCQ compile verified/C910_Right_e7.v
+ROCQ compile verified/C999_PathionEntropyBound.v
+ROCQ compile verified/C1007_CDPropertyLoss.v
+ROCQ compile verified/C957_VoudonZD.v
+ROCQ compile theories/PathionAssociator.v
+ROCQ compile verified/C1135_BoxKiteFusionRules.v
+ROCQ compile verified/C1630_SedenionOctonionDowncast.v
+ROCQ compile theories/TerminalChannelEmpiricalCertificate.v
+ROCQ compile theories/CDSignNumericCorrespondence.v
+ROCQ compile theories/WalshProbability.v
+ROCQ compile theories/FloatRealBridge.v
+ROCQ compile theories/BooleanCochainFiltration.v
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Section Variables:
+sign_identity
+: forall value : Group, sign_cochain value identity = false
+sign_cochain
+: Group -> Group -> bool
+identity
+: Group
+add_identity
+: forall value : Group, add value identity = value
+add
+: Group -> Group -> Group
+Group
+: Type
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C011_AssociatorObstruction.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/CDNegLemmas.v
+Closed under the global context
+Closed under the global context
+ROCQ compile verified/C034_CDDoublingIdentity.v
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/C1540_MorHaQuaternion.v
+ROCQ compile verified/C1637_R300SedenionZeroDivisor.v
+ROCQ compile theories/CDPhaseDegree.v
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/C1542_MorVlambdaOrbit.v
+Closed under the global context
+ROCQ compile theories/C1548_MorVlambdaHBlock.v
+Closed under the global context
+Closed under the global context
+ROCQ compile theories/C1627_MorVlambdaQuadOrbit.v
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile verified/C014_AnnihilatorDim4.v
+ROCQ compile verified/C1140a_PathionGap_1_5.v
+ROCQ compile verified/C1140b_PathionGap_6_10.v
+ROCQ compile verified/C1140c_PathionGap_11_15.v
+ROCQ compile theories/C1541_MorDirectSum.v
+ROCQ compile theories/C1549_MorHaStabilitySed.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/C1544_MorKerSDecomp.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/C1547_MorSpecialTripleOct.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/MorenoSedenionInstance.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/C1542_MorVlambdaMod4.v
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+ROCQ compile theories/SedenionGapWitnesses.v
+ROCQ compile theories/CDFusedBilinear.v
+ROCQ compile verified/C1455_AssociatorTrilinear.v
+ROCQ compile theories/C1542_MorHaStabilityArb.v
+ROCQ compile theories/C1546_MorEigenZD.v
+ROCQ compile theories/C1546_MorEigenIFF.v
+ROCQ compile verified/C1470_PathionTrilinearity.v
+ROCQ compile verified/C1471_HigherCDTrilinearity.v
+ROCQ compile verified/C1134_TopologicalFrictionBound.v
+ROCQ compile verified/C1137_MissingEdgeQuantizedGap.v
+ROCQ compile theories/C1546_MorArbitraryAlternative.v
+ROCQ compile theories/C1542_MorVlambdaArbClose.v
+ROCQ compile theories/C1546_MorZDAnticomm.v
+ROCQ compile verified/C1140_PathionQuantizedGap.v
+ROCQ compile theories/ZD_Criterion.v
+ROCQ compile theories/C1538_MorZDSymmetry.v
+ROCQ compile theories/DeMarraisAssessors.v
+ROCQ compile theories/MorenoKerLaNonAlternative.v
+ROCQ compile theories/Moreno1997.v
+ROCQ compile theories/BrownAssessorEquivalence.v
+ROCQ compile theories/G2OctonionAutomorphisms.v
+ROCQ compile theories/Brown1972ChapterIII.v
+ROCQ compile theories/Brown1972ChapterIV.v
+ROCQ compile theories/Schafer1954.v
+ROCQ compile theories/OctonionStandardModel.v
+ROCQ compile theories/OctonionSandwichNorm.v
+ROCQ compile verified/C1638_OctonionDowncastNoZeroDivisors.v
+ROCQ compile theories/Brown1972ChapterV.v
+ROCQ compile theories/Brown1972ChapterVI.v
+ROCQ compile theories/OctonionInverse.v
+ROCQ compile verified/C031_HurwitzComplete.v
+ROCQ compile theories/Dickson1921.v
+ROCQ compile theories/SStructuralGaps.v
+ROCQ compile theories/WedderburnPrimitive.v
+ROCQ compile theories/Brown1972ChapterVII.v
+ROCQ compile verified/C1635_SedenionDriverSemantics.v
+ROCQ compile theories/Brown1972.v
+make[1]: Leaving directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'
+make: Leaving directory '/home/eirikr/.codex/worktrees/cd-walsh-anf-degree/open_gororoba/proofs'

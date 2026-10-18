@@ -320,3 +320,7 @@ theories/TerminalChannelEmpiricalCertificate.v
 theories/CDAssociatorDoubling.v
 
 theories/CDSignNumericCorrespondence.v
+
+theories/WalshProbability.v
+theories/BooleanANFDegree.v
+theories/CDPhaseDegree.v

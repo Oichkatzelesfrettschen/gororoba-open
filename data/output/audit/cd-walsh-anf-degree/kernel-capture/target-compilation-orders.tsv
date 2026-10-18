@@ -1,0 +1,17 @@
+proof_path	compilation_position	source_path
+proofs/theories/WalshProbability.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/WalshProbability.v	1	proofs/theories/CDAssociatorDoubling.v
+proofs/theories/WalshProbability.v	2	proofs/theories/FiniteProbability.v
+proofs/theories/WalshProbability.v	3	proofs/theories/WalshProbability.v
+proofs/theories/BooleanANFDegree.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/BooleanANFDegree.v	1	proofs/theories/BooleanANFDegree.v
+proofs/theories/BooleanCochainFiltration.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/BooleanCochainFiltration.v	1	proofs/theories/BooleanANFDegree.v
+proofs/theories/BooleanCochainFiltration.v	2	proofs/theories/BooleanCochainFiltration.v
+proofs/theories/CDPhaseDegree.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/CDPhaseDegree.v	1	proofs/theories/CDAssociatorDoubling.v
+proofs/theories/CDPhaseDegree.v	2	proofs/theories/M3IsAssociator.v
+proofs/theories/CDPhaseDegree.v	3	proofs/theories/CDSignHalfStep.v
+proofs/theories/CDPhaseDegree.v	4	proofs/theories/CDSignNumericCorrespondence.v
+proofs/theories/CDPhaseDegree.v	5	proofs/theories/BooleanANFDegree.v
+proofs/theories/CDPhaseDegree.v	6	proofs/theories/CDPhaseDegree.v
