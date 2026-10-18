@@ -335,3 +335,13 @@ theories/SparsePhotonicCertificates.v
 theories/CDAssociatorCensus.v
 theories/CDSparseMatrixTransport.v
 theories/CDSparseBlockTransport.v
+theories/StdlibRealFieldAdapter.v
+theories/ExactRankCertificate.v
+theories/RationalRealSpecialization.v
+theories/SchurKernelTransport.v
+theories/RecursiveCDTower.v
+theories/CDTowerMatrixAdapter.v
+theories/CDPureDoublingKernel.v
+theories/CDConcreteTowerAdapter.v
+theories/CDTowerFoldTransport.v
+theories/CDTowerSignCorrespondence.v
