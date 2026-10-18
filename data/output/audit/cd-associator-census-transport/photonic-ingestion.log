@@ -1,0 +1,3 @@
+retained_configurations=32
+retained_witnesses=32
+independent_measurement_count=requires_physical_application_contract

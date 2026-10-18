@@ -324,3 +324,11 @@ theories/CDSignNumericCorrespondence.v
 theories/WalshProbability.v
 theories/BooleanANFDegree.v
 theories/CDPhaseDegree.v
+
+theories/CubeAffineCosets.v
+theories/FiniteMatrixConventions.v
+theories/RationalSignBlockRanks.v
+theories/SparsePhotonicCertificates.v
+theories/CDAssociatorCensus.v
+theories/CDSparseMatrixTransport.v
+theories/CDSparseBlockTransport.v

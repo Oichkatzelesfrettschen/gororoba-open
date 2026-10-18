@@ -1,0 +1,239 @@
+{
+ "schema": "qd-box-kite-cases-v1",
+ "family": "box_kite_photonic_single",
+ "job": "job-04",
+ "platforms": [
+  "sim:belenos",
+  "qpu:belenos"
+ ],
+ "command": "sample_count",
+ "gate_form": "unitary",
+ "min_detected_photons": 1,
+ "max_samples": 10000,
+ "max_shots": 20000,
+ "max_duration": 300,
+ "census": {
+  "path": "docs/evidence/box_kite_census/census.json",
+  "sha256": "36b820cf00c85e6889eeba9b1caf8a612bf2ff699208b5e19d3cef0c71d1f3c2"
+ },
+ "circuit": {
+  "file": "circuit.json",
+  "sha256": "69326bf0674a45e8c0005b10e2ac72cee36c122691ec0a5b542dbabb6e1fffb9"
+ },
+ "blocks": [
+  {
+   "config": "two_label-04",
+   "kind": "two_label",
+   "offset": 20,
+   "photons": [
+    20
+   ],
+   "m": [
+    [
+     1,
+     1
+    ],
+    [
+     -1,
+     -1
+    ]
+   ],
+   "t": 1,
+   "roles": [
+    "label_0",
+    "label_1",
+    "dilation",
+    "dilation"
+   ],
+   "ideal": [
+    "1/2",
+    "1/2",
+    "0",
+    "0"
+   ],
+   "p_algebra": "1",
+   "rows": [
+    [
+     "within_kite",
+     4
+    ],
+    [
+     "within_kite",
+     10
+    ],
+    [
+     "within_kite",
+     54
+    ],
+    [
+     "within_kite",
+     56
+    ],
+    [
+     "within_kite",
+     100
+    ],
+    [
+     "within_kite",
+     106
+    ],
+    [
+     "within_kite",
+     144
+    ],
+    [
+     "within_kite",
+     154
+    ],
+    [
+     "within_kite",
+     168
+    ],
+    [
+     "within_kite",
+     178
+    ],
+    [
+     "within_kite",
+     182
+    ],
+    [
+     "within_kite",
+     184
+    ],
+    [
+     "within_kite",
+     244
+    ],
+    [
+     "within_kite",
+     258
+    ],
+    [
+     "within_kite",
+     290
+    ],
+    [
+     "within_kite",
+     292
+    ],
+    [
+     "within_kite",
+     320
+    ],
+    [
+     "within_kite",
+     326
+    ],
+    [
+     "within_kite",
+     430
+    ],
+    [
+     "within_kite",
+     436
+    ],
+    [
+     "within_kite",
+     442
+    ],
+    [
+     "within_kite",
+     452
+    ],
+    [
+     "within_kite",
+     466
+    ],
+    [
+     "within_kite",
+     476
+    ],
+    [
+     "within_kite",
+     482
+    ],
+    [
+     "within_kite",
+     496
+    ],
+    [
+     "within_kite",
+     520
+    ],
+    [
+     "within_kite",
+     530
+    ],
+    [
+     "within_kite",
+     588
+    ],
+    [
+     "within_kite",
+     598
+    ],
+    [
+     "within_kite",
+     600
+    ],
+    [
+     "within_kite",
+     610
+    ],
+    [
+     "within_kite",
+     626
+    ],
+    [
+     "within_kite",
+     632
+    ],
+    [
+     "within_kite",
+     680
+    ],
+    [
+     "within_kite",
+     698
+    ],
+    [
+     "within_kite",
+     744
+    ],
+    [
+     "within_kite",
+     750
+    ],
+    [
+     "within_kite",
+     762
+    ],
+    [
+     "within_kite",
+     776
+    ],
+    [
+     "within_kite",
+     824
+    ],
+    [
+     "within_kite",
+     838
+    ]
+   ]
+  }
+ ],
+ "preregistered": {
+  "definitions": {
+   "dark": "a one-photon block whose ideal algebra-mode probability p_algebra is 0: x y = 0, so the photon leaves only through the dilation ports and any algebra-mode detection is implementation error",
+   "bright": "a one-photon block with p_algebra = 1: ||x y||^2 = 2, so the photon never reaches a dilation port",
+   "half": "a strut, non-kite or four-label block with p_algebra = 1/2, independent of the signs s and t"
+  },
+  "observable": "per block, the fraction a of detected samples whose photon lands on an algebra mode (roles other than dilation), counted on the samples with exactly one click inside the block; the full per-mode histogram is kept, since the dilation split carries the direction of y in the kernel",
+  "ideal": "a equals the block's p_algebra; the per-mode ideal is the exact |U[k][0]|^2 of circuit.json",
+  "simulator_stop_rule": "on sim:belenos, any algebra-mode sample of a dark block or dilation-mode sample of a bright block, or a half block outside |z| < 4.5 of its binomial, stops the series until the circuit, the compiler or the simulator's noise model explains it",
+  "hardware_report": "on qpu:belenos, the dark floor a_dark, the bright ceiling a_bright, the contrast a_bright - a_dark, the total variation distance of each per-mode histogram from its ideal and the one-hot leakage into the 14 unreachable labels, each with a Wilson 95% interval and the dark counts of the detectors involved",
+  "layout": "single blocks share no job"
+ }
+}

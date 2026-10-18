@@ -1,0 +1,46 @@
+Compile the registered corpus with the qualified rocq-9.3 switch:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  opam exec --switch=rocq-9.3 -- make -C proofs check-admissions check-plugins
+The final build covers 326 modules. Admission and plugin diagnostics pass.
+
+Compile each retained Rust helper with rustc --edition=2024 -D warnings.
+JSON ingestion and mutation helpers link the repository's pinned serde_json.
+Run ingest_photonic_witnesses IBMQUANTUM FRESH_OUTPUT; compare its generated
+SparsePhotonicCertificates.v with the checked source. Ingestion verifies the
+SHA-256 of the exact parsed bytes against the source and rereads the source.
+Run mutate_photonic_inputs IBMQUANTUM INGESTOR FRESH_SCRATCH REPOSITORY.
+Five malformed input families fail ingestion or Rocq witness equations.
+Run run_transport_mutations FRESH_SCRATCH from the repository root.
+Five altered mathematical laws fail proof obligations.
+
+Compile capture_rocq_receipts.rs; run:
+  capture REPOSITORY FRESH_SCRATCH /path/to/rocq-9.3/bin
+  capture organize FRESH_SCRATCH/kernel
+The initial capture correctly rejected a source change during review repairs.
+Only the final stable-source capture supplies current evidence.
+
+Mathematical boundaries: the census formula is general in power-of-two
+orders with exact integer integrality; independent numeric counts cover
+4,8,16,32. Sparse sector coverage, norm, kernel and rank statements retain
+explicit support and complete-coordinate hypotheses. Actual normalized
+product probability is proved over Stdlib reals. Sign-block rank is proved
+over rationals; real specialization remains a separate later capability.
+The photonic configuration family supplies algebraic coverage rather than a
+physical sample multiplicity. IBMQuantum remains a read-only input surface;
+external writers can change its HEAD independently of these observations.
+
+Final stable-source capture: all seven independent kernels exit zero.
+The recognized declaration inventory contains 246 entries (77 definitions,
+39 examples, 75 lemmas, 55 theorems). All 246 source/witness/log names match;
+208 queries are closed and 38 retain the named Stdlib real foundations.
+The raw logs record 72 assumption-name occurrences, comprising classical
+Dedekind real decisions and dependent functional extensionality.
+All 288 historical retained artifact names and bytes match the pre-capture
+snapshot. Capture parser tests pass all seven cases.
+
+All 33 current-project receipt specifications passed fresh trusted replay.
+Canonical inventory: 326 entries, 33 kernel_checked, 293 source_only.
+Compatibility exports, theorem identities, registry signatures and SQLite
+integrity diagnostics pass after regeneration. Historical typed empirical
+bindings retain their original scoped declaration denominator. New mathematical
+module certificates establish their own source identities.

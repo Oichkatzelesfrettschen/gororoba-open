@@ -1,0 +1,34 @@
+Declaration: rational_sign_rank_0
+Closed under the global context
+Declaration: rational_sign_rank_1
+Closed under the global context
+Declaration: rational_sign_rank_2
+Closed under the global context
+Declaration: rational_sign_rank_3
+Closed under the global context
+Declaration: rational_sign_rank_4
+Closed under the global context
+Declaration: rational_sign_rank_5
+Closed under the global context
+Declaration: rational_sign_rank_6
+Closed under the global context
+Declaration: rational_sign_rank_7
+Closed under the global context
+Declaration: rational_sign_rank_8
+Closed under the global context
+Declaration: rational_sign_rank_9
+Closed under the global context
+Declaration: rational_sign_rank_10
+Closed under the global context
+Declaration: rational_sign_rank_11
+Closed under the global context
+Declaration: rational_sign_rank_12
+Closed under the global context
+Declaration: rational_sign_rank_13
+Closed under the global context
+Declaration: rational_sign_rank_14
+Closed under the global context
+Declaration: rational_sign_rank_15
+Closed under the global context
+Declaration: rational_sign_block_rank
+Closed under the global context

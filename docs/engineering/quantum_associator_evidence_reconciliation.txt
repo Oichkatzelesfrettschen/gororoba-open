@@ -266,3 +266,46 @@ the source-byte hashes. Historical fixed-terminal fixtures remain historical.
 Newer source forms and budget observations retain their own evidence identity;
 the algebraic degree proofs establish sampling distributions only under the
 separate physical application assumptions. This program submits zero jobs.
+
+Associator census and sparse operator correspondence delta
+---------------------------------------------------------
+CDAssociatorCensus proves the power-of-two count
+N(D)=(D-2)(D-4)(D+6)/2 through an exact integer counting identity.
+The relation classes, dependent-triple associativity and top-bit cancellation
+are general proofs. Independent numeric checks retain D=4,8,16,32.
+The opening comparison table records the earlier frontier, when the count
+and classification remained open; the new declarations close that frontier.
+
+CubeAffineCosets constructs complete affine-XOR partitions with canonical
+representatives. CDSparseBlockTransport proves sparse support, cross-sector
+zeros, sector norm sums and complete sector kernel decomposition.
+CDSparseMatrixTransport proves block/rank decomposition under explicit
+complete numeric coordinate decoders. FiniteMatrixConventions supplies
+column/right-kernel transpose correspondences.
+
+The retained two-blade product uses the ordered output labels i xor k and
+i xor l. The full product norm equals the squared norm of those two outputs.
+The unnormalized sign block M acts on (1,t); its ideal photonic output is
+(M/2)(1,t)/sqrt(2), whose squared norm is ||M(1,t)||^2/8.
+For signed operands divided by sqrt(2), the same probability equals half
+the squared CD product norm. The proofs derive unit operand norms and output
+label distinctness from the support/sign domain rather than assuming them.
+The rational sparse-field operator, restricted through the declared row and
+column decoders, equals the retained sign block. Exact rational upper/lower
+certificates establish its rank. Real rank specialization remains a separate
+matrix-adapter obligation; the real norm statements already use Stdlib reals.
+
+The Rust ingestor freezes the census and thirty-two physical configuration
+manifests, verifies the identities of parsed bytes, and emits witnesses whose
+CD sign equations Rocq checks. Thirty-two configurations cover the complete
+sixteen-matrix/two-partner-sign family. Coverage transports witness labels;
+coverage adds zero independent hardware observations. Circuit implementation,
+selector/conditioning factors, mesh identity, detector decoding and physical
+calibration retain separate application premises.
+
+The historical terminal fixture, newer form/budget observations and these
+algebraic source certificates retain separate evidence identities. The refreshed
+source observation lives in data/output/audit/cd-associator-census-transport/
+quantum-source-identities.txt. The program reads IBMQuantum and submits zero
+quantum jobs. Source-byte identities, proof closures, rejected mutations and
+review repairs are retained in that same audit directory.

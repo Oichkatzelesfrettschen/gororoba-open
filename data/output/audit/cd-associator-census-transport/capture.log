@@ -1,0 +1,36 @@
+compile SchreierSignCode exit 0
+compile CDAssociatorDoubling exit 0
+compile M3IsAssociator exit 0
+compile CDSignHalfStep exit 0
+compile CDSignNumericCorrespondence exit 0
+compile BooleanANFDegree exit 0
+compile CDPhaseDegree exit 0
+compile FiniteProbability exit 0
+compile WalshProbability exit 0
+compile CDAssociatorCensus exit 0
+compile CubeAffineCosets exit 0
+compile FiniteMatrixConventions exit 0
+compile RationalSignBlockRanks exit 0
+compile SparsePhotonicCertificates exit 0
+compile CDSparseMatrixTransport exit 0
+compile CDSparseBlockTransport exit 0
+assumptions CDAssociatorCensus exit 0 declarations 49
+assumptions CubeAffineCosets exit 0 declarations 21
+assumptions FiniteMatrixConventions exit 0 declarations 19
+assumptions RationalSignBlockRanks exit 0 declarations 17
+assumptions SparsePhotonicCertificates exit 0 declarations 73
+assumptions CDSparseMatrixTransport exit 0 declarations 13
+assumptions CDSparseBlockTransport exit 0 declarations 36
+kernel SparsePhotonicCertificates exit 0
+kernel CubeAffineCosets exit 0
+kernel CDAssociatorCensus exit 0
+kernel FiniteMatrixConventions exit 0
+kernel RationalSignBlockRanks exit 0
+kernel CDSparseMatrixTransport exit 0
+kernel CDSparseBlockTransport exit 0
+
+thread 'main' (1557732) panicked at data/output/audit/cd-associator-census-transport/capture_rocq_receipts.rs:790:9:
+assertion `left == right` failed: source changed during execution: theories/CDSparseBlockTransport.v
+  left: "68b3c1110ecc00fd195aed2207db80a295b7bd68f5e4c124b6c1296e37091335"
+ right: "058e4571159a60d4e0aa7c6c923a24976b0db86bc7b6aaf7e6bf2f071f1dbf6d"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

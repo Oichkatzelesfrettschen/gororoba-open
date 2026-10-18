@@ -1,0 +1,26 @@
+Declaration: scalar_phase
+Closed under the global context
+Declaration: field_affine_supported
+Closed under the global context
+Declaration: sparse_field_entry
+Closed under the global context
+Declaration: sparse_field_cross_zero
+Closed under the global context
+Declaration: sparse_field_matrix
+Closed under the global context
+Declaration: sector_row_input
+Closed under the global context
+Declaration: sector_column_input
+Closed under the global context
+Declaration: row_sector_coordinates
+Closed under the global context
+Declaration: column_sector_coordinates
+Closed under the global context
+Declaration: sparse_field_upper_cross_zero
+Closed under the global context
+Declaration: sparse_field_lower_cross_zero
+Closed under the global context
+Declaration: sparse_field_block_decomposition
+Closed under the global context
+Declaration: sparse_field_rank_decomposition
+Closed under the global context

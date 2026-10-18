@@ -1,0 +1,125 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FiniteMatrixConventions"
+proof_path = "proofs/theories/FiniteMatrixConventions.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FiniteMatrixConventions.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FiniteMatrixConventions"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/FiniteMatrixConventions.compile.txt"
+sha256 = "003974cb4fe114d51c7d2eed462e080514b2036c2028e95effd020fa8e9fb5fb"
+
+[kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/FiniteMatrixConventions.kernel.txt"
+sha256 = "50cdcdcc52dda623595212888fbc49c50363306db3f55217700684a800127c10"
+
+[assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/FiniteMatrixConventions.assumptions.txt"
+sha256 = "46ee8e72871b26323f59f90c26f6f232f7519fe7a7f7cfd0f7bf79bdb89fe0e8"
+
+[proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/FiniteMatrixConventions.vo"
+sha256 = "2fb557a2470c266126f7fec9486d863993ef01e328274fd40b1c63f9b00846ff"
+
+[[declarations]]
+name = "matrix_zero"
+statement = "Definition matrix_zero rows columns : matrix.matrix scalar rows columns := nmodule.Algebra.zero"
+assumptions = []
+
+[[declarations]]
+name = "right_kernel_transpose"
+statement = "Theorem right_kernel_transpose rows columns (operator : matrix.matrix scalar rows columns) (vector : matrix.matrix scalar columns 1) : matrix.mulmx operator vector = matrix_zero rows 1 <-> matrix.mulmx (matrix.trmx vector) (matrix.trmx operator) = matrix_zero 1 rows"
+assumptions = []
+
+[[declarations]]
+name = "column_kernel_residual"
+statement = "Theorem column_kernel_residual rows columns (operator : matrix.matrix scalar rows columns) : matrix.mulmx operator (matrix.trmx (mxalgebra.kermx (matrix.trmx operator))) = matrix_zero rows columns"
+assumptions = []
+
+[[declarations]]
+name = "block_column_kernel"
+statement = "Theorem block_column_kernel rows_left rows_right columns_left columns_right (left : matrix.matrix scalar rows_left columns_left) (right : matrix.matrix scalar rows_right columns_right) (upper : matrix.matrix scalar columns_left 1) (lower : matrix.matrix scalar columns_right 1) : matrix.mulmx (matrix.block_mx left (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) right) (matrix.col_mx upper lower) = matrix_zero scalar (ssrnat.addn rows_left rows_right) 1 <-> matrix.mulmx left upper = matrix_zero scalar rows_left 1 /\\ matrix.mulmx right lower = matrix_zero scalar rows_right 1"
+assumptions = []
+
+[[declarations]]
+name = "block_rank_decomposition"
+statement = "Theorem block_rank_decomposition rows_left rows_right columns_left columns_right (left : matrix.matrix scalar rows_left columns_left) (right : matrix.matrix scalar rows_right columns_right) : mxalgebra.mxrank (matrix.block_mx left (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) right) = ssrnat.addn (mxalgebra.mxrank left) (mxalgebra.mxrank right)"
+assumptions = []
+
+[[declarations]]
+name = "left_inverse_reflects_zero"
+statement = "Theorem left_inverse_reflects_zero rows columns width (forward : matrix.matrix scalar rows columns) (backward : matrix.matrix scalar columns rows) (value : matrix.matrix scalar columns width) : matrix.mulmx backward forward = matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar) -> (matrix.mulmx forward value = matrix_zero scalar rows width <-> value = matrix_zero scalar columns width)"
+assumptions = []
+
+[[declarations]]
+name = "rank_sandwich_bound"
+statement = "Lemma rank_sandwich_bound outer_rows inner_rows inner_columns outer_columns (left : matrix.matrix scalar outer_rows inner_rows) (middle : matrix.matrix scalar inner_rows inner_columns) (right : matrix.matrix scalar inner_columns outer_columns) : mxalgebra.mxrank (matrix.mulmx (matrix.mulmx left middle) right) <= mxalgebra.mxrank middle"
+assumptions = []
+
+[[declarations]]
+name = "inverse_coordinate_rank"
+statement = "Theorem inverse_coordinate_rank rows columns mapped_rows mapped_columns (operator : matrix.matrix scalar rows columns) (mapped : matrix.matrix scalar mapped_rows mapped_columns) (left : matrix.matrix scalar mapped_rows rows) (right : matrix.matrix scalar columns mapped_columns) (left_back : matrix.matrix scalar rows mapped_rows) (right_back : matrix.matrix scalar mapped_columns columns) : mapped = matrix.mulmx (matrix.mulmx left operator) right -> operator = matrix.mulmx (matrix.mulmx left_back mapped) right_back -> mxalgebra.mxrank mapped = mxalgebra.mxrank operator"
+assumptions = []
+
+[[declarations]]
+name = "coordinate_kernel_transport"
+statement = "Theorem coordinate_kernel_transport rows columns (operator : matrix.matrix scalar rows columns) (left left_back : matrix.matrix scalar rows rows) (right : matrix.matrix scalar columns columns) (vector : matrix.matrix scalar columns 1) : matrix.mulmx left_back left = matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar) -> (matrix.mulmx (matrix.mulmx (matrix.mulmx left operator) right) vector = matrix_zero scalar rows 1 <-> matrix.mulmx operator (matrix.mulmx right vector) = matrix_zero scalar rows 1)"
+assumptions = []
+
+[[declarations]]
+name = "diagonal_coordinate_rank"
+statement = "Theorem diagonal_coordinate_rank rows_left rows_right columns_left columns_right rows columns (operator : matrix.matrix scalar rows columns) (upper : matrix.matrix scalar rows_left columns_left) (lower : matrix.matrix scalar rows_right columns_right) (left : matrix.matrix scalar (ssrnat.addn rows_left rows_right) rows) (right : matrix.matrix scalar columns (ssrnat.addn columns_left columns_right)) (left_back : matrix.matrix scalar rows (ssrnat.addn rows_left rows_right)) (right_back : matrix.matrix scalar (ssrnat.addn columns_left columns_right) columns) : matrix.block_mx upper (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) lower = matrix.mulmx (matrix.mulmx left operator) right -> operator = matrix.mulmx (matrix.mulmx left_back (matrix.block_mx upper (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) lower)) right_back -> mxalgebra.mxrank operator = ssrnat.addn (mxalgebra.mxrank upper) (mxalgebra.mxrank lower)"
+assumptions = []
+
+[[declarations]]
+name = "zero_cross_block_decomposition"
+statement = "Theorem zero_cross_block_decomposition rows_left rows_right columns_left columns_right (operator : matrix.matrix scalar (ssrnat.addn rows_left rows_right) (ssrnat.addn columns_left columns_right)) : matrix.ursubmx operator = matrix_zero scalar rows_left columns_right -> matrix.dlsubmx operator = matrix_zero scalar rows_right columns_left -> operator = matrix.block_mx (matrix.ulsubmx operator) (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) (matrix.drsubmx operator)"
+assumptions = []
+
+[[declarations]]
+name = "zero_cross_rank_decomposition"
+statement = "Theorem zero_cross_rank_decomposition rows_left rows_right columns_left columns_right (operator : matrix.matrix scalar (ssrnat.addn rows_left rows_right) (ssrnat.addn columns_left columns_right)) : matrix.ursubmx operator = matrix_zero scalar rows_left columns_right -> matrix.dlsubmx operator = matrix_zero scalar rows_right columns_left -> mxalgebra.mxrank operator = ssrnat.addn (mxalgebra.mxrank (matrix.ulsubmx operator)) (mxalgebra.mxrank (matrix.drsubmx operator))"
+assumptions = []
+
+[[declarations]]
+name = "rational_phase_sign"
+statement = "Definition rational_phase_sign (phase : bool) : rat.rat := rat.ratz (if phase then ssrint.Negz 0 else ssrint.Posz 1)"
+assumptions = []
+
+[[declarations]]
+name = "rational_sign_block"
+statement = "Definition rational_sign_block first second third fourth : matrix.matrix rat.rat 2 2 := @matrix.matrix_of_fun rat.rat 2 2 matrix.matrix_key (fun row column => if Nat.eqb (fintype.nat_of_ord row) 0 then rational_phase_sign (if Nat.eqb (fintype.nat_of_ord column) 0 then first else second) else rational_phase_sign (if Nat.eqb (fintype.nat_of_ord column) 0 then third else fourth))"
+assumptions = []
+
+[[declarations]]
+name = "matrix_rank_witness_sound"
+statement = "Theorem matrix_rank_witness_sound (scalar : divalg.GRing.Field.Exports.fieldType) rows columns rank (operator : matrix.matrix scalar rows columns) (upper_left : matrix.matrix scalar rows rank) (upper_right : matrix.matrix scalar rank columns) (lower_left : matrix.matrix scalar rank rows) (lower_right : matrix.matrix scalar columns rank) : operator = matrix.mulmx upper_left upper_right -> matrix.mulmx (matrix.mulmx lower_left operator) lower_right = matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar) -> mxalgebra.mxrank operator = rank"
+assumptions = []
+
+[[declarations]]
+name = "rational_literal_matrix"
+statement = "Definition rational_literal_matrix rows columns (entries : list (list rat.rat)) : matrix.matrix rat.rat rows columns := @matrix.matrix_of_fun rat.rat rows columns matrix.matrix_key (fun row column => List.nth (fintype.nat_of_ord column) (List.nth (fintype.nat_of_ord row) entries nil) rat.zeroq)"
+assumptions = []
+
+[[declarations]]
+name = "reindex_factorization"
+statement = "Lemma reindex_factorization rows columns mapped_rows mapped_columns (operator : matrix.matrix scalar rows columns) (row_map : fintype.ordinal mapped_rows -> fintype.ordinal rows) (column_map : fintype.ordinal mapped_columns -> fintype.ordinal columns) : matrix.mxsub row_map column_map operator = matrix.mulmx (matrix.mulmx (matrix.rowsub row_map (matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar))) operator) (matrix.colsub column_map (matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar)))"
+assumptions = []
+
+[[declarations]]
+name = "reindex_rank_bound"
+statement = "Lemma reindex_rank_bound rows columns mapped_rows mapped_columns (operator : matrix.matrix scalar rows columns) (row_map : fintype.ordinal mapped_rows -> fintype.ordinal rows) (column_map : fintype.ordinal mapped_columns -> fintype.ordinal columns) : mxalgebra.mxrank (matrix.mxsub row_map column_map operator) <= mxalgebra.mxrank operator"
+assumptions = []
+
+[[declarations]]
+name = "complete_reindex_rank"
+statement = "Theorem complete_reindex_rank rows columns mapped_rows mapped_columns (operator : matrix.matrix scalar rows columns) (row_map : fintype.ordinal mapped_rows -> fintype.ordinal rows) (column_map : fintype.ordinal mapped_columns -> fintype.ordinal columns) (row_back : fintype.ordinal rows -> fintype.ordinal mapped_rows) (column_back : fintype.ordinal columns -> fintype.ordinal mapped_columns) : (forall row, row_map (row_back row) = row) -> (forall column, column_map (column_back column) = column) -> mxalgebra.mxrank (matrix.mxsub row_map column_map operator) = mxalgebra.mxrank operator"
+assumptions = []

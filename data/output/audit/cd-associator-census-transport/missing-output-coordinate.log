@@ -1,0 +1,126 @@
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+File "/tmp/rocq-transport-final-mutations/Mutation.v", line 465, characters 53-64:
+Error:
+In environment
+order : nat
+left, upper, lower, partner : cube order
+phase : bool
+distinct : left <> upper
+same_label : cube_xor order left upper = cube_xor order lower partner
+cross_lower : cube_xor order (cube_xor order left lower) partner = upper
+cross_upper : cube_xor order (cube_xor order left partner) lower = upper
+row_bound : is_true (ssrnat.leq 1 2)
+column_bound : is_true (ssrnat.leq 2 2)
+Unable to unify
+ "if (0 =? 0)%nat
+  then
+   rational_phase_sign
+     (if (1 =? 0)%nat
+      then sign_exponent order left lower
+      else xorb phase (sign_exponent order upper partner))
+  else
+   rational_phase_sign
+     (if (1 =? 0)%nat
+      then xorb phase (sign_exponent order upper lower)
+      else sign_exponent order left partner)"
+with "rational_phase_sign (xorb false (sign_exponent order left lower))".
+

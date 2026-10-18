@@ -1,0 +1,423 @@
+evidence_key = "census-sparse-project-SparsePhotonicCertificates"
+actor = "chatgpt-codex"
+reason = "Replay source-bound compiler, kernel and assumptions against the extended project; preserve historical receipts."
+applied_at = "2026-10-18T19:36:02Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SparsePhotonicCertificates"
+proof_path = "proofs/theories/SparsePhotonicCertificates.v"
+project_sha256 = "bdd1debdf0305df2f57da77271ee4b23d29a45e0ffdd12af42ab503308b38432"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SparsePhotonicCertificates.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SparsePhotonicCertificates"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[witness.sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/SparsePhotonicCertificates.v"
+sha256 = "8e8c4317809de59a515ea654bcbfe614b72b2ee5755440538a1e100abd1b05c4"
+
+[witness.compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/SparsePhotonicCertificates.compile.txt"
+sha256 = "f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/SparsePhotonicCertificates.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/SparsePhotonicCertificates.assumptions.txt"
+sha256 = "c5b10edaccdd615000bac07fef48774a3c50c1ea8efab8fdcd1bb9bb9b2d2cc6"
+
+[witness.proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/SparsePhotonicCertificates.vo"
+sha256 = "7cc11a1ffa1bb8965476d9a741c6338ac422ebc33e26824fb26219034d7afd5e"
+
+[[witness.declarations]]
+name = "photonic_witness_block"
+statement = "Definition photonic_witness_block (w : nat * nat * Z * nat * nat * Z) : list Z := let '(i,j,s,k,l,_) := w in [M3IsAssociator.cd_sign_fuel 4 16 i k; s * M3IsAssociator.cd_sign_fuel 4 16 j l; s * M3IsAssociator.cd_sign_fuel 4 16 j k; M3IsAssociator.cd_sign_fuel 4 16 i l]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_0"
+statement = "Definition retained_sparse_witness_0 := (2%nat,11%nat,1,3%nat,10%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_0"
+statement = "Example retained_sparse_block_0 : photonic_witness_block retained_sparse_witness_0 = [1; 1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_1"
+statement = "Definition retained_sparse_witness_1 := (2%nat,11%nat,1,3%nat,10%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_1"
+statement = "Example retained_sparse_block_1 : photonic_witness_block retained_sparse_witness_1 = [1; 1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_2"
+statement = "Definition retained_sparse_witness_2 := (2%nat,11%nat,-1,3%nat,10%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_2"
+statement = "Example retained_sparse_block_2 : photonic_witness_block retained_sparse_witness_2 = [1; -1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_3"
+statement = "Definition retained_sparse_witness_3 := (2%nat,11%nat,-1,3%nat,10%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_3"
+statement = "Example retained_sparse_block_3 : photonic_witness_block retained_sparse_witness_3 = [1; -1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_4"
+statement = "Definition retained_sparse_witness_4 := (2%nat,11%nat,1,4%nat,13%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_4"
+statement = "Example retained_sparse_block_4 : photonic_witness_block retained_sparse_witness_4 = [1; 1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_5"
+statement = "Definition retained_sparse_witness_5 := (2%nat,11%nat,1,4%nat,13%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_5"
+statement = "Example retained_sparse_block_5 : photonic_witness_block retained_sparse_witness_5 = [1; 1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_6"
+statement = "Definition retained_sparse_witness_6 := (2%nat,11%nat,-1,4%nat,13%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_6"
+statement = "Example retained_sparse_block_6 : photonic_witness_block retained_sparse_witness_6 = [1; -1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_7"
+statement = "Definition retained_sparse_witness_7 := (2%nat,11%nat,-1,4%nat,13%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_7"
+statement = "Example retained_sparse_block_7 : photonic_witness_block retained_sparse_witness_7 = [1; -1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_8"
+statement = "Definition retained_sparse_witness_8 := (2%nat,11%nat,1,6%nat,15%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_8"
+statement = "Example retained_sparse_block_8 : photonic_witness_block retained_sparse_witness_8 = [-1; 1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_9"
+statement = "Definition retained_sparse_witness_9 := (2%nat,11%nat,1,6%nat,15%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_9"
+statement = "Example retained_sparse_block_9 : photonic_witness_block retained_sparse_witness_9 = [-1; 1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_10"
+statement = "Definition retained_sparse_witness_10 := (2%nat,11%nat,-1,6%nat,15%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_10"
+statement = "Example retained_sparse_block_10 : photonic_witness_block retained_sparse_witness_10 = [-1; -1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_11"
+statement = "Definition retained_sparse_witness_11 := (2%nat,11%nat,-1,6%nat,15%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_11"
+statement = "Example retained_sparse_block_11 : photonic_witness_block retained_sparse_witness_11 = [-1; -1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_12"
+statement = "Definition retained_sparse_witness_12 := (3%nat,10%nat,1,2%nat,11%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_12"
+statement = "Example retained_sparse_block_12 : photonic_witness_block retained_sparse_witness_12 = [-1; -1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_13"
+statement = "Definition retained_sparse_witness_13 := (3%nat,10%nat,1,2%nat,11%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_13"
+statement = "Example retained_sparse_block_13 : photonic_witness_block retained_sparse_witness_13 = [-1; -1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_14"
+statement = "Definition retained_sparse_witness_14 := (3%nat,10%nat,-1,2%nat,11%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_14"
+statement = "Example retained_sparse_block_14 : photonic_witness_block retained_sparse_witness_14 = [-1; 1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_15"
+statement = "Definition retained_sparse_witness_15 := (3%nat,10%nat,-1,2%nat,11%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_15"
+statement = "Example retained_sparse_block_15 : photonic_witness_block retained_sparse_witness_15 = [-1; 1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_16"
+statement = "Definition retained_sparse_witness_16 := (3%nat,10%nat,1,4%nat,13%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_16"
+statement = "Example retained_sparse_block_16 : photonic_witness_block retained_sparse_witness_16 = [1; -1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_17"
+statement = "Definition retained_sparse_witness_17 := (3%nat,10%nat,1,4%nat,13%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_17"
+statement = "Example retained_sparse_block_17 : photonic_witness_block retained_sparse_witness_17 = [1; -1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_18"
+statement = "Definition retained_sparse_witness_18 := (3%nat,10%nat,-1,4%nat,13%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_18"
+statement = "Example retained_sparse_block_18 : photonic_witness_block retained_sparse_witness_18 = [1; 1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_19"
+statement = "Definition retained_sparse_witness_19 := (3%nat,10%nat,-1,4%nat,13%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_19"
+statement = "Example retained_sparse_block_19 : photonic_witness_block retained_sparse_witness_19 = [1; 1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_20"
+statement = "Definition retained_sparse_witness_20 := (3%nat,10%nat,1,5%nat,12%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_20"
+statement = "Example retained_sparse_block_20 : photonic_witness_block retained_sparse_witness_20 = [-1; -1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_21"
+statement = "Definition retained_sparse_witness_21 := (3%nat,10%nat,1,5%nat,12%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_21"
+statement = "Example retained_sparse_block_21 : photonic_witness_block retained_sparse_witness_21 = [-1; -1; -1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_22"
+statement = "Definition retained_sparse_witness_22 := (3%nat,10%nat,-1,5%nat,12%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_22"
+statement = "Example retained_sparse_block_22 : photonic_witness_block retained_sparse_witness_22 = [-1; 1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_23"
+statement = "Definition retained_sparse_witness_23 := (3%nat,10%nat,-1,5%nat,12%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_23"
+statement = "Example retained_sparse_block_23 : photonic_witness_block retained_sparse_witness_23 = [-1; 1; 1; -1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_24"
+statement = "Definition retained_sparse_witness_24 := (1%nat,9%nat,1,3%nat,11%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_24"
+statement = "Example retained_sparse_block_24 : photonic_witness_block retained_sparse_witness_24 = [-1; 1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_25"
+statement = "Definition retained_sparse_witness_25 := (1%nat,9%nat,1,3%nat,11%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_25"
+statement = "Example retained_sparse_block_25 : photonic_witness_block retained_sparse_witness_25 = [-1; 1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_26"
+statement = "Definition retained_sparse_witness_26 := (1%nat,9%nat,-1,3%nat,11%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_26"
+statement = "Example retained_sparse_block_26 : photonic_witness_block retained_sparse_witness_26 = [-1; -1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_27"
+statement = "Definition retained_sparse_witness_27 := (1%nat,9%nat,-1,3%nat,11%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_27"
+statement = "Example retained_sparse_block_27 : photonic_witness_block retained_sparse_witness_27 = [-1; -1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_28"
+statement = "Definition retained_sparse_witness_28 := (2%nat,3%nat,-1,4%nat,5%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_28"
+statement = "Example retained_sparse_block_28 : photonic_witness_block retained_sparse_witness_28 = [1; 1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_29"
+statement = "Definition retained_sparse_witness_29 := (2%nat,3%nat,-1,4%nat,5%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_29"
+statement = "Example retained_sparse_block_29 : photonic_witness_block retained_sparse_witness_29 = [1; 1; -1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_30"
+statement = "Definition retained_sparse_witness_30 := (2%nat,3%nat,1,4%nat,5%nat,1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_30"
+statement = "Example retained_sparse_block_30 : photonic_witness_block retained_sparse_witness_30 = [1; -1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_31"
+statement = "Definition retained_sparse_witness_31 := (2%nat,3%nat,1,4%nat,5%nat,-1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_block_31"
+statement = "Example retained_sparse_block_31 : photonic_witness_block retained_sparse_witness_31 = [1; -1; 1; 1]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_configurations"
+statement = "Definition retained_sparse_configurations : list (list Z * Z) := [ ([1; 1; 1; -1],1); ([1; 1; 1; -1],-1); ([1; -1; -1; -1],1); ([1; -1; -1; -1],-1); ([1; 1; -1; -1],1); ([1; 1; -1; -1],-1); ([1; -1; 1; -1],1); ([1; -1; 1; -1],-1); ([-1; 1; -1; 1],1); ([-1; 1; -1; 1],-1); ([-1; -1; 1; 1],1); ([-1; -1; 1; 1],-1); ([-1; -1; 1; -1],1); ([-1; -1; 1; -1],-1); ([-1; 1; -1; -1],1); ([-1; 1; -1; -1],-1); ([1; -1; -1; 1],1); ([1; -1; -1; 1],-1); ([1; 1; 1; 1],1); ([1; 1; 1; 1],-1); ([-1; -1; -1; -1],1); ([-1; -1; -1; -1],-1); ([-1; 1; 1; -1],1); ([-1; 1; 1; -1],-1); ([-1; 1; 1; 1],1); ([-1; 1; 1; 1],-1); ([-1; -1; -1; 1],1); ([-1; -1; -1; 1],-1); ([1; 1; -1; 1],1); ([1; 1; -1; 1],-1); ([1; -1; 1; 1],1); ([1; -1; 1; 1],-1) ]"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_configuration_coverage"
+statement = "Theorem retained_sparse_configuration_coverage : forall first second third fourth partner : bool, In ([phase_sign first; phase_sign second; phase_sign third; phase_sign fourth], phase_sign partner) retained_sparse_configurations"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witnesses"
+statement = "Definition retained_sparse_witnesses : list (nat * nat * Z * nat * nat * Z) := [ (2%nat,11%nat,1,3%nat,10%nat,1); (2%nat,11%nat,1,3%nat,10%nat,-1); (2%nat,11%nat,-1,3%nat,10%nat,1); (2%nat,11%nat,-1,3%nat,10%nat,-1); (2%nat,11%nat,1,4%nat,13%nat,1); (2%nat,11%nat,1,4%nat,13%nat,-1); (2%nat,11%nat,-1,4%nat,13%nat,1); (2%nat,11%nat,-1,4%nat,13%nat,-1); (2%nat,11%nat,1,6%nat,15%nat,1); (2%nat,11%nat,1,6%nat,15%nat,-1); (2%nat,11%nat,-1,6%nat,15%nat,1); (2%nat,11%nat,-1,6%nat,15%nat,-1); (3%nat,10%nat,1,2%nat,11%nat,1); (3%nat,10%nat,1,2%nat,11%nat,-1); (3%nat,10%nat,-1,2%nat,11%nat,1); (3%nat,10%nat,-1,2%nat,11%nat,-1); (3%nat,10%nat,1,4%nat,13%nat,1); (3%nat,10%nat,1,4%nat,13%nat,-1); (3%nat,10%nat,-1,4%nat,13%nat,1); (3%nat,10%nat,-1,4%nat,13%nat,-1); (3%nat,10%nat,1,5%nat,12%nat,1); (3%nat,10%nat,1,5%nat,12%nat,-1); (3%nat,10%nat,-1,5%nat,12%nat,1); (3%nat,10%nat,-1,5%nat,12%nat,-1); (1%nat,9%nat,1,3%nat,11%nat,1); (1%nat,9%nat,1,3%nat,11%nat,-1); (1%nat,9%nat,-1,3%nat,11%nat,1); (1%nat,9%nat,-1,3%nat,11%nat,-1); (2%nat,3%nat,-1,4%nat,5%nat,1); (2%nat,3%nat,-1,4%nat,5%nat,-1); (2%nat,3%nat,1,4%nat,5%nat,1); (2%nat,3%nat,1,4%nat,5%nat,-1) ]"
+assumptions = []
+
+[[witness.declarations]]
+name = "photonic_witness_configuration"
+statement = "Definition photonic_witness_configuration (w : nat * nat * Z * nat * nat * Z) := let '(_,_,_,_,_,t) := w in (photonic_witness_block w,t)"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_map"
+statement = "Theorem retained_sparse_witness_map : map photonic_witness_configuration retained_sparse_witnesses = retained_sparse_configurations"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_total"
+statement = "Theorem retained_sparse_witness_total : forall configuration, In configuration retained_sparse_configurations -> exists witness, In witness retained_sparse_witnesses /\\ photonic_witness_configuration witness = configuration"
+assumptions = []
+
+[[witness.declarations]]
+name = "photonic_witness_domain"
+statement = "Definition photonic_witness_domain (w : nat * nat * Z * nat * nat * Z) : bool := let '(i,j,s,k,l,t) := w in andb (andb (andb (Nat.ltb 0 i) (Nat.ltb i 16)) (andb (Nat.ltb 0 j) (Nat.ltb j 16))) (andb (andb (andb (Nat.ltb 0 k) (Nat.ltb k 16)) (andb (Nat.ltb 0 l) (Nat.ltb l 16))) (andb (andb (negb (Nat.eqb i j)) (negb (Nat.eqb k l))) (andb (Nat.eqb (Nat.lxor i j) (Nat.lxor k l)) (andb (orb (Z.eqb s 1) (Z.eqb s (-1))) (orb (Z.eqb t 1) (Z.eqb t (-1)))))))"
+assumptions = []
+
+[[witness.declarations]]
+name = "retained_sparse_witness_domains"
+statement = "Theorem retained_sparse_witness_domains : Forall (fun witness => photonic_witness_domain witness = true) retained_sparse_witnesses"
+assumptions = []

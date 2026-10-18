@@ -1,0 +1,27 @@
+Independent source review: numeric_sign_source_review.
+The reviewer checked census relation classes, exact integrality, dependent
+associativity, constructive complete cosets, column/right-kernel adapters,
+complete-reindex rank, sixteen exact rational sign matrices and thirty-two
+retained configuration witnesses. The reviewer identified two correspondence
+gaps: full cube-product norm/normalized-operand composition and decoded actual
+sparse-matrix identification with the rational sign block.
+
+Final: fixed full-product normalization correspondence --
+review-bridge-before.log fails on the absent full-product theorem;
+review-bridge-after.log recognizes the five new bridge declarations.
+The general proofs derive output-label distinctness, support vanishing, full
+norm equality, signed operand unit norms and P_label=||xy||^2/2 for normalized
+operands. full-product-norm.log and photonic-normalization.log reject altered
+norm and probability scales.
+
+Final: fixed rational operator restriction correspondence --
+sparse_two_blade_decoded_restriction identifies the actual sparse field matrix
+under explicit numeric row and column decoders with sparse_rational_sign_block.
+sparse_two_blade_decoded_rank transports its exact rational rank.
+missing-output-coordinate.log rejects a collapsed decoder.
+
+Rational rank statements remain rational. A real-field specialization belongs
+to the subsequent matrix-certificate batch. Mathematical configuration coverage
+retains many-to-one witness sharing and supplies zero additional independent
+physical measurements. Physical calibration, circuit implementation, detector
+assignment and conditioning remain application-contract obligations.

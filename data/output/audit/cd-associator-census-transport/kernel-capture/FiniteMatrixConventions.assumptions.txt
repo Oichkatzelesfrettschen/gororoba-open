@@ -1,0 +1,38 @@
+Declaration: matrix_zero
+Closed under the global context
+Declaration: right_kernel_transpose
+Closed under the global context
+Declaration: column_kernel_residual
+Closed under the global context
+Declaration: block_column_kernel
+Closed under the global context
+Declaration: block_rank_decomposition
+Closed under the global context
+Declaration: left_inverse_reflects_zero
+Closed under the global context
+Declaration: rank_sandwich_bound
+Closed under the global context
+Declaration: inverse_coordinate_rank
+Closed under the global context
+Declaration: coordinate_kernel_transport
+Closed under the global context
+Declaration: diagonal_coordinate_rank
+Closed under the global context
+Declaration: zero_cross_block_decomposition
+Closed under the global context
+Declaration: zero_cross_rank_decomposition
+Closed under the global context
+Declaration: rational_phase_sign
+Closed under the global context
+Declaration: rational_sign_block
+Closed under the global context
+Declaration: matrix_rank_witness_sound
+Closed under the global context
+Declaration: rational_literal_matrix
+Closed under the global context
+Declaration: reindex_factorization
+Closed under the global context
+Declaration: reindex_rank_bound
+Closed under the global context
+Declaration: complete_reindex_rank
+Closed under the global context

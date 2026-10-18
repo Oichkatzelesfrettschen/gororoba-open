@@ -1,0 +1,98 @@
+Declaration: census_pair_zero_left
+Closed under the global context
+Declaration: census_pair_zero_right
+Closed under the global context
+Declaration: census_pair_diagonal
+Closed under the global context
+Declaration: census_pair_false
+Closed under the global context
+Declaration: census_pair_translate
+Closed under the global context
+Declaration: thin_triple
+Closed under the global context
+Declaration: census_top_coefficients
+Closed under the global context
+Declaration: census_top_bit_law
+Closed under the global context
+Declaration: boolean_triple_sum
+Closed under the global context
+Declaration: census_boolean_character
+Closed under the global context
+Declaration: census_thin_associates
+Closed under the global context
+Declaration: census_top_bit_cancellation
+Closed under the global context
+Declaration: census_delta
+Closed under the global context
+Declaration: census_delta_sum
+Closed under the global context
+Declaration: census_sum_single_exception
+Closed under the global context
+Declaration: census_pair_zero_mask
+Closed under the global context
+Declaration: census_pair_zero_count
+Closed under the global context
+Declaration: census_thin_inner
+Closed under the global context
+Declaration: census_thin_completion_count
+Closed under the global context
+Declaration: census_thin_pair_count
+Closed under the global context
+Declaration: census_triple_sum
+Closed under the global context
+Declaration: census_thin_triple_count
+Closed under the global context
+Declaration: census_triple_slices
+Closed under the global context
+Declaration: census_triple_scale
+Closed under the global context
+Declaration: census_total_phase_sum
+Closed under the global context
+Declaration: census_triple_add
+Closed under the global context
+Declaration: census_triple_constant
+Closed under the global context
+Declaration: associator_defect_count
+Closed under the global context
+Declaration: census_phase_count_identity
+Closed under the global context
+Declaration: associator_census_integrality
+Closed under the global context
+Declaration: associator_census_formula
+Closed under the global context
+Declaration: numeric_associator_defect_count
+Closed under the global context
+Declaration: census_numeric_dimension_four
+Closed under the global context
+Declaration: census_numeric_dimension_eight
+Closed under the global context
+Declaration: census_numeric_dimension_sixteen
+Closed under the global context
+Declaration: census_numeric_dimension_thirty_two
+Closed under the global context
+Declaration: census_pair_symmetric
+Closed under the global context
+Declaration: census_sign_transpose
+Closed under the global context
+Declaration: census_phase_zero_input
+Closed under the global context
+Declaration: census_phase_left_input
+Closed under the global context
+Declaration: census_phase_middle_input
+Closed under the global context
+Declaration: census_phase_sum_input
+Closed under the global context
+Declaration: dependent_basis_triple
+Closed under the global context
+Declaration: dependent_basis_triple_associates
+Closed under the global context
+Declaration: census_lifting_vector
+Closed under the global context
+Declaration: census_zero_relation_classes
+Closed under the global context
+Declaration: census_repeated_relation_classes
+Closed under the global context
+Declaration: census_independent_relation_class
+Closed under the global context
+Declaration: census_thin_relation_class
+Closed under the global context
