@@ -32,3 +32,7 @@ Their CLI admissions perform fresh trusted replay. Reapplying an old prestate
 after a different canonical update is expected to fail its applicability gate.
 The receipt preparation note distinguishes the initial candidate-input count
 from the 23 unique admitted specifications. Historical inputs remain retained.
+The frozen opam export encodes three upstream post-message pictographs as
+opam decimal byte escapes. The decoded package metadata and source checksum
+identities remain unchanged. Fresh same-switch dry-run import reports Nothing
+to do. Hosted validation first exposed the raw characters through check-ansi.
