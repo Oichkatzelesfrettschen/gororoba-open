@@ -1,0 +1,13 @@
+primary_base=5085263ab4ccb3ef76cf74d905e83265ce25b213
+quantum_source=8c9106089fff212044951e49996b9a8508bad8c9
+switch=rocq-9.3
+The Rocq Prover, version 9.3.0
+compiled with OCaml 5.5.1
+ocaml       5.5.1
+rocq-core   9.3.0
+rocq-stdlib 9.2.0
+process_visible_cpus=12
+compile=opam exec --switch=rocq-9.3 -- rocq compile -q -w +default -R theories OpenGororoba theories/CDAssociatorDoubling.v
+kernel=opam exec --switch=rocq-9.3 -- rocq check -silent -o -R theories OpenGororoba OpenGororoba.CDAssociatorDoubling
+full_build=opam exec --switch=rocq-9.3 -- make --jobs="$(nproc)" all
+mutation_rejections=walsh-scale,pair-coefficient,sign-character

@@ -119,3 +119,6 @@ proofs/evidence/quantum_observables/frozen/** -text
 data/output/audit/quantum-observable-contracts/** -text whitespace=-blank-at-eof,-blank-at-eol
 proofs/_RocqProject -text
 proofs/**/*.v -text
+# Associator lifting receipts preserve compiler and kernel output bytes.
+data/output/audit/cd-associator-sign-lifting/** -text whitespace=-blank-at-eof,-blank-at-eol
+data/output/audit/cd-associator-sign-lifting/kernel-capture/**/*.vo -filter -diff -text

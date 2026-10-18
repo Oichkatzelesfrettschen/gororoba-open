@@ -1,0 +1,2 @@
+Current-source verifier build and verify-control-plane: exit 0; theorem_count=315; proof_files=315; kernel_checked_claims=20.
+All22 source-bound receipts are admitted;21 renewals plus the new module.

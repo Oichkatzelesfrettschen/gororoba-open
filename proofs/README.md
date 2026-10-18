@@ -56,6 +56,16 @@ below 3.8. A bridge port must adapt and test the engine API and Dune build
 metadata, then pass its native-plugin, command, HB and MathComp consumers.
 Removing the bounds alone establishes dependency resolution, not compatibility.
 
+## Associator dimension growth
+
+`theories/CDAssociatorDoubling.v` proves the all-order associator doubling
+law and exact Walsh spectrum factorization for embedded fixed pairs.
+The bounded [quantum evidence reconciliation](../docs/engineering/quantum_associator_evidence_reconciliation.txt)
+compares retained hardware, simulation and algebraic results and records the
+remaining numeric-sign and circuit-semantic bridges. Source identities and
+compiler/kernel evidence live in `data/output/audit/cd-associator-sign-lifting/`
+at the repository root.
+
 ## Build every registered proof with all visible CPUs
 
 Run from the repository root:

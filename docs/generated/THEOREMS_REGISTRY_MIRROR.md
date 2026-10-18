@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 314 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 315 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -197,6 +197,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-C993_CarlsonBranchFree` | `C993_CarlsonBranchFree` | `proofs/verified/C993_CarlsonBranchFree.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-C999_PathionEntropyBound` | `C999_PathionEntropyBound` | `proofs/verified/C999_PathionEntropyBound.v` | source_only | legacy_alias | - |
 | `THM-LEGACY-CDAssociator` | `CDAssociator` | `proofs/theories/CDAssociator.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDAssociatorDoubling` | `CDAssociatorDoubling` | `proofs/theories/CDAssociatorDoubling.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDConjAntimorph` | `CDConjAntimorph` | `proofs/theories/CDConjAntimorph.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleFunctor` | `CDDoubleFunctor` | `proofs/theories/CDDoubleFunctor.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDDoubleTower` | `CDDoubleTower` | `proofs/theories/CDDoubleTower.v` | source_only | explicit_link | C-1495 |

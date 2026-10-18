@@ -1,0 +1,3 @@
+proof_path	compilation_position	source_path
+proofs/theories/CDAssociatorDoubling.v	0	proofs/theories/SchreierSignCode.v
+proofs/theories/CDAssociatorDoubling.v	1	proofs/theories/CDAssociatorDoubling.v

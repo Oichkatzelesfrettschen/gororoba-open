@@ -1,0 +1,8 @@
+{
+  "event_key": "proof-inventory:cd-associator-sign-lifting",
+  "theorem_count": 315,
+  "source_only_count": 315,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}
+skipped TOML regen (--regen-toml false); run `make registry-export-markdown` later.
