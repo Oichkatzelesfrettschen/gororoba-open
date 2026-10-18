@@ -4,6 +4,7 @@ Base: 7eb2f542ce27b1185c6d1bbf55dc0422e348d156.
 Execution contract: twelve new modules, six extensions, focused dependency PRs,
 fresh kernel receipts, hosted validation, canonical sync, owned-worktree cleanup.
 IBMQuantum is read-only. Quantum submissions are prohibited for this program.
+The user paused the broader program for reboot after clean integration.
 
 Ordered work queue
 ------------------
@@ -37,9 +38,15 @@ DONE: complete 336-module pre-integration build; branch rebased onto d7a43311.
 DONE: synchronized 339-module build, eleven independent kernels and 197 declaration queries.
 DONE: all 46 current-project receipt replays and canonical export/integrity checks.
 DONE: 136 provenance library tests plus two genuine replay tests; Clippy -D warnings.
-ACTIVE: exact payload publication, hosted validation, focused integration and cleanup.
-PENDING: SchurAccelerationObstruction; NullityTwelveQuadraticLocus coefficient
-         correspondence and explicit rational curve certificates.
+INTEGRATED: rank/kernel payload c8c113ac through PR 233 at f4f4f9fe;
+            37 hosted checks succeeded and five were skipped; canonical main synced.
+CHECKPOINT: SchurAccelerationObstruction and CDTowerOperatorCorrespondence proved;
+            five boundary examples compiled, four altered laws rejected, focused
+            kernel check passed. Sources retain source_only qualification under
+            proofs/checkpoints/schur-geometry/ outside the canonical inventory.
+PENDING: checkpoint hosted validation/integration and owned-worktree cleanup.
+PENDING: NullityTwelveQuadraticLocus coefficient correspondence and explicit
+         rational curve certificates; canonical registration and receipt renewal.
 PENDING: investigate complex-skew representation, persistent kernel limits,
          full selected-center tangent cone, and determinant-line transport.
 
@@ -104,14 +111,15 @@ DONE: canonical main synchronized to d8a0298a; owned checkout confirmed archived
 
 Operator applicability obligations before dimension-32 geometry
 -------------------------------------------------------------
-The recursive basis/sign theorem is unconditional. Arbitrary sparse numeric
-operators still require a proved numeric/column coordinate and entrywise
-realization correspondence with recursive tower_left_matrix. A rational
-certificate applies to an independently defined real operator only after its
-entrywise equality with map_mx real_rational is proved. Ingestion emits exact
-rational conclusions; the real specialization step remains separately named.
-The geometry batch must discharge those operator identities before using its
-retained rank, coefficient or curve certificates.
+The recursive basis/sign theorem is unconditional. The checkpoint theorem
+sparse_tower_left_matrix_correspondence proves entrywise equality between
+arbitrary real-coefficient sparse operators and recursive tower_left_matrix.
+rational_sparse_tower_matrix specializes rational coordinates through
+map_mx real_rational, and rational_sparse_tower_rank transfers exact rank.
+Those declarations have source_only checkpoint qualification outside canonical
+registration. Selected-center coefficient reconstruction and curve identities
+remain separate obligations before applying retained geometric certificates.
+The exact resume queue is docs/engineering/schur_acceleration_geometry_obligations.txt.
 
 Mechanisms clarified by the exact-rank and kernel proofs
 -------------------------------------------------------

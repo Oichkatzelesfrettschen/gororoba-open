@@ -1,0 +1,5 @@
+## main...origin/main
+ M .gitignore
+?? .ignore
+b78c2a09acc7411fd0398dd89cb723ab2524a9f0129b929db8d58224852f005a  .gitignore
+5b345696ac9daf0b07ce5b9c56d5ec914815e395286f4c9f9ac3ec8ec83bf507  .ignore

@@ -3722,3 +3722,6 @@ data/output/external_manifests/
 /reports/profiling/ncu_warp_128_bf16_20260215.csv
 /reports/profiling/ncu_warp_256_bf16_20260215.csv
 /test_hapi.csv
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
