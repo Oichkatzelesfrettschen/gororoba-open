@@ -246,3 +246,23 @@ iterated lifting and the complete appended Walsh frequency mask. The earlier
 numeric-bridge frontier above describes the historical reconciliation state;
 these declarations close that mathematical correspondence. They leave physical
 circuit semantics and Born normalization as separate application obligations.
+
+Canonical degree and Walsh-law update
+------------------------------------
+WalshProbability proves the normalized ideal probability law from integer
+Parseval, with amplitude W/2^n and probability W^2/(2^n)^2. The historical
+Born-normalization frontier now has an algebraic normalization theorem;
+a physical circuit still needs preparation, oracle, decoding and Born-law
+application contracts.
+BooleanANFDegree and CDPhaseDegree prove the exact canonical degrees stated
+in IBMQuantum docs/notes/cd_phase_degree.md. Numeric sign-row adapters retain
+bounded indices and sufficient fuel. Pair degree depends on first appearance,
+so increasing dimension for a fixed pair can increase its Walsh support while
+leaving its nonlinear Boolean degree fixed. Dimension growth alone therefore
+supplies neither an empirical complexity claim nor a hardware advantage.
+The refreshed read-only source observation records IBMQuantum HEAD
+96709f4f50876448f48c983b91d95bd1f1956213; quantum-source-identities.txt retains
+the source-byte hashes. Historical fixed-terminal fixtures remain historical.
+Newer source forms and budget observations retain their own evidence identity;
+the algebraic degree proofs establish sampling distributions only under the
+separate physical application assumptions. This program submits zero jobs.

@@ -1,0 +1,6 @@
+The first receipt loop inherited the default PATH and rejected all receipts
+at the pinned-toolchain version check. The replacement loop uses opam exec
+--switch=rocq-9.3 for every trusted replay. Initial failure logs are retained.
+The original inventory specification declared 18:25:00Z before the actual
+18:15:46Z observation. A second inventory event records the corrected clock;
+the original specification and both CLI results remain retained.

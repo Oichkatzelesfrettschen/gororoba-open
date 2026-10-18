@@ -1,0 +1,15 @@
+IBMQuantum read-only source observation for the exact degree implementation:
+HEAD 96709f4f50876448f48c983b91d95bd1f1956213
+subject Merge pull request #265 from Oichkatzelesfrettschen/qi/qx-reset-phase-probe
+Working-tree status observed:
+?? results/live/2026-10-17T080522.648289Z/
+Source-byte SHA-256:
+a1f7d4f8bc2a7c767fc862d9d0bb2c9d80ddae1037ab8e6bb5f4b4e9f342e9fc docs/notes/cd_phase_degree.md
+d6a2aef41c72e8d0146733d9af1af263aa6abb99052cb1311a4520b7de036cc7 docs/notes/cd_associator_defect_census.md
+The earlier observation recorded HEAD 04f707d149f5de4a19ca98d120ee8a4ef50f3631.
+The refreshed HEAD is an externally advanced source observation. The degree
+note's statement is proved with explicit numeric/CD adapters in CDPhaseDegree.
+The note's historical prose says proof-assistant verification was open; the
+new Rocq objects provide implementation evidence for the bound statements.
+The mathematical proofs establish neither physical circuit realization nor
+QPU sample coverage. Quantum jobs submitted by this program: zero.

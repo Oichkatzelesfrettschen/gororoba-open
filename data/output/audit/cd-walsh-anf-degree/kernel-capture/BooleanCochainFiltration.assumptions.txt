@@ -1,0 +1,50 @@
+Declaration: linear_substitution_preserves_degree
+Closed under the global context
+Declaration: substitution_evaluation
+Closed under the global context
+Declaration: degree_at_most
+Closed under the global context
+Declaration: addition_preserves_filtration
+Closed under the global context
+Declaration: linear_pullback_preserves_filtration
+Closed under the global context
+Declaration: cochain_differential_preserves_degree
+Closed under the global context
+Declaration: ordinary_coboundary
+Closed under the global context
+Declaration: schreier_exponent
+Closed under the global context
+Declaration: normalized_schreier_is_coboundary
+Closed under the global context
+Declaration: xor_group_face
+Closed under the global context
+Declaration: xor_group_face_linear
+Closed under the global context
+Declaration: xor_group_differential
+Closed under the global context
+Declaration: xor_group_differential_preserves_degree
+Closed under the global context
+Declaration: filtration_coordinate
+Closed under the global context
+Declaration: filtration_union_weight
+Closed under the global context
+Declaration: filtration_singleton_weight
+Closed under the global context
+Declaration: filtration_union_monomial
+Closed under the global context
+Declaration: filtration_sum_append
+Closed under the global context
+Declaration: filtration_sum_union
+Closed under the global context
+Declaration: filtration_sum_product
+Closed under the global context
+Declaration: polynomial_masks_evaluate
+Closed under the global context
+Declaration: polynomial_masks_weight
+Closed under the global context
+Declaration: filtration_sum_degree
+Closed under the global context
+Declaration: polynomial_canonical_degree_bound
+Closed under the global context
+Declaration: representative_canonical_degree_bound
+Closed under the global context

@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 316 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 319 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -19,6 +19,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-BekensteinEntropy` | `BekensteinEntropy` | `proofs/theories/BekensteinEntropy.v` | source_only | unresolved | - |
 | `THM-LEGACY-BellCHSH` | `BellCHSH` | `proofs/theories/BellCHSH.v` | source_only | explicit_link | C-1130 |
 | `THM-LEGACY-BinaryEntropy` | `BinaryEntropy` | `proofs/theories/BinaryEntropy.v` | source_only | unresolved | - |
+| `THM-LEGACY-BooleanANFDegree` | `BooleanANFDegree` | `proofs/theories/BooleanANFDegree.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-BooleanCochainFiltration` | `BooleanCochainFiltration` | `proofs/theories/BooleanCochainFiltration.v` | kernel_checked | explicit_link | C-1761 |
 | `THM-LEGACY-BooleanPermutation` | `BooleanPermutation` | `proofs/theories/BooleanPermutation.v` | kernel_checked | explicit_link | C-1768 |
 | `THM-LEGACY-BoxKite` | `BoxKite` | `proofs/theories/BoxKite.v` | source_only | unresolved | - |
@@ -207,6 +208,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDInverse` | `CDInverse` | `proofs/theories/CDInverse.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDLinearLemmas` | `CDLinearLemmas` | `proofs/theories/CDLinearLemmas.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDNegLemmas` | `CDNegLemmas` | `proofs/theories/CDNegLemmas.v` | source_only | unresolved | - |
+| `THM-LEGACY-CDPhaseDegree` | `CDPhaseDegree` | `proofs/theories/CDPhaseDegree.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDPowerAssociative` | `CDPowerAssociative` | `proofs/theories/CDPowerAssociative.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDPropertyTower` | `CDPropertyTower` | `proofs/theories/CDPropertyTower.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDQuatRotationMatrix` | `CDQuatRotationMatrix` | `proofs/theories/CDQuatRotationMatrix.v` | source_only | unresolved | - |
@@ -313,6 +315,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-ThreeBodyAngMom` | `ThreeBodyAngMom` | `proofs/theories/ThreeBodyAngMom.v` | source_only | explicit_link | C-1101, C-1126 |
 | `THM-LEGACY-TightBindingTopology` | `TightBindingTopology` | `proofs/theories/TightBindingTopology.v` | source_only | unresolved | - |
 | `THM-LEGACY-WalkerFermatAlgebras` | `WalkerFermatAlgebras` | `proofs/theories/WalkerFermatAlgebras.v` | source_only | unresolved | - |
+| `THM-LEGACY-WalshProbability` | `WalshProbability` | `proofs/theories/WalshProbability.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-WarpShapeFunction` | `WarpShapeFunction` | `proofs/theories/WarpShapeFunction.v` | source_only | unresolved | - |
 | `THM-LEGACY-WedderburnPrimitive` | `WedderburnPrimitive` | `proofs/theories/WedderburnPrimitive.v` | source_only | unresolved | - |
 | `THM-LEGACY-WilmotCDStructure` | `WilmotCDStructure` | `proofs/theories/WilmotCDStructure.v` | source_only | unresolved | - |

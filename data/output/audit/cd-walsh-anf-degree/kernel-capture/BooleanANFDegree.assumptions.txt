@@ -1,0 +1,70 @@
+Declaration: coefficient_degree
+Closed under the global context
+Declaration: anf_degree
+Closed under the global context
+Declaration: cube_max_bound
+Closed under the global context
+Declaration: cube_max_member
+Closed under the global context
+Declaration: cube_weight_bound
+Closed under the global context
+Declaration: cube_weight_ones
+Closed under the global context
+Declaration: cube_weight_full
+Closed under the global context
+Declaration: monomial_ones
+Closed under the global context
+Declaration: anf_degree_bound
+Closed under the global context
+Declaration: coefficient_witness_bound
+Closed under the global context
+Declaration: canonical_anf_correct
+Closed under the global context
+Declaration: canonical_anf_unique
+Closed under the global context
+Declaration: point_indicator_degree
+Closed under the global context
+Declaration: separating_coatom
+Closed under the global context
+Declaration: two_point_indicator_degree
+Closed under the global context
+Declaration: cube_max_ext
+Closed under the global context
+Declaration: cube_max_attained
+Closed under the global context
+Declaration: cube_weight_zero
+Closed under the global context
+Declaration: anf_degree_zero
+Closed under the global context
+Declaration: anf_degree_xor_bound
+Closed under the global context
+Declaration: anf_constant_coefficients
+Closed under the global context
+Declaration: append_parity
+Closed under the global context
+Declaration: append_parity_coefficients
+Closed under the global context
+Declaration: append_parity_degree
+Closed under the global context
+Declaration: anf_degree_strict_xor
+Closed under the global context
+Declaration: anf_degree_constant
+Closed under the global context
+Declaration: anf_degree_ext
+Closed under the global context
+Declaration: monomial_coefficients
+Closed under the global context
+Declaration: monomial_degree
+Closed under the global context
+Declaration: append_boolean
+Closed under the global context
+Declaration: append_boolean_coefficients
+Closed under the global context
+Declaration: nonzero_degree_attained
+Closed under the global context
+Declaration: append_boolean_degree
+Closed under the global context
+Declaration: positive_degree_has_coefficient
+Closed under the global context
+Declaration: anf_degree_add_constant
+Closed under the global context

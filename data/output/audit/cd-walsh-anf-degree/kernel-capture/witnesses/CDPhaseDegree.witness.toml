@@ -1,0 +1,259 @@
+schema_version = 1
+stable_id = "THM-LEGACY-CDPhaseDegree"
+proof_path = "proofs/theories/CDPhaseDegree.v"
+project_sha256 = "87bba793d00636221daeaf2bd49f5091349412ea3322e24563b2a0fc079f28f6"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDPhaseDegree.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDPhaseDegree"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[sources]]
+path = "proofs/theories/CDPhaseDegree.v"
+sha256 = "f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c"
+
+[[sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[compile_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/CDPhaseDegree.compile.txt"
+sha256 = "c04113218e61621e6ae288bbc2211491308d8d99c572c277b4f50e50d1801713"
+
+[kernel_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/CDPhaseDegree.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[assumption_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/CDPhaseDegree.assumptions.txt"
+sha256 = "0d880d435ef6a99e70278fec6c95039444cd8ea28bd66797defb67c10d6e04b0"
+
+[proof_object]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/theories/CDPhaseDegree.vo"
+sha256 = "6fd78036d32825fb2dc597bea7baad12d18fc4ff7d93762f3e63acc1a1cfe761"
+
+[[declarations]]
+name = "phase_cube_xor_self"
+statement = "Lemma phase_cube_xor_self : forall order (value : cube order), cube_xor order value value = cube_zero order"
+assumptions = []
+
+[[declarations]]
+name = "phase_cube_xor_involution"
+statement = "Lemma phase_cube_xor_involution : forall order (left right : cube order), cube_xor order left (cube_xor order left right) = right"
+assumptions = []
+
+[[declarations]]
+name = "phase_cube_equal_cancel"
+statement = "Lemma phase_cube_equal_cancel : forall order (left right : cube order), cube_equal order left (cube_xor order left right) = cube_equal order right (cube_zero order)"
+assumptions = []
+
+[[declarations]]
+name = "phase_cube_xor_nonzero"
+statement = "Lemma phase_cube_xor_nonzero : forall order (left right : cube order), cube_nonzero order (cube_xor order left right) = negb (cube_equal order left right)"
+assumptions = []
+
+[[declarations]]
+name = "commutation_pair_coefficient"
+statement = "Lemma commutation_pair_coefficient : forall order (left right : cube order), commutation_phase order left right = pair_coefficient order left right"
+assumptions = []
+
+[[declarations]]
+name = "sign_row_involution"
+statement = "Theorem sign_row_involution : forall order (left input : cube order), xorb (sign_exponent order left input) (sign_exponent order left (cube_xor order left input)) = cube_nonzero order left"
+assumptions = []
+
+[[declarations]]
+name = "degenerate_associator_zero"
+statement = "Theorem degenerate_associator_zero : forall order (value input : cube order), associator_phase order (cube_zero order) value input = false /\\ associator_phase order value (cube_zero order) input = false /\\ associator_phase order value value input = false"
+assumptions = []
+
+[[declarations]]
+name = "phase_nonzero_distinct_zero"
+statement = "Lemma phase_nonzero_distinct_zero : forall order (value : cube order), cube_nonzero order value = true -> cube_zero order <> value"
+assumptions = []
+
+[[declarations]]
+name = "nonzero_indicator_degree"
+statement = "Theorem nonzero_indicator_degree : forall order, 0 < order -> anf_degree order (cube_nonzero order) = order"
+assumptions = []
+
+[[declarations]]
+name = "commutation_row_degree"
+statement = "Lemma commutation_row_degree : forall order (left : cube order) high, 2 <= order -> cube_nonzero order left = true -> anf_degree order (fun input => xorb (commutation_phase order left input) high) = order - 1"
+assumptions = []
+
+[[declarations]]
+name = "sign_row_append"
+statement = "Lemma sign_row_append : forall order (left : cube order) high input, sign_exponent (S order) (left, high) input = append_boolean order (fun lower => xorb (sign_exponent order left lower) (andb high (cube_nonzero order lower))) (fun lower => xorb (commutation_phase order left lower) high) input"
+assumptions = []
+
+[[declarations]]
+name = "sign_row_degree"
+statement = "Theorem sign_row_degree : forall extra (left : cube (S (S extra))), cube_nonzero (S (S extra)) left = true -> anf_degree (S (S extra)) (sign_exponent (S (S extra)) left) = S extra"
+assumptions = []
+
+[[declarations]]
+name = "commutation_delta"
+statement = "Lemma commutation_delta : forall order (left input : cube order), commutation_phase order left input = xorb (cube_nonzero order left) (xorb (cube_equal order input (cube_zero order)) (cube_equal order input left))"
+assumptions = []
+
+[[declarations]]
+name = "pair_coefficient_delta"
+statement = "Lemma pair_coefficient_delta : forall order (left input : cube order), pair_coefficient order left input = xorb (cube_nonzero order left) (xorb (cube_equal order input (cube_zero order)) (cube_equal order input left))"
+assumptions = []
+
+[[declarations]]
+name = "shifted_commutation_delta"
+statement = "Lemma shifted_commutation_delta : forall order (left shift input : cube order), commutation_phase order left (cube_xor order shift input) = xorb (cube_nonzero order left) (xorb (cube_equal order input shift) (cube_equal order input (cube_xor order left shift)))"
+assumptions = []
+
+[[declarations]]
+name = "associator_slice_left"
+statement = "Lemma associator_slice_left : forall order (left middle input : cube order), associator_phase (S order) (left, true) (middle, false) (input, false) = xorb (associator_phase order left middle input) (xorb (xorb (cube_equal order input (cube_zero order)) (cube_equal order input middle)) (cube_nonzero order middle))"
+assumptions = []
+
+[[declarations]]
+name = "associator_slice_right"
+statement = "Lemma associator_slice_right : forall order (left middle input : cube order), associator_phase (S order) (left, false) (middle, true) (input, false) = xorb (associator_phase order left middle input) (xorb (xorb (cube_equal order input middle) (cube_equal order input (cube_xor order left middle))) (xorb (cube_nonzero order left) (commutation_phase order left middle)))"
+assumptions = []
+
+[[declarations]]
+name = "associator_slice_both"
+statement = "Lemma associator_slice_both : forall order (left middle input : cube order), associator_phase (S order) (left, true) (middle, true) (input, false) = xorb (associator_phase order left middle input) (xorb (xorb (cube_equal order input (cube_zero order)) (cube_equal order input (cube_xor order left middle))) (xorb (cube_nonzero order middle) (xorb (cube_nonzero order left) (commutation_phase order left middle))))"
+assumptions = []
+
+[[declarations]]
+name = "associator_as_parity_extension"
+statement = "Lemma associator_as_parity_extension : forall order (left middle : cube order) low high input, associator_phase (S order) (left, low) (middle, high) input = append_parity order (fun lower => associator_phase (S order) (left, low) (middle, high) (lower, false)) (pair_coefficient order left middle) input"
+assumptions = []
+
+[[declarations]]
+name = "quaternion_associator_all"
+statement = "Theorem quaternion_associator_all : forall left middle input : cube 2, associator_phase 2 left middle input = false"
+assumptions = []
+
+[[declarations]]
+name = "two_point_defect_degree"
+statement = "Lemma two_point_defect_degree : forall order lower (left right : cube order) constant, 2 <= order -> anf_degree order lower <= order - 2 -> left <> right -> anf_degree order (fun input => xorb (lower input) (xorb (xorb (cube_equal order input left) (cube_equal order input right)) constant)) = order - 1"
+assumptions = []
+
+[[declarations]]
+name = "cube_zero_distinct"
+statement = "Lemma cube_zero_distinct : forall order (value : cube order), cube_nonzero order value = true -> cube_zero order <> value"
+assumptions = []
+
+[[declarations]]
+name = "cube_xor_right_cancel"
+statement = "Lemma cube_xor_right_cancel : forall order (left right : cube order), cube_xor order (cube_xor order left right) right = left"
+assumptions = []
+
+[[declarations]]
+name = "associator_step_degree"
+statement = "Theorem associator_step_degree : forall order (left middle : cube order) low high, 2 <= order -> (forall first second : cube order, anf_degree order (associator_phase order first second) <= order - 2) -> cube_nonzero (S order) (left, low) = true -> cube_nonzero (S order) (middle, high) = true -> (left, low) <> (middle, high) -> anf_degree (S order) (associator_phase (S order) (left, low) (middle, high)) = if orb low high then order - 1 else Nat.max (anf_degree order (associator_phase order left middle)) 1"
+assumptions = []
+
+[[declarations]]
+name = "associator_degenerate_degree"
+statement = "Lemma associator_degenerate_degree : forall order (left middle : cube order), cube_nonzero order left = false \\/ cube_nonzero order middle = false \\/ left = middle -> anf_degree order (associator_phase order left middle) = 0"
+assumptions = []
+
+[[declarations]]
+name = "associator_degree_bound"
+statement = "Theorem associator_degree_bound : forall extra (left middle : cube (S (S extra))), anf_degree (S (S extra)) (associator_phase (S (S extra)) left middle) <= extra"
+assumptions = []
+
+[[declarations]]
+name = "pair_first_order_bound"
+statement = "Theorem pair_first_order_bound : forall order (left middle : cube order), pair_first_order order left middle <= order"
+assumptions = []
+
+[[declarations]]
+name = "associator_phase_degree"
+statement = "Theorem associator_phase_degree : forall extra (left middle : cube (S (S (S extra)))), cube_nonzero (S (S (S extra))) left = true -> cube_nonzero (S (S (S extra))) middle = true -> left <> middle -> anf_degree (S (S (S extra))) (associator_phase (S (S (S extra))) left middle) = Nat.max 1 (pair_first_order (S (S (S extra))) left middle - 2)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_bit_length"
+statement = "Definition numeric_bit_length (value : nat) : nat := if value =? 0 then 0 else S (Nat.log2 value)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_bit_length_high"
+statement = "Lemma numeric_bit_length_high : forall order value, 2 ^ order <= value < 2 ^ S order -> numeric_bit_length value = S order"
+assumptions = []
+
+[[declarations]]
+name = "pair_first_order_numeric"
+statement = "Theorem pair_first_order_numeric : forall order (left middle : cube order), pair_first_order order left middle = numeric_bit_length (Nat.max (cube_encode order left) (cube_encode order middle))"
+assumptions = []
+
+[[declarations]]
+name = "associator_degree_numeric_indices"
+statement = "Corollary associator_degree_numeric_indices : forall extra (left middle : cube (S (S (S extra)))), cube_nonzero (S (S (S extra))) left = true -> cube_nonzero (S (S (S extra))) middle = true -> left <> middle -> anf_degree (S (S (S extra))) (associator_phase (S (S (S extra))) left middle) = Nat.max 1 (numeric_bit_length (Nat.max (cube_encode (S (S (S extra))) left) (cube_encode (S (S (S extra))) middle)) - 2)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_sign_row"
+statement = "Definition numeric_sign_row order fuel left (input : cube order) : bool := Z.eqb (M3IsAssociator.cd_sign_fuel fuel (2 ^ order) left (cube_encode order input)) (-1)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_phase_row"
+statement = "Definition numeric_phase_row order fuel left middle (input : cube order) : bool := Z.eqb (numeric_associator_sign order fuel left middle (cube_encode order input)) (-1)"
+assumptions = []
+
+[[declarations]]
+name = "numeric_sign_row_adapter"
+statement = "Lemma numeric_sign_row_adapter : forall order fuel left input, order <= fuel -> numeric_sign_row order fuel (cube_encode order left) input = sign_exponent order left input"
+assumptions = []
+
+[[declarations]]
+name = "numeric_phase_row_adapter"
+statement = "Lemma numeric_phase_row_adapter : forall order fuel left middle input, order <= fuel -> numeric_phase_row order fuel (cube_encode order left) (cube_encode order middle) input = associator_phase order left middle input"
+assumptions = []
+
+[[declarations]]
+name = "numeric_sign_row_degree"
+statement = "Theorem numeric_sign_row_degree : forall extra fuel left, S (S extra) <= fuel -> 0 < left < 2 ^ S (S extra) -> anf_degree (S (S extra)) (numeric_sign_row (S (S extra)) fuel left) = S extra"
+assumptions = []
+
+[[declarations]]
+name = "numeric_associator_phase_degree"
+statement = "Theorem numeric_associator_phase_degree : forall extra fuel left middle, S (S (S extra)) <= fuel -> 0 < left < 2 ^ S (S (S extra)) -> 0 < middle < 2 ^ S (S (S extra)) -> left <> middle -> anf_degree (S (S (S extra))) (numeric_phase_row (S (S (S extra))) fuel left middle) = Nat.max 1 (numeric_bit_length (Nat.max left middle) - 2)"
+assumptions = []
+
+[[declarations]]
+name = "quaternion_degree_zero"
+statement = "Example quaternion_degree_zero : anf_degree 2 (numeric_phase_row 2 2 1 2) = 0"
+assumptions = []
+
+[[declarations]]
+name = "embedded_pair_degree_one"
+statement = "Example embedded_pair_degree_one : anf_degree 4 (numeric_phase_row 4 4 1 2) = 1"
+assumptions = []
+
+[[declarations]]
+name = "new_sedenion_pair_degree_two"
+statement = "Example new_sedenion_pair_degree_two : anf_degree 4 (numeric_phase_row 4 4 1 8) = 2"
+assumptions = []

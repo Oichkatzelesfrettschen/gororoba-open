@@ -1,0 +1,5 @@
+Closed under the global context
+Closed under the global context
+File "/tmp/rocq_degree_mutations/Mutation.v", line 119, characters 37-41:
+Error: Tactic failure: not a valid ring equation.
+

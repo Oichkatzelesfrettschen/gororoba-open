@@ -7,10 +7,12 @@ IBMQuantum is read-only. Quantum submissions are prohibited for this program.
 
 Ordered work queue
 ------------------
-ACTIVE: qualify MathComp algebra/field 2.6.0 in Rocq 9.3.0; freeze exact pins.
-PENDING: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
-PENDING: WalshProbability; BooleanANFDegree; BooleanCochainFiltration extension;
-         CDPhaseDegree.
+DONE: qualify MathComp algebra/field 2.6.0; freeze exact transitive pins.
+VERIFIED: CDSignNumericCorrespondence; repeated CDAssociatorDoubling lifting.
+          PR 223 awaits exact-head hosted validation and integration.
+PROVED: WalshProbability; BooleanANFDegree; BooleanCochainFiltration extension;
+        CDPhaseDegree, including numeric and first-appearance correspondences.
+ACTIVE: validate the complete Batch 2 corpus and capture independent evidence.
 PENDING: CDAssociatorCensus; CDSparseBlockTransport and photonic mapping.
 PENDING: RecordedFeedbackInstrument; BranchSignedCoherence extension;
          FinitePlannedLookCoverage; TerminalChannelEmpiricalCertificate extension.
@@ -49,3 +51,14 @@ source review and MathComp kernel replay. All 23 project-bound receipts were
 admitted through fresh replay. Canonical export, integrity and identity
 verification passed; final inventory is 23 kernel_checked and 293 source_only.
 Integration remains pending hosted CI and review of the final payload.
+Batch 2 local verification complete: all 319 proof objects built with multicore
+Make and keep-going execution; admission and plugin checks pass. Independent
+capture covers 122 declarations in four modules: 109 closed, 13 with explicitly
+retained Stdlib real foundations. Six altered-law compiles fail. Independent
+whole-source review reports zero substantive blockers. All 26 current-project
+receipts passed fresh trusted replay. Export, compatibility, theorem identity,
+registry integrity and SQLite checks passed; 26 kernel_checked and 293
+source_only records remain, with 20 kernel-checked claim links.
+Census scratch research proves the general exact count and integrality,
+relation-class lifting, dependent-triple associativity, and numeric counts at
+4/8/16/32. Its integration belongs to the subsequent census/transport batch.
