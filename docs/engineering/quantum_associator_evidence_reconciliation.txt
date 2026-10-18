@@ -1,0 +1,238 @@
+Retained quantum evidence and associator doubling
+=================================================
+
+Scope and source identities
+----------------------------
+The audit reads gororoba-quantum at
+8c9106089fff212044951e49996b9a8508bad8c9 in /home/eirikr/Projects/IBMQuantum.
+The prior observable contracts froze inputs at
+a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8. The primary base is
+5085263ab4ccb3ef76cf74d905e83265ce25b213 (merged PR #220).
+The bounded review covers the fourteen source surfaces in the accompanying
+quantum-sources.sha256 inventory and the existing primary proofs. It is a
+cross-family reconciliation, rather than a complete raw-job replay. Numerical
+results below are retained analyses; the audit checks their recorded values
+and assumptions without rerunning hardware or the full quantum gate suite.
+The prior scheduled quantum run 39021043131 now reports completed/success.
+
+The implementation adds mathematical declarations only. Existing schema-v2
+bindings retain their 160-declaration denominator and separate typed empirical
+applications. The new module does not acquire an empirical classification by
+sharing vocabulary with a circuit. The audit submits zero quantum jobs.
+
+Multidimensional comparison
+---------------------------
+Family                  Evidence and result             Formal relationship
+Associator census       Written lifting/count proofs;  Direct sign-model work.
+                        exhaustive checks through       Count formula and plane
+                        D=512, larger sampled checks.   classification remain open.
+Fixed-pair phase        Written degree proof and       New all-order lifting and
+                        finite sign checks.             Walsh factorization below.
+Cross-scale phase       Eight-point deviation from     Orthogonal to fixed-pair
+                        affine; growing degree/support. lifting: indices change
+                                                        with dimension.
+Photonic sparse blocks  Retained Belenos hardware:      Sparse-product transport
+                        contrast 0.931512 at seed 0,        is a candidate algebraic
+                        0.909625 at seeds 1/2.              certificate, not this proof.
+Shot-record spectrum    Tuna-17: 69/147 detected jobs; IID terminal bounds remain
+                        QX emulator: 0/108.              conditional on their laws.
+Branching noise sweep   Classical exact-law simulation; Instrument composition is
+                        CUDA complex128 gap 1.4e-15.   a missing operator bridge.
+N=21 phase fits         Retained hardware, fitted      Phase-sum identifiability
+                        orbit law depends on phi1+phi2. is separate from coherence.
+Complex skew/Schur      Exact classical algebra and    Rank geometry constrains
+                        rational certificates.          encodings, not hardware.
+
+The axes within each family must remain separate:
+
+1. Coefficient domain and algebra: real CD multiplication, its complex-linear
+   extension and ordinary complex quantum amplitudes carry different laws.
+   A gate-model encoding of a CD sign table supplies implementation evidence.
+   It supplies no evidence that the processor has non-associative amplitudes.
+2. Representation: L_a is linear, while L_a L_b generally differs from L_ab.
+   The associator compares two products, not two bracketings of matrix
+   composition. A faithful associative algebra homomorphism would kill every
+   represented associator.
+3. Coordinates: the last cube component is the highest doubling bit. Quantum
+   numeric register bit b carries algebra index bit b. The new proof operates
+   on recursive cubes; a universal cube-to-numeric cd_sign_fuel equivalence
+   remains a separate theorem. Matching recurrence descriptions do not close
+   that bridge.
+4. Normalization: Boolean true represents sign -1. Walsh coefficients in the
+   proof are integer sums, with normalized amplitude W/2^n. Coefficient norm,
+   selector-success normalization and photonic conditional algebra share are
+   separate quantities. The photonic source uses unnormalized sparse vectors
+   whose bright product has squared norm 8.
+5. Compilation and execution identity: a semantic target, compilation seed,
+   served mesh and execution session need separate identities. All 16 Belenos
+   configurations changed meshes across seeds 0/1/2. Their algebra share moved
+   by median 0.043, maximum 0.185. The retained QPY digest proves bytes;
+   mathematical circuit semantics remains an additional obligation.
+6. Observable: terminal histograms omit coherences and temporal shot order.
+   Signed XX/XY/YX/YY estimate a specific within-recorded-branch coefficient.
+   Fock probabilities are insensitive to some diagonal phase frames that a
+   controlled coherent experiment can distinguish.
+7. Sampling: Belenos transports 168 dark witnesses and 168 bright controls
+   through eight dark and eight bright configurations. Algebraic coverage
+   cardinality differs from independent physical sample cardinality. The
+   sparse 32-configuration family also covers census witnesses at D=16/32/64.
+   Multiplicity correction follows sampled estimators and the declared law,
+   rather than a count of transported witness labels.
+8. Dependence: the Tuna analysis fits an added-delay slope of 50.38 +/- 3.99 Hz
+   on 11 batches/31 jobs (z_shot_locked=12.6). Wall-clock modulation is favored
+   within that regression; a mains-coupling mechanism remains an inference.
+   Same-shot whitening and across-shot temporal dependence are different
+   problems. The Gamma spectral law and effective-frequency correction are
+   approximations, rather than a certified finite binary-sample tail bound.
+   These records concern a different platform/family from the terminal
+   certificate and do not retroactively refute its conditional theorem.
+9. Nuisance identifiability: an identical-mesh Belenos repeat gives G^2=2564
+   on 226 degrees of freedom and median TVD 0.128. A one-circuit test gives
+   in_block=0.886 between thresholds 0.65 and 0.90, so form and mesh remain
+   confounded. An efficiency fit leaves held-out TVD 0.149, 4.2 shot-noise
+   floors. Fitting a nuisance is distinct from identifying its physical cause.
+10. Instrument semantics: feedback reads the recorded, readout-noisy bit.
+    Branching over true outcome m and recorded b carries P(b|m); relabeling
+    a finished histogram cannot substitute for that branch during evolution.
+    The new simulator supports conformance under its calibration model, not
+    an independent validation of that model. Its sweep retains rounded
+    distances, rather than all unrounded output laws.
+11. Geometry: complex-skew coordinates reduce classical certificate size.
+    The Schur e11 direction at e1+e18 passes first-order conditions but has
+    separator pairing -4 for second-order compatibility. Linearized nullity
+    therefore overstates accessible motion; a norm correction cannot repair
+    the transverse obstruction. Quantum resource savings require a distinct
+    circuit construction and cost analysis.
+12. Specificity and utility: bright/dark contrast establishes performance for
+    named implementations. A CD-specific physical mechanism needs matched
+    alternative structures at equal support, normalization, parameter count
+    and measurement procedure. A dark algebraic product, engineered dark
+    state and particle-physics dark sector retain separate meanings.
+
+Target choice and precise new deduction
+---------------------------------------
+The selected target is associator doubling and Walsh factorization in
+proofs/theories/CDAssociatorDoubling.v. The choice closes a prerequisite for
+the new census, reuses existing all-order sign proofs, and explains an
+experimental-design degeneracy with a small trusted foundation.
+
+Candidate                       Value                  Remaining prerequisites
+Associator/Walsh lifting        Selected; exact         Existing Boolean cubes,
+                                dimension-growth law.  commutator and high derivative.
+Complete defect census          Exact baseline.         Relation classification,
+                                                        finite rank-stratum counting.
+ANF degree formula              Phase synthesis cost.  Degree/mask-weight machinery,
+                                                        exact two-delta degree lemma.
+Sparse-block transport          Photonic coverage.      Product expansion, XOR label
+                                                        collision, normalization.
+Feedback instrument mixture     Coherence bridge.      Measurement/assignment maps
+                                                        and recorded-bit feedback.
+Dependent-shot concentration    Hardware uncertainty.  Explicit validated dependence
+                                                        or martingale premise.
+
+Write phi for the sign exponent and
+  g(a,b,x) = phi(b,x) xor phi(a,b xor x) xor phi(a xor b,x) xor phi(a,b).
+The new general doubling theorem proves that the three appended high bits
+enter g only linearly; every quadratic high-bit term cancels. Its coefficients
+are expressed through the lower commutation signs and nonzero predicates.
+This is the general associator-lifting mechanism, without a claim to have
+formalized the census's subsequent relation-class counts.
+
+For a fixed lower pair a,b, define
+  c = N(a) xor N(b) xor N(a xor b).
+The proof establishes g'(x,h) = g(x) xor (h and c) for every order and pair.
+For distinct nonzero a,b, c=1; zero or repeated pairs have c=0. Consequently
+  W(g', (k,eta)) = 2 W(g,k) if eta=c, and 0 otherwise.
+Division by 2^(n+1) preserves the lower normalized amplitude exactly; squaring
+preserves its ideal sampling weight, with a deterministic appended output c.
+The integer Walsh theorem is kernel-checked; the normalization statement is
+an algebraic corollary stated here, not a separate Born-law proof.
+
+New deduction within this reconciliation: after a pair first appears,
+ambient dimension growth adds deterministic parity coordinates to its ideal
+Walsh experiment. It does not increase the lower-coordinate information.
+This does not apply to the cross-scale family, whose pair changes with D.
+That family approaches an affine function even as support and degree grow:
+its retained dominant weight (1-16/D)^2 approaches one. Degree, spectral
+concentration, configuration count and hardware cost must therefore be
+reported as distinct measures. This audit claims no literature priority.
+
+Falsifiers and follow-up boundaries
+-----------------------------------
+An exact mismatch between the numeric sign implementation and recursive
+cubes invalidates an implementation application, while leaving the encoded
+implication intact. A wrongly ordered Walsh register changes the decoder.
+A controlled oracle with a removed global scalar needs the existing
+controlled-projection correction. Sampled deviations from ideal parity
+require the noise/circuit contract before an algebraic interpretation.
+
+The best subsequent targets are the numeric sign bridge, sparse-block
+transport and a measurement-assignment-feedback composition theorem. The
+latter must distinguish report error from control error. The complete
+associator count and ANF degree theorems remain larger mathematical tasks.
+
+Verification
+-------------
+The audit directory data/output/audit/cd-associator-sign-lifting retains source
+identities, compile/assumption output, kernel output, complete build status,
+and adversarial proof checks. _RocqProject includes the new module. Standard
+project +default warnings-as-errors settings apply. Every queried new theorem
+reports Closed under the global context. The proof uses neither admitted
+obligations nor physical sampling axioms. Hosted validation remains the
+repository integration authority.
+
+Canonical receipt lifecycle
+----------------------------
+Changing _RocqProject invalidates project-bound receipt applicability even
+when the old source closures remain byte-identical. The canonical inventory
+refresh therefore precedes renewal of the 21 original kernel receipts.
+Renewal specifications reference their immutable original compiler logs,
+objects and source closures with the new project digest. The canonical CLI
+then performs fresh trusted compilation, object comparison, kernel checking
+and assumption queries before renewing each status. Those internally produced
+replays differ from the historical referenced logs. The new module receives
+its own full witness for 20 recognized declarations, all closed under the
+global context, in addition to the eight assumption queries in its source.
+
+The prior-observable-artifact check compares every tracked path and content
+under data/output/audit/quantum-observable-contracts with the primary base.
+The capture helper separately records unchanged paths and bytes under its
+three enumerated boolean-permutation-evidence roots. Those two measured
+surfaces establish preservation of the retained inputs they enumerate.
+
+Photonic record precision and model mismatch
+--------------------------------------------
+The job-02 and job-07 analysis JSONs give bright/dark means
+0.979098/0.047586 and 0.937723/0.028098. Their differences are 0.931512 and
+0.909625 at the precision of the serialized means; the strategy note's 0.931
+and 0.910 are approximate summaries. Both analysis records report
+"no class fits". Strong target discrimination therefore coexists with
+rejection of the tested noise-model families. Target attainment and model
+adequacy are distinct conclusions even within the same hardware result.
+
+All 16 plus 32 retained setting records satisfy
+sum(single_click) + other_events = nb_shots_used = 1500. The original raw
+result hashes match the corresponding collection result_sha256 fields.
+photonic-record-check.log retains those read-only jq and hash observations.
+Those checks validate retention and recorded denominators; they do not
+rerun the fit or establish independence between settings or jobs.
+
+Readout consequence of exact cancellation
+-----------------------------------------
+For a fixed lower independent pair, every input x contributes opposite signs
+at high bits 0 and 1. An ideal uniform sign average therefore vanishes after
+doubling, while the Walsh readout has a deterministic high output bit and
+retains the complete lower spectrum. Conditional on the controlled-oracle,
+preparation and Born contracts, a vanishing Hadamard-test average can thus
+reflect exact algebraic parity cancellation. Such a zero average alone does
+not diagnose decoherence or the absence of pointwise associator defects.
+This consequence concerns a fixed pair, rather than averaging all triples;
+it supplies a matched ideal baseline for choosing the observable.
+
+Final local validation records a complete 315-source build with 12 workers,
+315 matching compiled-object paths, seven passing capture-parser tests,
+three rejected altered laws, and 22 admitted source-bound module receipts.
+The rebuilt current-source control-plane verifier confirms 315 proof files,
+315 theorem records and the retained 20 kernel-checked claim links. SQLite
+integrity and theorem identity checks pass. Hosted validation owns repository
+integration; the retained local commands establish their named surfaces.

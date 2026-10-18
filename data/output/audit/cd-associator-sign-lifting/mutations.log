@@ -1,0 +1,20 @@
+REJECTED walsh-scale
+File "/tmp/cd-associator-mutations.7XhGCD/Mutation.v", line 149, characters 72-76:
+Error: Tactic failure: not a valid ring equation.
+
+REJECTED pair-coefficient
+File "/tmp/cd-associator-mutations.7XhGCD/Mutation.v", line 82, characters 57-68:
+Error:
+In environment
+order : nat
+left, right : cube order
+left_nonzero : cube_nonzero order left = true
+right_nonzero : cube_nonzero order right = true
+distinct : left <> right
+Unable to unify "false" with "xorb true (xorb true true)".
+
+REJECTED sign-character
+File "/tmp/cd-associator-mutations.7XhGCD/Mutation.v", line 89, characters 21-32:
+Error: Unable to unify "phase_sign true * phase_sign true" with
+ "phase_sign (xorb true true)".
+

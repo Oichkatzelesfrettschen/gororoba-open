@@ -317,3 +317,4 @@ theories/FiniteProbability.v
 theories/FiniteBernoulliConcentration.v
 theories/BranchSignedCoherence.v
 theories/TerminalChannelEmpiricalCertificate.v
+theories/CDAssociatorDoubling.v

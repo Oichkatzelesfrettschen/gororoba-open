@@ -1,0 +1,142 @@
+evidence_key = "cd-associator-doubling-walsh-kernel"
+actor = "chatgpt-codex"
+reason = "Admit all twenty recognized declarations through full source-closure compiler, independent kernel, exact object and assumption replay. Mathematical evidence carries no empirical claim links."
+applied_at = "2026-10-18T09:20:47Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDAssociatorDoubling"
+proof_path = "proofs/theories/CDAssociatorDoubling.v"
+project_sha256 = "001d746815ddbdde26c8c95679184a4846c7fd0290f27cd5cf4ba7e87aad8cc8"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDAssociatorDoubling.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDAssociatorDoubling"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "506ff34f67208918f5318c6080d2105a16133bdb8ecb8f16548da8f04ded0afc"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[witness.compile_log]
+path = "data/output/audit/cd-associator-sign-lifting/kernel-capture/CDAssociatorDoubling.compile.txt"
+sha256 = "7c97b18da34e49eb514d1cad5901f51c328894ece2ffd401a7bec2d34c3040ac"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-associator-sign-lifting/kernel-capture/CDAssociatorDoubling.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-associator-sign-lifting/kernel-capture/CDAssociatorDoubling.assumptions.txt"
+sha256 = "7ab8a1e1f75df09540091c2d390461a6dc580a089895f2af9d532eb946f3397f"
+
+[witness.proof_object]
+path = "data/output/audit/cd-associator-sign-lifting/kernel-capture/theories/CDAssociatorDoubling.vo"
+sha256 = "355684e5aa4b5c8dca5c517ace368040e762ca5b50bdaa789cc31c5721db270e"
+
+[[witness.declarations]]
+name = "associator_phase"
+statement = "Definition associator_phase order (left middle right : cube order) : bool := xorb (schreier order left middle right) (sign_exponent order left middle)"
+assumptions = []
+
+[[witness.declarations]]
+name = "commutation_phase"
+statement = "Definition commutation_phase order (left right : cube order) : bool := xorb (sign_exponent order left right) (sign_exponent order right left)"
+assumptions = []
+
+[[witness.declarations]]
+name = "sign_doubling"
+statement = "Theorem sign_doubling : forall order (left right : cube order) left_high right_high, sign_exponent (S order) (left, left_high) (right, right_high) = xorb (sign_exponent order left right) (xorb (andb right_high (commutation_phase order left right)) (xorb (andb left_high (cube_nonzero order right)) (andb left_high right_high)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "associator_doubling"
+statement = "Theorem associator_doubling : forall order (left middle right : cube order) left_high middle_high right_high, associator_phase (S order) (left, left_high) (middle, middle_high) (right, right_high) = xorb (associator_phase order left middle right) (xorb (andb left_high (xorb (cube_nonzero order middle) (xorb (cube_nonzero order right) (cube_nonzero order (cube_xor order middle right))))) (xorb (andb middle_high (xorb (commutation_phase order left middle) (commutation_phase order left (cube_xor order middle right)))) (andb right_high (xorb (commutation_phase order (cube_xor order left middle) right) (xorb (commutation_phase order middle right) (commutation_phase order left (cube_xor order middle right)))))))"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_coefficient"
+statement = "Definition pair_coefficient order (left right : cube order) := xorb (cube_nonzero order left) (xorb (cube_nonzero order right) (cube_nonzero order (cube_xor order left right)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "lower_pair_lifting"
+statement = "Theorem lower_pair_lifting : forall order (left middle right : cube order) high, associator_phase (S order) (left, false) (middle, false) (right, high) = xorb (associator_phase order left middle right) (andb high (pair_coefficient order left middle))"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_nonzero_of_distinct"
+statement = "Lemma xor_nonzero_of_distinct : forall order (left right : cube order), left <> right -> cube_nonzero order (cube_xor order left right) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "independent_pair_coefficient"
+statement = "Theorem independent_pair_coefficient : forall order (left right : cube order), cube_nonzero order left = true -> cube_nonzero order right = true -> left <> right -> pair_coefficient order left right = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "phase_sign"
+statement = "Definition phase_sign (phase : bool) : Z := if phase then -1 else 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "phase_sign_xor"
+statement = "Lemma phase_sign_xor : forall left right, phase_sign (xorb left right) = phase_sign left * phase_sign right"
+assumptions = []
+
+[[witness.declarations]]
+name = "independent_pair_cancellation"
+statement = "Theorem independent_pair_cancellation : forall order (left middle right : cube order), cube_nonzero order left = true -> cube_nonzero order middle = true -> left <> middle -> phase_sign (associator_phase (S order) (left, false) (middle, false) (right, false)) + phase_sign (associator_phase (S order) (left, false) (middle, false) (right, true)) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh"
+statement = "Definition walsh order (function : cube order -> bool) (frequency : cube order) : Z := integer_cube_sum order (fun input => phase_sign (xorb (function input) (cube_dot order frequency input)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "integer_cube_sum_ext"
+statement = "Lemma integer_cube_sum_ext : forall order first second, (forall input, first input = second input) -> integer_cube_sum order first = integer_cube_sum order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "integer_cube_sum_scale"
+statement = "Lemma integer_cube_sum_scale : forall order factor function, integer_cube_sum order (fun input => factor * function input) = factor * integer_cube_sum order function"
+assumptions = []
+
+[[witness.declarations]]
+name = "walsh_parity_extension"
+statement = "Theorem walsh_parity_extension : forall order function coefficient frequency frequency_high, walsh (S order) (fun input => xorb (function (fst input)) (andb (snd input) coefficient)) (frequency, frequency_high) = if Bool.eqb frequency_high coefficient then 2 * walsh order function frequency else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "associator_walsh_lifting"
+statement = "Theorem associator_walsh_lifting : forall order (left middle frequency : cube order) frequency_high, walsh (S order) (fun input => associator_phase (S order) (left, false) (middle, false) input) (frequency, frequency_high) = if Bool.eqb frequency_high (pair_coefficient order left middle) then 2 * walsh order (associator_phase order left middle) frequency else 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "degenerate_pair_coefficient"
+statement = "Theorem degenerate_pair_coefficient : forall order (value : cube order), pair_coefficient order (cube_zero order) value = false /\\ pair_coefficient order value (cube_zero order) = false /\\ pair_coefficient order value value = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_pair_zero"
+statement = "Example quaternion_pair_zero : forall input : cube 2, associator_phase 2 ((tt, true), false) ((tt, false), true) input = false"
+assumptions = []
+
+[[witness.declarations]]
+name = "octonion_pair_parity"
+statement = "Example octonion_pair_parity : forall input : cube 2, forall high, associator_phase 3 (((tt, true), false), false) (((tt, false), true), false) (input, high) = high"
+assumptions = []
+
+[[witness.declarations]]
+name = "degenerate_walsh_slice"
+statement = "Example degenerate_walsh_slice : walsh 1 (fun _ => false) (tt, true) = 0"
+assumptions = []

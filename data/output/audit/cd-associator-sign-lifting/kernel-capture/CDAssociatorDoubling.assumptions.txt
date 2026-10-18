@@ -1,0 +1,40 @@
+Declaration: associator_phase
+Closed under the global context
+Declaration: commutation_phase
+Closed under the global context
+Declaration: sign_doubling
+Closed under the global context
+Declaration: associator_doubling
+Closed under the global context
+Declaration: pair_coefficient
+Closed under the global context
+Declaration: lower_pair_lifting
+Closed under the global context
+Declaration: xor_nonzero_of_distinct
+Closed under the global context
+Declaration: independent_pair_coefficient
+Closed under the global context
+Declaration: phase_sign
+Closed under the global context
+Declaration: phase_sign_xor
+Closed under the global context
+Declaration: independent_pair_cancellation
+Closed under the global context
+Declaration: walsh
+Closed under the global context
+Declaration: integer_cube_sum_ext
+Closed under the global context
+Declaration: integer_cube_sum_scale
+Closed under the global context
+Declaration: walsh_parity_extension
+Closed under the global context
+Declaration: associator_walsh_lifting
+Closed under the global context
+Declaration: degenerate_pair_coefficient
+Closed under the global context
+Declaration: quaternion_pair_zero
+Closed under the global context
+Declaration: octonion_pair_parity
+Closed under the global context
+Declaration: degenerate_walsh_slice
+Closed under the global context
