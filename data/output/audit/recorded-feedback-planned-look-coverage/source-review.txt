@@ -1,0 +1,31 @@
+Independent source review: feedback_coverage_review (GPT-6 Astra).
+The reviewer inspected the complete five-module mathematical batch and its
+probability, separation and Pauli dependencies. The equations and explicit
+premises are sound. Two completeness findings entered the single repair pass.
+
+Final: fixed column-adapter inverse -- review-column-before.log fails because
+the round-trip theorem is absent; review-column-after.log recognizes both
+proved directions. work_column_decode uses the unique ordinal column and the
+proved four-state index inverse. wrong-column-readback.log rejects a collapsed
+readback; wrong-work-basis.log rejects swapped work coordinates.
+
+Final: fixed concrete instrument/Born/integer-decoder composition --
+review-born-decoder-before.log fails on the absent target;
+review-born-decoder-after.log recognizes the complete theorem. The instrument
+instantiates recorded_born_law and finite_recorded_born_score, composes the
+little-endian integer decoder, and reconstructs observed_coherence from all
+four Pauli settings. The original conditional measured-moment theorem remains
+separate. Wrong decoded-score and imaginary-orientation mutations fail.
+
+The author reproduced an additional binding-policy scope bug: appending a
+mathematical source declaration widened the historical empirical theorem
+family. The new regression fails before the policy correction and passes
+afterward. The retained coherence application now admits an explicit 27-name
+family; all 289 mathematical declarations carry inapplicable physical fields.
+The seven terminal applications and 39 frozen assets retain their identities.
+
+The review establishes source assessment, not final kernel replay or hosted
+validation. Physical calibration, actual hardware Born agreement, stationarity,
+sampling independence where required, and observed-count correspondence remain
+external application evidence. The complete feedback counterexample refutes
+universal equivalence and does not diagnose a particular device.

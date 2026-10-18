@@ -1,0 +1,33 @@
+Use the qualified rocq-9.3 switch and the registered proof sources:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going all
+  opam exec --switch=rocq-9.3 -- make -C proofs check-admissions check-plugins
+The initial snapshot contains 322 modules before the census prerequisite sync.
+Final corpus verification and current-project receipt admission occur after sync.
+
+Compile the three mutation helpers with rustc --edition=2024 -D warnings.
+Run each from the repository root with a fresh scratch directory. Three coverage,
+three terminal and eight instrument/decoder variants fail mathematical proofs.
+The independent-review before/after logs check column inverse and concrete
+instrument/Born/integer-decoder composition. Conditional measured-law statements
+retain their explicit calibration premises.
+
+Compile capture_rocq_receipts.rs with rustc --edition=2024 -D warnings:
+  capture REPOSITORY FRESH_SCRATCH /path/to/rocq-9.3/bin
+  capture organize FRESH_SCRATCH/kernel
+The raw capture records the exact project snapshot used. Fresh receipt replay
+against the synchronized project is required for canonical admission. The helper's
+array adaptation initially failed compilation; the corrected producer passes its
+seven parser regressions. The failed launcher diagnostic remains retained.
+
+Refresh bindings with the retained Rust producer as a provenance_store example.
+The producer accepts REPOSITORY and an optional prestate manifest path; using
+an original prestate preserves its declaration ordering. Serialize through the
+QuantumBindingManifest type. Verify with:
+  cargo test -p provenance_store --lib quantum_bindings::tests
+  cargo run -p provenance_store --example verify_quantum_bindings -- MANIFEST REPOSITORY
+Use distinct worktree target storage and the documented shared dependency build
+root. The manifest admits 289 mathematical declarations across fourteen sources,
+while retaining the 27 selected coherence declarations, seven terminal applications
+and all thirty-nine frozen assets. The binding-scope regression fails before the
+policy correction and passes afterward. All eleven binding tests pass; Clippy
+passes with -D warnings. The repository's nightly formatter passes without warnings.

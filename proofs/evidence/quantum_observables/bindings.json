@@ -131,73 +131,73 @@
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json",
-      "sha256": "03814a661286b0b8bead2949f216fb8ba22193bc5caa7bc9da415af22149f964"
+      "sha256": "03814a661286b0b8bead2949f216fb8ba22193bc5caa7bc9da415af22149f964",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_00.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json",
-      "sha256": "8c270b65fd0bb1e09d92c6cd5aea478c17df57c6524bc614b2e2bbedb5cd88f0"
+      "sha256": "8c270b65fd0bb1e09d92c6cd5aea478c17df57c6524bc614b2e2bbedb5cd88f0",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_01.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json",
-      "sha256": "479448c8ab214e7a97d1ed24f2105c8d434bb8c273ebe55417159854948dfa90"
+      "sha256": "479448c8ab214e7a97d1ed24f2105c8d434bb8c273ebe55417159854948dfa90",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_02.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json",
-      "sha256": "bf1f1462cbef31125b7c6ff6fa8e1ab81dea6963d90edd2fe5a64250a39957cc"
+      "sha256": "bf1f1462cbef31125b7c6ff6fa8e1ab81dea6963d90edd2fe5a64250a39957cc",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_03.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json",
-      "sha256": "0410eddebbdbc760070b2876f4982360976139ebecba27724ec84d08e4eaa844"
+      "sha256": "0410eddebbdbc760070b2876f4982360976139ebecba27724ec84d08e4eaa844",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_04.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json",
-      "sha256": "6e8c3f67e867d181b17fa9b916cb973ba2236f8d8e86d52140ec471a4dc2eabc"
+      "sha256": "6e8c3f67e867d181b17fa9b916cb973ba2236f8d8e86d52140ec471a4dc2eabc",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_05.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json",
-      "sha256": "b4cf8ffdcf164740daf8039e3e00b3c53ea91db8ad2197c944576ba3851f0ff3"
+      "sha256": "b4cf8ffdcf164740daf8039e3e00b3c53ea91db8ad2197c944576ba3851f0ff3",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_06.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json",
-      "sha256": "2155f30ec66bd243d24d7b9b30cfe353643deb2f97642d37d197c45b7ca5767d"
+      "sha256": "2155f30ec66bd243d24d7b9b30cfe353643deb2f97642d37d197c45b7ca5767d",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_07.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json",
-      "sha256": "f9b8de6a8d522404849da2fa9a271a26530041288751b93c1fcc1d3b55f3e7cb"
+      "sha256": "f9b8de6a8d522404849da2fa9a271a26530041288751b93c1fcc1d3b55f3e7cb",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_08.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json",
-      "sha256": "6a1c284e5c3d9aa57ece00eb79dcd39d30d28185392efab4a9a130a6f38d56d9"
+      "sha256": "6a1c284e5c3d9aa57ece00eb79dcd39d30d28185392efab4a9a130a6f38d56d9",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67fqsvf2bc73d0pk4g/pub_10.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json",
-      "sha256": "f0d2e5417456592966318bfde33d3ae050929204a4837444145ad62b133b5572"
+      "sha256": "f0d2e5417456592966318bfde33d3ae050929204a4837444145ad62b133b5572",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_00.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json",
-      "sha256": "0f021cc4ce3f2fc172375863d11c531b98a8341e7b830c6af91d6d7c1e12f286"
+      "sha256": "0f021cc4ce3f2fc172375863d11c531b98a8341e7b830c6af91d6d7c1e12f286",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_01.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json",
-      "sha256": "7e859289c7ebdba1825d17125abb706fe003425e1732664528d64f697f6ce40d"
+      "sha256": "7e859289c7ebdba1825d17125abb706fe003425e1732664528d64f697f6ce40d",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_02.json"
     },
     {
       "path": "proofs/evidence/quantum_observables/frozen/results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json",
-      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json",
-      "sha256": "c9cee8c742967e839d669c957e3c0bb8fe71c85548f4691765ef551eb14797b3"
+      "sha256": "c9cee8c742967e839d669c957e3c0bb8fe71c85548f4691765ef551eb14797b3",
+      "source_path": "results/live/2026-10-12T055624.091217Z/raw/db67frimb58s738bci4g/pub_03.json"
     }
   ],
   "theorems": [
@@ -1113,7 +1113,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_radius_from_centered_sum",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1126,7 +1126,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_false_rejection_requires_radius_failure",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1139,7 +1139,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_false_rejection_probability",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1152,7 +1152,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_32_mean_false_rejection",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1165,7 +1165,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "retained_terminal_exact_margin",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1178,7 +1178,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "retained_terminal_margin_positive",
       "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1932,7 +1932,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "complex_ext",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1945,7 +1945,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "pauli_odd_entry",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1958,7 +1958,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "difference_hermitian",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1971,7 +1971,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "branch_signed_entry",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1984,7 +1984,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "recorded_cross_branch_zero",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -1997,7 +1997,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "recorded_signed_difference",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2010,7 +2010,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "signed_score_product",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2023,7 +2023,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "score_spectator_invariant",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2036,7 +2036,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "spectator_marginal_score",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2049,7 +2049,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "spectator_partial_trace",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2062,7 +2062,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "independent_branch_flip",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2075,7 +2075,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "opposite_branches_cancel",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2088,7 +2088,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "ordered_z_rotation",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2101,7 +2101,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "rotation_preserves_modulus_squared",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2114,7 +2114,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "radius_triangle",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2127,7 +2127,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "radius_encloses_euclidean_disk",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2140,7 +2140,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "nuisance_radius_propagation",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2153,7 +2153,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "cause_drift_nonidentifiability",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2166,7 +2166,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "observed_signed_coherence",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2179,7 +2179,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "little_endian_score_reconstruction",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2192,7 +2192,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "finite_born_pauli_score",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2205,7 +2205,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "pauli_difference",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2218,7 +2218,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "finite_recorded_born_score",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2231,7 +2231,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "estimator_branch_flip_scale",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2244,7 +2244,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "opposite_branch_coherence_recovery",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2257,7 +2257,7 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "setting_bias_radius",
       "basis": "source_complex_and_matrix_coordinates",
       "normalization": "normalization_from_theorem_hypotheses",
@@ -2270,9 +2270,1686 @@
     },
     {
       "source": "proofs/theories/BranchSignedCoherence.v",
-      "sha256": "133e3700ba380af06dabbd3869af80e9dbca76bd0d6d8166c41f9028a2ebac19",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
       "declaration": "balanced_control_zz_attenuation",
       "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_assigned_hermitian",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_branch_assignment_identity",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_branch_symmetric_specialization",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_coherence_bias_bound",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_coherence_bias_identity",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "asymmetric_pauli_coherence",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "calibrated_signed_register_moment",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "radius_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/BranchSignedCoherence.v",
+      "sha256": "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1",
+      "declaration": "signed_register_decoder_difference",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "declared_selection_failure_subset",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "finite_declared_stopping_coverage",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "finite_planned_look_budget",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "finite_planned_simultaneous_coverage",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "planned_complement_probability",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FinitePlannedLookCoverage.v",
+      "sha256": "ecf7ab7d9f0d9d19d256bf974b5889e288eed04e2b53209072c27fa594c1db4b",
+      "declaration": "planned_sum_monotone",
+      "basis": "finite_weighted_sample_space",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_add_associative",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_add_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_conjugate_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_conjugate_involutive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_conjugate_multiply",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_multiply_associative",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "complex_multiply_commutative",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_hermitian",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_identity",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_involutive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_involutive_eq",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_product",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_adjoint_product_eq",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_basis_decode_encode",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_basis_encode_decode",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_column_round_trip",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_column_storage_round_trip",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_hermitian",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_quadratic",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_sum",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_trace",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_congruence_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_hermitian_adjoint",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_inner_adjoint",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_add_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_ext",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_round_trip",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_scale_of_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_scale_one",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_scale_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_matrix_sum_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_positive_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_positive_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_positive_trace_nonnegative",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_positive_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_add_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_add_right",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_associative",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_associative_eq",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_identity_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_identity_right",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_scale_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_scale_right",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_sum_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_zero_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_product_zero_right",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_quadratic_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_quadratic_inner",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_quadratic_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_single_column_unique",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_storage_round_trip",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_conjugate",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_ext",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_multiply_left",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_multiply_right",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_sum_swap",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_trace_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_trace_cyclic",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_trace_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_trace_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/FourStateMatrixAlgebra.v",
+      "sha256": "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729",
+      "declaration": "work_vector_product",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "assigned_branch_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "assigned_branch_trace_sum",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "binary_assignment_before_feedback",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "binary_assignment_stochastic",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "complete_kraus_trace_preserving",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "decoded_joint_score_reconstruction",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "decoded_observed_coherence_reconstruction",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "feedback_counterexample_assigned_true",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "feedback_counterexample_complete",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "feedback_counterexample_density_normalized",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "feedback_flip_complete",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "feedback_identity_complete",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "finite_recorded_born_observed_coherence",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "finite_recorded_decoded_born_score",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_identity",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_add",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_scale",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_sum",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_trace",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_map_zero",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "kraus_singleton",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "measurement_trace_sum",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "posthoc_histogram_branch_diagonal",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "posthoc_histogram_cannot_replace_recorded_feedback",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_bit_feedback_counterexample",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_bit_feedback_differs_from_true_outcome",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_block_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_block_quadratic",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_basis_word",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_branch_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_branch_summation",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_decoded_born_score",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_decoded_observed_coherence",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_joint_blocks",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_joint_positive",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_pauli_estimator",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_register_decoder",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_subnormalized",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/RecordedFeedbackInstrument.v",
+      "sha256": "39b76c5a7076c53f7f5a888cc6d54df1173584dabe294e04bacd6a9869e2c015",
+      "declaration": "recorded_feedback_trace_preserving",
+      "basis": "source_complex_and_matrix_coordinates",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "retained_terminal_parameterized_exact_margin",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_historical_32_mean_specialization",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_historical_radius_specialization",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_historical_rejection_specialization",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_parameterized_deterministic_certificate",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_parameterized_false_rejection",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_parameterized_probability",
+      "basis": "source_scalar_channel_and_event_definitions",
+      "normalization": "normalization_from_theorem_hypotheses",
+      "execution": "mathematical_only",
+      "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
+      "premises": [
+        "mathematical definitions and hypotheses in the pinned declaration"
+      ],
+      "decoder_members": []
+    },
+    {
+      "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
+      "declaration": "terminal_planned_false_rejection_probability",
+      "basis": "source_scalar_channel_and_event_definitions",
       "normalization": "normalization_from_theorem_hypotheses",
       "execution": "mathematical_only",
       "not_applicable_reason": "The proposition concerns mathematical definitions and stated hypotheses only; physical circuit, register decoder and hardware observable are not applicable.",
@@ -2319,11 +3996,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "probability_zero",
-      "numerator": 2979,
-      "denominator": 16384,
       "basis_convention": "computational_c0",
       "observable_formula": "p0=count(c0=0)/total",
-      "normalization": "aggregate_eight_replica_mean"
+      "normalization": "aggregate_eight_replica_mean",
+      "numerator": 2979,
+      "denominator": 16384
     },
     {
       "member": "design_b_bright_1_10_4_15",
@@ -2361,11 +4038,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "probability_zero",
-      "numerator": 13573,
-      "denominator": 16384,
       "basis_convention": "computational_c0",
       "observable_formula": "p0=count(c0=0)/total",
-      "normalization": "aggregate_eight_replica_mean"
+      "normalization": "aggregate_eight_replica_mean",
+      "numerator": 13573,
+      "denominator": 16384
     },
     {
       "member": "coherence_measure_reset_xx",
@@ -2382,11 +4059,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 728,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 728,
+      "denominator": 2048
     },
     {
       "member": "coherence_measure_reset_xy",
@@ -2403,11 +4080,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": -1384,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": -1384,
+      "denominator": 2048
     },
     {
       "member": "coherence_measure_reset_yx",
@@ -2424,11 +4101,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 1410,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 1410,
+      "denominator": 2048
     },
     {
       "member": "coherence_measure_reset_yy",
@@ -2445,11 +4122,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 724,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 724,
+      "denominator": 2048
     },
     {
       "member": "coherence_immediate_xx",
@@ -2466,11 +4143,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 1668,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 1668,
+      "denominator": 2048
     },
     {
       "member": "coherence_immediate_xy",
@@ -2487,11 +4164,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": -44,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": -44,
+      "denominator": 2048
     },
     {
       "member": "coherence_immediate_yx",
@@ -2508,11 +4185,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 6,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 6,
+      "denominator": 2048
     },
     {
       "member": "coherence_immediate_yy",
@@ -2529,11 +4206,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 1718,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 1718,
+      "denominator": 2048
     },
     {
       "member": "coherence_matched_idle_xx",
@@ -2550,11 +4227,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 634,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 634,
+      "denominator": 2048
     },
     {
       "member": "coherence_matched_idle_xy",
@@ -2571,11 +4248,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": -1420,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": -1420,
+      "denominator": 2048
     },
     {
       "member": "coherence_matched_idle_yx",
@@ -2592,11 +4269,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 1376,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 1376,
+      "denominator": 2048
     },
     {
       "member": "coherence_matched_idle_yy",
@@ -2613,11 +4290,11 @@
       "shots_per_replica": 2048,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "branch_signed_parity",
-      "numerator": 634,
-      "denominator": 2048,
       "basis_convention": "b0_c0_a_c1_b_c2_spectator_c3;X=H;Y=Sdg_then_H",
       "observable_formula": "S=(-1)^(b0+a+b);C=(Sxx+Syy+i*(Sxy-Syx))/4",
-      "normalization": "single_replica_signed_mean_then_quarter"
+      "normalization": "single_replica_signed_mean_then_quarter",
+      "numerator": 634,
+      "denominator": 2048
     },
     {
       "member": "qpe_no_feed_forward_s1",
@@ -2634,11 +4311,11 @@
       "shots_per_replica": 8192,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "terminal_bit_one",
-      "numerator": 2964,
-      "denominator": 8192,
       "basis_convention": "terminal_c1_first_c0",
       "observable_formula": "p1=count(c1=1)/shots",
-      "normalization": "single_replica_mean"
+      "normalization": "single_replica_mean",
+      "numerator": 2964,
+      "denominator": 8192
     },
     {
       "member": "qpe_no_feed_forward_s3",
@@ -2655,11 +4332,11 @@
       "shots_per_replica": 8192,
       "bit_order": "little_endian_c0_rightmost",
       "recipe": "terminal_bit_one",
-      "numerator": 4911,
-      "denominator": 8192,
       "basis_convention": "terminal_c1_first_c0",
       "observable_formula": "p1=count(c1=1)/shots",
-      "normalization": "single_replica_mean"
+      "normalization": "single_replica_mean",
+      "numerator": 4911,
+      "denominator": 8192
     },
     {
       "member": "qpe_archived_s0",
@@ -2957,22 +4634,6 @@
     }
   ],
   "terminal": {
-    "means": 32,
-    "alpha_numerator": 1,
-    "alpha_denominator": 20,
-    "radius_numerator": 21,
-    "radius_denominator": 1000,
-    "hardware_numerators": [
-      2964,
-      4911
-    ],
-    "replay_numerators": [
-      4067,
-      4057
-    ],
-    "shots": 8192,
-    "margin_numerator": 156109,
-    "margin_denominator": 1024000,
     "covered_means": [
       {
         "member": "qpe_no_feed_forward_s1",
@@ -3133,44 +4794,6 @@
         "member": "qpe_no_feed_forward_s2",
         "pub_name": "ibm_kingston_dynamic_pub_11",
         "data_source": "replay"
-      }
-    ],
-    "selected_test_means": [
-      {
-        "theorem_index": 0,
-        "role": "hardware_first",
-        "mean": {
-          "member": "qpe_no_feed_forward_s1",
-          "pub_name": "ibm_kingston_dynamic_pub_10",
-          "data_source": "hardware"
-        }
-      },
-      {
-        "theorem_index": 1,
-        "role": "hardware_second",
-        "mean": {
-          "member": "qpe_no_feed_forward_s3",
-          "pub_name": "ibm_kingston_dynamic_pub_12",
-          "data_source": "hardware"
-        }
-      },
-      {
-        "theorem_index": 2,
-        "role": "replay_first",
-        "mean": {
-          "member": "qpe_no_feed_forward_s1",
-          "pub_name": "ibm_kingston_dynamic_pub_10",
-          "data_source": "replay"
-        }
-      },
-      {
-        "theorem_index": 3,
-        "role": "replay_second",
-        "mean": {
-          "member": "qpe_no_feed_forward_s3",
-          "pub_name": "ibm_kingston_dynamic_pub_12",
-          "data_source": "replay"
-        }
       }
     ],
     "replay_observations": [
@@ -3390,7 +5013,61 @@
         ],
         "terminal_numerator": 4057
       }
-    ]
+    ],
+    "selected_test_means": [
+      {
+        "theorem_index": 0,
+        "role": "hardware_first",
+        "mean": {
+          "member": "qpe_no_feed_forward_s1",
+          "pub_name": "ibm_kingston_dynamic_pub_10",
+          "data_source": "hardware"
+        }
+      },
+      {
+        "theorem_index": 1,
+        "role": "hardware_second",
+        "mean": {
+          "member": "qpe_no_feed_forward_s3",
+          "pub_name": "ibm_kingston_dynamic_pub_12",
+          "data_source": "hardware"
+        }
+      },
+      {
+        "theorem_index": 2,
+        "role": "replay_first",
+        "mean": {
+          "member": "qpe_no_feed_forward_s1",
+          "pub_name": "ibm_kingston_dynamic_pub_10",
+          "data_source": "replay"
+        }
+      },
+      {
+        "theorem_index": 3,
+        "role": "replay_second",
+        "mean": {
+          "member": "qpe_no_feed_forward_s3",
+          "pub_name": "ibm_kingston_dynamic_pub_12",
+          "data_source": "replay"
+        }
+      }
+    ],
+    "means": 32,
+    "alpha_numerator": 1,
+    "alpha_denominator": 20,
+    "radius_numerator": 21,
+    "radius_denominator": 1000,
+    "hardware_numerators": [
+      2964,
+      4911
+    ],
+    "replay_numerators": [
+      4067,
+      4057
+    ],
+    "shots": 8192,
+    "margin_numerator": 156109,
+    "margin_denominator": 1024000
   },
   "coherence_application": {
     "execution": "conditional_coherence_fixture",
@@ -3472,7 +5149,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "retained_terminal_exact_margin",
       "basis": "binary_zero_one",
       "normalization": "probability_unit_interval",
@@ -3488,7 +5165,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "retained_terminal_margin_positive",
       "basis": "binary_zero_one",
       "normalization": "probability_unit_interval",
@@ -3504,7 +5181,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_32_mean_false_rejection",
       "basis": "binary_zero_one",
       "normalization": "probability_unit_interval",
@@ -3523,7 +5200,7 @@
     },
     {
       "source": "proofs/theories/TerminalChannelEmpiricalCertificate.v",
-      "sha256": "dad6def5dfc30cbf092fbb9c624178f36b91feb545dc4342957b23617857ea79",
+      "sha256": "d1f750c05c55931130af91f918b82fbdc4ca8d44ce3a90d566078867690e248d",
       "declaration": "terminal_false_rejection_probability",
       "basis": "binary_zero_one",
       "normalization": "probability_unit_interval",

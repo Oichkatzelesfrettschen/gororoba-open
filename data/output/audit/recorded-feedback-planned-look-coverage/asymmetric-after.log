@@ -1,0 +1,18 @@
+asymmetric_branch_assignment_identity
+     : forall (zero_to_one one_to_zero : Rdefinitions.RbaseSymbolsImpl.R)
+         (branch_zero branch_one : Matrix) (row column : Basis),
+       matrix_difference
+         (asymmetric_assigned_zero zero_to_one one_to_zero branch_zero
+            branch_one)
+         (asymmetric_assigned_one zero_to_one one_to_zero branch_zero
+            branch_one)
+         row column =
+       add
+         (scale
+            (Rdefinitions.Rminus
+               (Rdefinitions.Rminus
+                  (Rdefinitions.IZR (BinInt.Z.pos BinNums.xH)) zero_to_one)
+               one_to_zero)
+            (matrix_difference branch_zero branch_one row column))
+         (scale (Rdefinitions.Rminus one_to_zero zero_to_one)
+            (matrix_sum branch_zero branch_one row column))

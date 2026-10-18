@@ -1,0 +1,18 @@
+File "/tmp/rocq-look-mutations/Mutation.v", line 72, characters 11-38:
+Error:
+In environment
+Sample : Type
+Estimator : Type
+Look : Type
+declared : list (Estimator * Look)
+selection : Sample -> option (Estimator * Look)
+failure : Estimator * Look -> Sample -> bool
+admitted :
+  forall (sample : Sample) (pair : Estimator * Look),
+  selection sample = Some pair -> True
+sample : Sample
+pair : Estimator * Look
+chosen : selection sample = Some pair
+selected : failure pair sample = true
+Unable to unify "True" with "In pair declared".
+

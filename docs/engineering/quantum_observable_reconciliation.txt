@@ -3,10 +3,10 @@ Quantum observable contracts and current reconciliation delta
 
 Source and execution boundary
 -----------------------------
-The current contracts extend open_gororoba base
+The original retained-fixture contracts extend open_gororoba base
 4706d40eafa524957a9b20384a6a7346fe8536a1 and read retained quantum inputs
 from gororoba-quantum a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
-proofs/evidence/quantum_observables/bindings.json binds 160 recognized
+proofs/evidence/quantum_observables/bindings.json originally bound 160 recognized
 lemma/theorem declarations in 11 source files to 39 original-byte assets.
 The validator reconstructs the selected statistics from 30 raw PUB members.
 The validator anchors the sorted source-path<TAB>SHA256<LF> inventory to
@@ -34,11 +34,11 @@ Every scoped declaration names its source digest, mathematical basis,
 normalization and formal hypotheses. Typed applications connect declarations
 to circuit digests through decoder records, register maps, observables and
 physical premises.
-Schema version 2 separates all 160 mathematical declarations from physical
+Schema version 2 separates mathematical declarations from physical
 applications. Every theorem marks physical fields inapplicable. Seven typed
 terminal applications link the formal results to the retained counts, decoder
 normalizations and sampling or channel premises. One typed coherence
-application links all 27 operator identities to 12 Pauli decoders and the
+application links 27 explicitly selected operator identities to 12 Pauli decoders and the
 three reconstructed coefficients. Physical Born, assignment-error and nuisance
 assumptions belong to applications rather than mathematical proof evidence.
 The 32-mean coverage theorem binds the terminal
@@ -131,3 +131,43 @@ source closure, compiler output, independent kernel output, assumptions and
 object digest. Stdlib real foundations remain visible in the assumption logs.
 A kernel check establishes the encoded implication; experimental premises
 and archive-to-circuit semantic correspondence retain separate evidence status.
+
+Instrument and planned-look mathematical extension
+--------------------------------------------------
+The extended declaration inventory covers 289 lemma/theorem/corollary records
+across fourteen sources. The retained coherence application selects its 27
+explicit declarations; seven terminal applications and all 39 frozen input
+identities remain unchanged. Adding a mathematical declaration cannot widen
+an empirical application through source-file membership. The validator tests
+that boundary independently of its full source-inventory checks.
+
+FinitePlannedLookCoverage proves finite allocated simultaneous coverage and
+stopping selection inside an admitted estimator/look family. Every admitted
+pair requires valid marginal coverage. Dependence between looks is allowed;
+IID or stationarity premises belong to the producer of the marginal bounds.
+A deterministic omitted-look example demonstrates why the result extends
+neither to undeclared looks nor to unrestricted time-uniform coverage.
+
+The terminal certificate accepts per-mean radii and an arbitrary declared
+coverage budget. The deterministic channel-separation argument is separate
+from its sampling-law assumptions. Explicit corollaries retain the 32 means,
+8192 shots, radius 21/1000 and exact margin 156109/1024000. The degree-ten
+Bernoulli result keeps its original proved sample range.
+
+FourStateMatrixAlgebra round-trips the existing complex work matrices and
+column vectors through MathComp storage. The work basis is 00,01,10,11;
+the register word places branch at bit 0, work_a at bit 1, work_b at bit 2
+and spectator at bit 3. The proved numeric decoder handles that permutation.
+RecordedFeedbackInstrument proves finite Kraus positivity, completeness-
+conditioned trace preservation, recorded joint-state positivity and explicit
+branch summation. Assignment occurs before the recorded bit selects feedback.
+A normalized complete counterexample gives work population 1 under recorded-
+bit feedback and 0 under true-outcome feedback or post-hoc histogram relabeling.
+
+The asymmetric assignment identity contains both attenuation of the branch
+difference and a common-mode term proportional to v-u. The bias bound retains
+that term; symmetric rates recover the existing attenuation identity. The
+mixture identity describes pre-feedback branches. Distinct recorded-bit work
+channels require the full instrument formula. The constructed Born expression,
+integer score and four-setting observed coherence compose by proof; measured
+hardware agreement still requires the explicit physical application premises.

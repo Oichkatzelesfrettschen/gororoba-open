@@ -1,0 +1,79 @@
+   Compiling stable_deref_trait v1.2.1
+   Compiling writeable v0.6.3
+   Compiling litemap v0.8.2
+   Compiling smallvec v1.15.1
+   Compiling utf8_iter v1.0.4
+   Compiling foldhash v0.2.0
+   Compiling serde_core v1.0.228
+   Compiling typenum v1.19.0
+   Compiling icu_normalizer_data v2.2.0
+   Compiling icu_properties_data v2.2.0
+   Compiling zerofrom v0.1.7
+   Compiling cfg-if v1.0.4
+   Compiling winnow v1.0.1
+   Compiling libsqlite3-sys v0.37.0
+   Compiling adler2 v2.0.1
+   Compiling yoke v0.8.2
+   Compiling bitflags v2.11.0
+   Compiling simd-adler32 v0.3.9
+   Compiling hashbrown v0.16.1
+   Compiling fallible-iterator v0.3.0
+   Compiling toml_writer v1.1.1+spec-1.1.0
+   Compiling equivalent v1.0.2
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling zerovec v0.11.6
+   Compiling zerotrie v0.2.4
+   Compiling cpufeatures v0.3.0
+   Compiling const-oid v0.10.2
+   Compiling percent-encoding v2.3.2
+   Compiling miniz_oxide v0.8.9
+   Compiling num-traits v0.2.19
+   Compiling crc32fast v1.5.0
+   Compiling zmij v1.0.21
+   Compiling form_urlencoded v1.2.2
+   Compiling constant_time_eq v0.4.2
+   Compiling arrayvec v0.7.6
+   Compiling log v0.4.29
+   Compiling hybrid-array v0.4.10
+   Compiling hashlink v0.11.0
+   Compiling indexmap v2.13.1
+   Compiling tinystr v0.8.3
+   Compiling potential_utf v0.1.5
+   Compiling arrayref v0.3.9
+   Compiling iana-time-zone v0.1.65
+   Compiling itoa v1.0.18
+   Compiling icu_collections v2.2.0
+   Compiling memchr v2.8.0
+   Compiling icu_locale_core v2.2.0
+   Compiling toml_parser v1.1.2+spec-1.1.0
+   Compiling rusqlite v0.39.0
+   Compiling flate2 v1.1.9
+   Compiling blake3 v1.8.4
+   Compiling anyhow v1.0.103
+   Compiling block-buffer v0.12.0
+   Compiling crypto-common v0.2.2
+   Compiling serde v1.0.228
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling camino v1.2.2
+   Compiling serde_spanned v1.1.1
+   Compiling serde_json v1.0.149
+   Compiling icu_provider v2.2.0
+   Compiling rusqlite_migration v2.5.0
+   Compiling toml v1.1.2+spec-1.1.0
+   Compiling toml_edit v0.25.10+spec-1.1.0
+   Compiling digest v0.11.2
+   Compiling sha2 v0.11.0
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling provenance_core v0.1.0 (/home/eirikr/.codex/worktrees/recorded-feedback-planned-look-coverage/open_gororoba/crates/provenance_core)
+   Compiling chrono v0.4.41
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling provenance_store v0.1.0 (/home/eirikr/.codex/worktrees/recorded-feedback-planned-look-coverage/open_gororoba/crates/provenance_store)
+    Finished `dev` profile [optimized + debuginfo] target(s) in 16.02s
+     Running `.cache/exp-feedback-target/debug/examples/refresh_quantum_bindings /home/eirikr/.codex/worktrees/recorded-feedback-planned-look-coverage/open_gororoba /tmp/quantum-bindings-original.json`
+mathematical_sources=14
+mathematical_declarations=289
+retained_coherence_application_declarations=27
+retained_terminal_applications=7

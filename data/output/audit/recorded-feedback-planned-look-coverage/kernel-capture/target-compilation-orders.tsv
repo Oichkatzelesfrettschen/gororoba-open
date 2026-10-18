@@ -1,0 +1,14 @@
+proof_path	compilation_position	source_path
+proofs/theories/FinitePlannedLookCoverage.v	0	proofs/theories/FiniteProbability.v
+proofs/theories/FinitePlannedLookCoverage.v	1	proofs/theories/FinitePlannedLookCoverage.v
+proofs/theories/FourStateMatrixAlgebra.v	0	proofs/theories/BranchSignedCoherence.v
+proofs/theories/FourStateMatrixAlgebra.v	1	proofs/theories/FourStateMatrixAlgebra.v
+proofs/theories/RecordedFeedbackInstrument.v	0	proofs/theories/BranchSignedCoherence.v
+proofs/theories/RecordedFeedbackInstrument.v	1	proofs/theories/FourStateMatrixAlgebra.v
+proofs/theories/RecordedFeedbackInstrument.v	2	proofs/theories/RecordedFeedbackInstrument.v
+proofs/theories/BranchSignedCoherence.v	0	proofs/theories/BranchSignedCoherence.v
+proofs/theories/TerminalChannelEmpiricalCertificate.v	0	proofs/theories/FiniteProbability.v
+proofs/theories/TerminalChannelEmpiricalCertificate.v	1	proofs/theories/FinitePlannedLookCoverage.v
+proofs/theories/TerminalChannelEmpiricalCertificate.v	2	proofs/theories/FiniteBernoulliConcentration.v
+proofs/theories/TerminalChannelEmpiricalCertificate.v	3	proofs/theories/TerminalChannelSeparationReal.v
+proofs/theories/TerminalChannelEmpiricalCertificate.v	4	proofs/theories/TerminalChannelEmpiricalCertificate.v
