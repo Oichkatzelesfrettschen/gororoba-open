@@ -1,0 +1,14 @@
+  archive/ci-scoped-cloud-validation-history    0a77df22 docs(ci): record session cutoff and unresolved validation work
+  codex/cd-associator-census-transport          c3b311cf [origin/codex/cd-associator-census-transport: gone] fix(proofs): preserve census receipt bytes
++ codex/cd-numeric-sign-correspondence          ee741e87 (/home/eirikr/.codex/worktrees/cd-numeric-sign-correspondence/open_gororoba) [origin/codex/cd-numeric-sign-correspondence] fix(proofs): escape upstream opam package messages
+  codex/cd-walsh-anf-degree                     7305a2da [origin/codex/cd-walsh-anf-degree] feat(proofs): certify Walsh probabilities and exact Boolean degrees
++ codex/exact-rank-schur-kernel                 c8c113ac (/home/eirikr/.codex/worktrees/exact-rank-schur-kernel/open_gororoba) [origin/codex/exact-rank-schur-kernel] feat(proofs): retain rank and kernel evidence with canonical replay
+  codex/navier-stokes-reference-foundations     9adfdf2d [origin/codex/navier-stokes-reference-foundations: gone] fix(spectral): validate mesh coordinates and normalized warp triads
+  codex/navier-stokes-rigorous-verifier         3ff5491e [origin/codex/navier-stokes-rigorous-verifier: gone] Merge normalized spectral foundations into verifier branch
+  codex/recorded-feedback-planned-look-coverage e66fe89b [origin/codex/recorded-feedback-planned-look-coverage] feat(proofs): admit recorded feedback and planned coverage evidence
++ codex/rocq-opam-plugin-compatibility          26a9a938 (/home/eirikr/.codex/worktrees/rocq-opam-plugin-compatibility/open_gororoba) [origin/codex/rocq-opam-plugin-compatibility: gone] fix(provenance): retain recorded Rocq toolchain identities
++ codex/schur-acceleration-quadratic-curves     f4f4f9fe (/home/eirikr/.codex/worktrees/schur-acceleration-quadratic-curves/open_gororoba) Merge pull request #233 from Oichkatzelesfrettschen/codex/exact-rank-schur-kernel
++ codex/vacuum-compositional-proof-contracts    45b6c2f1 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba) merge(main): integrate exact-rank proof kernels with vacuum modules
++ codex/vacuum-passivity-falsification          a7eff1f8 (/home/eirikr/.codex/worktrees/vacuum-passivity-falsification/open_gororoba) feat(quantum): add vacuum-work falsification and energy accounting
+  fix/grmhd-log-radius-flux-source              5a711355 [origin/fix/grmhd-log-radius-flux-source: gone] Merge conservative transport fix into GRMHD coordinate correction
+* main                                          f4f4f9fe [origin/main] Merge pull request #233 from Oichkatzelesfrettschen/codex/exact-rank-schur-kernel

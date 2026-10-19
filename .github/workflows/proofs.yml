@@ -92,6 +92,14 @@ jobs:
           eval "$(opam env --switch=rocq-9.3)"
           make --jobs="$MAKE_JOBS" --keep-going all
 
+      - name: Check Schur geometry source checkpoint
+        id: schur-geometry
+        continue-on-error: true
+        working-directory: proofs
+        run: |
+          eval "$(opam env --switch=rocq-9.3)"
+          make --jobs="$MAKE_JOBS" --keep-going check-schur-geometry
+
       - name: Zero-Admitted check
         id: admitted
         continue-on-error: true
@@ -133,6 +141,7 @@ jobs:
           CACHE_SAVE_OUTCOME: ${{ steps.opam-cache-save.outcome }}
           PLUGINS_OUTCOME: ${{ steps.plugins.outcome }}
           COMPILE_OUTCOME: ${{ steps.compile.outcome }}
+          SCHUR_GEOMETRY_OUTCOME: ${{ steps.schur-geometry.outcome }}
           ADMITTED_OUTCOME: ${{ steps.admitted.outcome }}
           EXTRACTION_OUTCOME: ${{ steps.extraction.outcome }}
           RECEIPT_REPLAY_OUTCOME: ${{ steps.receipt-replay.outcome }}
@@ -140,7 +149,7 @@ jobs:
         run: |
           set -euo pipefail
           failure_count=0
-          for outcome_variable in CACHE_SAVE_OUTCOME PLUGINS_OUTCOME COMPILE_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME RECEIPT_REPLAY_OUTCOME OBSERVABLE_BINDINGS_OUTCOME; do
+          for outcome_variable in CACHE_SAVE_OUTCOME PLUGINS_OUTCOME COMPILE_OUTCOME SCHUR_GEOMETRY_OUTCOME ADMITTED_OUTCOME EXTRACTION_OUTCOME RECEIPT_REPLAY_OUTCOME OBSERVABLE_BINDINGS_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
             if [ "$outcome" = failure ]; then

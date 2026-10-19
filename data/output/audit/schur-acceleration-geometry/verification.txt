@@ -1,0 +1,51 @@
+Checkpoint base: f4f4f9fe20f7cc400bb6451a3a1a6969977993c1.
+Toolchain: Rocq 9.3.0 / OCaml 5.5.1; rustc 1.97.0.
+
+Fresh focused diagnostic:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-schur-geometry
+Exit status: 0. Both checkpoint modules and five boundary examples compiled
+under fatal default warnings. rocq check -silent -o checked all three logical
+modules and their dependency closures, with assumptions retained in focused.log.gz.
+The unaltered acceleration law compiled with status 0; each of the four altered
+laws failed with status 1 at its proof obligation. The individual rejection logs
+retain the actual tactic failures. The runner compiled with rustc -D warnings.
+
+Admission and plugin diagnostic:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-admissions check-plugins
+Exit status: 0. Five admission-scanner unit tests passed; the canonical theory
+and verified roots passed the scan. Both compatibility probes compiled and the
+Elpi command executed. A separate admission-check invocation scanned the
+checkpoint directory and SchurAccelerationBoundaries.v with status 0.
+
+actionlint .github/workflows/proofs.yml: exit 0.
+rustfmt --check with an edition-2024 stable-only config: exit 0.
+git diff --check: exit 0.
+The inherited dependency-build.log contains 339 registered compile invocations;
+the fresh focused target reused their compiled objects and reported its
+registered dependency corpus up to date. The inherited full build status was
+reported as 0 by the preceding owner; focused compilation and kernel execution
+were rerun independently for the checkpoint.
+
+Source review checked basis extensionality, the highest-bit column convention,
+all-real sparse/tower equality and rational-to-real rank specialization.
+The coordinating owner independently reviewed the mathematics and hosted leaf
+and reported zero actionable defects. The proof sources introduce zero Axiom,
+Admitted, or admit commands. Imported classical-real and MathComp assumptions
+remain visible in focused.log.gz; a kernel check does not remove those assumptions.
+Logs and the worktree inventory use gzip -n for byte-exact compressed retention;
+gzip -dc reads their original stdout/stderr bytes, including whitespace.
+
+Before/after observations in the assigned worktree:
+  proofs/_RocqProject SHA-256:
+    4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56
+  registry/canonical/control_plane.sqlite3 SHA-256:
+    6efa9321fb1e59ee4484e2c9c7d936fd4868c9d6036bc74042ae515e0892ebfc
+The two observations matched for each named file. The branch fast-forwarded
+from c8c113ac to f4f4f9fe before checkpoint verification and publication.
+The named hash observations establish only those files' byte equality.
+
+The checkpoint carries source_only qualification outside the canonical proof
+inventory. Selected nullity-twelve coefficients, exact curve rank witnesses,
+analytic Taylor prerequisites and canonical receipt admission remain pending.
+The dependency PR hosted result applies only to its recorded c8c113ac head.
+The checkpoint PR must obtain its own hosted validation before integration.

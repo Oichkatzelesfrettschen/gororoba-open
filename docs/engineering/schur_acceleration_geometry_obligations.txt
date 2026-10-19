@@ -1,0 +1,157 @@
+Schur acceleration and selected-center geometry obligations
+==========================================================
+Implementation base: c8c113ac081721b9386401effd5056815f2b8b21.
+The rank/kernel dependency is commit c8c113ac, merged at f4f4f9fe (PR 233).
+The dependency hosted result records 37 successful and five skipped checks.
+The geometry sources
+form a qualified reboot checkpoint, authorized for public integration.
+The selected-center and curve program remains incomplete.
+
+Checkpoint admission boundary
+-----------------------------
+CDTowerOperatorCorrespondence and SchurAccelerationObstruction live under
+proofs/checkpoints/schur-geometry/ with logical root OpenGororobaCheckpoint.
+Both have source_only checkpoint qualification: neither source is registered in _RocqProject
+or the canonical theorem inventory. Local compilation and kernel checking
+provide diagnostic implementation evidence, separate from canonical receipt
+admission. The focused check-schur-geometry target builds the registered
+dependency corpus, compiles both sources and five boundary examples, checks
+their dependency closures with rocq check, and rejects four altered laws after
+compiling the unaltered control. The hosted proofs workflow runs that target
+as an independently reported leaf.
+
+The checkpoint preserves _RocqProject SHA-256
+4506286e9add0d304c1a1621ed73a16653de4be1691179b7cc867572517bbb56.
+Adding project entries would change the identity bound by every current-project
+receipt. Registration therefore belongs with complete trusted receipt renewal,
+canonical inventory synchronization, export, and signature refresh in one
+atomic follow-up. The existing canonical receipt and SQLite bytes remain
+outside the geometry checkpoint's mutation surface.
+The dedicated checkpoint directory preserves the inventory rule that every
+theories/ or verified/ source belongs to _RocqProject. The checkpoint sources
+must move into theories/ when registration and receipt renewal are performed.
+
+Execution boundary
+------------------
+IBMQuantum access is read-only. Quantum submissions are prohibited.
+Source identity observed on 2026-10-18:
+  IBMQuantum HEAD 9c8b588bfa7d8c18cf21e47f4d9aa41a4429d23e
+  nullity_twelve_locus/result.json
+    b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae
+  schur_acceleration/result.json
+    79d37ea6d9d03490a9ca83c8beb8956db851e8ec72ec09ac55d293af64835c3c
+The source checkout advanced from the earlier audit; both result hashes agree.
+Pre-existing results/live directories remain separate untracked inputs.
+
+Ordered proof and evidence queue
+-------------------------------
+DONE: inspect actual coefficient production and operator sign conventions.
+DONE: refresh read-only source HEAD, status, and retained result hashes.
+PROVED: separating covectors, affine acceleration families, radial preservation,
+        transverse obstruction preservation, and real norm correction.
+DONE: compile five diagnostic boundary examples and reject four altered laws.
+PROVED: recursive coefficient extraction and basis extensionality.
+PROVED: arbitrary real-coefficient sparse/tower operator equality.
+PROVED: rational sparse matrix specialization and rank transfer to real towers.
+PENDING: freeze parsed nullity-12 JSON and every production-source input byte.
+PENDING: derive exact complement/kernel decoding and pivot identities.
+PENDING: connect all 231 monomials to all 58 projected equations.
+PENDING: check reconstruction, rank-eight minor, and displayed generators.
+PENDING: prove equivalence to the retained A15 union B17 polynomial zero set.
+PENDING: prove e8 curve denominator, center, norm, and velocity identities.
+PENDING: derive exact complete rank witnesses for the e8 curve.
+PENDING: inspect other retained curve domains and complete applicable witnesses.
+PENDING: reject coefficient, coordinate, denominator, rank, and norm mutations.
+PENDING: register sources and synchronize the canonical theorem inventory.
+DONE: build the registered dependency corpus; scan admissions and check plugins.
+DONE: kernel-check changed closures and retain exported assumptions.
+PENDING: renew every project-bound receipt through trusted replay.
+PENDING: mutate SQLite through the canonical CLI and regenerate exports/signatures.
+PENDING: obtain independent mathematical and evidence review.
+PENDING: qualify final publication payload, hosted checks, merge, sync, archival.
+
+Each active obligation is split when its duration exceeds fifteen minutes.
+Compilation records implementation checking; selected-center coefficient
+correspondence remains a separate gate. Analytic Taylor hypotheses remain
+explicit application requirements.
+
+Resume after reboot
+-------------------
+The user paused the broader program for reboot after clean integration.
+The rank/kernel payload integrated eleven named modules and five extensions.
+The two geometry modules are proved source checkpoints outside canonical
+registration. Nullity-twelve coefficients and curves, followed by the four
+investigations retained in the broader program plan, remain pending.
+Start with the exact nullity_twelve_locus/result.json and producer-source
+freeze, then derive complement/kernel decoding before connecting the 231
+monomials and 58 equations. The theorem rational_sparse_tower_rank supplies
+the rational-to-real operator bridge; the theorem does not establish the
+selected coefficients, a Taylor expansion, or curve realization.
+
+Repeat the focused diagnostic from the repository root:
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-schur-geometry
+  opam exec --switch=rocq-9.3 -- make -C proofs --jobs="$(nproc)" --keep-going check-admissions check-plugins
+Retained checkpoint output lives in
+data/output/audit/schur-acceleration-geometry/. The source manifest binds
+the proof sources, harness, Makefile, workflow, obligations, project identity,
+and copied canonical ignore policies. Compilation assumptions include Stdlib
+classical reals and imported extensionality/choice principles; the source
+files introduce zero Axiom, Admitted, or admit commands.
+
+Selected-center coefficient contract
+------------------------------------
+The nullity-12 coefficients belong to nullity_twelve_locus/result.json.
+The schur_acceleration result contains complete nullity-8 and nullity-16
+coefficients. Those different centers cannot substitute for nullity twelve.
+
+Ambient coordinates are 0 through 31. Doubly-pure coordinates are
+[1..15,17..31]. Operators act on columns:
+ L(x)[row,column] = sign(32,row XOR column,column) * x[row XOR column].
+The complement U uses selected operator columns. Kernel coordinates use the
+last twelve rows of [U,V] inverse. A transpose decoder requires its own proof.
+
+Derivative D: 66 by 30; tangent frame: 30 by 21; ambient frame: 32 by 21.
+Cokernel C: 66 by 58; complete coefficient matrix G: 58 by 231.
+Reduced generators R: 8 by 231; reconstruction T: 58 by 8.
+Required equations: G=T R and R[:,pivot_columns]=I8.
+Independent original rows: [30,31,33,34,35,36,52,53].
+Minor columns: [6,111,121,122,123,124,125,135]; determinant: 2048.
+
+Tangent columns in order:
+ e3,e4,e5,e6,e7,e8,e11,-e2+e17,e19,e20,e21,e22,e23,e24,
+ -e10+e25,e9+e26,e27,e15+e28,-e14+e29,e13+e30,-e12+e31.
+Monomials use 21 squares followed by mixed pairs in lexicographic order.
+The mixed coefficient is Bi^T A0^-1 Bj + Bj^T A0^-1 Bi.
+Here A0=U^T L(center) U, B=U^T L(h) V and Q=B^T A0^-1 B.
+Projected equations are p=C^T upper(Q), with lexicographic strict upper order.
+
+Displayed Rocq generators g0 through g7 correspond to:
+ p30=2g0+2g2; p31=-2g1+4g7; p33=2g5; p34=2g6;
+ p35=-2g3; p36=-2g4; p52=-4g2; p53=4g1.
+Inverse correspondence:
+ g0=p30/2+p52/4; g1=p53/4; g2=-p52/4; g3=-p35/2;
+ g4=-p36/2; g5=p33/2; g6=p34/2; g7=p31/4+p53/8.
+Acceleration convention: x(t)=center+t h+t^2 a/2, so D(a)=-2Q(h).
+The retained coefficient artifact projects Q; multiplication by -2 preserves
+its zero set over the reals.
+
+Curve contracts and unresolved prerequisite boundaries
+-----------------------------------------------------
+The e8 rational curve is
+ ((4-t^2)e1+4t e8+(4+t^2)e18)/(4+t^2).
+For every real t, its denominator is positive, its squared norm is two,
+its center is e1+e18 and its velocity is e8. The retained pivot numerator
+determinant is 2^68(4+t^2)^4. Exact polynomial inverse/kernel frames remain
+to be derived and checked before asserting universal rank twenty.
+
+The e3 nullity-eight curve has denominator 4+t^2 and norm squared two,
+but the retained rank argument applies on its invertible-pivot neighborhood.
+Finite rational samples establish their sampled instances alone.
+
+The broader four-parameter slice has k != 1 and k != -1 as its domain.
+Its constant-norm normalization uses a generally irrational square root.
+External rank-eight witnesses are retained. The internal rank-twelve argument
+uses a published sedenion theorem without a retained universal minor.
+Full A15 realization additionally uses derivation flows; B17 realization
+uses the smooth D-locus and scaling. These obligations belong to the larger
+tangent-cone investigation rather than the direct rational-curve certificate.

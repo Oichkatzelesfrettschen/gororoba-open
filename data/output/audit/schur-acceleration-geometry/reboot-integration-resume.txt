@@ -1,0 +1,38 @@
+The user requested public integration before reboot and suspended the broader
+formalization program until the next session. The source checkpoint records
+proved operator/acceleration results with selected-center and curve obligations
+still open. The canonical theorem inventory and project-bound receipts retain
+their existing bytes.
+
+The rank/kernel payload c8c113ac081721b9386401effd5056815f2b8b21 merged at
+f4f4f9fe20f7cc400bb6451a3a1a6969977993c1. The retained PR 233 hosted-result
+JSON binds that exact head and records 37 successful and five skipped checks.
+The geometry checkpoint does not borrow those results as its own hosted result.
+
+Independent Git tree reads in the geometry worktree confirm:
+  0a77df22 and merged e036a72b:
+    d8ae31d59729a769b0168cbe3c6eb822caa5a43b
+  e66fe89 and merged d7a43311:
+    c4c47f15850e18fde286d89c637791daefc8347a
+The coordinating owner reports remaining historical tips as exact ancestors.
+Native worktree archive requests remain a separate cleanup surface; the
+coordinating owner verifies actual archive completion after integration.
+
+The canonical dirty ignore policies are copied byte-for-byte:
+  .gitignore SHA-256:
+    b78c2a09acc7411fd0398dd89cb723ab2524a9f0129b929db8d58224852f005a
+  .ignore SHA-256:
+    5b345696ac9daf0b07ce5b9c56d5ec914815e395286f4c9f9ac3ec8ec83bf507
+The coordinating owner may restore the canonical dirty copies after merged
+byte equality. The copied rules ignore graft's graph cache while retaining
+card search visibility through ripgrep's .ignore precedence.
+
+Resume with docs/engineering/schur_acceleration_geometry_obligations.txt.
+Freeze the nullity-twelve JSON and producer inputs, derive exact decoder and
+pivot identities, then bind all 231 monomials to all 58 projected equations.
+Prove curve denominator, norm, center, velocity and complete rank witnesses
+before asserting realization. Promote the checkpoint modules into theories/
+only alongside canonical registration and renewal of every project-bound
+receipt. The four broader investigations remain pending under the program's
+retained plan. IBMQuantum access remains read-only; quantum submissions are
+prohibited.

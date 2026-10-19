@@ -98,16 +98,16 @@ remains unproved.
 
 Current canonical reconciliation
 --------------------------------
-Main f4f4f9fe and the eight vacuum modules now share a347-module inventory.
-The canonical CLI admits54 current-project kernel receipts;293 modules retain
-source_only. Every308 main theorem-event rows and220 claim-transition rows
-remain byte-identical. The original dirty database retains23 unique historical
+Main f4f4f9fe and the eight vacuum modules now share a 347-module inventory.
+The canonical CLI admits 54 current-project kernel receipts; 293 modules retain
+source_only. All 308 main theorem-event rows and 220 claim-transition rows
+remain byte-identical. The original dirty database retains 23 unique historical
 vacuum events as an immutable, hashed artifact; current receipts supply fresh
-semantic replacements. Independent receipts execute on12 native workers after
+semantic replacements. Independent receipts execute on 12 native workers after
 per-invocation scratch and short transaction boundaries were verified.
 Retained commands, exits, comparisons and the generic binary-description
 residual live in data/output/audit/vacuum-composition/main-integration/README.txt.
 Both rebuilt model producers reproduce their retained local outputs. The ZIP
 malformed-name preservation and SOHO archive round-trip diagnostics pass.
 Pending: exact-head hosted validation, coordinated merge and canonical sync.
-All35 physical-validation obligations remain unperformed; QPU jobs remain zero.
+All 35 physical-validation obligations remain unperformed; QPU jobs remain zero.
