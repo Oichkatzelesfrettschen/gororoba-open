@@ -124,7 +124,7 @@ bytes = 976
 
 [[output]]
 path = "derivative_step_study.tsv"
-sha256 = "700ddcafb61e8257b74a2ecb2cdc29e43955fb9a5f727f053f5b193971679031"
+sha256 = "6ca1c3f8eff61228a82b2bf6d672dab01354d059ef23b4d5d65c9317e57e937a"
 bytes = 354
 
 [[output]]

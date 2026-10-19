@@ -38,14 +38,23 @@ event keys replay their stored events. A source-project change requires a new
 inventory synchronization and distinct receipt keys. The CLI selects the pinned
 Rocq 9.3.0 / OCaml 5.5.1 opam switch through fixed trusted argument vectors.
 
-The rebuilt Casimir producer passes its exact local check. The rebuilt vacuum
-producer reproduces model-report.json byte for byte. Both retained numerical
-input manifests match their declared source bytes. The focused archive tests
-pass, including malformed-name destination preservation and the SOHO ZIP bundle
-round trip. Local diagnostics establish their named execution surfaces; hosted
-CI owns repository validation. The older hosted derivative table differs from
-the local producer at 0.050 nm by 2.40610694e-17 in residual fraction. The exact
-hosted output gate remains active and requires current-head execution evidence.
+The rebuilt local Casimir producer matches the original local reference.
+Hosted run 39179013039 reproduces the known 0.050 nm residual-fraction difference
+of 2.40610694e-17. Artifact 12154829250 supplies the actual hosted table and its
+manifest; the complete declared producer/input manifest prefix matches the local
+bytes. The archive SHA-256 is verified against the GitHub artifact identity.
+The hosted-casimir-output directory preserves the ZIP, identity, complete hosted
+outputs and original local table/manifest. Only the derivative table and its
+output-manifest hash advance to the hosted reference. The local exact check
+then exits 1 with those two expected mismatches; cross-platform bitwise identity
+remains unresolved. The exact hosted comparison gate remains active and requires
+final-head execution evidence.
+
+The rebuilt vacuum producer reproduces model-report.json byte for byte. Both
+retained numerical input manifests match their declared source bytes. Focused
+archive tests pass, including malformed-name destination preservation and the
+SOHO ZIP bundle round trip. Local diagnostics establish their named execution
+surfaces; hosted CI owns repository validation.
 
 The current binary row has name vacuum-response-audit and crate owner
 gororoba_cli_physics. The current CLI registers the generic description

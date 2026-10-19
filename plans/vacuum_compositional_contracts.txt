@@ -107,7 +107,11 @@ semantic replacements. Independent receipts execute on 12 native workers after
 per-invocation scratch and short transaction boundaries were verified.
 Retained commands, exits, comparisons and the generic binary-description
 residual live in data/output/audit/vacuum-composition/main-integration/README.txt.
-Both rebuilt model producers reproduce their retained local outputs. The ZIP
-malformed-name preservation and SOHO archive round-trip diagnostics pass.
+The rebuilt vacuum producer reproduces its retained report. Hosted Casimir
+artifact 12154829250 supplies the current reference table and manifest while
+the original local bytes remain retained. The local exact check reports the
+known one-value platform difference after that reference advances. The exact
+hosted gate remains active. ZIP malformed-name preservation and the SOHO archive
+round-trip diagnostics pass.
 Pending: exact-head hosted validation, coordinated merge and canonical sync.
 All 35 physical-validation obligations remain unperformed; QPU jobs remain zero.
