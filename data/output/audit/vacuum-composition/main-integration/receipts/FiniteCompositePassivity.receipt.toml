@@ -1,0 +1,109 @@
+evidence_key = "vacuum-main-replay-FiniteCompositePassivity-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-FiniteCompositePassivity"
+proof_path = "proofs/theories/FiniteCompositePassivity.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FiniteCompositePassivity.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FiniteCompositePassivity"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteComplexPassivity.v"
+sha256 = "87859b845f0de51a747a5559a497fd571a305eca8a6d87a8e33da41a00106f60"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteCompositePassivity.v"
+sha256 = "7ac96c071900fda73258cf8db2fd7ec305809286fca7f0cb9bc10cd61dcbb988"
+
+[[witness.sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[witness.compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteCompositePassivity.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteCompositePassivity.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteCompositePassivity.assumptions.txt"
+sha256 = "9a7889285caf6e818694ca68cded7dafd798cbb6de1b7d5cc1f2c08ef87d9c9e"
+
+[witness.proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/FiniteCompositePassivity.vo"
+sha256 = "0ecb0fafcd6f79d54ea1ba80b113131bc3152774c0e3d2ec44953bce575fc448"
+
+[[witness.declarations]]
+name = "joint_complex_state"
+statement = "Definition joint_complex_state := nat -> complex_state"
+assumptions = []
+
+[[witness.declarations]]
+name = "joint_norm"
+statement = "Definition joint_norm first_dimension second_dimension (state : joint_complex_state) := finite_sum first_dimension (fun first => state_norm second_dimension (state first))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "joint_energy"
+statement = "Definition joint_energy first_dimension second_dimension first_energies second_energies (state : joint_complex_state) := finite_sum first_dimension (fun first => spectral_energy second_dimension (fun second => first_energies first + second_energies second) (state first))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "joint_spectral_lower_bound"
+statement = "Theorem joint_spectral_lower_bound : forall first_dimension second_dimension first_energies second_energies state first_ground second_ground, (forall index, (index < first_dimension)%nat -> first_ground <= first_energies index) -> (forall index, (index < second_dimension)%nat -> second_ground <= second_energies index) -> (first_ground + second_ground) * joint_norm first_dimension second_dimension state <= joint_energy first_dimension second_dimension first_energies second_energies state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "normalized_joint_ground_bound"
+statement = "Theorem normalized_joint_ground_bound : forall first_dimension second_dimension first_energies second_energies state first_ground second_ground, joint_norm first_dimension second_dimension state = 1 -> (forall index, (index < first_dimension)%nat -> first_ground <= first_energies index) -> (forall index, (index < second_dimension)%nat -> second_ground <= second_energies index) -> first_ground + second_ground <= joint_energy first_dimension second_dimension first_energies second_energies state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "joint_ground_state_cyclic_passive"
+statement = "Theorem joint_ground_state_cyclic_passive : forall first_dimension second_dimension first_energies second_energies initial final first_ground second_ground, joint_norm first_dimension second_dimension initial = 1 -> joint_norm first_dimension second_dimension final = joint_norm first_dimension second_dimension initial -> (forall index, (index < first_dimension)%nat -> first_ground <= first_energies index) -> (forall index, (index < second_dimension)%nat -> second_ground <= second_energies index) -> joint_energy first_dimension second_dimension first_energies second_energies initial = first_ground + second_ground -> joint_energy first_dimension second_dimension first_energies second_energies initial - joint_energy first_dimension second_dimension first_energies second_energies final <= 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "correlated_two_level_state"
+statement = "Definition correlated_two_level_state (first second : nat) : CDComplex := match first, second with | O, O => {| cre := 3/5; cim := 0 |} | S O, S O => {| cre := 4/5; cim := 0 |} | _, _ => complex_zero end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "correlated_state_normalized"
+statement = "Theorem correlated_state_normalized : joint_norm 2 2 correlated_two_level_state = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "correlated_state_nonzero_minor"
+statement = "Theorem correlated_state_nonzero_minor : cre (correlated_two_level_state 0 0) * cre (correlated_two_level_state 1 1) - cre (correlated_two_level_state 0 1) * cre (correlated_two_level_state 1 0) = 12/25"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_product_minor_vanishes"
+statement = "Lemma complex_product_minor_vanishes : forall first second third fourth, complex_mul (complex_mul first second) (complex_mul third fourth) = complex_mul (complex_mul first fourth) (complex_mul third second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "correlated_state_cannot_factor"
+statement = "Theorem correlated_state_cannot_factor : forall left right : complex_state, ~ (forall first second, (first < 2)%nat -> (second < 2)%nat -> correlated_two_level_state first second = complex_mul (left first) (right second))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

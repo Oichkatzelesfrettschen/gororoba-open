@@ -1,0 +1,171 @@
+evidence_key = "vacuum-main-replay-BooleanCochainFiltration-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-BooleanCochainFiltration"
+proof_path = "proofs/theories/BooleanCochainFiltration.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanCochainFiltration.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanCochainFiltration"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanCochainFiltration.v"
+sha256 = "c3435f779ed396e30f8f81a3387fdd49a44e52bc9bf6069f339841cb77d266ab"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[witness.compile_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanCochainFiltration.compile.txt"
+sha256 = "0395ea262e775ee6b7f8b2ad30fd285b957b8039e10fc78ad27594c0bebbcae9"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanCochainFiltration.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanCochainFiltration.assumptions.txt"
+sha256 = "7aa6204fa29b7a75a231b38d77387ce0b9fbb3a34c7f42884be493bceebf6396"
+
+[witness.proof_object]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/theories/BooleanCochainFiltration.vo"
+sha256 = "c83d17da7520acaff1a306c1a0f262fed10a6fa38f52619357d6f21995539123"
+
+[[witness.declarations]]
+name = "linear_substitution_preserves_degree"
+statement = "Theorem linear_substitution_preserves_degree : forall polynomial substitution, (forall variable, polynomial_degree (substitution variable) <= 1) -> polynomial_degree (polynomial_substitute polynomial substitution) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "substitution_evaluation"
+statement = "Theorem substitution_evaluation : forall polynomial substitution point, polynomial_evaluate (polynomial_substitute polynomial substitution) point = polynomial_evaluate polynomial (fun variable => polynomial_evaluate (substitution variable) point)"
+assumptions = []
+
+[[witness.declarations]]
+name = "degree_at_most"
+statement = "Definition degree_at_most (function : (nat -> bool) -> bool) (bound : nat) : Prop := exists polynomial, polynomial_degree polynomial <= bound /\\ forall point, polynomial_evaluate polynomial point = function point"
+assumptions = []
+
+[[witness.declarations]]
+name = "addition_preserves_filtration"
+statement = "Theorem addition_preserves_filtration : forall left right bound, degree_at_most left bound -> degree_at_most right bound -> degree_at_most (fun point => xorb (left point) (right point)) bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "linear_pullback_preserves_filtration"
+statement = "Theorem linear_pullback_preserves_filtration : forall function bound substitution, degree_at_most function bound -> (forall variable, polynomial_degree (substitution variable) <= 1) -> degree_at_most (fun point => function (fun variable => polynomial_evaluate (substitution variable) point)) bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "cochain_differential_preserves_degree"
+statement = "Theorem cochain_differential_preserves_degree : forall polynomial faces, Forall (fun face => forall variable, polynomial_degree (face variable) <= 1) faces -> polynomial_degree (face_sum polynomial faces) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "ordinary_coboundary"
+statement = "Definition ordinary_coboundary (left right input : Group) : bool := xorb (xorb (sign_cochain right input) (sign_cochain left (add right input))) (xorb (sign_cochain (add left right) input) (sign_cochain left right))"
+assumptions = []
+
+[[witness.declarations]]
+name = "schreier_exponent"
+statement = "Definition schreier_exponent (left right input : Group) : bool := xorb (xorb (sign_cochain right input) (sign_cochain left (add right input))) (sign_cochain (add left right) input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "normalized_schreier_is_coboundary"
+statement = "Theorem normalized_schreier_is_coboundary : forall left right input, xorb (schreier_exponent left right input) (schreier_exponent left right identity) = ordinary_coboundary left right input"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_face"
+statement = "Definition xor_group_face (block_dimension arity face variable : nat) : boolean_polynomial := if Nat.eqb face 0 then PolynomialVariable (variable + block_dimension) else if Nat.leb face arity then let argument := variable / block_dimension in if Nat.ltb argument (face - 1) then PolynomialVariable variable else if Nat.eqb argument (face - 1) then PolynomialSum (PolynomialVariable variable) (PolynomialVariable (variable + block_dimension)) else PolynomialVariable (variable + block_dimension) else PolynomialVariable variable"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_face_linear"
+statement = "Theorem xor_group_face_linear : forall block_dimension arity face variable, polynomial_degree (xor_group_face block_dimension arity face variable) <= 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_differential"
+statement = "Definition xor_group_differential (block_dimension arity : nat) (polynomial : boolean_polynomial) : boolean_polynomial := face_sum polynomial (map (xor_group_face block_dimension arity) (seq 0 (arity + 2)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "xor_group_differential_preserves_degree"
+statement = "Theorem xor_group_differential_preserves_degree : forall block_dimension arity polynomial, polynomial_degree (xor_group_differential block_dimension arity polynomial) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_coordinate"
+statement = "Definition filtration_coordinate order variable (input : cube order) := andb (Nat.ltb variable order) (monomial order (filtration_singleton_mask order variable) input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_union_weight"
+statement = "Lemma filtration_union_weight : forall order (left right : cube order), cube_weight order (filtration_mask_union order left right) <= cube_weight order left + cube_weight order right"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_singleton_weight"
+statement = "Lemma filtration_singleton_weight : forall order variable, cube_weight order (filtration_singleton_mask order variable) <= 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_union_monomial"
+statement = "Lemma filtration_union_monomial : forall order (left right input : cube order), monomial order (filtration_mask_union order left right) input = andb (monomial order left input) (monomial order right input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_sum_append"
+statement = "Lemma filtration_sum_append : forall order first second input, filtration_monomial_sum order (first ++ second) input = xorb (filtration_monomial_sum order first input) (filtration_monomial_sum order second input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_sum_union"
+statement = "Lemma filtration_sum_union : forall order left right input, filtration_monomial_sum order (map (filtration_mask_union order left) right) input = andb (monomial order left input) (filtration_monomial_sum order right input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_sum_product"
+statement = "Lemma filtration_sum_product : forall order first second input, filtration_monomial_sum order (flat_map (fun left => map (filtration_mask_union order left) second) first) input = andb (filtration_monomial_sum order first input) (filtration_monomial_sum order second input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "polynomial_masks_evaluate"
+statement = "Theorem polynomial_masks_evaluate : forall polynomial order input, polynomial_evaluate polynomial (fun variable => filtration_coordinate order variable input) = filtration_monomial_sum order (polynomial_masks order polynomial) input"
+assumptions = []
+
+[[witness.declarations]]
+name = "polynomial_masks_weight"
+statement = "Theorem polynomial_masks_weight : forall polynomial order, Forall (fun mask => cube_weight order mask <= polynomial_degree polynomial) (polynomial_masks order polynomial)"
+assumptions = []
+
+[[witness.declarations]]
+name = "filtration_sum_degree"
+statement = "Lemma filtration_sum_degree : forall order masks bound, Forall (fun mask => cube_weight order mask <= bound) masks -> anf_degree order (filtration_monomial_sum order masks) <= bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "polynomial_canonical_degree_bound"
+statement = "Theorem polynomial_canonical_degree_bound : forall polynomial order, anf_degree order (fun input => polynomial_evaluate polynomial (fun variable => filtration_coordinate order variable input)) <= polynomial_degree polynomial"
+assumptions = []
+
+[[witness.declarations]]
+name = "representative_canonical_degree_bound"
+statement = "Theorem representative_canonical_degree_bound : forall function bound order, degree_at_most function bound -> anf_degree order (fun input => function (fun variable => filtration_coordinate order variable input)) <= bound"
+assumptions = []

@@ -1,0 +1,148 @@
+evidence_key = "vacuum-main-replay-C1463_ArithmeticInventory-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-C1463_ArithmeticInventory"
+proof_path = "proofs/verified/C1463_ArithmeticInventory.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified verified/C1463_ArithmeticInventory.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororobaVerified.C1463_ArithmeticInventory"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/verified/C1463_ArithmeticInventory.v"
+sha256 = "9d2965761bb0d7ec936ac08f95bcbc21a1b973924aac4351715362b22f63714b"
+
+[witness.compile_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C1463_ArithmeticInventory.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C1463_ArithmeticInventory.kernel.txt"
+sha256 = "6ab673b318a00623c62cd191789fc8932cdf30981865a3044a9538e75c9cd204"
+
+[witness.assumption_log]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/C1463_ArithmeticInventory.assumptions.txt"
+sha256 = "db44d626cca460f312c691af8479d6539cc1b008d9a03e1a61f344c27af3120d"
+
+[witness.proof_object]
+path = "data/output/audit/quantum-observable-contracts/kernel-capture/verified/C1463_ArithmeticInventory.vo"
+sha256 = "ddf5c152bdd52c061b81306329bdb74ea1c81a584b05fe585d652fbc660d2e8c"
+
+[[witness.declarations]]
+name = "wilmot_table2_u1_total"
+statement = "Theorem wilmot_table2_u1_total : 35 + 60 + 360 = 455"
+assumptions = []
+
+[[witness.declarations]]
+name = "c15_3"
+statement = "Theorem c15_3 : 15 * 14 * 13 / 6 = 455"
+assumptions = []
+
+[[witness.declarations]]
+name = "h_15_equals_35"
+statement = "Theorem h_15_equals_35 : 15 * 14 / 6 = 35"
+assumptions = []
+
+[[witness.declarations]]
+name = "h_31_equals_155"
+statement = "Theorem h_31_equals_155 : 31 * 30 / 6 = 155"
+assumptions = []
+
+[[witness.declarations]]
+name = "wilmot_table2_u2_total"
+statement = "Theorem wilmot_table2_u2_total : 155 + 620 + 3720 = 4495"
+assumptions = []
+
+[[witness.declarations]]
+name = "c31_3"
+statement = "Theorem c31_3 : 31 * 30 * 29 / 6 = 4495"
+assumptions = []
+
+[[witness.declarations]]
+name = "assessor_count_42"
+statement = "Theorem assessor_count_42 : 7 * 6 = 42"
+assumptions = []
+
+[[witness.declarations]]
+name = "standard_zd_count"
+statement = "Theorem standard_zd_count : 42 * 2 = 84"
+assumptions = []
+
+[[witness.declarations]]
+name = "directed_zd_pairs"
+statement = "Theorem directed_zd_pairs : 84 * 2 = 168"
+assumptions = []
+
+[[witness.declarations]]
+name = "gl32_order"
+statement = "Theorem gl32_order : (8 - 1) * (8 - 2) * (8 - 4) = 168"
+assumptions = []
+
+[[witness.declarations]]
+name = "braid_pair_count"
+statement = "Theorem braid_pair_count : 15 * 14 / 2 = 105"
+assumptions = []
+
+[[witness.declarations]]
+name = "s3_orbit_decomposition"
+statement = "Theorem s3_orbit_decomposition : 21 + 36 + 48 = 105"
+assumptions = []
+
+[[witness.declarations]]
+name = "triad_type_decomposition"
+statement = "Theorem triad_type_decomposition : 35 + 84 + 84 + 252 = 455"
+assumptions = []
+
+[[witness.declarations]]
+name = "type_x_is_3_times_bc"
+statement = "Theorem type_x_is_3_times_bc : 252 = 3 * 84"
+assumptions = []
+
+[[witness.declarations]]
+name = "incidence_rank_containment"
+statement = "Theorem incidence_rank_containment : 21 + 6 = 27"
+assumptions = []
+
+[[witness.declarations]]
+name = "rank_bc_is_c72"
+statement = "Theorem rank_bc_is_c72 : 7 * 6 / 2 = 21"
+assumptions = []
+
+[[witness.declarations]]
+name = "orbit_sum_numerator"
+statement = "Theorem orbit_sum_numerator : 4 + 1 + 1 = 6"
+assumptions = []
+
+[[witness.declarations]]
+name = "orbit_partner_numerator"
+statement = "Theorem orbit_partner_numerator : 0 + 3 + 3 = 6"
+assumptions = []
+
+[[witness.declarations]]
+name = "sedenion_dim"
+statement = "Theorem sedenion_dim : 2^4 = 16"
+assumptions = []
+
+[[witness.declarations]]
+name = "cl8_dim"
+statement = "Theorem cl8_dim : 2^8 = 256"
+assumptions = []
+
+[[witness.declarations]]
+name = "cl8_is_mat16"
+statement = "Theorem cl8_is_mat16 : 256 = 16 * 16"
+assumptions = []
+
+[[witness.declarations]]
+name = "minimal_ideal_dim"
+statement = "Theorem minimal_ideal_dim : 256 / 16 = 16"
+assumptions = []

@@ -1,0 +1,8 @@
+crates/quantum_core/src/vacuum_audit.rs: OK
+crates/quantum_core/src/lib.rs: OK
+crates/quantum_core/examples/vacuum_falsification.rs: OK
+crates/quantum_core/src/casimir.rs: OK
+crates/algebra_experimental/src/novel_algorithms/zpe_lbm_collision.rs: OK
+crates/cd_kernel/src/cayley_dickson/arith.rs: OK
+Cargo.lock: OK
+rust-toolchain.toml: OK

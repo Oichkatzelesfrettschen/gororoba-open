@@ -1,0 +1,179 @@
+evidence_key = "vacuum-main-replay-CubeAffineCosets-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CubeAffineCosets"
+proof_path = "proofs/theories/CubeAffineCosets.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CubeAffineCosets.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CubeAffineCosets"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[witness.sources]]
+path = "proofs/theories/CDPhaseDegree.v"
+sha256 = "f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[witness.sources]]
+path = "proofs/theories/CubeAffineCosets.v"
+sha256 = "8c69e4e5bbaaa6644d21650a23716810e531f8146b8d7d66360cf259d946298b"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[witness.sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/WalshProbability.v"
+sha256 = "8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7"
+
+[witness.compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CubeAffineCosets.compile.txt"
+sha256 = "f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CubeAffineCosets.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CubeAffineCosets.assumptions.txt"
+sha256 = "b3f5ac192d5852d55abf2f31c0e02bb9d9005d1e33260a6ec1c22c2ffefaa1f7"
+
+[witness.proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/CubeAffineCosets.vo"
+sha256 = "13017e27036ae85e7f5f35f6f7e4c4c50558c879fba7f19e8bce8d2a3f4ee2ad"
+
+[[witness.declarations]]
+name = "same_coset"
+statement = "Definition same_coset order (group : xor_subgroup order) (left right : cube order) := subgroup_member group (cube_xor order left right)"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_reflexive"
+statement = "Lemma same_coset_reflexive : forall order group (input : cube order), same_coset order group input input = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_symmetric"
+statement = "Lemma same_coset_symmetric : forall order group (left right : cube order), same_coset order group left right = same_coset order group right left"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_xor_associative"
+statement = "Lemma cube_xor_associative : forall order (first middle last : cube order), cube_xor order first (cube_xor order middle last) = cube_xor order (cube_xor order first middle) last"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_transitive"
+statement = "Lemma same_coset_transitive : forall order group (first middle last : cube order), same_coset order group first middle = true -> same_coset order group middle last = true -> same_coset order group first last = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_points_complete"
+statement = "Lemma cube_points_complete : forall order (input : cube order), In input (cube_points order)"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_minimum_member"
+statement = "Lemma coset_minimum_member : forall order group input candidates seed, same_coset order group input seed = true -> same_coset order group input (coset_minimum order group input candidates seed) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_minimum_seed_bound"
+statement = "Lemma coset_minimum_seed_bound : forall order group input candidates seed, cube_encode order (coset_minimum order group input candidates seed) <= cube_encode order seed"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_minimum_candidate_bound"
+statement = "Lemma coset_minimum_candidate_bound : forall order group input candidates seed candidate, In candidate candidates -> same_coset order group input candidate = true -> cube_encode order (coset_minimum order group input candidates seed) <= cube_encode order candidate"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_representative"
+statement = "Definition coset_representative order group (input : cube order) := coset_minimum order group input (cube_points order) input"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_representative_member"
+statement = "Theorem coset_representative_member : forall order group input, same_coset order group input (coset_representative order group input) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_representative_minimal"
+statement = "Theorem coset_representative_minimal : forall order group input candidate, same_coset order group input candidate = true -> cube_encode order (coset_representative order group input) <= cube_encode order candidate"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_representatives"
+statement = "Theorem same_coset_representatives : forall order group (left right : cube order), same_coset order group left right = true -> coset_representative order group left = coset_representative order group right"
+assumptions = []
+
+[[witness.declarations]]
+name = "complete_coset_partition"
+statement = "Theorem complete_coset_partition : forall order group (left right : cube order), same_coset order group left right = true <-> coset_representative order group left = coset_representative order group right"
+assumptions = []
+
+[[witness.declarations]]
+name = "coset_representative_idempotent"
+statement = "Theorem coset_representative_idempotent : forall order group input, coset_representative order group (coset_representative order group input) = coset_representative order group input"
+assumptions = []
+
+[[witness.declarations]]
+name = "canonical_sector_gate"
+statement = "Theorem canonical_sector_gate : forall order group (sector input : cube order), andb (cube_equal order (coset_representative order group sector) sector) (same_coset order group input sector) = cube_equal order sector (coset_representative order group input)"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_equivalent_left"
+statement = "Lemma same_coset_equivalent_left : forall order group (left middle right : cube order), same_coset order group left middle = true -> same_coset order group left right = same_coset order group middle right"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_xor_four_swap"
+statement = "Lemma cube_xor_four_swap : forall order (first second third fourth : cube order), cube_xor order (cube_xor order first second) (cube_xor order third fourth) = cube_xor order (cube_xor order first third) (cube_xor order second fourth)"
+assumptions = []
+
+[[witness.declarations]]
+name = "same_coset_translation"
+statement = "Lemma same_coset_translation : forall order group (anchor left right : cube order), same_coset order group (cube_xor order anchor left) (cube_xor order anchor right) = same_coset order group left right"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_xor_subgroup"
+statement = "Definition pair_xor_subgroup order (label : cube order) : xor_subgroup order"
+assumptions = []
+
+[[witness.declarations]]
+name = "pair_xor_coset_members"
+statement = "Theorem pair_xor_coset_members : forall order (left upper : cube order), same_coset order (pair_xor_subgroup order (cube_xor order left upper)) left left = true /\\ same_coset order (pair_xor_subgroup order (cube_xor order left upper)) upper left = true"
+assumptions = []

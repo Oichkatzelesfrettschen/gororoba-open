@@ -1,0 +1,217 @@
+evidence_key = "vacuum-main-replay-BooleanANFDegree-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-BooleanANFDegree"
+proof_path = "proofs/theories/BooleanANFDegree.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanANFDegree.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanANFDegree"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[witness.compile_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanANFDegree.compile.txt"
+sha256 = "003974cb4fe114d51c7d2eed462e080514b2036c2028e95effd020fa8e9fb5fb"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanANFDegree.kernel.txt"
+sha256 = "1de7fc1c54d5770ffa7bcdf6648613ce68aa1dac9a2a64871f5c62c808a75d2f"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/BooleanANFDegree.assumptions.txt"
+sha256 = "163ac209f466745fc8afa532466f54f38b3166978bff3d1cde14409b6118c81d"
+
+[witness.proof_object]
+path = "data/output/audit/cd-walsh-anf-degree/kernel-capture/theories/BooleanANFDegree.vo"
+sha256 = "a959e4b6bae907397bcd5e0505c9e2703cbf1fb60ca3b6b8162d1663598c5dd9"
+
+[[witness.declarations]]
+name = "coefficient_degree"
+statement = "Definition coefficient_degree order (coefficients : cube order -> bool) := cube_max order (fun mask => if coefficients mask then cube_weight order mask else 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree"
+statement = "Definition anf_degree order (function : cube order -> bool) := coefficient_degree order (anf_evaluate order function)"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_max_bound"
+statement = "Lemma cube_max_bound : forall order function bound, (forall input, function input <= bound) -> cube_max order function <= bound"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_max_member"
+statement = "Lemma cube_max_member : forall order function input, function input <= cube_max order function"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_weight_bound"
+statement = "Lemma cube_weight_bound : forall order (mask : cube order), cube_weight order mask <= order"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_weight_ones"
+statement = "Lemma cube_weight_ones : forall order, cube_weight order (cube_ones order) = order"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_weight_full"
+statement = "Lemma cube_weight_full : forall order (mask : cube order), cube_weight order mask = order -> mask = cube_ones order"
+assumptions = []
+
+[[witness.declarations]]
+name = "monomial_ones"
+statement = "Lemma monomial_ones : forall order (mask : cube order), monomial order mask (cube_ones order) = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_bound"
+statement = "Theorem anf_degree_bound : forall order function, anf_degree order function <= order"
+assumptions = []
+
+[[witness.declarations]]
+name = "coefficient_witness_bound"
+statement = "Lemma coefficient_witness_bound : forall order coefficients mask, coefficients mask = true -> cube_weight order mask <= coefficient_degree order coefficients"
+assumptions = []
+
+[[witness.declarations]]
+name = "canonical_anf_correct"
+statement = "Theorem canonical_anf_correct : forall order function input, anf_evaluate order (anf_evaluate order function) input = function input"
+assumptions = []
+
+[[witness.declarations]]
+name = "canonical_anf_unique"
+statement = "Theorem canonical_anf_unique : forall order function coefficients, (forall input, anf_evaluate order coefficients input = function input) -> forall mask, coefficients mask = anf_evaluate order function mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "point_indicator_degree"
+statement = "Theorem point_indicator_degree : forall order (target : cube order), anf_degree order (fun input => cube_equal order input target) = order"
+assumptions = []
+
+[[witness.declarations]]
+name = "separating_coatom"
+statement = "Lemma separating_coatom : forall order (left right : cube order), left <> right -> exists mask, cube_weight order mask = order - 1 /\\ monomial order left mask <> monomial order right mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "two_point_indicator_degree"
+statement = "Theorem two_point_indicator_degree : forall order (left right : cube order), left <> right -> anf_degree order (fun input => xorb (cube_equal order input left) (cube_equal order input right)) = order - 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_max_ext"
+statement = "Lemma cube_max_ext : forall order first second, (forall mask, first mask = second mask) -> cube_max order first = cube_max order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_max_attained"
+statement = "Lemma cube_max_attained : forall order function, exists mask, function mask = cube_max order function"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_weight_zero"
+statement = "Lemma cube_weight_zero : forall order, cube_weight order (cube_zero order) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_zero"
+statement = "Theorem anf_degree_zero : forall order, anf_degree order (fun _ => false) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_xor_bound"
+statement = "Theorem anf_degree_xor_bound : forall order first second, anf_degree order (fun input => xorb (first input) (second input)) <= Nat.max (anf_degree order first) (anf_degree order second)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_constant_coefficients"
+statement = "Lemma anf_constant_coefficients : forall order constant mask, anf_evaluate order (fun _ => constant) mask = andb constant (cube_equal order mask (cube_zero order))"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_parity"
+statement = "Definition append_parity order (function : cube order -> bool) coefficient (input : cube (S order)) := xorb (function (fst input)) (andb (snd input) coefficient)"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_parity_coefficients"
+statement = "Lemma append_parity_coefficients : forall order function coefficient mask high, anf_evaluate (S order) (append_parity order function coefficient) (mask, high) = if high then andb coefficient (cube_equal order mask (cube_zero order)) else anf_evaluate order function mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_parity_degree"
+statement = "Theorem append_parity_degree : forall order function coefficient, anf_degree (S order) (append_parity order function coefficient) = Nat.max (anf_degree order function) (if coefficient then 1 else 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_strict_xor"
+statement = "Theorem anf_degree_strict_xor : forall order first second, anf_degree order first < anf_degree order second -> anf_degree order (fun input => xorb (first input) (second input)) = anf_degree order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_constant"
+statement = "Theorem anf_degree_constant : forall order constant, anf_degree order (fun _ => constant) = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_ext"
+statement = "Theorem anf_degree_ext : forall order first second, (forall input, first input = second input) -> anf_degree order first = anf_degree order second"
+assumptions = []
+
+[[witness.declarations]]
+name = "monomial_coefficients"
+statement = "Lemma monomial_coefficients : forall order mask selected, anf_evaluate order (monomial order mask) selected = cube_equal order selected mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "monomial_degree"
+statement = "Theorem monomial_degree : forall order mask, anf_degree order (monomial order mask) = cube_weight order mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_boolean"
+statement = "Definition append_boolean order (first second : cube order -> bool) (input : cube (S order)) := xorb (first (fst input)) (andb (snd input) (second (fst input)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_boolean_coefficients"
+statement = "Lemma append_boolean_coefficients : forall order first second mask high, anf_evaluate (S order) (append_boolean order first second) (mask, high) = if high then anf_evaluate order second mask else anf_evaluate order first mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "nonzero_degree_attained"
+statement = "Lemma nonzero_degree_attained : forall order coefficients, (exists mask, coefficients mask = true) -> exists mask, coefficients mask = true /\\ cube_weight order mask = coefficient_degree order coefficients"
+assumptions = []
+
+[[witness.declarations]]
+name = "append_boolean_degree"
+statement = "Theorem append_boolean_degree : forall order first second, (exists mask, anf_evaluate order second mask = true) -> anf_degree (S order) (append_boolean order first second) = Nat.max (anf_degree order first) (S (anf_degree order second))"
+assumptions = []
+
+[[witness.declarations]]
+name = "positive_degree_has_coefficient"
+statement = "Lemma positive_degree_has_coefficient : forall order function, 0 < anf_degree order function -> exists mask, anf_evaluate order function mask = true"
+assumptions = []
+
+[[witness.declarations]]
+name = "anf_degree_add_constant"
+statement = "Theorem anf_degree_add_constant : forall order function constant, 0 < anf_degree order function -> anf_degree order (fun input => xorb (function input) constant) = anf_degree order function"
+assumptions = []

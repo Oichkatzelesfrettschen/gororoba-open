@@ -1,0 +1,108 @@
+evidence_key = "vacuum-main-replay-StdlibRealFieldAdapter-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-StdlibRealFieldAdapter"
+proof_path = "proofs/theories/StdlibRealFieldAdapter.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/StdlibRealFieldAdapter.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.StdlibRealFieldAdapter"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/StdlibRealFieldAdapter.v"
+sha256 = "389794e3108e50f45cedb1f1c97b85b14913cdd4f04c10eb9562645bfad23693"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/StdlibRealFieldAdapter.compile.txt"
+sha256 = "8d7b12c044c72868bbb0ccabf28273b43cd2a54f0224a8225cece6ed007bcc11"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/StdlibRealFieldAdapter.kernel.txt"
+sha256 = "6ace46064a6cc8378432c131a530671780cb3f080ee50933b45de87d5d8364c6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/StdlibRealFieldAdapter.assumptions.txt"
+sha256 = "497e2b141549cf5a685ffc96315c868a72d3febf32c3e6dfe2b6b1f5941d930d"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/StdlibRealFieldAdapter.vo"
+sha256 = "d4c7889f38099df190cc3ebb79fd74a6307a1efe6800fcb705ee71a912e14380"
+
+[[witness.declarations]]
+name = "real_eqb"
+statement = "Definition real_eqb (x y : R) := match Req_EM_T x y with left _ => true | right _ => false end"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_eqP"
+statement = "Lemma real_eqP : eqtype.eq_axiom real_eqb"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_find"
+statement = "Definition real_find (predicate : R -> bool) (_ : nat) : option R := let chosen := epsilon (inhabits R0) (fun x => predicate x = true) in if predicate chosen then Some chosen else None"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic"]
+
+[[witness.declarations]]
+name = "real_find_correct"
+statement = "Lemma real_find_correct (predicate : R -> bool) n x : real_find predicate n = Some x -> predicate x"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic"]
+
+[[witness.declarations]]
+name = "real_find_complete"
+statement = "Lemma real_find_complete (predicate : R -> bool) : (exists x, predicate x) -> exists n, real_find predicate n"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic"]
+
+[[witness.declarations]]
+name = "real_find_ext"
+statement = "Lemma real_find_ext (first second : R -> bool) : first =1 second -> real_find first =1 real_find second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_addA"
+statement = "Lemma real_addA : associative Rplus"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_mulA"
+statement = "Lemma real_mulA : associative Rmult"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_one_nonzero"
+statement = "Lemma real_one_nonzero : R1 != R0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "real_inv_l"
+statement = "Lemma real_inv_l x : x != R0 -> Rmult (Rinv x) x = R1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "stdlib_real_field"
+statement = "Definition stdlib_real_field : divalg.GRing.Field.type := @divalg.GRing.Field.Pack R (divalg.GRing.Field.on R)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "mathcomp_rational_field"
+statement = "Definition mathcomp_rational_field : divalg.GRing.Field.type := rat.rat_rat__canonical__GRing_Field"
+assumptions = []
+
+[[witness.declarations]]
+name = "field_semiring"
+statement = "Definition field_semiring (scalar : divalg.GRing.Field.type) := divalg.GRing.Field.Exports.GRing_Field__to__GRing_PzSemiRing scalar"
+assumptions = []
+
+[[witness.declarations]]
+name = "rational_rank_specialization"
+statement = "Theorem rational_rank_specialization (embedding : rings_modules_and_algebras.GRing.RMorphism.type (field_semiring mathcomp_rational_field) (field_semiring stdlib_real_field)) rows columns (rational_operator : matrix.matrix rat.rat rows columns) (real_operator : matrix.matrix R rows columns) : real_operator = matrix.map_mx (rings_modules_and_algebras.GRing.RMorphism.sort embedding) rational_operator -> @mxalgebra.mxrank stdlib_real_field rows columns real_operator = @mxalgebra.mxrank mathcomp_rational_field rows columns rational_operator"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]

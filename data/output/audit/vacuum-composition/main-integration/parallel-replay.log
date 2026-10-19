@@ -1,0 +1,55 @@
+retained_admission BooleanANFDegree
+retained_admission BooleanCochainFiltration
+retained_admission BooleanPermutation
+retained_admission BranchSignedCoherence
+retained_admission C014_AnnihilatorDim4
+retained_admission C1463_ArithmeticInventory
+retained_admission C881_GF2CubicMinDegree
+retained_admission C958_ZDGraphTopology
+retained_admission C958b_ZDAdjacencyAnalytical
+retained_admission CDAssociatorCensus
+native_workers=12 pending_receipts=44
+TerminalChannelSeparation.receipt exit 0
+VacuumAnalyticLimits.receipt exit 0
+TerminalChannelSeparationReal.receipt exit 0
+SignCodeProjection.receipt exit 0
+FiniteCompositePassivity.receipt exit 0
+VacuumSpectralModels.receipt exit 0
+WorldlineInteraction.receipt exit 0
+VacuumCounterexamples.receipt exit 0
+PassiveMechanicalMemory.receipt exit 0
+FiniteComplexPassivity.receipt exit 0
+GaussianCoherence.receipt exit 0
+WalshProbability.receipt exit 0
+TerminalChannelEmpiricalCertificate.receipt exit 0
+SignCodeCardinality.receipt exit 0
+SchreierSignCode.receipt exit 0
+RecursiveCDTower.receipt exit 0
+SedenionFoldTransport.receipt exit 0
+NullityTwelveQuadraticLocus.receipt exit 0
+SedenionMembershipConstraints.receipt exit 0
+MinimalUncurvedObstruction.receipt exit 0
+FoldAverageDescent.receipt exit 0
+SparsePhotonicCertificates.receipt exit 0
+StdlibRealFieldAdapter.receipt exit 0
+FinitePlannedLookCoverage.receipt exit 0
+FiniteProbability.receipt exit 0
+SchurKernelTransport.receipt exit 0
+RationalSignBlockRanks.receipt exit 0
+FiniteBernoulliConcentration.receipt exit 0
+CDTowerFoldTransport.receipt exit 0
+CubeAffineCosets.receipt exit 0
+RationalRealSpecialization.receipt exit 0
+CDTowerSignCorrespondence.receipt exit 0
+CDAssociatorDoubling.receipt exit 0
+FiniteMatrixConventions.receipt exit 0
+ExactRankCertificate.receipt exit 0
+CDSignNumericCorrespondence.receipt exit 0
+CDPhaseDegree.receipt exit 0
+CDConcreteTowerAdapter.receipt exit 0
+FourStateMatrixAlgebra.receipt exit 0
+CDTowerMatrixAdapter.receipt exit 0
+RecordedFeedbackInstrument.receipt exit 0
+CDSparseMatrixTransport.receipt exit 0
+CDPureDoublingKernel.receipt exit 0
+CDSparseBlockTransport.receipt exit 0

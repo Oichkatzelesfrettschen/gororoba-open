@@ -141,3 +141,6 @@ data/output/audit/exact-rank-schur-kernel/**/*.vo -filter -diff -text
 # Canonical Rocq receipts bind exact compiler output and retained object bytes.
 data/output/audit/vacuum-composition/kernel-capture/** -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/vacuum-composition/kernel-capture/**/*.vo -filter -diff -text
+
+# Canonical integration receipts preserve the exact bytes admitted by the CLI.
+data/output/audit/vacuum-composition/main-integration/** -text whitespace=-blank-at-eof,-blank-at-eol

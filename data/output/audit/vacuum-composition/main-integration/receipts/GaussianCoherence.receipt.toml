@@ -1,0 +1,168 @@
+evidence_key = "vacuum-main-replay-GaussianCoherence-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-GaussianCoherence"
+proof_path = "proofs/theories/GaussianCoherence.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/GaussianCoherence.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.GaussianCoherence"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteComplexPassivity.v"
+sha256 = "87859b845f0de51a747a5559a497fd571a305eca8a6d87a8e33da41a00106f60"
+
+[[witness.sources]]
+path = "proofs/theories/GaussianCoherence.v"
+sha256 = "296db2ca17f693d61f4fe75fa1085c44abf2686c395a2817b5af34837a38bdf5"
+
+[[witness.sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/theories/VacuumCounterexamples.v"
+sha256 = "a0e05efba6c9dcbf145fcb4d593e276efdc97b37beecfd925a56d43323586c81"
+
+[witness.compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/GaussianCoherence.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/GaussianCoherence.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/GaussianCoherence.assumptions.txt"
+sha256 = "be1ad44c43851edfac5d0112363e9eba2f7a39f89d3534f00d6fc3eeb7caf9b9"
+
+[witness.proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/GaussianCoherence.vo"
+sha256 = "05073bc2a452724b2fa80a5eaf2ab1b505b390ac28d7f5bc682baa2104373b54"
+
+[[witness.declarations]]
+name = "gaussian_phase_variance"
+statement = "Definition gaussian_phase_variance dimension covariance weights := quadratic_form dimension covariance weights weights"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "gaussian_coherence"
+statement = "Definition gaussian_coherence (relaxation_exponent phase_variance : R) := exp (-relaxation_exponent - phase_variance / 2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "psd_phase_variance_nonnegative"
+statement = "Theorem psd_phase_variance_nonnegative : forall dimension covariance weights, form_psd dimension covariance -> 0 <= gaussian_phase_variance dimension covariance weights"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "exp_nonpositive_range"
+statement = "Lemma exp_nonpositive_range : forall exponent, exponent <= 0 -> 0 < exp exponent <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "gaussian_coherence_range"
+statement = "Theorem gaussian_coherence_range : forall dimension covariance weights relaxation, form_psd dimension covariance -> 0 <= relaxation -> 0 < gaussian_coherence relaxation (gaussian_phase_variance dimension covariance weights) <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "gaussian_variance_monotone_coherence"
+statement = "Theorem gaussian_variance_monotone_coherence : forall relaxation first_variance second_variance, first_variance <= second_variance -> gaussian_coherence relaxation second_variance <= gaussian_coherence relaxation first_variance"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "form_zero_weights"
+statement = "Lemma form_zero_weights : forall dimension covariance, quadratic_form dimension covariance (fun _ => 0) (fun _ => 0) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zero_coupling_relaxation_only"
+statement = "Theorem zero_coupling_relaxation_only : forall dimension covariance relaxation, gaussian_coherence relaxation (gaussian_phase_variance dimension covariance (fun _ => 0)) = exp (-relaxation)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "quasistatic_covariance"
+statement = "Definition quasistatic_covariance (variance : R) : nat -> nat -> R := fun _ _ => variance"
+assumptions = []
+
+[[witness.declarations]]
+name = "quasistatic_phase_variance"
+statement = "Theorem quasistatic_phase_variance : forall dimension variance weights, gaussian_phase_variance dimension (quasistatic_covariance variance) weights = variance * (finite_sum dimension weights)^2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "quasistatic_covariance_psd"
+statement = "Theorem quasistatic_covariance_psd : forall dimension variance, 0 <= variance -> form_psd dimension (quasistatic_covariance variance)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "ideal_echo_cancels_quasistatic_phase"
+statement = "Theorem ideal_echo_cancels_quasistatic_phase : forall dimension variance weights relaxation, finite_sum dimension weights = 0 -> gaussian_coherence relaxation (gaussian_phase_variance dimension (quasistatic_covariance variance) weights) = exp (-relaxation)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "positive_variance_ramsey_has_extra_decay"
+statement = "Theorem positive_variance_ramsey_has_extra_decay : forall dimension variance weights relaxation, 0 < variance -> finite_sum dimension weights <> 0 -> gaussian_coherence relaxation (gaussian_phase_variance dimension (quasistatic_covariance variance) weights) < exp (-relaxation)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "dephasing_identity_weight"
+statement = "Definition dephasing_identity_weight factor := (1 + factor) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "dephasing_phase_weight"
+statement = "Definition dephasing_phase_weight factor := (1 - factor) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "dephasing_weights_are_probabilities"
+statement = "Theorem dephasing_weights_are_probabilities : forall factor, -1 <= factor <= 1 -> 0 <= dephasing_identity_weight factor /\\ 0 <= dephasing_phase_weight factor /\\ dephasing_identity_weight factor + dephasing_phase_weight factor = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "normalized_dephasing_choi_form"
+statement = "Definition normalized_dephasing_choi_form factor (first second third fourth : CDComplex) := (complex_norm_sq first + complex_norm_sq fourth + 2 * factor * complex_real_pair first fourth) / 2"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "normalized_dephasing_choi_bell_decomposition"
+statement = "Theorem normalized_dephasing_choi_bell_decomposition : forall factor first second third fourth, normalized_dephasing_choi_form factor first second third fourth = dephasing_identity_weight factor / 2 * complex_norm_sq (complex_add first fourth) + dephasing_phase_weight factor / 2 * complex_norm_sq (complex_difference first fourth)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "normalized_dephasing_choi_psd"
+statement = "Theorem normalized_dephasing_choi_psd : forall factor, -1 <= factor <= 1 -> forall first second third fourth, 0 <= normalized_dephasing_choi_form factor first second third fourth"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "normalized_dephasing_choi_middle_directions_zero"
+statement = "Theorem normalized_dephasing_choi_middle_directions_zero : forall factor second third, normalized_dephasing_choi_form factor complex_zero second third complex_zero = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "gaussian_phase_weights_are_probabilities"
+statement = "Theorem gaussian_phase_weights_are_probabilities : forall variance, 0 <= variance -> 0 <= dephasing_identity_weight (exp (-variance/2)) /\\ 0 <= dephasing_phase_weight (exp (-variance/2)) /\\ dephasing_identity_weight (exp (-variance/2)) + dephasing_phase_weight (exp (-variance/2)) = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "gaussian_phase_normalized_choi_psd"
+statement = "Theorem gaussian_phase_normalized_choi_psd : forall variance, 0 <= variance -> forall first second third fourth, 0 <= normalized_dephasing_choi_form (exp (-variance/2)) first second third fourth"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]

@@ -1,0 +1,228 @@
+evidence_key = "vacuum-main-replay-CDConcreteTowerAdapter-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDConcreteTowerAdapter"
+proof_path = "proofs/theories/CDConcreteTowerAdapter.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDConcreteTowerAdapter.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDConcreteTowerAdapter"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDConcreteTowerAdapter.v"
+sha256 = "e5a0373a7e0deab9a6475d0f2c26facd1003f26ad3353e717550911ddfebd4a9"
+
+[[witness.sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[witness.sources]]
+path = "proofs/theories/OctonionNorm.v"
+sha256 = "3c65bb9f5c84a2775d9a6bebd202e8433f34f174c4d4808e79b582dfec17b51e"
+
+[[witness.sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[[witness.sources]]
+path = "proofs/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[[witness.sources]]
+path = "proofs/theories/Sedenion.v"
+sha256 = "f7fa97304850eaa6004d3917fe37be555b40568fc65389887bbe489fbc922681"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDConcreteTowerAdapter.compile.txt"
+sha256 = "9fe3a98df9e72bf75d4469a9bcb806738a3fb096d1bdac72e5d3f0289bc8fa4c"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDConcreteTowerAdapter.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDConcreteTowerAdapter.assumptions.txt"
+sha256 = "1c559e101f9ee5f02a6cdb9f4dae9061fdf98441756fac36dfceb27e12d200dd"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/CDConcreteTowerAdapter.vo"
+sha256 = "91d18dcad08eacaae574e5426a35d7e04a19f28f407831433b43aeb9c842f4de"
+
+[[witness.declarations]]
+name = "tower_quaternion"
+statement = "Definition tower_quaternion (value : cd_tower 2) : CDQuat := mkQuat (fst (fst value)) (snd (fst value)) (fst (snd value)) (snd (snd value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_tower"
+statement = "Definition quaternion_tower (value : CDQuat) : cd_tower 2 := ((qa value,qb value),(qc value,qd value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_octonion"
+statement = "Definition tower_octonion (value : cd_tower 3) : CDOct := mkOct (tower_quaternion (fst value)) (tower_quaternion (snd value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "octonion_tower"
+statement = "Definition octonion_tower (value : CDOct) : cd_tower 3 := (quaternion_tower (oct_lo value),quaternion_tower (oct_hi value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_sedenion"
+statement = "Definition tower_sedenion (value : cd_tower 4) : CDSed := mkSed (tower_octonion (fst value)) (tower_octonion (snd value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "sedenion_tower"
+statement = "Definition sedenion_tower (value : CDSed) : cd_tower 4 := (octonion_tower (sed_lo value),octonion_tower (sed_hi value))"
+assumptions = []
+
+[[witness.declarations]]
+name = "quaternion_tower_round_trip"
+statement = "Lemma quaternion_tower_round_trip value : quaternion_tower (tower_quaternion value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_quaternion_round_trip"
+statement = "Lemma tower_quaternion_round_trip value : tower_quaternion (quaternion_tower value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "octonion_tower_round_trip"
+statement = "Lemma octonion_tower_round_trip value : octonion_tower (tower_octonion value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_octonion_round_trip"
+statement = "Lemma tower_octonion_round_trip value : tower_octonion (octonion_tower value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "sedenion_tower_round_trip"
+statement = "Lemma sedenion_tower_round_trip value : sedenion_tower (tower_sedenion value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_sedenion_round_trip"
+statement = "Lemma tower_sedenion_round_trip value : tower_sedenion (sedenion_tower value) = value"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_quaternion_zero"
+statement = "Lemma tower_quaternion_zero : tower_quaternion (tower_zero 2) = quat_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_quaternion_add"
+statement = "Lemma tower_quaternion_add first second : tower_quaternion (tower_add 2 first second) = quat_add (tower_quaternion first) (tower_quaternion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_quaternion_neg"
+statement = "Lemma tower_quaternion_neg value : tower_quaternion (tower_neg 2 value) = quat_neg (tower_quaternion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_quaternion_scale"
+statement = "Lemma tower_quaternion_scale factor value : tower_quaternion (tower_scale 2 factor value) = quat_scale factor (tower_quaternion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_quaternion_conj"
+statement = "Lemma tower_quaternion_conj value : tower_quaternion (tower_conj 2 value) = quat_conj (tower_quaternion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_quaternion_mul"
+statement = "Lemma tower_quaternion_mul first second : tower_quaternion (tower_mul 2 first second) = quat_mul (tower_quaternion first) (tower_quaternion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_octonion_zero"
+statement = "Lemma tower_octonion_zero : tower_octonion (tower_zero 3) = oct_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_octonion_add"
+statement = "Lemma tower_octonion_add first second : tower_octonion (tower_add 3 first second) = oct_add (tower_octonion first) (tower_octonion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_octonion_neg"
+statement = "Lemma tower_octonion_neg value : tower_octonion (tower_neg 3 value) = oct_neg (tower_octonion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_octonion_scale"
+statement = "Lemma tower_octonion_scale factor value : tower_octonion (tower_scale 3 factor value) = oct_scale factor (tower_octonion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_octonion_conj"
+statement = "Lemma tower_octonion_conj value : tower_octonion (tower_conj 3 value) = oct_conj (tower_octonion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_octonion_mul"
+statement = "Lemma tower_octonion_mul first second : tower_octonion (tower_mul 3 first second) = oct_mul (tower_octonion first) (tower_octonion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_sedenion_zero"
+statement = "Lemma tower_sedenion_zero : tower_sedenion (tower_zero 4) = sed_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_sedenion_add"
+statement = "Lemma tower_sedenion_add first second : tower_sedenion (tower_add 4 first second) = sed_add (tower_sedenion first) (tower_sedenion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_sedenion_neg"
+statement = "Lemma tower_sedenion_neg value : tower_sedenion (tower_neg 4 value) = sed_neg (tower_sedenion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_sedenion_scale"
+statement = "Lemma tower_sedenion_scale factor value : tower_sedenion (tower_scale 4 factor value) = sed_scale factor (tower_sedenion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_sedenion_conj"
+statement = "Lemma tower_sedenion_conj value : tower_sedenion (tower_conj 4 value) = sed_conj (tower_sedenion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "tower_sedenion_mul"
+statement = "Lemma tower_sedenion_mul first second : tower_sedenion (tower_mul 4 first second) = sed_mul (tower_sedenion first) (tower_sedenion second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_sedenion_injective"
+statement = "Lemma tower_sedenion_injective first second : tower_sedenion first = tower_sedenion second -> first = second"
+assumptions = []
+
+[[witness.declarations]]
+name = "tower_quaternion_norm"
+statement = "Lemma tower_quaternion_norm value : tower_norm_sq 2 value = quat_norm_sq (tower_quaternion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_octonion_norm"
+statement = "Lemma tower_octonion_norm value : tower_norm_sq 3 value = oct_norm_sq (tower_octonion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_sedenion_norm"
+statement = "Lemma tower_sedenion_norm value : tower_norm_sq 4 value = sed_norm_sq (tower_sedenion value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

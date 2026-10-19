@@ -1,0 +1,38 @@
+   Compiling rand_chacha v0.9.0
+   Compiling serde v1.0.228
+   Compiling object v0.37.3
+   Compiling either v1.15.0
+   Compiling snafu-derive v0.9.0
+   Compiling winnow v1.0.1
+   Compiling indexmap v2.13.1
+   Compiling pulp v0.22.2
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling filetime v0.2.27
+   Compiling toml_writer v1.1.1+spec-1.1.0
+   Compiling tempfile v3.27.0
+   Compiling rayon v1.11.0
+   Compiling tar v0.4.45
+   Compiling toml_parser v1.1.2+spec-1.1.0
+   Compiling rand v0.9.3
+   Compiling gororoba_contracts v0.1.0 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba/crates/gororoba_contracts)
+   Compiling chrono v0.4.41
+   Compiling zip v9.0.0
+   Compiling toml v1.1.2+spec-1.1.0
+   Compiling rand_distr v0.5.1
+   Compiling verified_core v0.1.0 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba/crates/verified_core)
+   Compiling fwht v0.1.0 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba/crates/fwht)
+   Compiling backtrace v0.3.76
+   Compiling cd_kernel v0.1.0 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba/crates/cd_kernel)
+   Compiling snafu v0.9.0
+   Compiling hifitime v4.2.6
+   Compiling data_core v0.1.0 (/home/eirikr/.codex/worktrees/vacuum-compositional-proof-contracts/open_gororoba/crates/data_core)
+    Finished `validation` profile [optimized + debuginfo] target(s) in 27.54s
+     Running unittests src/lib.rs (/home/eirikr/Github/open_gororoba/.cache/gate-cbuild/8ee62ced707fec8e/validation/deps/data_core-a7b1dbab6aaf731d)
+
+running 3 tests
+test catalogs::nanograv::tests::test_extract_kde_zip_alternate_interpretations_remain_finite_but_do_not_match_if_available ... ok
+test catalogs::nanograv::tests::test_extract_kde_zip_if_available ... ok
+test catalogs::jarvis::tests::zip_malformed_name_length_preserves_json_destination ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 496 filtered out; finished in 0.00s
+

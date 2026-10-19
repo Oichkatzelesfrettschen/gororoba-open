@@ -1,0 +1,6 @@
+missing_main_theorem_events|0
+missing_main_claim_transition_events|0
+canonical_theorem_events|363
+kernel_checked|54
+source_only|293
+ok
