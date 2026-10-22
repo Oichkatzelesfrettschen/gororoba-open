@@ -161,6 +161,9 @@ pub(crate) struct BibliographyBibtexArgs {
     /// Bibliography TOML registry path.
     #[arg(long, default_value = "registry/bibliography.toml")]
     pub(crate) input: PathBuf,
+    /// Normalized bibliography with matching source IDs and raw citations.
+    #[arg(long, default_value = "registry/bibliography_normalized.toml")]
+    pub(crate) normalized_input: PathBuf,
     /// Output .bib file path.
     #[arg(long)]
     pub(crate) output: PathBuf,
