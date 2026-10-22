@@ -41,7 +41,7 @@
 //!   verified against the Jacobi identity.
 //! - [`nilpotent_orbits`] -- Jordan-type classification of nilpotent
 //!   matrices, used by `su5_gut`.
-//! - [`su5_gut`] -- `SU(5)` Grand Unified Theory generators
+//! - `su5_gut` -- `SU(5)` Grand Unified Theory generators
 //!   (gated on the `physics-sm` feature).
 //! - [`three_fermion_generations`] -- sedenion subalgebra structure
 //!   underlying the three-generation mystery.
