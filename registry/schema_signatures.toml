@@ -13,11 +13,11 @@ id = "SIG-0001"
 path = "registry/bibliography.toml"
 top_level_keys = ["bibliography", "entry", "group", "section"]
 schema_version = "v1"
-schema_sha256 = "92a1edb155b4f9fc8ea810b31d981f6434654445cfffca4be59abc94dcd69d6a"
-content_sha256 = "92b2c1cc4e4235dcc9c037e6b2a501a3fd8fb25a6ab05326799dc282e0e5c1a0"
+schema_sha256 = "0de85f30c27ab4c6b39bd48d13fd78b8fd5ecde2149728838caf7906af4ae243"
+content_sha256 = "dd48619909fff06786d319938074fb5072e294137a4aeb47e42ce72707c685d5"
 array_table_count = 3
 table_count = 1
-shape_json = "{\"path\":\"registry/bibliography.toml\",\"shapes\":{\"bibliography\":{\"keys\":[\"authoritative\",\"entry_count\",\"group_count\",\"section_count\",\"source_markdown\",\"updated\"],\"type\":\"table\"},\"entry\":{\"entry_kind\":\"table\",\"required_keys\":[\"citation_markdown\",\"dois\",\"group\",\"id\",\"notes\",\"order_index\",\"section\",\"source_line\",\"urls\"],\"row_count\":442,\"type\":\"array\",\"union_keys\":[\"citation_markdown\",\"dois\",\"group\",\"id\",\"notes\",\"order_index\",\"section\",\"source_line\",\"urls\"]},\"group\":{\"entry_kind\":\"table\",\"required_keys\":[\"entry_count\",\"id\",\"name\",\"section_count\"],\"row_count\":1,\"type\":\"array\",\"union_keys\":[\"entry_count\",\"id\",\"name\",\"section_count\"]},\"section\":{\"entry_kind\":\"table\",\"required_keys\":[\"entry_count\",\"groups\",\"id\",\"name\"],\"row_count\":62,\"type\":\"array\",\"union_keys\":[\"entry_count\",\"groups\",\"id\",\"name\"]}},\"top_level_keys\":[\"bibliography\",\"entry\",\"group\",\"section\"]}"
+shape_json = "{\"path\":\"registry/bibliography.toml\",\"shapes\":{\"bibliography\":{\"keys\":[\"authoritative\",\"entry_count\",\"group_count\",\"section_count\",\"source_markdown\",\"updated\"],\"type\":\"table\"},\"entry\":{\"entry_kind\":\"table\",\"required_keys\":[\"citation_markdown\",\"dois\",\"group\",\"id\",\"notes\",\"order_index\",\"section\",\"source_line\",\"urls\"],\"row_count\":449,\"type\":\"array\",\"union_keys\":[\"citation_markdown\",\"dois\",\"group\",\"id\",\"notes\",\"order_index\",\"section\",\"source_line\",\"urls\"]},\"group\":{\"entry_kind\":\"table\",\"required_keys\":[\"entry_count\",\"id\",\"name\",\"section_count\"],\"row_count\":1,\"type\":\"array\",\"union_keys\":[\"entry_count\",\"id\",\"name\",\"section_count\"]},\"section\":{\"entry_kind\":\"table\",\"required_keys\":[\"entry_count\",\"groups\",\"id\",\"name\"],\"row_count\":63,\"type\":\"array\",\"union_keys\":[\"entry_count\",\"groups\",\"id\",\"name\"]}},\"top_level_keys\":[\"bibliography\",\"entry\",\"group\",\"section\"]}"
 
 [[signature]]
 id = "SIG-0002"

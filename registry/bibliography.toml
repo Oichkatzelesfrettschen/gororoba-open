@@ -3,17 +3,17 @@
 
 [bibliography]
 authoritative = true
-updated = "2026-03-23"
+updated = "2026-10-22"
 source_markdown = "docs/BIBLIOGRAPHY.md"
 group_count = 1
-section_count = 62
-entry_count = 442
+section_count = 63
+entry_count = 449
 
 [[group]]
 id = "BGR-001"
 name = "Primary Research & Data Sources"
-section_count = 62
-entry_count = 442
+section_count = 63
+entry_count = 449
 
 [[section]]
 id = "BSEC-001"
@@ -5534,4 +5534,87 @@ notes = [
 ]
 urls = []
 dois = []
+source_line = 0
+
+[[section]]
+id = "BSEC-063"
+name = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+groups = ["Primary Research & Data Sources"]
+entry_count = 7
+
+[[entry]]
+id = "BIB-0443"
+order_index = 443
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Soler, M. P.** (1995). *Characterization of Hilbert spaces by orthomodular spaces*. Communications in Algebra 23(1), 219-243."
+notes = ["Crossref DOI metadata verifies author, venue, year and pagination; the author is also indexed as Soler with a grave accent on the e. Metadata verification does not verify the theorem or its hypotheses."]
+urls = ["https://doi.org/10.1080/00927879508825218"]
+dois = ["10.1080/00927879508825218"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0444"
+order_index = 444
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Stueckelberg, E. C. G.** (1960). *Quantum Theory in real Hilbert-Space*. Helvetica Physica Acta 33, p. 727."
+notes = ["ETH e-periodica viewer verifies volume and first page; the DataCite DOI deposit verifies author, title and year. The final page remains unverified here. Bibliographic verification does not establish a general equivalence of real and complex quantum theories."]
+urls = ["https://doi.org/10.5169/seals-113093", "https://www.e-periodica.ch/digbib/view?pid=hpa-001:1960:33::735"]
+dois = ["10.5169/seals-113093"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0445"
+order_index = 445
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Finkelstein, D., Jauch, J. M., Schiminovich, S., & Speiser, D.** (1962). *Foundations of Quaternion Quantum Mechanics*. Journal of Mathematical Physics 3(2), 207-220."
+notes = ["Crossref DOI metadata verifies the four authors, title, venue, year and pagination. Bibliographic verification remains separate from checking the spectral or composite-system constructions."]
+urls = ["https://doi.org/10.1063/1.1703794"]
+dois = ["10.1063/1.1703794"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0446"
+order_index = 446
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Adler, S. L.** (1995). *Quaternionic Quantum Mechanics and Quantum Fields*. Oxford University Press. ISBN 9780195066432."
+notes = ["Crossref verifies the book DOI, author, publisher, ISBN and print date 1995-04-27. Its deposited title contains OCR defects ('Ouaternionic' and 'Ouanturn'); the readable title follows the established book citation. Publisher content was unavailable to automated reading, so the identifier establishes bibliographic identity rather than verification of complex-projection arguments."]
+urls = ["https://doi.org/10.1093/oso/9780195066432.001.0001"]
+dois = ["10.1093/oso/9780195066432.001.0001"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0447"
+order_index = 447
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Peres, A.** (1979). *Proposed Test for Complex versus Quaternion Quantum Theory*. Physical Review Letters 42(11), 683-686."
+notes = ["Crossref DOI metadata verifies author, title, venue, year and pagination. The proposal's experimental observables require a separate content reading; an ordinary complex operator-order effect does not distinguish fundamental scalar fields."]
+urls = ["https://doi.org/10.1103/PhysRevLett.42.683"]
+dois = ["10.1103/PhysRevLett.42.683"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0448"
+order_index = 448
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Kaiser, H., George, E. A., & Werner, S. A.** (1984). *Neutron interferometric search for quaternions in quantum mechanics*. Physical Review A 29(4), 2276-2279."
+notes = ["Crossref DOI metadata verifies authors, title, venue, year and pagination. A numerical coupling limit requires the interferometer model and uncertainty analysis, neither of which bibliographic retrieval verifies."]
+urls = ["https://doi.org/10.1103/PhysRevA.29.2276"]
+dois = ["10.1103/PhysRevA.29.2276"]
+source_line = 0
+
+[[entry]]
+id = "BIB-0449"
+order_index = 449
+group = "Primary Research & Data Sources"
+section = "Quaternionic Quantum Mechanics and Scalar-Field Foundations"
+citation_markdown = "**Renou, M.-O., Trillo, D., Weilenmann, M., Le, T. P., Tavakoli, A., Gisin, N., Acin, A., & Navascues, M.** (2021). *Quantum theory based on real numbers can be experimentally falsified*. Nature 600(7890), 625-629."
+notes = ["Crossref DOI metadata verifies authors, title, venue, year and pagination. The theoretical real-versus-complex discrimination result requires its independent-source assumptions; bibliographic admission supplies neither an experimental realization nor a test of quaternionic scalar fields."]
+urls = ["https://doi.org/10.1038/s41586-021-04160-4"]
+dois = ["10.1038/s41586-021-04160-4"]
 source_line = 0
