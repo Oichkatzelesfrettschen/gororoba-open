@@ -3290,6 +3290,40 @@ fn bibliography_author_map(
     Ok(authors)
 }
 
+fn bibtex_author_name(author: &str) -> String {
+    let mut escaped = String::new();
+    for character in author.chars() {
+        // Escaped literal braces still affect BibTeX's nesting depth.
+        let replacement = match character {
+            '{' => r"\textbraceleft{}",
+            '}' => r"\textbraceright{}",
+            '\\' => r"\textbackslash{}",
+            '"' => r"\textquotedbl{}",
+            '&' => r"\&",
+            '%' => r"\%",
+            '$' => r"\$",
+            '#' => r"\#",
+            '_' => r"\_",
+            '^' => r"\textasciicircum{}",
+            '~' => r"\textasciitilde{}",
+            _ => {
+                escaped.push(character);
+                continue;
+            }
+        };
+        escaped.push_str(replacement);
+    }
+    // A normalized entry is one name even when its literal text contains `and`.
+    if author
+        .split_whitespace()
+        .any(|word| word.eq_ignore_ascii_case("and"))
+    {
+        format!("{{{escaped}}}")
+    } else {
+        escaped
+    }
+}
+
 fn bibtex_authors(authors: &[String]) -> String {
     if authors.is_empty() {
         return "Unknown".into();
@@ -3297,7 +3331,7 @@ fn bibtex_authors(authors: &[String]) -> String {
     // BibTeX separates people with `and`; APA's author-list commas belong to names.
     authors
         .iter()
-        .map(|author| bibtex_escape(author))
+        .map(|author| bibtex_author_name(author))
         .collect::<Vec<_>>()
         .join(" and ")
 }
@@ -3965,8 +3999,31 @@ citation_markdown = "**Research {Lab}** (2021). *Control*."
             bibtex_authors(&authors["BIB-0001"]),
             "Finkelstein, D and Jauch, J. M and Schiminovich, S and Speiser, D"
         );
-        assert_eq!(bibtex_authors(&authors["BIB-0002"]), r"Research \{Lab\}");
+        assert_eq!(
+            bibtex_authors(&authors["BIB-0002"]),
+            r"Research \textbraceleft{}Lab\textbraceright{}"
+        );
         assert_eq!(bibtex_authors(&[]), "Unknown");
+    }
+
+    #[test]
+    fn bibliography_bibtex_preserves_literal_separators_and_unbalanced_braces() {
+        for author in ["Research and Development", "Research AND Development"] {
+            assert_eq!(bibtex_author_name(author), format!("{{{author}}}"));
+        }
+        assert_eq!(
+            bibtex_author_name("Research {Lab"),
+            r"Research \textbraceleft{}Lab"
+        );
+        assert_eq!(
+            bibtex_author_name("Research Lab}"),
+            r"Research Lab\textbraceright{}"
+        );
+        assert_eq!(bibtex_author_name("Doe, A."), "Doe, A.");
+        assert_eq!(
+            bibtex_authors(&["Research and Development".into(), "Doe, A.".into()]),
+            "{Research and Development} and Doe, A."
+        );
     }
 
     #[test]
