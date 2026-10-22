@@ -260,13 +260,13 @@
 //!   - *R x C x H x O acting on itself -> SM Lorentz reps + one generation su(3)_c x u(1)_em.*
 //! - **Furey, C.** (2018a). *Three generations, two unbroken gauge symmetries, and one eight-dimensional algebra*. Phys. Lett. B 785, 84-89.
 //!   - *Complex octonions yield three-generation SU(3)_c reps; Cartan factorization.*
-//! - **Furey, C.** (2018b). *SU(3)_C x SU(2)_L x U(1)_Y (x U(1)_X) as a symmetry of division algebraic ladder operators*. Eur. Phys. J. C 78, 375. [arXiv:1702.04336](https://arxiv.org/abs/1702.04336).
+//! - **Furey, C.** (2018b). *SU(3)_C x SU(2)_L x U(1)_Y (x U(1)_X) as a symmetry of division algebraic ladder operators*. Eur. Phys. J. C 78, 375. [arXiv:1806.00612](https://arxiv.org/abs/1806.00612).
 //!   - *Full SM gauge group from division algebraic ladder operators; charge quantization.*
 //! - **Dixon, G. M.** (1994). *Division Algebras: Octonions, Quaternions, Complex Numbers and the Algebraic Design of Physics*. Springer.
 //!   - *T = C x H x O (64D): tensoring normed division algebras encodes SM symmetries.*
 //! - **Gillard, A. B., & Gresnigt, N. G.** (2019). *Three fermion generations with two unbroken gauge symmetries from the complex sedenions*. Eur. Phys. J. C 79, 446. DOI: 10.1140/epjc/s10052-019-6967-1.
 //!   - *C x S -> Cl(6) minimal left ideals describe three fermion generations.*
-//! - **Gresnigt, N. G., et al.** (2021). *An exceptional G(2) extension of the Standard Model from the correspondence with Cayley-Dickson algebras automorphism groups*. Sci. Rep. (Nature) 11. DOI: 10.1038/s41598-021-01814-1.
+//! - **Masi, N.** (2021). *An exceptional G(2) extension of the Standard Model from the correspondence with Cayley-Dickson algebras automorphism groups*. Sci. Rep. 11. DOI: 10.1038/s41598-021-01814-1.
 //!   - *CD automorphism groups -> G(2) extension of SU(3); broken G(2) gluons as dark matter.*
 //! - **Gresnigt, N. G., Gourlay, L., & Varma, A.** (2023). *Toward a Three Generation Model of Standard Model Fermions Based on Cayley-Dickson Sedenions*. Phys. Part. Nucl. 54, 1006-1010.
 //!   - *Three octonion subalgebras of S differentiated by SU(3) color or chiral SU(2).*
