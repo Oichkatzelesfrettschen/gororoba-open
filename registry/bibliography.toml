@@ -1905,9 +1905,9 @@ id = "BIB-0136"
 order_index = 136
 group = "Primary Research & Data Sources"
 section = "Division Algebra Physics (Furey / Dixon / Gresnigt Program)"
-citation_markdown = "**Furey, C.** (2018b). *SU(3)_C x SU(2)_L x U(1)_Y (x U(1)_X) as a symmetry of division algebraic ladder operators*. Eur. Phys. J. C 78, 375. [arXiv:1702.04336](https://arxiv.org/abs/1702.04336)."
+citation_markdown = "**Furey, C.** (2018b). *SU(3)_C x SU(2)_L x U(1)_Y (x U(1)_X) as a symmetry of division algebraic ladder operators*. Eur. Phys. J. C 78, 375. [arXiv:1806.00612](https://arxiv.org/abs/1806.00612)."
 notes = ["*Full SM gauge group from division algebraic ladder operators; charge quantization.*"]
-urls = ["https://arxiv.org/abs/1702.04336"]
+urls = ["https://arxiv.org/abs/1806.00612"]
 dois = []
 source_line = 294
 
@@ -1938,10 +1938,10 @@ id = "BIB-0139"
 order_index = 139
 group = "Primary Research & Data Sources"
 section = "Division Algebra Physics (Furey / Dixon / Gresnigt Program)"
-citation_markdown = "**Gresnigt, N. G., et al.** (2021). *An exceptional G(2) extension of the Standard Model from the correspondence with Cayley-Dickson algebras automorphism groups*. Sci. Rep. (Nature) 11. DOI: 10.1038/s41598-021-01814-1."
+citation_markdown = "**Masi, N.** (2021). *An exceptional G(2) extension of the Standard Model from the correspondence with Cayley-Dickson algebras automorphism groups*. Sci. Rep. 11. DOI: 10.1038/s41598-021-01814-1."
 notes = ["*CD automorphism groups -> G(2) extension of SU(3); broken G(2) gluons as dark matter.*"]
 urls = []
-dois = ["10.1038/s41598-021-01814-1."]
+dois = ["10.1038/s41598-021-01814-1"]
 source_line = 300
 
 [[entry]]

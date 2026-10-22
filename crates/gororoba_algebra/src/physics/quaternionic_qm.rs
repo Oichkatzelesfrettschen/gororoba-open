@@ -1,20 +1,18 @@
-//! Quaternionic Quantum Mechanics vs Standard Quantum Mechanics.
+//! Quaternionic interference and its faithful two-channel complex encoding.
 //!
-//! Encodes the reconciled conflict: Quaternions CAN formulate QM, but their
-//! predictions differ from standard complex QM, particularly in interference
-//! effects and phase commutativity.
+//! Matched encodings preserve probabilities. Projecting away quaternion
+//! components changes the inputs and supplies a separate diagnostic.
 //!
 //! # References
 //! - Adler, S. L. (1995). Quaternionic Quantum Mechanics and Quantum Fields.
 
 use cd_kernel::cayley_dickson::{cd_multiply, cd_norm_sq};
 
-/// Evaluates a basic interference pattern between two state vectors.
+/// Return unnormalized intensities after component projection and full multiplication.
 ///
-/// In standard QM (Complex numbers), phase factors commute.
-/// In Quaternionic QM, phase factors do not commute, leading to observable
-/// differences in multi-path interference experiments (e.g., neutron interferometry).
-pub fn evaluate_interference(
+/// Projection discards the j and k coefficients and can turn a unit phase
+/// into zero. The resulting difference tests projection, not scalar-field physics.
+pub fn projected_interference_intensities(
     psi1: &[f64],
     psi2: &[f64],
     phase1: &[f64],
@@ -52,6 +50,56 @@ pub fn evaluate_interference(
     (complex_probability, quaternionic_probability)
 }
 
+/// Return the same balanced-port probability in complex and quaternion coordinates.
+///
+/// Each arm has a unit quaternion state and unit left phase. Splitting and
+/// recombination give amplitude `(phase1*psi1 + phase2*psi2)/2`. The complex
+/// encoding uses both channels of `chi(z+w*j)=[[z,w],[-conj(w),conj(z)]]`.
+///
+/// # Panics
+///
+/// Panics when an input has a length other than four, nonfinite coefficients,
+/// or squared norm differing from one by more than 1e-12.
+pub fn evaluate_interference(
+    psi1: &[f64],
+    psi2: &[f64],
+    phase1: &[f64],
+    phase2: &[f64],
+) -> (f64, f64) {
+    for input in [psi1, psi2, phase1, phase2] {
+        assert_eq!(input.len(), 4, "a quaternion has four real coefficients");
+        assert!(input.iter().all(|value| value.is_finite()));
+        assert!((cd_norm_sq(input) - 1.0).abs() <= 1e-12);
+    }
+    let encode_product = |phase: &[f64], state: &[f64]| {
+        use num_complex::Complex64;
+        let diagonal = Complex64::new(phase[0], phase[1]);
+        let off_diagonal = Complex64::new(phase[2], phase[3]);
+        let first = Complex64::new(state[0], state[1]);
+        let second = Complex64::new(-state[2], state[3]);
+        [
+            diagonal * first + off_diagonal * second,
+            -off_diagonal.conj() * first + diagonal.conj() * second,
+        ]
+    };
+    let first_encoded = encode_product(phase1, psi1);
+    let second_encoded = encode_product(phase2, psi2);
+    let complex_probability = first_encoded
+        .iter()
+        .zip(second_encoded)
+        .map(|(first, second)| (*first + second).norm_sqr())
+        .sum::<f64>()
+        / 4.0;
+    let first_product = cd_multiply(phase1, psi1);
+    let second_product = cd_multiply(phase2, psi2);
+    let sum: Vec<f64> = first_product
+        .iter()
+        .zip(second_product)
+        .map(|(first, second)| first + second)
+        .collect();
+    (complex_probability, cd_norm_sq(&sum) / 4.0)
+}
+
 /// Computes the commutator `[A, B]` = A*B - B*A.
 /// In standard QM (complex numbers), scalar phases commute: `[A, B]` = 0.
 /// In Quaternionic QM, scalar phases (if they involve j, k) do not commute.
@@ -72,7 +120,17 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_quaternionic_vs_complex_interference() {
+    fn faithful_complex_encoding_preserves_balanced_probability() {
+        let state = [1.0, 0.0, 0.0, 0.0];
+        let phase_i = [0.0, 1.0, 0.0, 0.0];
+        let phase_j = [0.0, 0.0, 1.0, 0.0];
+        let (encoded, quaternionic) = evaluate_interference(&state, &state, &phase_i, &phase_j);
+        assert!((encoded - 0.5).abs() < 1e-12);
+        assert!((quaternionic - 0.5).abs() < 1e-12);
+    }
+
+    #[test]
+    fn component_projection_changes_the_interference_inputs() {
         let psi1 = vec![1.0, 0.0, 0.0, 0.0]; // Real state 1
         let psi2 = vec![0.0, 1.0, 0.0, 0.0]; // "i" state 1
 
@@ -81,11 +139,29 @@ mod tests {
         // Quaternionic phase (real + j)
         let phase2 = vec![0.0, 0.0, 1.0, 0.0];
 
-        let (c_prob, h_prob) = evaluate_interference(&psi1, &psi2, &phase1, &phase2);
+        let (c_prob, h_prob) = projected_interference_intensities(&psi1, &psi2, &phase1, &phase2);
 
         // Since phase2 is purely 'j', in the complex projection it appears as 0,
-        // altering the interference sum completely. This demonstrates the structural difference.
+        // altering the interference sum and its normalization.
         assert!((c_prob - h_prob).abs() > 1e-10);
+    }
+
+    #[test]
+    fn quaternion_ray_representatives_preserve_probability() {
+        let real = [1.0, 0.0, 0.0, 0.0];
+        let phase_i = [0.0, 1.0, 0.0, 0.0];
+        let phase_j = [0.0, 0.0, 1.0, 0.0];
+        assert_eq!(
+            evaluate_interference(&real, &real, &phase_i, &phase_j),
+            evaluate_interference(&phase_j, &phase_j, &phase_i, &phase_j),
+        );
+    }
+
+    #[test]
+    #[should_panic(expected = "four real coefficients")]
+    fn invalid_quaternion_width_is_rejected() {
+        let unit = [1.0, 0.0, 0.0, 0.0];
+        evaluate_interference(&unit[..2], &unit, &unit, &unit);
     }
 
     #[test]

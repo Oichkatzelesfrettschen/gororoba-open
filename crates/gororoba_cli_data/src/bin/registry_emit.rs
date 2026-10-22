@@ -3219,8 +3219,10 @@ fn bibtex_escape(input: &str) -> String {
 }
 
 fn extract_year(text: &str) -> Option<String> {
-    let re = Regex::new(r"\b(19|20)\d{2}\b").ok()?;
-    re.find(text).map(|m| m.as_str().to_string())
+    let re = Regex::new(r"\b((?:19|20)\d{2})[a-z]?\b").ok()?;
+    re.captures(text)
+        .and_then(|captures| captures.get(1))
+        .map(|year| year.as_str().to_string())
 }
 
 fn extract_author(text: &str) -> Option<String> {
@@ -3846,6 +3848,19 @@ fn main() {
 #[cfg(test)]
 mod experiment_heading_tests {
     use super::*;
+
+    #[test]
+    fn bibliography_year_suffix_is_disambiguation() {
+        assert_eq!(
+            extract_year("**Furey, C.** (2018b). *Title*."),
+            Some("2018".into())
+        );
+        assert_eq!(
+            extract_year("**Baez, J. C.** (2002). *Title*."),
+            Some("2002".into())
+        );
+        assert_eq!(extract_year("Title 20180"), None);
+    }
 
     fn alias_registry(legacy_id: &str, canonical_id: &str) -> Value {
         toml::from_str(&format!(
