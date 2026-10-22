@@ -6,10 +6,10 @@
 //!
 //! Authoritative source: `registry/bibliography.toml`.
 //!
-//! - Updated: 2026-03-23
+//! - Updated: 2026-10-22
 //! - Source markdown: `docs/BIBLIOGRAPHY.md`
 //! - Group count: 1
-//! - Entry count: 442
+//! - Entry count: 449
 //!
 //! ## Primary Research & Data Sources
 //!
@@ -871,3 +871,17 @@
 //!   - arXiv:2006.04822. WP 2020 (historical context). SM prediction a_mu(SM) = 116 591 810(43) x 10^-11.
 //! - **Muon g-2 Collaboration (Fermilab).** (2025). *Final measurement of the anomalous magnetic moment of the muon*. Runs 1-6.
 //!   - Fermilab final Run 1-6 result (2025). a_mu^exp = 1165920715(145) x 10^-12. Combined with BNL: Delta_a_mu = 38(63) x 10^-11 -- compatible within uncertainties.
+//! - **Soler, M. P.** (1995). *Characterization of Hilbert spaces by orthomodular spaces*. Communications in Algebra 23(1), 219-243.
+//!   - Crossref DOI metadata verifies author, venue, year and pagination; the author is also indexed as Soler with a grave accent on the e. Metadata verification does not verify the theorem or its hypotheses.
+//! - **Stueckelberg, E. C. G.** (1960). *Quantum Theory in real Hilbert-Space*. Helvetica Physica Acta 33, p. 727.
+//!   - ETH e-periodica viewer verifies volume and first page; the DataCite DOI deposit verifies author, title and year. The final page remains unverified here. Bibliographic verification does not establish a general equivalence of real and complex quantum theories.
+//! - **Finkelstein, D., Jauch, J. M., Schiminovich, S., & Speiser, D.** (1962). *Foundations of Quaternion Quantum Mechanics*. Journal of Mathematical Physics 3(2), 207-220.
+//!   - Crossref DOI metadata verifies the four authors, title, venue, year and pagination. Bibliographic verification remains separate from checking the spectral or composite-system constructions.
+//! - **Adler, S. L.** (1995). *Quaternionic Quantum Mechanics and Quantum Fields*. Oxford University Press. ISBN 9780195066432.
+//!   - Crossref verifies the book DOI, author, publisher, ISBN and print date 1995-04-27. Its deposited title contains OCR defects ('Ouaternionic' and 'Ouanturn'); the readable title follows the established book citation. Publisher content was unavailable to automated reading, so the identifier establishes bibliographic identity rather than verification of complex-projection arguments.
+//! - **Peres, A.** (1979). *Proposed Test for Complex versus Quaternion Quantum Theory*. Physical Review Letters 42(11), 683-686.
+//!   - Crossref DOI metadata verifies author, title, venue, year and pagination. The proposal's experimental observables require a separate content reading; an ordinary complex operator-order effect does not distinguish fundamental scalar fields.
+//! - **Kaiser, H., George, E. A., & Werner, S. A.** (1984). *Neutron interferometric search for quaternions in quantum mechanics*. Physical Review A 29(4), 2276-2279.
+//!   - Crossref DOI metadata verifies authors, title, venue, year and pagination. A numerical coupling limit requires the interferometer model and uncertainty analysis, neither of which bibliographic retrieval verifies.
+//! - **Renou, M.-O., Trillo, D., Weilenmann, M., Le, T. P., Tavakoli, A., Gisin, N., Acin, A., & Navascues, M.** (2021). *Quantum theory based on real numbers can be experimentally falsified*. Nature 600(7890), 625-629.
+//!   - Crossref DOI metadata verifies authors, title, venue, year and pagination. The theoretical real-versus-complex discrimination result requires its independent-source assumptions; bibliographic admission supplies neither an experimental realization nor a test of quaternionic scalar fields.
