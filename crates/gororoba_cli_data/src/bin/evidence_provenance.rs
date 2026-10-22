@@ -814,7 +814,7 @@ fn build_bibliography_normalized(
     entries: &[Value],
 ) -> Result<(Vec<BibliographyNormalized>, BibliographyMeta)> {
     let arxiv_re = Regex::new(r"\barXiv[:\s]*([A-Za-z\-]+/\d{7}|\d{4}\.\d{4,5}(?:v\d+)?)\b")?;
-    let year_re = Regex::new(r"\((\d{4})\)")?;
+    let year_re = Regex::new(r"\((\d{4})[a-z]?\)")?;
     let claim_re = Regex::new(r"\bC-\d{3}\b")?;
     let mut out = Vec::new();
     let mut total_warnings = 0usize;
@@ -1476,7 +1476,7 @@ fn split_derivation_chunks(values: Vec<String>) -> Vec<String> {
 }
 
 fn extract_authors(citation: &str) -> Result<Vec<String>> {
-    let bold_re = Regex::new(r"^\*\*(.+?)\.\*\*")?;
+    let bold_re = Regex::new(r"^\*\*(.+?)\*\*")?;
     let author_blob = if let Some(caps) = bold_re.captures(citation) {
         caps.get(1)
             .map(|m| m.as_str().to_string())
@@ -1487,14 +1487,35 @@ fn extract_authors(citation: &str) -> Result<Vec<String>> {
             .map(|(prefix, _)| prefix.to_string())
             .unwrap_or_default()
     };
-    Ok(author_blob
-        .replace('&', " and ")
-        .split(|ch| [',', ';'].contains(&ch))
-        .flat_map(|part| part.split("and"))
-        .map(|part| part.trim_matches([' ', '.']))
-        .map(collapse)
-        .filter(|item| !item.is_empty())
-        .collect())
+    // APA surname/initial commas belong to one author; list separators and
+    // standalone conjunctions separate authors. "et al." names no person.
+    let unknown_tail = Regex::new(r"(?i)\bet\s+al\b")?;
+    let named_blob = unknown_tail.split(&author_blob).next().unwrap_or_default();
+    let conjunction = Regex::new(r"\s+and\s+|\s*&\s*")?;
+    let initials = Regex::new(r"^(?:\p{Lu}\.[\s-]*)+$")?;
+    let separated = conjunction.replace_all(named_blob, ";");
+    let mut authors: Vec<String> = Vec::new();
+    for group in separated.split(';') {
+        let mut parts = group
+            .split(',')
+            .map(str::trim)
+            .filter(|part| !part.is_empty())
+            .peekable();
+        while let Some(part) = parts.next() {
+            let mut author = part.to_string();
+            if let Some(next) = parts.peek()
+                && initials.is_match(next)
+            {
+                author.push_str(", ");
+                author.push_str(parts.next().unwrap_or_default());
+            }
+            let author = collapse(author.trim_matches([' ', '.']));
+            if !author.is_empty() {
+                authors.push(author);
+            }
+        }
+    }
+    Ok(authors)
 }
 
 fn extract_title(citation: &str) -> Result<(String, String)> {
@@ -1868,6 +1889,62 @@ where
 mod tests {
     use super::*;
 
+    #[test]
+    fn bibliography_author_boundaries() -> Result<()> {
+        for (authors, expected) in [
+            ("Masi, N.", vec!["Masi, N"]),
+            ("Furey, C.", vec!["Furey, C"]),
+            ("Baez, J. C.", vec!["Baez, J. C"]),
+            (
+                "Mazur, P. O., & Mottola, E.",
+                vec!["Mazur, P. O", "Mottola, E"],
+            ),
+            (
+                "Furey, C., Gillard, A. B., & Sherwin, M.",
+                vec!["Furey, C", "Gillard, A. B", "Sherwin, M"],
+            ),
+            (
+                "LIGO Scientific Collaboration, Virgo Collaboration, & KAGRA Collaboration.",
+                vec![
+                    "LIGO Scientific Collaboration",
+                    "Virgo Collaboration",
+                    "KAGRA Collaboration",
+                ],
+            ),
+            ("Abbott, R., et al.", vec!["Abbott, R"]),
+            ("Elfner, J. et al.", vec!["Elfner, J"]),
+            (
+                "Albert Einstein; Emmy Noether.",
+                vec!["Albert Einstein", "Emmy Noether"],
+            ),
+            (
+                "T2K and NOvA Collaborations.",
+                vec!["T2K", "NOvA Collaborations"],
+            ),
+            (
+                "Landau, L. D. and Lifshitz, E. M.",
+                vec!["Landau, L. D", "Lifshitz, E. M"],
+            ),
+        ] {
+            assert_eq!(
+                extract_authors(&format!("**{authors}** (2018b). *Title*."))?,
+                expected,
+                "{authors}"
+            );
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn bibliography_disambiguated_year() -> Result<()> {
+        let row = Value::Table(toml::map::Map::from_iter([(
+            "citation_markdown".into(),
+            Value::String("**Furey, C.** (2018b). *Title*.".into()),
+        )]));
+        let (rows, _) = build_bibliography_normalized(&[row])?;
+        assert_eq!(rows[0].publication_year, 2018);
+        Ok(())
+    }
     #[test]
     fn claim_id_filter_rejects_malformed_prefix_matches() {
         assert!(is_registry_claim_id("C-703"));
