@@ -1,0 +1,8 @@
+{
+  "event_key": "kernel-evidence:vacuum-main-replay-CDPureDoublingKernel-d327e4c63c4c",
+  "theorem_count": 1,
+  "source_only_count": 0,
+  "kernel_checked_count": 1,
+  "exact_replay": false
+}
+skipped TOML regen (--regen-toml false); run `make registry-export-markdown` later.

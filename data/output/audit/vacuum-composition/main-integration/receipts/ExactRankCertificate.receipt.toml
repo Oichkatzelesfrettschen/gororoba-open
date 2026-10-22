@@ -1,0 +1,72 @@
+evidence_key = "vacuum-main-replay-ExactRankCertificate-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-ExactRankCertificate"
+proof_path = "proofs/theories/ExactRankCertificate.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/ExactRankCertificate.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.ExactRankCertificate"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/ExactRankCertificate.v"
+sha256 = "c03fb9b60c24aec2326fd694ead5bbcd31070bd0b3a4cdcfdd1db8c4acb84999"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/ExactRankCertificate.compile.txt"
+sha256 = "f0532d0e8a885018e887fe9f2fc1415078fabe8f12825919a931ee3c625a3996"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/ExactRankCertificate.kernel.txt"
+sha256 = "50cdcdcc52dda623595212888fbc49c50363306db3f55217700684a800127c10"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/ExactRankCertificate.assumptions.txt"
+sha256 = "54df0c7748d6d1d79b8ed1c143847db2ccab9ff8a42ad1b92616507ca7f15abf"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/ExactRankCertificate.vo"
+sha256 = "33fb2b7157217d4c5fdb27a4a6eff3eaf5259b14bd2e29c435721fa199eedda6"
+
+[[witness.declarations]]
+name = "rank_certificate_check"
+statement = "Definition rank_certificate_check rows columns rank (operator : matrix.matrix scalar rows columns) (upper_left : matrix.matrix scalar rows rank) (upper_right : matrix.matrix scalar rank columns) (lower_left : matrix.matrix scalar rank rows) (lower_right : matrix.matrix scalar columns rank) := andb (eqtype.eq_op operator (matrix.mulmx upper_left upper_right)) (eqtype.eq_op (matrix.mulmx (matrix.mulmx lower_left operator) lower_right) (matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "rank_certificate_check_sound"
+statement = "Theorem rank_certificate_check_sound rows columns rank (operator : matrix.matrix scalar rows columns) (upper_left : matrix.matrix scalar rows rank) (upper_right : matrix.matrix scalar rank columns) (lower_left : matrix.matrix scalar rank rows) (lower_right : matrix.matrix scalar columns rank) : rank_certificate_check operator upper_left upper_right lower_left lower_right = true -> mxalgebra.mxrank operator = rank"
+assumptions = []
+
+[[witness.declarations]]
+name = "full_dimension_column_kernel"
+statement = "Theorem full_dimension_column_kernel rows columns width (operator : matrix.matrix scalar rows columns) (frame : matrix.matrix scalar columns width) : matrix.mulmx operator frame = matrix_zero scalar rows width -> mxalgebra.mxrank frame = ssrnat.subn columns (mxalgebra.mxrank operator) -> forall vector : matrix.matrix scalar columns 1, matrix.mulmx operator vector = matrix_zero scalar rows 1 -> exists coefficients : matrix.matrix scalar width 1, vector = matrix.mulmx frame coefficients"
+assumptions = []
+
+[[witness.declarations]]
+name = "kernel_frame_check"
+statement = "Definition kernel_frame_check rows columns width rank (operator : matrix.matrix scalar rows columns) (frame : matrix.matrix scalar columns width) (left_inverse : matrix.matrix scalar width columns) := andb (eqtype.eq_op (matrix.mulmx operator frame) (matrix_zero scalar rows width)) (andb (eqtype.eq_op (matrix.mulmx left_inverse frame) (matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar))) (Nat.eqb width (ssrnat.subn columns rank)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "checked_kernel_frame_complete"
+statement = "Theorem checked_kernel_frame_complete rows columns width rank (operator : matrix.matrix scalar rows columns) (frame : matrix.matrix scalar columns width) (left_inverse : matrix.matrix scalar width columns) : mxalgebra.mxrank operator = rank -> kernel_frame_check rank operator frame left_inverse = true -> forall vector : matrix.matrix scalar columns 1, matrix.mulmx operator vector = matrix_zero scalar rows 1 -> exists coefficients : matrix.matrix scalar width 1, vector = matrix.mulmx frame coefficients"
+assumptions = []
+
+[[witness.declarations]]
+name = "left_inverse_coordinates_unique"
+statement = "Theorem left_inverse_coordinates_unique columns width (frame : matrix.matrix scalar columns width) (left_inverse : matrix.matrix scalar width columns) (first second : matrix.matrix scalar width 1) : matrix.mulmx left_inverse frame = matrix.scalar_mx (@rings_modules_and_algebras.GRing.one scalar) -> matrix.mulmx frame first = matrix.mulmx frame second -> first = second"
+assumptions = []

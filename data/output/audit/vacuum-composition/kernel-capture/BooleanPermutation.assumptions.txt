@@ -1,0 +1,74 @@
+Declaration: target_flip
+Closed under the global context
+Declaration: target_flip_involutive
+Closed under the global context
+Declaration: target_flip_injective
+Closed under the global context
+Declaration: target_flip_surjective
+Closed under the global context
+Declaration: masked_toggle_invariant
+Closed under the global context
+Declaration: cube_flip
+Closed under the global context
+Declaration: cube_flip_involutive
+Closed under the global context
+Declaration: cube_flip_bijective
+Closed under the global context
+Declaration: target_dependent_predicate_breaks_involution
+Closed under the global context
+Declaration: run_word_append
+Closed under the global context
+Declaration: reverse_word_inverse
+Closed under the global context
+Declaration: word_reverse_inverse
+Closed under the global context
+Declaration: controlled
+Closed under the global context
+Declaration: disabled_control_identity
+Closed under the global context
+Declaration: enabled_control_action
+Closed under the global context
+Declaration: controlled_composition
+Closed under the global context
+Declaration: signed_apply
+Closed under the global context
+Declaration: signed_compose
+Closed under the global context
+Declaration: signed_composition_exact
+Closed under the global context
+Declaration: controlled_signed
+Closed under the global context
+Declaration: controlled_signed_label
+Closed under the global context
+Declaration: controlled_signed_phase
+Closed under the global context
+Declaration: controlled_signed_disabled_identity
+Closed under the global context
+Declaration: controlled_signed_composition
+Closed under the global context
+Declaration: signed_word_label_projection
+Closed under the global context
+Declaration: signed_xor_fixed_zero_label_identity
+Closed under the global context
+Declaration: signed_word_fixed_zero_label_identity
+Closed under the global context
+Declaration: nonconstant_diagonal
+Closed under the global context
+Declaration: diagonal_phase_preserves_labels
+Closed under the global context
+Declaration: diagonal_phase_is_nontrivial
+Closed under the global context
+Declaration: diagonal_control_relative_phase
+Closed under the global context
+Declaration: n21_multiplier
+Closed under the global context
+Declaration: affine_on_five_bits
+Closed under the global context
+Declaration: n21_fixes_origin
+Closed under the global context
+Declaration: n21_moves_one
+Closed under the global context
+Declaration: n21_nonaffine
+Closed under the global context
+Declaration: n21_excludes_signed_xor_words
+Closed under the global context

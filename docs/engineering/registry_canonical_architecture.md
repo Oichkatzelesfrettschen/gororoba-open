@@ -325,8 +325,8 @@ rows. Corrections represent metadata revisions rather than additional requests.
 
 `gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>`
 admits `kernel_checked` only after a fresh Rocq source execution. The process
-selects `rocq` from the trusted host PATH/opam switch and verifies Rocq 9.1.1
-compiled with OCaml 5.4.0. The receipt supplies hashes and historical command
+selects `rocq` from the trusted host PATH/opam switch and verifies Rocq 9.3.0
+compiled with OCaml 5.5.1. The receipt supplies hashes and historical command
 descriptions; its `compile_command` and `kernel_command` strings never execute.
 The internally-produced `execution_replay` argument vectors and actual process
 results provide the execution authority.
@@ -360,6 +360,16 @@ The execution boundary trusts the host-selected compiler/kernel installation,
 its external libraries and the canonical-store writer. Actual local replay
 establishes source/object conformance within that boundary. The record supplies
 neither cryptographic process attestation nor physical or QPU evidence.
+
+A change to `proofs/_RocqProject` changes the source-bound execution identity.
+Run `gororoba-db theorem identity sync-inventory --spec <inventory.toml>` before
+recording replacement kernel evidence. Inventory synchronization preserves theorem
+identities, claim links and append-only history while classifying receipts against
+the current project hash. Prior kernel admissions with stale project identities
+return to `source_only` until fresh trusted replay succeeds. Refresh every prior
+kernel admission plus each newly admitted module, then export compatibility lanes
+and regenerate signatures. A corpus-wide kernel check remains separate from each
+canonical receipt's retained source, object and declaration-assumption contract.
 
 ## Compatibility row rendering
 

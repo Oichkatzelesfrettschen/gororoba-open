@@ -1,0 +1,108 @@
+evidence_key = "vacuum-source-replay-WorldlineInteraction-1c1c11f503da"
+actor = "codex"
+reason = "Record current-source Rocq 9.3.0 kernel execution and complete declaration assumptions; preserve mathematical model scope and physical residuals."
+applied_at = "2026-10-17T05:47:07Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-WorldlineInteraction"
+proof_path = "proofs/theories/WorldlineInteraction.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/WorldlineInteraction.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.WorldlineInteraction"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/WorldlineInteraction.v"
+sha256 = "ad9fafbcf0f048f08fa0fc08e7aac89297ff9f39d05bcd9e66be0a054d8c31ff"
+
+[witness.compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/WorldlineInteraction.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[witness.kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/WorldlineInteraction.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[witness.assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/WorldlineInteraction.assumptions.txt"
+sha256 = "6d8e31afc7b60e19fc240020c1abf4c47ea5b2e770a3b294519f82c6d38f02f9"
+
+[witness.proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/WorldlineInteraction.vo"
+sha256 = "fca90e95c8568197bf7eb182e2b1368368bcb250b5d67d4263858e47e603cba0"
+
+[[witness.declarations]]
+name = "two_body_weight"
+statement = "Definition two_body_weight first_attenuation second_attenuation := 1 - first_attenuation - second_attenuation + first_attenuation * second_attenuation"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "interaction_subtraction_factorizes"
+statement = "Theorem interaction_subtraction_factorizes : forall first second, two_body_weight first second = (1-first) * (1-second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "interaction_weight_range"
+statement = "Theorem interaction_weight_range : forall first second, 0 <= first <= 1 -> 0 <= second <= 1 -> 0 <= two_body_weight first second <= 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "transparent_body_has_zero_interaction"
+statement = "Theorem transparent_body_has_zero_interaction : forall attenuation, two_body_weight 1 attenuation = 0 /\\ two_body_weight attenuation 1 = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "dirichlet_interaction"
+statement = "Definition dirichlet_interaction (first_hit second_hit : bool) : R := if andb first_hit second_hit then 1 else 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "dirichlet_requires_both_bodies"
+statement = "Theorem dirichlet_requires_both_bodies : forall first second, dirichlet_interaction first second = 1 <-> first = true /\\ second = true"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_local_prefactor"
+statement = "Definition scalar_local_prefactor : R := -1 / (32 * PI^2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_plate_energy"
+statement = "Definition scalar_plate_energy (separation : R) := -PI^2 / (1440 * separation^3)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "electromagnetic_plate_energy"
+statement = "Definition electromagnetic_plate_energy (separation : R) := -PI^2 / (720 * separation^3)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_prefactor_negative"
+statement = "Theorem scalar_prefactor_negative : scalar_local_prefactor < 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "electromagnetic_plate_has_two_scalar_polarizations"
+statement = "Theorem electromagnetic_plate_has_two_scalar_polarizations : forall separation, 0 < separation -> electromagnetic_plate_energy separation = 2 * scalar_plate_energy separation"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "scalar_plate_dilation"
+statement = "Theorem scalar_plate_dilation : forall separation scale, 0 < separation -> 0 < scale -> scalar_plate_energy (scale * separation) = scalar_plate_energy separation / scale^3"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "proper_time_weight_dilation"
+statement = "Theorem proper_time_weight_dilation : forall proper_time scale, 0 < proper_time -> 0 < scale -> (/ (scale^2 * proper_time)^3) = (/ proper_time^3) / scale^6"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "prefactor_uncertainty_nonnegative"
+statement = "Theorem prefactor_uncertainty_nonnegative : forall prefactor variance, 0 <= variance -> 0 <= Rabs prefactor * sqrt variance"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]

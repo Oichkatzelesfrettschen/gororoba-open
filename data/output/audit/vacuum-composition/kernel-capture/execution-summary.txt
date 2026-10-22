@@ -1,0 +1,16 @@
+targets=25
+first_party_sources=33
+retained_proof_objects=33
+witnessed_declarations=439
+closed_declaration_queries=266
+printed_assumption_name_occurrences=338
+project_sha256=1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839
+warning_policy=fatal_default
+raw_log_transformation=none
+recognized_source_witness_log_name_sets=equal
+historical_artifact_name_sets_and_bytes=identical
+historical_artifact_files=214
+recognized_Corollary_declarations=4
+recognized_Definition_declarations=114
+recognized_Lemma_declarations=82
+recognized_Theorem_declarations=239

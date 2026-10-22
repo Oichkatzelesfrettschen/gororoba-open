@@ -1,0 +1,172 @@
+schema_version = 1
+stable_id = "THM-LEGACY-FiniteComplexPassivity"
+proof_path = "proofs/theories/FiniteComplexPassivity.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FiniteComplexPassivity.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FiniteComplexPassivity"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/CayleyDicksonAlgebra.v"
+sha256 = "4efa7709088041ceafce81f4e6fcf4d7e78ed9242c7ff2c9fb2e03cdb8d7f0c0"
+
+[[sources]]
+path = "proofs/theories/FiniteComplexPassivity.v"
+sha256 = "87859b845f0de51a747a5559a497fd571a305eca8a6d87a8e33da41a00106f60"
+
+[[sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[[sources]]
+path = "proofs/theories/Prelude.v"
+sha256 = "ea2b955ee77feb89fadeb9a533260b8da4318b0111a1f079130e6db48886dafb"
+
+[compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteComplexPassivity.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteComplexPassivity.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/FiniteComplexPassivity.assumptions.txt"
+sha256 = "e90394547bdb1850049cf2f6bfa6a2f881c4c90d6a627048112b6f15a74fd714"
+
+[proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/FiniteComplexPassivity.vo"
+sha256 = "b6ae7a5c8e09edfe2205dd2a66424d2c3553d2cf92c4810d0750fe9220e73203"
+
+[[declarations]]
+name = "complex_state"
+statement = "Definition complex_state := nat -> CDComplex"
+assumptions = []
+
+[[declarations]]
+name = "state_probability"
+statement = "Definition state_probability (state : complex_state) index := complex_norm_sq (state index)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "state_norm"
+statement = "Definition state_norm dimension state := finite_sum dimension (state_probability state)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "normalized_state"
+statement = "Definition normalized_state dimension state := state_norm dimension state = 1"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "spectral_energy"
+statement = "Definition spectral_energy dimension (energies : nat -> R) state := finite_sum dimension (fun index => energies index * state_probability state index)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "preserves_norm"
+statement = "Definition preserves_norm source_dimension target_dimension (transform : complex_state -> complex_state) := forall state, state_norm target_dimension (transform state) = state_norm source_dimension state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "complex_probability_nonnegative"
+statement = "Lemma complex_probability_nonnegative : forall state index, 0 <= state_probability state index"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "complex_state_norm_nonnegative"
+statement = "Theorem complex_state_norm_nonnegative : forall dimension state, 0 <= state_norm dimension state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "spectral_energy_lower_bound"
+statement = "Theorem spectral_energy_lower_bound : forall dimension energies state ground, (forall index, (index < dimension)%nat -> ground <= energies index) -> ground * state_norm dimension state <= spectral_energy dimension energies state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "normalized_spectral_lower_bound"
+statement = "Corollary normalized_spectral_lower_bound : forall dimension energies state ground, normalized_state dimension state -> (forall index, (index < dimension)%nat -> ground <= energies index) -> ground <= spectral_energy dimension energies state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "isometry_preserves_normalization"
+statement = "Theorem isometry_preserves_normalization : forall source_dimension target_dimension transform state, preserves_norm source_dimension target_dimension transform -> normalized_state source_dimension state -> normalized_state target_dimension (transform state)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "isometry_composition"
+statement = "Theorem isometry_composition : forall first_dimension middle_dimension last_dimension first second, preserves_norm first_dimension middle_dimension first -> preserves_norm middle_dimension last_dimension second -> preserves_norm first_dimension last_dimension (fun state => second (first state))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "cyclic_available_work_bound"
+statement = "Theorem cyclic_available_work_bound : forall dimension energies state transform ground, normalized_state dimension state -> preserves_norm dimension dimension transform -> (forall index, (index < dimension)%nat -> ground <= energies index) -> spectral_energy dimension energies state - spectral_energy dimension energies (transform state) <= spectral_energy dimension energies state - ground"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cyclic_ground_state_passive"
+statement = "Corollary cyclic_ground_state_passive : forall dimension energies state transform ground, normalized_state dimension state -> preserves_norm dimension dimension transform -> (forall index, (index < dimension)%nat -> ground <= energies index) -> spectral_energy dimension energies state = ground -> spectral_energy dimension energies state - spectral_energy dimension energies (transform state) <= 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "spectral_common_offset"
+statement = "Theorem spectral_common_offset : forall dimension energies state offset, spectral_energy dimension (fun index => energies index + offset) state = spectral_energy dimension energies state + offset * state_norm dimension state"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "cyclic_work_offset_invariant"
+statement = "Theorem cyclic_work_offset_invariant : forall dimension energies state transform offset, preserves_norm dimension dimension transform -> spectral_energy dimension (fun index => energies index + offset) state - spectral_energy dimension (fun index => energies index + offset) (transform state) = spectral_energy dimension energies state - spectral_energy dimension energies (transform state)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_sum_scale_right"
+statement = "Lemma finite_sum_scale_right : forall dimension scalar term, finite_sum dimension (fun index => term index * scalar) = finite_sum dimension term * scalar"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "product_norm"
+statement = "Definition product_norm left_dimension right_dimension left right := finite_sum left_dimension (fun left_index => finite_sum right_dimension (fun right_index => complex_norm_sq (complex_mul (left left_index) (right right_index))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "product_energy"
+statement = "Definition product_energy left_dimension right_dimension left_energies right_energies left right := finite_sum left_dimension (fun left_index => finite_sum right_dimension (fun right_index => (left_energies left_index + right_energies right_index) * complex_norm_sq (complex_mul (left left_index) (right right_index))))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "tensor_norm_factorization"
+statement = "Theorem tensor_norm_factorization : forall left_dimension right_dimension left right, product_norm left_dimension right_dimension left right = state_norm left_dimension left * state_norm right_dimension right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "tensor_additive_energy"
+statement = "Theorem tensor_additive_energy : forall left_dimension right_dimension left_energies right_energies left right, product_energy left_dimension right_dimension left_energies right_energies left right = spectral_energy left_dimension left_energies left * state_norm right_dimension right + state_norm left_dimension left * spectral_energy right_dimension right_energies right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "tensor_ground_energy_lower_bound"
+statement = "Corollary tensor_ground_energy_lower_bound : forall left_dimension right_dimension left_energies right_energies left right left_ground right_ground, normalized_state left_dimension left -> normalized_state right_dimension right -> (forall index, (index < left_dimension)%nat -> left_ground <= left_energies index) -> (forall index, (index < right_dimension)%nat -> right_ground <= right_energies index) -> left_ground + right_ground <= product_energy left_dimension right_dimension left_energies right_energies left right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_sum_split"
+statement = "Lemma finite_sum_split : forall retained tail term, finite_sum (retained + tail) term = finite_sum retained term + finite_sum tail (fun index => term (retained + index)%nat)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "truncation_probability_and_energy"
+statement = "Theorem truncation_probability_and_energy : forall retained tail energies state tail_ceiling, normalized_state (retained + tail) state -> 0 <= tail_ceiling -> (forall index, (index < tail)%nat -> 0 <= energies (retained + index)%nat <= tail_ceiling) -> 0 <= 1 - state_norm retained state /\\ 0 <= spectral_energy (retained + tail) energies state - spectral_energy retained energies state <= tail_ceiling * (1 - state_norm retained state)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "unit_modulus_phase_isometry"
+statement = "Theorem unit_modulus_phase_isometry : forall dimension phase, complex_norm_sq phase = 1 -> preserves_norm dimension dimension (fun state index => complex_mul phase (state index))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "trigonometric_phase_isometry"
+statement = "Corollary trigonometric_phase_isometry : forall dimension angle, preserves_norm dimension dimension (fun state index => complex_mul (mkComplex (cos angle) (sin angle)) (state index))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalDedekindReals.sig_not_dec", "FunctionalExtensionality.functional_extensionality_dep"]

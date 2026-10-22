@@ -1,0 +1,127 @@
+evidence_key = "vacuum-main-replay-SchurKernelTransport-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-SchurKernelTransport"
+proof_path = "proofs/theories/SchurKernelTransport.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/SchurKernelTransport.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.SchurKernelTransport"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[witness.sources]]
+path = "proofs/theories/SchurKernelTransport.v"
+sha256 = "c6b5d52a10e535f9d83195280243289f2fdfcb09ea3f1c4d1e4960f74f15b092"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/SchurKernelTransport.compile.txt"
+sha256 = "87696c04fea9fc5d85183a5c6b8c26d7ef7026cd2285f9c336d37ad7c4114cd2"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/SchurKernelTransport.kernel.txt"
+sha256 = "50cdcdcc52dda623595212888fbc49c50363306db3f55217700684a800127c10"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/SchurKernelTransport.assumptions.txt"
+sha256 = "ce7453a74344ded089ed244d424b6001c65ba89d61a2dac5cecf78488e65ec28"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/SchurKernelTransport.vo"
+sha256 = "270c1404edd3dab135c757d89c51a27eb718b15b15f33b22aba69db798a7a412"
+
+[[witness.declarations]]
+name = "schur_complement"
+statement = "Definition schur_complement := trailing - lower *m pivot_inverse *m upper"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_left_elimination"
+statement = "Definition schur_left_elimination := block_mx 1%:M 0 (- (lower *m pivot_inverse)) 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_right_elimination"
+statement = "Definition schur_right_elimination := block_mx 1%:M (- (pivot_inverse *m upper)) 0 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_block_elimination"
+statement = "Theorem schur_block_elimination : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> schur_left_elimination *m (block_mx pivot upper lower trailing) *m schur_right_elimination = block_mx pivot 0 0 schur_complement"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_left_reconstruction"
+statement = "Definition schur_left_reconstruction := block_mx 1%:M 0 (lower *m pivot_inverse) 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_right_reconstruction"
+statement = "Definition schur_right_reconstruction := block_mx 1%:M (pivot_inverse *m upper) 0 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_left_inverse"
+statement = "Lemma schur_left_inverse : schur_left_reconstruction *m schur_left_elimination = 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_right_inverse"
+statement = "Lemma schur_right_inverse : schur_right_elimination *m schur_right_reconstruction = 1%:M"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_block_reconstruction"
+statement = "Theorem schur_block_reconstruction : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> block_mx pivot upper lower trailing = schur_left_reconstruction *m (block_mx pivot 0 0 schur_complement) *m schur_right_reconstruction"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_rank_decomposition"
+statement = "Theorem schur_rank_decomposition : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> mxrank (block_mx pivot upper lower trailing) = (pivot_size + mxrank schur_complement)%nat"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_column_kernel_coordinates"
+statement = "Theorem schur_column_kernel_coordinates (upper_vector : matrix.matrix scalar pivot_size 1) (lower_vector : matrix.matrix scalar residual_size 1) : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> (block_mx pivot upper lower trailing) *m (schur_right_elimination *m col_mx upper_vector lower_vector) = 0 <-> upper_vector = 0 /\\ schur_complement *m lower_vector = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_kernel_lift"
+statement = "Definition schur_kernel_lift (vector : matrix.matrix scalar residual_size 1) := col_mx (- (pivot_inverse *m upper *m vector)) vector"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_kernel_lift_sound"
+statement = "Theorem schur_kernel_lift_sound (vector : matrix.matrix scalar residual_size 1) : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> schur_complement *m vector = 0 -> block_mx pivot upper lower trailing *m schur_kernel_lift vector = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_kernel_lift_decode"
+statement = "Theorem schur_kernel_lift_decode (vector : matrix.matrix scalar residual_size 1) : dsubmx (schur_kernel_lift vector) = vector"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_kernel_lift_complete"
+statement = "Theorem schur_kernel_lift_complete (vector : matrix.matrix scalar (ssrnat.addn pivot_size residual_size) 1) : pivot_inverse *m pivot = 1%:M -> pivot *m pivot_inverse = 1%:M -> block_mx pivot upper lower trailing *m vector = 0 -> exists residual_vector, vector = schur_kernel_lift residual_vector /\\ schur_complement *m residual_vector = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "schur_transported_gram"
+statement = "Theorem schur_transported_gram (first second : matrix.matrix scalar residual_size 1) : trmx (schur_kernel_lift first) *m schur_kernel_lift second = trmx first *m (1%:M + trmx (pivot_inverse *m upper) *m (pivot_inverse *m upper)) *m second"
+assumptions = []
+
+[[witness.declarations]]
+name = "skew_schur_plus_sign"
+statement = "Theorem skew_schur_plus_sign (scalar : divalg.GRing.Field.Exports.fieldType) pivot_size residual_size (pivot_inverse : matrix.matrix scalar pivot_size pivot_size) (upper : matrix.matrix scalar pivot_size residual_size) (trailing : matrix.matrix scalar residual_size residual_size) : @schur_complement scalar pivot_size residual_size pivot_inverse upper (- (trmx upper)) trailing = trailing + (trmx upper) *m pivot_inverse *m upper"
+assumptions = []

@@ -1,0 +1,467 @@
+evidence_key = "vacuum-main-replay-FourStateMatrixAlgebra-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-FourStateMatrixAlgebra"
+proof_path = "proofs/theories/FourStateMatrixAlgebra.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/FourStateMatrixAlgebra.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.FourStateMatrixAlgebra"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BranchSignedCoherence.v"
+sha256 = "72d0026a436557d0d277b626c0e7c7fb990e6a96094fe3303daf1231845e76e1"
+
+[[witness.sources]]
+path = "proofs/theories/FourStateMatrixAlgebra.v"
+sha256 = "0d2c7558ba14b2a8019214e564bcc5df68968e48919aed4297f2b4e8e9fa2729"
+
+[witness.compile_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FourStateMatrixAlgebra.compile.txt"
+sha256 = "7bc2d4aff230a726d2c2a7856ae854b0766228cb24cad9fafd842cc8e4598042"
+
+[witness.kernel_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FourStateMatrixAlgebra.kernel.txt"
+sha256 = "6c3ceb4f7f864fe03b9fef2e19f3c025e3b18fc29101b85f0ae80814bd0f54a2"
+
+[witness.assumption_log]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/FourStateMatrixAlgebra.assumptions.txt"
+sha256 = "3e563c1aa99cf1c64a55e20fe6dd629f06d92314fee2be0fba8112859fe80501"
+
+[witness.proof_object]
+path = "data/output/audit/recorded-feedback-planned-look-coverage/kernel-capture/theories/FourStateMatrixAlgebra.vo"
+sha256 = "29dda7066a3cbc067e13516855003f4aa5694027b1e75e87fe87aae099cb1581"
+
+[[witness.declarations]]
+name = "work_basis_number"
+statement = "Definition work_basis_number basis := match basis with ket00 => 0%nat | ket01 => 1%nat | ket10 => 2%nat | ket11 => 3%nat end"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_basis_index"
+statement = "Definition work_basis_index (basis : Basis) : fintype.ordinal 4"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_basis_decode"
+statement = "Definition work_basis_decode (index : fintype.ordinal 4) : Basis := match fintype.nat_of_ord index with 0%nat => ket00 | 1%nat => ket01 | 2%nat => ket10 | _ => ket11 end"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_basis_decode_encode"
+statement = "Lemma work_basis_decode_encode : forall basis, work_basis_decode (work_basis_index basis) = basis"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_basis_encode_decode"
+statement = "Lemma work_basis_encode_decode : forall index, work_basis_index (work_basis_decode index) = index"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_matrix_encode"
+statement = "Definition work_matrix_encode (operator : BranchSignedCoherence.Matrix) : matrix.matrix Complex 4 4 := @matrix.matrix_of_fun Complex 4 4 matrix.matrix_key (fun row column => operator (work_basis_decode row) (work_basis_decode column))"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_matrix_decode"
+statement = "Definition work_matrix_decode (operator : matrix.matrix Complex 4 4) : BranchSignedCoherence.Matrix := fun row column => operator (work_basis_index row) (work_basis_index column)"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_matrix_round_trip"
+statement = "Theorem work_matrix_round_trip : forall operator row column, work_matrix_decode (work_matrix_encode operator) row column = operator row column"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_storage_round_trip"
+statement = "Theorem work_storage_round_trip : forall operator, work_matrix_encode (work_matrix_decode operator) = operator"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_column_encode"
+statement = "Definition work_column_encode (vector : Basis -> Complex) : matrix.matrix Complex 4 1 := @matrix.matrix_of_fun Complex 4 1 matrix.matrix_key (fun row _ => vector (work_basis_decode row))"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_adjoint"
+statement = "Definition work_adjoint (operator : BranchSignedCoherence.Matrix) : BranchSignedCoherence.Matrix := fun row column => conjugate (operator column row)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_product"
+statement = "Definition work_product (left right : BranchSignedCoherence.Matrix) : BranchSignedCoherence.Matrix := fun row column => sum_basis (fun inner => multiply (left row inner) (right inner column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_vector_apply"
+statement = "Definition work_vector_apply (operator : BranchSignedCoherence.Matrix) (vector : Basis -> Complex) row := sum_basis (fun column => multiply (operator row column) (vector column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_inner"
+statement = "Definition work_inner (left right : Basis -> Complex) := sum_basis (fun row => multiply (conjugate (left row)) (right row))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_matrix_add"
+statement = "Definition work_matrix_add (left right : BranchSignedCoherence.Matrix) : BranchSignedCoherence.Matrix := fun row column => add (left row column) (right row column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_matrix_scale"
+statement = "Definition work_matrix_scale factor (operator : BranchSignedCoherence.Matrix) : BranchSignedCoherence.Matrix := fun row column => scale factor (operator row column)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_zero"
+statement = "Definition work_zero : BranchSignedCoherence.Matrix := fun _ _ => zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_basis_equal"
+statement = "Definition work_basis_equal left right := match left,right with ket00,ket00 | ket01,ket01 | ket10,ket10 | ket11,ket11 => true | _,_ => false end"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_identity"
+statement = "Definition work_identity : BranchSignedCoherence.Matrix := fun row column => if work_basis_equal row column then one else zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_trace"
+statement = "Definition work_trace (operator : BranchSignedCoherence.Matrix) := sum_basis (fun row => operator row row)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "complex_add_associative"
+statement = "Lemma complex_add_associative : forall first second third, add (add first second) third = add first (add second third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_add_zero"
+statement = "Lemma complex_add_zero : forall value, add value zero = value /\\ add zero value = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_multiply_associative"
+statement = "Lemma complex_multiply_associative : forall first second third, multiply (multiply first second) third = multiply first (multiply second third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_multiply_commutative"
+statement = "Lemma complex_multiply_commutative : forall first second, multiply first second = multiply second first"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_conjugate_multiply"
+statement = "Lemma complex_conjugate_multiply : forall first second, conjugate (multiply first second) = multiply (conjugate first) (conjugate second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_conjugate_involutive"
+statement = "Lemma complex_conjugate_involutive : forall value, conjugate (conjugate value) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "complex_conjugate_add"
+statement = "Lemma complex_conjugate_add : forall first second, conjugate (add first second) = add (conjugate first) (conjugate second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_ext"
+statement = "Lemma work_sum_ext : forall first second, (forall basis, first basis = second basis) -> sum_basis first = sum_basis second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_sum_add"
+statement = "Lemma work_sum_add : forall first second, sum_basis (fun basis => add (first basis) (second basis)) = add (sum_basis first) (sum_basis second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_scale"
+statement = "Lemma work_sum_scale : forall factor vector, sum_basis (fun basis => scale factor (vector basis)) = scale factor (sum_basis vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_conjugate"
+statement = "Lemma work_sum_conjugate : forall vector, conjugate (sum_basis vector) = sum_basis (fun basis => conjugate (vector basis))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_multiply_left"
+statement = "Lemma work_sum_multiply_left : forall value vector, multiply value (sum_basis vector) = sum_basis (fun basis => multiply value (vector basis))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_multiply_right"
+statement = "Lemma work_sum_multiply_right : forall value vector, multiply (sum_basis vector) value = sum_basis (fun basis => multiply (vector basis) value)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_sum_swap"
+statement = "Lemma work_sum_swap : forall values, sum_basis (fun row => sum_basis (fun column => values row column)) = sum_basis (fun column => sum_basis (fun row => values row column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_associative"
+statement = "Lemma work_product_associative : forall first second third row column, work_product (work_product first second) third row column = work_product first (work_product second third) row column"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_product"
+statement = "Lemma work_adjoint_product : forall first second row column, work_adjoint (work_product first second) row column = work_product (work_adjoint second) (work_adjoint first) row column"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_involutive"
+statement = "Lemma work_adjoint_involutive : forall operator row column, work_adjoint (work_adjoint operator) row column = operator row column"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_inner_adjoint"
+statement = "Lemma work_inner_adjoint : forall operator left right, work_inner left (work_vector_apply operator right) = work_inner (work_vector_apply (work_adjoint operator) left) right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_ext"
+statement = "Lemma work_matrix_ext : forall left right : BranchSignedCoherence.Matrix, (forall row column, left row column = right row column) -> left = right"
+assumptions = ["FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_associative_eq"
+statement = "Lemma work_product_associative_eq : forall first second third, work_product (work_product first second) third = work_product first (work_product second third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_product_eq"
+statement = "Lemma work_adjoint_product_eq : forall first second, work_adjoint (work_product first second) = work_product (work_adjoint second) (work_adjoint first)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_involutive_eq"
+statement = "Lemma work_adjoint_involutive_eq : forall operator, work_adjoint (work_adjoint operator) = operator"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_vector_product"
+statement = "Lemma work_vector_product : forall first second vector, work_vector_apply (work_product first second) vector = work_vector_apply first (work_vector_apply second vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_quadratic_inner"
+statement = "Lemma work_quadratic_inner : forall density vector, quadratic_form density vector = work_inner vector (work_vector_apply density vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence"
+statement = "Definition work_congruence operator density := work_product (work_product operator density) (work_adjoint operator)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_congruence_quadratic"
+statement = "Theorem work_congruence_quadratic : forall operator density vector, quadratic_form (work_congruence operator density) vector = quadratic_form density (work_vector_apply (work_adjoint operator) vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_hermitian_adjoint"
+statement = "Lemma work_hermitian_adjoint : forall density, hermitian density -> work_adjoint density = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_hermitian"
+statement = "Lemma work_adjoint_hermitian : forall density, work_adjoint density = density -> hermitian density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_congruence_hermitian"
+statement = "Theorem work_congruence_hermitian : forall operator density, hermitian density -> hermitian (work_congruence operator density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_positive"
+statement = "Theorem work_congruence_positive : forall operator density, positive_semidefinite density -> positive_semidefinite (work_congruence operator density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_trace_cyclic"
+statement = "Lemma work_trace_cyclic : forall first second, work_trace (work_product first second) = work_trace (work_product second first)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_trace"
+statement = "Lemma work_congruence_trace : forall operator density, work_trace (work_congruence operator density) = work_trace (work_product (work_product (work_adjoint operator) operator) density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_quadratic_add"
+statement = "Lemma work_quadratic_add : forall first second vector, quadratic_form (work_matrix_add first second) vector = add (quadratic_form first vector) (quadratic_form second vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_quadratic_scale"
+statement = "Lemma work_quadratic_scale : forall factor density vector, quadratic_form (work_matrix_scale factor density) vector = scale factor (quadratic_form density vector)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_positive_add"
+statement = "Lemma work_positive_add : forall first second, positive_semidefinite first -> positive_semidefinite second -> positive_semidefinite (work_matrix_add first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_positive_scale"
+statement = "Lemma work_positive_scale : forall factor density, 0 <= factor -> positive_semidefinite density -> positive_semidefinite (work_matrix_scale factor density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_positive_zero"
+statement = "Lemma work_positive_zero : positive_semidefinite work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_positive_trace_nonnegative"
+statement = "Lemma work_positive_trace_nonnegative : forall density, positive_semidefinite density -> 0 <= real_part (work_trace density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_add_left"
+statement = "Lemma work_product_add_left : forall first second third, work_product (work_matrix_add first second) third = work_matrix_add (work_product first third) (work_product second third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_add_right"
+statement = "Lemma work_product_add_right : forall first second third, work_product first (work_matrix_add second third) = work_matrix_add (work_product first second) (work_product first third)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_scale_left"
+statement = "Lemma work_product_scale_left : forall factor first second, work_product (work_matrix_scale factor first) second = work_matrix_scale factor (work_product first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_scale_right"
+statement = "Lemma work_product_scale_right : forall factor first second, work_product first (work_matrix_scale factor second) = work_matrix_scale factor (work_product first second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_zero_left"
+statement = "Lemma work_product_zero_left : forall density, work_product work_zero density = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_zero_right"
+statement = "Lemma work_product_zero_right : forall density, work_product density work_zero = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_identity_left"
+statement = "Lemma work_product_identity_left : forall density, work_product work_identity density = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_identity_right"
+statement = "Lemma work_product_identity_right : forall density, work_product density work_identity = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_trace_add"
+statement = "Lemma work_trace_add : forall first second, work_trace (work_matrix_add first second) = add (work_trace first) (work_trace second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_trace_scale"
+statement = "Lemma work_trace_scale : forall factor density, work_trace (work_matrix_scale factor density) = scale factor (work_trace density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_trace_zero"
+statement = "Lemma work_trace_zero : work_trace work_zero = zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_add"
+statement = "Lemma work_congruence_add : forall operator first second, work_congruence operator (work_matrix_add first second) = work_matrix_add (work_congruence operator first) (work_congruence operator second)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_scale"
+statement = "Lemma work_congruence_scale : forall operator factor density, work_congruence operator (work_matrix_scale factor density) = work_matrix_scale factor (work_congruence operator density)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_zero"
+statement = "Lemma work_congruence_zero : forall operator, work_congruence operator work_zero = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_sum"
+statement = "Definition work_matrix_sum (operators : list BranchSignedCoherence.Matrix) := fold_right work_matrix_add work_zero operators"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "work_matrix_sum_positive"
+statement = "Lemma work_matrix_sum_positive : forall operators, Forall positive_semidefinite operators -> positive_semidefinite (work_matrix_sum operators)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_product_sum_left"
+statement = "Lemma work_product_sum_left : forall operators density, work_product (work_matrix_sum operators) density = work_matrix_sum (map (fun operator => work_product operator density) operators)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_congruence_sum"
+statement = "Lemma work_congruence_sum : forall operator densities, work_congruence operator (work_matrix_sum densities) = work_matrix_sum (map (work_congruence operator) densities)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_add_zero"
+statement = "Lemma work_matrix_add_zero : forall density, work_matrix_add density work_zero = density /\\ work_matrix_add work_zero density = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_scale_zero"
+statement = "Lemma work_matrix_scale_zero : forall density, work_matrix_scale 0 density = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_scale_one"
+statement = "Lemma work_matrix_scale_one : forall density, work_matrix_scale 1 density = density"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_matrix_scale_of_zero"
+statement = "Lemma work_matrix_scale_of_zero : forall factor, work_matrix_scale factor work_zero = work_zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_adjoint_identity"
+statement = "Lemma work_adjoint_identity : work_adjoint work_identity = work_identity"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "work_column_decode"
+statement = "Definition work_column_decode (vector : matrix.matrix Complex 4 1) : Basis -> Complex := fun basis => vector (work_basis_index basis) (@fintype.ord0 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_single_column_unique"
+statement = "Lemma work_single_column_unique : forall column : fintype.ordinal 1, column = @fintype.ord0 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_column_round_trip"
+statement = "Theorem work_column_round_trip : forall vector basis, work_column_decode (work_column_encode vector) basis = vector basis"
+assumptions = []
+
+[[witness.declarations]]
+name = "work_column_storage_round_trip"
+statement = "Theorem work_column_storage_round_trip : forall vector, work_column_encode (work_column_decode vector) = vector"
+assumptions = []

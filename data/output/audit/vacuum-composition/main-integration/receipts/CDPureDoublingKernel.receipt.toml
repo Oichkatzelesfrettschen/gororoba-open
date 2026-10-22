@@ -1,0 +1,168 @@
+evidence_key = "vacuum-main-replay-CDPureDoublingKernel-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDPureDoublingKernel"
+proof_path = "proofs/theories/CDPureDoublingKernel.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDPureDoublingKernel.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDPureDoublingKernel"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/CDPureDoublingKernel.v"
+sha256 = "6df2f206abd9b63950b877ead3392356c9c26ab6c229ff1af7c1e6604e1ab50c"
+
+[[witness.sources]]
+path = "proofs/theories/CDTowerMatrixAdapter.v"
+sha256 = "2a0373bbca04c40f2d75d46018c99fb486c7d44ebc827151156f8b4ec207a680"
+
+[[witness.sources]]
+path = "proofs/theories/ExactRankCertificate.v"
+sha256 = "c03fb9b60c24aec2326fd694ead5bbcd31070bd0b3a4cdcfdd1db8c4acb84999"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[witness.sources]]
+path = "proofs/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[[witness.sources]]
+path = "proofs/theories/StdlibRealFieldAdapter.v"
+sha256 = "389794e3108e50f45cedb1f1c97b85b14913cdd4f04c10eb9562645bfad23693"
+
+[witness.compile_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDPureDoublingKernel.compile.txt"
+sha256 = "a5da1cdf187587c911442b37b1e7d64474a90b0e1c4ffb584a63a552fc608420"
+
+[witness.kernel_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDPureDoublingKernel.kernel.txt"
+sha256 = "6ace46064a6cc8378432c131a530671780cb3f080ee50933b45de87d5d8364c6"
+
+[witness.assumption_log]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/CDPureDoublingKernel.assumptions.txt"
+sha256 = "7c4f9ee13587f5793a72d2fa0ac73183a1ce56966f9dc7bfc86f606f229d753e"
+
+[witness.proof_object]
+path = "data/output/audit/exact-rank-schur-kernel/kernel-capture/theories/CDPureDoublingKernel.vo"
+sha256 = "8541239e7b8e65f809ded1085119c86393f728d460d706e8fc55a9ddcaffdf66"
+
+[[witness.declarations]]
+name = "tower_neg_eq_zero"
+statement = "Lemma tower_neg_eq_zero order value : tower_neg order value = tower_zero order <-> value = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_conj_eq_zero"
+statement = "Lemma tower_conj_eq_zero order value : tower_conj order value = tower_zero order <-> value = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_right_left_conjugacy"
+statement = "Theorem pure_right_left_conjugacy order operand : tower_pure order operand -> forall vector, tower_mul order vector operand = tower_neg order (tower_conj order (tower_mul order operand (tower_conj order vector)))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_right_left_kernel"
+statement = "Theorem pure_right_left_kernel order operand : tower_pure order operand -> forall vector, tower_mul order vector operand = tower_zero order <-> tower_mul order operand (tower_conj order vector) = tower_zero order"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_add_zero_right"
+statement = "Lemma tower_add_zero_right order value : tower_add order value (tower_zero order) = value"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zero_upper_half_product"
+statement = "Theorem zero_upper_half_product order operand first second : tower_mul (S order) (operand,tower_zero order) (first,second) = (tower_mul order operand first,tower_mul order second operand)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_doubling_kernel_decomposition"
+statement = "Theorem pure_doubling_kernel_decomposition order operand first second : tower_pure order operand -> (tower_mul (S order) (operand,tower_zero order) (first,second) = tower_zero (S order) <-> tower_mul order operand first = tower_zero order /\\ tower_mul order operand (tower_conj order second) = tower_zero order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_kernel_pair_transport"
+statement = "Definition pure_kernel_pair_transport order (pair : cd_tower order * cd_tower order) := (fst pair,tower_conj order (snd pair))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[witness.declarations]]
+name = "pure_kernel_pair_transport_involution"
+statement = "Theorem pure_kernel_pair_transport_involution order pair : pure_kernel_pair_transport order (pure_kernel_pair_transport order pair) = pair"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_kernel_pair_transport_membership"
+statement = "Theorem pure_kernel_pair_transport_membership order operand (pair : cd_tower order * cd_tower order) : tower_pure order operand -> (tower_mul (S order) (operand,tower_zero order) (pure_kernel_pair_transport order pair) = tower_zero (S order) <-> tower_mul order operand (fst pair) = tower_zero order /\\ tower_mul order operand (snd pair) = tower_zero order)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_operator_conjugacy"
+statement = "Theorem pure_operator_conjugacy order operand : tower_pure order operand -> tower_right_matrix order operand = nmodule.Algebra.opp (matrix.mulmx (matrix.mulmx (tower_conjugation_matrix order) (tower_left_matrix order operand)) (tower_conjugation_matrix order))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_right_left_rank"
+statement = "Theorem pure_right_left_rank order operand : tower_pure order operand -> mxrank (tower_right_matrix order operand) = mxrank (tower_left_matrix order operand)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "zero_upper_half_matrix"
+statement = "Theorem zero_upper_half_matrix order operand : tower_left_matrix (S order) (operand,tower_zero order) = matrix.block_mx (tower_left_matrix order operand) nmodule.Algebra.zero nmodule.Algebra.zero (tower_right_matrix order operand)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_doubling_rank"
+statement = "Theorem pure_doubling_rank order operand : tower_pure order operand -> mxrank (tower_left_matrix (S order) (operand,tower_zero order)) = ssrnat.addn (mxrank (tower_left_matrix order operand)) (mxrank (tower_left_matrix order operand))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "tower_left_nullity"
+statement = "Definition tower_left_nullity order operand := ssrnat.subn (tower_dimension order) (mxrank (tower_left_matrix order operand))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "pure_doubling_nullity"
+statement = "Theorem pure_doubling_nullity order operand : tower_pure order operand -> tower_left_nullity (S order) (operand,tower_zero order) = ssrnat.addn (tower_left_nullity order operand) (tower_left_nullity order operand)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "doubled_kernel_frame"
+statement = "Definition doubled_kernel_frame order width (frame : matrix.matrix R (tower_dimension order) width) := matrix.block_mx frame nmodule.Algebra.zero nmodule.Algebra.zero (matrix.mulmx (tower_conjugation_matrix order) frame)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "conjugated_kernel_frame_residual"
+statement = "Lemma conjugated_kernel_frame_residual order operand width (frame : matrix.matrix R (tower_dimension order) width) : tower_pure order operand -> matrix.mulmx (tower_left_matrix order operand) frame = nmodule.Algebra.zero -> matrix.mulmx (tower_right_matrix order operand) (matrix.mulmx (tower_conjugation_matrix order) frame) = nmodule.Algebra.zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "doubled_kernel_frame_residual"
+statement = "Theorem doubled_kernel_frame_residual order operand width (frame : matrix.matrix R (tower_dimension order) width) : tower_pure order operand -> matrix.mulmx (tower_left_matrix order operand) frame = nmodule.Algebra.zero -> matrix.mulmx (tower_left_matrix (S order) (operand,tower_zero order)) (doubled_kernel_frame order width frame) = nmodule.Algebra.zero"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "conjugated_frame_rank"
+statement = "Lemma conjugated_frame_rank order width (frame : matrix.matrix R (tower_dimension order) width) : mxrank (matrix.mulmx (tower_conjugation_matrix order) frame) = mxrank frame"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "doubled_kernel_frame_rank"
+statement = "Theorem doubled_kernel_frame_rank order width (frame : matrix.matrix R (tower_dimension order) width) : mxrank frame = width -> mxrank (doubled_kernel_frame order width frame) = ssrnat.addn width width"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[witness.declarations]]
+name = "doubled_kernel_frame_complete"
+statement = "Theorem doubled_kernel_frame_complete order operand width (frame : matrix.matrix R (tower_dimension order) width) : tower_pure order operand -> matrix.mulmx (tower_left_matrix order operand) frame = nmodule.Algebra.zero -> mxrank frame = width -> width = tower_left_nullity order operand -> forall vector : matrix.matrix R (tower_dimension (S order)) 1, matrix.mulmx (tower_left_matrix (S order) (operand,tower_zero order)) vector = nmodule.Algebra.zero -> exists coefficients : matrix.matrix R (ssrnat.addn width width) 1, vector = matrix.mulmx (doubled_kernel_frame order width frame) coefficients"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "ClassicalEpsilon.constructive_indefinite_description", "Classical_Prop.classic", "FunctionalExtensionality.functional_extensionality_dep"]

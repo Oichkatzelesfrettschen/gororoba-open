@@ -1,0 +1,135 @@
+schema_version = 1
+stable_id = "THM-LEGACY-PassiveMechanicalMemory"
+proof_path = "proofs/theories/PassiveMechanicalMemory.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/PassiveMechanicalMemory.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.PassiveMechanicalMemory"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/PassiveMechanicalMemory.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/PassiveMechanicalMemory.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/PassiveMechanicalMemory.assumptions.txt"
+sha256 = "1f613197efa91e50cd2eb39ac2666d225fcb702697f021b769ce9156615f5ced"
+
+[proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/PassiveMechanicalMemory.vo"
+sha256 = "c2650b34f7bbd9e2326e24533ee407c20cee1a5e1be0e8bc0daaa0e45341b4a3"
+
+[[declarations]]
+name = "finite_sum_ext"
+statement = "Lemma finite_sum_ext : forall dimension first second, (forall index, first index = second index) -> finite_sum dimension first = finite_sum dimension second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "finite_sum_add"
+statement = "Lemma finite_sum_add : forall dimension first second, finite_sum dimension (fun index => first index + second index) = finite_sum dimension first + finite_sum dimension second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_sum_scale"
+statement = "Lemma finite_sum_scale : forall dimension scalar term, finite_sum dimension (fun index => scalar * term index) = scalar * finite_sum dimension term"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "finite_sum_nonnegative"
+statement = "Lemma finite_sum_nonnegative : forall dimension term, (forall index, (index < dimension)%nat -> 0 <= term index) -> 0 <= finite_sum dimension term"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "quadratic_form"
+statement = "Definition quadratic_form dimension (matrix : nat -> nat -> R) (left right : nat -> R) := finite_sum dimension (fun row => finite_sum dimension (fun column => left row * matrix row column * right column))"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "form_symmetric"
+statement = "Definition form_symmetric dimension matrix := forall left right, quadratic_form dimension matrix left right = quadratic_form dimension matrix right left"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "form_psd"
+statement = "Definition form_psd dimension matrix := forall vector, 0 <= quadratic_form dimension matrix vector vector"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "form_right_add"
+statement = "Lemma form_right_add : forall dimension matrix left first second, quadratic_form dimension matrix left (fun index => first index + second index) = quadratic_form dimension matrix left first + quadratic_form dimension matrix left second"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "form_right_scale"
+statement = "Lemma form_right_scale : forall dimension matrix left scalar right, quadratic_form dimension matrix left (fun index => scalar * right index) = scalar * quadratic_form dimension matrix left right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "form_left_add"
+statement = "Lemma form_left_add : forall dimension matrix first second right, quadratic_form dimension matrix (fun index => first index + second index) right = quadratic_form dimension matrix first right + quadratic_form dimension matrix second right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "form_left_scale"
+statement = "Lemma form_left_scale : forall dimension matrix scalar left right, quadratic_form dimension matrix (fun index => scalar * left index) right = scalar * quadratic_form dimension matrix left right"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "symmetric_quadratic_increment"
+statement = "Theorem symmetric_quadratic_increment : forall dimension matrix state direction step, form_symmetric dimension matrix -> quadratic_form dimension matrix (fun index => state index + step * direction index) (fun index => state index + step * direction index) - quadratic_form dimension matrix state state = 2 * step * quadratic_form dimension matrix state direction + step^2 * quadratic_form dimension matrix direction direction"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "auxiliary_memory_balance"
+statement = "Theorem auxiliary_memory_balance : forall dimension matrix state velocity time_constant, form_symmetric dimension matrix -> 0 < time_constant -> quadratic_form dimension matrix state (fun index => velocity index + (- /time_constant) * state index) = quadratic_form dimension matrix velocity state - quadratic_form dimension matrix state state / time_constant"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "memory_dissipation"
+statement = "Definition memory_dissipation dimension branches matrices states times := finite_sum branches (fun branch => quadratic_form dimension (matrices branch) (states branch) (states branch) / times branch)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "memory_dissipation_nonnegative"
+statement = "Theorem memory_dissipation_nonnegative : forall dimension branches matrices states times, (forall branch, (branch < branches)%nat -> form_psd dimension (matrices branch)) -> (forall branch, (branch < branches)%nat -> 0 < times branch) -> 0 <= memory_dissipation dimension branches matrices states times"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "coupled_mechanical_storage_balance"
+statement = "Theorem coupled_mechanical_storage_balance : forall dimension branches mass support damping matrices states times position velocity acceleration supplied_power, form_symmetric dimension mass -> form_symmetric dimension support -> (forall branch, form_symmetric dimension (matrices branch)) -> (forall branch, 0 < times branch) -> supplied_power = quadratic_form dimension mass velocity acceleration + quadratic_form dimension support velocity position + quadratic_form dimension damping velocity velocity + finite_sum branches (fun branch => quadratic_form dimension (matrices branch) velocity (states branch)) -> quadratic_form dimension mass velocity acceleration + quadratic_form dimension support position velocity + finite_sum branches (fun branch => quadratic_form dimension (matrices branch) (states branch) (fun index => velocity index + (- /times branch) * states branch index)) = supplied_power - quadratic_form dimension damping velocity velocity - memory_dissipation dimension branches matrices states times"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "resource_closed_supply_bound"
+statement = "Theorem resource_closed_supply_bound : forall initial_storage final_storage supplied dissipated, 0 <= dissipated -> final_storage - initial_storage = supplied - dissipated -> final_storage - initial_storage <= supplied"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "conservative_cycle_cancels"
+statement = "Theorem conservative_cycle_cancels : forall initial_potential final_potential, (initial_potential - final_potential) + (final_potential - initial_potential) = 0"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "coupled_storage"
+statement = "Definition coupled_storage dimension branches mass support matrices position velocity states := quadratic_form dimension mass velocity velocity / 2 + quadratic_form dimension support position position / 2 + finite_sum branches (fun branch => quadratic_form dimension (matrices branch) (states branch) (states branch) / 2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "coupled_storage_nonnegative"
+statement = "Theorem coupled_storage_nonnegative : forall dimension branches mass support matrices position velocity states, form_psd dimension mass -> form_psd dimension support -> (forall branch, (branch < branches)%nat -> form_psd dimension (matrices branch)) -> 0 <= coupled_storage dimension branches mass support matrices position velocity states"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "dissipative_storage_coefficient_is_supply_bounded"
+statement = "Theorem dissipative_storage_coefficient_is_supply_bounded : forall dimension branches damping matrices states times velocity supplied coefficient, form_psd dimension damping -> (forall branch, (branch < branches)%nat -> form_psd dimension (matrices branch)) -> (forall branch, (branch < branches)%nat -> 0 < times branch) -> coefficient = supplied - quadratic_form dimension damping velocity velocity - memory_dissipation dimension branches matrices states times -> coefficient <= supplied"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

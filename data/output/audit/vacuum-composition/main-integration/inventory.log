@@ -1,0 +1,7 @@
+{
+  "event_key": "proof-inventory:vacuum-main-inventory-d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f",
+  "theorem_count": 347,
+  "source_only_count": 347,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}

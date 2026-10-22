@@ -1,0 +1,223 @@
+evidence_key = "vacuum-source-replay-BooleanPermutation-1c1c11f503da"
+actor = "codex"
+reason = "Record current-source Rocq 9.3.0 kernel execution and complete declaration assumptions; preserve mathematical model scope and physical residuals."
+applied_at = "2026-10-17T05:47:07Z"
+expected_kernel_result_sha256 = "1890d627ae7d3403b2c31c6cb34d6847e205b345e9d01bf8f166d51103315312"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-BooleanPermutation"
+proof_path = "proofs/theories/BooleanPermutation.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/BooleanPermutation.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.BooleanPermutation"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanPermutation.v"
+sha256 = "91860978dbba0759f088c7f9d16f7dea3d82d5c0e6938c65eb0b73ee14473f43"
+
+[witness.compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/BooleanPermutation.compile.txt"
+sha256 = "dc14ba0d8c8596d1a19a5c5e558bc783b23c26ac400bcff56f61b6118bf3737b"
+
+[witness.kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/BooleanPermutation.kernel.txt"
+sha256 = "071da8cf681238180d6cceb1fa255c31b1934814e57d5decdca57c14af705cba"
+
+[witness.assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/BooleanPermutation.assumptions.txt"
+sha256 = "4cc877b0617fda46f2221564101bcf5d3460d58d78f7c4d9bc5c00e08ab184dc"
+
+[witness.proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/BooleanPermutation.vo"
+sha256 = "292b8062aa6ddd3285b95886f6fe281504785f984434d1bbb562a1ae038485d0"
+
+[[witness.declarations]]
+name = "target_flip"
+statement = "Definition target_flip (state : State) : State := if predicate state then toggle state else state"
+assumptions = []
+
+[[witness.declarations]]
+name = "target_flip_involutive"
+statement = "Theorem target_flip_involutive : forall state, target_flip (target_flip state) = state"
+assumptions = []
+
+[[witness.declarations]]
+name = "target_flip_injective"
+statement = "Theorem target_flip_injective : forall left right, target_flip left = target_flip right -> left = right"
+assumptions = []
+
+[[witness.declarations]]
+name = "target_flip_surjective"
+statement = "Theorem target_flip_surjective : forall output, exists input, target_flip input = output"
+assumptions = []
+
+[[witness.declarations]]
+name = "masked_toggle_invariant"
+statement = "Theorem masked_toggle_invariant : forall label mask toggle_mask, Nat.land mask toggle_mask = 0 -> Nat.land (Nat.lxor label toggle_mask) mask = Nat.land label mask"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_flip"
+statement = "Definition cube_flip (target mask selected label : nat) : nat := target_flip (fun value => Nat.lxor value (2 ^ target)) (fun value => Nat.eqb (Nat.land value mask) selected) label"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_flip_involutive"
+statement = "Theorem cube_flip_involutive : forall target mask selected, Nat.land mask (2 ^ target) = 0 -> forall label, cube_flip target mask selected (cube_flip target mask selected label) = label"
+assumptions = []
+
+[[witness.declarations]]
+name = "cube_flip_bijective"
+statement = "Theorem cube_flip_bijective : forall target mask selected, Nat.land mask (2 ^ target) = 0 -> (forall left right, cube_flip target mask selected left = cube_flip target mask selected right -> left = right) /\\ (forall output, exists input, cube_flip target mask selected input = output)"
+assumptions = []
+
+[[witness.declarations]]
+name = "target_dependent_predicate_breaks_involution"
+statement = "Theorem target_dependent_predicate_breaks_involution : cube_flip 0 1 0 (cube_flip 0 1 0 0) <> 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "run_word_append"
+statement = "Theorem run_word_append : forall State (first second : list (State -> State)) state, run_word (first ++ second) state = run_word second (run_word first state)"
+assumptions = []
+
+[[witness.declarations]]
+name = "reverse_word_inverse"
+statement = "Theorem reverse_word_inverse : forall State (word : list (State -> State)), Forall (fun gate => forall state, gate (gate state) = state) word -> forall state, run_word (rev word) (run_word word state) = state"
+assumptions = []
+
+[[witness.declarations]]
+name = "word_reverse_inverse"
+statement = "Theorem word_reverse_inverse : forall State (word : list (State -> State)), Forall (fun gate => forall state, gate (gate state) = state) word -> forall state, run_word word (run_word (rev word) state) = state"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled"
+statement = "Definition controlled {State : Type} (action : State -> State) (control : bool) (state : State) := if control then action state else state"
+assumptions = []
+
+[[witness.declarations]]
+name = "disabled_control_identity"
+statement = "Theorem disabled_control_identity : forall State (action : State -> State) state, controlled action false state = state"
+assumptions = []
+
+[[witness.declarations]]
+name = "enabled_control_action"
+statement = "Theorem enabled_control_action : forall State (action : State -> State) state, controlled action true state = action state"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_composition"
+statement = "Theorem controlled_composition : forall State (first second : State -> State) control state, controlled second control (controlled first control state) = controlled (fun value => second (first value)) control state"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_apply"
+statement = "Definition signed_apply (action : signed_xor_action) (phase : bool) (label : nat) : bool * nat := (xorb phase (action_phase action label), Nat.lxor label (action_offset action))"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_compose"
+statement = "Definition signed_compose (first second : signed_xor_action) : signed_xor_action := SignedXor (Nat.lxor (action_offset first) (action_offset second)) (fun label => xorb (action_phase first label) (action_phase second (Nat.lxor label (action_offset first))))"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_composition_exact"
+statement = "Theorem signed_composition_exact : forall first second phase label, let intermediate := signed_apply first phase label in signed_apply second (fst intermediate) (snd intermediate) = signed_apply (signed_compose first second) phase label"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_signed"
+statement = "Definition controlled_signed (action : signed_xor_action) (control phase : bool) (label : nat) := if control then signed_apply action phase label else (phase, label)"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_signed_label"
+statement = "Theorem controlled_signed_label : forall action control phase label, snd (controlled_signed action control phase label) = if control then Nat.lxor label (action_offset action) else label"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_signed_phase"
+statement = "Theorem controlled_signed_phase : forall action control phase label, fst (controlled_signed action control phase label) = xorb phase (andb control (action_phase action label))"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_signed_disabled_identity"
+statement = "Theorem controlled_signed_disabled_identity : forall action phase label, controlled_signed action false phase label = (phase, label)"
+assumptions = []
+
+[[witness.declarations]]
+name = "controlled_signed_composition"
+statement = "Theorem controlled_signed_composition : forall first second control phase label, let intermediate := controlled_signed first control phase label in controlled_signed second control (fst intermediate) (snd intermediate) = controlled_signed (signed_compose first second) control phase label"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_word_label_projection"
+statement = "Theorem signed_word_label_projection : forall word phase label, snd (run_signed_word word phase label) = Nat.lxor label (word_offset word)"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_xor_fixed_zero_label_identity"
+statement = "Theorem signed_xor_fixed_zero_label_identity : forall action, snd (signed_apply action false 0) = 0 -> forall phase label, snd (signed_apply action phase label) = label"
+assumptions = []
+
+[[witness.declarations]]
+name = "signed_word_fixed_zero_label_identity"
+statement = "Theorem signed_word_fixed_zero_label_identity : forall word, snd (run_signed_word word false 0) = 0 -> forall phase label, snd (run_signed_word word phase label) = label"
+assumptions = []
+
+[[witness.declarations]]
+name = "nonconstant_diagonal"
+statement = "Definition nonconstant_diagonal := SignedXor 0 (fun label => Nat.testbit label 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "diagonal_phase_preserves_labels"
+statement = "Theorem diagonal_phase_preserves_labels : forall phase label, snd (signed_apply nonconstant_diagonal phase label) = label"
+assumptions = []
+
+[[witness.declarations]]
+name = "diagonal_phase_is_nontrivial"
+statement = "Theorem diagonal_phase_is_nontrivial : signed_apply nonconstant_diagonal false 0 = (false, 0) /\\ signed_apply nonconstant_diagonal false 1 = (true, 1)"
+assumptions = []
+
+[[witness.declarations]]
+name = "diagonal_control_relative_phase"
+statement = "Theorem diagonal_control_relative_phase : controlled_signed nonconstant_diagonal false false 1 <> controlled_signed nonconstant_diagonal true false 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "n21_multiplier"
+statement = "Definition n21_multiplier (multiplier label : nat) : nat := if label <? 21 then (multiplier * label) mod 21 else label"
+assumptions = []
+
+[[witness.declarations]]
+name = "affine_on_five_bits"
+statement = "Definition affine_on_five_bits (mapping : nat -> nat) : Prop := forall left right, left < 32 -> right < 32 -> mapping (Nat.lxor left right) = Nat.lxor (Nat.lxor (mapping left) (mapping right)) (mapping 0)"
+assumptions = []
+
+[[witness.declarations]]
+name = "n21_fixes_origin"
+statement = "Theorem n21_fixes_origin : forall multiplier, n21_multiplier multiplier 0 = 0"
+assumptions = []
+
+[[witness.declarations]]
+name = "n21_moves_one"
+statement = "Theorem n21_moves_one : forall multiplier, In multiplier [2; 4; 16] -> n21_multiplier multiplier 1 <> 1"
+assumptions = []
+
+[[witness.declarations]]
+name = "n21_nonaffine"
+statement = "Theorem n21_nonaffine : forall multiplier, In multiplier [2; 4; 16] -> ~ affine_on_five_bits (n21_multiplier multiplier)"
+assumptions = []
+
+[[witness.declarations]]
+name = "n21_excludes_signed_xor_words"
+statement = "Theorem n21_excludes_signed_xor_words : forall multiplier, In multiplier [2; 4; 16] -> forall word, ~ (forall label, label < 32 -> snd (run_signed_word word false label) = n21_multiplier multiplier label)"
+assumptions = []

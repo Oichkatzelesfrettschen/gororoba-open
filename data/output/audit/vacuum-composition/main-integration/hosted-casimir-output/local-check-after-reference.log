@@ -1,0 +1,3 @@
+Error: retained audit verification found 2 failure(s):
+retained audit output is stale: derivative_step_study.tsv
+retained audit output is stale: native-output-manifest.toml

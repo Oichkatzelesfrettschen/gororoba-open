@@ -1,0 +1,101 @@
+Declaration: valid_cd_dim
+Closed under the global context
+Declaration: zd_component_count
+Closed under the global context
+Declaration: zd_giant_size
+Closed under the global context
+Declaration: zd_singleton_count
+Closed under the global context
+Declaration: zd_missing_edge_count
+Closed under the global context
+Declaration: zd_edge_count_R
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: complete_edges_R
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: missing_edges_R
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: zd_edge_formula
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: zd_edge_count_N
+Closed under the global context
+Declaration: zd_edges_at_16
+Closed under the global context
+Declaration: zd_edges_at_32
+Closed under the global context
+Declaration: zd_edges_at_64
+Closed under the global context
+Declaration: zd_edges_at_256
+Closed under the global context
+Declaration: zd_edges_at_512
+Closed under the global context
+Declaration: zd_edges_at_1024
+Closed under the global context
+Declaration: zd_singleton_indices
+Closed under the global context
+Declaration: singletons_at_16
+Closed under the global context
+Declaration: singletons_at_32
+Closed under the global context
+Declaration: singletons_at_64
+Closed under the global context
+Declaration: missing_edges_16
+Closed under the global context
+Declaration: missing_edges_16_xor
+Closed under the global context
+Declaration: missing_edges_16_count
+Closed under the global context
+Declaration: zd_numerator_positive
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: zd_edge_superquadratic_growth
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Declaration: zd_giant_density_gt_half
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g

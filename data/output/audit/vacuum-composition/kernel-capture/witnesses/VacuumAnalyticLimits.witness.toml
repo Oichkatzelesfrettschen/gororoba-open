@@ -1,0 +1,69 @@
+schema_version = 1
+stable_id = "THM-LEGACY-VacuumAnalyticLimits"
+proof_path = "proofs/theories/VacuumAnalyticLimits.v"
+project_sha256 = "1c1c11f503da08cb3df276d8a657b100bff467290c6fb5191ef2aeb1cff6c839"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/VacuumAnalyticLimits.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.VacuumAnalyticLimits"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[sources]]
+path = "proofs/theories/PassiveMechanicalMemory.v"
+sha256 = "019199c85e0dcc61cd44dff2482a4d55adf98db50610673af66d77b50786ec09"
+
+[[sources]]
+path = "proofs/theories/VacuumAnalyticLimits.v"
+sha256 = "9725bfd06ce8f02999085876ca0fdbc5ba5217e5fcb3c564b061f5ee450d708f"
+
+[compile_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumAnalyticLimits.compile.txt"
+sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[kernel_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumAnalyticLimits.kernel.txt"
+sha256 = "882de7e58a24b8eb660b82644f9bd1351555365ca2c71004e57c6d431a8674e6"
+
+[assumption_log]
+path = "data/output/audit/vacuum-composition/kernel-capture/VacuumAnalyticLimits.assumptions.txt"
+sha256 = "33a32985e522809c2020cafb92b18a79bc801116a1e8a700124493d817b2f70a"
+
+[proof_object]
+path = "data/output/audit/vacuum-composition/kernel-capture/theories/VacuumAnalyticLimits.vo"
+sha256 = "b3df262003002d55dea119a2358421fcc4312225214882b731cc4c9438e3edfc"
+
+[[declarations]]
+name = "weighted_constant_residues"
+statement = "Definition weighted_constant_residues count := finite_sum count (fun index => 1 / INR (S index)^2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "unweighted_constant_energy"
+statement = "Definition unweighted_constant_energy count := finite_sum count (fun _ => 1^2)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec"]
+
+[[declarations]]
+name = "reciprocal_square_telescoping_bound"
+statement = "Lemma reciprocal_square_telescoping_bound : forall denominator, 1 <= denominator -> 1 / denominator^2 <= 2 / denominator - 2 / (denominator + 1)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_constant_partial_sums_bound"
+statement = "Theorem weighted_constant_partial_sums_bound : forall count, 0 <= weighted_constant_residues count <= 2 - 2 / INR (S count)"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "unweighted_constant_energy_exact"
+statement = "Theorem unweighted_constant_energy_exact : forall count, unweighted_constant_energy count = INR count"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "real_bound_has_larger_natural"
+statement = "Lemma real_bound_has_larger_natural : forall bound, exists count, bound < INR count"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]
+
+[[declarations]]
+name = "weighted_bound_does_not_bound_unweighted_energy"
+statement = "Theorem weighted_bound_does_not_bound_unweighted_energy : forall bound, exists count, 0 <= weighted_constant_residues count <= 2 /\\ bound < unweighted_constant_energy count"
+assumptions = ["ClassicalDedekindReals.sig_forall_dec", "FunctionalExtensionality.functional_extensionality_dep"]

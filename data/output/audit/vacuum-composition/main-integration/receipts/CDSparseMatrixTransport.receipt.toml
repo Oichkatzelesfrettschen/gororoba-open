@@ -1,0 +1,147 @@
+evidence_key = "vacuum-main-replay-CDSparseMatrixTransport-d327e4c63c4c"
+actor = "chatgpt-codex"
+reason = "Replay retained source, objects and declaration assumptions against combined main and vacuum project identity."
+applied_at = "2026-10-18T23:48:14Z"
+expected_kernel_result_sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+expected_status = "source_only"
+
+[witness]
+schema_version = 1
+stable_id = "THM-LEGACY-CDSparseMatrixTransport"
+proof_path = "proofs/theories/CDSparseMatrixTransport.v"
+project_sha256 = "d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f"
+compile_command = "rocq compile -q -w +default -R theories OpenGororoba -R verified OpenGororobaVerified theories/CDSparseMatrixTransport.v"
+kernel_command = "rocq check -silent -o -R theories OpenGororoba -R verified OpenGororobaVerified OpenGororoba.CDSparseMatrixTransport"
+toolchain = "Rocq 9.3.0; OCaml 5.5.1"
+compile_exit_code = 0
+kernel_exit_code = 0
+warning_policy = "fatal_default"
+
+[[witness.sources]]
+path = "proofs/theories/BooleanANFDegree.v"
+sha256 = "e2f109deb1234854e61ee402309d3790ee72fe244fe9bbb7d20aafb19e514026"
+
+[[witness.sources]]
+path = "proofs/theories/CDAssociatorDoubling.v"
+sha256 = "d02e79148bd9f851fa9b52c6c5a3e3c27e1de2684d669f47d618cf5c8a2ac64d"
+
+[[witness.sources]]
+path = "proofs/theories/CDPhaseDegree.v"
+sha256 = "f29f20d7a85203352778d628fb3076c94a476ddad391304d8db16769c3c0a32c"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignHalfStep.v"
+sha256 = "88bdb0c2993fd5de792d25334a41a2601428d8347355ad16ef7c36e9b65aec95"
+
+[[witness.sources]]
+path = "proofs/theories/CDSignNumericCorrespondence.v"
+sha256 = "6b9f41701962fe216ab5c0c0a1cdbb45ac3f355eb0fa6b375dea2b6232c8b900"
+
+[[witness.sources]]
+path = "proofs/theories/CDSparseMatrixTransport.v"
+sha256 = "9103e9e9017c00453681fd016490994fa75893915dee6118f8efd968d5a62353"
+
+[[witness.sources]]
+path = "proofs/theories/CubeAffineCosets.v"
+sha256 = "8c69e4e5bbaaa6644d21650a23716810e531f8146b8d7d66360cf259d946298b"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteMatrixConventions.v"
+sha256 = "f478817288cf8b9b0c1ef773d2950637e9c8fbe108b07aa247048d96331393d5"
+
+[[witness.sources]]
+path = "proofs/theories/FiniteProbability.v"
+sha256 = "594a7acac453cbbfa7641d10cf1e9a565642b4a77e94fd57c9501e25454986f0"
+
+[[witness.sources]]
+path = "proofs/theories/M3IsAssociator.v"
+sha256 = "26f75f687728a04a9c25e518b4a376797d3527d9d897b5b865c3858d40a81022"
+
+[[witness.sources]]
+path = "proofs/theories/SchreierSignCode.v"
+sha256 = "67a360c582ac22ccb30435111cd766d26dd2ab2fdf6e5a8d1cf1769a9717b652"
+
+[[witness.sources]]
+path = "proofs/theories/WalshProbability.v"
+sha256 = "8964161b11ec0bf0df5a11c56987a9662d1e1f3804af5f08518ae9c9b7978da7"
+
+[witness.compile_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseMatrixTransport.compile.txt"
+sha256 = "e48860f73316a42d574e923cda848bcb6d474abd18fef10499e88630d5a78335"
+
+[witness.kernel_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseMatrixTransport.kernel.txt"
+sha256 = "6c3ceb4f7f864fe03b9fef2e19f3c025e3b18fc29101b85f0ae80814bd0f54a2"
+
+[witness.assumption_log]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/CDSparseMatrixTransport.assumptions.txt"
+sha256 = "00c92e1bde93b1eeb69df9f8476a371cd8438a847bd02d2638d907e3e9da8179"
+
+[witness.proof_object]
+path = "data/output/audit/cd-associator-census-transport/kernel-capture/theories/CDSparseMatrixTransport.vo"
+sha256 = "a8e74a5395b11f2972a9110b5ace84ffab37d70c3a0565f2915a54ff2ee5a091"
+
+[[witness.declarations]]
+name = "scalar_phase"
+statement = "Definition scalar_phase (phase : bool) : scalar := if phase then nmodule.Algebra.opp (@rings_modules_and_algebras.GRing.one scalar) else @rings_modules_and_algebras.GRing.one scalar"
+assumptions = []
+
+[[witness.declarations]]
+name = "field_affine_supported"
+statement = "Definition field_affine_supported (operand : cube order -> scalar) := forall input, same_coset order group input anchor = false -> operand input = nmodule.Algebra.zero"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_entry"
+statement = "Definition sparse_field_entry (operand : cube order -> scalar) (output input : cube order) : scalar := rings_modules_and_algebras.GRing.mul (operand (cube_xor order output input)) (scalar_phase (sign_exponent order (cube_xor order output input) input))"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_cross_zero"
+statement = "Lemma sparse_field_cross_zero operand output input : field_affine_supported operand -> same_coset order group output (cube_xor order anchor input) = false -> sparse_field_entry operand output input = nmodule.Algebra.zero"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_matrix"
+statement = "Definition sparse_field_matrix operand : matrix.matrix scalar (Nat.pow 2 order) (Nat.pow 2 order) := @matrix.matrix_of_fun scalar (Nat.pow 2 order) (Nat.pow 2 order) matrix.matrix_key (fun output input => sparse_field_entry operand (cube_decode order (fintype.nat_of_ord output)) (cube_decode order (fintype.nat_of_ord input)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "sector_row_input"
+statement = "Definition sector_row_input row := cube_decode order (fintype.nat_of_ord (row_map row))"
+assumptions = []
+
+[[witness.declarations]]
+name = "sector_column_input"
+statement = "Definition sector_column_input column := cube_decode order (fintype.nat_of_ord (column_map column))"
+assumptions = []
+
+[[witness.declarations]]
+name = "row_sector_coordinates"
+statement = "Definition row_sector_coordinates := (forall row : fintype.ordinal rows_left, same_coset order group (sector_row_input (@fintype.lshift rows_left rows_right row)) (cube_xor order anchor sector) = true) /\\ (forall row : fintype.ordinal rows_right, same_coset order group (sector_row_input (@fintype.rshift rows_left rows_right row)) (cube_xor order anchor sector) = false)"
+assumptions = []
+
+[[witness.declarations]]
+name = "column_sector_coordinates"
+statement = "Definition column_sector_coordinates := (forall column : fintype.ordinal columns_left, same_coset order group (sector_column_input (@fintype.lshift columns_left columns_right column)) sector = true) /\\ (forall column : fintype.ordinal columns_right, same_coset order group (sector_column_input (@fintype.rshift columns_left columns_right column)) sector = false)"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_upper_cross_zero"
+statement = "Lemma sparse_field_upper_cross_zero operand : field_affine_supported operand -> row_sector_coordinates -> column_sector_coordinates -> matrix.ursubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand)) = matrix_zero scalar rows_left columns_right"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_lower_cross_zero"
+statement = "Lemma sparse_field_lower_cross_zero operand : field_affine_supported operand -> row_sector_coordinates -> column_sector_coordinates -> matrix.dlsubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand)) = matrix_zero scalar rows_right columns_left"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_block_decomposition"
+statement = "Theorem sparse_field_block_decomposition operand : field_affine_supported operand -> row_sector_coordinates -> column_sector_coordinates -> matrix.mxsub row_map column_map (sparse_field_matrix operand) = matrix.block_mx (matrix.ulsubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand))) (matrix_zero scalar rows_left columns_right) (matrix_zero scalar rows_right columns_left) (matrix.drsubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand)))"
+assumptions = []
+
+[[witness.declarations]]
+name = "sparse_field_rank_decomposition"
+statement = "Theorem sparse_field_rank_decomposition operand (row_back : fintype.ordinal (Nat.pow 2 order) -> fintype.ordinal (ssrnat.addn rows_left rows_right)) (column_back : fintype.ordinal (Nat.pow 2 order) -> fintype.ordinal (ssrnat.addn columns_left columns_right)) : field_affine_supported operand -> row_sector_coordinates -> column_sector_coordinates -> (forall row, row_map (row_back row) = row) -> (forall column, column_map (column_back column) = column) -> mxalgebra.mxrank (sparse_field_matrix operand) = ssrnat.addn (mxalgebra.mxrank (matrix.ulsubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand)))) (mxalgebra.mxrank (matrix.drsubmx (matrix.mxsub row_map column_map (sparse_field_matrix operand))))"
+assumptions = []
