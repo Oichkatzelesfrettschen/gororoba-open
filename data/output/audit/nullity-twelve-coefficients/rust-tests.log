@@ -8,4 +8,3 @@ test tests::sparse_matrix_preserves_signed_fractions_and_zero_fill ... ok
 test tests::retained_reconstruction_and_coordinate_mutations ... ok
 
 test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
-

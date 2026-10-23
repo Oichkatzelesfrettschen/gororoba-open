@@ -38,3 +38,9 @@ opam exec --switch=rocq-9.3 -- rocq top -quiet -Q proofs/theories OpenGororoba -
 The mutation runner compiles the unchanged positive control, then requires
 coefficient, reconstruction, monomial-order and generator-sign rejection at
 the mathematical checks. The retained stdout/stderr files record those verdicts.
+
+Files ending .raw.gz retain the exact compiler/log bytes before display
+normalization. raw-log-identities.tsv binds each compressed path to the SHA-256
+of its decompressed bytes. The matching plain-text views remove trailing blanks
+and surplus final newlines so Git's whitespace check can review the evidence.
+The compression step verified each decompressed digest before normalizing a view.
