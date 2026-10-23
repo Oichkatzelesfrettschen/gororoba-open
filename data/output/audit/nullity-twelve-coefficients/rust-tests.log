@@ -1,0 +1,11 @@
+   Compiling nullity-coefficient-certificate v0.1.0 (/home/eirikr/.codex/worktrees/nullity-twelve-coefficient-certificates/open_gororoba/data/output/audit/nullity-twelve-coefficients)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.52s
+     Running unittests src/main.rs (/tmp/nullity-coefficients/target/debug/deps/nullity_coefficient_certificate-0d9d6671215ea97c)
+
+running 3 tests
+test tests::sparse_matrices_reject_collisions_and_bad_shape ... ok
+test tests::sparse_matrix_preserves_signed_fractions_and_zero_fill ... ok
+test tests::retained_reconstruction_and_coordinate_mutations ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+

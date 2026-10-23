@@ -1,0 +1,13 @@
+data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/README.md: OK
+data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/SHA256SUMS: OK
+data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/curve_proof.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/replay.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/result.json: OK
+data/output/audit/nullity-twelve-coefficients/frozen/docs/notes/nullity_twelve_local_geometry.md: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/cd_core.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/nullity_twelve_curves.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/nullity_twelve_locus.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/parallel.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/rank_charts.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/schur_acceleration.py: OK
+data/output/audit/nullity-twelve-coefficients/frozen/gororoba_quantum/skew_schur_charts.py: OK

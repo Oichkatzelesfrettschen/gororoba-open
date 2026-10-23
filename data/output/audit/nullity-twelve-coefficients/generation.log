@@ -1,0 +1,4 @@
+   Compiling nullity-coefficient-certificate v0.1.0 (/tmp/nullity-coefficients)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running `/tmp/nullity-coefficients/target/debug/nullity-coefficient-certificate data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/result.json proofs/checkpoints/schur-geometry/NullityTwelveCoefficientCertificate.v`
+validated_rows=58 monomials=231 generators=8; Rocq must check the emitted equations

@@ -155,3 +155,21 @@ uses a published sedenion theorem without a retained universal minor.
 Full A15 realization additionally uses derivation flows; B17 realization
 uses the smooth D-locus and scaling. These obligations belong to the larger
 tangent-cone investigation rather than the direct rational-curve certificate.
+
+Coefficient checkpoint progress after reboot
+-------------------------------------------
+IBMQuantum HEAD observed on 2026-10-22 is
+99b94003445c1aac0c9561d0b2db82d2d989316d, with clean tracked status.
+The retained nullity-twelve JSON still hashes to
+b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae.
+Thirteen input files have frozen copies and checked SHA-256 identities.
+The full reconstruction G=T R and its arbitrary-real polynomial interpretation
+are now proved in the source-only NullityTwelveCoefficientCertificate checkpoint.
+Every one of the 58 retained polynomial rows vanishes exactly on A15 union B17.
+That theorem consumes the retained coefficient table. Connecting the table to
+C^T upper(B^T A0^-1 B) for the actual operator remains the active obligation.
+Exact frame decoders and a certified rank-eight minor remain prerequisites for
+operator-level applicability and acceleration completeness.
+The unchanged canonical project at this base hashes to
+d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f.
+The geometry checkpoint's older project identity above remains historical.

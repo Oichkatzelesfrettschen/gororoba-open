@@ -1,0 +1,7 @@
+From OpenGororobaCheckpoint Require Import NullityTwelveCoefficientCertificate.
+Print Assumptions selected_monomial_order.
+Print Assumptions selected_complete_coefficient_reconstruction.
+Print Assumptions selected_projected_reconstruction.
+Print Assumptions selected_generators_recovered.
+Print Assumptions selected_projected_zero_iff_generators.
+Print Assumptions selected_projected_real_zero_set.
