@@ -43,3 +43,7 @@ Ruling: include source-checksum and negative-control invocations because the
 approved evidence contract requires their replay; the change affects recipe
 text only. Both commands have been executed successfully in the task.
 Every exported theorem has a retained assumption query in exported-assumptions.v.
+The final whitespace check identified trailing blanks emitted by Rocq logs.
+Exact raw bytes are retained in deterministic gzip files with verified
+uncompressed SHA-256 identities; readable views remove trailing whitespace.
+The shell now fails immediately on each verification error before committing.

@@ -1,5 +1,5 @@
 
-Rocq < 
+Rocq <
 Rocq < Closed under the global context
 
 Rocq < Closed under the global context
@@ -40,4 +40,4 @@ FunctionalExtensionality.functional_extensionality_dep :
   forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
   (forall x : A, f x = g x) -> f = g
 
-Rocq < 
+Rocq <
