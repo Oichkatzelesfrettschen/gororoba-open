@@ -1,0 +1,45 @@
+Nullity-twelve coefficient and curve proof execution
+==================================================
+Base: 6dcfba694bafa2d5c8a548c34478218ab2809b97.
+Plan: docs/engineering/schur_acceleration_geometry_obligations.txt.
+Specification: user-approved twelve-module/six-extension formalization program.
+
+COMPLETE: verify reboot integration, canonical cleanliness and remote identity.
+COMPLETE: freeze thirteen input files; byte comparisons and SHA-256 checks pass.
+COMPLETE: parser rejects malformed shapes, collisions and altered monomial order.
+COMPLETE: Rocq proves all 58 by 231 coefficient reconstruction equations.
+COMPLETE: arbitrary-real row equivalence and A15 union B17 zero set; kernel passed.
+ACTIVE: reconstruct complement/kernel decoders and the exact Schur expansion.
+PENDING: prove rational curve denominator, center, norm, velocity and rank.
+PENDING: reject coefficient, coordinate, denominator, rank and norm mutations.
+PENDING: admit checkpoint sources and renew current-project kernel receipts.
+PENDING: independent review, exact-head hosted validation and integration.
+
+Pre-flight: finite coefficient reconstruction consumes the exact monomial order;
+the operator correspondence additionally consumes selected center/frame inputs.
+The two correspondences have separate completion gates. A checked sparse table
+does not establish the selected Schur coefficients until the operator bridge
+and frame equations are proved. IBMQuantum remains read-only; QPU submission
+is prohibited. The four global-geometry investigations remain subsequent work.
+
+Evidence: Rust suite passes three tests, including coefficient/omission/order
+mutations; focused baseline and generated Rocq compilation exit zero. The
+independent rocq check closure exits zero. Integer reconstruction and exact
+monomial order are closed under the global context. Real zero-set results
+retain ClassicalDedekindReals.sig_forall_dec and functional extensionality.
+The proof sources remain checkpoints outside canonical theorem admission.
+
+Input observation: IBMQuantum HEAD 99b94003445c1aac0c9561d0b2db82d2d989316d;
+the result JSON retains b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae.
+The observed tracked source status is clean. Source capture executes zero
+producer scripts and submits zero quantum jobs.
+The unchanged Rocq control compiled; coefficient, reconstruction, monomial
+order and generator-sign mutations each failed at their mathematical check.
+The retained tool passes its locked/offline tests, Clippy -D warnings and
+standalone stable-edition rustfmt configuration. Fresh read-only review is active.
+Review disposition: the mathematical/evidence review finds the bounded core
+sound. Its documentation finding identified two omitted replay commands.
+Ruling: include source-checksum and negative-control invocations because the
+approved evidence contract requires their replay; the change affects recipe
+text only. Both commands have been executed successfully in the task.
+Every exported theorem has a retained assumption query in exported-assumptions.v.
