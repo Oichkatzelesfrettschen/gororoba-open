@@ -64,9 +64,8 @@ assumption contexts; targeted numerical diagnostics and final review.
 Completed: full-corpus kernel replay and final small-variance channel
 regression; all350 quantum library tests passed with one pre-existing ignored
 test. Final retained source, object and numerical identities were refreshed.
-In progress: hosted CI and integration.
-Pending: exact-head hosted CI, merge, canonical synchronization and managed
-worktree archival. Existing dirty worktrees remain separately retained.
+Completed: exact-head hosted CI, pull-request merge and canonical synchronization;
+the final integration verification below records identities and remaining gates.
 
 Hosted dependency repair
 ------------------------
@@ -113,5 +112,47 @@ the original local bytes remain retained. The local exact check reports the
 known one-value platform difference after that reference advances. The exact
 hosted gate remains active. ZIP malformed-name preservation and the SOHO archive
 round-trip diagnostics pass.
-Pending: exact-head hosted validation, coordinated merge and canonical sync.
+Completed: exact-head hosted validation, merge and canonical synchronization,
+as verified below on 2026-10-22.
 All 35 physical-validation obligations remain unperformed; QPU jobs remain zero.
+
+Final integration verification
+------------------------------
+Pull request 221 merged on 2026-10-22 at 11:29:49 UTC:
+https://github.com/Oichkatzelesfrettschen/open_gororoba/pull/221
+The tested head is c9397908e2ce3b50aa60b5966853e8ff14003bb5. Hosted run
+39181547886 completed successfully at that exact head:
+https://github.com/Oichkatzelesfrettschen/open_gororoba/actions/runs/39181547886
+The executed checks include Rocq verification, workspace Clippy, governance,
+the exact Casimir comparison, scientific replay and aggregate validation.
+The paper job was skipped. Successful hosted comparison establishes the hosted
+producer boundary; the recorded cross-platform floating-point residual remains.
+
+Canonical main and origin/main resolve to merge commit
+6dcfba694bafa2d5c8a548c34478218ab2809b97 at verification. The canonical checkout
+reports an empty porcelain status with fsmonitor disabled. Read-only SQLite
+queries report 54 kernel_checked and 293 source_only modules. Each of the eight
+vacuum proof modules has kernel_checked status. The main-integration/SHA256SUMS
+manifest verifies every listed retained artifact. The original 318-source replay
+above remains a historical measurement; the reconciled inventory has 347 modules.
+
+The 35-leaf contract records bounded dispositions and next gates, rather than
+universal closure. Finite complex joint-state passivity composes across dimensions
+and includes a normalized nonfactorable state. Classical covariance, quantum
+channel admissibility and physical bath realization retain separate contracts.
+Rocq checks the stated real-arithmetic propositions and their explicit premises;
+floating-point execution and infinite-field limits require separate evidence.
+
+Open source gates include the monograph pages and pair-rate derivation. Open
+model gates include the quantum-energy-teleportation instrument/resource recurrence
+and the cosmological likelihood replay. Worldline continuum polygon bias,
+specimen-bound optical response, apparatus accounting, calibration, physical
+mechanism specificity and utility retain their declared tests. The registered
+binary retains a generic description; a typed metadata setter remains separate.
+Primary-source reconciliation records inspected versions and retrieval dates;
+the integration makes no continuously current literature-coverage claim.
+
+The former vacuum-compositional-proof-contracts worktree is absent from the live
+Git worktree registry. Other worktrees belong to separately retained work.
+The completion-record correction uses an isolated documentation branch and
+requires its own hosted validation and merge before canonical synchronization.
