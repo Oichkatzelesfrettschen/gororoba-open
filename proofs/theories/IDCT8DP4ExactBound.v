@@ -11,7 +11,7 @@
    2^17 = 131072 is exactly representable, and 2^17 + 1 is the first gap.  The
    17-bit significand sets the exact-integer window at 2^17.
 
-   Tactic idiom: nonlinear integer arithmetic (nia), matching the gororoba-open
+   Tactic idiom: nonlinear integer arithmetic (nia), matching the open_gororoba
    house style for bounded-variable polynomial goals.  Self-contained on Stdlib
    ZArith.  ASCII only. *)
 From Stdlib Require Import ZArith Lia.

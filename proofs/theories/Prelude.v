@@ -1,4 +1,4 @@
-(** * Prelude: Shared imports and constants for gororoba-open proofs.
+(** * Prelude: Shared imports and constants for open_gororoba proofs.
 
     Mirrors constants from Rust crate definitions:
     - IMBALANCE_ATTRACTOR = 3/8  (adm_algebra_bridge.rs:59)

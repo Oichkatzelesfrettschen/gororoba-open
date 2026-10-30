@@ -1,4 +1,4 @@
-# Rocq proof build system for gororoba-open formal verification.
+# Rocq proof build system for open_gororoba formal verification.
 #
 # WHY:  Machine-checked proofs elevate claim evidence from "tested at
 #       sample points" to "proven for all valid inputs."
