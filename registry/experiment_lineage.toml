@@ -4689,7 +4689,7 @@ experiment_id = "E-288"
 binary = "external:rocq:9.1.1"
 deterministic = true
 gpu = false
-run_command = "/usr/bin/rocq compile -Q proofs/theories OpenGororoba -Q .cache/moreno-proof-check '' -o .cache/moreno-proof-check/moreno_proof_assumption_query.vo data/output/audit/claim-family-evidence-adjudication/moreno_proof_assumption_query.v"
+run_command = "/usr/bin/rocq compile -Q /home/eirikr/Github/open_gororoba/proofs/theories OpenGororoba -Q .cache/moreno-proof-check '' -o .cache/moreno-proof-check/moreno_proof_assumption_query.vo data/output/audit/claim-family-evidence-adjudication/moreno_proof_assumption_query.v"
 run_command_sha256 = "4d4b25c9009c007413e7f167b10746d6ea18e4c0bfc584ba47394b547a45bb09"
 claim_refs = ["C-1721"]
 input_path_refs = ["data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml", "data/output/audit/claim-family-evidence-adjudication/moreno-zero-divisors-source.tex", "data/output/audit/claim-family-evidence-adjudication/moreno_proof_assumption_query.v", "proofs/theories/C1538_MorZDSymmetry.v", "proofs/theories/C1539_MorSkewSymm.v", "proofs/theories/MorenoSedenionInstance.v"]
@@ -4698,7 +4698,7 @@ dataset_refs = []
 dataset_label_refs = []
 external_source_refs = []
 truth_surface_consumption = []
-replay_steps = ["Confirm required input paths are available.", "/usr/bin/rocq compile -Q proofs/theories OpenGororoba -Q .cache/moreno-proof-check '' -o .cache/moreno-proof-check/moreno_proof_assumption_query.vo data/output/audit/claim-family-evidence-adjudication/moreno_proof_assumption_query.v", "Verify expected outputs or stdout artifacts are produced."]
+replay_steps = ["Confirm required input paths are available.", "/usr/bin/rocq compile -Q /home/eirikr/Github/open_gororoba/proofs/theories OpenGororoba -Q .cache/moreno-proof-check '' -o .cache/moreno-proof-check/moreno_proof_assumption_query.vo data/output/audit/claim-family-evidence-adjudication/moreno_proof_assumption_query.v", "Verify expected outputs or stdout artifacts are produced."]
 acceptance_criteria = ["Claim references resolve in registry/claims.toml.", "Execution target is registered in registry/binaries.toml or the workspace bench catalog.", "Reproducibility class is explicitly declared."]
 
 [[lineage]]
