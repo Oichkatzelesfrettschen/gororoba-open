@@ -1,0 +1,55 @@
+[transition]
+transition_timestamp = "2026-10-30T23:04:12Z"
+transition_key = "a5-cayley-dickson-zero-divisor-strata"
+source_claim_id = "C-106"
+expected_prior_status = "Verified"
+experiment_verdict = "SurvivesChallenge"
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+exercised_falsifier = "Recompute the nullity of L_y for the 32-dimensional Cayley-Dickson algebra on every rank stratum of C_z and compare with 28 - 2 rank C_z; a stratum of nullity other than 4, 8, 12 or 16, or a nonzero divisor of nullity 4 outside the doubly pure locus, refutes the refinement."
+proposed_claim_status = "Verified"
+rationale = "C-106 records one family of dimension-32 zero divisors with kernel dimension 4. The gororoba-quantum A5 program classifies every dimension-32 zero divisor by nullity, gives closed equations, regularity and kernel-bundle classes for each stratum, and leaves the global attachments open; the successors register those results separately from the original single-family statement."
+unresolved_assumptions = ["The doubling convention is cd_core.cd_sign of gororoba-quantum: (a, b)(c, d) = (ac - conj(d) b, da + b conj(c)).", "Strata covering and regularity rest on Singular 4.4.1 computations over Q that are retained replays outside hosted CI; none of the results is formalized in Rocq."]
+actor = "claude-code"
+reason = "Register the gororoba-quantum A5 strata, regularity and kernel-bundle results and the open attachment problem as successors of C-106"
+expected_source_state_sha256 = "249f948fe44fb31d7fc2219a2348c6a9c9169ee679508ae5b09c31e9ead3337e"
+expected_claim_id_max = 1775
+
+[[successor]]
+proposal_key = "a5-zero-divisor-strata-classification"
+statement = "In the 32-dimensional Cayley-Dickson algebra A5, the zero divisors are the doubly pure y = (p, q) with Q G = 0 for z = p + i q, a union of two absolutely irreducible hypersurfaces of C^15 of complex dimension 14. The real nullity of L_y equals 28 - 2 rank_C C_z, so the nullities 4, 8, 12, 16 are the rank 12, 10, 8, 6 loci of C_z. The rank strata have closed equations R_8 = W8 u E8-bar, R_12 = V u B9, R_16 = N_+ u N_-; E8-bar is irreducible of complex dimension 11 with projective degree 24. The unit strata of nullity 4 and 12 are connected and those of nullity 8 and 16 have two connected components."
+initial_status = "Verified"
+source_or_implementation_boundary = "gororoba-quantum claims a5-zero-divisor-strata and a5-rank-strata-equations at the commit and file digests of data/output/audit/a5-cayley-dickson-strata/source-binding.toml; written proofs, Groebner membership and radical certificates, and an independent Singular re-derivation over Q."
+required_falsifier = "A point of a stated stratum whose L_y nullity differs from 28 - 2 rank C_z, a principal Pfaffian of order 12, 10 or 8 outside the ideal of a piece of its stratum, or a third irreducible component of any rank stratum."
+where_stated = ["data/output/audit/a5-cayley-dickson-strata/source-binding.toml"]
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+predecessor_relation_kind = "refines"
+
+[[successor]]
+proposal_key = "a5-strata-whitney-regularity"
+statement = "Under H = G_2(C) x SO(2, C) x C^*, the rank-8 locus of A5 minus the origin is the disjoint union of twelve H-orbits: five of nullity 8 (W8, E8-bar, Iso, X_+, X_-) and seven of nullity at least 12 (B9, V, VB, V^a_+, V^a_-, N_+, N_-). Sing V = Sing W8 = N_+ u N_-, Sing Iso = VB, Sing X_+- = V^a_+-, Sing E8-bar = V u B9. These orbits, the origin, three nullity-4 strata and the complement form a Whitney stratification of C^15, and the normal link of V u B9 along VB at e_1 + e_18 is S^1 disjoint union S^3."
+initial_status = "Verified"
+source_or_implementation_boundary = "gororoba-quantum claim a5-strata-regularity at the commit and file digests of data/output/audit/a5-cayley-dickson-strata/source-binding.toml; orbit certificates, closure dimensions and transverse germs decided over Q in Singular 4.4.1 with an independent cd_core re-derivation."
+required_falsifier = "A thirteenth H-orbit in the rank-8 locus, a singular point of a piece outside its stated singular locus, or a transverse germ whose invariants differ from the retained germ table."
+where_stated = ["data/output/audit/a5-cayley-dickson-strata/source-binding.toml"]
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+predecessor_relation_kind = "refines"
+
+[[successor]]
+proposal_key = "a5-kernel-bundle-classes"
+statement = "On the smooth A5 zero-divisor strata of nullity 8, 12 and 16, ker L_y is a complex vector bundle under J = L_(e_16). All five nullity-12 complex kernel bundles are trivial. On N_+- the complex bundle is C^2 + 3 xi over V_2(R^7), and on E8-bar and X_+- it is C^2 + xi, each carrying the nonzero class of reduced K^0(V_2(R^7)) = Z/2; on W8 it is 2 xi with reduced class 0 and on Iso it is C^4. Every Chern, Stiefel-Whitney and Pontryagin class of these bundles vanishes, so the order-two K-theory class is invisible to characteristic classes."
+initial_status = "Verified"
+source_or_implementation_boundary = "gororoba-quantum claims a5-kernel-bundles and a5-kernel-bundles-nullity8 at the commit and file digests of data/output/audit/a5-cayley-dickson-strata/source-binding.toml; written proofs with byte-for-byte replay gates, mutation self-tests and an independent cd_core verifier."
+required_falsifier = "A nonzero Chern, Stiefel-Whitney or Pontryagin class on a stated stratum, a nontrivial nullity-12 complex kernel bundle, or a vanishing reduced K^0 class on N_+-, E8-bar or X_+-."
+where_stated = ["data/output/audit/a5-cayley-dickson-strata/source-binding.toml"]
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+predecessor_relation_kind = "refines"
+
+[[successor]]
+proposal_key = "a5-global-topology-attachments"
+statement = "Open research program: a complete classification of the A5 two-sided rank strata through their attaching data. The limit of the kernel plane along passages from nullity 8 to nullity 12 and 16 is described by the special fiber of the Rees algebra of the Pfaffian kernel-coordinate ideal. For the passage E8-bar to VB the quadric approximation of this fiber has components of degree 3 and 4; the degree-4 component is reached by formal arcs and the degree-3 component is undecided. Nullity-4 kernel bundles, link-to-limit maps and integral invariants remain open."
+initial_status = "Provisional"
+source_or_implementation_boundary = "gororoba-quantum claim dimension32-global-topology (status open) and docs/notes/topics/a5-exceptional-fiber-findings.md at the commit and file digests of data/output/audit/a5-cayley-dickson-strata/source-binding.toml; fiber computations are over finite fields F_32009 and F_32029 without a characteristic-zero certificate."
+required_falsifier = "A formal arc in E8-bar whose leading kernel-coordinate vector lies on the degree-3 component and off the degree-4 component decides that component into the fiber; an exact higher-degree relation vanishing on the degree-4 component and not on the degree-3 component excludes it."
+where_stated = ["data/output/audit/a5-cayley-dickson-strata/source-binding.toml"]
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+predecessor_relation_kind = "refines"
