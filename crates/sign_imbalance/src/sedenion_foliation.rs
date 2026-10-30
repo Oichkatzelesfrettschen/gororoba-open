@@ -18,7 +18,7 @@
 //! applied to the 3+1 foliation.
 //!
 //! # References
-//! - This module (open_gororoba non-canonical exploration)
+//! - This module (gororoba-open non-canonical exploration)
 //! - Arnowitt, Deser, Misner (1962): ADM formalism
 //! - de Marrais (2000): Sedenion zero-divisor structure
 

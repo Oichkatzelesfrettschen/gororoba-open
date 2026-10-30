@@ -119,10 +119,10 @@ All 35 physical-validation obligations remain unperformed; QPU jobs remain zero.
 Final integration verification
 ------------------------------
 Pull request 221 merged on 2026-10-22 at 11:29:49 UTC:
-https://github.com/Oichkatzelesfrettschen/open_gororoba/pull/221
+https://github.com/Oichkatzelesfrettschen/gororoba-open/pull/221
 The tested head is c9397908e2ce3b50aa60b5966853e8ff14003bb5. Hosted run
 39181547886 completed successfully at that exact head:
-https://github.com/Oichkatzelesfrettschen/open_gororoba/actions/runs/39181547886
+https://github.com/Oichkatzelesfrettschen/gororoba-open/actions/runs/39181547886
 The executed checks include Rocq verification, workspace Clippy, governance,
 the exact Casimir comparison, scientific replay and aggregate validation.
 The paper job was skipped. Successful hosted comparison establishes the hosted

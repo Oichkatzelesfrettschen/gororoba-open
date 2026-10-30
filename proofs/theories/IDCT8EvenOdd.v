@@ -8,7 +8,7 @@
    dense right half (it is the defining cosine symmetry cos((2(7-n)+1)k pi/16) =
    (-1)^k cos((2n+1)k pi/16)).
 
-   Tactic idiom matches the open_gororoba house style (destruct/unfold + ring,
+   Tactic idiom matches the gororoba-open house style (destruct/unfold + ring,
    cf. CDFusedBilinear.quat_mul_fused_eq). Self-contained on Stdlib Reals. *)
 From Stdlib Require Import Reals.
 Open Scope R_scope.

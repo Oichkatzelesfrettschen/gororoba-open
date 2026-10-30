@@ -25,7 +25,7 @@
 //!    intra-tile pattern is.
 //! 5. Emits a structured JSON report to stdout.
 //!
-//! # Why this analyzer lives in open_gororoba
+//! # Why this analyzer lives in gororoba-open
 //!
 //! The XOR-bucket structure is the foundational primitive of CD
 //! zero-divisor theory (de Marrais 2000, Reggiani 2024) and is

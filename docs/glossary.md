@@ -1,4 +1,4 @@
-# open_gororoba glossary
+# gororoba-open glossary
 
 Authoritative definitions of acronyms and project-specific terms used in source
 code, claims, experiments, and reports. Edit this file directly; it is not

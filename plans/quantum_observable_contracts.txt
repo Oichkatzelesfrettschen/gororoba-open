@@ -8,7 +8,7 @@ quantum acquisition and service submission remain outside its execution scope.
 
 Source boundaries
 -----------------
-open_gororoba base: 4706d40eafa524957a9b20384a6a7346fe8536a1.
+gororoba-open base: 4706d40eafa524957a9b20384a6a7346fe8536a1.
 gororoba-quantum base: a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
 Historical receipts retain their original version and source identities.
 

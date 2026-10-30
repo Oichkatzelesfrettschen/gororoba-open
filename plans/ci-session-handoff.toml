@@ -5,14 +5,14 @@ merge_boundary = "The user explicitly ended CI repair and requested immediate me
 repository_visibility = "public"
 automatic_local_push_gates = "disabled; manual validation remains available"
 completed = ["In-repository fwht and retained cargo-geiger packages with provenance", "Scoped hosted CI, native dependencies, failure-retaining caches and workflow repairs", "Hosted papers, both benchmark architectures, proof compilation/admission/extraction, survey tests and full survey pass at the publication head", "Local governance, schema, Rust integrity and focused regression checks pass"]
-full_ci_run = "https://github.com/Oichkatzelesfrettschen/open_gororoba/actions/runs/34081076959"
+full_ci_run = "https://github.com/Oichkatzelesfrettschen/gororoba-open/actions/runs/34081076959"
 full_ci_status_at_cutoff = "running in Rust validation"
 local_full_workspace_run = "Stopped on user request while compiling test executables; test execution success is unestablished."
-recovery_directory = "/home/eirikr/Github/open_gororoba/.cache/ci-session-handoff"
+recovery_directory = ".cache/ci-session-handoff"
 recovery_patch = "unmerged-followup.patch"
 recovery_vendor_archive = "unmerged-gix-features.tar"
 recovery_checksums = "SHA256SUMS"
-logs_directory = "/home/eirikr/Github/open_gororoba/.cache/ci-session-handoff/logs"
+logs_directory = ".cache/ci-session-handoff/logs"
 followup_policy = "Resume only in a separately authorized session; inspect the recovery patch before applying it. The saved manifest/lockfile patch is intentionally excluded from the merge because it is inconsistent and unvalidated."
 residuals = [
   "Finish full hosted Rust tests and documentation validation; diagnose actual failures without assuming success.",
@@ -22,6 +22,6 @@ residuals = [
   "Review gix-date 0.9.3 advisory applicability against absent TimeBuf implementation; document bounded dispositions for unmaintained bitmaps, im-rc and sized-chunks.",
   "Clarify cargo-geiger all-targets as target-triple graph matching, not compilation of every Cargo target kind; saved help clarification changes no behavior.",
 ]
-historical_worktrees = ["/home/eirikr/worktrees/open_gororoba/claim-evidence-adjudication", "/home/eirikr/worktrees/open_gororoba/themis-frozen-model-source"]
+historical_worktrees = ["claim-evidence-adjudication", "themis-frozen-model-source"]
 historical_preservation_boundary = "Retain both worktrees. Recorded HEAD/status observations identify preexisting changes; full tracked-file hash preservation was not measured."
 host_effect = "An earlier unpinned diagnostic invocation caused rustup to install 1.83.0 components and update stable to 1.98.1. Prior versions/components were not inventoried; toolchains were retained. Repository pin remains 1.97.0."

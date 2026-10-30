@@ -16,7 +16,7 @@ title = "Activate MCP tool discovery and relevant tool surfaces"
 [[task]]
 id = "RM-002"
 status = "done"
-title = "Load open_gororoba workflow skills"
+title = "Load gororoba-open workflow skills"
 
 [[task]]
 id = "RM-003"

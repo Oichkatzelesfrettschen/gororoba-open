@@ -411,6 +411,24 @@ fn best_frame<'a>(
         .or_else(|| frames.first())
 }
 
+/// Workspace root with a trailing slash; the crate manifest sits at
+/// `crates/gororoba_cli_algebra`, two levels below it.
+fn repo_root() -> &'static str {
+    static ROOT: std::sync::OnceLock<String> = std::sync::OnceLock::new();
+    ROOT.get_or_init(|| {
+        let manifest = Path::new(env!("CARGO_MANIFEST_DIR"));
+        let root = manifest.ancestors().nth(2).unwrap_or(manifest);
+        format!("{}/", root.display())
+    })
+}
+
+/// Repo-relative remainder of a profiled source path that names a file under
+/// this checkout.
+fn repo_relative(file: &str) -> Option<&str> {
+    let root = repo_root();
+    file.find(root).map(|i| &file[i + root.len()..])
+}
+
 fn frame_priority(frame: &SidecarFrame, sidecar: &SamplySidecar) -> u8 {
     let file = sidecar
         .string_table
@@ -423,7 +441,7 @@ fn frame_priority(frame: &SidecarFrame, sidecar: &SamplySidecar) -> u8 {
         .map(String::as_str)
         .unwrap_or("");
 
-    if file.contains("/home/eirikr/Github/open_gororoba/") {
+    if repo_relative(file).is_some() {
         5
     } else if file.contains("/.cache/cargo-home/registry/src/") {
         4
@@ -666,12 +684,12 @@ fn classify_hotspot(
         return HotspotCategory::Libc;
     }
 
-    if file.contains("/home/eirikr/Github/open_gororoba/crates/gororoba_cli_algebra/src/bin/jacobi_backend_sweep.rs")
-    {
+    let rel = repo_relative(file);
+    if rel == Some("crates/gororoba_cli_algebra/src/bin/jacobi_backend_sweep.rs") {
         return HotspotCategory::RepoSupport;
     }
 
-    if file.contains("/home/eirikr/Github/open_gororoba/.cache/cargo-home/registry/src/") {
+    if rel.is_some_and(|r| r.starts_with(".cache/cargo-home/registry/src/")) {
         return HotspotCategory::Dependency;
     }
 
@@ -679,7 +697,7 @@ fn classify_hotspot(
         return HotspotCategory::BackendCore;
     }
 
-    if file.contains("/home/eirikr/Github/open_gororoba/") {
+    if rel.is_some() {
         return HotspotCategory::RepoShared;
     }
 
@@ -726,11 +744,12 @@ mod tests {
 
     #[test]
     fn best_frame_prefers_repo_local_frame_over_core_inline_frame() {
+        let repo_file = format!("{}crates/algebra_analysis/src/dd_jacobi.rs", repo_root());
         let sidecar = test_sidecar(&[
             "core_fn",
             "/rust/library/core/src/iter/range.rs",
             "repo_fn",
-            "/home/eirikr/Github/open_gororoba/crates/algebra_analysis/src/dd_jacobi.rs",
+            &repo_file,
         ]);
         let frames = vec![
             SidecarFrame {
@@ -768,7 +787,10 @@ mod tests {
             BackendKind::ReferenceF64,
             "jacobi-backend-sweep",
             "<nalgebra::linalg::symmetric_eigen::SymmetricEigen<f64, _>>::do_decompose",
-            "/home/eirikr/Github/open_gororoba/.cache/cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nalgebra-0.33.2/src/linalg/symmetric_eigen.rs",
+            &format!(
+                "{}.cache/cargo-home/registry/src/index.crates.io-1949cf8c6b5b557f/nalgebra-0.33.2/src/linalg/symmetric_eigen.rs",
+                repo_root()
+            ),
         );
         assert_eq!(category, HotspotCategory::Dependency);
     }

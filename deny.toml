@@ -1,4 +1,4 @@
-# cargo-deny policy for open_gororoba.
+# cargo-deny policy for gororoba-open.
 # Keep this file compact and explicit. Remove ignores as upstream fixes land.
 
 [advisories]

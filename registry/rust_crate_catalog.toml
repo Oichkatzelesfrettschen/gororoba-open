@@ -13,7 +13,7 @@
 schema = "gororoba.rust.crate_catalog.v1"
 
 [meta]
-repo = "open_gororoba"
+repo = "gororoba-open"
 source_of_truth = "registry/rust_crate_catalog.toml"
 
 # ---- Algebra ----

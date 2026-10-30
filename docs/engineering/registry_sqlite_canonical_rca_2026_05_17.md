@@ -140,6 +140,6 @@ surface and the pre-commit linter framework.
 - PR #48 commit: `7fff56db`
   (`fix(registry): regenerate schema_signatures.toml so binary row_count matches export`).
 - PR #50 commit: `b9a3db70`
-  (`docs: expand open_gororoba agent guide`) -- carries the
+  (`docs: expand gororoba-open agent guide`) -- carries the
   imported AGENTS.md hygiene policy that surfaces the SQLite
   workflow as a top-line operating rule.

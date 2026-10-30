@@ -6,7 +6,7 @@ evidence_class: active-architecture
 
 # Registry canonical architecture: a four-layer walkthrough
 
-This document is a user-facing walkthrough of how the open_gororoba
+This document is a user-facing walkthrough of how the gororoba-open
 registry layer works in practice as of 2026-08-01. It pairs
 with `sqlite_canonical_write_plane_design.md` (which captures the
 design rationale + stack pinning) and explains the lifecycle of a

@@ -1,6 +1,6 @@
 //! Complementary compute stack: role assignment for each crate.
 //!
-//! The open_gororoba compute stack is a strictly non-overlapping ensemble:
+//! The gororoba-open compute stack is a strictly non-overlapping ensemble:
 //!
 //! | Crate           | Role                              | Used Where                    |
 //! |-----------------|-----------------------------------|-------------------------------|

@@ -1,4 +1,4 @@
-open_gororoba runtime environment inventory
+gororoba-open runtime environment inventory
 ===========================================
 
 Purpose

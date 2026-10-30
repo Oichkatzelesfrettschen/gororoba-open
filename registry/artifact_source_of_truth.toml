@@ -39462,7 +39462,7 @@ notes = ["Inbox index for open claims pending dedicated source dossiers."]
 [[artifact]]
 id = "ASOT-1099"
 key = "title:open_gororoba"
-title = "open_gororoba"
+title = "gororoba-open"
 citation = "open_gororoba"
 source_kinds = ["toml_source"]
 source_refs = ["registry/book_docs.toml::document/18::BOOK-014"]

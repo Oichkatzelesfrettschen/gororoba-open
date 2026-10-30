@@ -507,7 +507,7 @@ path_refs = ["data/papers/fixture.pdf"]
             r#"
 [[document]]
 id = "BOOK-014"
-title = "open_gororoba"
+title = "gororoba-open"
 source_markdown = "docs/book/src/introduction.md"
 body_markdown = "The introduction cites the paper corpus."
 path_refs = ["papers/MANIFEST.toml", "registry/*.toml"]

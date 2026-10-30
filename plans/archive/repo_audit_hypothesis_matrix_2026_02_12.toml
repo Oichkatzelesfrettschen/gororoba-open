@@ -2,7 +2,7 @@
 
 [meta]
 updated = "2026-02-12"
-scope = "open_gororoba core repo + docs/registry/build gates + new app lane"
+scope = "gororoba-open core repo + docs/registry/build gates + new app lane"
 status = "active"
 
 [[hypothesis]]

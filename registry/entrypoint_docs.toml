@@ -32,10 +32,10 @@ Apply Gemini-specific notes only as additive overlays to shared policy.
 
 [[document]]
 path = "README.md"
-title = "open_gororoba: Rust-First Evidence-First Scientific Workspace"
-body_markdown = '''# open_gororoba
+title = "gororoba-open: Rust-First Evidence-First Scientific Workspace"
+body_markdown = '''# gororoba-open
 
-`open_gororoba` is a large Rust-first scientific research workspace, not a
+`gororoba-open` is a large Rust-first scientific research workspace, not a
 single-purpose solver crate.
 
 The repository currently combines four major operating layers:

@@ -65,7 +65,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Generate index.html
     let mut index_content = String::from(
-        "<!DOCTYPE html>\n<html><head><title>open_gororoba Proof Documentation</title>\n\
+        "<!DOCTYPE html>\n<html><head><title>gororoba-open Proof Documentation</title>\n\
         <style>body{font-family:monospace;max-width:800px;margin:2em auto}\n\
         a{color:#2200cc}h2{border-bottom:1px solid #ccc;padding-bottom:0.3em}</style>\n\
         </head><body>\n<h1>open_gororoba: Formal Proofs</h1>\n<h2>Theories</h2><ul>\n",

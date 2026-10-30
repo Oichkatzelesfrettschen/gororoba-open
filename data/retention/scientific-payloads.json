@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "archive": {
-    "url": "https://github.com/Oichkatzelesfrettschen/open_gororoba/releases/download/scientific-payload-archive/scientific-payloads-7a5e2494d6f5afee30ea62641bd474929d365d52cdec26426f70e1e3f9766459.tar.zst",
+    "url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/releases/download/scientific-payload-archive/scientific-payloads-7a5e2494d6f5afee30ea62641bd474929d365d52cdec26426f70e1e3f9766459.tar.zst",
     "sha256": "7a5e2494d6f5afee30ea62641bd474929d365d52cdec26426f70e1e3f9766459",
     "byte_length": 1836011796,
     "format": "tar-zstd"

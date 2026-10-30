@@ -1,7 +1,7 @@
 [package]
 name = "lbm_3d_cuda"
 version = "0.1.0"
-authors = ["open_gororoba contributors"]
+authors = ["gororoba-open contributors"]
 edition = { workspace = true }
 license = "MIT OR Apache-2.0"
 description = "GPU-accelerated Lattice Boltzmann Method (D3Q19) with CUDA"

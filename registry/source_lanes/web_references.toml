@@ -13891,7 +13891,7 @@ source_refs = ["XS-016"]
 [[artifact_ref]]
 id = "ASOT-1099"
 key = "title:open_gororoba"
-title = "open_gororoba"
+title = "gororoba-open"
 status = "citation_only_no_link"
 sha256 = ""
 retrieval_command = ""

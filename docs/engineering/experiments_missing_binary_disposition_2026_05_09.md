@@ -7,7 +7,7 @@ three cohorts, and recommends a disposition for each.
 It is a read-only audit; closing each experiment's registration will require
 the gororoba-db Claim/Experiment mutator extension (see
 `docs/engineering/sqlite_canonical_write_plane_design.md`) and is therefore
-gated on Phase B of the open_gororoba debt-resolution program.
+gated on Phase B of the gororoba-open debt-resolution program.
 
 ## Source
 

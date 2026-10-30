@@ -5050,7 +5050,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0361"
 claim_id = "C-1321"
-statement = "YSU-engine __ldg() cache-through loads (LDG.E.CONSTANT) are a per-load hint, not L2 cache management. VALIDATED: open_gororoba already uses __ldg() systematically on all read-only GPU buffers (f_in, tau, force) across kernels_soa.cu, kernels_dark_halo.cu, kernels_box_counting.cu. This is OPTIMAL -- no missed __ldg() opportunities detected."
+statement = "YSU-engine __ldg() cache-through loads (LDG.E.CONSTANT) are a per-load hint, not L2 cache management. VALIDATED: gororoba-open already uses __ldg() systematically on all read-only GPU buffers (f_in, tau, force) across kernels_soa.cu, kernels_dark_halo.cu, kernels_box_counting.cu. This is OPTIMAL -- no missed __ldg() opportunities detected."
 status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
@@ -5064,7 +5064,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0362"
 claim_id = "C-1322"
-statement = "YSU-engine software pipelining (doubling outstanding L2 requests from 8 to 16 per iteration in hash grid) is a latency-hiding strategy. ASSESSED for D3Q19: open_gororoba already achieves equivalent via (1) full loop unrolling (#pragma unroll on 19 directions), (2) Horner FMA equilibrium for ILP, (3) float2 vectorization (Phase 8). Ada SM 8.9 hardware scheduling with 4 FMAs/clock handles the 19 independent FMA chains without software pipelining."
+statement = "YSU-engine software pipelining (doubling outstanding L2 requests from 8 to 16 per iteration in hash grid) is a latency-hiding strategy. ASSESSED for D3Q19: gororoba-open already achieves equivalent via (1) full loop unrolling (#pragma unroll on 19 directions), (2) Horner FMA equilibrium for ILP, (3) float2 vectorization (Phase 8). Ada SM 8.9 hardware scheduling with 4 FMAs/clock handles the 19 independent FMA chains without software pipelining."
 status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
@@ -5078,7 +5078,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0363"
 claim_id = "C-1323"
-statement = "YSU-engine L2 bandwidth bottleneck 'identified but unaddressed' for hash grid: FALSIFIED by open_gororoba's cuCtxSetLimit + CU_ACCESS_PROPERTY_PERSISTING implementation. open_gororoba actively manages L2 via budget reservation (16 MB) and access policy windows. Additionally, shared-memory tiling (45.6 KB, 8x8x4 tiles) reduces L2 misses by replacing scattered global reads with 20-cycle LDS reads."
+statement = "YSU-engine L2 bandwidth bottleneck 'identified but unaddressed' for hash grid: FALSIFIED by gororoba-open's cuCtxSetLimit + CU_ACCESS_PROPERTY_PERSISTING implementation. gororoba-open actively manages L2 via budget reservation (16 MB) and access policy windows. Additionally, shared-memory tiling (45.6 KB, 8x8x4 tiles) reduces L2 misses by replacing scattered global reads with 20-cycle LDS reads."
 status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
@@ -5092,7 +5092,7 @@ cross_refs = []
 [[atom]]
 id = "CLA-0364"
 claim_id = "C-1324"
-statement = "YSU-engine ld.global.ca (cache-all) hints 'mentioned as future work, never implemented': ASSESSED for open_gororoba. ld.global.ca is NOT needed because (1) __ldg() already generates cache-through loads for read-only data, and (2) L2 access policy windows provide stronger guarantees (PERSISTING vs cache hints). Cache-all would only help for write-after-read patterns, which D3Q19 LBM does not have (separate f_in/f_out or A-A parity swap)."
+statement = "YSU-engine ld.global.ca (cache-all) hints 'mentioned as future work, never implemented': ASSESSED for gororoba-open. ld.global.ca is NOT needed because (1) __ldg() already generates cache-through loads for read-only data, and (2) L2 access policy windows provide stronger guarantees (PERSISTING vs cache hints). Cache-all would only help for write-after-read patterns, which D3Q19 LBM does not have (separate f_in/f_out or A-A parity swap)."
 status_token = "PROVISIONAL"
 status_detail = "Provisional"
 hypothesis_class = "research_claim"
@@ -9096,7 +9096,7 @@ cross_refs = ["E-233"]
 [[atom]]
 id = "CLA-0650"
 claim_id = "C-1626"
-statement = "PMD-equivalent static analysis gap audit of the 41-crate open_gororoba workspace (2026-04-15) reveals: (1) cargo-machete finds unused dependencies in 13 crates including ort (ONNX Runtime) in gororoba_cli_physics, ash+cubecl-core (GPU stubs) in cd_kernel, and pulp appearing unused in 4 crates (cd_kernel, data_core, materials_core, lbm_3d); (2) pmd-cpd with 80-token minimum detects 1596 total duplicate blocks, but only 3 cross-crate duplicates at 100+ tokens (LoTSS parsing in data_core/gororoba_cli_data/gororoba_cli_physics, turboquant cosine boilerplate in 7 binaries); (3) clippy cognitive_complexity lint (threshold 25) finds 7 violations across the workspace -- worst is source_provenance.rs:1788 at 37/25, followed by lbm_vulkan/compute.rs:2231 at 33/25 and flavor_lifts/basis.rs:214 at 31/25; (4) cargo miri on cd_kernel: 15 AVX2 tests pass clean, 12 predicates tests pass clean, test_high_dim_workspace fails due to rayon/crossbeam-epoch stacked borrows incompatibility with miri (not a cd_kernel UB). rust-code-analysis-cli cannot be installed due to tree-sitter ABI break in nightly-2026-04-05."
+statement = "PMD-equivalent static analysis gap audit of the 41-crate gororoba-open workspace (2026-04-15) reveals: (1) cargo-machete finds unused dependencies in 13 crates including ort (ONNX Runtime) in gororoba_cli_physics, ash+cubecl-core (GPU stubs) in cd_kernel, and pulp appearing unused in 4 crates (cd_kernel, data_core, materials_core, lbm_3d); (2) pmd-cpd with 80-token minimum detects 1596 total duplicate blocks, but only 3 cross-crate duplicates at 100+ tokens (LoTSS parsing in data_core/gororoba_cli_data/gororoba_cli_physics, turboquant cosine boilerplate in 7 binaries); (3) clippy cognitive_complexity lint (threshold 25) finds 7 violations across the workspace -- worst is source_provenance.rs:1788 at 37/25, followed by lbm_vulkan/compute.rs:2231 at 33/25 and flavor_lifts/basis.rs:214 at 31/25; (4) cargo miri on cd_kernel: 15 AVX2 tests pass clean, 12 predicates tests pass clean, test_high_dim_workspace fails due to rayon/crossbeam-epoch stacked borrows incompatibility with miri (not a cd_kernel UB). rust-code-analysis-cli cannot be installed due to tree-sitter ABI break in nightly-2026-04-05."
 status_token = "ESTABLISHED"
 status_detail = "Established"
 hypothesis_class = "research_claim"

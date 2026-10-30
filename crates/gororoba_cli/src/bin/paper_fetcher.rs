@@ -3,7 +3,7 @@
 
 use std::{fs, path::Path, thread::sleep, time::Duration};
 
-const UA: &str = "gororoba-fetch/0.1 (research; https://github.com/eirikr/open_gororoba)";
+const UA: &str = "gororoba-fetch/0.1 (research; https://github.com/Oichkatzelesfrettschen/gororoba-open)";
 
 fn fetch(url: &str, slug: &str) -> bool {
     let filename = format!("{}.pdf", slug);
