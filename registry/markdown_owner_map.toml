@@ -803,6 +803,60 @@ removal_status = "locked"
 removal_reason = "Preserve upstream documentation with the checksum-verified vendored dependency."
 
 [[owner]]
+path = "vendor/zarrs-0.23.14/README.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation with the checksum-verified vendored dependency."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/ecosystem.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/chunk_grids.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/chunk_key_encodings.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/codecs.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/data_types.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/storage_transformers.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/doc/status/stores.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Preserve upstream documentation that vendored zarrs source includes at compile time."
+
+[[owner]]
+path = "vendor/zarrs-0.23.14/VENDORED.md"
+owner_group = "third_party"
+removal_status = "locked"
+removal_reason = "Record the upstream version, applied upstream commit and removal condition of the vendored zarrs patch."
+
+[[owner]]
 path = "docs/engineering/staples-retained-result-audit.md"
 owner_group = "project"
 removal_status = "active"
