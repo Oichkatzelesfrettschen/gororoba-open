@@ -1,4 +1,4 @@
-//! Shared CUDA helpers for the open_gororoba workspace.
+//! Shared CUDA helpers for the gororoba-open workspace.
 //!
 //! WHY: 13 crates currently depend on cudarc 0.19 directly. 48+ sites
 //! independently spin up a `CudaContext::new(0)`, 35+ sites repeat the

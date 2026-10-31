@@ -9,7 +9,7 @@
 
 We propose an auxiliary null-stratified, defect-aware hypercomplex formalism
 for boundary excavation in multichannel heliospheric and magnetospheric
-measurements. In open_gororoba, the formalism is realized through
+measurements. In gororoba-open, the formalism is realized through
 32-dimensional Takens embeddings of lagged magnetic-field observables and
 evaluated via Cayley-Dickson associator diagnostics. The construction is not
 intended to replace standard plasma-physics observables, mission catalogs, or

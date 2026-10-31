@@ -1,4 +1,4 @@
-# GPU Compute Roadmap -- open_gororoba
+# GPU Compute Roadmap -- gororoba-open
 
 This document describes the current GPU backend coverage across the workspace,
 the recommended build order for closing parity gaps, and the strategy for

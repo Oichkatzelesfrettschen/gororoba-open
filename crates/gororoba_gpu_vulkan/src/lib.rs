@@ -1,4 +1,4 @@
-//! Shared Vulkan helpers for the open_gororoba workspace.
+//! Shared Vulkan helpers for the gororoba-open workspace.
 //!
 //! WHY: Prior to this crate, Vulkan init boilerplate was duplicated across
 //! 10+ sites (lbm_vulkan/src/lib.rs, cd_kernel/turboquant/vulkan/quantizer.rs,

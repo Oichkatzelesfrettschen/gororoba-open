@@ -9,7 +9,7 @@ e_i e_j = sigma(i,j) e_(i XOR j). The highest bit is the last doubling.
 Exact rational certificates describe the same real algebra after scalar
 extension. Floating-point proximity is a separate diagnostic domain.
 
-The source investigation used open_gororoba commit
+The source investigation used gororoba-open commit
 127816214c3f96cc1777bd4bd9ba1b286ccc5917 and local IBMQuantum commit
 b9b7d488061f48e790d97cc512c74d8dd5363e29. The IBMQuantum files were read as
 mathematical and executable references; their Python implementation is not a

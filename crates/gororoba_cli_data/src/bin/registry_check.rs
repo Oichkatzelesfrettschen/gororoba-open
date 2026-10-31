@@ -25,7 +25,7 @@ use gororoba_cli_data::execution_targets::{
 use provenance_store::{ControlPlaneCompatKind, ProvenanceStore};
 use walkdir::WalkDir;
 
-/// Validate the open_gororoba TOML registry for consistency.
+/// Validate the gororoba-open TOML registry for consistency.
 #[derive(Parser)]
 #[command(name = "registry-check")]
 struct Args {

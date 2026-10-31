@@ -1,5 +1,5 @@
 ---
-description: Bounded inventory and ownership boundary for ignored Markdown artifacts in the open_gororoba checkout
+description: Bounded inventory and ownership boundary for ignored Markdown artifacts in the gororoba-open checkout
 last_verified: 2026-08-01
 evidence_class: retained-local-inventory
 status: active

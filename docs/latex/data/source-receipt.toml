@@ -1,6 +1,6 @@
 schema_version = 1
 purpose = "Retain the exact historical input needed to render the existing proof-complexity figure."
-source_path = "/home/eirikr/Github/open_gororoba/proofs/metrics/compile_times.csv"
+source_path = "proofs/metrics/compile_times.csv"
 retained_path = "docs/latex/data/compile_times.csv"
 sha256 = "5cc0215f89e5ce13a906a765a4baf025ea7f39548f4f12cfc344f4775d44d2d0"
 bytes = 4822

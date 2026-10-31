@@ -1,9 +1,9 @@
 ---
-description: open_gororoba -- pure-Rust scientific computing workspace (Cayley-Dickson algebras, cosmology, LBM, Rocq proofs, SQLite-canonical registry)
+description: gororoba-open -- pure-Rust scientific computing workspace (Cayley-Dickson algebras, cosmology, LBM, Rocq proofs, SQLite-canonical registry)
 last_verified: 2026-05-17
 ---
 
-# open_gororoba -- agent and developer reference
+# gororoba-open -- agent and developer reference
 
 This file is the canonical operating guide for any agent (Claude,
 Codex, Gemini, Mistral, Ollama, DeepSeek, human) working in this

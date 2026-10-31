@@ -8,7 +8,7 @@ geometry observed in the Terakan Vulkan driver
 2026-04-19), produced by the `analyze_bitwise_anti_diagonal` binary
 in `crates/algebra_experimental/src/bin/`.
 
-## Why this lives in open_gororoba
+## Why this lives in gororoba-open
 
 The Terakan failure pattern is not a generic geometric curiosity but a
 named algebraic object: the graph of the dim=64 Cayley-Dickson
@@ -89,7 +89,7 @@ Already ruled out by archive mining (recorded in
 ## How to regenerate
 
 ```bash
-cd /home/eirikr/Github/open_gororoba
+cd .
 cargo run -q -p algebra_experimental --bin analyze_bitwise_anti_diagonal
 # Output: structured JSON report classifying the failure set.
 

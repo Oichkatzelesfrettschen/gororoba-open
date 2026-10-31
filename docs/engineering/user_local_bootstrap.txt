@@ -1,4 +1,4 @@
-open_gororoba user-local bootstrap
+gororoba-open user-local bootstrap
 ==================================
 
 Policy

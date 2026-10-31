@@ -1,6 +1,6 @@
 # Identifiability experiment compiler
 
-This experiment integrates the 2026-09-09 nuisance-orthogonal distinguishability analysis with open_gororoba.
+This experiment integrates the 2026-09-09 nuisance-orthogonal distinguishability analysis with gororoba-open.
 
 For target signature `t`, nuisance design matrix `N`, and whitening metric `W`, define `r = (I - P_N)t` and `I_eff = r^T W r`.
 

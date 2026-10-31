@@ -7,7 +7,7 @@
 
 [monograph]
 title = "Ad Astra Per Mathematica: The Gororoba Synthesis"
-authors = ["open_gororoba contributors"]
+authors = ["gororoba-open contributors"]
 status = "active"
 updated = "2026-03-23"
 version = "0.1.0"

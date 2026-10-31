@@ -3,7 +3,7 @@ Quantum observable contracts and current reconciliation delta
 
 Source and execution boundary
 -----------------------------
-The original retained-fixture contracts extend open_gororoba base
+The original retained-fixture contracts extend gororoba-open base
 4706d40eafa524957a9b20384a6a7346fe8536a1 and read retained quantum inputs
 from gororoba-quantum a3d95ab60b25c4a6f18e5ff7c0435b4947abceb8.
 proofs/evidence/quantum_observables/bindings.json originally bound 160 recognized

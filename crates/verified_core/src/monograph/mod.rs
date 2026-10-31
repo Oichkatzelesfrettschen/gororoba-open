@@ -1,6 +1,6 @@
 //! # Unified Algebraic Physics Framework: A Unified Axiomatic Monograph
 //!
-//! This module serves as the primary academic treatise for the `open_gororoba` project.
+//! This module serves as the primary academic treatise for the `gororoba-open` project.
 //! It synthesizes the algebraic foundations of Cayley-Dickson structures with the
 //! physical implications of ultrametricity, general relativity, and metamaterial optics.
 //!

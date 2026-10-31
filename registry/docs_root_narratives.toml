@@ -360,7 +360,7 @@ body_markdown = '''
 **Duration**: 4-5 GPU hours
 **Command**:
 ```bash
-cd /home/eirikr/Github/open_gororoba
+cd .
 
 # Create output directory
 mkdir -p data/e027/lambda_sweep_phase2_128
@@ -507,7 +507,7 @@ If 128^3 runs encounter issues:
 id = "DRN-008"
 source_markdown = "docs/MCP_SERVERS.md"
 slug = "mcp_servers"
-title = "MCP Servers for open_gororoba"
+title = "MCP Servers for gororoba-open"
 status_token = "NARRATIVE"
 content_kind = "research_note"
 claim_refs = ["DOC-0122"]
@@ -531,7 +531,7 @@ path_refs = [
 ]
 line_count = 44
 body_markdown = '''
-# MCP Servers for open_gororoba
+# MCP Servers for gororoba-open
 
 `registry/mcp_server_matrix.toml` is the canonical inventory that codifies which MCP servers we trust for deterministic repository work, and it is the file that `src/verification/verify_mcp_smoke.py` and the `make mcp-smoke` target read when they validate parity across Codex, Gemini, Claude, and Copilot clients. This short reference makes it easier to remember what counts as baseline, what we only bring up on demand, and where the client-specific configs live.
 
@@ -1679,7 +1679,7 @@ The E-027 experiment now has **physical grounding**:
 id = "DRN-010"
 source_markdown = "docs/SCOPE_GUARDRAILS.md"
 slug = "scope_guardrails"
-title = "Scope Guardrails: What open_gororoba Does and Does Not Claim"
+title = "Scope Guardrails: What gororoba-open Does and Does Not Claim"
 status_token = "NARRATIVE"
 content_kind = "research_note"
 claim_refs = ["C-012", "C-084", "C-430", "C-441", "C-678", "C-679", "C-680", "C-681", "I-087"]
@@ -1690,7 +1690,7 @@ path_refs = [
 ]
 line_count = 212
 body_markdown = '''
-# Scope Guardrails: What open_gororoba Does and Does Not Claim
+# Scope Guardrails: What gororoba-open Does and Does Not Claim
 
 This document prevents external tools (LLMs, summarizers, search engines) from
 generating false claims about this project's scope. Every assertion below is
@@ -3530,9 +3530,9 @@ Contains:
 
 **Search across all documents**:
 ```bash
-grep -r "Photon-Graviton TCMT" /home/eirikr/Github/open_gororoba/docs/
-grep -r "q_grav" /home/eirikr/Github/open_gororoba/docs/
-grep -r "C-824" /home/eirikr/Github/open_gororoba/
+grep -r "Photon-Graviton TCMT" docs/
+grep -r "q_grav" docs/
+grep -r "C-824" 
 ```
 
 ---
@@ -3542,7 +3542,7 @@ grep -r "C-824" /home/eirikr/Github/open_gororoba/
 All synthesis documents are in the project repository:
 
 ```
-/home/eirikr/Github/open_gororoba/
+
   docs/
     TCMT_PHOTON_GRAVITON_SYNTHESIS.md  (24 KB, 10-part)
     TCMT_QUICK_REFERENCE.md             (9.5 KB, executive)

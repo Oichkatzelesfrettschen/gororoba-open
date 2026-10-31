@@ -1,4 +1,4 @@
-//! Shared cubecl-wgpu runtime helpers for the open_gororoba workspace.
+//! Shared cubecl-wgpu runtime helpers for the gororoba-open workspace.
 //!
 //! WHY: Prior to this crate, four cubecl-using sites
 //! (cd_kernel/src/turboquant/cubecl_backend/launcher.rs and three modules in

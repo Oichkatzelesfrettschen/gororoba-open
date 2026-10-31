@@ -2418,7 +2418,7 @@ docs-site: docs-rustdoc docs-book-source
 		'  <head>' \
 		'    <meta charset="utf-8" />' \
 		'    <meta name="viewport" content="width=device-width, initial-scale=1" />' \
-		'    <title>open_gororoba documentation</title>' \
+		'    <title>gororoba-open documentation</title>' \
 		'    <style>' \
 		'      body{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;max-width:40rem;margin:2rem auto;padding:0 1rem;}' \
 		'      ul{padding-left:1.25rem;}' \
@@ -2440,7 +2440,7 @@ docs-site: docs-rustdoc docs-book-source
 		'  <head>' \
 		'    <meta charset="utf-8" />' \
 		'    <meta http-equiv="refresh" content="0; url=./book/" />' \
-		'    <title>open_gororoba book redirect</title>' \
+		'    <title>gororoba-open book redirect</title>' \
 		'  </head>' \
 		'  <body><a href="./book/">mdBook narrative documentation</a></body>' \
 		'</html>' \
@@ -2451,7 +2451,7 @@ docs-site: docs-rustdoc docs-book-source
 		'  <head>' \
 		'    <meta charset="utf-8" />' \
 		'    <meta http-equiv="refresh" content="0; url=./rustdoc/" />' \
-		'    <title>open_gororoba rustdoc redirect</title>' \
+		'    <title>gororoba-open rustdoc redirect</title>' \
 		'  </head>' \
 		'  <body><a href="./rustdoc/">Rust API documentation</a></body>' \
 		'</html>' \
@@ -2461,7 +2461,7 @@ docs-site: docs-rustdoc docs-book-source
 		'<html lang="en">' \
 		'  <head>' \
 		'    <meta charset="utf-8" />' \
-		'    <title>open_gororoba docs redirect</title>' \
+		'    <title>gororoba-open docs redirect</title>' \
 		'    <script>' \
 		'      (function () {' \
 		'        var path = window.location.pathname;' \

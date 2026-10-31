@@ -1,4 +1,4 @@
-FILE: /home/eirikr/Github/open_gororoba/crates/materials_core/src/optical_database.rs
+FILE: crates/materials_core/src/optical_database.rs
 ================================================================================
 TOTAL LINES: 8133
 TOTAL PUBLIC METHODS (impl DrudeLorentzParams): 121

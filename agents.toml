@@ -59,7 +59,7 @@ algebra_analysis = "cargo nextest run --cargo-profile test-heavy --profile heavy
 gr_core = "cargo nextest run --cargo-profile test-heavy --profile heavy -p gr_core"
 
 [shared.project]
-name = "open_gororoba"
+name = "gororoba-open"
 kind = "computational_physics_research_platform"
 summary = "Rust-first scientific workspace linking Cayley-Dickson algebra, LBM fluid dynamics, TDA, cosmological observables, multi-spacecraft heliospheric tomography (1-157 AU), and Parker Transport Equation (GCR modulation + DM anomaly detection)."
 workspace_crates = 42

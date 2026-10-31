@@ -2269,7 +2269,7 @@ fn cmd_notebook_info() -> Result<()> {
     println!("  Use `gororoba-db notebooks create --title <name>` to create one.");
     println!();
     println!("  ── Capabilities ──");
-    println!("  With evcxr + open_gororoba crates you can:");
+    println!("  With evcxr + gororoba-open crates you can:");
     println!("    • Query and visualize claims, experiments, insights");
     println!("    • Run Cayley-Dickson algebra computations interactively");
     println!("    • Prototype data analysis pipelines");

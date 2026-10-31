@@ -11,7 +11,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -22,7 +22,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -33,7 +33,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -44,7 +44,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -55,7 +55,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -66,7 +66,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -77,7 +77,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -88,7 +88,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -594,7 +594,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -605,7 +605,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -616,7 +616,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -627,7 +627,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -638,7 +638,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -649,7 +649,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -660,7 +660,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -671,7 +671,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -693,7 +693,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -715,7 +715,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -770,7 +770,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -825,7 +825,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -836,7 +836,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -847,7 +847,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -869,7 +869,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -946,7 +946,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -957,7 +957,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1012,7 +1012,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1023,7 +1023,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1034,7 +1034,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1045,7 +1045,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1056,7 +1056,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1067,7 +1067,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1078,7 +1078,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1089,7 +1089,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1100,7 +1100,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1188,7 +1188,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1199,7 +1199,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1210,7 +1210,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1232,7 +1232,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1243,7 +1243,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1254,7 +1254,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1265,7 +1265,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1980,7 +1980,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -1991,7 +1991,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2002,7 +2002,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2013,7 +2013,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2024,7 +2024,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2035,7 +2035,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2046,7 +2046,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2057,7 +2057,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2068,7 +2068,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2079,7 +2079,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2090,7 +2090,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2101,7 +2101,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2112,7 +2112,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2123,7 +2123,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2134,7 +2134,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2145,7 +2145,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2156,7 +2156,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2167,7 +2167,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2178,7 +2178,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2189,7 +2189,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2200,7 +2200,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2211,7 +2211,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2222,7 +2222,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2233,7 +2233,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2244,7 +2244,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2255,7 +2255,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2266,7 +2266,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2310,7 +2310,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2321,7 +2321,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2332,7 +2332,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2343,7 +2343,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2354,7 +2354,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2365,7 +2365,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2695,7 +2695,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2706,7 +2706,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2717,7 +2717,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2728,7 +2728,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2739,7 +2739,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2750,7 +2750,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2761,7 +2761,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2772,7 +2772,7 @@
       "source_id": "SRC-OMNI-HOURLY-GOVERNED-MANIFESTS",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md",
       "source_retrieval_method": "python3 bin/fetch_omni.py --start <year> --end <year> --source auto --skip-existing"
     },
     {
@@ -2783,7 +2783,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2794,7 +2794,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2805,7 +2805,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2816,7 +2816,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2827,7 +2827,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2838,7 +2838,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2860,7 +2860,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2871,7 +2871,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2882,7 +2882,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2893,7 +2893,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -2992,7 +2992,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3003,7 +3003,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3014,7 +3014,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3025,7 +3025,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3036,7 +3036,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3058,7 +3058,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3080,7 +3080,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3102,7 +3102,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3124,7 +3124,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3146,7 +3146,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3168,7 +3168,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3190,7 +3190,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3212,7 +3212,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3234,7 +3234,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3333,7 +3333,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3344,7 +3344,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3355,7 +3355,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3366,7 +3366,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3377,7 +3377,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3399,7 +3399,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3421,7 +3421,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3443,7 +3443,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3465,7 +3465,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3487,7 +3487,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3509,7 +3509,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3531,7 +3531,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3553,7 +3553,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3663,7 +3663,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3674,7 +3674,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3718,7 +3718,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3784,7 +3784,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3916,7 +3916,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3938,7 +3938,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3949,7 +3949,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3960,7 +3960,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3971,7 +3971,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3982,7 +3982,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -3993,7 +3993,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4004,7 +4004,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4015,7 +4015,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4114,7 +4114,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4125,7 +4125,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4136,7 +4136,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     },
     {
@@ -4147,7 +4147,7 @@
       "source_id": "SRC-EXTERNAL-FETCH-ROOT",
       "source_status": "active",
       "source_access_class": "public",
-      "source_canonical_url": "https://github.com/eirikr/open_gororoba/blob/main/docs/external_sources/DATASET_MANIFEST.md",
+      "source_canonical_url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/external_sources/DATASET_MANIFEST.md",
       "source_retrieval_method": "cargo run -p gororoba_cli --bin fetch-datasets -- --all --skip-existing"
     }
   ]

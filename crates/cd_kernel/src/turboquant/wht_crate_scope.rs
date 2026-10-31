@@ -48,7 +48,7 @@
 //! - `[ ]` Add no_std support
 //! - `[ ]` Add SIMD variants (feature-gated)
 //! - `[ ]` Publish to crates.io as `fwht` or `walsh-hadamard`
-//! - `[ ]` Update open_gororoba to depend on published crate
+//! - `[ ]` Update gororoba-open to depend on published crate
 
 /// Extracted functions that would form the crate's public API.
 pub fn proposed_api_surface() -> Vec<(&'static str, &'static str, usize)> {

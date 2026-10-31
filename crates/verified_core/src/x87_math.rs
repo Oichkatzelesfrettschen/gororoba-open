@@ -2,7 +2,7 @@
 //!
 //! Exposes highly optimized inline assembly routines utilizing the x87 FPU stack to
 //! bypass catastrophic cancellation in the most ill-conditioned and chaotic numerical
-//! bottlenecks of the `open_gororoba` engine.
+//! bottlenecks of the `gororoba-open` engine.
 
 /// Computes eigenvalues of a symmetric matrix using Jacobi iteration, highly optimized
 /// with x87 FP-80 extended precision inline assembly.

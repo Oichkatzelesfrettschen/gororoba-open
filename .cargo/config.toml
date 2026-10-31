@@ -1,4 +1,4 @@
-# open_gororoba cargo configuration.
+# gororoba-open cargo configuration.
 #
 # Linker selection:
 #   Use clang + mold for x86_64-linux. mold is single-threaded but

@@ -3,7 +3,7 @@
 //! Translates three patterns into a single cell-update loop:
 //! - steinmarder Instant-NGP: fuse reconstruct->riemann->update (no intermediate alloc)
 //! - steinmarder D3Q19: SoA layout for cache-line-aligned access
-//! - open_gororoba AssociatorWorkspace: per-thread reusable buffers via rayon map_init
+//! - gororoba-open AssociatorWorkspace: per-thread reusable buffers via rayon map_init
 //!
 //! The main entry point `compute_rhs_1d` performs a 1D flux sweep along
 //! a coordinate direction, computing the right-hand side dU/dt for each cell.

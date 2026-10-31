@@ -447,7 +447,7 @@
       "paper_title": "Linear algebras",
       "action": "stage_doi_resolver_child",
       "candidate_url": "https://doi.org/10.1090/s0002-9947-1912-1500905-3",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1912_exact_pdf_20260327.json' --rank '1'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1912_exact_pdf_20260327.json' --rank '1'",
       "rationale": "Candidate from crossref [resolver] with relevance score 96 and 10 citations for queue target dickson_1912_exact_pdf.",
       "default_selected": true
     },
@@ -463,7 +463,7 @@
       "paper_title": "Linear algebras in which division is always uniquely possible",
       "action": "stage_direct_pdf_child",
       "candidate_url": "https://doi.org/10.2307/1986243",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1912_exact_pdf_20260327.json' --rank '3'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1912_exact_pdf_20260327.json' --rank '3'",
       "rationale": "Candidate from semantic_scholar [citation_graph] with relevance score 68 and 148 citations for queue target dickson_1912_exact_pdf.",
       "default_selected": false
     }

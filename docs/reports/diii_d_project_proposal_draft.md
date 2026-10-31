@@ -81,5 +81,5 @@ discharges would provide:
 
 ### Software
 All analysis tools are open-source Rust code at
-github.com/Oichkatzelesfrettschen/open_gororoba. The CD kernel, Zarr/NetCDF
+github.com/Oichkatzelesfrettschen/gororoba-open. The CD kernel, Zarr/NetCDF
 readers, and analysis binaries are pure Rust with no proprietary dependencies.
