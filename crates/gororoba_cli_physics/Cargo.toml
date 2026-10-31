@@ -808,6 +808,10 @@ name = "voyager"
 path = "src/bin/voyager/main.rs"
 
 [[bin]]
+name = "tensor-avt-profile-orchestrator"
+path = "src/bin/tensor_avt_profile_orchestrator.rs"
+
+[[bin]]
 name = "unified-action-sweep"
 path = "src/bin/unified_action_sweep.rs"
 

@@ -1427,7 +1427,7 @@ bootstrap-user-local-xdg:
 	@echo "See docs/engineering/user_local_bootstrap.txt and docs/engineering/runtime_env_inventory.txt for policy details."
 
 profile-tensor-avt:
-	CARGO_HOME=$(REPO_CARGO_HOME) scripts/profile_tensor_avt.sh
+	$(CARGO_ENV) cargo run --quiet --release -p gororoba_cli_physics --bin tensor-avt-profile-orchestrator
 
 x87-strategy-bench:
 	$(CARGO_ENV) cargo run --release -p gororoba_cli_algebra --bin x87-strategy-bench -- \
