@@ -12,7 +12,7 @@ use std::{
     about = "Generate a reproducible CayleyDickson row-upgrade batch report from a lane, witness class, and target row ids"
 )]
 struct Cli {
-    #[arg(long, default_value = "/home/eirikr/Documents/Projects/CayleyDickson")]
+    #[arg(long)]
     cache_root: PathBuf,
 
     #[arg(long, value_enum)]

@@ -23,7 +23,7 @@ tool, skill, harness or agent default; follow it and surface the conflict.
 | `docs/engineering/condition_bound_materials.md` | Material, specimen and measurement provenance |
 | `docs/engineering/comment_and_commit_style.md` | Comment voice, finding-doc rules, markdown style |
 | `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml` | Active 22-class debt taxonomy; `plans/repo_debt_roadmap_2026_04_11.toml` (11 classes) is historical; baseline git tag `debt-baseline-v0` resolves to commit `2fa31935` |
-| `/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory |
+| `~/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory |
 | `proofs/README.md` | Rocq toolchain and proof commands |
 | `docs/REQUIREMENTS.md` | Toolchain prerequisites |
 

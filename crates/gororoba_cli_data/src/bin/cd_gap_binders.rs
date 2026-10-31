@@ -18,7 +18,7 @@ use std::{
     about = "Pure-Rust builder for Cayley-Dickson exact-gap reconstruction binders"
 )]
 struct Cli {
-    #[arg(long, default_value = "/home/eirikr/Documents/Projects/CayleyDickson")]
+    #[arg(long)]
     cache_root: PathBuf,
     #[arg(long, default_value = ".")]
     repo_root: PathBuf,

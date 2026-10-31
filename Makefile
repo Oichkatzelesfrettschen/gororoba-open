@@ -181,7 +181,7 @@ SYNTHESIS_CONTRACT_REPORT ?= reports/synthesis_execution_contract_$(SYNTHESIS_CO
 PROFILE_TIMESTAMP := $(shell date +%Y-%m-%d/%H%M%S)
 PROFILE_ROOT ?= reports/validation/profiles/$(PROFILE_TIMESTAMP)
 
-CD_CACHE_ROOT ?= /home/eirikr/Documents/Projects/CayleyDickson
+CD_CACHE_ROOT ?=
 CD_ROW_UPGRADE_OPERATOR ?= Codex
 CD_ROW_UPGRADE_LANE ?=
 CD_ROW_UPGRADE_WITNESS ?=
@@ -2361,6 +2361,7 @@ docs-rustdoc:
 	$(DOCS_CARGO_ENV) cargo doc --locked --keep-going "$${scope_args[@]}" $(DOCS_PROFILE_FLAGS) $(DOCS_FEATURE_FLAGS) --no-deps --document-private-items
 
 cd-row-upgrade-batch:
+	@test -n "$(CD_CACHE_ROOT)" || (echo "ERROR: set CD_CACHE_ROOT=/abs/path/to/CayleyDickson-cache" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_LANE)" || (echo "ERROR: set CD_ROW_UPGRADE_LANE=<jacobson1958|freudenthal1951>" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_WITNESS)" || (echo "ERROR: set CD_ROW_UPGRADE_WITNESS=/abs/path/to/witness.pdf" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_STATUS)" || (echo "ERROR: set CD_ROW_UPGRADE_STATUS=<exact-original|full-official-reprint|full-official-witness|official-fragment|official-toc|translation-rewriting|support-reconstruction|reconstruction-dossier>" && exit 1)
