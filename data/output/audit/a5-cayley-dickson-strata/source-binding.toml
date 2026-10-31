@@ -1,0 +1,46 @@
+# Evidence binding for the A5 (32-dimensional Cayley-Dickson) zero-divisor strata claims.
+# Each entry pins one file of the gororoba-quantum repository at source_commit by the SHA-256 of its bytes.
+
+source_repository = "https://github.com/Oichkatzelesfrettschen/gororoba-quantum"
+source_commit = "a1d1743ad0df43f4fa7e1c779d5a3b718915ace7"
+
+[[file]]
+path = "docs/evidence/a5-zero-divisor-strata/README.md"
+sha256 = "07844db54b186b1194b7ef465dd8be1072993bc74958e6ac760132d960527adf"
+
+[[file]]
+path = "docs/evidence/a5-zero-divisor-strata/result.json"
+sha256 = "5813f0d814cff8c819ebb94f3e5a37555e62e92b63fcd3fa3b5c7c5794b31d6c"
+
+[[file]]
+path = "docs/evidence/a5-rank-strata-equations/README.md"
+sha256 = "c9e2e775462e559e72195499bc4f6b0cad84b3cbad504c1e57506640deaa7b00"
+
+[[file]]
+path = "docs/evidence/a5-rank-strata-equations/result.json"
+sha256 = "d0aefa47d1bd2751bb573dd192cd2bab2527b568d89ddaa5207f5cc7bc9a7daa"
+
+[[file]]
+path = "docs/evidence/a5-strata-regularity/README.md"
+sha256 = "8b12a8fb3e0a7fe2073760d00325374d2893e9659bdb965ecfb86ba571e4fd0e"
+
+[[file]]
+path = "docs/evidence/a5-strata-regularity/result.json"
+sha256 = "dee5af58e0312225420e88c7d3e0692fb8534592686d85e4a20de01825fc8093"
+
+[[file]]
+path = "docs/evidence/a5-kernel-bundles/README.md"
+sha256 = "de43f551c3f848934f23d0f9426aa315dbe18ba54bbd041427f5aaab5ea2344f"
+
+[[file]]
+path = "docs/evidence/a5-kernel-bundles-nullity8/README.md"
+sha256 = "78b339b17681b08ed290242b387b8fdba68ce68fbad484a9e12147f886f10d55"
+
+[[file]]
+path = "docs/notes/topics/a5-exceptional-fiber-findings.md"
+sha256 = "70a19cec3a9d8cce28aacbc72e9c8772135a91880dd45795212598b62d141645"
+
+[[file]]
+path = "docs/state/research_state.json"
+sha256 = "a9709351568f7a48676926b3ede70728f2d39db96f5b23bbd60893fd9d7c636c"
+

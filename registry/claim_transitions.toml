@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 220
+event_count = 221
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4723,3 +4723,41 @@ reason = "Correct a mismatched proof relation while preserving the independently
 transition_timestamp = "2026-10-12T16:56:43Z"
 transition_spec_sha256 = "cf65b23ad0eaf8a02ab618cf96f8d27a23b93d222d4fbcb97132a973a40b06b2"
 successors = []
+
+[[transition]]
+event_id = 221
+transition_key = "a5-cayley-dickson-zero-divisor-strata"
+source_claim_id = "C-106"
+expected_prior_status = "Verified"
+experiment_verdict = "SurvivesChallenge"
+proposed_claim_status = "Verified"
+current_status = "Verified"
+exercised_falsifier = "Recompute the nullity of L_y for the 32-dimensional Cayley-Dickson algebra on every rank stratum of C_z and compare with 28 - 2 rank C_z; a stratum of nullity other than 4, 8, 12 or 16, or a nonzero divisor of nullity 4 outside the doubly pure locus, refutes the refinement."
+rationale = "C-106 records one family of dimension-32 zero divisors with kernel dimension 4. The gororoba-quantum A5 program classifies every dimension-32 zero divisor by nullity, gives closed equations, regularity and kernel-bundle classes for each stratum, and leaves the global attachments open; the successors register those results separately from the original single-family statement."
+unresolved_assumptions = ["The doubling convention is cd_core.cd_sign of gororoba-quantum: (a, b)(c, d) = (ac - conj(d) b, da + b conj(c)).", "Strata covering and regularity rest on Singular 4.4.1 computations over Q that are retained replays outside hosted CI; none of the results is formalized in Rocq."]
+evidence_artifact_ids = ["LOCAL-A5-CAYLEY-DICKSON-STRATA"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register the gororoba-quantum A5 strata, regularity and kernel-bundle results and the open attachment problem as successors of C-106"
+transition_timestamp = "2026-10-30T23:04:12Z"
+transition_spec_sha256 = "567b746951b83b14c7e4e81be7bf010b949d4e0a9557bca296cd75c5f2c7eb35"
+
+[[transition.successors]]
+proposal_key = "a5-global-topology-attachments"
+canonical_claim_id = "C-1776"
+relation_kind = "refines"
+
+[[transition.successors]]
+proposal_key = "a5-kernel-bundle-classes"
+canonical_claim_id = "C-1777"
+relation_kind = "refines"
+
+[[transition.successors]]
+proposal_key = "a5-strata-whitney-regularity"
+canonical_claim_id = "C-1778"
+relation_kind = "refines"
+
+[[transition.successors]]
+proposal_key = "a5-zero-divisor-strata-classification"
+canonical_claim_id = "C-1779"
+relation_kind = "refines"

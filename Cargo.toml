@@ -10,7 +10,7 @@ repository = "https://github.com/Oichkatzelesfrettschen/open_gororoba"
 
 [workspace]
 resolver = "3"
-exclude = ["vendor/proc-macro-error2"]
+exclude = ["vendor/proc-macro-error2", "vendor/zarrs-0.23.14"]
 members = [
     "crates/algebra_analysis",
     "crates/algebra_experimental",
@@ -334,7 +334,7 @@ walkdir = "2.5" # Recursive directory traversal for evidence link checks
 
 flate2 = "1.1" # Gzip compression/decompression
 tar = "0.4" # Tar archive reading (WMAP/Planck chain extraction)
-zip = "9.0" # ZIP archive extraction
+zip = { version = "9.0", default-features = false, features = ["aes-crypto", "bzip2", "deflate64", "deflate", "lzma", "ppmd", "time", "xz"] } # ZIP archive extraction; the default zstd feature is omitted to keep the C zstd crate out of the graph
 
 # PDF extraction (pdfium-render is primary; lopdf/pdf-extract are pure-Rust fallback)
 arrow-array = "58.1.0"
@@ -379,7 +379,7 @@ netcdf3 = "0.6"
 
 # Zarr v2/v3 multidimensional array storage (pure Rust)
 # Used for FAIR-MAST tokamak data (S3 bucket, blosc/lz4 compressed)
-zarrs = { version = "0.23", features = ["blosc", "ndarray"] }
+zarrs = { version = "0.23", default-features = false, features = ["filesystem", "ndarray", "blosc", "crc32c", "gzip", "sharding", "transpose"] } # zarrs default features minus zstd (C zstd crate)
 zarrs_filesystem = "0.3"
 
 # Visualization
@@ -591,3 +591,6 @@ incremental = false # do not pollute cache with LTO artifacts
 [patch.crates-io]
 # Preserve the public macro API through a public extern-crate binding.
 proc-macro-error2 = { path = "vendor/proc-macro-error2" }
+# zarrs 0.23.14 with blusc 0.0.7 (pure-Rust zrip in place of zstd) and without the
+# zstd feature of blosc-src; see vendor/zarrs-0.23.14/VENDORED.md.
+zarrs = { path = "vendor/zarrs-0.23.14" }

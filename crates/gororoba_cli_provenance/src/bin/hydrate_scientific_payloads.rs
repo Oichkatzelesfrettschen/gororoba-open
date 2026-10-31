@@ -162,6 +162,59 @@ impl<R: Read> Read for ExpansionBound<R> {
     }
 }
 
+/// Largest window a zstd frame may declare, in bytes (`ZSTD_d_windowLogMax` 27).
+const ZSTD_MAX_WINDOW: u64 = 1 << 27;
+
+/// Concatenated-frame zstd reader. Every frame header passes through one
+/// `FrameDecoder` whose window limit is `ZSTD_MAX_WINDOW`, so a frame declaring
+/// a larger window fails before the decoder allocates its window buffer.
+struct FrameChain<R: Read> {
+    current: Option<
+        ruzstd::decoding::StreamingDecoder<io::BufReader<R>, ruzstd::decoding::FrameDecoder>,
+    >,
+}
+
+impl<R: Read> FrameChain<R> {
+    fn new(source: R) -> Result<Self> {
+        let mut decoder = ruzstd::decoding::FrameDecoder::new();
+        decoder.set_max_window_size(ZSTD_MAX_WINDOW);
+        let current = ruzstd::decoding::StreamingDecoder::new_with_decoder(
+            io::BufReader::new(source),
+            decoder,
+        )
+        .context("zstd frame header rejected (window above 128 MiB or malformed)")?;
+        Ok(Self {
+            current: Some(current),
+        })
+    }
+}
+
+impl<R: Read> Read for FrameChain<R> {
+    fn read(&mut self, output: &mut [u8]) -> io::Result<usize> {
+        use io::BufRead;
+        loop {
+            let Some(frame) = self.current.as_mut() else {
+                return Ok(0);
+            };
+            let count = frame.read(output)?;
+            if count != 0 || output.is_empty() {
+                return Ok(count);
+            }
+            let Some(finished) = self.current.take() else {
+                return Ok(0);
+            };
+            let (mut source, decoder) = finished.into_parts();
+            if source.fill_buf()?.is_empty() {
+                return Ok(0);
+            }
+            self.current = Some(
+                ruzstd::decoding::StreamingDecoder::new_with_decoder(source, decoder)
+                    .map_err(io::Error::other)?,
+            );
+        }
+    }
+}
+
 fn stage_objects(
     archive_file: File,
     objects: &BTreeMap<String, ArchiveObject>,
@@ -177,8 +230,7 @@ fn stage_objects(
             .and_then(|entry_size| bound.checked_add(entry_size))
             .context("declared archive expansion overflow")
     })?;
-    let mut decoder = zstd::stream::read::Decoder::new(archive_file)?;
-    decoder.window_log_max(27)?;
+    let decoder = FrameChain::new(archive_file)?;
     let mut archive = tar::Archive::new(ExpansionBound {
         inner: decoder,
         remaining: expansion_bound,
@@ -349,8 +401,7 @@ fn hydrate(args: &Args) -> Result<Report> {
     install.with_context(|| format!("hydration stopped after {} installed and {} reused files; earlier installations and created directories remain", report.installed_files, report.reused_files))?;
     for payload in selected_payloads {
         ensure!(
-            manifest.materialization(&payload.path, &payload.sha256)?
-                == Materialization::Verified,
+            manifest.materialization(&payload.path, &payload.sha256)? == Materialization::Verified,
             "selected retained payload remains unmaterialized: {}",
             payload.path
         );
@@ -395,10 +446,10 @@ mod tests {
             builder.append(&header, bytes.as_slice())?;
         }
         builder.finish()?;
-        Ok(zstd::stream::encode_all(
+        Ok(ruzstd::encoding::compress_to_vec(
             builder.into_inner()?.as_slice(),
-            1,
-        )?)
+            ruzstd::encoding::CompressionLevel::Fastest,
+        ))
     }
 
     struct Fixture {
@@ -640,6 +691,41 @@ mod tests {
         Ok(())
     }
 
+    fn empty_frame(window_descriptor: u8) -> Vec<u8> {
+        let mut frame = 0xFD2F_B528_u32.to_le_bytes().to_vec();
+        // Frame header descriptor: multi-segment, no checksum, no content size.
+        frame.push(0);
+        frame.push(window_descriptor);
+        // Last block, raw, zero bytes.
+        frame.extend_from_slice(&[1, 0, 0]);
+        frame
+    }
+
+    #[test]
+    fn frame_window_above_bound_is_rejected() -> Result<()> {
+        // Window descriptor exponent 17 declares 2^27 bytes, exponent 18 declares 2^28.
+        let mut at_bound = Vec::new();
+        FrameChain::new(empty_frame(17 << 3).as_slice())?.read_to_end(&mut at_bound)?;
+        assert!(at_bound.is_empty());
+        let oversized = empty_frame(18 << 3);
+        assert!(FrameChain::new(oversized.as_slice()).is_err());
+        Ok(())
+    }
+
+    #[test]
+    fn concatenated_frames_decode_in_sequence() -> Result<()> {
+        let options = ruzstd::encoding::CompressionLevel::Fastest;
+        let mut joined = ruzstd::encoding::compress_to_vec(b"first".as_slice(), options);
+        joined.extend(ruzstd::encoding::compress_to_vec(
+            b"second".as_slice(),
+            options,
+        ));
+        let mut decoded = Vec::new();
+        FrameChain::new(joined.as_slice())?.read_to_end(&mut decoded)?;
+        assert_eq!(decoded, b"firstsecond");
+        Ok(())
+    }
+
     #[test]
     fn expansion_bound_rejects_oversized_zero_padding() -> Result<()> {
         let fixture = Fixture::new(&[b"good"], &[regular(b"good")])?;
@@ -652,7 +738,10 @@ mod tests {
                 archive_member: member(b"good"),
             },
         );
-        let padding = zstd::stream::encode_all(vec![0_u8; 32768].as_slice(), 1)?;
+        let padding = ruzstd::encoding::compress_to_vec(
+            vec![0_u8; 32768].as_slice(),
+            ruzstd::encoding::CompressionLevel::Fastest,
+        );
         let path = fixture._directory.path().join("padding.zst");
         fs::write(&path, padding)?;
         let staging = tempfile::tempdir()?;
