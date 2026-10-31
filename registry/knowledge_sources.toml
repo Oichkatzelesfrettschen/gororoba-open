@@ -22,13 +22,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "agents.toml"
-sha256 = "302364a92996f06c0ee92dd3b695d41ee0f736d9c79f23fa2ca177bb9403c9e2"
-size_bytes = 7732
-line_count = 139
+sha256 = "76071c24472a5e97163b92d68905dea1d9e56909bf0ab194f2274e475cd0c98a"
+size_bytes = 7227
+line_count = 131
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 93
+link_count = 83
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -41,13 +41,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "302364a92996f06c0ee92dd3b695d41ee0f736d9c79f23fa2ca177bb9403c9e2"
-size_bytes = 7732
-line_count = 139
+sha256 = "76071c24472a5e97163b92d68905dea1d9e56909bf0ab194f2274e475cd0c98a"
+size_bytes = 7227
+line_count = 131
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 93
+link_count = 83
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -2417,14 +2417,14 @@ authoring_mode = "generated"
 generated = true
 status = "active"
 migration_priority = "critical"
-sha256 = "ca0dfb9b80d2cd948fe1df9903dced960b2ecf7c24413cbde3a546cc166cbcac"
-size_bytes = 1591
+sha256 = "0f2cbe61ed19b2c5d293b124fef3d79b89039b5044ec2facc9adc27ff6ddf396"
+size_bytes = 1596
 line_count = 45
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
 link_count = 11
-link_sample = ["1.97.0", "crates/cd_kernel/", "crates/gororoba_algebra/", "sh scripts/detect_native_blas.sh"]
+link_sample = ["1.97.0", "crates/cd_kernel/", "crates/gororoba_algebra/"]
 
 [[document]]
 id = "DOC-0130"
@@ -2707,14 +2707,14 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "high"
-sha256 = "76210bc46f51244f6b1f1dabfe1ec3633cc7ecfa87592c676f50429c2c023170"
-size_bytes = 6159
-line_count = 89
+sha256 = "00e51c4cbe52e96545176b5523576bd185606559b4b3090e2c688d1be733a41b"
+size_bytes = 6909
+line_count = 103
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 39
-link_sample = ["bin/", "bin/build_fix.sh", "bin/check_gemini.sh", "bin/do_commit.sh", "bin/micromamba", "bin/run_quantum_container.sh", "bin/temp_commit.sh", "crates/xtask/src/bin/bootstrap_xdg.rs"]
+link_count = 55
+link_sample = ["archive/root_cleanup_2026-04-03/scripts/download_papers.sh", "archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh", "bin/", "bin/build_fix.sh", "bin/check_gemini.sh", "bin/do_commit.sh", "bin/micromamba", "bin/run_quantum_container.sh"]
 
 [[document]]
 id = "DOC-0146"
@@ -2725,14 +2725,14 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "medium"
-sha256 = "9367d7a1575e0915f7df3630ecea1242499ff4b2ec0360e69f4c0185bb885712"
-size_bytes = 10354
+sha256 = "3fb94bed59934ea95a2ce7f4777bfa6579fe23ec9d58b10eaa2768baecb507c4"
+size_bytes = 10345
 line_count = 114
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 29
-link_sample = ["README.md", "experiments/", "forward physics -> sensitivity/Jacobian -> identifiability -> claim registry", "test_identifiability_compiler.py", "|sin(theta_h)-sin(theta_h/2)| -> 0", "||P_N(h)-P_N(h/2)||_2 -> 0"]
+link_count = 33
+link_sample = ["README.md", "crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs", "forward physics -> sensitivity/Jacobian -> identifiability -> claim registry", "identifiability_compiler.rs", "|sin(theta_h)-sin(theta_h/2)| -> 0", "||P_N(h)-P_N(h/2)||_2 -> 0"]
 
 [[document]]
 id = "DOC-0147"
@@ -2743,14 +2743,14 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "medium"
-sha256 = "c9898979f5f52aedb62ca4ea5561e67f556382c84ec20b0c3f79986f1f4c8cc6"
-size_bytes = 2577
-line_count = 35
+sha256 = "e040d7a432ba789b25e404c8efa34ea6e80c32bf0bd933ce1be609180520b61a"
+size_bytes = 2695
+line_count = 36
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 14
-link_sample = ["python -m pip install -r experiments/identifiability/requirements.txt", "python -m pytest experiments/identifiability/test_identifiability_compiler.py", "python experiments/identifiability/identifiability_compiler.py", "results_summary.csv"]
+link_count = 15
+link_sample = ["crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs", "results_summary.csv"]
 
 [[document]]
 id = "DOC-0148"
