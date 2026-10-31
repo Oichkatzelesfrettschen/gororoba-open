@@ -12,15 +12,16 @@ The computational result is conditional on the declared nuisance family. No fini
 - Boundary-differential design: initial identifiable fraction 0.228671, principal angle 13.219 degrees; after plausible cross-condition nuisance expansion, the surviving fraction collapsed to 0.00199202. This falsifies the present design as robustly identifiable.
 - Exact target-shaped nuisance injection in the commutator experiment collapses the surviving fraction to 5.37e-16, as required.
 
-`results_summary.csv` records the selected-design run performed in the chat compute environment. The compact Python kernel in this directory reproduces the model families and falsification invariants, but does not reproduce the greedy schedule-selection/Monte-Carlo pipeline that generated every CSV field.
+`results_summary.csv` records the selected-design run performed in the chat compute environment. The compact Rust kernel (`crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs`) reproduces the model families and falsification invariants, but does not reproduce the greedy schedule-selection/Monte-Carlo pipeline that generated every CSV field.
 
 ## Run the compact prototype
 
-`python -m pip install -r experiments/identifiability/requirements.txt`
+`cargo run -q -p gororoba_cli_physics --bin identifiability-compiler`
 
-`python experiments/identifiability/identifiability_compiler.py`
+`cargo test -p gororoba_cli_physics --bin identifiability-compiler`
 
-`python -m pytest experiments/identifiability/test_identifiability_compiler.py`
+The kernel computes the nuisance projection through the truncated SVD
+pseudo-inverse in `nalgebra`, so rank-deficient nuisance families are handled.
 
 ## Repository integration
 

@@ -17,6 +17,10 @@ name = "repo-audit"
 path = "src/bin/repo_audit.rs"
 
 [[bin]]
+name = "check-refs"
+path = "src/bin/check_refs.rs"
+
+[[bin]]
 name = "formal-proof-backfill"
 path = "src/bin/formal_proof_backfill.rs"
 
@@ -552,6 +556,7 @@ tempfile = { workspace = true }
 tokio = { workspace = true }
 toml = { workspace = true }
 tracing-subscriber = { workspace = true }
+unicode-normalization = { workspace = true }
 ureq = { workspace = true }
 url = { workspace = true }
 verified_core = { path = "../verified_core" }

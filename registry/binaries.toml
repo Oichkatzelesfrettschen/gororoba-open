@@ -285,6 +285,11 @@ crate = "gororoba_cli_algebra"
 description = "CD ultrametric scaling law: measures Euclidean, local, and Baire ultrametric fractions across Cayley-Dickson doubling levels D=2^k (k=1..8)"
 
 [[binary]]
+name = "check-refs"
+crate = "gororoba_cli_data"
+description = "Workspace executable check-refs declared by crate gororoba_cli_data."
+
+[[binary]]
 name = "chirality-lock-test"
 crate = "gororoba_cli_algebra"
 description = "Chirality holographic checksum: 2x2 matrix of CD multiplication table orientation vs vorticity sign, measures helicity lock to algebra"
@@ -959,6 +964,11 @@ crate = "gororoba_cli_provenance"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_provenance; registry metadata pending."
 
 [[binary]]
+name = "identifiability-compiler"
+crate = "gororoba_cli_physics"
+description = "Workspace executable identifiability-compiler declared by crate gororoba_cli_physics."
+
+[[binary]]
 name = "inclination-injection-calibration"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; registry metadata pending."
@@ -1040,6 +1050,11 @@ name = "kubo-imbalance-transport"
 crate = "gororoba_cli_physics"
 description = "Kubo linear-response transport coefficients for CD-interpolated imbalanced Heisenberg chain with GPU acceleration via cuSOLVER"
 experiment = "E-034"
+
+[[binary]]
+name = "lambda-sweep"
+crate = "gororoba_cli_physics"
+description = "Workspace executable lambda-sweep declared by crate gororoba_cli_physics."
 
 [[binary]]
 name = "landy-absorber-tmm"
@@ -1800,6 +1815,11 @@ description = "Workspace binary discovered from crates/gororoba_cli_data/Cargo.t
 name = "tcmt-sweep"
 crate = "gororoba_cli_physics"
 description = "Temporal coupled-mode theory parameter sweep"
+
+[[binary]]
+name = "tensor-avt-profile-orchestrator"
+crate = "gororoba_cli_physics"
+description = "Workspace executable tensor-avt-profile-orchestrator declared by crate gororoba_cli_physics."
 
 [[binary]]
 name = "tensor-avt-profile-suite"

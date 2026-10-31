@@ -694,6 +694,10 @@ required-features = ["gpu"]
 name = "parity-report"
 path = "src/bin/parity_report.rs"
 
+[[bin]]
+name = "identifiability-compiler"
+path = "src/bin/identifiability_compiler.rs"
+
 [dependencies]
 algebra_analysis = { path = "../algebra_analysis" }
 algebra_experimental = { workspace = true }
@@ -806,6 +810,14 @@ path = "src/bin/ephemeris/main.rs"
 [[bin]]
 name = "voyager"
 path = "src/bin/voyager/main.rs"
+
+[[bin]]
+name = "tensor-avt-profile-orchestrator"
+path = "src/bin/tensor_avt_profile_orchestrator.rs"
+
+[[bin]]
+name = "lambda-sweep"
+path = "src/bin/lambda_sweep.rs"
 
 [[bin]]
 name = "unified-action-sweep"

@@ -22,7 +22,7 @@ Notes:
 - The workspace pins stable Rust (`1.97.0`); root profiles use default LLVM codegen.
 - Native BLAS backends for the Burn-based `neural_homotopy` path are explicit
   Cargo feature opt-ins, not defaults.
-- Use `make doctor-blas` or `sh scripts/detect_native_blas.sh` to see which
+- Use `make doctor-blas` (the `repo-utilities native-blas` command) to see which
   native BLAS/LAPACK candidates are present on the host and how they map to the
   repo's exposed feature surface.
 
