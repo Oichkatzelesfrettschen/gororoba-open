@@ -1,18 +1,18 @@
 schema_version = 1
 producer = "crates/gororoba_cli_physics/src/bin/casimir_optics_discrimination_audit.rs"
 producer_sha256 = "ec60d3a0fb7d5f87ab6aa3ae1a115a79f9bd7bbf2fa93a73b5522b2305f24d5b"
-source_model_identity = "sha256:b05a18eb5f4b5114ad61798898ddaf7965cf6ba288b53e2fe52cc5cd61e59926"
+source_model_identity = "sha256:3585e833398656f69b690b69adf7e6945c75f1226bfa88942e8ce8179730c13f"
 source_model_identity_algorithm = "SHA-256 over path UTF-8, NUL, file bytes, NUL for source_model_input entries in manifest order"
 command = "cargo run -p gororoba_cli_physics --bin casimir-optics-discrimination-audit --profile validation"
 scope = "native model outputs; no laboratory observations"
 
 [[source_model_input]]
 path = "Cargo.toml"
-sha256 = "e8dab3eeee4490eabe1515c2bbc8df11fae7fb0887c1d4723765da37013e0d3e"
+sha256 = "6e49479b413fe75fe2c93c7af4db2756b4e4768fac422448b9b2aabae5086242"
 
 [[source_model_input]]
 path = "Cargo.lock"
-sha256 = "ca1947faacf3d07b80b7fef934727f79f735b9c14f1c909b667f664ea5748a78"
+sha256 = "a741d9957f3f83fbbbc84877ae065bef3e4f62f0a2e289aa30ecabe901fafc80"
 
 [[source_model_input]]
 path = "rust-toolchain.toml"
