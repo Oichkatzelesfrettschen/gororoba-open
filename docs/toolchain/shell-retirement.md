@@ -32,7 +32,7 @@ Status: COMPLETE (2026-04-17). All four scripts removed from `bin/`.
 | File                                                       | Lines | Decision | Target Makefile name                                                |
 | ---------------------------------------------------------- | ----- | -------- | ------------------------------------------------------------------- |
 | `scripts/cargo_cache_prune.sh` | 24 | DONE | Removed; `make cargo-cache-prune` depends on `clean-builds`, which removes a superset of its trees. |
-| `scripts/cargo_cache_status.sh`                            | 89    | PORT     | Merge capabilities into `make cache-status` or a new `cache-audit`. |
+| `scripts/cargo_cache_status.sh` | 115 | DONE | Removed; `repo-utilities cargo-cache-status` prints the same report through `make cargo-cache-status`. |
 | `scripts/docs-redirect-check.sh`                           | 104   | DONE     | Replaced by `repo-utilities docs-redirect-check` through `make docs-redirect-check`. |
 | `scripts/run_nanograv_timing_phase1_independent_locked.sh` | 8 | DONE | Removed; `make nanograv-timing-phase1-independent` runs the same `cargo run` command. |
 
@@ -41,7 +41,7 @@ Status: COMPLETE (2026-04-17). All four scripts removed from `bin/`.
 | File                                  | Lines | Decision | New crate/binary                                                                                  |
 | ------------------------------------- | ----- | -------- | ------------------------------------------------------------------------------------------------- |
 | `scripts/bootstrap_user_local_xdg.sh` | 199   | PORT     | `crates/xtask/src/bin/bootstrap_xdg.rs` (host-setup logic).                                       |
-| `scripts/detect_native_blas.sh`       | 49    | PORT     | Add to `xtask host-profile` (already detects CPU topology).                                       |
+| `scripts/detect_native_blas.sh` | 49 | DONE | Removed; `repo-utilities native-blas` prints the same report through `make doctor-blas`. |
 | `scripts/detect_physical_cores.sh`    | 5     | DONE     | Removed; host inspection remains available through `xtask host-profile`.                           |
 | `scripts/detect_worker_budget.sh`     | 11    | DONE     | Removed; hosted CI compiles and executes the typed `detect-worker-budget` Rust utility.            |
 | `scripts/profile_tensor_avt.sh`       | 211   | PORT     | Profiling harness; large port. Convert to a bench-orchestrator binary under gororoba_cli_physics. |

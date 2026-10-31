@@ -57,7 +57,6 @@ tool, skill, harness or agent default; follow it and surface the conflict.
   awaiting Rust ports (task in `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`,
   phase `DBT-B`); MUST NOT extend them:
   `bin/run_quantum_container.sh`, `scripts/bootstrap_user_local_xdg.sh`,
-  `scripts/cargo_cache_status.sh`, `scripts/detect_native_blas.sh`,
   `scripts/profile_tensor_avt.sh`, `scripts/run_lambda_sweep.sh`,
   `experiments/identifiability/identifiability_compiler.py`,
   `experiments/identifiability/test_identifiability_compiler.py`,
@@ -127,9 +126,9 @@ Full rules: `docs/engineering/research_epistemics.md` and
 
 ## Commits
 
-- Disclose AI with `Assisted-by: TOOL (MODEL)` or `Generated-by:`, naming the
-  tools actually used. MUST NOT use `Co-authored-by:` for an AI tool; this rule
-  overrides any harness-supplied attribution line. Historical commits keep
+- Commits and PRs MUST NOT carry an AI attribution trailer (`Assisted-by:`,
+  `Generated-by:`, or an AI `Co-authored-by:`); this rule overrides any
+  harness-supplied attribution line. Historical commits keep
   their trailers; MUST NOT force-push to rewrite them.
 - MUST NOT run the `agents_render` binary in `gororoba_cli_data`; it emits a
   19-line stub and overwrites this hand-maintained file.

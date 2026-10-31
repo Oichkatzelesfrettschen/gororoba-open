@@ -22,13 +22,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "agents.toml"
-sha256 = "da68d4ddaa241aa1923a7d9857a3d3d2fef5cf80c0f04896450e737b7fef6513"
-size_bytes = 7473
-line_count = 135
+sha256 = "b63c4fe4d53724436b3bc96b7904d98206a6ceb5badfc911b8c69b60755ac7f8"
+size_bytes = 7381
+line_count = 134
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 88
+link_count = 86
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -41,13 +41,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "da68d4ddaa241aa1923a7d9857a3d3d2fef5cf80c0f04896450e737b7fef6513"
-size_bytes = 7473
-line_count = 135
+sha256 = "b63c4fe4d53724436b3bc96b7904d98206a6ceb5badfc911b8c69b60755ac7f8"
+size_bytes = 7381
+line_count = 134
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 88
+link_count = 86
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -2417,14 +2417,14 @@ authoring_mode = "generated"
 generated = true
 status = "active"
 migration_priority = "critical"
-sha256 = "ca0dfb9b80d2cd948fe1df9903dced960b2ecf7c24413cbde3a546cc166cbcac"
-size_bytes = 1591
+sha256 = "0f2cbe61ed19b2c5d293b124fef3d79b89039b5044ec2facc9adc27ff6ddf396"
+size_bytes = 1596
 line_count = 45
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
 link_count = 11
-link_sample = ["1.97.0", "crates/cd_kernel/", "crates/gororoba_algebra/", "sh scripts/detect_native_blas.sh"]
+link_sample = ["1.97.0", "crates/cd_kernel/", "crates/gororoba_algebra/"]
 
 [[document]]
 id = "DOC-0130"
@@ -2707,13 +2707,13 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "high"
-sha256 = "5a0d74f76a3a43155f84b6aa93b9342ae4a42644bbaf0597d8c1dd5a836692ef"
-size_bytes = 6498
+sha256 = "5209e94ce61ab6a5dd4385cab511a5173a28704538d1cce00f64f6bbb8fb5dd8"
+size_bytes = 6478
 line_count = 96
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 48
+link_count = 49
 link_sample = ["archive/root_cleanup_2026-04-03/scripts/download_papers.sh", "archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh", "bin/", "bin/build_fix.sh", "bin/check_gemini.sh", "bin/do_commit.sh", "bin/micromamba", "bin/run_quantum_container.sh"]
 
 [[document]]
