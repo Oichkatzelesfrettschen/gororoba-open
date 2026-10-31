@@ -244,6 +244,18 @@ enum Commands {
     RocqPrepareConfine(CoqArgs),
     #[command(name = "validation-tool-paths")]
     ValidationToolPaths(ValidationToolPathsArgs),
+    /// Fail when a tracked text file outside the shrink-only baseline names an
+    /// absolute home or root-account path.
+    #[command(name = "path-hygiene")]
+    PathHygiene(PathHygieneArgs),
+}
+
+#[derive(Args, Debug)]
+struct PathHygieneArgs {
+    /// Remove baseline entries whose file no longer names an absolute home
+    /// path; the baseline never gains an entry.
+    #[arg(long = "prune-baseline")]
+    prune_baseline: bool,
 }
 
 /// The scan needs three roots and takes none of them from a compiled-in
@@ -1079,6 +1091,73 @@ fn run_validation_tool_paths(args: ValidationToolPathsArgs) -> Result<()> {
     );
 }
 
+fn absolute_home_offenders(root: &Path) -> Result<BTreeSet<String>> {
+    let output = Command::new("git")
+        .args(["grep", "-I", "-l", "-z", "-E"])
+        .arg(repo_utilities::path_hygiene::ABSOLUTE_HOME_PATTERN)
+        .current_dir(root)
+        .output()
+        .context("run git grep for absolute home paths")?;
+    // git grep exits 1 when no tracked file matches.
+    match output.status.code() {
+        Some(0) => Ok(String::from_utf8_lossy(&output.stdout)
+            .split('\0')
+            .filter(|value| !value.is_empty())
+            .map(str::to_owned)
+            .collect()),
+        Some(1) => Ok(BTreeSet::new()),
+        _ => bail!(
+            "git grep failed: {}",
+            String::from_utf8_lossy(&output.stderr).trim()
+        ),
+    }
+}
+
+fn run_path_hygiene(args: PathHygieneArgs) -> Result<()> {
+    use repo_utilities::path_hygiene::{
+        BASELINE_PATH, compare, parse_baseline, pruned_baseline, render_baseline,
+    };
+    let root = repo_root();
+    let baseline_file = root.join(BASELINE_PATH);
+    let baseline = parse_baseline(
+        &fs::read_to_string(&baseline_file)
+            .with_context(|| format!("read {}", baseline_file.display()))?,
+    );
+    let offenders = absolute_home_offenders(&root)?;
+    if args.prune_baseline {
+        let pruned = pruned_baseline(&offenders, &baseline);
+        fs::write(&baseline_file, render_baseline(&pruned))
+            .with_context(|| format!("write {}", baseline_file.display()))?;
+        println!(
+            "OK: path-hygiene baseline pruned from {} to {} entries.",
+            baseline.len(),
+            pruned.len()
+        );
+        return Ok(());
+    }
+    let report = compare(&offenders, &baseline);
+    if report.is_clean() {
+        println!(
+            "OK: no tracked file outside the {}-entry baseline names an absolute home path.",
+            baseline.len()
+        );
+        return Ok(());
+    }
+    for path in &report.new_offenders {
+        eprintln!(
+            "[path-hygiene] {path} names an absolute home path; record it repository-relative"
+        );
+    }
+    for path in &report.stale_entries {
+        eprintln!("[path-hygiene] baseline entry {path} no longer names an absolute home path");
+    }
+    bail!(
+        "{} new offender(s), {} stale baseline entr(ies); fix the files or run `repo-utilities path-hygiene --prune-baseline`",
+        report.new_offenders.len(),
+        report.stale_entries.len()
+    );
+}
+
 fn main() -> ExitCode {
     let cli = Cli::parse();
     let result = match cli.command {
@@ -1100,6 +1179,7 @@ fn main() -> ExitCode {
         Commands::DocsRedirectCheck(args) => run_docs_redirect_check(args),
         Commands::RocqPrepareConfine(args) => run_rocq_prepare_confine(args),
         Commands::ValidationToolPaths(args) => run_validation_tool_paths(args),
+        Commands::PathHygiene(args) => run_path_hygiene(args),
     };
     match result {
         Ok(()) => ExitCode::SUCCESS,

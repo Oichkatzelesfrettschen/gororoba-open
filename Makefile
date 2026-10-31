@@ -60,7 +60,7 @@
 .PHONY: artifacts-reggiani artifacts-m3 artifacts-motifs artifacts-motifs-big artifacts-repo-visuals
 .PHONY: fetch-data fetch-data-redownload provenance-audit external-redownload-audit semantic-data-validate semantic-data-validate-strict run rocq latex latex-heliosphere latex-heliosphere-figs latex-heliosphere-clean latex-heliosphere-review
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
-.PHONY: check-ansi check-terminology
+.PHONY: check-ansi check-terminology check-path-hygiene
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
 .PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
@@ -705,7 +705,7 @@ test: rust-regression
 # without improving the ASCII or terminology checks.
 REPO_UTILITIES_BIN := $(REPO_CARGO_TARGET_DIR)/validation-tools/repo-utilities
 
-check: require-ci-validation-authority check-ansi check-terminology cuda-source-ownership
+check: require-ci-validation-authority check-ansi check-terminology check-path-hygiene cuda-source-ownership
 	@echo "OK: fast shared check suite complete."
 
 check-ansi: $(REPO_UTILITIES_BIN)
@@ -713,6 +713,9 @@ check-ansi: $(REPO_UTILITIES_BIN)
 
 check-terminology: $(REPO_UTILITIES_BIN)
 	@$(REPO_UTILITIES_BIN) terminology-gate
+
+check-path-hygiene: $(REPO_UTILITIES_BIN)
+	@$(REPO_UTILITIES_BIN) path-hygiene
 
 # Governance verifier targets
 registry-verify-markdown-governance:
