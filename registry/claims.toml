@@ -8808,6 +8808,34 @@ status_note = "Scoped formal proposition for THM-LEGACY-NullityTwelveQuadraticLo
 where_stated = "proofs/theories/NullityTwelveQuadraticLocus.v; docs/engineering/quantum_proof_reconciliation.txt"
 
 [[claim]]
+id = "C-1776"
+last_verified = "2026-10-30"
+statement = "Open research program: a complete classification of the A5 two-sided rank strata through their attaching data. The limit of the kernel plane along passages from nullity 8 to nullity 12 and 16 is described by the special fiber of the Rees algebra of the Pfaffian kernel-coordinate ideal. For the passage E8-bar to VB the quadric approximation of this fiber has components of degree 3 and 4; the degree-4 component is reached by formal arcs and the degree-3 component is undecided. Nullity-4 kernel bundles, link-to-limit maps and integral invariants remain open."
+status = "Provisional"
+where_stated = "data/output/audit/a5-cayley-dickson-strata/source-binding.toml"
+
+[[claim]]
+id = "C-1777"
+last_verified = "2026-10-30"
+statement = "On the smooth A5 zero-divisor strata of nullity 8, 12 and 16, ker L_y is a complex vector bundle under J = L_(e_16). All five nullity-12 complex kernel bundles are trivial. On N_+- the complex bundle is C^2 + 3 xi over V_2(R^7), and on E8-bar and X_+- it is C^2 + xi, each carrying the nonzero class of reduced K^0(V_2(R^7)) = Z/2; on W8 it is 2 xi with reduced class 0 and on Iso it is C^4. Every Chern, Stiefel-Whitney and Pontryagin class of these bundles vanishes, so the order-two K-theory class is invisible to characteristic classes."
+status = "Verified"
+where_stated = "data/output/audit/a5-cayley-dickson-strata/source-binding.toml"
+
+[[claim]]
+id = "C-1778"
+last_verified = "2026-10-30"
+statement = "Under H = G_2(C) x SO(2, C) x C^*, the rank-8 locus of A5 minus the origin is the disjoint union of twelve H-orbits: five of nullity 8 (W8, E8-bar, Iso, X_+, X_-) and seven of nullity at least 12 (B9, V, VB, V^a_+, V^a_-, N_+, N_-). Sing V = Sing W8 = N_+ u N_-, Sing Iso = VB, Sing X_+- = V^a_+-, Sing E8-bar = V u B9. These orbits, the origin, three nullity-4 strata and the complement form a Whitney stratification of C^15, and the normal link of V u B9 along VB at e_1 + e_18 is S^1 disjoint union S^3."
+status = "Verified"
+where_stated = "data/output/audit/a5-cayley-dickson-strata/source-binding.toml"
+
+[[claim]]
+id = "C-1779"
+last_verified = "2026-10-30"
+statement = "In the 32-dimensional Cayley-Dickson algebra A5, the zero divisors are the doubly pure y = (p, q) with Q G = 0 for z = p + i q, a union of two absolutely irreducible hypersurfaces of C^15 of complex dimension 14. The real nullity of L_y equals 28 - 2 rank_C C_z, so the nullities 4, 8, 12, 16 are the rank 12, 10, 8, 6 loci of C_z. The rank strata have closed equations R_8 = W8 u E8-bar, R_12 = V u B9, R_16 = N_+ u N_-; E8-bar is irreducible of complex dimension 11 with projective degree 24. The unit strata of nullity 4 and 12 are connected and those of nullity 8 and 16 have two connected components."
+status = "Verified"
+where_stated = "data/output/audit/a5-cayley-dickson-strata/source-binding.toml"
+
+[[claim]]
 id = "C-178"
 last_verified = "2026-02-01"
 statement = 'Inner derivation space dimension (via D(a,b)(c) = A(a,b,c) - A(b,a,c) + A(c,a,b)): dim=0 at dim=2,4 (associative -> A=0); dim=21 at dim=8; dim=98 at dim=16; dim=383 at dim=32. Note: at dim=8 (octonions), Der(O) = g2 has dim 14, but this "inner derivation map" spans a 21-dimensional space of linear maps, not all of which satisfy the Leibniz rule.'
