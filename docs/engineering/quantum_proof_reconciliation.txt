@@ -8,7 +8,7 @@ Source and execution boundary
 -----------------------------
 
 The audit reads IBMQuantum commit d4e3a7c7f056bbdadbc2f91e3efdb37d203b655f
-and open_gororoba base b2fd9f624abefb63cab8b3f0056a6cf648aaef14.
+and gororoba-open base b2fd9f624abefb63cab8b3f0056a6cf648aaef14.
 A subsequent read-only delta audit uses ee6608ba481f304f8e3a21573e027a7ba0b5fb86,
 whose tree matches the reviewed 56ae809 correction update. The proof sources,
 mathematical evidence and mathematical notes retain identical bytes across

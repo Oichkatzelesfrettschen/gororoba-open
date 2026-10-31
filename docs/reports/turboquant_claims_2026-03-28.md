@@ -1,6 +1,6 @@
 # TurboQuant Claims Registry (2026-03-28)
 
-Claims from the TurboQuant implementation in open_gororoba.
+Claims from the TurboQuant implementation in gororoba-open.
 Each claim has a verification command and measured result.
 
 ## C-1597: WHT rotation 3.2x faster than Haar at d=128

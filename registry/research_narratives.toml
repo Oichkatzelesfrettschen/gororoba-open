@@ -1045,7 +1045,7 @@ body_markdown = '''
 The **Warp Ring** hypothesis posits that a 3D vortex ring can be stabilized against turbulent decay by coupling its vorticity field to a high-dimensional algebraic structure (specifically, the root system of the E7 Lie algebra). This coupling introduces a "topological viscosity" that selectively dissipates small-scale noise while preserving macroscopic coherence.
 
 ### 1.1. The Frustration Field
-In the `open_gororoba` simulation, the standard Navier-Stokes equations are augmented with a frustration term derived from spectral triads:
+In the `gororoba-open` simulation, the standard Navier-Stokes equations are augmented with a frustration term derived from spectral triads:
 
 $$
 \partial_t \mathbf{u} + (\mathbf{u} \cdot \nabla) \mathbf{u} = -\nabla p + \nu \nabla^2 \mathbf{u} + \mathbf{F}_{algebra}
@@ -1136,7 +1136,7 @@ K_{2,2,...,2} -- the 1-skeleton of a high-dimensional orthoplex (cross-polytope)
 All motif classes share diameter 2, girth 3, and universal DegenerateIntegrable
 statistics regardless of edge-count topology.
 
-These results arise from Sprint 60 of the open_gororoba project, synthesizing
+These results arise from Sprint 60 of the gororoba-open project, synthesizing
 claims C-922 through C-930 into a cohesive theoretical framework. The key
 physical consequences are:
 
@@ -1620,7 +1620,7 @@ id = "RN-041"
 source_markdown = "docs/NAVIGATOR.md"
 domain = "research"
 slug = "navigator"
-title = "Navigator: Conceptual Map of the open_gororoba Research Space"
+title = "Navigator: Conceptual Map of the gororoba-open Research Space"
 status_token = "NARRATIVE"
 content_kind = "navigation"
 verification_level = "engineering_narrative"

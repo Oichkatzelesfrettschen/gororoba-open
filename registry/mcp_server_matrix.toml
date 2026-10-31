@@ -1,6 +1,6 @@
 [meta]
 checked_utc = "2026-02-16T01:56:18Z"
-repo = "open_gororoba"
+repo = "gororoba-open"
 purpose = "cross-LLM MCP inventory, parity, and repo-fit audit"
 
 [client_config_paths]

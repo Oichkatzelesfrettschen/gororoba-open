@@ -1,0 +1,11 @@
+schema_version = 1
+crate = "zarrs"
+version = "0.23.14"
+upstream = "https://github.com/zarrs/zarrs"
+archive_sha256 = "fbd6697e73e803a80f182036563038ccfaf7fca1b71fc510cce65daaa45478f8"
+license = "MIT OR Apache-2.0"
+preserved_licenses = ["LICENCE-MIT", "LICENCE-APACHE"]
+source_change = "Cargo.toml, Cargo.toml.orig: blusc 0.0.6 to 0.0.7 and drop the zstd feature of blosc-src; src/array/codec/bytes_to_bytes/blosc/blosc_via_blusc.rs: cparams.typesize = typesize.max(1)."
+cause = "The C zstd, zstd-safe and zstd-sys crates carry RustSec advisories; blusc 0.0.7 replaces zstd with the pure-Rust zrip."
+release_boundary = "zarrs pull request 497 (merge commit 3e9f64add5) is unreleased at 0.23.14."
+removal_condition = "Remove the patch when a zarrs release requires blusc >= 0.0.7."

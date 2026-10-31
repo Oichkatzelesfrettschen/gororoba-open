@@ -656,7 +656,7 @@
       "paper_title": "Oktaven, ausnahmegruppen und oktavengeometrie",
       "action": "stage_metadata_landing_child",
       "candidate_url": "https://link.springer.com/article/10.1007/BF00233101",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '1'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '1'",
       "rationale": "Candidate from google_scholar [catalog] with relevance score 132 and 0 citations for queue target freudenthal_1951_exact_original.",
       "default_selected": true
     },
@@ -672,7 +672,7 @@
       "paper_title": "Oktaven, Ausnahmegruppen und Oktavengeometrie",
       "action": "stage_browser_landing_child",
       "candidate_url": "https://cir.nii.ac.jp/crid/1570291224321248768",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '2'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '2'",
       "rationale": "Candidate from cinii [catalog] with relevance score 132 and 0 citations for queue target freudenthal_1951_exact_original.",
       "default_selected": false
     },
@@ -688,7 +688,7 @@
       "paper_title": "Oktaven, Ausnahmegruppen und Oktavengeometrie",
       "action": "stage_browser_landing_child",
       "candidate_url": "https://www.mathnet.ru/eng/mat7",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '3'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '3'",
       "rationale": "Candidate from google_scholar [catalog] with relevance score 132 and 0 citations for queue target freudenthal_1951_exact_original.",
       "default_selected": false
     },
@@ -704,7 +704,7 @@
       "paper_title": "Oktaven, Ausnahmegruppen und Oktavengeometrie",
       "action": "stage_browser_landing_child",
       "candidate_url": "https://cir.nii.ac.jp/crid/1362262943867099008",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '4'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/freudenthal_1951_exact_original_20260327.json' --rank '4'",
       "rationale": "Candidate from cinii [catalog] with relevance score 132 and 0 citations for queue target freudenthal_1951_exact_original.",
       "default_selected": false
     }

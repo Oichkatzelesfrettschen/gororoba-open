@@ -277,6 +277,8 @@ credentials.*
 !docs/dependencies/*.md
 !docs/glossary.md
 !vendor/proc-macro-error2/CHANGELOG.md
+!vendor/zarrs-0.23.14/VENDORED.md
+!vendor/zarrs-0.23.14/doc/**/*.md
 
 # ------------------------------------------------------------------------------
 # 7. Root Directory Protection (Keep Root Clean)

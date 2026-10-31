@@ -10,8 +10,8 @@ from 0.05 AU (Parker Solar Probe) to 137 AU (Voyager interstellar).
 
 ```bash
 # Prerequisites: Rust nightly (pinned via rust-toolchain.toml)
-git clone https://github.com/Oichkatzelesfrettschen/open_gororoba.git
-cd open_gororoba
+git clone https://github.com/Oichkatzelesfrettschen/gororoba-open.git
+cd gororoba-open
 
 # Build the entire workspace
 cargo build --workspace
@@ -25,7 +25,7 @@ cargo test --workspace     # Full test suite
 ## Project layout
 
 ```
-open_gororoba/
+gororoba-open/
   crates/              68 Rust crates (libraries + CLI binaries)
   registry/            TOML registries (claims, insights, experiments, binaries)
   registry/canonical/  SQLite source-of-truth database (control_plane.sqlite3)

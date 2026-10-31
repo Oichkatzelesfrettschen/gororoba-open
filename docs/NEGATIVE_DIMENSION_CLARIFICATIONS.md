@@ -1,5 +1,5 @@
 ---
-description: Scope boundary for negative-dimension language in open_gororoba cosmology notes
+description: Scope boundary for negative-dimension language in gororoba-open cosmology notes
 last_verified: 2026-06-25
 status: active
 ---
@@ -7,7 +7,7 @@ status: active
 # Negative Dimension Clarifications
 
 This note defines the allowed meaning of "negative dimension" in the
-open_gororoba claim registry. The phrase is a toy-model shorthand for an
+gororoba-open claim registry. The phrase is a toy-model shorthand for an
 analytically continued dimension-like parameter in spectral and diffusion
 operators. It is not a claim that physical spacetime has a negative topological
 dimension.

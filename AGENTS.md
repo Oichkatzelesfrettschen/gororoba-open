@@ -1,9 +1,9 @@
 ---
-description: open_gororoba -- pure-Rust scientific computing workspace (Cayley-Dickson algebras, cosmology, LBM, Rocq proofs, SQLite-canonical registry)
+description: gororoba-open -- pure-Rust scientific computing workspace (Cayley-Dickson algebras, cosmology, LBM, Rocq proofs, SQLite-canonical registry)
 last_verified: 2026-10-30
 ---
 
-# open_gororoba -- agent and developer reference
+# gororoba-open -- agent and developer reference
 
 This file is the operating guide for every agent and human in this repository.
 `CLAUDE.md` is a tracked relative symbolic link to it; that link is the one

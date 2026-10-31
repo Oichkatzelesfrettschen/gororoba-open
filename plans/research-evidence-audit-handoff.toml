@@ -2,11 +2,11 @@ schema_version = 1
 status = "frb_reconstructed_replay_verified_primary_finite_calibration_not_established"
 prepared_date = "2026-09-06"
 objective = "Audit related claims, insights and other research records together by shared mechanisms and evidence, preserve falsification results, and develop independently tested successor results."
-primary_checkout = "/home/eirikr/Github/open_gororoba"
+primary_checkout = "."
 primary_branch = "main"
 baseline_commit = "d59c8fa086614dc248eeb22f5406cb8205c75464"
 baseline_database_sha256 = "49ab6870d67738b4af3cb665ee03313b0ef595201e2598b3e2d73172b5f235c8"
-historical_handoff_checkout = "/home/eirikr/worktrees/open_gororoba/external-admission-claim-closure"
+historical_handoff_checkout = "external-admission-claim-closure"
 historical_handoff_branch = "docs/research-evidence-audit-handoff"
 historical_handoff_disposition = "The merged scratch checkout was moved to recoverable trash. Resume from the primary checkout and inventory live worktrees before selecting an execution path."
 inventory_root = "data/output/audit/research-evidence-family-inventory"
@@ -103,7 +103,7 @@ destructive_import_rule = "Do not rebuild/import the canonical database to refre
 implementation_rule = "Pure Rust; warnings as errors; narrow source changes, meaningful tests and independent review. New Markdown requires the repository's allowance policy; prefer existing docs or TOML planning artifacts."
 cache_rule = "The retained handoff checkout supports REPO_SHARE_PRIMARY_CACHE=1. Pass absolute Cargo roots. Its source remains different from the historical frozen runner."
 publication_rule = "Canonical pilot admission is merged through PR 177 at 3d20f9969115235497afd6a8240f2f338e4514c2. The repaired pre-push gate passes 587 tests and governance. Future scientific campaigns use isolated changes, focused validation and the required publication gate."
-preserve_worktrees = ["/home/eirikr/worktrees/open_gororoba/claim-evidence-adjudication retains historical receipt-bound evidence", "/home/eirikr/worktrees/open_gororoba/themis-frozen-model-source retains exact historical runner identity"]
+preserve_worktrees = ["claim-evidence-adjudication retains historical receipt-bound evidence", "themis-frozen-model-source retains exact historical runner identity"]
 
 [[next_task]]
 id = "verify-pilot-identity-and-authority"

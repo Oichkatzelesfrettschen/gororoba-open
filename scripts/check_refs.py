@@ -59,7 +59,7 @@ def fetch_crossref(doi: str) -> dict | None:
     """Fetch CrossRef metadata for a DOI. Returns None on 404 or error."""
     url = CROSSREF_API.format(doi=doi.strip())
     try:
-        req = request.Request(url, headers={"User-Agent": "check_refs/1.0 (open_gororoba CI)"})
+        req = request.Request(url, headers={"User-Agent": "check_refs/1.0 (gororoba-open CI)"})
         with request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
             return data.get("message", {})

@@ -99,7 +99,9 @@ const CHARACTER_POLICY_SKIP_DIRS: &[&str] = &[
     "node_modules",
 ];
 
-const CHARACTER_POLICY_SKIP_PATH_PREFIXES: &[&str] = &["data/external/papers"];
+/// Third-party bytes kept verbatim: retrieved papers, and vendored crates whose
+/// `patch-provenance.toml` binds them to the upstream archive hash.
+const CHARACTER_POLICY_SKIP_PATH_PREFIXES: &[&str] = &["data/external/papers", "vendor/"];
 
 const CHARACTER_POLICY_SKIP_EXTS: &[&str] = &[
     ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf", ".xlsx", ".zip", ".tar", ".gz", ".bz2",

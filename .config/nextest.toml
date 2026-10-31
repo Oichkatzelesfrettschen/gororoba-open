@@ -1,4 +1,4 @@
-# Nextest workspace configuration for open_gororoba.
+# Nextest workspace configuration for gororoba-open.
 #
 # WHY: Nextest reads this file automatically from the workspace root. Without it,
 # the `smoke`, `heavy`, and `gpu` profiles referenced in the Makefile do not

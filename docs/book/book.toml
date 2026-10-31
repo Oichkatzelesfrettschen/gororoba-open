@@ -1,5 +1,5 @@
 [book]
-title = "open_gororoba"
+title = "gororoba-open"
 authors = ["eirikr"]
 description = "Research workbench for Cayley-Dickson algebra and physics applications"
 language = "en"
@@ -9,4 +9,4 @@ src = "src"
 build-dir = "../../target/book"
 
 [output.html]
-git-repository-url = "https://github.com/Oichkatzelesfrettschen/open_gororoba"
+git-repository-url = "https://github.com/Oichkatzelesfrettschen/gororoba-open"

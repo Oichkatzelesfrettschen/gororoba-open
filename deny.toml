@@ -1,4 +1,4 @@
-# cargo-deny policy for open_gororoba.
+# cargo-deny policy for gororoba-open.
 # Keep this file compact and explicit. Remove ignores as upstream fixes land.
 
 [advisories]
@@ -21,9 +21,6 @@ ignore = [
     # instant 0.1.13 (unmaintained). Runtime via minifb -> gororoba_cli_physics
     # for UI display timing. Migration tracked: see ADR rustsec-dispositions.md.
     "RUSTSEC-2024-0384",
-    # proc-macro-error2 is a dev-only benchmark proc-macro with no safe
-    # maintained replacement in iai-callgrind.
-    "RUSTSEC-2026-0173",
     # ttf-parser is transitive through plotters and lopdf; RustSec reports no
     # safe upgrade for the maintained consumers.
     "RUSTSEC-2026-0192",

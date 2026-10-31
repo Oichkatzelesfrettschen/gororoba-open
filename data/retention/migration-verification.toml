@@ -27,7 +27,7 @@ canonical_database_comparison = "original_science_index_and_worktree_hashes_equa
 scientific_claim_status_changes = 0
 scientific_experiments_run = 0
 
-public_release_url = "https://github.com/Oichkatzelesfrettschen/open_gororoba/releases/tag/scientific-payload-archive"
+public_release_url = "https://github.com/Oichkatzelesfrettschen/gororoba-open/releases/tag/scientific-payload-archive"
 public_download_tool = "wget with Mozilla/5.0 user agent"
 public_download_bytes = 1836011796
 public_download_sha256 = "7a5e2494d6f5afee30ea62641bd474929d365d52cdec26426f70e1e3f9766459"

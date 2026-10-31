@@ -6,7 +6,7 @@
 //! simsimd uses hardware-specific kernels (AVX2, AVX-512, NEON) selected
 //! at runtime, providing maximum throughput without manual SIMD code.
 //!
-//! # Use cases in open_gororoba
+//! # Use cases in gororoba-open
 //!
 //! 1. QJL inner product estimation (dot product of projected query and keys)
 //! 2. CD fidelity cosine similarity measurement

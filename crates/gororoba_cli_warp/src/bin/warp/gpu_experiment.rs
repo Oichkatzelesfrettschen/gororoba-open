@@ -1,6 +1,6 @@
 //! Warp Turbulence Experiment: E7 Viscosity, P-adic Cascades, and Topology.
 //!
-//! Executes three experiments to validate novel hypotheses in the open_gororoba framework.
+//! Executes three experiments to validate novel hypotheses in the gororoba-open framework.
 //!
 //! Experiment A: Algebraic Viscosity (Stability test)
 //! Experiment B: P-adic Spectral Tuning (Spectral slope vs prime)

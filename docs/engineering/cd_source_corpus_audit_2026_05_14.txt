@@ -8,7 +8,7 @@ Date
 Scope
 -----
 This note reconciles the local off-repo Cayley-Dickson document cache with the
-open_gororoba registry and proof surfaces. The cache root inspected was:
+gororoba-open registry and proof surfaces. The cache root inspected was:
 
 - /home/eirikr/Documents/Projects/CayleyDickson
 
@@ -70,7 +70,7 @@ Exact-source gaps still open
 
 Availability/formalization distinction
 --------------------------------------
-The chronology matrix uses FORMALIZED tags conservatively. The open_gororoba
+The chronology matrix uses FORMALIZED tags conservatively. The gororoba-open
 formalization surface is broader than those four chronology tags because the
 repo now carries active Rocq paper files and paper-index surfaces for:
 

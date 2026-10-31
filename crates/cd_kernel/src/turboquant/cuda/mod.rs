@@ -1,6 +1,6 @@
 //! CUDA backend for TurboQuant: hardware probing, NVRTC JIT, kernel dispatch.
 //!
-//! Ported from open_gororoba's `lbm_3d_cuda` crate which implements the same
+//! Ported from gororoba-open's `lbm_3d_cuda` crate which implements the same
 //! pattern: probe hardware -> select architecture -> JIT compile -> dispatch.
 //!
 //! # Architecture selection (from steinmarder SASS measurements)

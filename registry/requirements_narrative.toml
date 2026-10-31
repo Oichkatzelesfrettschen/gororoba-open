@@ -10,9 +10,9 @@ document_count = 13
 
 [[document]]
 path = "docs/REQUIREMENTS.md"
-title = "open_gororoba Requirements"
+title = "gororoba-open Requirements"
 body_markdown = '''
-# open_gororoba Requirements
+# gororoba-open Requirements
 
 This repository is a Rust-first scientific workspace with optional Python,
 Docker, Rocq, LaTeX, C++, and web-app lanes layered on top. The canonical

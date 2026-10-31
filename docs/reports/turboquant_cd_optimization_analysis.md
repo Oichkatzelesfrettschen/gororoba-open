@@ -84,7 +84,7 @@ Load query q once from HBM, compute all three terms in single pass.
 | 6 | NVRTC kernel fusion | High | 2x bandwidth | Low |
 | 7 | Codebook caching | Trivial | Startup speedup | None |
 
-## Key Files in open_gororoba
+## Key Files in gororoba-open
 
 - `cd_kernel/src/` -- cd_sign_fuel, basis indexing, popcount infrastructure
 - `gororoba_algebra/src/construction/cd_tower.rs` -- implement_cd_algebra! butterfly macro

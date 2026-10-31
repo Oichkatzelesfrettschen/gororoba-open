@@ -831,7 +831,7 @@
       "paper_title": "Linear algebras with associativity not assumed",
       "action": "stage_doi_resolver_child",
       "candidate_url": "https://doi.org/10.1215/s0012-7094-35-00112-0",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '1'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '1'",
       "rationale": "Candidate from crossref [resolver] with relevance score 114 and 40 citations for queue target dickson_1935_exact_pdf.",
       "default_selected": true
     },
@@ -847,7 +847,7 @@
       "paper_title": "Linear algebras with associativity not assumed",
       "action": "stage_metadata_landing_child",
       "candidate_url": "https://openalex.org/W2009510707",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '2'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '2'",
       "rationale": "Candidate from openalex [citation_graph] with relevance score 106 and 57 citations for queue target dickson_1935_exact_pdf.",
       "default_selected": false
     },
@@ -863,7 +863,7 @@
       "paper_title": "Linear algebras with associativity not assumed",
       "action": "stage_browser_landing_child",
       "candidate_url": "https://www.semanticscholar.org/paper/fd3d64c4d98c38ba5aab882abab1c29ee57bf94f",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '3'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '3'",
       "rationale": "Candidate from semantic_scholar [citation_graph] with relevance score 106 and 64 citations for queue target dickson_1935_exact_pdf.",
       "default_selected": false
     },
@@ -879,7 +879,7 @@
       "paper_title": "Linear algebras with associativity not assumed",
       "action": "stage_browser_landing_child",
       "candidate_url": "https://projecteuclid.org/journals/duke-mathematical-journal/volume-1/issue-2/Linear-algebras-with-associativity-not-assumed/10.1215/S0012-7094-35-00112-0.short",
-      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '/home/eirikr/Github/open_gororoba' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '4'",
+      "command": "cargo run -q -p gororoba_cli_data --bin cd-cache-adapter -- --project-api-root '/home/eirikr/Documents/Projects/CayleyDickson' --gororoba-repo-root '.' stage-from-dossier --dossier 'docs/reports/cd_cache_dossiers/dickson_1935_exact_pdf_20260327.json' --rank '4'",
       "rationale": "Candidate from google_scholar [catalog] with relevance score 106 and 0 citations for queue target dickson_1935_exact_pdf.",
       "default_selected": false
     }

@@ -1,7 +1,7 @@
-Terakan anti-diagonal residual: open_gororoba algebraic toolkit map
+Terakan anti-diagonal residual: gororoba-open algebraic toolkit map
 ====================================================================
 
-This document tells you which open_gororoba crate to reach for when
+This document tells you which gororoba-open crate to reach for when
 you need the next algebraic diagnostic on the Terakan anti-diagonal
 bug (`dEQP-VK.image.store.with_format.2d_array.r32_sint_single_layer`,
 2026-04-19; 64 wrong pixels, all on `xor_key(x, y) == 63`).

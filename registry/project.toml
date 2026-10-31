@@ -1,12 +1,12 @@
-# Project-level metadata for the open_gororoba registry.
+# Project-level metadata for the gororoba-open registry.
 
 [project]
-name = "open_gororoba"
+name = "gororoba-open"
 version = "0.13.0"
 description = "Research workbench for Cayley-Dickson algebra and physics applications"
 license = "GPL-2.0-or-later"
 test_count = 5399
-claim_count = 1588
+claim_count = 1592
 insight_count = 183
 experiment_count = 285
 complete_experiment_count = 0

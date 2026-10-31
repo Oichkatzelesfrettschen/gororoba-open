@@ -5,7 +5,7 @@
 # Snapshot date: 2026-03-19
 
 **Status**: Active research synthesis, not a publication-ready detection paper.
-**Scope**: This document reconstructs the current NANOGrav-related lane in `open_gororoba`
+**Scope**: This document reconstructs the current NANOGrav-related lane in `gororoba-open`
 from the repository artifacts, the recent timing-refit tranche, and first-party release
 surfaces. It is intentionally over-explicit about what is implemented, what is only
 heuristic, and what is presently unsupported.

@@ -16,7 +16,7 @@
 //! alpha, and the vacuum imbalance attractor (3/8) gives zero correction.
 //!
 //! # References
-//! - This module (open_gororoba non-canonical exploration)
+//! - This module (gororoba-open non-canonical exploration)
 //! - Arnowitt, Deser, Misner (1962): ADM formalism
 //! - de Marrais (2000): Sedenion zero-divisor structure
 

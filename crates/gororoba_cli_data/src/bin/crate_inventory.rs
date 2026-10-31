@@ -126,7 +126,7 @@ fn validate_catalog(catalog: &Catalog, metadata: &MetadataRoot) -> Result<()> {
     if catalog.schema != "gororoba.rust.crate_catalog.v1" {
         bail!("unexpected schema {}", catalog.schema);
     }
-    if catalog.meta.repo != "open_gororoba" {
+    if catalog.meta.repo != "gororoba-open" {
         bail!("unexpected repo {}", catalog.meta.repo);
     }
 

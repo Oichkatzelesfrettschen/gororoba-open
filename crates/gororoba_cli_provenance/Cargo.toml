@@ -41,7 +41,7 @@ tempfile = { workspace = true }
 tokio = { workspace = true }
 toml = { workspace = true }
 url = { workspace = true }
-zstd = "=0.13.3"
+ruzstd = "=0.9.1"
 
 [lints]
 workspace = true
