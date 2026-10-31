@@ -52,11 +52,8 @@ tool, skill, harness or agent default; follow it and surface the conflict.
 - Warnings are errors through `[workspace.lints]` in root `Cargo.toml`. MUST NOT
   add crate-level `#![allow(warnings)]`; a narrow `#[allow(clippy::<lint>)]`
   carries a written rationale.
-- Pure Rust: new `.sh` and `.py` files MUST NOT be added; wrap a Python library
-  with PyO3 behind a typed Rust binary. The tracked files below are legacy
-  awaiting Rust ports (task in `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`,
-  phase `DBT-B`); MUST NOT extend them:
-  `bin/run_quantum_container.sh`.
+- Pure Rust: the repository tracks no `.sh` or `.py` file, and MUST NOT add one;
+  wrap a Python library with PyO3 behind a typed Rust binary.
 - MUST NOT create symlinks as build or data workarounds.
 - A tool MUST NOT locate the repository through `env!("CARGO_MANIFEST_DIR")`;
   the shared build-dir hands one worktree's compiled crate to every other.

@@ -12,7 +12,6 @@
 //! - `docs/requirements/analysis.md`
 //! - `docs/requirements/astro.md`
 //! - `docs/requirements/materials.md`
-//! - `docs/requirements/quantum-docker.md`
 //! - `docs/requirements/rocq.md`
 //! - `docs/requirements/latex.md`
 //! - `apps/gororoba_studio/README.md`

@@ -137,7 +137,6 @@ For module-specific requirements, see:
 - `docs/requirements/latex.md`
 - `docs/requirements/materials.md`
 - `docs/requirements/particle.md`
-- `docs/requirements/quantum-docker.md`
 - `docs/requirements/rocq.md`
 - `crates/lbm_3d_cuda/README.md`
 - `apps/gororoba_studio/README.md`
@@ -442,33 +441,6 @@ cargo run -p gororoba_cli_data --bin data-origin-audit -- --fail-on-strict-unkno
 cargo run -p gororoba_cli_data --bin data-governance-gate --
 cargo run -p gororoba_cli_data --bin data-semantic-validate --
 cargo run -p gororoba_cli_data --bin data-semantic-validate -- --fail-on-unverifiable true
-```
-'''
-
-[[document]]
-path = "docs/requirements/quantum-docker.md"
-title = "Requirements: Quantum Docker"
-body_markdown = '''
-# Requirements: Quantum (Qiskit via Docker)
-
-Host Python may be too new for Qiskit wheels. Use Docker.
-
-```ignore
-docker build -t qiskit-env -f docker/Dockerfile .
-./run_quantum_container.sh src/quantum/local_test.py
-```
-
-Makefile equivalents:
-
-```ignore
-make docker-quantum-build
-make docker-quantum-run ARGS="src/quantum/local_test.py"
-```
-
-Optional local install on Python 3.11/3.12 only:
-
-```ignore
-make install-quantum
 ```
 '''
 

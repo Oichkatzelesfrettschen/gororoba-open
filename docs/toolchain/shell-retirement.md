@@ -52,7 +52,7 @@ Status: COMPLETE (2026-04-17). All four scripts removed from `bin/`.
 
 | File                           | Lines | Decision | Location                                                                                                                                       |
 | ------------------------------ | ----- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bin/run_quantum_container.sh` | 15    | REVIEW   | Docker wrapper; decide whether Docker is still in scope. If yes, relocate to `vendor/` with SHA256-stamped third-party note. Otherwise DELETE. |
+| `bin/run_quantum_container.sh` | 15 | DONE | Removed with `docker/Dockerfile`, the `docker-quantum-*` make targets and the REQ-QUANTUM requirement module; the container mounted a `src/` tree the repository no longer has. |
 
 ### Category E -- BINARY / NON-SCRIPT
 

@@ -102,15 +102,6 @@
 //! - Install targets:
 //!   - `make install-particle`
 //!
-//! ### REQ-QUANTUM: quantum_docker
-//!
-//! - Status: `active`
-//! - Markdown: `docs/requirements/quantum-docker.md`
-//! - Install targets:
-//!   - `make install-quantum`
-//!   - `docker-quantum-build`
-//!   - `docker-quantum-run`
-//!
 //! ### REQ-STUDIO: gororoba_studio
 //!
 //! - Status: `active`

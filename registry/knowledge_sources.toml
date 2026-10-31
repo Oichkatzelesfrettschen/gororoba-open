@@ -5,10 +5,10 @@
 
 [knowledge_sources]
 generated_at = "deterministic"
-tracked_markdown_count = 175
+tracked_markdown_count = 174
 manual_source_count = 124
 markdown_mirror_count = 0
-generated_markdown_count = 51
+generated_markdown_count = 50
 artifact_report_count = 0
 transcript_input_count = 0
 
@@ -22,13 +22,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "agents.toml"
-sha256 = "387665e275778afca1a95fb143f3cdcda57c35c6068efd679e7fe48077aaea08"
-size_bytes = 7122
-line_count = 130
+sha256 = "253fdeecadb0c1fb5119c449b8a493222b5ea5356464a11899ce6e34f20d63ee"
+size_bytes = 6953
+line_count = 127
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 80
+link_count = 77
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -41,13 +41,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "387665e275778afca1a95fb143f3cdcda57c35c6068efd679e7fe48077aaea08"
-size_bytes = 7122
-line_count = 130
+sha256 = "253fdeecadb0c1fb5119c449b8a493222b5ea5356464a11899ce6e34f20d63ee"
+size_bytes = 6953
+line_count = 127
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 80
+link_count = 77
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -341,13 +341,13 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/requirements.toml"
-sha256 = "603f592a2e3cd46d8b125376241bdc2fa24140e8d07021f417d25da62136a3f1"
-size_bytes = 8359
-line_count = 156
+sha256 = "0958a19c6ac73baaee74adb9efbb3872b81d3b5ae0ea48a8672eba76e4d62585"
+size_bytes = 8319
+line_count = 155
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 86
+link_count = 85
 link_sample = [".cache/gate-target", "1.97.0", "3.11", "3.12", "3.13+", "9.2.0", "GitHub release: https://github.com/google/shaderc/releases (prebuilt glslc tarball). System-pkg fallback: paru -S shaderc on Arch.", "GitHub release: https://github.com/pmd/pmd/releases (Java tool; download tarball + JAVA_HOME). System-package fallback: paru -S pmd on Arch."]
 
 [[document]]
@@ -2554,24 +2554,6 @@ link_sample = ["data/external/"]
 
 [[document]]
 id = "DOC-0137"
-path = "docs/requirements/quantum-docker.md"
-title = "Requirements: Quantum (Qiskit via Docker)"
-kind = "generated_markdown"
-authoring_mode = "generated"
-generated = true
-status = "active"
-migration_priority = "critical"
-sha256 = "56a5477ab3ac78f94c67644f11fd21443e035096eae9171d8be2cff787fe7b30"
-size_bytes = 557
-line_count = 24
-claim_ref_count = 0
-insight_ref_count = 0
-experiment_ref_count = 0
-link_count = 0
-link_sample = []
-
-[[document]]
-id = "DOC-0138"
 path = "docs/requirements/rocq.md"
 title = "Requirements: Rocq Proof Checking"
 kind = "generated_markdown"
@@ -2589,7 +2571,7 @@ link_count = 14
 link_sample = [".v", "FP24Representable.v", "Flocq.Core", "coq-flocq.4.2.2", "proofs/", "proofs/theories", "proofs/verified"]
 
 [[document]]
-id = "DOC-0139"
+id = "DOC-0138"
 path = "docs/research/crossing-detector-statistical-benefit.md"
 title = "Crossing-detector statistical benefit and operational utility"
 kind = "manual_source"
@@ -2608,7 +2590,7 @@ link_count = 26
 link_sample = ["data/output/audit/staples-causal-validation/findings.toml", "data/output/audit/staples-causal-validation/protocol.toml", "data/output/audit/staples-causal-validation/research/adopted-calibration-findings.toml", "frontier.csv", "frontier.svg", "mathematical-fixture.json", "plans/crossing-detector-operational-utility.toml", "report.json"]
 
 [[document]]
-id = "DOC-0140"
+id = "DOC-0139"
 path = "docs/research/nanograv_15yr_cayley_dickson_synthesis_2026.md"
 title = "NANOGrav 15-Year Cayley-Dickson Synthesis"
 kind = "manual_source"
@@ -2627,7 +2609,7 @@ link_count = 143
 link_sample = [".out", ".par", ".res", ".tim", "2.1.0", "J0709+0458_PINT_20230131.wb", "J1312+0051_PINT_20230131.wb", "J1713+0747_PINT_20230131.wb"]
 
 [[document]]
-id = "DOC-0141"
+id = "DOC-0140"
 path = "docs/tickets/TICKET_PIONEER_FLYBY_FRACTAL_BRIDGE.md"
 title = "Ticket: Pioneer/Flyby Fractal Bridge"
 kind = "generated_markdown"
@@ -2645,7 +2627,7 @@ link_count = 7
 link_sample = ["best_fit.json", "crates/gr_core/src/fractal_metric.rs", "fit_grid.csv", "nbody_integration.rs"]
 
 [[document]]
-id = "DOC-0142"
+id = "DOC-0141"
 path = "docs/toolchain/heasarc-catalog-walker.md"
 title = "HEASARC Catalog-of-Catalogs Walker (plan P6A.S5.T1)"
 kind = "manual_source"
@@ -2663,7 +2645,7 @@ link_count = 24
 link_sample = ["/tables", "crates/data_core/src/catalogs/heasarc_enumerate.rs", "crates/data_core/src/formats/votable.rs", "data_servers.toml#heasarc_w3browse", "download_stack.rs", "registry/data_servers.toml", "registry/datasets.toml", "registry/heasarc_catalogs.toml"]
 
 [[document]]
-id = "DOC-0143"
+id = "DOC-0142"
 path = "docs/toolchain/mast-enumeration-policy.md"
 title = "MAST (STScI) Catalog Enumeration Policy (plan P6A.S5.T2)"
 kind = "manual_source"
@@ -2681,7 +2663,7 @@ link_count = 10
 link_sample = ["data_servers.toml#mast_s3_zarr", "hst_fetch.rs", "jwst_fetch.rs", "registry/data_servers.toml#mast_api", "registry/datasets.toml", "registry/mast_catalogs.toml"]
 
 [[document]]
-id = "DOC-0144"
+id = "DOC-0143"
 path = "docs/toolchain/nightly-2026-04-05-ice.md"
 title = "Nightly 2026-04-05 ICE Captures"
 kind = "manual_source"
@@ -2699,7 +2681,7 @@ link_count = 20
 link_sample = [".gitignore:52", "Cargo.toml:2", "Cargo.toml:441-721", "rust-toolchain.toml", "rust-toolchain.toml:2"]
 
 [[document]]
-id = "DOC-0145"
+id = "DOC-0144"
 path = "docs/toolchain/shell-retirement.md"
 title = "Shell Script Retirement Decision Log"
 kind = "manual_source"
@@ -2707,17 +2689,17 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "high"
-sha256 = "61538d06cbc0226478e1965ccc77470df4bf1ddcc9043a106c390eb4ab677e4d"
-size_bytes = 6895
+sha256 = "1d8e47bb047b251458b14f262a429735f1cf280a8e167f07050a9183111ac74c"
+size_bytes = 6921
 line_count = 103
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 58
+link_count = 60
 link_sample = ["archive/root_cleanup_2026-04-03/scripts/download_papers.sh", "archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh", "bin/", "bin/build_fix.sh", "bin/check_gemini.sh", "bin/do_commit.sh", "bin/micromamba", "bin/run_quantum_container.sh"]
 
 [[document]]
-id = "DOC-0146"
+id = "DOC-0145"
 path = "experiments/identifiability/INTEGRATION_NOTES.md"
 title = "Integration notes"
 kind = "manual_source"
@@ -2735,7 +2717,7 @@ link_count = 33
 link_sample = ["README.md", "crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs", "forward physics -> sensitivity/Jacobian -> identifiability -> claim registry", "identifiability_compiler.rs", "|sin(theta_h)-sin(theta_h/2)| -> 0", "||P_N(h)-P_N(h/2)||_2 -> 0"]
 
 [[document]]
-id = "DOC-0147"
+id = "DOC-0146"
 path = "experiments/identifiability/README.md"
 title = "Identifiability experiment compiler"
 kind = "manual_source"
@@ -2753,7 +2735,7 @@ link_count = 15
 link_sample = ["crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs", "results_summary.csv"]
 
 [[document]]
-id = "DOC-0148"
+id = "DOC-0147"
 path = "experiments/identifiability/RESULTS_2026-09-09.md"
 title = "Results: 2026-09-09"
 kind = "manual_source"
@@ -2771,7 +2753,7 @@ link_count = 6
 link_sample = []
 
 [[document]]
-id = "DOC-0149"
+id = "DOC-0148"
 path = "experiments/identifiability/RESULTS_2026-09-10.md"
 title = "Executed next experiments \\u2014 2026-09-10"
 kind = "manual_source"
@@ -2789,7 +2771,7 @@ link_count = 48
 link_sample = ["0.000211", "0.00213", "0.00289", "0.00408", "0.00462", "0.00870", "0.00923", "0.01%"]
 
 [[document]]
-id = "DOC-0150"
+id = "DOC-0149"
 path = "plans/README.md"
 title = "plans/"
 kind = "manual_source"
@@ -2807,7 +2789,7 @@ link_count = 18
 link_sample = ["../README_GPU_STEPS.md", "<topic>.md", "<topic>_<YYYY_MM_DD>.toml", "plans/", "plans/*.md", "plans/*.toml", "plans/archive/", "post_gate_optimization_2026_05_12.toml"]
 
 [[document]]
-id = "DOC-0151"
+id = "DOC-0150"
 path = "proofs/README.md"
 title = "Rocq proofs and plugin compatibility"
 kind = "manual_source"
@@ -2825,7 +2807,7 @@ link_count = 86
 link_sample = [".vo", "9.3", "BooleanANFDegree.v", "BooleanCochainFiltration.v", "CDAssociatorDoubling.v", "CDPhaseDegree.v", "ExtractFP24Admit.v", "Flocq.Core"]
 
 [[document]]
-id = "DOC-0152"
+id = "DOC-0151"
 path = "registry/AGENTS.md"
 title = "Registry agent guide"
 kind = "manual_source"
@@ -2843,7 +2825,7 @@ link_count = 21
 link_sample = ["AGENTS.md", "crates/gororoba_db/", "crates/provenance_store/src/reimport_guard.rs", "docs/engineering/registry_canonical_architecture.md", "docs/engineering/repo_audit_metric_taxonomy.md", "registry/canonical/control_plane.sqlite3", "registry/schema_signatures.toml", "registry/source_manifest.toml"]
 
 [[document]]
-id = "DOC-0153"
+id = "DOC-0152"
 path = "tools/vendor/cargo-geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2861,7 +2843,7 @@ link_count = 6
 link_sample = ["Cargo.toml"]
 
 [[document]]
-id = "DOC-0154"
+id = "DOC-0153"
 path = "tools/vendor/cargo-geiger/cargo-geiger-serde/README.md"
 title = "README"
 kind = "manual_source"
@@ -2879,7 +2861,7 @@ link_count = 1
 link_sample = []
 
 [[document]]
-id = "DOC-0155"
+id = "DOC-0154"
 path = "tools/vendor/cargo-geiger/cargo-geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2897,7 +2879,7 @@ link_count = 6
 link_sample = ["Cargo.toml"]
 
 [[document]]
-id = "DOC-0156"
+id = "DOC-0155"
 path = "tools/vendor/cargo-geiger/geiger/README.md"
 title = "README"
 kind = "manual_source"
@@ -2915,7 +2897,7 @@ link_count = 7
 link_sample = ["README.md"]
 
 [[document]]
-id = "DOC-0157"
+id = "DOC-0156"
 path = "tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2933,7 +2915,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0158"
+id = "DOC-0157"
 path = "tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -2951,7 +2933,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0159"
+id = "DOC-0158"
 path = "tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md"
 title = "README Title"
 kind = "manual_source"
@@ -2969,7 +2951,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0160"
+id = "DOC-0159"
 path = "tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md"
 title = "README Title"
 kind = "manual_source"
@@ -2987,7 +2969,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0161"
+id = "DOC-0160"
 path = "tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md"
 title = "README_DIFFERENT_NAME"
 kind = "manual_source"
@@ -3005,7 +2987,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0162"
+id = "DOC-0161"
 path = "tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md"
 title = "README_DIFFERENT_NAME"
 kind = "manual_source"
@@ -3023,7 +3005,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0163"
+id = "DOC-0162"
 path = "tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -3041,7 +3023,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0164"
+id = "DOC-0163"
 path = "tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md"
 title = "README"
 kind = "manual_source"
@@ -3059,7 +3041,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0165"
+id = "DOC-0164"
 path = "vendor/proc-macro-error2/CHANGELOG.md"
 title = "v2.0.1 (2024-09-06)"
 kind = "manual_source"
@@ -3077,7 +3059,7 @@ link_count = 69
 link_sample = ["1.61", "AsRef/AsMut<String> for MacroError", "From<&str/String>", "From<MacroError> for proc_macro/proc_macro2::TokenStream", "Result<T, &str/String>::abort_or_exit()", "build.rs", "v1.*"]
 
 [[document]]
-id = "DOC-0166"
+id = "DOC-0165"
 path = "vendor/proc-macro-error2/README.md"
 title = "Makes error reporting in procedural macros nice and easy"
 kind = "manual_source"
@@ -3095,7 +3077,7 @@ link_count = 40
 link_sample = [".expect", "1.61"]
 
 [[document]]
-id = "DOC-0167"
+id = "DOC-0166"
 path = "vendor/zarrs-0.23.14/README.md"
 title = "zar<ins>rs</ins>"
 kind = "manual_source"
@@ -3113,7 +3095,7 @@ link_count = 24
 link_sample = []
 
 [[document]]
-id = "DOC-0168"
+id = "DOC-0167"
 path = "vendor/zarrs-0.23.14/VENDORED.md"
 title = "Vendored zarrs 0.23.14"
 kind = "manual_source"
@@ -3131,7 +3113,7 @@ link_count = 22
 link_sample = ["Cargo.toml", "Cargo.toml.orig", "blosc_codec_via_blusc.rs", "src/array/codec/bytes_to_bytes/blosc/blosc_via_blusc.rs", "typesize.max(1)"]
 
 [[document]]
-id = "DOC-0169"
+id = "DOC-0168"
 path = "vendor/zarrs-0.23.14/doc/ecosystem.md"
 title = "ecosystem"
 kind = "manual_source"
@@ -3149,7 +3131,7 @@ link_count = 79
 link_sample = []
 
 [[document]]
-id = "DOC-0170"
+id = "DOC-0169"
 path = "vendor/zarrs-0.23.14/doc/status/chunk_grids.md"
 title = "chunk_grids"
 kind = "manual_source"
@@ -3167,7 +3149,7 @@ link_count = 8
 link_sample = ["zarrs.regular_bounded"]
 
 [[document]]
-id = "DOC-0171"
+id = "DOC-0170"
 path = "vendor/zarrs-0.23.14/doc/status/chunk_key_encodings.md"
 title = "chunk_key_encodings"
 kind = "manual_source"
@@ -3185,7 +3167,7 @@ link_count = 6
 link_sample = ["zarrs.default_suffix"]
 
 [[document]]
-id = "DOC-0172"
+id = "DOC-0171"
 path = "vendor/zarrs-0.23.14/doc/status/codecs.md"
 title = "codecs"
 kind = "manual_source"
@@ -3203,7 +3185,7 @@ link_count = 77
 link_sample = ["numcodecs.adler32", "numcodecs.bz2", "numcodecs.fixedscaleoffset", "numcodecs.fletcher32", "numcodecs.pcodec", "numcodecs.shuffle", "numcodecs.zarr3", "numcodecs.zfpy"]
 
 [[document]]
-id = "DOC-0173"
+id = "DOC-0172"
 path = "vendor/zarrs-0.23.14/doc/status/data_types.md"
 title = "data_types"
 kind = "manual_source"
@@ -3221,7 +3203,7 @@ link_count = 313
 link_sample = ["numpy.datetime64", "numpy.timedelta64", "zarrs.optional"]
 
 [[document]]
-id = "DOC-0174"
+id = "DOC-0173"
 path = "vendor/zarrs-0.23.14/doc/status/storage_transformers.md"
 title = "storage_transformers"
 kind = "manual_source"
@@ -3239,7 +3221,7 @@ link_count = 0
 link_sample = []
 
 [[document]]
-id = "DOC-0175"
+id = "DOC-0174"
 path = "vendor/zarrs-0.23.14/doc/status/stores.md"
 title = "stores"
 kind = "manual_source"

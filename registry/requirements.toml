@@ -11,7 +11,7 @@ updated = "2026-04-04"
 python_recommended = "3.11-3.12"
 python_allowed = "3.13+ (with optional extras caveats)"
 primary_markdown = "docs/REQUIREMENTS.md"
-module_count = 14
+module_count = 13
 coverage_gap_count = 2
 status_allowlist = ["active", "deprecated", "planned", "blocked"]
 runtime_stack_allowlist = ["mixed", "rust", "python", "docker_python", "rocq", "latex", "cpp"]
@@ -162,18 +162,6 @@ runtime_stack = "python"
 requires_modules = ["REQ-CORE"]
 install_targets = ["make install-particle"]
 verify_targets = ["make install-particle"]
-acceptance_criteria = ["Runtime stack classification is explicit.", "Install and verify commands are reproducible.", "Module dependencies are fully declared in TOML."]
-
-[[module]]
-id = "REQ-QUANTUM"
-name = "quantum_docker"
-markdown = "docs/requirements/quantum-docker.md"
-status = "active"
-status_token = "ACTIVE"
-runtime_stack = "docker_python"
-requires_modules = ["REQ-CORE"]
-install_targets = ["make install-quantum", "docker-quantum-build", "docker-quantum-run"]
-verify_targets = ["docker-quantum-build", "docker-quantum-run", "make install-quantum"]
 acceptance_criteria = ["Runtime stack classification is explicit.", "Install and verify commands are reproducible.", "Module dependencies are fully declared in TOML."]
 
 [[module]]

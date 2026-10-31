@@ -751,7 +751,6 @@ tasks = [
     "Migrate Makefile policy-heavy parsing (cpd report, integrity, governance) into xtask subcommands with structured output; keep make as a thin front door.",
     "Keep each deny.toml RUSTSEC ignore annotated with the blocking dependency and a re-check trigger (already satisfied) and remove any whose upstream fix has landed (rustls-webpki cluster already removed).",
     "Harden the proofs/Makefile toolchain guard: verify the rocq binary's OCaml build matches the existing .vo tree (or that the switch is rocq-9.1.1) before compiling, and fail fast naming the opam env remedy when it does not.",
-    "Port the 1 tracked .sh file (bin/run_quantum_container.sh) to typed Rust binaries or xtask subcommands, or retire them; the root AGENTS.md Pure Rust rule bans new .sh and .py files and lists these as legacy.",
 ]
 acceptance_hooks = [
     "test -z \"$(git ls-files '*.sh' '*.py')\"  # no tracked shell or Python file remains",
