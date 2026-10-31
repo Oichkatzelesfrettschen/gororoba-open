@@ -230,6 +230,12 @@ enum Commands {
     AnsiCheck(CharacterPolicyArgs),
     TerminologyGate(TerminologyArgs),
     Doctor,
+    /// Report native BLAS and LAPACK candidates found through pkg-config.
+    #[command(name = "native-blas")]
+    NativeBlas,
+    /// Report Cargo cache sizes against the GiB budgets; exits 1 when over budget.
+    #[command(name = "cargo-cache-status")]
+    CargoCacheStatus,
     #[command(name = "mcp-smoke")]
     McpSmoke,
     #[command(name = "docs-redirect-check")]
@@ -1079,6 +1085,17 @@ fn main() -> ExitCode {
         Commands::AnsiCheck(args) => run_character_policy(args),
         Commands::TerminologyGate(args) => run_terminology_gate(args),
         Commands::Doctor => run_doctor(),
+        Commands::NativeBlas => {
+            print!("{}", repo_utilities::native_blas::detect());
+            Ok(())
+        }
+        Commands::CargoCacheStatus => {
+            match repo_utilities::cargo_cache::run(&repo_root::resolve!()) {
+                Ok(0) => Ok(()),
+                Ok(code) => std::process::exit(code),
+                Err(err) => Err(err),
+            }
+        }
         Commands::McpSmoke => run_mcp_smoke(),
         Commands::DocsRedirectCheck(args) => run_docs_redirect_check(args),
         Commands::RocqPrepareConfine(args) => run_rocq_prepare_confine(args),
