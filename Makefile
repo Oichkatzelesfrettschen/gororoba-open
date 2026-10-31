@@ -59,7 +59,6 @@
 .PHONY: artifacts artifacts-dimensional artifacts-materials artifacts-boxkites
 .PHONY: artifacts-reggiani artifacts-m3 artifacts-motifs artifacts-motifs-big artifacts-repo-visuals
 .PHONY: fetch-data fetch-data-redownload provenance-audit external-redownload-audit semantic-data-validate semantic-data-validate-strict run rocq latex latex-heliosphere latex-heliosphere-figs latex-heliosphere-clean latex-heliosphere-review
-.PHONY: docker-quantum-build docker-quantum-run docker-quantum-shell
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
 .PHONY: check-ansi check-terminology
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
@@ -2741,20 +2740,6 @@ latex-heliosphere-review:
 	@command -v latexmk >/dev/null 2>&1 || { echo "ERROR: latexmk not found"; exit 1; }
 	@mkdir -p docs/latex/heliosphere/out
 	cd docs/latex/heliosphere && latexmk -pdf -interaction=nonstopmode -halt-on-error -output-directory=out response_to_reviewers.tex
-
-# ---- Quantum Docker ----
-
-docker-quantum-build:
-	docker build -t qiskit-env -f docker/Dockerfile .
-
-docker-quantum-run:
-	./run_quantum_container.sh $(ARGS)
-
-docker-quantum-shell:
-	docker run --rm -it \
-		-v "$(PWD)/data:/app/data" \
-		-v "$(PWD)/src:/app/src" \
-		qiskit-env /bin/bash
 
 # ---- Cleanup ----
 

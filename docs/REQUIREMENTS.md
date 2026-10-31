@@ -125,7 +125,6 @@ For module-specific requirements, see:
 - `docs/requirements/latex.md`
 - `docs/requirements/materials.md`
 - `docs/requirements/particle.md`
-- `docs/requirements/quantum-docker.md`
 - `docs/requirements/rocq.md`
 - `crates/lbm_3d_cuda/README.md`
 - `apps/gororoba_studio/README.md`

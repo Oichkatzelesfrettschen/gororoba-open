@@ -2607,7 +2607,6 @@ fn infer_runtime_stack(module_name: &str) -> String {
         ("astro".to_string(), "python".to_string()),
         ("materials".to_string(), "mixed".to_string()),
         ("particle".to_string(), "python".to_string()),
-        ("quantum_docker".to_string(), "docker_python".to_string()),
         ("rocq".to_string(), "rocq".to_string()),
         ("latex".to_string(), "latex".to_string()),
         ("cpp".to_string(), "cpp".to_string()),

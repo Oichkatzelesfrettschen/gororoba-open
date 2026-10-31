@@ -12,7 +12,7 @@ updated = "2026-08-01"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-document_count = 175
+document_count = 174
 [[owner]]
 path = "README_GPU_STEPS.md"
 owner_group = "project"
@@ -347,12 +347,6 @@ removal_reason = ""
 
 [[owner]]
 path = "docs/requirements/particle.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
-path = "docs/requirements/quantum-docker.md"
 owner_group = "project"
 removal_status = "active"
 removal_reason = ""
