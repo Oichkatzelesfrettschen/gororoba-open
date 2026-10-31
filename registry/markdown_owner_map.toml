@@ -12,7 +12,7 @@ updated = "2026-08-01"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-document_count = 168
+document_count = 175
 [[owner]]
 path = "README_GPU_STEPS.md"
 owner_group = "project"
@@ -975,5 +975,40 @@ removal_status = "active"
 
 [[owner]]
 path = "proofs/README.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "crates/AGENTS.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "docs/engineering/ci_validation.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "docs/engineering/comment_and_commit_style.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "docs/engineering/condition_bound_materials.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "docs/engineering/research_epistemics.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "docs/engineering/worktree_build_cache.md"
+owner_group = "project"
+removal_status = "active"
+
+[[owner]]
+path = "registry/AGENTS.md"
 owner_group = "project"
 removal_status = "active"
