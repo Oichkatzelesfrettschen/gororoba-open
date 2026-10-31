@@ -248,6 +248,26 @@ enum Commands {
     /// absolute home or root-account path.
     #[command(name = "path-hygiene")]
     PathHygiene(PathHygieneArgs),
+    /// Check, restore or record the ignored `data/papers/` PDF cache against
+    /// `data/papers/document_cache.tsv` and the workspace documents checkouts.
+    #[command(name = "document-cache")]
+    DocumentCache(DocumentCacheArgs),
+}
+
+#[derive(Args, Debug)]
+struct DocumentCacheArgs {
+    /// Link or copy every absent cache file from the documents checkouts.
+    #[arg(long, conflicts_with = "record")]
+    restore: bool,
+    /// Rewrite the cache list from the PDFs under `data/papers/` whose digest a
+    /// documents manifest lists.
+    #[arg(long)]
+    record: bool,
+    /// Documents checkout holding `manifest.tsv`; repeatable. Defaults to the
+    /// `gororoba-documents-public` and `gororoba-documents-private` siblings
+    /// of the repository root.
+    #[arg(long = "documents")]
+    documents: Vec<PathBuf>,
 }
 
 #[derive(Args, Debug)]
@@ -1113,6 +1133,106 @@ fn absolute_home_offenders(root: &Path) -> Result<BTreeSet<String>> {
     }
 }
 
+fn run_document_cache(args: DocumentCacheArgs) -> Result<()> {
+    use repo_utilities::document_cache::{
+        CACHE_LIST_PATH, CACHE_ROOT, DEFAULT_DOCUMENT_ROOTS, DocumentRoot, EntryState,
+        parse_cache_list, render_cache_list, settle, sha256_file,
+    };
+    let root = repo_root();
+    let list_file = root.join(CACHE_LIST_PATH);
+    let documents = if args.documents.is_empty() {
+        DEFAULT_DOCUMENT_ROOTS
+            .iter()
+            .map(|relative| root.join(relative))
+            .collect()
+    } else {
+        args.documents
+    };
+    let roots = documents
+        .iter()
+        .map(|path| DocumentRoot::open(path).map_err(|error| anyhow::anyhow!(error)))
+        .collect::<Result<Vec<_>>>()?;
+    if args.record {
+        // The list names only PDFs a documents manifest serves; a cache file
+        // no manifest lists stays a local-only file outside the list.
+        let mut entries = std::collections::BTreeMap::new();
+        let mut local_only = 0_usize;
+        for entry in WalkDir::new(root.join(CACHE_ROOT)).sort_by_file_name() {
+            let entry = entry?;
+            let is_pdf = entry
+                .path()
+                .extension()
+                .is_some_and(|ext| ext.eq_ignore_ascii_case("pdf"));
+            if !entry.file_type().is_file() || !is_pdf {
+                continue;
+            }
+            let digest = sha256_file(entry.path())?;
+            if roots
+                .iter()
+                .any(|documents| documents.paths.contains_key(&digest))
+            {
+                let relative = entry
+                    .path()
+                    .strip_prefix(&root)?
+                    .to_string_lossy()
+                    .into_owned();
+                entries.insert(relative, digest);
+            } else {
+                local_only += 1;
+            }
+        }
+        fs::write(&list_file, render_cache_list(&entries))
+            .with_context(|| format!("write {}", list_file.display()))?;
+        println!(
+            "OK: recorded {} cache paths in {CACHE_LIST_PATH}; {local_only} PDF-named files are in no documents manifest.",
+            entries.len()
+        );
+        return Ok(());
+    }
+    let entries = parse_cache_list(
+        &fs::read_to_string(&list_file).with_context(|| format!("read {}", list_file.display()))?,
+    )
+    .map_err(|error| anyhow::anyhow!("{CACHE_LIST_PATH}: {error}"))?;
+    let mut counts = std::collections::BTreeMap::<&str, usize>::new();
+    let mut failures = 0_usize;
+    for entry in &entries {
+        let state = settle(&root, entry, &roots, args.restore)
+            .with_context(|| format!("settle {}", entry.path))?;
+        let label = match &state {
+            EntryState::Present => "present",
+            EntryState::Restored => "restored",
+            EntryState::Resolvable => "resolvable",
+            EntryState::Unresolved => {
+                failures += 1;
+                eprintln!(
+                    "[document-cache] {} ({}) is in no documents manifest",
+                    entry.path, entry.sha256
+                );
+                "unresolved"
+            }
+            EntryState::Mismatch(held) => {
+                failures += 1;
+                eprintln!(
+                    "[document-cache] {} holds {held}, the list records {}",
+                    entry.path, entry.sha256
+                );
+                "mismatched"
+            }
+        };
+        *counts.entry(label).or_default() += 1;
+    }
+    let summary = counts
+        .iter()
+        .map(|(label, count)| format!("{count} {label}"))
+        .collect::<Vec<_>>()
+        .join(", ");
+    if failures > 0 {
+        bail!("document cache: {summary}");
+    }
+    println!("OK: document cache: {summary}.");
+    Ok(())
+}
+
 fn run_path_hygiene(args: PathHygieneArgs) -> Result<()> {
     use repo_utilities::path_hygiene::{
         BASELINE_PATH, compare, parse_baseline, pruned_baseline, render_baseline,
@@ -1180,6 +1300,7 @@ fn main() -> ExitCode {
         Commands::RocqPrepareConfine(args) => run_rocq_prepare_confine(args),
         Commands::ValidationToolPaths(args) => run_validation_tool_paths(args),
         Commands::PathHygiene(args) => run_path_hygiene(args),
+        Commands::DocumentCache(args) => run_document_cache(args),
     };
     match result {
         Ok(()) => ExitCode::SUCCESS,
