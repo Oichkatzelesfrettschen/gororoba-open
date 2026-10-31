@@ -10,7 +10,7 @@ use walkdir::WalkDir;
     about = "Audit the off-site Cayley-Dickson document cache (Rust replacement for audit_cayley_dickson_cache.py)"
 )]
 struct Cli {
-    #[arg(long, default_value = "/home/eirikr/Documents/Projects/CayleyDickson")]
+    #[arg(long)]
     cache_root: PathBuf,
     #[arg(long, default_value = ".")]
     repo_root: PathBuf,

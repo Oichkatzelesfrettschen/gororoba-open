@@ -60,7 +60,7 @@
 .PHONY: artifacts-reggiani artifacts-m3 artifacts-motifs artifacts-motifs-big artifacts-repo-visuals
 .PHONY: fetch-data fetch-data-redownload provenance-audit external-redownload-audit semantic-data-validate semantic-data-validate-strict run rocq latex latex-heliosphere latex-heliosphere-figs latex-heliosphere-clean latex-heliosphere-review
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
-.PHONY: check-ansi check-terminology
+.PHONY: check-ansi check-terminology check-path-hygiene
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
 .PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
@@ -181,7 +181,7 @@ SYNTHESIS_CONTRACT_REPORT ?= reports/synthesis_execution_contract_$(SYNTHESIS_CO
 PROFILE_TIMESTAMP := $(shell date +%Y-%m-%d/%H%M%S)
 PROFILE_ROOT ?= reports/validation/profiles/$(PROFILE_TIMESTAMP)
 
-CD_CACHE_ROOT ?= /home/eirikr/Documents/Projects/CayleyDickson
+CD_CACHE_ROOT ?=
 CD_ROW_UPGRADE_OPERATOR ?= Codex
 CD_ROW_UPGRADE_LANE ?=
 CD_ROW_UPGRADE_WITNESS ?=
@@ -705,7 +705,7 @@ test: rust-regression
 # without improving the ASCII or terminology checks.
 REPO_UTILITIES_BIN := $(REPO_CARGO_TARGET_DIR)/validation-tools/repo-utilities
 
-check: require-ci-validation-authority check-ansi check-terminology cuda-source-ownership
+check: require-ci-validation-authority check-ansi check-terminology check-path-hygiene cuda-source-ownership
 	@echo "OK: fast shared check suite complete."
 
 check-ansi: $(REPO_UTILITIES_BIN)
@@ -713,6 +713,9 @@ check-ansi: $(REPO_UTILITIES_BIN)
 
 check-terminology: $(REPO_UTILITIES_BIN)
 	@$(REPO_UTILITIES_BIN) terminology-gate
+
+check-path-hygiene: $(REPO_UTILITIES_BIN)
+	@$(REPO_UTILITIES_BIN) path-hygiene
 
 # Governance verifier targets
 registry-verify-markdown-governance:
@@ -2361,6 +2364,7 @@ docs-rustdoc:
 	$(DOCS_CARGO_ENV) cargo doc --locked --keep-going "$${scope_args[@]}" $(DOCS_PROFILE_FLAGS) $(DOCS_FEATURE_FLAGS) --no-deps --document-private-items
 
 cd-row-upgrade-batch:
+	@test -n "$(CD_CACHE_ROOT)" || (echo "ERROR: set CD_CACHE_ROOT=/abs/path/to/CayleyDickson-cache" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_LANE)" || (echo "ERROR: set CD_ROW_UPGRADE_LANE=<jacobson1958|freudenthal1951>" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_WITNESS)" || (echo "ERROR: set CD_ROW_UPGRADE_WITNESS=/abs/path/to/witness.pdf" && exit 1)
 	@test -n "$(CD_ROW_UPGRADE_STATUS)" || (echo "ERROR: set CD_ROW_UPGRADE_STATUS=<exact-original|full-official-reprint|full-official-witness|official-fragment|official-toc|translation-rewriting|support-reconstruction|reconstruction-dossier>" && exit 1)

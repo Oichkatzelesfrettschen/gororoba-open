@@ -1,6 +1,6 @@
 /// Timing constants extracted from Intel 4004/4040 datasheet
 /// and adapted for generic phase scheduling.
-/// Source: /home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-core/src/timing.rs
+/// Source: the `mcs4-core` crate of the mcs4-emu emulator (module `timing`).
 ///
 /// Time in picoseconds (10^-12 seconds)
 pub type Time = u64;
