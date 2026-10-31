@@ -1,3 +1,5 @@
+mod bootstrap_xdg;
+
 use anstyle::{AnsiColor, Color, Style};
 use anyhow::{Context, Result, bail};
 use chrono::{Local, NaiveDate, SecondsFormat};
@@ -110,6 +112,10 @@ const XTASK_COMMANDS: &[(&str, &str)] = &[
     (
         "cuda-source-ownership",
         "Verify CUDA sources have explicit Rust ownership edges.",
+    ),
+    (
+        "bootstrap-user-local-xdg",
+        "Install user-local Cargo, nextest and lit-cache config.",
     ),
     ("db-docs", "Generate or check database documentation."),
     ("host-profile", "Print host worker-budget settings."),
@@ -334,6 +340,15 @@ fn main() -> Result<()> {
         return Ok(());
     }
     match command.as_str() {
+        "bootstrap-user-local-xdg" => {
+            let cli = match bootstrap_xdg::BootstrapXdgCli::try_parse_from(
+                std::iter::once("bootstrap-user-local-xdg".to_string()).chain(args),
+            ) {
+                Ok(cli) => cli,
+                Err(error) => error.exit(),
+            };
+            bootstrap_xdg::run(cli, repo_root()?)
+        }
         "db-docs" => run_db_docs(args.any(|arg| arg == "--check")),
         "host-profile" => {
             let mut format = "shell".to_string();

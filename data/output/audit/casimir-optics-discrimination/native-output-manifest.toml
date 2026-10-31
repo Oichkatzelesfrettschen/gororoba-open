@@ -1,7 +1,7 @@
 schema_version = 1
 producer = "crates/gororoba_cli_physics/src/bin/casimir_optics_discrimination_audit.rs"
 producer_sha256 = "ec60d3a0fb7d5f87ab6aa3ae1a115a79f9bd7bbf2fa93a73b5522b2305f24d5b"
-source_model_identity = "sha256:58d33a7eba618e2bf7c4e59d35d0e16db6b8b7f80dd889f7468f80a977f7764c"
+source_model_identity = "sha256:12f5b6b43c7c7dab62d2270f9eeff752a97dd5231b6e12d21e69fb2d1baafd06"
 source_model_identity_algorithm = "SHA-256 over path UTF-8, NUL, file bytes, NUL for source_model_input entries in manifest order"
 command = "cargo run -p gororoba_cli_physics --bin casimir-optics-discrimination-audit --profile validation"
 scope = "native model outputs; no laboratory observations"
@@ -20,7 +20,7 @@ sha256 = "c0864e4045ce7847ebe68e13423671c7007fbbe77d8b10ad5f5bacb8a1601ab3"
 
 [[source_model_input]]
 path = "crates/gororoba_cli_physics/Cargo.toml"
-sha256 = "4d69f49e9932c896c9bf79cd84d174341a54fa8df5ebc7bf3acfc6ea925c97b7"
+sha256 = "082960fdd3c2d0b38ea80d3fdb979b339eb064c29fe537b49a8ee2c86c714d7d"
 
 [[source_model_input]]
 path = "crates/gororoba_cli_physics/src/bin/casimir_optics_discrimination_audit.rs"

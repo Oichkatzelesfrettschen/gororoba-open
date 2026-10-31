@@ -11,7 +11,7 @@ Current layout
 - Final workspace-local artifacts live under `.cache/` inside the repo.
 - Heavy intermediate build state for Make/scripts lives under
   `.cache/gate-cbuild/<repo-hash>/`.
-- `scripts/bootstrap_user_local_xdg.sh` chooses the first writable build-dir
+- `cargo run -p xtask -- bootstrap-user-local-xdg` chooses the first writable build-dir
   root in this order: `${TMPDIR}` (if set), `/tmp`,
   `${XDG_CACHE_HOME:-~/.cache}`.
 - Docs still stage final rustdoc output through `target/docs-target/`, which is
@@ -34,7 +34,7 @@ Practical commands
 - `make cargo-cache-status`
 - `make cargo-cache-prune`
 - `make cargo-cache-smoke`
-- `scripts/bootstrap_user_local_xdg.sh`
+- `cargo run -p xtask -- bootstrap-user-local-xdg`
 
 Budget enforcement
 ------------------
@@ -68,7 +68,7 @@ Decision guidance
 - Keep repo-scoped `CARGO_HOME` for gates/docs/CI where reproducibility matters.
 - Keep `~/.cargo` as the default interactive home unless disk duplication is no
   longer acceptable or a workflow specifically needs hermetic dependency state.
-- Use `scripts/bootstrap_user_local_xdg.sh` if you want the gororoba-open
+- Use `cargo run -p xtask -- bootstrap-user-local-xdg` if you want the gororoba-open
   ambient Cargo defaults recreated in `~/.cargo/config.toml`.
 - Do not move docs staging off `target/` until it is actually the bottleneck.
   The urgent problem was the intermediate build churn, which already moved out
