@@ -57,10 +57,7 @@ tool, skill, harness or agent default; follow it and surface the conflict.
   awaiting Rust ports (task in `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`,
   phase `DBT-B`); MUST NOT extend them:
   `bin/run_quantum_container.sh`, `scripts/bootstrap_user_local_xdg.sh`,
-  `scripts/profile_tensor_avt.sh`, `scripts/run_lambda_sweep.sh`,
-  `experiments/identifiability/identifiability_compiler.py`,
-  `experiments/identifiability/test_identifiability_compiler.py`,
-  `scripts/check_refs.py`.
+  `scripts/profile_tensor_avt.sh`, `scripts/run_lambda_sweep.sh`.
 - MUST NOT create symlinks as build or data workarounds.
 - A tool MUST NOT locate the repository through `env!("CARGO_MANIFEST_DIR")`;
   the shared build-dir hands one worktree's compiled crate to every other.

@@ -94,3 +94,10 @@ make docs-redirect-check # expect green
 loop) and `archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh`
 (a `grep` over `crates/`) had no caller and are removed; git history keeps
 their bytes.
+
+### Python scripts
+
+| File | Decision | Replacement |
+| --- | --- | --- |
+| `experiments/identifiability/identifiability_compiler.py` and its pytest file | DONE | `gororoba_cli_physics --bin identifiability-compiler`; its in-file tests reproduce the boundary fractions 0.264486 and 0.027178 to 1e-6. |
+| `scripts/check_refs.py` | DONE | `gororoba_cli_data --bin check-refs` through `make ref-audit` and `make ref-audit-strict`. |

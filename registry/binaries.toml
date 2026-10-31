@@ -285,6 +285,11 @@ crate = "gororoba_cli_algebra"
 description = "CD ultrametric scaling law: measures Euclidean, local, and Baire ultrametric fractions across Cayley-Dickson doubling levels D=2^k (k=1..8)"
 
 [[binary]]
+name = "check-refs"
+crate = "gororoba_cli_data"
+description = "Workspace executable check-refs declared by crate gororoba_cli_data."
+
+[[binary]]
 name = "chirality-lock-test"
 crate = "gororoba_cli_algebra"
 description = "Chirality holographic checksum: 2x2 matrix of CD multiplication table orientation vs vorticity sign, measures helicity lock to algebra"
@@ -957,6 +962,11 @@ description = "Workspace binary discovered from cargo metadata in crate gororoba
 name = "hydrate-scientific-payloads"
 crate = "gororoba_cli_provenance"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_provenance; registry metadata pending."
+
+[[binary]]
+name = "identifiability-compiler"
+crate = "gororoba_cli_physics"
+description = "Workspace executable identifiability-compiler declared by crate gororoba_cli_physics."
 
 [[binary]]
 name = "inclination-injection-calibration"

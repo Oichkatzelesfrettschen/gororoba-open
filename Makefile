@@ -1982,10 +1982,10 @@ integrity-resolution: registry-integrity
 # Flags fabricated citations, wrong metadata, and 404 DOIs.
 # Use --strict to fail CI on any detected mismatch.
 ref-audit:
-	python3 scripts/check_refs.py docs/latex/heliosphere/refs_heliosphere.bib
+	$(CARGO_ENV) cargo run -q -p gororoba_cli_data --bin check-refs -- docs/latex/heliosphere/refs_heliosphere.bib
 
 ref-audit-strict:
-	python3 scripts/check_refs.py --strict docs/latex/heliosphere/refs_heliosphere.bib
+	$(CARGO_ENV) cargo run -q -p gororoba_cli_data --bin check-refs -- --strict docs/latex/heliosphere/refs_heliosphere.bib
 
 # ===== Ablation campaign targets =============================================
 # All binaries read from data/external/themis/ (cached) and write JSON to
