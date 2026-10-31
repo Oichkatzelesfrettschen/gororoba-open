@@ -12,7 +12,7 @@ updated = "2026-08-01"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-document_count = 159
+document_count = 168
 [[owner]]
 path = "README_GPU_STEPS.md"
 owner_group = "project"
