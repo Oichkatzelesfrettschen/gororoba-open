@@ -252,14 +252,14 @@ id = "DEBT-BUILD-WORKSPACE"
 axis = "B_build_toolchain_delivery"
 label = "Build system, package-manager, root workspace, and delivery"
 risk = "Makefile sprawl, implicit feature defaults, toolchain-pin drift, and a manual xtask dispatcher obscure the real release contract and resist typed validation."
-current_magnitude = "xtask migration is PARTIAL: 20 subcommands behind a 3535-line manual string-match dispatcher, while only 11 of ~191 Makefile cargo-run sites route through xtask (Makefile: 2497 lines, ~316 targets; coverage 5-10%). Toolchain pinned nightly-2026-04-05; the stale nightly-2026-03-05 prose in CLAUDE.md and AGENTS.md was corrected 2026-07-09. WARNINGS-NET HOLE: 5 workspace members carry no [lints] block (fixed_point_lbm, gororoba_cli_quantum, lit_search, manga_experiments, xtask), and cargo requires the explicit [lints] workspace = true opt-in, so workspace warnings = deny does NOT apply to them. The .githooks/pre-push prose disagrees with itself (header enumerates 5 steps, runtime echo says 4-gate, AGENTS.md canonically documents 6; all six logical gates do run). 12 live .sh scripts contradict the flat no-shell policy; several are declared xtask fallbacks (detect_worker_budget.sh) but the policy admits no exception ledger."
+current_magnitude = "xtask migration is PARTIAL: 20 subcommands behind a 3535-line manual string-match dispatcher, while only 11 of ~191 Makefile cargo-run sites route through xtask (Makefile: 2497 lines, ~316 targets; coverage 5-10%). Toolchain pinned nightly-2026-04-05; the stale nightly-2026-03-05 prose in CLAUDE.md and AGENTS.md was corrected 2026-07-09. WARNINGS-NET HOLE: 5 workspace members carry no [lints] block (fixed_point_lbm, gororoba_cli_quantum, lit_search, manga_experiments, xtask), and cargo requires the explicit [lints] workspace = true opt-in, so workspace warnings = deny does NOT apply to them. The .githooks/pre-push prose disagrees with itself (header enumerates 5 steps, runtime echo says 4-gate, AGENTS.md canonically documents 6; all six logical gates do run). 11 tracked .sh scripts contradict the flat no-shell policy; several are declared xtask fallbacks (detect_worker_budget.sh) but the policy admits no exception ledger."
 magnitude_reproduce = "grep -c '=> run_' xtask/src/main.rs ; grep -rn nightly rust-toolchain.toml registry/requirements_narrative.toml AGENTS.md CLAUDE.md"
 confirmed_examples = [
     "xtask/src/main.rs (3411-line manual dispatcher; also a DEBT-MODULARIZATION item).",
     "Makefile policy-heavy recipes (cpd-audit-strict, integrity, governance) still shell-driven.",
     "Stale-doc drift RESOLVED 2026-07-09: AGENTS.md:89 and CLAUDE.md:96 corrected to nightly-2026-04-05.",
     "Warnings-net hole: crates/fixed_point_lbm, crates/gororoba_cli_quantum, crates/lit_search, crates/manga_experiments, xtask lack [lints] workspace = true.",
-    "12 tracked .sh files (bin/, scripts/) vs the no-shell policy; no exception ledger exists.",
+    "11 tracked .sh files (bin/, scripts/, archive/) vs the no-shell policy; no exception ledger exists.",
     "proofs/Makefile toolchain guard accepts ANY rocq on PATH as fallback: with the rocq-certirocq switch active, the system Rocq (OCaml 5.5.0) ran against a .vo tree built by the pinned rocq-9.1.1 switch (OCaml 5.4.0), yielding mixed-toolchain parse errors instead of a fail-fast message naming the documented opam env remedy.",
 ]
 resolution_pattern = "Keep make as the user-facing front door; migrate policy-heavy parsing into typed xtask subcommands with structured JSON/TOML output; convert the manual string dispatcher to a clap Subcommand enum; update the stale nightly references in the prose guides to the authoritative pin."
@@ -751,8 +751,10 @@ tasks = [
     "Migrate Makefile policy-heavy parsing (cpd report, integrity, governance) into xtask subcommands with structured output; keep make as a thin front door.",
     "Keep each deny.toml RUSTSEC ignore annotated with the blocking dependency and a re-check trigger (already satisfied) and remove any whose upstream fix has landed (rustls-webpki cluster already removed).",
     "Harden the proofs/Makefile toolchain guard: verify the rocq binary's OCaml build matches the existing .vo tree (or that the switch is rocq-9.1.1) before compiling, and fail fast naming the opam env remedy when it does not.",
+    "Port the 11 tracked .sh files (archive/root_cleanup_2026-04-03/scripts/download_papers.sh, archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh, bin/run_quantum_container.sh, bin/run_reynolds_sweep.sh, scripts/bootstrap_user_local_xdg.sh, scripts/cargo_cache_prune.sh, scripts/cargo_cache_status.sh, scripts/detect_native_blas.sh, scripts/profile_tensor_avt.sh, scripts/run_lambda_sweep.sh, scripts/run_nanograv_timing_phase1_independent_locked.sh) and the 3 tracked .py files (experiments/identifiability/identifiability_compiler.py, experiments/identifiability/test_identifiability_compiler.py, scripts/check_refs.py) to typed Rust binaries or xtask subcommands, or retire them; the root AGENTS.md Pure Rust rule bans new .sh and .py files and lists these as legacy.",
 ]
 acceptance_hooks = [
+    "test -z \"$(git ls-files '*.sh' '*.py')\"  # no tracked shell or Python file remains",
     "test \"$(grep -rh nightly rust-toolchain.toml AGENTS.md CLAUDE.md registry/requirements_narrative.toml | grep -o 'nightly-[0-9-]*' | sort -u | wc -l)\" -eq 1",
     "make cargo-deny-check && test \"$(grep -cE '^[[:space:]]*\"RUSTSEC' deny.toml)\" -le 6",
     "cargo run -q -p xtask -- --help >/dev/null",
