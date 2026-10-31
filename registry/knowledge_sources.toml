@@ -22,13 +22,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "agents.toml"
-sha256 = "76071c24472a5e97163b92d68905dea1d9e56909bf0ab194f2274e475cd0c98a"
-size_bytes = 7227
-line_count = 131
+sha256 = "387665e275778afca1a95fb143f3cdcda57c35c6068efd679e7fe48077aaea08"
+size_bytes = 7122
+line_count = 130
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 83
+link_count = 80
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -41,13 +41,13 @@ generated = false
 status = "active"
 migration_priority = "medium"
 toml_backing = "registry/entrypoint_docs.toml"
-sha256 = "76071c24472a5e97163b92d68905dea1d9e56909bf0ab194f2274e475cd0c98a"
-size_bytes = 7227
-line_count = 131
+sha256 = "387665e275778afca1a95fb143f3cdcda57c35c6068efd679e7fe48077aaea08"
+size_bytes = 7122
+line_count = 130
 claim_ref_count = 2
 insight_ref_count = 1
 experiment_ref_count = 1
-link_count = 83
+link_count = 80
 link_sample = ["*.md", ".github/workflows/ci.yml", ".gitignore", ".py", ".sh", "/home/eirikr/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory", "0.0", "AGENTS.md"]
 
 [[document]]
@@ -2707,13 +2707,13 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "high"
-sha256 = "00e51c4cbe52e96545176b5523576bd185606559b4b3090e2c688d1be733a41b"
-size_bytes = 6909
+sha256 = "61538d06cbc0226478e1965ccc77470df4bf1ddcc9043a106c390eb4ab677e4d"
+size_bytes = 6895
 line_count = 103
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 55
+link_count = 58
 link_sample = ["archive/root_cleanup_2026-04-03/scripts/download_papers.sh", "archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh", "bin/", "bin/build_fix.sh", "bin/check_gemini.sh", "bin/do_commit.sh", "bin/micromamba", "bin/run_quantum_container.sh"]
 
 [[document]]

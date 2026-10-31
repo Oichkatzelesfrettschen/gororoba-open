@@ -40,12 +40,12 @@ Status: COMPLETE (2026-04-17). All four scripts removed from `bin/`.
 
 | File                                  | Lines | Decision | New crate/binary                                                                                  |
 | ------------------------------------- | ----- | -------- | ------------------------------------------------------------------------------------------------- |
-| `scripts/bootstrap_user_local_xdg.sh` | 199   | PORT     | `crates/xtask/src/bin/bootstrap_xdg.rs` (host-setup logic).                                       |
+| `scripts/bootstrap_user_local_xdg.sh` | 199 | DONE | Removed; `xtask bootstrap-user-local-xdg` writes the same tree through `make bootstrap-user-local-xdg`. |
 | `scripts/detect_native_blas.sh` | 49 | DONE | Removed; `repo-utilities native-blas` prints the same report through `make doctor-blas`. |
 | `scripts/detect_physical_cores.sh`    | 5     | DONE     | Removed; host inspection remains available through `xtask host-profile`.                           |
 | `scripts/detect_worker_budget.sh`     | 11    | DONE     | Removed; hosted CI compiles and executes the typed `detect-worker-budget` Rust utility.            |
-| `scripts/profile_tensor_avt.sh`       | 211   | PORT     | Profiling harness; large port. Convert to a bench-orchestrator binary under gororoba_cli_physics. |
-| `scripts/run_lambda_sweep.sh`         | 100   | PORT     | Research parameter sweep; convert to `gororoba_cli_physics --bin lambda-sweep`.                   |
+| `scripts/profile_tensor_avt.sh` | 211 | DONE | Removed; `gororoba_cli_physics --bin tensor-avt-profile-orchestrator` runs the same capture sequence through `make profile-tensor-avt`. |
+| `scripts/run_lambda_sweep.sh` | 100 | DONE | Removed; `gororoba_cli_physics --bin lambda-sweep` runs the same sweep. |
 | `bin/run_reynolds_sweep.sh` | 17 | DONE | Removed; `gororoba_cli_physics --bin run_reynolds_sweep` runs the same three sizes, building `warp-gpu-experiment` through `cargo run --release` rather than invoking a prebuilt binary. |
 
 ### Category D -- PRESERVE UNDER vendor/
