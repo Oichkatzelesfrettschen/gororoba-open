@@ -2546,10 +2546,10 @@ verify-c010-c011-theses:
 
 doctor:
 	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- doctor
-	sh scripts/detect_native_blas.sh
+	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- native-blas
 
 doctor-blas:
-	sh scripts/detect_native_blas.sh
+	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- native-blas
 
 provenance:
 	$(CARGO_ENV) cargo run --release -p gororoba_cli_data --bin record-external-hashes -- --root data/external --output data/external/PROVENANCE.local.json
@@ -2785,7 +2785,7 @@ clean-builds:
 cargo-cache-status:
 	CARGO_CACHE_REPO_BUDGET_GIB=$(CARGO_CACHE_REPO_BUDGET_GIB) \
 	CARGO_CACHE_TMP_BUDGET_GIB=$(CARGO_CACHE_TMP_BUDGET_GIB) \
-	sh scripts/cargo_cache_status.sh
+	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- cargo-cache-status
 
 # cargo-cache-prune removes the same build trees as clean-builds.
 cargo-cache-prune: clean-builds
