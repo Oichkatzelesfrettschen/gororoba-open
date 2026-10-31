@@ -694,6 +694,10 @@ required-features = ["gpu"]
 name = "parity-report"
 path = "src/bin/parity_report.rs"
 
+[[bin]]
+name = "identifiability-compiler"
+path = "src/bin/identifiability_compiler.rs"
+
 [dependencies]
 algebra_analysis = { path = "../algebra_analysis" }
 algebra_experimental = { workspace = true }

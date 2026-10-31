@@ -92,7 +92,7 @@ A physical claim is not promoted from simulation unless its target component sur
 
 ## Implementation note
 
-The compact prototype currently depends on NumPy and is intentionally isolated under `experiments/`. The repository is Rust-first; production integration should move the linear algebra and experiment-design kernel into an existing or dedicated Rust crate rather than adding NumPy as a project runtime dependency.
+The compact prototype is the `identifiability-compiler` binary in `gororoba_cli_physics` (`crates/gororoba_cli_physics/src/bin/identifiability_compiler.rs`), built on `nalgebra` with an SVD pseudo-inverse. Production integration should move the experiment-design kernel into a library crate.
 
 The remote workstation connector was unavailable during this integration, so repository-native Cargo/pytest/CI execution has not been claimed. The synthetic experiment itself was executed in the chat compute environment; repository code was inspected through the GitHub connection.
 
@@ -100,7 +100,7 @@ The remote workstation connector was unavailable during this integration, so rep
 
 `README.md` reports the boundary design at an initial identifiable fraction of
 0.228671 collapsing to 0.00199202 under cross-condition nuisance expansion.
-`test_identifiability_compiler.py` measures 0.264486 collapsing to 0.027178,
+the `#[test]`s in `identifiability_compiler.rs` measure 0.264486 collapsing to 0.027178,
 and `boundary_problem` and `diagnostics` draw no random numbers, so both
 readings are exact for the inputs each uses. The test expands the nuisance
 basis by three columns: `s*c*z**3`, `s*c*z**5`, and a Gaussian in `d` centred
