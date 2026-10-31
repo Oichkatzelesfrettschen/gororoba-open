@@ -65,7 +65,7 @@
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
 .PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
-.PHONY: cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated patch-static-mirror-headers cargo-cache-status cargo-cache-prune cargo-cache-smoke
+.PHONY: cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated patch-static-mirror-headers cargo-cache-status cargo-cache-prune cargo-cache-smoke nanograv-timing-phase1-independent
 .PHONY: cd-row-upgrade-batch cd-row-upgrade-jacobson cd-row-upgrade-freudenthal
 
 .NOTPARALLEL: bootstrap-dev check smoke integrity integrity-rust validate-rust-integrity rust-smoke rust-regression heavy cargo-deny-check validate-ci validate-ci-registry validate-ci-rust validate-repository validate-repository-fast validate-supply-chain validate-dataset-experiments governance-gate governance-gate-readonly registry-control-plane-gate-readonly registry-acceptance-gate-readonly validate-registry validation-tools
@@ -2787,11 +2787,14 @@ cargo-cache-status:
 	CARGO_CACHE_TMP_BUDGET_GIB=$(CARGO_CACHE_TMP_BUDGET_GIB) \
 	sh scripts/cargo_cache_status.sh
 
-cargo-cache-prune:
-	sh scripts/cargo_cache_prune.sh
+# cargo-cache-prune removes the same build trees as clean-builds.
+cargo-cache-prune: clean-builds
 
 cargo-cache-smoke:
 	$(CARGO_ENV) cargo test -p gororoba_structurable --lib
+
+nanograv-timing-phase1-independent:
+	cargo run -q -p gororoba_cli_data --bin nanograv-timing-phase1-independent $(ARGS)
 
 v6-branch-transport-artifacts:
 	$(CARGO_ENV) cargo run -p algebra_experimental --example v6_gradient_drift_probe
