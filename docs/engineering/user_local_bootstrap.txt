@@ -17,12 +17,12 @@ Bootstrap helper
 Run:
 
 - `make bootstrap-user-local-xdg`
-- `scripts/bootstrap_user_local_xdg.sh`
+- `cargo run -p xtask -- bootstrap-user-local-xdg`
 
 Optional:
 
-- `scripts/bootstrap_user_local_xdg.sh --with-gemini`
-- `scripts/bootstrap_user_local_xdg.sh --force`
+- `cargo run -p xtask -- bootstrap-user-local-xdg --with-gemini`
+- `cargo run -p xtask -- bootstrap-user-local-xdg --force`
 - After any workspace toolchain pin change, rerun `rustup show active-toolchain`
   and `cargo +nightly fmt --all` / `cargo +nightly clippy --workspace -- -D warnings`
   from the repo root to confirm your local user config still matches the pinned lane.
