@@ -31,22 +31,22 @@ Status: COMPLETE (2026-04-17). All four scripts removed from `bin/`.
 
 | File                                                       | Lines | Decision | Target Makefile name                                                |
 | ---------------------------------------------------------- | ----- | -------- | ------------------------------------------------------------------- |
-| `scripts/cargo_cache_prune.sh`                             | 24    | PORT     | Alias/merge with `make cache-sweep` (already exists).               |
-| `scripts/cargo_cache_status.sh`                            | 89    | PORT     | Merge capabilities into `make cache-status` or a new `cache-audit`. |
+| `scripts/cargo_cache_prune.sh` | 24 | DONE | Removed; `make cargo-cache-prune` depends on `clean-builds`, which removes a superset of its trees. |
+| `scripts/cargo_cache_status.sh` | 115 | DONE | Removed; `repo-utilities cargo-cache-status` prints the same report through `make cargo-cache-status`. |
 | `scripts/docs-redirect-check.sh`                           | 104   | DONE     | Replaced by `repo-utilities docs-redirect-check` through `make docs-redirect-check`. |
-| `scripts/run_nanograv_timing_phase1_independent_locked.sh` | 8     | PORT     | One-shot wrapper; convert to `make nanograv-phase1`.                |
+| `scripts/run_nanograv_timing_phase1_independent_locked.sh` | 8 | DONE | Removed; `make nanograv-timing-phase1-independent` runs the same `cargo run` command. |
 
 ### Category C -- PORT TO RUST BINARY (non-trivial logic)
 
 | File                                  | Lines | Decision | New crate/binary                                                                                  |
 | ------------------------------------- | ----- | -------- | ------------------------------------------------------------------------------------------------- |
 | `scripts/bootstrap_user_local_xdg.sh` | 199   | PORT     | `crates/xtask/src/bin/bootstrap_xdg.rs` (host-setup logic).                                       |
-| `scripts/detect_native_blas.sh`       | 49    | PORT     | Add to `xtask host-profile` (already detects CPU topology).                                       |
+| `scripts/detect_native_blas.sh` | 49 | DONE | Removed; `repo-utilities native-blas` prints the same report through `make doctor-blas`. |
 | `scripts/detect_physical_cores.sh`    | 5     | DONE     | Removed; host inspection remains available through `xtask host-profile`.                           |
 | `scripts/detect_worker_budget.sh`     | 11    | DONE     | Removed; hosted CI compiles and executes the typed `detect-worker-budget` Rust utility.            |
 | `scripts/profile_tensor_avt.sh`       | 211   | PORT     | Profiling harness; large port. Convert to a bench-orchestrator binary under gororoba_cli_physics. |
 | `scripts/run_lambda_sweep.sh`         | 100   | PORT     | Research parameter sweep; convert to `gororoba_cli_physics --bin lambda-sweep`.                   |
-| `scripts/run_reynolds_sweep.sh`       | 17    | PORT     | Research parameter sweep; convert similarly.                                                      |
+| `bin/run_reynolds_sweep.sh` | 17 | DONE | Removed; `gororoba_cli_physics --bin run_reynolds_sweep` runs the same three sizes, building `warp-gpu-experiment` through `cargo run --release` rather than invoking a prebuilt binary. |
 
 ### Category D -- PRESERVE UNDER vendor/
 
@@ -87,3 +87,10 @@ make docs-redirect-check # expect green
 - P1.S4.T3 (port Cat B/C) -- pending; multi-PR.
 - P1.S4.T4 (delete Cat A) -- pending; single PR.
 - P1.S4.T5 (vendor Cat E) -- pending; single PR.
+
+### Archived scripts
+
+`archive/root_cleanup_2026-04-03/scripts/download_papers.sh` (arXiv fetch
+loop) and `archive/root_cleanup_2026-04-03/tests/test_find_fermion_boson.sh`
+(a `grep` over `crates/`) had no caller and are removed; git history keeps
+their bytes.
