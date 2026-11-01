@@ -631,7 +631,13 @@ impl SearchEngine {
                     source,
                     &adapted_query,
                     limit,
-                    sources::search_openalex(&self.client, &adapted_query, limit, year_min),
+                    sources::search_openalex(
+                        &self.client,
+                        &adapted_query,
+                        limit,
+                        year_min,
+                        &self.keys,
+                    ),
                 )
                 .await
             }

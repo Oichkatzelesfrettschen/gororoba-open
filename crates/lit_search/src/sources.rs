@@ -7,7 +7,10 @@ use crate::{
     models::{Author, Paper},
     semantic_scholar::wait_for_semantic_scholar_slot,
 };
-use reqwest::{Client, StatusCode};
+use reqwest::{
+    Client, StatusCode,
+    header::{AUTHORIZATION, HeaderValue},
+};
 use serde_json::Value;
 
 fn json_string(value: &Value) -> String {
@@ -72,38 +75,63 @@ pub struct ApiKeys {
     pub unpaywall_email: String,
     pub ads_token: String,
     pub lens_api_key: String,
+    pub openalex_api_key: String,
 }
 
-fn env_first(names: &[&str]) -> String {
+fn env_first_with(names: &[&str], lookup: impl Fn(&str) -> Option<String>) -> String {
     names
         .iter()
-        .find_map(|name| std::env::var(name).ok().filter(|value| !value.is_empty()))
+        .find_map(|name| lookup(name).filter(|value| !value.is_empty()))
         .unwrap_or_default()
 }
 
 impl ApiKeys {
     /// Load from environment variables.
     pub fn from_env() -> Self {
+        Self::from_lookup(|name| std::env::var(name).ok())
+    }
+
+    fn from_lookup(lookup: impl Fn(&str) -> Option<String>) -> Self {
+        let first = |names: &[&str]| env_first_with(names, &lookup);
         Self {
-            s2_api_key: env_first(&["SEMANTIC_SCHOLAR_API_KEY", "S2_API_KEY"]),
-            core_api_key: env_first(&["CORE_API_KEY"]),
-            cinii_appid: env_first(&["CINII_APPID"]),
-            unpaywall_email: env_first(&["UNPAYWALL_EMAIL"]),
-            ads_token: env_first(&["ADS_API_KEY", "NASA_ADS_TOKEN"]),
-            lens_api_key: env_first(&["LENS_API_KEY"]),
+            s2_api_key: first(&["SEMANTIC_SCHOLAR_API_KEY", "S2_API_KEY"]),
+            core_api_key: first(&["CORE_API_KEY"]),
+            cinii_appid: first(&["CINII_APPID"]),
+            unpaywall_email: first(&["UNPAYWALL_EMAIL"]),
+            ads_token: first(&["ADS_API_KEY", "NASA_ADS_TOKEN"]),
+            lens_api_key: first(&["LENS_API_KEY"]),
+            openalex_api_key: first(&["OPENALEX_API_KEY"]),
         }
     }
 }
 
 // ---------------------------------------------------------------------------
-// OpenAlex (Tier 0, no key)
+// OpenAlex (Tier 0, key optional)
 // ---------------------------------------------------------------------------
 
+/// Returns the `Authorization: Bearer` value for a configured OpenAlex key,
+/// or `None` for the anonymous request. The header keeps the key out of URLs
+/// and logs, and the sensitive flag keeps it out of `Debug` output.
+fn openalex_authorization(key: &str) -> Result<Option<HeaderValue>, SourceError> {
+    if key.is_empty() {
+        return Ok(None);
+    }
+    let mut value = HeaderValue::from_str(&format!("Bearer {key}")).map_err(|_| {
+        SourceError::Unavailable("OPENALEX_API_KEY is not a valid HTTP header value".to_string())
+    })?;
+    value.set_sensitive(true);
+    Ok(Some(value))
+}
+
+/// OpenAlex serves keyless requests, and `keys.openalex_api_key` raises the
+/// budget to 30 requests per second and USD 1 per day (a search costs 10
+/// credits).
 pub async fn search_openalex(
     client: &Client,
     query: &str,
     limit: usize,
     year_min: u32,
+    keys: &ApiKeys,
 ) -> Result<Vec<Paper>, SourceError> {
     let mut url = format!(
         "https://api.openalex.org/works?search={}&per_page={}",
@@ -114,7 +142,11 @@ pub async fn search_openalex(
         url.push_str(&format!("&filter=publication_year:>={year_min}"));
     }
 
-    let resp: Value = client.get(&url).send().await?.json().await?;
+    let mut request = client.get(&url);
+    if let Some(authorization) = openalex_authorization(&keys.openalex_api_key)? {
+        request = request.header(AUTHORIZATION, authorization);
+    }
+    let resp: Value = request.send().await?.json().await?;
     let results = resp["results"].as_array().unwrap_or(&Vec::new()).clone();
 
     Ok(results
@@ -1453,9 +1485,45 @@ mod urlencoding {
 
 #[cfg(test)]
 mod tests {
-    use super::{crossref_link_url, semantic_scholar_response_error};
+    use super::{
+        ApiKeys, crossref_link_url, openalex_authorization, semantic_scholar_response_error,
+    };
     use reqwest::StatusCode;
     use serde_json::json;
+
+    #[test]
+    fn from_lookup_reads_openalex_api_key() {
+        let keys =
+            ApiKeys::from_lookup(|name| (name == "OPENALEX_API_KEY").then(|| "oa-key".into()));
+        assert_eq!(keys.openalex_api_key, "oa-key");
+        assert!(keys.s2_api_key.is_empty());
+    }
+
+    #[test]
+    fn from_lookup_treats_empty_openalex_api_key_as_unset() {
+        let keys = ApiKeys::from_lookup(|_| Some(String::new()));
+        assert!(keys.openalex_api_key.is_empty());
+    }
+
+    #[test]
+    fn openalex_authorization_is_a_sensitive_bearer_value() {
+        let value = openalex_authorization("oa-key")
+            .expect("valid key")
+            .expect("bearer value");
+        assert_eq!(value.to_str().expect("ascii header"), "Bearer oa-key");
+        assert!(value.is_sensitive());
+    }
+
+    #[test]
+    fn openalex_authorization_is_absent_without_a_key() {
+        assert!(openalex_authorization("").expect("empty key").is_none());
+    }
+
+    #[test]
+    fn openalex_authorization_rejects_a_key_that_is_not_a_header_value() {
+        let err = openalex_authorization("bad\nkey").expect_err("newline is invalid");
+        assert!(matches!(err, super::SourceError::Unavailable(_)));
+    }
 
     #[test]
     fn crossref_link_url_prefers_first_present_link() {
