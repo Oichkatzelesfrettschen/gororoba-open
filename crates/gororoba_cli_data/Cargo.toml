@@ -88,10 +88,6 @@ path = "src/bin/registry_emit.rs"
 name = "registry-event-tracker"
 path = "src/bin/registry_event_tracker.rs"
 
-[[bin]]
-name = "project-counter-sync"
-path = "src/bin/project_counter_sync.rs"
-
 # ---- Governance (8) ----
 
 [[bin]]

@@ -20,6 +20,15 @@ pub(crate) struct Cli {
     #[arg(long, default_value = "registry/project.toml")]
     pub(crate) project: PathBuf,
 
+    #[arg(long, default_value = "registry/canonical/control_plane.sqlite3")]
+    pub(crate) db: PathBuf,
+
+    #[arg(long, default_value = "proofs/_RocqProject")]
+    pub(crate) rocq_project: PathBuf,
+
+    #[arg(long, default_value = "data/papers/document_cache.tsv")]
+    pub(crate) document_cache: PathBuf,
+
     #[arg(long, default_value = "registry/entrypoint_docs.toml")]
     pub(crate) entrypoint_docs: PathBuf,
 
@@ -66,15 +75,21 @@ pub(crate) struct ProjectRegistry {
 #[derive(Debug, Deserialize)]
 pub(crate) struct ProjectBlock {
     pub(crate) version: String,
-    pub(crate) test_count: usize,
+}
+
+/// Counts measured from their primary sources at render time: canonical
+/// SQLite rows for claims, insights, experiments and kernel-checked theorem
+/// links; `_RocqProject` entries for proof files; `document_cache.tsv` rows
+/// for cached paper PDFs; `cargo metadata` for binary targets.
+#[derive(Debug, Clone, Copy)]
+pub(crate) struct RepoCounts {
     pub(crate) claim_count: usize,
     pub(crate) insight_count: usize,
     pub(crate) experiment_count: usize,
-    pub(crate) complete_experiment_count: usize,
-    pub(crate) paper_count: usize,
-    pub(crate) binary_count: usize,
     pub(crate) kernel_checked_claims: usize,
-    pub(crate) proof_files: usize,
+    pub(crate) rocq_project_files: usize,
+    pub(crate) cached_paper_pdfs: usize,
+    pub(crate) cargo_bin_targets: usize,
 }
 
 #[derive(Debug, Deserialize)]

@@ -142,19 +142,6 @@ fn run_contract(repo_root: &Path) -> Result<Vec<StepResult>> {
             label: "registry-verify-typed-policy-error",
             argv: &["make", "registry-verify-typed-policy-error"],
         },
-        ContractStep {
-            step_id: "project_counter_sync_check",
-            label: "project-counter-sync --check",
-            argv: &[
-                "cargo",
-                "run",
-                "--release",
-                "--bin",
-                "project-counter-sync",
-                "--",
-                "--check",
-            ],
-        },
     ];
 
     let mut handles = Vec::new();
@@ -257,7 +244,6 @@ fn render_report(
         "governance_gate = \"make governance-gate\"".to_string(),
         "registry_acceptance_gate = \"make registry-acceptance-gate\"".to_string(),
         "typed_policy_strict = \"make registry-verify-typed-policy-error\"".to_string(),
-        "project_counter_sync_check = \"cargo run --release --bin project-counter-sync -- --check\"".to_string(),
         String::new(),
         "[summary]".to_string(),
         format!(

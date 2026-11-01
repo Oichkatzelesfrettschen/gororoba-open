@@ -65,7 +65,7 @@
 //! SQLite control plane over hard-coded narrative snapshots:
 //!
 //! - `crates/` for the active workspace members and public APIs
-//! - `registry/project.toml` for synchronized top-level counters
+//! - `registry/project.toml` for the project version, baseline tags and sprint history
 //! - `registry/canonical/control_plane.sqlite3` for tracked claims, insights,
 //!   experiments, binaries, and theorem rows
 //! - `registry/claims.toml`, `registry/insights.toml`, `registry/experiments.toml`,
@@ -92,9 +92,6 @@
 //!
 //! # Check registry integrity
 //! cargo run --release --bin registry-check
-//!
-//! # Synchronize project counters from registry sources
-//! cargo run --release --bin project-counter-sync
 //!
 //! # Extract a paper to TOML
 //! cargo run --release --bin extract-papers -- --only demarrais-2000-math0011260

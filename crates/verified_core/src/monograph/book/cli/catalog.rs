@@ -39,7 +39,6 @@
 //! | Binary | Description |
 //! |--------|-------------|
 //! | registry-check | Validate canonical control-plane integrity and export freshness |
-//! | project-counter-sync | Synchronize top-level counters from the canonical control plane |
 //! | migrate-claims | Legacy/bootstrap import from markdown claims mirror into SQLite compatibility exports |
 //! | migrate-insights | Legacy/bootstrap import from markdown insights mirror into SQLite compatibility exports |
 //! | generate-latex | Publication export: generate LaTeX appendices from canonical control-plane data |

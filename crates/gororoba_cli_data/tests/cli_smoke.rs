@@ -74,7 +74,7 @@ fn smoke_claims_consolidate_help() {
 }
 
 // =============================================================================
-// Registry domain (3 binaries)
+// Registry domain (2 binaries)
 // =============================================================================
 
 #[test]
@@ -85,11 +85,6 @@ fn smoke_registry_check_help() {
 #[test]
 fn smoke_registry_emit_help() {
     assert_help_succeeds("CARGO_BIN_EXE_registry-emit");
-}
-
-#[test]
-fn smoke_project_counter_sync_help() {
-    assert_help_succeeds("CARGO_BIN_EXE_project-counter-sync");
 }
 
 // =============================================================================

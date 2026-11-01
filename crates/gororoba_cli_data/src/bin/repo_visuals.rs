@@ -65,10 +65,16 @@ fn main() -> Result<()> {
     let entrypoint_docs = load_entrypoint_docs(&entrypoint_docs_path)?;
     let readme_body = readme_body(&entrypoint_docs)?;
     let workspace_crates = collect_workspace_crates(&metadata);
+    let counts = measure_repo_counts(
+        &absolutize(&root, &cli.db),
+        &absolutize(&root, &cli.rocq_project),
+        &absolutize(&root, &cli.document_cache),
+        &workspace_crates,
+    )?;
     let family_summaries = build_family_summaries(&workspace_crates);
     let repo_edges = build_repo_edges(&workspace_crates);
-    let repo_surfaces = build_repo_surfaces(&root, &project)?;
-    let scope_metrics = build_scope_metrics(&workspace_crates, &project, repo_edges.len());
+    let repo_surfaces = build_repo_surfaces(&root, &counts)?;
+    let scope_metrics = build_scope_metrics(&workspace_crates, &counts, repo_edges.len());
     let operating_layers = extract_numbered_after(
         readme_body,
         "The repository currently combines four major operating layers:",
@@ -113,8 +119,8 @@ fn main() -> Result<()> {
             priorities: &priorities,
         },
     )?;
-    render_family_map(&family_path, &project, &family_summaries, &repo_edges)?;
-    render_operator_matrix(&matrix_path, &project, &where_to_look_first, &operator_rows)?;
+    render_family_map(&family_path, &counts, &family_summaries, &repo_edges)?;
+    render_operator_matrix(&matrix_path, &counts, &where_to_look_first, &operator_rows)?;
     render_e183_phase_plate_v2(&e183_path, &root, &project)?;
     render_gravastar_plate_v2(&gravastar_path, &root, &project)?;
     render_algebra_plate_v2(&algebra_path, &root, &project)?;
@@ -203,6 +209,46 @@ fn load_project(path: &Path) -> Result<ProjectBlock> {
     let registry: ProjectRegistry =
         toml::from_str(&content).with_context(|| format!("parse {}", path.display()))?;
     Ok(registry.project)
+}
+
+fn measure_repo_counts(
+    db_path: &Path,
+    rocq_project_path: &Path,
+    document_cache_path: &Path,
+    crates: &[WorkspaceCrate],
+) -> Result<RepoCounts> {
+    let store = provenance_store::ProvenanceStore::open_read_only(db_path)
+        .with_context(|| format!("open canonical db {}", db_path.display()))?;
+    let control_plane = store
+        .control_plane_counts()
+        .context("count canonical claim, insight and experiment rows")?;
+    let rocq_project = fs::read_to_string(rocq_project_path)
+        .with_context(|| format!("read {}", rocq_project_path.display()))?;
+    // A proof file is a `.v` entry under `verified/` or `theories/`; the
+    // `-Q`/`-R` load-path lines and checkpoint or extraction files stay out.
+    let rocq_project_files = rocq_project
+        .lines()
+        .map(str::trim)
+        .filter(|line| {
+            line.ends_with(".v") && (line.starts_with("verified/") || line.starts_with("theories/"))
+        })
+        .count();
+    let document_cache = fs::read_to_string(document_cache_path)
+        .with_context(|| format!("read {}", document_cache_path.display()))?;
+    let cached_paper_pdfs = document_cache
+        .lines()
+        .map(str::trim)
+        .filter(|line| !line.is_empty() && !line.starts_with('#'))
+        .count();
+    Ok(RepoCounts {
+        claim_count: control_plane.claim_count,
+        insight_count: control_plane.insight_count,
+        experiment_count: control_plane.experiment_count,
+        kernel_checked_claims: control_plane.kernel_checked_claim_count,
+        rocq_project_files,
+        cached_paper_pdfs,
+        cargo_bin_targets: crates.iter().map(|krate| krate.bin_targets).sum(),
+    })
 }
 
 fn load_entrypoint_docs(path: &Path) -> Result<EntrypointDocsRegistry> {
@@ -406,10 +452,9 @@ fn build_family_summaries(crates: &[WorkspaceCrate]) -> Vec<FamilySummary> {
 
 fn build_scope_metrics(
     crates: &[WorkspaceCrate],
-    project: &ProjectBlock,
+    counts: &RepoCounts,
     internal_edge_count: usize,
 ) -> Vec<ScopeMetric> {
-    let cargo_bin_targets = crates.iter().map(|krate| krate.bin_targets).sum::<usize>();
     let heaviest_hub = crates
         .iter()
         .max_by_key(|krate| total_degree(krate))
@@ -425,7 +470,7 @@ fn build_scope_metrics(
         },
         ScopeMetric {
             label: "Cargo bin targets",
-            value: cargo_bin_targets.to_string(),
+            value: counts.cargo_bin_targets.to_string(),
             note: "direct executable targets in the workspace".to_string(),
             accent: MAGENTA,
         },
@@ -436,33 +481,33 @@ fn build_scope_metrics(
             accent: EMERALD,
         },
         ScopeMetric {
-            label: "Tests",
-            value: project.test_count.to_string(),
-            note: "tracked in registry/project.toml".to_string(),
+            label: "Insights",
+            value: counts.insight_count.to_string(),
+            note: "canonical insight rows".to_string(),
             accent: AMBER,
         },
         ScopeMetric {
             label: "Claims",
-            value: project.claim_count.to_string(),
+            value: counts.claim_count.to_string(),
             note: "evidence-facing canonical claim rows".to_string(),
             accent: CYAN,
         },
         ScopeMetric {
             label: "Experiments",
-            value: project.experiment_count.to_string(),
-            note: format!("{} completed", project.complete_experiment_count),
+            value: counts.experiment_count.to_string(),
+            note: "canonical experiment rows".to_string(),
             accent: EMERALD,
         },
         ScopeMetric {
             label: "Papers",
-            value: project.paper_count.to_string(),
-            note: "manifested research corpus".to_string(),
+            value: counts.cached_paper_pdfs.to_string(),
+            note: "PDFs in data/papers/document_cache.tsv".to_string(),
             accent: AMBER,
         },
         ScopeMetric {
             label: "Proof files",
-            value: project.proof_files.to_string(),
-            note: format!("{} kernel-checked claims", project.kernel_checked_claims),
+            value: counts.rocq_project_files.to_string(),
+            note: format!("{} kernel-checked claims", counts.kernel_checked_claims),
             accent: MAGENTA,
         },
     ]
@@ -537,7 +582,7 @@ fn build_operator_rows() -> Vec<OperatorRow> {
     ]
 }
 
-fn build_repo_surfaces(root: &Path, project: &ProjectBlock) -> Result<Vec<RepoSurface>> {
+fn build_repo_surfaces(root: &Path, counts: &RepoCounts) -> Result<Vec<RepoSurface>> {
     let external_sources = count_immediate_dirs(&root.join("data/external"))?;
     let result_lanes = count_immediate_dirs(&root.join("data/results"))?;
     let artifact_images = count_files_with_ext(&root.join("data/artifacts/images"), "png")?;
@@ -563,7 +608,7 @@ fn build_repo_surfaces(root: &Path, project: &ProjectBlock) -> Result<Vec<RepoSu
             title: "Claims + proofs",
             summary: format!(
                 "{} claims | {} proof files",
-                project.claim_count, project.proof_files
+                counts.claim_count, counts.rocq_project_files
             ),
             detail:
                 "Evidence-facing statements and kernel-checked proofs stay near the algebraic core."
@@ -580,8 +625,8 @@ fn build_repo_surfaces(root: &Path, project: &ProjectBlock) -> Result<Vec<RepoSu
         RepoSurface {
             title: "Experiment field",
             summary: format!(
-                "{} registered | {} complete | {} workdirs",
-                project.experiment_count, project.complete_experiment_count, experiment_workdirs
+                "{} registered | {} workdirs",
+                counts.experiment_count, experiment_workdirs
             ),
             detail:
                 "Registry state and active workdirs anchor reproducible experiment definitions."
@@ -1028,7 +1073,7 @@ fn render_scope_dashboard(path: &Path, inputs: ScopeDashboardInputs<'_>) -> Resu
 
 fn render_family_map(
     path: &Path,
-    project: &ProjectBlock,
+    counts: &RepoCounts,
     families: &[FamilySummary],
     edges: &[RepoEdge],
 ) -> Result<()> {
@@ -1074,7 +1119,7 @@ fn render_family_map(
             cross_edges,
             hub,
             total_bins,
-            project.claim_count
+            counts.claim_count
         ),
     )?;
 
@@ -1140,7 +1185,7 @@ fn render_family_map(
 
 fn render_operator_matrix(
     path: &Path,
-    project: &ProjectBlock,
+    counts: &RepoCounts,
     look_first: &[String],
     rows: &[OperatorRow],
 ) -> Result<()> {
@@ -1152,8 +1197,8 @@ fn render_operator_matrix(
         &root,
         "OPEN_GOROROBA: OPERATOR MATRIX",
         &format!(
-            "Task-to-surface heatmap for repo navigation | {} tests | {} insights | {} papers | {} registered binaries",
-            project.test_count, project.insight_count, project.paper_count, project.binary_count
+            "Task-to-surface heatmap for repo navigation | {} insights | {} cached paper PDFs | {} bin targets",
+            counts.insight_count, counts.cached_paper_pdfs, counts.cargo_bin_targets
         ),
     )?;
 
@@ -1169,7 +1214,7 @@ fn render_operator_matrix(
             vec![
                 "Cargo.toml: workspace root and shared dependency policy.".to_string(),
                 "AGENTS.md + agents.toml: contribution and automation rules.".to_string(),
-                "registry/project.toml: project counts, summaries, and sprint state.".to_string(),
+                "registry/project.toml: project version, baseline tags, and sprint history.".to_string(),
                 "registry/entrypoint_docs.toml + registry/book_docs.toml: canonical docs source.".to_string(),
             ],
             CYAN,

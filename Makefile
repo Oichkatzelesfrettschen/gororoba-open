@@ -62,7 +62,7 @@
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
 .PHONY: check-ansi check-terminology check-path-hygiene
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
-.PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
+.PHONY: validate-registry-control-plane validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
 .PHONY: cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated patch-static-mirror-headers cargo-cache-status cargo-cache-prune cargo-cache-smoke nanograv-timing-phase1-independent
 
@@ -825,7 +825,7 @@ $(HOST_PROFILE_CACHE): $(CORE_VALIDATION_STAMP)
 REGISTRY_VALIDATION_BINS := claims-verify registry-check test-inventory \
                             semantic-atoms evidence-provenance registry-integrity \
                             execution-planning governance-verify markdown-registry \
-                            project-counter-sync provenance
+                            provenance
 REGISTRY_BUNDLED_VALIDATION_BINS := $(filter-out registry-integrity,$(REGISTRY_VALIDATION_BINS))
 REGISTRY_VALIDATION_SOURCE_DEPS := $(shell find crates xtask -type f \( -name '*.rs' -o -name 'Cargo.toml' \) -print) \
                                    Cargo.toml Cargo.lock rust-toolchain.toml Makefile
@@ -837,7 +837,6 @@ MARKDOWN_REGISTRY_CACHE := $(VALIDATION_TOOLS_DIR)/markdown-registry
 GOVERNANCE_VERIFY_CACHE := $(VALIDATION_TOOLS_DIR)/governance-verify
 EXECUTION_PLANNING_CACHE := $(VALIDATION_TOOLS_DIR)/execution-planning
 REGISTRY_INTEGRITY_CACHE := $(VALIDATION_TOOLS_DIR)/registry-integrity
-PROJECT_COUNTER_CACHE := $(VALIDATION_TOOLS_DIR)/project-counter-sync
 PROVENANCE_CACHE := $(VALIDATION_TOOLS_DIR)/provenance
 
 # stage_tool copies a compiled tool into the worktree-local tools dir and drops
@@ -2095,7 +2094,6 @@ registry-wave5-batch4: registry-strict-toml-batch4
 
 validate-registry: require-ci-validation-authority registry-validation-tools \
                    validate-registry-control-plane \
-                   validate-registry-project-counter \
                    validate-registry-markdown \
                    validate-registry-governance \
                    validate-registry-semantic-atoms \
@@ -2106,9 +2104,6 @@ validate-registry: require-ci-validation-authority registry-validation-tools \
 
 validate-registry-control-plane: registry-validation-tools
 	$(PROVENANCE_CACHE) --repo-root . verify-control-plane --verify-compat-exports
-
-validate-registry-project-counter: registry-validation-tools
-	$(PROJECT_COUNTER_CACHE) --check
 
 validate-registry-markdown: registry-validation-tools
 	$(MARKDOWN_REGISTRY_CACHE) verify-all
@@ -2299,10 +2294,7 @@ registry-verify-mirrors:
 	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify mirror-immutability
 	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify claim-ticket-mirrors
 
-registry-sync-project-counters:
-	$(CARGO_ENV) cargo run --release --bin project-counter-sync
-
-registry: registry-refresh registry-data registry-sync-project-counters
+registry: registry-refresh registry-data
 	$(CARGO_ENV) cargo run --release --bin registry-check
 
 registry-verify-typed-policy-error:

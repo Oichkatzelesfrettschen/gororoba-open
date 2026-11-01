@@ -78,9 +78,6 @@
 //!   query claim C-001
 //! ```
 //!
-//! Use `project-counter-sync` if you need top-level counts refreshed from the
-//! current canonical DB state.
-//!
 //! ## Auto-generated appendix
 //!
 //! The `generate-latex` binary produces `docs/latex/claims_appendix.tex`, a

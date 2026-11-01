@@ -357,17 +357,9 @@ struct ProjectRegistry {
     project: ProjectMeta,
 }
 
-// Constructed by serde::Deserialize; not all fields read by this binary.
 #[derive(serde::Deserialize)]
-#[allow(dead_code)]
 struct ProjectMeta {
     name: String,
-    test_count: Option<u32>,
-    claim_count: Option<u32>,
-    insight_count: Option<u32>,
-    experiment_count: Option<u32>,
-    complete_experiment_count: Option<u32>,
-    binary_count: Option<u32>,
 }
 
 #[derive(serde::Deserialize)]
@@ -1329,7 +1321,6 @@ fn main() {
     // --- Experiments ---
     let experiment_ids: HashSet<String>;
     let experiment_count: usize;
-    let complete_experiment_count: usize;
     let binary_names_from_experiments: Vec<(String, String)>;
 
     let experiments_started_at = Instant::now();
@@ -1368,14 +1359,6 @@ fn main() {
     if let Some(registry) = experiments_registry {
         experiment_ids = registry.experiment.iter().map(|e| e.id.clone()).collect();
         experiment_count = registry.experiment.len();
-        complete_experiment_count = registry
-            .experiment
-            .iter()
-            .filter(|entry| {
-                let status = entry.status.as_deref().unwrap_or("").trim().to_lowercase();
-                status == "complete" || status == "completed" || status == "done"
-            })
-            .count();
         binary_names_from_experiments = registry
             .experiment
             .iter()
@@ -1411,7 +1394,6 @@ fn main() {
         warnings += 1;
         experiment_ids = HashSet::new();
         experiment_count = 0;
-        complete_experiment_count = 0;
         binary_names_from_experiments = Vec::new();
     }
     report_phase_timing(args.timings, "experiments", experiments_started_at);
@@ -1571,53 +1553,6 @@ fn main() {
         let content = std::fs::read_to_string(&project_path).unwrap();
         let project: ProjectRegistry = toml::from_str(&content).unwrap();
 
-        // Cross-check counts
-        if let Some(expected_claims) = project.project.claim_count
-            && expected_claims as usize != claim_count
-        {
-            eprintln!(
-                "ERROR: project.toml claim_count={} but claims.toml has {} entries",
-                expected_claims, claim_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_insights) = project.project.insight_count
-            && expected_insights as usize != insight_count
-        {
-            eprintln!(
-                "ERROR: project.toml insight_count={} but insights.toml has {} entries",
-                expected_insights, insight_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_experiments) = project.project.experiment_count
-            && expected_experiments as usize != experiment_count
-        {
-            eprintln!(
-                "ERROR: project.toml experiment_count={} but experiments.toml has {} entries",
-                expected_experiments, experiment_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_complete) = project.project.complete_experiment_count
-            && expected_complete as usize != complete_experiment_count
-        {
-            eprintln!(
-                "ERROR: project.toml complete_experiment_count={} but experiments.toml has {} complete/done entries",
-                expected_complete, complete_experiment_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_binaries) = project.project.binary_count
-            && expected_binaries as usize != registry_binary_names.len()
-        {
-            eprintln!(
-                "ERROR: project.toml binary_count={} but binaries.toml has {} entries",
-                expected_binaries,
-                registry_binary_names.len()
-            );
-            errors += 1;
-        }
 
         println!("Project: found (v{})", project.project.name);
     } else {
