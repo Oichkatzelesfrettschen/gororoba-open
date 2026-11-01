@@ -181,10 +181,10 @@ status = "pending"
 
 [[paper]]
 id = "arxiv-0710-4310-joshi-2007-gravitational-collapse-story-continues"
-title = "arxiv 0710.4310 joshi 2007 gravitational collapse story continues"
-authors = ["Unknown"]
-year = 2007
-arxiv = "0710.4310"
+title = "Gravitational Collapse: The Story so far"
+authors = ["Pankaj S. Joshi"]
+year = 2000
+arxiv = "gr-qc/0006101"
 local_pdf = "data/papers/documents_ingest/1_CAYLEYDICKSON_AND_MORE/arxiv_0710.4310_joshi_2007_gravitational_collapse_story_continues.pdf"
 status = "pending"
 
@@ -298,10 +298,10 @@ status = "pending"
 
 [[paper]]
 id = "arxiv-1207-5805-fewster-2012-lectures-quantum-energy-inequalities"
-title = "arxiv 1207.5805 fewster 2012 lectures quantum energy inequalities"
-authors = ["Unknown"]
+title = "Lectures on quantum energy inequalities"
+authors = ["Christopher J. Fewster"]
 year = 2012
-arxiv = "1207.5805"
+arxiv = "1208.5399"
 local_pdf = "data/papers/documents_ingest/1_CAYLEYDICKSON_AND_MORE/arxiv_1207.5805_fewster_2012_lectures_quantum_energy_inequalities.pdf"
 status = "pending"
 
@@ -424,10 +424,10 @@ status = "pending"
 
 [[paper]]
 id = "arxiv-1904-05684-kontou-sanders-2020-quantum-energy-inequalities-review"
-title = "arxiv 1904.05684 kontou sanders 2020 quantum energy inequalities review"
-authors = ["Unknown"]
-year = 1904
-arxiv = "1904.05684"
+title = "Energy conditions in general relativity and quantum field theory"
+authors = ["Eleni-Alexandra Kontou", "Ko Sanders"]
+year = 2020
+arxiv = "2003.01815"
 local_pdf = "data/papers/documents_ingest/1_CAYLEYDICKSON_AND_MORE/arxiv_1904.05684_kontou_sanders_2020_quantum_energy_inequalities_review.pdf"
 status = "pending"
 
@@ -549,10 +549,10 @@ status = "pending"
 
 [[paper]]
 id = "arxiv-2407-18908-fuchs-2024-constant-velocity-subluminal-warp"
-title = "arxiv 2407.18908 fuchs 2024 constant velocity subluminal warp"
-authors = ["Unknown"]
+title = "Constant Velocity Physical Warp Drive Solution"
+authors = ["Jared Fuchs", "Christopher Helmerich", "Alexey Bobrick", "Luke Sellers", "Brandon Melcher", "Gianni Martire"]
 year = 2024
-arxiv = "2407.18908"
+arxiv = "2405.02709"
 local_pdf = "data/papers/documents_ingest/1_CAYLEYDICKSON_AND_MORE/arxiv_2407.18908_fuchs_2024_constant_velocity_subluminal_warp.pdf"
 status = "pending"
 
