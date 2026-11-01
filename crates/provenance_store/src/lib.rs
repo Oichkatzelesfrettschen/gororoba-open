@@ -117,6 +117,10 @@ pub use artifact_paths::{
     ArtifactPathRepair, ArtifactPathRepairSpec, HistoricalPathRelation, RelatedArtifactPath,
     TransformedPathRelation,
 };
+mod artifact_path_retirement;
+pub use artifact_path_retirement::{
+    ArtifactPathRetirement, ArtifactPathRetirementSpec, RetiredArtifactStatus,
+};
 mod claim_transitions;
 pub use claim_transitions::{
     AllocatedSuccessor, ClaimRelationView, ClaimTransitionApplyResult, ClaimTransitionCompatPaths,
