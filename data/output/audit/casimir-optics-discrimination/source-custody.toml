@@ -1,0 +1,37 @@
+schema_version = 1
+scope = "Custody of the retained source bytes that no longer sit in this repository. The listed bodies live in the documents repositories, which hold a manifest row with the same SHA-256; the retrieval manifest and the observation receipts keep the original paths as frozen acquisition records."
+
+[[source]]
+id = "LIFSHITZ-1956"
+sha256 = "94f6bd84212c0ae56f5121485507ee447146b1f866dc3b7787f0a2a8651a1d8c"
+custody = "documents_repository"
+
+[[source]]
+id = "CASIMIR-REVIEW-2009"
+sha256 = "86a3ee1f597fa9aed81214a7b20e7d53f7b8fde849b5201ad9ff20998e6bcc0b"
+custody = "documents_repository"
+
+[[source]]
+id = "HNLS-2017"
+sha256 = "6f8c528029a5608d83ae117462c9eb3533c4fa3117daed8bff3283e1c314f8eb"
+custody = "documents_repository"
+
+[[source]]
+id = "MEMORY-KERNEL-CP-2009"
+sha256 = "2c0864ef3ad0265e0b30ada8ce69bebcd3a49707e7055423945364f40e516b07"
+custody = "documents_repository"
+
+[[source]]
+id = "AUTOQEC-METROLOGY-2026"
+sha256 = "ec96691f8438ccf712cadbaceb96a23d8d20c7cc2f477b1cfbca7793427dde74"
+custody = "documents_repository"
+
+[[source]]
+id = "MCPEAK-2015-MANUSCRIPT"
+sha256 = "0c9b78d3719586778b588e37f34a1908bffbdd92339d9cea924b964b6355cbe5"
+custody = "documents_repository"
+
+[[source]]
+id = "REJECTED-ARXIV-0801.1757"
+sha256 = "19b9184c1c12f2c5688506468637d2e908277c10f66bea6e45e3d4e8f7af10f2"
+custody = "documents_repository"
