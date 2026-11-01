@@ -347,7 +347,6 @@ strsim = "0.11" # String similarity (Jaro-Winkler, Levenshtein)
 toml = "1.1" # TOML serialization/deserialization
 toml_edit = "0.25" # Deterministic TOML emission/editing for compatibility exports
 unicode-normalization = "0.1" # Unicode normalization for ANSI-safe UTF-8 sanitation
-unpdf = "0.7" # Scientific PDF extraction with math support
 
 # HDF5 data export (requires system libhdf5)
 # Using the hdf5-metno fork; upstream `hdf5` 0.8.1 last released

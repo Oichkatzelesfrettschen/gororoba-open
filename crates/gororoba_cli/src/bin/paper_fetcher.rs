@@ -1,167 +1,312 @@
-//! paper_fetcher: Pure Rust port of `papers/pdf/fetch_dm_papers.sh`.
-//! Fetches dark matter bibliography PDFs.
+//! paper-fetcher: download papers by arXiv identifier or URL into a directory
+//! the user names.
+//!
+//! Usage:
+//!   paper-fetcher 2603.03446 math/0403113v1 https://example.org/paper.pdf
+//!   paper-fetcher --dest ~/papers arXiv:2503.14738
+//!
+//! Without `--dest` the tool asks for the directory on the terminal; it has no
+//! default destination.
 
-use std::{fs, path::Path, thread::sleep, time::Duration};
+use anyhow::{Context, Result, bail, ensure};
+use clap::Parser;
+use std::{
+    fs,
+    io::{self, BufRead, IsTerminal, Read, Write},
+    path::{Path, PathBuf},
+    thread::sleep,
+    time::Duration,
+};
 
-const UA: &str = "gororoba-fetch/0.1 (research; https://github.com/Oichkatzelesfrettschen/gororoba-open)";
+const USER_AGENT: &str =
+    "gororoba-fetch/0.2 (research; https://github.com/Oichkatzelesfrettschen/gororoba-open)";
+/// arXiv asks automated clients for at most one request every three seconds
+/// (arxiv.org/help/api/tou).
+const ARXIV_REQUEST_INTERVAL: Duration = Duration::from_secs(3);
+const REQUEST_TIMEOUT: Duration = Duration::from_secs(60);
+/// A PDF file starts with this header (ISO 32000-2, section 7.5.2); a response
+/// without it is an error or captcha page.
+const PDF_MAGIC: &[u8] = b"%PDF-";
 
-fn fetch(url: &str, slug: &str) -> bool {
-    let filename = format!("{}.pdf", slug);
-    if Path::new(&filename).exists() {
-        println!("SKIP {} (exists)", filename);
-        return true;
+#[derive(Parser, Debug)]
+#[command(
+    name = "paper-fetcher",
+    about = "Download papers by arXiv identifier or URL"
+)]
+struct Cli {
+    /// Directory that receives the PDFs; asked for on the terminal when omitted
+    #[arg(long)]
+    dest: Option<PathBuf>,
+
+    /// arXiv identifiers (2603.03446, math/0403113v1, arXiv:2503.14738) or http(s) URLs
+    #[arg(required = true)]
+    papers: Vec<String>,
+}
+
+#[derive(Debug, PartialEq, Eq)]
+struct Target {
+    url: String,
+    file_name: String,
+    arxiv: bool,
+}
+
+fn all_digits(value: &str) -> bool {
+    !value.is_empty() && value.bytes().all(|byte| byte.is_ascii_digit())
+}
+
+/// Accepts the arXiv identifier forms of arxiv.org/help/arxiv_identifier, each
+/// with an optional `vN` version suffix: `YYMM.NNNN` through 1412,
+/// `YYMM.NNNNN` from 1501, and the legacy `archive/YYMMNNN`.
+fn is_arxiv_identifier(value: &str) -> bool {
+    let number = match value.rsplit_once('v') {
+        Some((number, version)) if all_digits(version) => number,
+        _ => value,
+    };
+    let modern = number.split_once('.').is_some_and(|(yymm, serial)| {
+        let serial_digits = if yymm < "1501" { 4 } else { 5 };
+        yymm.len() == 4 && all_digits(yymm) && serial.len() == serial_digits && all_digits(serial)
+    });
+    let legacy = number.split_once('/').is_some_and(|(archive, serial)| {
+        !archive.is_empty()
+            && archive
+                .bytes()
+                .all(|byte| byte.is_ascii_lowercase() || byte == b'-' || byte == b'.')
+            && serial.len() == 7
+            && all_digits(serial)
+    });
+    modern || legacy
+}
+
+fn sanitize(name: &str) -> String {
+    name.chars()
+        .map(|c| {
+            if c.is_ascii_alphanumeric() || matches!(c, '.' | '-' | '_') {
+                c
+            } else {
+                '_'
+            }
+        })
+        .collect::<String>()
+        .trim_matches(['.', '_'])
+        .to_owned()
+}
+
+fn classify(argument: &str) -> Result<Target> {
+    let trimmed = argument.trim();
+    if let Some(rest) = trimmed
+        .strip_prefix("https://")
+        .or_else(|| trimmed.strip_prefix("http://"))
+    {
+        let path = rest.split(['?', '#']).next().unwrap_or(rest);
+        let file = path
+            .split_once('/')
+            .map(|(_, file_path)| file_path.rsplit('/').next().unwrap_or_default())
+            .unwrap_or_default();
+        let stem = sanitize(file.strip_suffix(".pdf").unwrap_or(file));
+        ensure!(
+            !stem.is_empty(),
+            "URL {trimmed} names no file; pass a URL that ends in the document's file name"
+        );
+        return Ok(Target {
+            url: trimmed.to_owned(),
+            file_name: format!("{stem}.pdf"),
+            arxiv: false,
+        });
     }
+    let identifier = trimmed
+        .strip_prefix("arXiv:")
+        .or_else(|| trimmed.strip_prefix("arxiv:"))
+        .unwrap_or(trimmed);
+    ensure!(
+        is_arxiv_identifier(identifier),
+        "{argument:?} is neither an arXiv identifier nor an http(s) URL"
+    );
+    Ok(Target {
+        url: format!("https://arxiv.org/pdf/{identifier}"),
+        file_name: format!("{}.pdf", identifier.replace('/', "_")),
+        arxiv: true,
+    })
+}
 
-    println!("FETCHING {}...", url);
+fn expand_home(path: &str) -> PathBuf {
+    match (path.strip_prefix("~/"), std::env::var_os("HOME")) {
+        (Some(rest), Some(home)) => PathBuf::from(home).join(rest),
+        _ => PathBuf::from(path),
+    }
+}
+
+fn prompt_destination(input: &mut impl BufRead, output: &mut impl Write) -> Result<PathBuf> {
+    write!(output, "Download directory: ")?;
+    output.flush()?;
+    let mut line = String::new();
+    input.read_line(&mut line)?;
+    let answer = line.trim();
+    ensure!(!answer.is_empty(), "no download directory given");
+    Ok(expand_home(answer))
+}
+
+fn resolve_destination(dest: Option<PathBuf>) -> Result<PathBuf> {
+    let dest = match dest {
+        Some(dest) => dest,
+        None => {
+            if !io::stdin().is_terminal() {
+                bail!("no --dest given and standard input is not a terminal to ask for one");
+            }
+            prompt_destination(&mut io::stdin().lock(), &mut io::stderr())?
+        }
+    };
+    fs::create_dir_all(&dest)
+        .with_context(|| format!("creating download directory {}", dest.display()))?;
+    Ok(dest)
+}
+
+fn ensure_pdf(body: &[u8], url: &str) -> Result<()> {
+    ensure!(
+        body.starts_with(PDF_MAGIC),
+        "{url} returned {} bytes that are not a PDF",
+        body.len()
+    );
+    Ok(())
+}
+
+enum Outcome {
+    Downloaded,
+    AlreadyPresent,
+}
+
+/// Writes through a sibling `.part` file and renames it, so the destination
+/// never holds a truncated PDF.
+fn fetch(agent: &ureq::Agent, target: &Target, dest: &Path) -> Result<Outcome> {
+    let path = dest.join(&target.file_name);
+    if path.exists() {
+        return Ok(Outcome::AlreadyPresent);
+    }
+    let response = agent
+        .get(&target.url)
+        .call()
+        .with_context(|| format!("requesting {}", target.url))?;
+    let mut body = Vec::new();
+    response
+        .into_body()
+        .into_reader()
+        .read_to_end(&mut body)
+        .with_context(|| format!("reading {}", target.url))?;
+    ensure_pdf(&body, &target.url)?;
+    let partial = path.with_extension("pdf.part");
+    fs::write(&partial, &body).with_context(|| format!("writing {}", partial.display()))?;
+    fs::rename(&partial, &path).with_context(|| format!("renaming to {}", path.display()))?;
+    Ok(Outcome::Downloaded)
+}
+
+fn main() -> Result<()> {
+    let cli = Cli::parse();
+    let targets = cli
+        .papers
+        .iter()
+        .map(|paper| classify(paper))
+        .collect::<Result<Vec<_>>>()?;
+    let dest = resolve_destination(cli.dest)?;
     let agent: ureq::Agent = ureq::Agent::config_builder()
-        .user_agent(UA)
-        .timeout_global(Some(Duration::from_secs(60)))
+        .user_agent(USER_AGENT)
+        .timeout_global(Some(REQUEST_TIMEOUT))
         .build()
         .into();
 
-    let response = agent.get(url).call();
-
-    match response {
-        Ok(res) => {
-            let mut file = match fs::File::create(&filename) {
-                Ok(f) => f,
-                Err(e) => {
-                    eprintln!("FAIL {} (create file: {})", filename, e);
-                    return false;
-                }
-            };
-            if let Err(e) = std::io::copy(&mut res.into_body().into_reader(), &mut file) {
-                eprintln!("FAIL {} (copy body: {})", filename, e);
-                let _ = fs::remove_file(&filename);
-                return false;
+    let mut failures = 0usize;
+    let mut arxiv_requested = false;
+    for target in &targets {
+        if target.arxiv && arxiv_requested {
+            sleep(ARXIV_REQUEST_INTERVAL);
+        }
+        let path = dest.join(&target.file_name);
+        match fetch(&agent, target, &dest) {
+            Ok(Outcome::Downloaded) => {
+                arxiv_requested |= target.arxiv;
+                println!("OK   {}", path.display());
             }
-            println!("OK   {}", filename);
-            true
-        }
-        Err(e) => {
-            eprintln!("FAIL {} (request: {})", filename, e);
-            false
+            Ok(Outcome::AlreadyPresent) => println!("SKIP {} (exists)", path.display()),
+            Err(error) => {
+                arxiv_requested |= target.arxiv;
+                failures += 1;
+                eprintln!("FAIL {}: {error:#}", target.url);
+            }
         }
     }
+    ensure!(
+        failures == 0,
+        "{failures} of {} downloads failed",
+        targets.len()
+    );
+    Ok(())
 }
 
-fn fetch_arxiv(id: &str, slug: &str) -> bool {
-    let url = format!("https://arxiv.org/pdf/{}", id);
-    let success = fetch(&url, slug);
-    sleep(Duration::from_secs(3));
-    success
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-fn fetch_direct(url: &str, slug: &str) -> bool {
-    let success = fetch(url, slug);
-    sleep(Duration::from_secs(3));
-    success
-}
+    #[test]
+    fn classifies_modern_legacy_and_prefixed_arxiv_identifiers() {
+        assert_eq!(
+            classify("2603.03446").unwrap(),
+            Target {
+                url: "https://arxiv.org/pdf/2603.03446".to_owned(),
+                file_name: "2603.03446.pdf".to_owned(),
+                arxiv: true,
+            }
+        );
+        assert_eq!(
+            classify("math/0403113v1").unwrap().file_name,
+            "math_0403113v1.pdf"
+        );
+        assert_eq!(
+            classify("arXiv:2503.14738v2").unwrap().url,
+            "https://arxiv.org/pdf/2503.14738v2"
+        );
+        assert!(classify("hep-th/9901001").unwrap().arxiv);
+        assert!(classify("1210.1282v1").unwrap().arxiv);
+        assert!(classify("1210.12820").is_err());
+    }
 
-fn main() {
-    let mut ok = 0;
-    let mut fail = 0;
+    #[test]
+    fn classifies_urls_by_their_file_name() {
+        let target =
+            classify("https://cds.cern.ch/record/2951492/files/ilten.pdf?version=1").unwrap();
+        assert_eq!(target.file_name, "ilten.pdf");
+        assert!(!target.arxiv);
+        assert_eq!(
+            classify("https://example.org/a b.pdf").unwrap().file_name,
+            "a_b.pdf"
+        );
+    }
 
-    println!("=== Downloading dark matter bibliography PDFs ===");
-
-    let papers = vec![
-        ("arxiv", "2603.03446", "brax_2026_dark_universe_review"),
-        ("arxiv", "2505.05663", "abdullahi_2025_rich_dark_sectors"),
-        ("arxiv", "2510.17473", "crnogorcev_2025_dark_matters_icrc"),
-        ("arxiv", "2602.23708", "bramante_2026_heavy_composite_dm"),
-        ("arxiv", "2401.12286", "bodas_2024_matter_dm_coincidence"),
-        ("arxiv", "2505.01634", "atlas_2025_semi_visible_jets"),
-        (
-            "arxiv",
-            "2601.13033",
-            "wilson_edwards_2026_atlas_dark_sectors",
-        ),
-        ("arxiv", "2402.14491", "cms_2024_llp_dimuon"),
-        (
-            "direct",
-            "https://cds.cern.ch/record/2951492/files/ilten.pdf",
-            "ilten_2025_lhcb_dark_sectors",
-        ),
-        ("arxiv", "2601.06284", "lomte_2026_higgs_portal_dm"),
-        ("arxiv", "2602.16822", "huang_2026_overabundant_dm_fopt"),
-        ("arxiv", "2602.14866", "feng_2026_dark_u1_gw"),
-        ("arxiv", "2602.18564", "carvalho_correa_2026_z4_freeze_in"),
-        ("arxiv", "2602.20242", "feiteira_2026_warm_dm_freeze_in"),
-        ("arxiv", "2601.13147", "das_2026_singlet_fermion_dm"),
-        (
-            "arxiv",
-            "2504.16525",
-            "yamashita_2025_gravitational_positivity",
-        ),
-        ("arxiv", "2602.20760", "chaudhuri_2026_dark_temperature_gw"),
-        ("arxiv", "2602.03235", "elgammal_2026_dark_higgs_fcc"),
-        ("arxiv", "2512.21457", "abed_2025_dark_higgs_hidden_sector"),
-        ("arxiv", "2406.09971", "atlas_2024_hh_combination"),
-        ("arxiv", "2205.08582", "cms_2022_llp_muon_pairs"),
-        (
-            "arxiv",
-            "2603.00247",
-            "angel_2026_light_dark_sectors_ephoton",
-        ),
-        ("arxiv", "2602.11405", "gninenko_2026_dark_axion_portal"),
-        ("arxiv", "2603.03433", "arza_2026_cosmic_wispers"),
-        ("arxiv", "2603.05006", "ivanov_2026_dielectric_haloscope"),
-        (
-            "arxiv",
-            "2603.00554",
-            "de_romeri_2026_vector_mediators_cevns",
-        ),
-        ("arxiv", "2602.22308", "barir_2026_nasduck_dark_photon"),
-        (
-            "arxiv",
-            "2511.07508",
-            "berger_2025_dark_photon_magnetic_fields",
-        ),
-        ("arxiv", "2503.14738", "desi_2025_dr2_bao"),
-        ("arxiv", "2602.12238", "pantos_2026_s8_tension_review"),
-        ("arxiv", "2601.14559", "des_2026_y6_3x2pt"),
-        (
-            "arxiv",
-            "2602.11310",
-            "escobal_2026_interacting_dark_sector",
-        ),
-        ("arxiv", "2602.21774", "yildiz_2026_dark_sector_fr_gravity"),
-        ("arxiv", "2601.04048", "pardo_2026_fr_weak_lensing"),
-        ("arxiv", "2602.22990", "london_2026_voids_dm_probe"),
-        ("arxiv", "2512.00701", "barranco_2026_compact_dark_objects"),
-        ("arxiv", "2602.15974", "green_2026_pbh_microlensing"),
-        ("arxiv", "2507.13794", "mroz_2025_ogle_smc_microlensing"),
-        (
-            "arxiv",
-            "2509.05910",
-            "turyshev_2025_solar_system_dark_energy",
-        ),
-        ("arxiv", "2507.19577", "thoss_2025_dark_objects_gw"),
-        ("arxiv", "2603.04841", "gurrola_2026_dark_energy_moon"),
-        ("arxiv", "2308.12336", "maity_2023_solar_neutrinos_dm"),
-        ("arxiv", "2512.08065", "lz_2025_light_dm_cevns"),
-        ("arxiv", "2601.11296", "xenon_2026_light_dm_ionization"),
-        ("arxiv", "2505.22710", "asadi_2025_uv_freeze_in_cogenesis"),
-        ("arxiv", "2602.20237", "mckenna_2026_leptogenesis_adm"),
-        ("arxiv", "2601.01849", "takahashi_2026_adm_leptogenesis"),
-        ("arxiv", "2602.03384", "abhishek_2026_adm_s4_modular"),
-        ("arxiv", "2507.10655", "mojahed_2025_asymgenesis"),
-        ("arxiv", "2504.08304", "kanemura_2025_asteroid_mass_soliton"),
-        ("arxiv", "2602.15132", "di_mauro_2026_antinuclei_sueps"),
-    ];
-
-    for (kind, id_or_url, slug) in papers {
-        let success = match kind {
-            "arxiv" => fetch_arxiv(id_or_url, slug),
-            "direct" => fetch_direct(id_or_url, slug),
-            _ => false,
-        };
-        if success {
-            ok += 1;
-        } else {
-            fail += 1;
+    #[test]
+    fn rejects_inputs_that_name_no_document() {
+        for bad in [
+            "sedenion",
+            "2603.3446",
+            "26030.03446",
+            "https://example.org/",
+            "https://example.org",
+            "",
+            "../etc",
+        ] {
+            assert!(classify(bad).is_err(), "{bad:?} must be rejected");
         }
     }
 
-    println!("\n=== Done: {} ok, {} failed ===", ok, fail);
+    #[test]
+    fn prompt_reads_the_destination_and_rejects_an_empty_answer() {
+        let mut shown = Vec::new();
+        let dest = prompt_destination(&mut "/srv/papers\n".as_bytes(), &mut shown).unwrap();
+        assert_eq!(dest, PathBuf::from("/srv/papers"));
+        assert_eq!(shown, b"Download directory: ");
+        assert!(prompt_destination(&mut "\n".as_bytes(), &mut Vec::new()).is_err());
+    }
+
+    #[test]
+    fn non_pdf_bodies_are_rejected() {
+        assert!(ensure_pdf(b"%PDF-1.7\n", "u").is_ok());
+        assert!(ensure_pdf(b"<html>captcha</html>", "u").is_err());
+        assert!(ensure_pdf(b"", "u").is_err());
+    }
 }

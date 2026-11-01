@@ -41,7 +41,6 @@ pub mod download;
 pub mod evolution;
 pub mod models;
 pub mod novelty;
-pub mod pdf;
 pub mod pipeline;
 pub mod query_adapter;
 pub mod search;
