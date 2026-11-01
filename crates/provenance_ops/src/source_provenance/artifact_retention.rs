@@ -306,7 +306,7 @@ mod tests {
             "ART-0002",
             "absent",
             "remotely_materializable",
-            "data/papers/intake/absent.pdf",
+            "data/external/intake/absent.pdf",
         );
         assert!(!absent.present);
         assert!(!absent.git_tracked);

@@ -436,7 +436,7 @@ fn discover_candidate_source_files(repo_root: &Path) -> Vec<PathBuf> {
         "mirror",
         "provenance",
     ];
-    let allowed_prefixes = ["registry/", "reports/", "docs/", "papers/", "data/papers/"];
+    let allowed_prefixes = ["registry/", "reports/", "docs/"];
     let excluded_prefixes = [
         ".git/",
         "target/",
