@@ -1032,6 +1032,11 @@ validate-ci-scoped-rust-lane: require-ci-validation-authority
 	        fi; \
 	        if [ "$${#cargo_target_args[@]}" -eq 1 ]; then no_tests_args=(--no-tests=pass); fi; \
 	        ;; \
+	    --bins) \
+	        if ! { [ "$${#cargo_target_args[@]}" -eq 3 ] && [ "$${cargo_target_args[1]}" = --tests ] && [ "$${cargo_target_args[2]}" = --examples ]; }; then \
+	            echo "ERROR: bin-only package shard requires --bins --tests --examples." >&2; exit 1; \
+	        fi; \
+	        ;; \
 	    --bin|--test|--example) \
 	        target_option="$${cargo_target_args[0]}"; \
 	        if [ "$$target_option" = --bin ] || [ "$$target_option" = --example ]; then no_tests_args=(--no-tests=pass); fi; \
@@ -1040,7 +1045,7 @@ validate-ci-scoped-rust-lane: require-ci-validation-authority
 	            if [ "$${cargo_target_args[target_index]}" != "$$target_option" ] || [[ ! "$${cargo_target_args[target_index+1]}" =~ ^[A-Za-z0-9_][A-Za-z0-9_-]*$$ ]]; then echo "ERROR: invalid named target shard." >&2; exit 1; fi; \
 	        done; \
 	        ;; \
-	    *) echo "ERROR: CI_CARGO_TARGET_ARGS must select all targets, a library, or named binary, integration-test, or example targets." >&2; exit 1 ;; \
+	    *) echo "ERROR: CI_CARGO_TARGET_ARGS must select all targets, a library, the targets of a bin-only package, or named binary, integration-test, or example targets." >&2; exit 1 ;; \
 	esac; \
 	light_scope=(); heavy_scope=(); \
 	if [ "$${rust_scope[0]}" = --workspace ]; then \
