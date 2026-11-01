@@ -812,6 +812,8 @@ struct ShardWorkspace {
 #[derive(Debug, Deserialize)]
 struct ShardPackageManifest {
     package: ShardPackage,
+    #[serde(default)]
+    lib: Option<serde::de::IgnoredAny>,
     #[serde(default, rename = "bin")]
     binaries: Vec<ShardTarget>,
     #[serde(default, rename = "test")]
@@ -838,6 +840,9 @@ struct ShardTarget {
 
 #[derive(Debug)]
 struct ShardPackageInventory {
+    // Cargo rejects `--lib` for a package selected with `-p` that has no
+    // library target: a `[lib]` table or the default `src/lib.rs`.
+    has_library: bool,
     binaries: Vec<ShardTarget>,
     tests: Vec<ShardTarget>,
     examples: Vec<ShardTarget>,
@@ -983,6 +988,8 @@ fn workspace_package_inventory(
         let member_manifest: ShardPackageManifest = toml::from_str(&member_manifest_text)
             .with_context(|| format!("parse member manifest {}", member_manifest_path.display()))?;
         let package_name = member_manifest.package.name;
+        let has_library = member_manifest.lib.is_some()
+            || workspace_root.join(&member).join("src/lib.rs").is_file();
         let mut binaries = member_manifest.binaries;
         let mut tests = member_manifest.tests;
         let mut examples = member_manifest.examples;
@@ -1012,6 +1019,7 @@ fn workspace_package_inventory(
             normalize_shard_targets(&package_name, "example", &mut examples)?;
         }
         let inventory = ShardPackageInventory {
+            has_library,
             binaries,
             tests,
             examples,
@@ -1149,6 +1157,40 @@ fn append_example_target_shard(
     });
 }
 
+const PACKAGE_TARGET_ARGS: &str = "--lib --bins --tests --examples";
+const BIN_ONLY_PACKAGE_TARGET_ARGS: &str = "--bins --tests --examples";
+
+// One row tests every package of a lane that has a library target; packages
+// without one take a `-bins` row that omits `--lib`.
+fn append_package_shards(
+    include: &mut Vec<RustShard>,
+    lane: &str,
+    target: &'static str,
+    package_names: &[String],
+    inventory: &BTreeMap<String, ShardPackageInventory>,
+) {
+    let (with_library, bin_only): (Vec<String>, Vec<String>) = package_names
+        .iter()
+        .cloned()
+        .partition(|name| inventory.get(name).is_none_or(|package| package.has_library));
+    for (suffix, names, args) in [
+        ("", with_library, PACKAGE_TARGET_ARGS),
+        ("-bins", bin_only, BIN_ONLY_PACKAGE_TARGET_ARGS),
+    ] {
+        if names.is_empty() {
+            continue;
+        }
+        include.push(RustShard {
+            lane: format!("{lane}{suffix}"),
+            target,
+            rust_scope: cargo_package_scope(&names),
+            clippy_scope: String::new(),
+            cargo_target_args: args.to_string(),
+            cargo_features: String::new(),
+        });
+    }
+}
+
 fn build_rust_shard_matrix(cli: &CiRustShardMatrixCli) -> Result<RustShardMatrix> {
     if cli.light_shard_count == 0 || cli.target_shard_count == 0 {
         bail!("light and target shard counts must be greater than zero");
@@ -1208,28 +1250,21 @@ fn build_rust_shard_matrix(cli: &CiRustShardMatrixCli) -> Result<RustShardMatrix
         }
     }
     for (shard_index, package_names) in light_shards.into_iter().enumerate() {
-        if package_names.is_empty() {
-            continue;
-        }
-        include.push(RustShard {
-            lane: format!("light-{shard_index}"),
-            target: "light",
-            rust_scope: cargo_package_scope(&package_names),
-            clippy_scope: String::new(),
-            cargo_target_args: "--lib --bins --tests --examples".to_string(),
-            cargo_features: String::new(),
-        });
+        append_package_shards(
+            &mut include,
+            &format!("light-{shard_index}"),
+            "light",
+            &package_names,
+            &workspace_inventory,
+        );
     }
-    if !heavy_packages.is_empty() {
-        include.push(RustShard {
-            lane: "heavy".to_string(),
-            target: "heavy",
-            rust_scope: cargo_package_scope(&heavy_packages),
-            clippy_scope: String::new(),
-            cargo_target_args: "--lib --bins --tests --examples".to_string(),
-            cargo_features: String::new(),
-        });
-    }
+    append_package_shards(
+        &mut include,
+        "heavy",
+        "heavy",
+        &heavy_packages,
+        &workspace_inventory,
+    );
     for target_shard_package in &selected_target_shard_packages {
         let package_inventory = workspace_inventory
             .get(target_shard_package)
@@ -1272,7 +1307,8 @@ fn build_rust_shard_matrix(cli: &CiRustShardMatrixCli) -> Result<RustShardMatrix
         .iter()
         .filter(|shard| {
             shard.target != "clippy"
-                && shard.cargo_target_args == "--lib --bins --tests --examples"
+                && (shard.cargo_target_args == PACKAGE_TARGET_ARGS
+                    || shard.cargo_target_args == BIN_ONLY_PACKAGE_TARGET_ARGS)
         })
     {
         for package_name in parse_routed_package_scope(&shard.rust_scope, &workspace_packages)? {

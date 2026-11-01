@@ -24,6 +24,8 @@ fn write_workspace(root: &Path, members: &[(&str, &str)]) {
             format!("[package]\nname = \"{package_name}\"\nversion = \"0.1.0\"\n"),
         )
         .unwrap();
+        std::fs::create_dir_all(member_dir.join("src")).unwrap();
+        std::fs::write(member_dir.join("src/lib.rs"), "").unwrap();
     }
 }
 
@@ -471,4 +473,25 @@ fn missing_member_manifest_mutation_is_rejected() {
         "{}",
         String::from_utf8_lossy(&output.stderr)
     );
+}
+
+#[test]
+fn bin_only_package_takes_a_row_without_lib() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    write_workspace(root, &[("alpha", "alpha"), ("heavy", "heavy"), ("tool", "tool")]);
+    std::fs::remove_file(root.join("tool/src/lib.rs")).unwrap();
+    std::fs::write(root.join("tool/src/main.rs"), "fn main() {}\n").unwrap();
+    let output = run_sharder(root, "-p alpha -p tool");
+    assert!(output.status.success(), "{}", String::from_utf8_lossy(&output.stderr));
+    let matrix: Value = serde_json::from_slice(&output.stdout).unwrap();
+    let rows = matrix["include"].as_array().unwrap();
+    let row_for = |package: &str| {
+        rows.iter()
+            .find(|row| packages_from_scope(row["rust_scope"].as_str().unwrap()).contains(&package))
+            .unwrap_or_else(|| panic!("no row tests {package}"))
+    };
+    assert_eq!(row_for("alpha")["cargo_target_args"], "--lib --bins --tests --examples");
+    assert_eq!(row_for("tool")["cargo_target_args"], "--bins --tests --examples");
+    assert!(row_for("tool")["lane"].as_str().unwrap().ends_with("-bins"));
 }

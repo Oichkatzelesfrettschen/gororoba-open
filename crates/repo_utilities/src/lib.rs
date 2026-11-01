@@ -4,9 +4,11 @@
 // worktrees inside the copied validation binaries. The cache and BLAS
 // reports are host probes reachable from the `repo-utilities` binary, and
 // `path_hygiene` holds the shrink-only rule for absolute home paths in
-// tracked text.
+// tracked text, and `document_cache` restores the ignored `data/papers/`
+// PDFs by digest from the workspace documents checkouts.
 
 pub mod cargo_cache;
+pub mod document_cache;
 pub mod native_blas;
 pub mod path_hygiene;
 pub mod validation_tool_paths;

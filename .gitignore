@@ -159,6 +159,7 @@ data/papers/corpus/**
 !data/papers/documents_ingest/
 data/papers/documents_ingest/**
 !data/papers/documents_ingest/MANIFEST.toml
+!data/papers/document_cache.tsv
 !data/papers/intake/
 data/papers/intake/**
 !data/papers/intake/traces/
