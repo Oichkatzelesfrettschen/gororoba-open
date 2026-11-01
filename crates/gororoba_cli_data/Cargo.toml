@@ -415,6 +415,10 @@ name = "markdown-registry"
 path = "src/bin/markdown_registry.rs"
 
 [[bin]]
+name = "markdown_to_rust"
+path = "src/bin/markdown_to_rust.rs"
+
+[[bin]]
 name = "knowledge-atoms"
 path = "src/bin/knowledge_atoms.rs"
 
