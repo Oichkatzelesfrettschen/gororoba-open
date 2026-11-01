@@ -511,7 +511,6 @@ gr_core = { path = "../gr_core" }
 hdf5 = { workspace = true }
 hifitime = { workspace = true }
 lit_search = { path = "../lit_search" }
-lopdf = { workspace = true }
 materials_core = { path = "../materials_core" }
 md5 = { workspace = true }
 parquet = { workspace = true }

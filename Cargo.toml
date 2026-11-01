@@ -341,7 +341,6 @@ arrow-schema = "58.1.0"
 camino = "1.2" # UTF-8 canonical repo-relative paths in provenance layers
 chromiumoxide = "0.9" # Pure Rust headless chrome client
 image = { version = "0.25", default-features = false, features = ["png", "jpeg"] } # PNG/JPEG only; avif disabled to drop rav1e -> core2 chain (RUSTSEC-2026-0105)
-lopdf = "0.42" # Pure Rust PDF parser (object-level access)
 parquet = { version = "58.1.0", default-features = false, features = ["arrow", "snap"] }
 scraper = "0.26" # HTML scraping with CSS selectors (Google Scholar)
 strsim = "0.11" # String similarity (Jaro-Winkler, Levenshtein)
