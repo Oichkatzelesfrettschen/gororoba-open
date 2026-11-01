@@ -26,6 +26,8 @@
 //! - `UNPAYWALL_EMAIL`
 //! - `ADS_API_KEY` (alias: `NASA_ADS_TOKEN`)
 //! - `LENS_API_KEY`
+//! - `OPENALEX_API_KEY` (optional; sent as a bearer header to raise the
+//!   OpenAlex request budget)
 //!
 //! See `docs/engineering/lit_search_env_vars.txt` for installation guidance
 //! and placeholder export examples.

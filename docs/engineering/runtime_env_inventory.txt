@@ -25,6 +25,8 @@ the repository, shell scripts under version control, or checked-in env files.
 - `NASA_ADS_TOKEN`
   Alias for NASA ADS.
 - `LENS_API_KEY`
+- `OPENALEX_API_KEY`
+  Optional OpenAlex key; keyless requests keep working.
 
 Install pattern:
 
