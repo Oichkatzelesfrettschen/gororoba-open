@@ -5,12 +5,14 @@
 //! destination. If requested, it can prepend the content to an existing file.
 //!
 //! Migrated from convert_all_md.py, convert_remaining.py, and convert_git_md.py.
+//!
+//! The default mode deletes every source markdown file it converts. The
+//! `--mod-only` mode rewrites `registry_mirrors/mod.rs` from the directory
+//! listing and touches no source file.
 
 use anyhow::{Context, Result};
-use std::{
-    fs,
-    path::{Path, PathBuf},
-};
+use clap::Parser;
+use std::{fs, path::Path};
 
 struct ConversionJob {
     src: &'static str,
@@ -106,13 +108,28 @@ fn generated_header(src: &str) -> String {
     )
 }
 
-fn main() -> Result<()> {
+const MIRRORS_DIR: &str = "crates/data_core/src/registry_mirrors";
+
+#[derive(Parser, Debug)]
+#[command(
+    name = "markdown-to-rust",
+    about = "Convert markdown files to Rust module docs and list registry mirrors"
+)]
+struct Cli {
+    /// Rewrite only registry_mirrors/mod.rs from the directory listing. No
+    /// source markdown file is read, converted or deleted.
+    #[arg(long)]
+    mod_only: bool,
+}
+
+/// Converts every job whose source exists, then deletes that source.
+fn convert_sources(root: &Path) -> Result<()> {
     for job in JOBS {
-        let src_path = Path::new(job.src);
-        let dst_path = Path::new(job.dst);
+        let src_path = root.join(job.src);
+        let dst_path = root.join(job.dst);
 
         if src_path.exists() {
-            let content = fs::read_to_string(src_path)
+            let content = fs::read_to_string(&src_path)
                 .with_context(|| format!("read {}", src_path.display()))?;
             let mut rustdoc = generated_header(job.src);
             for line in content.lines() {
@@ -124,36 +141,43 @@ fn main() -> Result<()> {
             }
 
             if job.prepend && dst_path.exists() {
-                let existing = fs::read_to_string(dst_path)
+                let existing = fs::read_to_string(&dst_path)
                     .with_context(|| format!("read existing {}", dst_path.display()))?;
                 // Remove old include_str if present
                 let existing = existing.replace("#![doc = include_str!(\"../README.md\")]\n", "");
                 let new_content = format!("{}\n{}", rustdoc, existing);
-                fs::write(dst_path, new_content)
+                fs::write(&dst_path, new_content)
                     .with_context(|| format!("write {}", dst_path.display()))?;
             } else {
                 if let Some(parent) = dst_path.parent() {
                     fs::create_dir_all(parent)
                         .with_context(|| format!("create dir {}", parent.display()))?;
                 }
-                fs::write(dst_path, rustdoc)
+                fs::write(&dst_path, rustdoc)
                     .with_context(|| format!("write {}", dst_path.display()))?;
             }
 
-            fs::remove_file(src_path).with_context(|| format!("remove {}", src_path.display()))?;
+            fs::remove_file(&src_path).with_context(|| format!("remove {}", src_path.display()))?;
             println!("Converted {} -> {}", job.src, job.dst);
         }
     }
+    Ok(())
+}
 
-    // Update crates/data_core/src/registry_mirrors/mod.rs
-    let mirrors_dir = Path::new("crates/data_core/src/registry_mirrors");
+/// Rewrites `mod.rs` from the `.rs` files in the mirrors directory. This
+/// function writes `mod.rs` only; it converts and removes no other file.
+fn write_mod_listing(root: &Path) -> Result<()> {
+    let mirrors_dir = root.join(MIRRORS_DIR);
     if mirrors_dir.exists() {
         let mut mods = Vec::new();
-        for entry in fs::read_dir(mirrors_dir)? {
+        for entry in fs::read_dir(&mirrors_dir)? {
             let entry = entry?;
             let path = entry.path();
             if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("rs") {
-                let stem = path.file_stem().and_then(|s| s.to_str()).unwrap();
+                let stem = path
+                    .file_stem()
+                    .and_then(|s| s.to_str())
+                    .context("mirror file name is not UTF-8")?;
                 if stem != "mod" {
                     mods.push(format!("pub mod {};", stem));
                 }
@@ -179,7 +203,65 @@ fn main() -> Result<()> {
         let mod_content = format!("{}{}\n", header, mods.join("\n"));
         fs::write(mirrors_dir.join("mod.rs"), mod_content).context("write mirrors/mod.rs")?;
     }
+    Ok(())
+}
 
+fn main() -> Result<()> {
+    let cli = Cli::parse();
+    let root = repo_root::resolve!();
+    if !cli.mod_only {
+        convert_sources(&root)?;
+    }
+    write_mod_listing(&root)?;
     println!("Done converting markdown files.");
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn seed_tree(root: &Path) {
+        for job in JOBS {
+            let src = root.join(job.src);
+            fs::create_dir_all(src.parent().unwrap()).unwrap();
+            fs::write(&src, "# title\n\nbody\n").unwrap();
+        }
+        let dir = root.join(MIRRORS_DIR);
+        fs::create_dir_all(&dir).unwrap();
+        fs::write(dir.join("mod.rs"), "stale\n").unwrap();
+        fs::write(dir.join("b_mirror.rs"), "//! b\n").unwrap();
+        fs::write(dir.join("a_mirror.rs"), "//! a\n").unwrap();
+    }
+
+    #[test]
+    fn mod_only_listing_keeps_every_source_and_creates_no_mirror() {
+        let tmp = tempfile::tempdir().unwrap();
+        seed_tree(tmp.path());
+        write_mod_listing(tmp.path()).unwrap();
+        for job in JOBS {
+            assert!(tmp.path().join(job.src).exists(), "{} was removed", job.src);
+            let dst = tmp.path().join(job.dst);
+            assert!(!dst.exists(), "{} was written", job.dst);
+        }
+        let mod_rs = fs::read_to_string(tmp.path().join(MIRRORS_DIR).join("mod.rs")).unwrap();
+        assert!(mod_rs.ends_with("pub mod a_mirror;\npub mod b_mirror;\n"));
+        assert!(!mod_rs.contains("pub mod mod;"));
+    }
+
+    #[test]
+    fn conversion_mode_still_removes_converted_sources() {
+        let tmp = tempfile::tempdir().unwrap();
+        seed_tree(tmp.path());
+        convert_sources(tmp.path()).unwrap();
+        for job in JOBS {
+            assert!(!tmp.path().join(job.src).exists(), "{} survived", job.src);
+        }
+    }
+
+    #[test]
+    fn mod_only_flag_parses() {
+        assert!(Cli::parse_from(["markdown-to-rust", "--mod-only"]).mod_only);
+        assert!(!Cli::parse_from(["markdown-to-rust"]).mod_only);
+    }
 }

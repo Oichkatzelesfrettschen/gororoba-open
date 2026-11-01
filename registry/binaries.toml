@@ -1187,6 +1187,11 @@ crate = "gororoba_cli_data"
 description = "Workspace binary discovered from crates/gororoba_cli_data/Cargo.toml; registry metadata pending."
 
 [[binary]]
+name = "markdown_to_rust"
+crate = "gororoba_cli_data"
+description = "Workspace executable markdown_to_rust declared by crate gororoba_cli_data."
+
+[[binary]]
 name = "mass-binned-phase"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; registry metadata pending."
