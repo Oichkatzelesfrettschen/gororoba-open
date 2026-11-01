@@ -16,8 +16,8 @@
 //! # Paper Chronology
 //!
 //! This page tracks the active formalization frontier in chronological order. The
-//! full historical cache lives off-repo in
-//! `~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md`; this
+//! full historical chronology lives off-repo in
+//! gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`; this
 //! page is the executable subset we are actively routing into Rust and Rocq. The
 //! pre-Moreno dependency chain and its missing-source audit now live in
 //! `./pre-moreno.md`.

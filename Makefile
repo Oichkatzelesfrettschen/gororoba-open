@@ -65,7 +65,6 @@
 .PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
 .PHONY: cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated patch-static-mirror-headers cargo-cache-status cargo-cache-prune cargo-cache-smoke nanograv-timing-phase1-independent
-.PHONY: cd-row-upgrade-batch cd-row-upgrade-jacobson cd-row-upgrade-freudenthal
 
 .NOTPARALLEL: bootstrap-dev check smoke integrity integrity-rust validate-rust-integrity rust-smoke rust-regression heavy cargo-deny-check validate-ci validate-ci-registry validate-ci-rust validate-repository validate-repository-fast validate-supply-chain validate-dataset-experiments governance-gate governance-gate-readonly registry-control-plane-gate-readonly registry-acceptance-gate-readonly validate-registry validation-tools
 
@@ -181,20 +180,6 @@ SYNTHESIS_CONTRACT_REPORT ?= reports/synthesis_execution_contract_$(SYNTHESIS_CO
 PROFILE_TIMESTAMP := $(shell date +%Y-%m-%d/%H%M%S)
 PROFILE_ROOT ?= reports/validation/profiles/$(PROFILE_TIMESTAMP)
 
-CD_CACHE_ROOT ?=
-CD_ROW_UPGRADE_OPERATOR ?= Codex
-CD_ROW_UPGRADE_LANE ?=
-CD_ROW_UPGRADE_WITNESS ?=
-CD_ROW_UPGRADE_STATUS ?=
-CD_ROW_UPGRADE_ROWS ?=
-
-JACOBSON_ROW_UPGRADE_WITNESS ?= $(CD_CACHE_ROOT)/tier1_core_cd_algebra/composition_alternative_algebras/jacobson_1958_composition_algebras_and_their_automorphisms_preview.pdf
-JACOBSON_ROW_UPGRADE_STATUS ?= official-fragment
-JACOBSON_ROW_UPGRADE_ROWS ?= --row-id J58-DEF-01 --row-id J58-THM-01 --row-id J58-LEM-01 --row-id J58-NUM-01 --row-id J58-DEP-01
-
-FREUDENTHAL_ROW_UPGRADE_WITNESS ?= $(CD_CACHE_ROOT)/tier1_core_cd_algebra/composition_alternative_algebras/freudenthal_1985_translation_oktaven_ausnahmegruppen_oktavengeometrie.pdf
-FREUDENTHAL_ROW_UPGRADE_STATUS ?= translation-rewriting
-FREUDENTHAL_ROW_UPGRADE_ROWS ?= --row-id F51-DEF-01 --row-id F51-THM-01 --row-id F51-LEM-01 --row-id F51-NUM-01 --row-id F51-DEP-01
 
 # ---- Three-layer registry data plane ----
 # Layer 1 (Canonical): registry/canonical/control_plane.sqlite3 (SQLite source-of-truth).
@@ -2368,33 +2353,6 @@ docs-rustdoc:
 	echo "[docs-rustdoc] scope: $${scope_args[*]}"; \
 	$(DOCS_CARGO_ENV) cargo doc --locked --keep-going "$${scope_args[@]}" $(DOCS_PROFILE_FLAGS) $(DOCS_FEATURE_FLAGS) --no-deps --document-private-items
 
-cd-row-upgrade-batch:
-	@test -n "$(CD_CACHE_ROOT)" || (echo "ERROR: set CD_CACHE_ROOT=/abs/path/to/CayleyDickson-cache" && exit 1)
-	@test -n "$(CD_ROW_UPGRADE_LANE)" || (echo "ERROR: set CD_ROW_UPGRADE_LANE=<jacobson1958|freudenthal1951>" && exit 1)
-	@test -n "$(CD_ROW_UPGRADE_WITNESS)" || (echo "ERROR: set CD_ROW_UPGRADE_WITNESS=/abs/path/to/witness.pdf" && exit 1)
-	@test -n "$(CD_ROW_UPGRADE_STATUS)" || (echo "ERROR: set CD_ROW_UPGRADE_STATUS=<exact-original|full-official-reprint|full-official-witness|official-fragment|official-toc|translation-rewriting|support-reconstruction|reconstruction-dossier>" && exit 1)
-	@test -n "$(CD_ROW_UPGRADE_ROWS)" || (echo "ERROR: set CD_ROW_UPGRADE_ROWS='--row-id ... --row-id ...'" && exit 1)
-	$(CARGO_ENV) cargo run -q -p gororoba_cli_data --bin cd-row-upgrade-batch -- \
-		--cache-root "$(CD_CACHE_ROOT)" \
-		--lane "$(CD_ROW_UPGRADE_LANE)" \
-		--source-witness "$(CD_ROW_UPGRADE_WITNESS)" \
-		--source-status "$(CD_ROW_UPGRADE_STATUS)" \
-		--operator "$(CD_ROW_UPGRADE_OPERATOR)" \
-		$(CD_ROW_UPGRADE_ROWS)
-
-cd-row-upgrade-jacobson:
-	$(MAKE) cd-row-upgrade-batch \
-		CD_ROW_UPGRADE_LANE=jacobson1958 \
-		CD_ROW_UPGRADE_WITNESS="$(JACOBSON_ROW_UPGRADE_WITNESS)" \
-		CD_ROW_UPGRADE_STATUS="$(JACOBSON_ROW_UPGRADE_STATUS)" \
-		CD_ROW_UPGRADE_ROWS="$(JACOBSON_ROW_UPGRADE_ROWS)"
-
-cd-row-upgrade-freudenthal:
-	$(MAKE) cd-row-upgrade-batch \
-		CD_ROW_UPGRADE_LANE=freudenthal1951 \
-		CD_ROW_UPGRADE_WITNESS="$(FREUDENTHAL_ROW_UPGRADE_WITNESS)" \
-		CD_ROW_UPGRADE_STATUS="$(FREUDENTHAL_ROW_UPGRADE_STATUS)" \
-		CD_ROW_UPGRADE_ROWS="$(FREUDENTHAL_ROW_UPGRADE_ROWS)"
 	@if [ -d "$(DOCS_CARGO_TARGET_DIR)/doc" ]; then \
 		rm -rf "$(DOCS_RUSTDOC_DIR)"; \
 		mkdir -p "$(DOCS_RUSTDOC_DIR)"; \

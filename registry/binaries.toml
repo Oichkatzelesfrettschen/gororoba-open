@@ -109,11 +109,6 @@ crate = "gororoba_cli"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
 
 [[binary]]
-name = "audit-cd-cache"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
 name = "avt-entropy-report"
 crate = "gororoba_cli_algebra"
 description = "Workspace binary discovered from crates/gororoba_cli_algebra/Cargo.toml; registry metadata pending."
@@ -249,11 +244,6 @@ description = "Deterministic audit for refuted external Cayley-Dickson CSV claim
 experiment = "E-204"
 
 [[binary]]
-name = "cd-gap-binders"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
 name = "cd-ladder-chaos"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from crates/gororoba_cli_physics/Cargo.toml; registry metadata pending."
@@ -268,11 +258,6 @@ name = "cd-pattern-baseline-audit"
 crate = "gororoba_cli_data"
 description = "Deterministic audit for refuted Cayley-Dickson spectrum, shape-match, and SO(7) orbit claims"
 experiment = "E-207"
-
-[[binary]]
-name = "cd-row-upgrade-batch"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
 
 [[binary]]
 name = "cd-tower-report"
