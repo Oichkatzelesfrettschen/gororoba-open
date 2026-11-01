@@ -80,6 +80,15 @@ feature. The `spin` warning is removed only after Burn or CubeCL adopts a
 non-yanked compatible release. The `cargo deny check` command remains
 warnings-visible and fails on any new advisory that is not listed here.
 
+## 2026-11-01 PDF-to-text pipeline removal
+
+The `docpipe` crate, `pdf-extract`, `pdfium-render` and their transitive
+packages left the workspace lockfile. The historical RUSTSEC-2026-0105
+section below names `docpipe` and `pdfium-render` as members of the old
+`image` dependency path and stays as the record of that disposition. `lopdf`
+remains a workspace dependency, so the `ttf-parser` 0.25.1 exception above
+still applies.
+
 ## Per-advisory analysis
 
 ### RUSTSEC-2026-0098 / 0099 / 0104 -- rustls-webpki (RESOLVED)

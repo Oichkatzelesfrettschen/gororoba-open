@@ -283,7 +283,6 @@ fn classify_family(name: &str) -> FamilyKind {
             | "provenance_ops"
             | "provenance_store"
             | "data_core"
-            | "docpipe"
             | "scrolls_core"
             | "gororoba_contracts"
             | "gororoba_pipeline"

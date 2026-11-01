@@ -40,7 +40,6 @@
 //!   lbm_core/           Lattice Boltzmann
 //!   control_core/       Control theory
 //!   data_core/          Data loading, benchmarks, HDF5 export
-//!   docpipe/            PDF extraction (pdfium-render)
 //!   gororoba_py/        PyO3 bindings (thin wrappers)
 //!   gororoba_cli*/      Domain-specific operator surfaces
 //!

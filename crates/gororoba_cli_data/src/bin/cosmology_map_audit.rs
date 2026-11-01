@@ -173,14 +173,6 @@ const SOURCE_SPECS: &[SourceSpec] = &[
     },
     SourceSpec {
         family: "jwst",
-        dataset_id: "jwst_cosmosweb_dark_matter_paper",
-        kind: "pdf",
-        local_path: "data/external/cosmology_maps/jwst_cosmosweb_dark_matter/arxiv_2601.17239_ultra_high_resolution_dark_matter_map.pdf",
-        repo_entrypoints: "`cosmology-map-audit`",
-        alignment_note: "Authoritative paper for the weak-lensing mass-map analogue. Use as the descriptive baseline for filaments, clusters, and under-densities.",
-    },
-    SourceSpec {
-        family: "jwst",
         dataset_id: "jwst_cosmosweb_massmap_fits_1",
         kind: "fits",
         local_path: "data/external/cosmology_maps/jwst_cosmosweb_dark_matter/supplementary_data_1_m2.fits",
@@ -205,35 +197,11 @@ const SOURCE_SPECS: &[SourceSpec] = &[
     },
     SourceSpec {
         family: "basin",
-        dataset_id: "boa_local_universe_paper",
-        kind: "pdf",
-        local_path: "data/external/cosmology_maps/basin_of_attraction/arxiv_2409.17261_identification_of_basins_of_attraction.pdf",
-        repo_entrypoints: "`cosmology-map-audit`; `cosmic-dendrogram`; `generate-topological-voids`",
-        alignment_note: "Authoritative basin-of-attraction formulation for streamlines, gravitational-potential minima, and void/basin segmentation analogies.",
-    },
-    SourceSpec {
-        family: "basin",
         dataset_id: "boa_supplementary_movie",
         kind: "mp4",
         local_path: "data/external/cosmology_maps/basin_of_attraction/supplementary_movie_m1.mp4",
         repo_entrypoints: "`cosmology-map-audit`",
         alignment_note: "Dynamic basin segmentation reference for future streamline extraction and topological basin persistence studies.",
-    },
-    SourceSpec {
-        family: "algebra_reference",
-        dataset_id: "reggiani_sedenion_geometry",
-        kind: "pdf",
-        local_path: "data/external/arxiv_2411.18881_sedenion_geometry.pdf",
-        repo_entrypoints: "`algebra-theory-crosswalk`; `boxkite_alignment`; `grassmannian`",
-        alignment_note: "Core differential-geometric reference for mapping sedenion zero divisors onto recognized manifold language before cosmology analogies are made.",
-    },
-    SourceSpec {
-        family: "algebra_reference",
-        dataset_id: "koebisu_zd_holonomy",
-        kind: "pdf",
-        local_path: "data/external/arxiv_2512.13002_zd_holonomy.pdf",
-        repo_entrypoints: "`algebra-theory-crosswalk`; `subalgebra`; `projective_geometry`",
-        alignment_note: "Holonomy and singular-structure reference for making the sedenion side less ad hoc and more compatible with geometric field language.",
     },
     SourceSpec {
         family: "algebra_reference",
@@ -422,10 +390,10 @@ fn write_markdown(path: &Path, rows: &[MaterializedRow]) -> Result<()> {
     );
     out.push_str("## Acquisition status\n\n");
     out.push_str("- Euclid supplementary Q1 catalogs are already local and governed through the Rust `euclid-fetch` lane.\n");
-    out.push_str("- JWST COSMOS-Web source material is cached locally as the paper, official pages, and three supplementary FITS mass-map payloads.\n");
-    out.push_str("- Basin-of-attraction material is cached locally as the paper, official page, and supplementary movie.\n");
+    out.push_str("- JWST COSMOS-Web source material is cached locally as the official pages and three supplementary FITS mass-map payloads.\n");
+    out.push_str("- Basin-of-attraction material is cached locally as the official page and supplementary movie.\n");
     out.push_str("- The full Euclid primary survey and full COSMOS-Web raw-imaging backends are not mirrored here; the repo holds bounded subsets and authoritative pointers instead.\n");
-    out.push_str("- The algebra side is grounded by in-repo sedenion / box-kite / holonomy papers already cached locally.\n\n");
+    out.push_str("- The algebra side is grounded by in-repo sedenion / box-kite papers already cached locally.\n\n");
     out.push_str("## Inventory\n\n");
     out.push_str("| Family | Dataset | Kind | Local path | Size | Payload |\n");
     out.push_str("|---|---|---|---|---:|---|\n");
