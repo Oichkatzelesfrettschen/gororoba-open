@@ -232,18 +232,6 @@ required_manifests = ["registry/data_generated_patterns.toml"]
 gitignore_allowlist = []
 
 [[lane]]
-id = "papers"
-root = "data/papers"
-class = "manual_import_exception"
-strict = false
-cleanable = false
-gitignore_required = true
-naming_policy = "mixed_transition"
-# No manifests required: manually imported reference papers (exception lane).
-required_manifests = []
-gitignore_allowlist = []
-
-[[lane]]
 id = "sfwm_repro"
 root = "data/sfwm_repro"
 class = "generated_reproducible"

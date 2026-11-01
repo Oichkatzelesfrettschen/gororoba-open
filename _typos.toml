@@ -20,15 +20,11 @@ extend-exclude = [
     "registry/external_sources.toml",
     "registry/knowledge/",
     "registry/source_lanes/",
-    # Extracted papers contain OCR artifacts -- not our code
-    "papers/extracted/",
     # Curated benchmark CSVs contain x86 instruction mnemonics and LLVM IR
     "curated/",
     # LaTeX bibliographies contain author name fragments
     "docs/latex/refs.bib",
     "docs/latex/arxiv/refs.bib",
-    # Data manifests from external ingestion
-    "data/papers/",
     # Docker images reference external package names
     "docker/",
     # Generated registry mirrors contain embedded text from external sources

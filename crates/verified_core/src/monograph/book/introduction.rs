@@ -70,7 +70,6 @@
 //!   experiments, binaries, and theorem rows
 //! - `registry/claims.toml`, `registry/insights.toml`, `registry/experiments.toml`,
 //!   and `registry/binaries.toml` as generated compatibility exports
-//! - `data/papers/corpus/MANIFEST.toml` for the repo-owned paper corpus
 //!
 //! ## Quick Start
 //!
