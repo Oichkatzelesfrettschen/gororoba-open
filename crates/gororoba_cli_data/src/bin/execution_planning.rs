@@ -2645,7 +2645,7 @@ fn load_control_plane_registry(
 ) -> Result<Table> {
     let db_path = repo_root.join(db_rel_path);
     if db_path.exists() {
-        let mut store = ProvenanceStore::open(&db_path)
+        let mut store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
         let text = store.control_plane_compat_text(kind).with_context(|| {
             format!(
@@ -2678,7 +2678,7 @@ fn load_planning_compat_export(
     if !db_path.exists() {
         return Ok(None);
     }
-    let store = ProvenanceStore::open(&db_path)
+    let store = ProvenanceStore::open_read_only(&db_path)
         .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
     let text = store.render_planning_compat_toml(table).with_context(|| {
         format!(
@@ -2695,7 +2695,7 @@ fn load_requirements_compat_export(repo_root: &Path, db_rel_path: &Path) -> Resu
     if !db_path.exists() {
         return Ok(None);
     }
-    let store = ProvenanceStore::open(&db_path)
+    let store = ProvenanceStore::open_read_only(&db_path)
         .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
     let text = store.render_requirements_compat_toml().with_context(|| {
         format!(

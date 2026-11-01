@@ -74,7 +74,7 @@ fn main() {
 
     let read_claims_compat_text = || -> String {
         if db_path.exists()
-            && let Ok(mut store) = ProvenanceStore::open(&db_path)
+            && let Ok(mut store) = ProvenanceStore::open_read_only(&db_path)
             && let Ok(text) = store.control_plane_compat_text(ControlPlaneCompatKind::Claims)
         {
             return text;
@@ -285,7 +285,8 @@ fn open_claim_store(db_path: &std::path::Path) -> Result<ProvenanceStore, String
             db_path.display()
         ));
     }
-    ProvenanceStore::open(db_path).map_err(|err| format!("open {}: {err}", db_path.display()))
+    ProvenanceStore::open_read_only(db_path)
+        .map_err(|err| format!("open {}: {err}", db_path.display()))
 }
 
 fn verify_claim_metadata_from_db(store: &ProvenanceStore) -> Vec<String> {

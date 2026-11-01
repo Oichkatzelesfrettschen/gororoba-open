@@ -897,7 +897,7 @@ fn run_verify_control_plane(
     db_path: &Path,
     args: VerifyControlPlaneArgs,
 ) -> Result<()> {
-    let mut store = ProvenanceStore::open(db_path)?;
+    let mut store = ProvenanceStore::open_read_only(db_path)?;
     store.verify_control_plane_invariants(repo_root)?;
     let counts = store.control_plane_counts()?;
     if args.verify_compat_exports {

@@ -869,7 +869,7 @@ fn load_control_plane_registry(
 ) -> Result<Value> {
     let db_path = root.join(db_rel_path);
     if db_path.exists() {
-        let mut store = ProvenanceStore::open(&db_path)
+        let mut store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
         let text = store.control_plane_compat_text(kind).with_context(|| {
             format!(

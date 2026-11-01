@@ -972,7 +972,7 @@ fn main() {
 
     let canonical_setup_started_at = Instant::now();
     let mut canonical_store = if args.canonical_db.exists() {
-        match ProvenanceStore::open(&args.canonical_db) {
+        match ProvenanceStore::open_read_only(&args.canonical_db) {
             Ok(mut store) => {
                 if let Err(err) = store.verify_control_plane_invariants(&repo_root) {
                     eprintln!(

@@ -238,7 +238,7 @@ fn load_claims(
 ) -> Result<(Vec<ClaimAtom>, ClaimSourceInfo)> {
     let db_path = repo_root.join(canonical_db);
     if db_path.exists() {
-        let store = ProvenanceStore::open(&db_path)
+        let store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical db {}", db_path.display()))?;
         let claims = store
             .list_claims()
@@ -1171,7 +1171,7 @@ fn load_canonical_claim_ids(
 ) -> Result<(Vec<String>, String)> {
     let db_path = repo_root.join(canonical_db);
     if db_path.exists() {
-        let store = ProvenanceStore::open(&db_path)
+        let store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical db {}", db_path.display()))?;
         let claims = store
             .list_claims()

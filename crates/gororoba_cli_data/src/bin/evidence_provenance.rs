@@ -655,7 +655,7 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
 fn load_claim_ids(repo_root: &Path, canonical_db: &Path) -> Result<BTreeSet<String>> {
     let db_path = repo_root.join(canonical_db);
     if db_path.exists() {
-        let store = ProvenanceStore::open(&db_path)
+        let store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical db {}", db_path.display()))?;
         let claims = store
             .list_claims()
@@ -682,7 +682,7 @@ fn load_claim_ref_ids(repo_root: &Path, canonical_db: &Path) -> Result<BTreeSet<
 fn load_todo_ids(repo_root: &Path, canonical_db: &Path) -> Result<BTreeSet<String>> {
     let db_path = repo_root.join(canonical_db);
     if db_path.exists() {
-        let store = ProvenanceStore::open(&db_path)
+        let store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical db {}", db_path.display()))?;
         let todo_items = store
             .list_todo_items(None)
