@@ -29,7 +29,6 @@
 //! | Lane | Repo surface | Role |
 //! |------|--------------|------|
 //! | Rust paper API | `crates/cd_papers/` | Unified access to paper-scoped Rust crates |
-//! | PDF and text intake | `crates/docpipe/` + `data/papers/corpus/` | Extraction, normalization, and equation intake |
 //! | Rocq formalization | `proofs/theories/` | Exact theorem companions for paper results |
 //! | Provenance registry | `registry/source_lanes/papers_pdf.toml` | Machine-readable paper inventory |
 //!
@@ -46,20 +45,12 @@
 //! | de Marrais (2000) | `crates/de_marrais_2000/` | `proofs/theories/DeMarraisAssessors.v` |
 //! | Wilmot (2025) | `crates/wilmot_2025/` | `proofs/theories/WilmotCDStructure.v` and retraction companions |
 //!
-//! ## Extraction pipeline
+//! ## Equation intake
 //!
-//! `docpipe` is already the right place for PDF and sidecar-text extraction, but
-//! the equation lane needs a curated second stage. For OCR-heavy papers, raw PDF
-//! text is often not enough to recover equations faithfully. The current strategy
-//! is therefore:
+//! For OCR-heavy papers, raw PDF text is often not enough to recover equations
+//! faithfully, so equation intake is curated:
 //!
-//! - use `docpipe` for text, sections, and structural extraction
 //! - promote paper-specific equations into curated catalogs
 //! - route each equation to Rust, Rocq, or a paired Rust+Rocq lane depending on
 //!   whether the source result is computational, formal, or both
-//!
-//! ```sh
-//! # Extract a specific cached paper
-//! cargo run --release --bin extract-papers -- --only demarrais-2000-math0011260
-//! ```
 //!

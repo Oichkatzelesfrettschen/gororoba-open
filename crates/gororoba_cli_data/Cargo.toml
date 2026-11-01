@@ -306,11 +306,7 @@ path = "src/bin/migrate_claims.rs"
 name = "migrate-insights"
 path = "src/bin/migrate_insights.rs"
 
-# ---- Publishing (3) ----
-
-[[bin]]
-name = "extract-papers"
-path = "src/bin/extract_papers.rs"
+# ---- Publishing (2) ----
 
 [[bin]]
 name = "generate-latex"
@@ -501,12 +497,6 @@ path = "src/bin/cd_gap_binders.rs"
 name = "cd-row-upgrade-batch"
 path = "src/bin/cd_row_upgrade_batch.rs"
 
-# ---- Document extraction inventory (1) ----
-
-[[bin]]
-name = "document-mineru-replay"
-path = "src/bin/document_mineru_replay.rs"
-
 [dependencies]
 book_docs = { path = "../book_docs" }
 repo_root = { workspace = true }
@@ -524,7 +514,6 @@ cosmology_core = { path = "../cosmology_core", features = ["euclid-catalog"] }
 csv = { workspace = true }
 data_artifacts_core = { path = "../data_artifacts_core" }
 data_core = { path = "../data_core", default-features = false, features = ["fetch", "fits", "nanograv-engine"] }
-docpipe = { path = "../docpipe", features = ["fallback"] }
 env_logger = { workspace = true }
 fitsio = { workspace = true }
 glob = { workspace = true }

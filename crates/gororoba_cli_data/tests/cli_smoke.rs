@@ -151,18 +151,12 @@ fn smoke_migrate_insights_help() {
 
 // =============================================================================
 // Publishing domain (2 binaries)
-// paper-build uses a hand-rolled subcommand dispatch that rejects --help;
-// extract-papers is a standard clap binary from the same domain.
+// paper-build uses a hand-rolled subcommand dispatch that rejects --help.
 // =============================================================================
 
 #[test]
 fn smoke_generate_latex_help() {
     assert_help_succeeds("CARGO_BIN_EXE_generate-latex");
-}
-
-#[test]
-fn smoke_extract_papers_help() {
-    assert_help_succeeds("CARGO_BIN_EXE_extract-papers");
 }
 
 // =============================================================================

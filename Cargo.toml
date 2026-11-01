@@ -29,7 +29,6 @@ members = [
     "crates/data_core",
     "crates/de_marrais_2000",
     "crates/dickson_1919",
-    "crates/docpipe",
     "crates/fixed_point_lbm",
     "crates/flavor_lifts",
     "crates/fwht",
@@ -336,17 +335,14 @@ flate2 = "1.1" # Gzip compression/decompression
 tar = "0.4" # Tar archive reading (WMAP/Planck chain extraction)
 zip = { version = "9.0", default-features = false, features = ["aes-crypto", "bzip2", "deflate64", "deflate", "lzma", "ppmd", "time", "xz"] } # ZIP archive extraction; the default zstd feature is omitted to keep the C zstd crate out of the graph
 
-# PDF extraction (pdfium-render is primary; lopdf/pdf-extract are pure-Rust fallback)
 arrow-array = "58.1.0"
 arrow-ipc = "58.1.0"
 arrow-schema = "58.1.0"
 camino = "1.2" # UTF-8 canonical repo-relative paths in provenance layers
 chromiumoxide = "0.9" # Pure Rust headless chrome client
 image = { version = "0.25", default-features = false, features = ["png", "jpeg"] } # PNG/JPEG only; avif disabled to drop rav1e -> core2 chain (RUSTSEC-2026-0105)
-lopdf = "0.42" # Pure Rust PDF parser (fallback, object-level access)
+lopdf = "0.42" # Pure Rust PDF parser (object-level access)
 parquet = { version = "58.1.0", default-features = false, features = ["arrow", "snap"] }
-pdf-extract = "0.12" # Pure Rust PDF text extraction (fallback, wraps lopdf)
-pdfium-render = "0.9" # High-level PDFium wrapper (text, images, rendering)
 scraper = "0.26" # HTML scraping with CSS selectors (Google Scholar)
 strsim = "0.11" # String similarity (Jaro-Winkler, Levenshtein)
 toml = "1.1" # TOML serialization/deserialization
