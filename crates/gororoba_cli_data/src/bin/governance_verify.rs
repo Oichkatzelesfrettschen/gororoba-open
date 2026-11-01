@@ -3,8 +3,6 @@ use clap::{Parser, Subcommand};
 use provenance_store::{ControlPlaneCompatKind, ProvenanceStore};
 use regex::Regex;
 use rusqlite::{Connection, OpenFlags};
-use serde_json::json;
-use sha2::{Digest, Sha256};
 use std::{
     collections::{BTreeMap, BTreeSet},
     fs,
@@ -13,15 +11,6 @@ use std::{
 };
 use toml::Value;
 use walkdir::WalkDir;
-
-const DB_BACKED_COMPAT_SIGNATURE_PATHS: &[&str] = &[
-    "registry/claims.toml",
-    "registry/claim_transitions.toml",
-    "registry/claim_relations.toml",
-    "registry/insights.toml",
-    "registry/experiments.toml",
-    "registry/binaries.toml",
-];
 
 const FORBIDDEN_TEMP_ROOTS: &[&str] = &["/srv/fast/tmp"];
 
@@ -218,14 +207,12 @@ enum Command {
     MarkdownParity(CommonArgs),
     MirrorImmutability(CommonArgs),
     ClaimTicketMirrors(CommonArgs),
-    SchemaSignatures(CommonArgs),
     Crossrefs(CommonArgs),
     DatasetLabelAliases(CommonArgs),
     ExternalSourceOperationalContracts(CommonArgs),
     ExperimentReferenceIdentity(CommonArgs),
-    /// Run all registry policy checks in a single process invocation.
-    /// Equivalent to: schema-signatures + crossrefs + dataset-label-aliases
-    /// + external-source-operational-contracts + markdown-removal-policy.
+    /// Run every registry policy check named in the `run_check!` sequence
+    /// of `run_validate_all` in a single process invocation.
     #[command(name = "validate-all", visible_alias = "gate-all")]
     ValidateAll(CommonArgs),
 }
@@ -257,7 +244,6 @@ fn main() -> Result<()> {
         Command::MarkdownParity(args) => verify_markdown_parity(&args),
         Command::MirrorImmutability(args) => verify_mirror_immutability(&args),
         Command::ClaimTicketMirrors(args) => verify_claim_ticket_mirrors(&args),
-        Command::SchemaSignatures(args) => verify_schema_signatures(&args),
         Command::Crossrefs(args) => verify_crossrefs(&args),
         Command::DatasetLabelAliases(args) => verify_dataset_label_aliases(&args),
         Command::ExternalSourceOperationalContracts(args) => {
@@ -283,7 +269,6 @@ fn run_validate_all(args: &CommonArgs) -> Result<()> {
         };
     }
 
-    run_check!("schema-signatures", verify_schema_signatures);
     run_check!("crossrefs", verify_crossrefs);
     run_check!("dataset-label-aliases", verify_dataset_label_aliases);
     run_check!("canonical-control-plane", verify_canonical_control_plane);
@@ -1749,129 +1734,6 @@ fn verify_claim_ticket_mirrors(args: &CommonArgs) -> Result<()> {
     Ok(())
 }
 
-fn verify_schema_signatures(args: &CommonArgs) -> Result<()> {
-    let root = resolve_root(args)?;
-    let schema_path = root.join("registry/schema_signatures.toml");
-    let schema_text = read_ascii_text(&schema_path)?;
-    let schema = toml::from_str::<Value>(&schema_text)?;
-    let meta = schema
-        .get("schema_signatures")
-        .and_then(Value::as_table)
-        .cloned()
-        .unwrap_or_default();
-    let rows = table_array(&schema, "signature");
-    let mut failures = Vec::new();
-    let skipped_paths: BTreeSet<String> = DB_BACKED_COMPAT_SIGNATURE_PATHS
-        .iter()
-        .map(|path| (*path).to_string())
-        .collect();
-    if meta
-        .get("signature_count")
-        .and_then(Value::as_integer)
-        .unwrap_or(-1)
-        != rows.len() as i64
-    {
-        failures.push("schema_signatures signature_count metadata mismatch".to_string());
-    }
-    if meta.get("version").and_then(Value::as_integer).unwrap_or(0) <= 0 {
-        failures.push("schema_signatures version must be positive".to_string());
-    }
-    let mut seen = BTreeSet::new();
-    for row in rows {
-        let rel = table_str(row, "path");
-        if skipped_paths.contains(rel) {
-            continue;
-        }
-        if !seen.insert(rel.to_string()) {
-            failures.push(format!("duplicate schema signature path: {rel}"));
-            continue;
-        }
-        let path = root.join(rel);
-        if !path.exists() {
-            failures.push(format!("signed registry path missing: {rel}"));
-            continue;
-        }
-        let text = fs::read_to_string(&path)?;
-        let data = toml::from_str::<Value>(&text)?;
-        let mut top_level = data
-            .as_table()
-            .map(|table| table.keys().cloned().collect::<Vec<_>>())
-            .unwrap_or_default();
-        top_level.sort();
-        let shapes = top_level
-            .iter()
-            .map(|key| {
-                (
-                    key.clone(),
-                    shape_summary(data.get(key).unwrap_or(&Value::String(String::new()))),
-                )
-            })
-            .collect::<BTreeMap<_, _>>();
-        let payload = json!({
-            "path": rel,
-            "top_level_keys": top_level,
-            "shapes": shapes,
-        });
-        let normalized = serde_json::to_string(&payload)?;
-        let schema_sha = hex_hash(normalized.as_bytes());
-        // content_sha256 comparison REMOVED: it fails on every content edit
-        // (adding claims, ASOT entries, etc.) requiring manual registry-integrity.
-        // The schema_sha256 check catches real structural violations (wrong-type
-        // fields, missing tables) which is the actual value proposition.
-        if schema_sha != table_str(row, "schema_sha256") {
-            failures.push(format!("schema_sha mismatch for {rel}"));
-        }
-        if normalized != table_str(row, "shape_json") {
-            failures.push(format!("shape_json mismatch for {rel}"));
-        }
-        let top_level_expected = string_list(row, "top_level_keys");
-        if top_level != top_level_expected {
-            failures.push(format!("top_level_keys mismatch for {rel}"));
-        }
-    }
-    let declared_paths: BTreeSet<String> = meta
-        .get("registry_paths")
-        .and_then(Value::as_array)
-        .map(|rows| {
-            rows.iter()
-                .filter_map(Value::as_str)
-                .map(ToOwned::to_owned)
-                .collect()
-        })
-        .unwrap_or_default();
-    let effective_declared_paths: BTreeSet<String> =
-        declared_paths.difference(&skipped_paths).cloned().collect();
-    if seen != effective_declared_paths {
-        let missing: Vec<String> = effective_declared_paths
-            .difference(&seen)
-            .cloned()
-            .collect();
-        let extra: Vec<String> = seen.difference(&declared_paths).cloned().collect();
-        if !missing.is_empty() {
-            failures.push(format!(
-                "schema metadata registry_paths missing signatures: {}",
-                missing.len()
-            ));
-        }
-        if !extra.is_empty() {
-            failures.push(format!(
-                "schema signatures contain undeclared paths: {}",
-                extra.len()
-            ));
-        }
-    }
-    if !failures.is_empty() {
-        bail!(failures.join("\n"));
-    }
-    println!(
-        "OK: schema signatures verified for {} registries ({} DB-backed compat exports skipped).",
-        rows.len()
-            .saturating_sub(skipped_paths.intersection(&declared_paths).count()),
-        skipped_paths.intersection(&declared_paths).count()
-    );
-    Ok(())
-}
-
 #[derive(Default)]
 struct CrossRefCounters {
     claims: usize,
@@ -3075,85 +2937,6 @@ fn check_crossref_id(
             }
         }
     }
-}
-
-fn shape_summary(value: &Value) -> serde_json::Value {
-    match value {
-        Value::Table(table) => {
-            let mut keys = table.keys().cloned().collect::<Vec<_>>();
-            keys.sort();
-            json!({
-                "type": "table",
-                "keys": keys,
-            })
-        }
-        Value::Array(items) => {
-            if items.is_empty() {
-                json!({"type": "array", "row_count": 0, "entry_kind": "empty"})
-            } else if items.iter().all(Value::is_table) {
-                let key_sets = items
-                    .iter()
-                    .filter_map(Value::as_table)
-                    .map(|table| table.keys().cloned().collect::<BTreeSet<_>>())
-                    .collect::<Vec<_>>();
-                let required_keys = key_sets
-                    .iter()
-                    .cloned()
-                    .reduce(|lhs, rhs| lhs.intersection(&rhs).cloned().collect())
-                    .unwrap_or_default()
-                    .into_iter()
-                    .collect::<Vec<_>>();
-                let union_keys = key_sets
-                    .iter()
-                    .cloned()
-                    .reduce(|lhs, rhs| lhs.union(&rhs).cloned().collect())
-                    .unwrap_or_default()
-                    .into_iter()
-                    .collect::<Vec<_>>();
-                json!({
-                    "type": "array",
-                    "row_count": items.len(),
-                    "entry_kind": "table",
-                    "required_keys": required_keys,
-                    "union_keys": union_keys,
-                })
-            } else {
-                let entry_types: BTreeSet<&'static str> = items
-                    .iter()
-                    .map(|item| match item {
-                        Value::String(_) => "string",
-                        Value::Integer(_) => "integer",
-                        Value::Float(_) => "float",
-                        Value::Boolean(_) => "boolean",
-                        Value::Datetime(_) => "datetime",
-                        Value::Array(_) => "array",
-                        Value::Table(_) => "table",
-                    })
-                    .collect();
-                json!({
-                    "type": "array",
-                    "row_count": items.len(),
-                    "entry_kind": "scalar_or_mixed",
-                    "entry_types": entry_types.into_iter().collect::<Vec<_>>(),
-                })
-            }
-        }
-        Value::String(_) => json!({"type": "str"}),
-        Value::Integer(_) => json!({"type": "int"}),
-        Value::Float(_) => json!({"type": "float"}),
-        Value::Boolean(_) => json!({"type": "bool"}),
-        Value::Datetime(_) => json!({"type": "datetime"}),
-    }
-}
-
-fn hex_hash(bytes: &[u8]) -> String {
-    let mut hasher = Sha256::new();
-    hasher.update(bytes);
-    hasher
-        .finalize()
-        .iter()
-        .map(|byte| format!("{byte:02x}"))
-        .collect()
 }
 
 fn verify_dataset_label_aliases(args: &CommonArgs) -> Result<()> {

@@ -271,11 +271,3 @@ role = "config"
 # TODO: registry/canonical/control_plane.sqlite3 holds no table of this name; the lane is unmigrated.
 table = "mcp_server_matrix"
 description = "MCP server configuration"
-
-# ── Governance lock file (derived but git-tracked) ───────────────────
-
-[[source]]
-path = "registry/schema_signatures.toml"
-role = "lockfile"
-table = ""
-description = "Schema/content hash lock file for governance gate"

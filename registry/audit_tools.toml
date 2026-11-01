@@ -159,7 +159,7 @@ id = "registry-integrity"
 name = "registry-integrity"
 make_target = "registry-integrity"
 install = ""
-description = "Recompute registry/schema_signatures.toml after legitimate Layer-2 TOML changes. Required for the governance gate's content_sha check to pass."
+description = "Regenerate registry/conflict_markers.toml and registry/lacunae.toml from the canonical claims and research narratives."
 audit_comprehensive = false
 status = "active"
 

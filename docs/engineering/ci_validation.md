@@ -51,7 +51,7 @@ document carries the hosted-job policies and the audit-lane table.
 | 2 | terminology-gate         | 8 banned legacy terms; prefer `sign_imbalance` for the renamed crate vocabulary. |
 | 3 | ansi-check               | Reject emojis and non-whitespace control characters; non-ASCII text passes       |
 | 4 | validate-ci-scoped-rust  | Scoped clippy + nextest on changed-crate closure                                 |
-| 5 | validate-governance      | Verify registry policy, signatures, cross-references, and checked-in TOMLs      |
+| 5 | validate-governance      | Verify registry policy, cross-references, and checked-in TOMLs                  |
 
 The repository carries no hook installer, tracked pre-push executable, or
 local compatibility gate target.
@@ -78,7 +78,4 @@ on a host with the required SDKs.
 | `make cpd-audit CPD_TOP=20`| PMD-driven duplication audit                                |
 | `make docs-freshness`      | Generated docs match source registries                      |
 | `make integrity`           | Verify lane (mirror + license + overflow)                   |
-| `make registry-integrity`  | Regenerates `registry/schema_signatures.toml`               |
-
-Any registry TOML edit drifts `schema_signatures.toml`; run
-`make integrity-resolution` rather than patching signatures by hand.
+| `make registry-integrity`  | Regenerates conflict markers and lacunae                    |

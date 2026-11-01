@@ -132,6 +132,5 @@ The 36 `registry/*.toml` files. Each starts with the header
 
 ### registry-integrity
 
-The binary that regenerates `registry/schema_signatures.toml` after any
-legitimate compatibility-layer change. Required before `make
-validate-governance`, which rejects content_sha mismatches.
+The binary that regenerates `registry/conflict_markers.toml` and
+`registry/lacunae.toml` from the canonical claims and research narratives.

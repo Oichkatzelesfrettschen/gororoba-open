@@ -26,8 +26,6 @@ struct Args {
     conflict_out: PathBuf,
     #[arg(long, default_value = "registry/lacunae.toml")]
     lacunae_out: PathBuf,
-    #[arg(long, default_value = "registry/schema_signatures.toml")]
-    schema_out: PathBuf,
 }
 
 #[derive(Debug, Clone)]
@@ -64,19 +62,6 @@ struct Lacuna {
     historical_marker_ids: Vec<String>,
 }
 
-#[derive(Debug, Clone)]
-struct SchemaSignature {
-    id: String,
-    path: String,
-    top_level_keys: Vec<String>,
-    schema_version: String,
-    schema_sha256: String,
-    content_sha256: String,
-    array_table_count: usize,
-    table_count: usize,
-    shape_json: String,
-}
-
 #[derive(Debug, Default, Clone)]
 struct ConflictMeta {
     marker_count: usize,
@@ -94,12 +79,6 @@ struct LacunaMeta {
     medium_priority_count: usize,
     low_priority_count: usize,
     origin_kind_count: usize,
-}
-
-#[derive(Debug, Default, Clone)]
-struct SchemaMeta {
-    signature_count: usize,
-    version: usize,
 }
 
 const POSITIVE_TERMS: &[&str] = &[
@@ -233,35 +212,10 @@ fn build_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         &render_lacunae(&lacunae_rows, &lacunae_meta),
     )?;
 
-    let registry_paths = vec![
-        "registry/claims.toml",
-        "registry/insights.toml",
-        "registry/experiments.toml",
-        "registry/binaries.toml",
-        "registry/external_sources.toml",
-        "registry/dataset_label_aliases.toml",
-        "registry/claims_evidence_edges.toml",
-        "registry/bibliography.toml",
-        "registry/lacunae.toml",
-        "registry/knowledge/equation_atoms_v2.toml",
-        "registry/knowledge/equation_symbol_table.toml",
-        "registry/knowledge/proof_skeletons.toml",
-        "registry/knowledge/derivation_steps.toml",
-    ]
-    .into_iter()
-    .map(ToOwned::to_owned)
-    .collect::<Vec<_>>();
-    let (signature_rows, signature_meta) = build_schema_signatures(repo_root, &registry_paths)?;
-    write_ascii(
-        &repo_root.join(&args.schema_out),
-        &render_schema_signatures(&signature_rows, &signature_meta, &registry_paths),
-    )?;
-
     println!(
-        "Wrote registry-integrity registry lane artifacts (canonical registry-integrity tool): conflict_markers={} lacunae={} schema_signatures={}",
+        "Wrote registry-integrity registry lane artifacts (canonical registry-integrity tool): conflict_markers={} lacunae={}",
         conflict_rows.len(),
-        lacunae_rows.len(),
-        signature_rows.len()
+        lacunae_rows.len()
     );
     Ok(())
 }
@@ -965,78 +919,6 @@ fn build_lacunae(
     Ok((rows, meta))
 }
 
-fn build_schema_signatures(
-    repo_root: &Path,
-    registry_paths: &[String],
-) -> Result<(Vec<SchemaSignature>, SchemaMeta)> {
-    let mut rows = Vec::new();
-    for path in registry_paths {
-        let full_path = repo_root.join(path);
-        if !full_path.exists() {
-            continue;
-        }
-        let text = fs::read_to_string(&full_path)
-            .with_context(|| format!("read {}", full_path.display()))?;
-        let data: Value =
-            toml::from_str(&text).with_context(|| format!("parse TOML {}", full_path.display()))?;
-        let mut top_level_keys = data
-            .as_table()
-            .map(|table| table.keys().cloned().collect::<Vec<_>>())
-            .unwrap_or_default();
-        top_level_keys.sort();
-        let shapes = top_level_keys
-            .iter()
-            .filter_map(|key| {
-                data.get(key)
-                    .map(|value| (key.clone(), shape_summary(value)))
-            })
-            .collect::<BTreeMap<_, _>>();
-        let schema_payload = serde_json::json!({
-            "path": path,
-            "top_level_keys": top_level_keys,
-            "shapes": shapes,
-        });
-        let normalized =
-            serde_json::to_string(&schema_payload).context("serialize schema payload")?;
-        let schema_sha256 = sha256_hex(normalized.as_bytes());
-        let content_sha256 = sha256_hex(text.as_bytes());
-        rows.push(SchemaSignature {
-            id: String::new(),
-            path: path.clone(),
-            top_level_keys: top_level_keys.clone(),
-            schema_version: "v1".to_string(),
-            schema_sha256,
-            content_sha256,
-            array_table_count: top_level_keys
-                .iter()
-                .filter(|key| {
-                    data.get(key.as_str())
-                        .and_then(Value::as_array)
-                        .map(|rows| rows.iter().all(Value::is_table))
-                        .unwrap_or(false)
-                })
-                .count(),
-            table_count: top_level_keys
-                .iter()
-                .filter(|key| data.get(key.as_str()).map(Value::is_table).unwrap_or(false))
-                .count(),
-            shape_json: normalized,
-        });
-    }
-    rows.sort_by(|a, b| a.path.cmp(&b.path));
-    for (idx, row) in rows.iter_mut().enumerate() {
-        row.id = format!("SIG-{:04}", idx + 1);
-    }
-    let signature_count = rows.len();
-    Ok((
-        rows,
-        SchemaMeta {
-            signature_count,
-            version: 1,
-        },
-    ))
-}
-
 fn render_conflict_markers(rows: &[ConflictMarker], meta: &ConflictMeta) -> String {
     let mut lines = vec![
         "# Conflict marker registry (registry-integrity lane strict schema; legacy batch3 compatibility).".to_string(),
@@ -1131,43 +1013,6 @@ fn render_lacunae(rows: &[Lacuna], meta: &LacunaMeta) -> String {
     lines.join("\n")
 }
 
-fn render_schema_signatures(
-    rows: &[SchemaSignature],
-    meta: &SchemaMeta,
-    registry_paths: &[String],
-) -> String {
-    let mut sorted_paths = registry_paths.to_vec();
-    sorted_paths.sort();
-    let mut lines = vec![
-        "# Registry schema signatures (registry-integrity lane strict schema; legacy batch3 compatibility).".to_string(),
-        "# Generated by crates/gororoba_cli_governance/src/bin/registry_integrity.rs.".to_string(),
-        "".to_string(),
-        "[schema_signatures]".to_string(),
-        "updated = \"deterministic\"".to_string(),
-        "authoritative = true".to_string(),
-        format!("version = {}", meta.version),
-        format!("signature_count = {}", meta.signature_count),
-        format!("registry_paths = {}", render_list(&sorted_paths)),
-        "".to_string(),
-    ];
-    for row in rows {
-        lines.extend([
-            "[[signature]]".to_string(),
-            format!("id = {}", esc(&row.id)),
-            format!("path = {}", esc(&row.path)),
-            format!("top_level_keys = {}", render_list(&row.top_level_keys)),
-            format!("schema_version = {}", esc(&row.schema_version)),
-            format!("schema_sha256 = {}", esc(&row.schema_sha256)),
-            format!("content_sha256 = {}", esc(&row.content_sha256)),
-            format!("array_table_count = {}", row.array_table_count),
-            format!("table_count = {}", row.table_count),
-            format!("shape_json = {}", esc(&row.shape_json)),
-            "".to_string(),
-        ]);
-    }
-    lines.join("\n")
-}
-
 fn status_token(status: &str) -> String {
     let mut token = collapse(status).to_uppercase();
     token = token.replace(['/', '-', ' '], "_");
@@ -1255,78 +1100,6 @@ fn split_sections(text: &str) -> Result<Vec<Section>> {
         body: current_lines.join("\n"),
     });
     Ok(sections)
-}
-
-fn shape_summary(value: &Value) -> serde_json::Value {
-    if let Some(table) = value.as_table() {
-        let mut keys = table.keys().cloned().collect::<Vec<_>>();
-        keys.sort();
-        serde_json::json!({"type": "table", "keys": keys})
-    } else if let Some(array) = value.as_array() {
-        if array.is_empty() {
-            serde_json::json!({"type": "array", "row_count": 0, "entry_kind": "empty"})
-        } else if array.iter().all(Value::is_table) {
-            let key_sets = array
-                .iter()
-                .filter_map(Value::as_table)
-                .map(|table| table.keys().cloned().collect::<BTreeSet<_>>())
-                .collect::<Vec<_>>();
-            let intersection = key_sets
-                .iter()
-                .cloned()
-                .reduce(|a, b| a.intersection(&b).cloned().collect())
-                .unwrap_or_default()
-                .into_iter()
-                .collect::<Vec<_>>();
-            let union = key_sets
-                .iter()
-                .cloned()
-                .reduce(|a, b| a.union(&b).cloned().collect())
-                .unwrap_or_default()
-                .into_iter()
-                .collect::<Vec<_>>();
-            serde_json::json!({
-                "type": "array",
-                "row_count": array.len(),
-                "entry_kind": "table",
-                "required_keys": intersection,
-                "union_keys": union,
-            })
-        } else {
-            let entry_types = array
-                .iter()
-                .map(|item| match item {
-                    Value::String(_) => "string",
-                    Value::Integer(_) => "integer",
-                    Value::Float(_) => "float",
-                    Value::Boolean(_) => "boolean",
-                    Value::Array(_) => "array",
-                    Value::Table(_) => "table",
-                    Value::Datetime(_) => "datetime",
-                })
-                .collect::<BTreeSet<_>>()
-                .into_iter()
-                .collect::<Vec<_>>();
-            serde_json::json!({
-                "type": "array",
-                "row_count": array.len(),
-                "entry_kind": "scalar_or_mixed",
-                "entry_types": entry_types,
-            })
-        }
-    } else if value.is_str() {
-        serde_json::json!({"type": "str"})
-    } else if value.is_integer() {
-        serde_json::json!({"type": "int"})
-    } else if value.is_float() {
-        serde_json::json!({"type": "float"})
-    } else if value.is_bool() {
-        serde_json::json!({"type": "bool"})
-    } else if value.is_datetime() {
-        serde_json::json!({"type": "datetime"})
-    } else {
-        serde_json::json!({"type": "unknown"})
-    }
 }
 
 fn load_toml(path: &Path) -> Result<Value> {

@@ -404,24 +404,6 @@ TOML`) on 2026-05-10. Before that commit, mutations to
 `formal_proof` and `status_note` landed in SQLite but never reached the
 consumer surface, making the entire mutator decorative.
 
-## Hash chain: how signature validation stays consistent
-
-After any Layer-2 change, registry policy validation hashes each Layer-2 TOML
-and compares to the recorded signatures in
-`registry/schema_signatures.toml`. To refresh the signatures after a
-legitimate Layer-2 change, run:
-
-```
-make registry-integrity
-```
-
-This invokes the dedicated `gororoba_cli_governance --bin
-registry-integrity` owner through a staged validation-profile binary. The tool
-recomputes both `content_sha256` (the file's literal SHA) and `schema_sha256`
-(the SHA of the normalized shape JSON including `row_count`). Validation
-rejects pushes where the file SHA on disk does not match the recorded SHA in
-`schema_signatures.toml`.
-
 ## Audit trail: how to ask "what changed since last week"
 
 The revisions tables are queryable:
@@ -446,9 +428,7 @@ report.
 ## Known footguns
 
 - **Editing `registry/*.toml` by hand.** The `# AUTO-GENERATED` header
-  is the warning. If you edit anyway and run `make registry-integrity`,
-  your edit _will_ land in `schema_signatures.toml` -- and then be
-  silently overwritten the next time anyone runs
+  is the warning. A hand edit is silently overwritten the next time anyone runs
   `provenance export-control-plane`. Always edit Layer 1.
 
 - **Forgetting `make registry-export-markdown` after a batch with

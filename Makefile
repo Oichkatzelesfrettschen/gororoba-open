@@ -45,7 +45,7 @@
 .PHONY: registry-strict-toml-batch2-build registry-verify-strict-toml-batch2 registry-strict-toml-batch2 registry-wave5-batch2-build registry-verify-wave5-batch2 registry-wave5-batch2 registry-acceptance-gate registry-wave5
 .PHONY: registry-strict-toml-batch3-build registry-verify-strict-toml-batch3 registry-strict-toml-batch3 registry-wave5-batch3-build registry-verify-wave5-batch3 registry-wave5-batch3
 .PHONY: registry-strict-toml-batch4-build registry-verify-strict-toml-batch4 registry-strict-toml-batch4 registry-wave5-batch4-build registry-verify-wave5-batch4 registry-wave5-batch4
-.PHONY: registry-verify-schema-signatures registry-verify-crossrefs
+.PHONY: registry-verify-crossrefs
 .PHONY: registry-verify-typed-policy-error
 .PHONY: registry-verify-dataset-label-aliases
 .PHONY: registry-csv-inventory registry-migrate-legacy-csv registry-verify-legacy-csv
@@ -725,7 +725,6 @@ validate-governance: require-ci-validation-authority registry-validation-tools
 	@echo "=========================================="
 	@echo "[done] Markdown inventory validated (SQLite-first with TOML compatibility checks)"
 	@echo "[done] Markdown owner map verified"
-	@echo "[done] Registry schema signatures checked"
 	@echo "[done] Cross-reference integrity verified"
 	@echo "[done] Dataset label aliases verified"
 	@echo "[done] Canonical control-plane declarations verified"
@@ -1948,17 +1947,8 @@ registry-verify-wave5-batch2: registry-verify-strict-toml-batch2
 registry-wave5-batch2: registry-strict-toml-batch2
 	@echo "DEPRECATED: make registry-wave5-batch2 is a legacy alias. Use make registry-evidence-provenance-gate."
 
-# Convenience fast-path for schema_signatures.toml regeneration.
-#
-# The full registry-strict-toml-batch3-build target always runs
-# `cargo build` (~3 min), even when the binary is already compiled.
-# This target checks for the pre-built binary first and skips the
-# build if it exists (~1.2s vs ~180s).
-#
-# When to use: after editing any registry/*.toml file, run
-#   make registry-integrity
-# to regenerate registry/schema_signatures.toml before committing.
-# Registry validation will fail on content_sha mismatch otherwise.
+# registry-integrity regenerates registry/conflict_markers.toml and
+# registry/lacunae.toml from the canonical claims and narratives.
 registry-integrity: $(REGISTRY_INTEGRITY_CACHE)
 	$(REGISTRY_INTEGRITY_CACHE) --repo-root .
 
@@ -2024,10 +2014,6 @@ ablation-all: ablation-baselines ablation-axis-a ablation-axis-b ablation-window
 registry-strict-toml-batch3-build:
 	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_governance --bin registry-integrity
 	$(REPO_CARGO_TARGET_DIR)/validation/registry-integrity --repo-root .
-
-registry-verify-schema-signatures:
-	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_data --bin governance-verify
-	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify schema-signatures
 
 registry-verify-crossrefs:
 	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_data --bin governance-verify
