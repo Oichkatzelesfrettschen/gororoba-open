@@ -1784,6 +1784,13 @@ fn cmd_artifact_mutation(
             let report = store.repair_artifact_paths(repo_root, &specification)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
         }
+        ArtifactAction::RetirePaths { spec } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactPathRetirementSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report = store.retire_artifact_paths(repo_root, &specification)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+        }
         ArtifactAction::RecordRetrieval { spec } => {
             let specification: provenance_store::ArtifactRetrievalSpec =
                 toml::from_str(&fs::read_to_string(repo_root.join(spec))?)?;

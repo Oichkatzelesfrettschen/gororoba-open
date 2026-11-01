@@ -569,6 +569,12 @@ pub(crate) enum ArtifactAction {
         #[arg(long)]
         spec: PathBuf,
     },
+    /// Move download paths that no tracked file replaces to historical_download
+    /// and set a non-download status, using a typed transactional specification.
+    RetirePaths {
+        #[arg(long)]
+        spec: PathBuf,
+    },
     /// Add a compatibility lane to existing artifacts while preserving their records.
     AssignLane {
         /// Exact canonical artifact ID. Repeat for an atomic batch.
