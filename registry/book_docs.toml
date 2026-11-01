@@ -1776,8 +1776,8 @@ The repo now has two paper layers that should be kept distinct:
 
 - `data/papers/corpus/` contains cached PDFs, sidecar text and `MANIFEST.toml`.
   Read the manifest for its declared inventory and verify local availability.
-- `~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md` is the
-  broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
+- `gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
+  is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.
 
 The earlier "19 extracted papers" tranche is still useful, but it is no longer
@@ -1854,8 +1854,8 @@ body_markdown = '''
 # Paper Chronology
 
 This page tracks the active formalization frontier in chronological order. The
-full historical cache lives off-repo in
-`~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md`; this
+full historical chronology lives off-repo in
+`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`; this
 page is the executable subset we are actively routing into Rust and Rocq. The
 pre-Moreno dependency chain and its missing-source audit now live in
 `./pre-moreno.md`.
@@ -1993,10 +1993,9 @@ path_refs = [
     "crates/brown_1972/",
     "proofs/theories/",
     "registry/source_lanes/papers_pdf.toml",
-    "~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md",
-    "~/Documents/Projects/CayleyDickson/FORMALIZATION_ROADMAP.md",
-    "~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/quaternion_family/quaternionic_analysis/cullen_1965_integral_theorem_analytic_intrinsic_functions_quaternions_archive_reconstructed.pdf",
-    "~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/quaternion_family/quaternionic_analysis/cullen_1965_integral_theorem_analytic_intrinsic_functions_quaternions_archive_reconstructed.txt",
+    "gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md",
+    "gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/formalization-roadmap.md",
+    "gororoba-documents-private:mathematics/hypercomplex-analysis/cullen_1965_integral_theorem_analytic_intrinsic_functions_quaternions_archive_reconstructed.pdf",
 ]
 line_count = 69
 body_markdown = '''
@@ -2019,8 +2018,8 @@ body_markdown = '''
 
 This page distills the paper chain we need before Moreno (1997), using the
 off-repo chronology matrix and roadmap as reference surfaces:
-`~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md` and
-`~/Documents/Projects/CayleyDickson/FORMALIZATION_ROADMAP.md`.
+`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md` and
+`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/formalization-roadmap.md`.
 
 ## Oldest papers already cached
 

@@ -17,8 +17,8 @@
 //!
 //! This page distills the paper chain we need before Moreno (1997), using the
 //! off-repo chronology matrix and roadmap as reference surfaces:
-//! `~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md` and
-//! `~/Documents/Projects/CayleyDickson/FORMALIZATION_ROADMAP.md`.
+//! gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md` and
+//! gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/formalization-roadmap.md`.
 //!
 //! ## Oldest papers already cached
 //!

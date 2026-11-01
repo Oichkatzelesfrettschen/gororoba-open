@@ -485,18 +485,6 @@ path = "src/bin/cpd_report.rs"
 name = "extract-nk-arrays"
 path = "src/bin/extract_nk_arrays.rs"
 
-[[bin]]
-name = "audit-cd-cache"
-path = "src/bin/audit_cd_cache.rs"
-
-[[bin]]
-name = "cd-gap-binders"
-path = "src/bin/cd_gap_binders.rs"
-
-[[bin]]
-name = "cd-row-upgrade-batch"
-path = "src/bin/cd_row_upgrade_batch.rs"
-
 # ---- Document extraction inventory (1) ----
 
 [[bin]]

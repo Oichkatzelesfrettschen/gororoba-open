@@ -19,8 +19,8 @@
 //!
 //! - `data/papers/corpus/` is the repo-owned executable corpus. It currently holds
 //!   318 cached files, including PDFs, sidecar text, and a local `MANIFEST.toml`.
-//! - `~/Documents/Projects/CayleyDickson/CHRONOLOGICAL_REFERENCE_MATRIX.md` is the
-//!   broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
+//! - gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
+//!   is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
 //!   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.
 //!
 //! The earlier "19 extracted papers" tranche is still useful, but it is no longer
