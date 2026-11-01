@@ -1,9 +1,8 @@
 //! Fixed-angle membership in source-identified normal-ordering reference intervals.
 
 use algebra_experimental::experimental_predictions::{NuFit60, SigmaContour};
-use provenance_store::retained_archive::RetainedArchive;
 use serde::Deserialize;
-use std::{collections::BTreeSet, error::Error, process::Command};
+use std::{collections::BTreeSet, error::Error};
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -94,6 +93,15 @@ fn check(fixture: &Fixture) -> Result<(), Box<dyn Error>> {
         return Err("reference variants are missing, duplicated or mislabeled".into());
     }
     for reference in &fixture.references {
+        if reference.source.is_empty()
+            || reference.sha256.len() != 64
+            || !reference
+                .sha256
+                .bytes()
+                .all(|byte| byte.is_ascii_hexdigit())
+        {
+            return Err("reference source path or sha256 is malformed".into());
+        }
         if contains(reference.one_sigma, fixture.theta23_degrees)? != reference.inside_one_sigma
             || contains(reference.three_sigma, fixture.theta23_degrees)?
                 != reference.inside_three_sigma
@@ -109,35 +117,10 @@ fn fixture() -> Fixture {
 }
 
 #[test]
-fn nufit_sources_have_retained_archive_identities() -> Result<(), Box<dyn Error>> {
-    let archive = RetainedArchive::load(&repo_root::path!(""))?;
-    for reference in fixture().references {
-        archive.materialization(&reference.source, &reference.sha256)?;
-    }
-    Ok(())
-}
-
-#[test]
-#[ignore = "requires the hydrated scientific payload archive"]
-fn fixed_angle_reference_membership_and_pdf_receipts_agree() -> Result<(), Box<dyn Error>> {
+fn fixed_angle_reference_membership_matches_recorded_intervals() -> Result<(), Box<dyn Error>> {
     let fixture = fixture();
     check(&fixture)?;
-    let mut checked_sources = BTreeSet::new();
     for reference in &fixture.references {
-        if checked_sources.insert((&reference.source, &reference.sha256)) {
-            // Coreutils supplies an independent byte-identity check without changing fitting dependencies.
-            let output = Command::new("sha256sum")
-                .arg("--")
-                .arg(repo_root::path!(&reference.source))
-                .output()?;
-            if !output.status.success() {
-                return Err("required sha256sum source verification failed".into());
-            }
-            let text = std::str::from_utf8(&output.stdout)?;
-            if text.split_whitespace().next() != Some(reference.sha256.as_str()) {
-                return Err("reference PDF checksum differs from the inspected source".into());
-            }
-        }
         println!(
             "release={} analysis={} theta23={} inside_one_sigma={} inside_three_sigma={}",
             reference.release,

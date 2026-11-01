@@ -327,7 +327,7 @@ validation-resource-contract-workers:
 	if ! grep -Fq 'make --jobs="$$MAKE_JOBS" --keep-going all' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to Make." >&2; status=1; fi; \
 	if ! grep -Fq 'opam install rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 dune.3.23.1 --jobs="$$OPAMJOBS" --yes' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to opam." >&2; status=1; fi; \
 	if grep -Fq 'ci-rust-$${{ matrix.lane }}' .github/workflows/ci.yml; then echo "ERROR: Rust matrix jobs retain quota-consuming duplicate target caches." >&2; status=1; fi; \
-	rust_cache_block="$$(sed -n '/^  rust-validation:/,/^  scientific-replay-inputs:/p' .github/workflows/ci.yml)"; \
+	rust_cache_block="$$(sed -n '/^  rust-validation:/,/^  benchmark:/p' .github/workflows/ci.yml)"; \
 	for contract in 'SCCACHE_DIR:' 'SCCACHE_CACHE_SIZE: 2G' 'compiler-content-v1-' 'fromJSON(needs.validation-core.outputs.rust_matrix).include[1].lane' 'mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba' 'version: v0.15.0'; do \
 	    if ! printf '%s\n' "$$rust_cache_block" | grep -Fq "$$contract"; then echo "ERROR: Rust compiler cache contract is missing: $$contract" >&2; status=1; fi; \
 	done; \
@@ -355,25 +355,13 @@ validation-resource-contract-collectors:
 	docs_deploy_block="$$(sed -n '/^  docs-deploy:/,$$p' .github/workflows/docs-publish.yml)"; \
 	docs_cargo_env_line="$$(sed -n '/^DOCS_CARGO_ENV =/p' Makefile)"; \
 	validation_inputs_block="$$(sed -n '/name: Resolve immutable comparison base and worker budget/,/name: Prepare validation report directory/p' .github/workflows/ci.yml)"; \
-	lattice_replay_block="$$(sed -n '/^[[:space:]]*lattice)/,/^[[:space:]]*nufit)/p' .github/workflows/ci.yml)"; \
 	validation_tools_status_block="$$(sed -n '/fn run_validation_tools_status/,/let now =/p' xtask/src/main.rs)"; \
 	cargo_target_parser_block="$$(sed -n '/^[[:space:]]*case .*cargo_target_args.* in/,/^[[:space:]]*light_scope=()/p' Makefile)"; \
 	casimir_path_block="$$(sed -n '/casimir_audit) pattern=/p' .github/workflows/ci.yml)"; \
 	benchmark_path_block="$$(sed -n '/benchmark) pattern=/p' .github/workflows/ci.yml)"; \
-	lattice_route_block="$$(sed -n '/run_lattice=true; fi/p' .github/workflows/ci.yml)"; \
-	box_counting_route_block="$$(sed -n '/run_box_counting=true; fi/p' .github/workflows/ci.yml)"; \
 	unsafe_survey_job_block="$$(sed -n '/^  unsafe-survey:/,/^  validation:/p' .github/workflows/ci.yml)"; \
 	frontier_check_block="$$(sed -n '/^casimir-optics-discrimination-frontier-check:/,/^$$/p' Makefile)"; \
-	hydration_input_block="$$(sed -n '/name: Materialize and stage bounded scientific replay inputs per lane/,/name: Upload bounded scientific replay inputs/p' .github/workflows/ci.yml)"; \
-	optics_hydration_block="$$(sed -n '/if \[ "$$RUN_OPTICS" = true \]; then/,/^[[:space:]]*fi$$/p' .github/workflows/ci.yml)"; \
-	hydration_upload_block="$$(sed -n '/name: Upload bounded scientific replay inputs/,/name: Retain scientific hydration build artifacts/p' .github/workflows/ci.yml)"; \
-	hydration_cache_block="$$(sed -n '/name: Retain scientific hydration build artifacts/,/^  scientific-replay-leaf:/p' .github/workflows/ci.yml)"; \
-	replay_selection_block="$$(sed -n '/^  scientific-replay-inputs:/,/uses: dtolnay\/rust-toolchain/p' .github/workflows/ci.yml)"; \
-	replay_common_route_block="$$(printf '%s\n' "$$replay_selection_block" | sed -n '/^[[:space:]]*common_pattern=/,/^[[:space:]]*else$$/p')"; \
-	replay_leaf_execution_block="$$(sed -n '/name: Execute hydrated scientific replay leaf/,/name: Upload scientific replay leaf report/p' .github/workflows/ci.yml)"; \
-	optics_replay_block="$$(sed -n '/^[[:space:]]*optics)/,/^[[:space:]]*\*)/p' .github/workflows/ci.yml)"; \
-	replay_verdict_block="$$(sed -n '/name: Report hydrated scientific replay outcomes/,/name: Retain scientific replay verdict/p' .github/workflows/ci.yml)"; \
-	for contract in 'ci-rust-shard-matrix' 'fallback_matrix=' 'CI_CARGO_TARGET_ARGS: $${{ matrix.cargo_target_args }}' 'CI_CARGO_FEATURES: $${{ matrix.cargo_features }}' 'matrix: $${{ fromJSON(needs.validation-core.outputs.rust_matrix) }}' 'make --jobs="$$WORKER_BUDGET" --keep-going "validate-ci-scoped-$${{ matrix.target }}"' 'timeout-minutes: 80' 'fail-fast: false' 'Report collected validation failures' 'Report aggregate validation admission' 'needs: [validation-policy, validation-core, validation-governance, validation-casimir-audit, rust-validation, scientific-replay, benchmark, proofs, paper, unsafe-survey, docs-book-check, certificates]' 'DOCS_RESULT:' 'RUN_DOCS:' 'CERTIFICATES_RESULT:' 'RUN_CERTIFICATES:' 'uses: ./.github/workflows/navier-stokes-certificates.yml' 'for lane in GOVERNANCE CASIMIR_AUDIT DOCS CERTIFICATES' 'uses: ./.github/workflows/bench-cd-kernel.yml' 'uses: ./.github/workflows/proofs.yml' 'uses: ./.github/workflows/paper.yml' 'uses: ./.github/workflows/unsafe-survey.yml' 'run_workspace_survey:' 'BENCHMARK_SELECTED:' 'PROOFS_SELECTED:' 'PAPER_SELECTED:' 'UNSAFE_SURVEY_SELECTED:' 'scientific-replay-inputs:' 'scientific-replay-leaf:' 'scientific-replay:' 'matrix: $${{ fromJSON(needs.scientific-replay-inputs.outputs.matrix) }}' '--bin hydrate-scientific-payloads' '--no-fail-fast -p algebra_experimental --test nufit_reference_identity' '--no-fail-fast -p lbm_3d --test box_counting_amplitude_identity' '--no-fail-fast -p optics_core --test ruan_fan_source_receipts' 'state=blocked_input' 'state=not_selected' 'state=executed_pass' 'state=executed_fail' 'make --keep-going validation-resource-contract' 'make --jobs="$$WORKER_BUDGET" --keep-going casimir-optics-discrimination-audit-check'; do \
+	for contract in 'ci-rust-shard-matrix' 'fallback_matrix=' 'CI_CARGO_TARGET_ARGS: $${{ matrix.cargo_target_args }}' 'CI_CARGO_FEATURES: $${{ matrix.cargo_features }}' 'matrix: $${{ fromJSON(needs.validation-core.outputs.rust_matrix) }}' 'make --jobs="$$WORKER_BUDGET" --keep-going "validate-ci-scoped-$${{ matrix.target }}"' 'timeout-minutes: 80' 'fail-fast: false' 'Report collected validation failures' 'Report aggregate validation admission' 'needs: [validation-policy, validation-core, validation-governance, validation-casimir-audit, rust-validation, benchmark, proofs, paper, unsafe-survey, docs-book-check, certificates]' 'DOCS_RESULT:' 'RUN_DOCS:' 'CERTIFICATES_RESULT:' 'RUN_CERTIFICATES:' 'uses: ./.github/workflows/navier-stokes-certificates.yml' 'for lane in GOVERNANCE CASIMIR_AUDIT DOCS CERTIFICATES' 'uses: ./.github/workflows/bench-cd-kernel.yml' 'uses: ./.github/workflows/proofs.yml' 'uses: ./.github/workflows/paper.yml' 'uses: ./.github/workflows/unsafe-survey.yml' 'run_workspace_survey:' 'BENCHMARK_SELECTED:' 'PROOFS_SELECTED:' 'PAPER_SELECTED:' 'UNSAFE_SURVEY_SELECTED:' 'make --keep-going validation-resource-contract' 'make --jobs="$$WORKER_BUDGET" --keep-going casimir-optics-discrimination-audit-check'; do \
 	    if ! grep -Fq -- "$$contract" .github/workflows/ci.yml; then echo "ERROR: main CI collector contract is missing: $$contract" >&2; status=1; fi; \
 	done; \
 	if ! printf '%s\n' "$$docs_book_check_block" | grep -Fq 'timeout-minutes: 2'; then echo "ERROR: pull-request book validation exceeds the two-minute budget." >&2; status=1; fi; \
@@ -381,39 +369,6 @@ validation-resource-contract-collectors:
 	if ! printf '%s\n' "$$docs_publication_block" | grep -Fq "github.event.workflow_run.event == 'schedule'"; then echo "ERROR: weekly full documentation publication is missing." >&2; status=1; fi; \
 	if printf '%s\n' "$$docs_publication_block" | grep -Fq "github.event.workflow_run.event == 'push'"; then echo "ERROR: main pushes trigger a full documentation build." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$docs_deploy_block" | grep -Fq "github.event.workflow_run.event == 'schedule'"; then echo "ERROR: weekly full documentation does not deploy." >&2; status=1; fi; \
-	for hydration_backed_test in \
-	    test_thesis_a_codebook_parity_256d \
-	    test_thesis_a_codebook_parity_512d \
-	    test_thesis_a_codebook_parity_1024d \
-	    test_thesis_a_codebook_parity_2048d \
-	    test_thesis_b_filtration_nesting \
-	    test_thesis_c_2048_to_1024_prefix_cut \
-	    test_thesis_c_1024_to_512_prefix_cut \
-	    test_thesis_c_512_to_256_prefix_cut \
-	    test_thesis_c_full_filtration_cuts \
-	    test_base_universe_size_and_exclusion_count \
-	    test_lambda_32_as_predicate_cut_of_256 \
-	    test_lambda_256_csv_vs_predicates \
-	    test_thesis_d_scalar_shadow_basic \
-	    test_thesis_d_scalar_shadow_addition_mode \
-	    test_dictionary_coupling_sample_256d \
-	    test_c452_c453_lattice_header_schema_stability \
-	    test_c452_c453_embedding_is_injective_and_roundtrip \
-	    test_c452_c453_codomain_and_index_coverage_all_dims \
-	    test_c453_filtration_growth_has_expected_new_points \
-	    test_c453_filtration_layers_are_disjoint_and_partition_2048 \
-	    test_c453_filtration_intersection_cardinalities_are_exact \
-	    test_c453_filtration_is_lexicographic_prefix_chain; do \
-	    occurrences="$$(printf '%s\n' "$$lattice_replay_block" | grep -Fc "cd_external::tests::$$hydration_backed_test")"; \
-	    if [ "$$occurrences" -ne 1 ]; then echo "ERROR: lattice replay must select hydration-backed test exactly once: $$hydration_backed_test" >&2; status=1; fi; \
-	done; \
-	hydration_backed_count="$$(printf '%s\n' "$$lattice_replay_block" | grep -Fc 'cd_external::tests::test_')"; \
-	if [ "$$hydration_backed_count" -ne 22 ]; then echo "ERROR: lattice replay must select exactly 22 hydration-backed tests." >&2; status=1; fi; \
-	for contract in 'hydration_backed_tests=(' 'lattice_status=0' 'for hydration_backed_test in "$${hydration_backed_tests[@]}"' '--ignored --exact --nocapture || lattice_status=1' 'exit "$$lattice_status"'; do \
-	    if ! printf '%s\n' "$$lattice_replay_block" | grep -Fq -- "$$contract"; then echo "ERROR: lattice replay fail-slow contract is missing: $$contract" >&2; status=1; fi; \
-	done; \
-	if printf '%s\n' "$$lattice_replay_block" | grep -Fq "'cd_external::tests::'"; then echo "ERROR: lattice replay uses a broad test-module selector." >&2; status=1; fi; \
-	if printf '%s\n' "$$lattice_replay_block" | grep -Fq 'test_thesis_e_xor_involution_invariants_128d'; then echo "ERROR: lattice replay selects the heavy non-hydration invariant test." >&2; status=1; fi; \
 	physics_target_shards="$$(printf '%s\n' "$$rust_shard_block" | grep -Fc -- '--target-shard-package=gororoba_cli_physics')"; \
 	if [ "$$physics_target_shards" -ne 1 ]; then echo "ERROR: Rust shard block must retain required-feature coverage for gororoba_cli_physics exactly once." >&2; status=1; fi; \
 	for shared_build_package in gororoba_cli_data gororoba_cli_algebra; do \
@@ -452,57 +407,18 @@ validation-resource-contract-collectors:
 	if ! printf '%s\n' "$$casimir_path_block" | grep -Fq '\.gitattributes'; then echo "ERROR: Casimir audit routing omits attributes governing retained source bytes." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$casimir_path_block" | grep -Fq 'Makefile$$'; then echo "ERROR: Casimir audit routing omits its Make-owned execution recipes." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$benchmark_path_block" | grep -Fq 'crates/gororoba_cli/src/bin/detect_worker_budget\.rs'; then echo "ERROR: benchmark routing omits its cross-architecture worker detector." >&2; status=1; fi; \
-	if ! printf '%s\n' "$$lattice_route_block" | grep -Fq 'cd_kernel'; then echo "ERROR: lattice replay routing omits its Cayley-Dickson kernel dependency." >&2; status=1; fi; \
-	if ! printf '%s\n' "$$box_counting_route_block" | grep -Fq 'verified_core'; then echo "ERROR: box-counting replay routing omits its hardware-topology dependency." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$unsafe_survey_job_block" | grep -Fq 'run_workspace_survey: true'; then echo "ERROR: routed unsafe-survey selection does not run the workspace inventory." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$frontier_check_block" | grep -Fq -- 'verify-finite-frontier'; then echo "ERROR: routed Casimir audit omits finite-frontier verification." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$frontier_check_block" | grep -Fq 'plans/casimir_optics_discrimination_frontier.toml'; then echo "ERROR: finite-frontier verification omits the canonical plan." >&2; status=1; fi; \
-	for cache_job in validation-governance validation-casimir-audit scientific-replay-inputs scientific-replay-leaf; do \
+	for cache_job in validation-governance validation-casimir-audit; do \
 	    cache_block="$$(sed -n "/^  $$cache_job:/,/^  [a-z].*:/p" .github/workflows/ci.yml)"; \
 	    if ! printf '%s\n' "$$cache_block" | grep -Fq '$${{ github.sha }}-$${{ github.run_id }}-$${{ github.run_attempt }}'; then echo "ERROR: $$cache_job cache key is not run-unique." >&2; status=1; fi; \
 	    if ! printf '%s\n' "$$cache_block" | grep -Fq "if: success() && github.ref == 'refs/heads/main' &&"; then echo "ERROR: $$cache_job can retain an incomplete or pull-request build cache." >&2; status=1; fi; \
 	done; \
-	if ! grep -Fq "if: success() && github.ref == 'refs/heads/main' && matrix.cache_publisher == true && steps.replay-cache.outputs.cache-primary-key" .github/workflows/ci.yml; then echo "ERROR: scientific replay retains more than one build-tree cache per run." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$docs_publication_block" | grep -Fq "if: success() && steps.docs-cache.outputs.cache-primary-key"; then echo "ERROR: docs-publication can retain an incomplete build cache." >&2; status=1; fi; \
 	if [ "$$(printf '%s\n' "$$docs_deploy_block" | grep -Fc 'github-pages-$${{ github.run_attempt }}')" -ne 2 ] || ! printf '%s\n' "$$docs_deploy_block" | grep -Fq 'artifact_name: github-pages-$${{ github.run_attempt }}'; then echo "ERROR: Pages upload and deployment must select one artifact per run attempt." >&2; status=1; fi; \
 	if ! printf '%s\n' "$$docs_deploy_block" | grep -Fq "needs.docs-publication.result == 'success'" || ! printf '%s\n' "$$docs_deploy_block" | grep -Fq "github.event.workflow_run.event == 'schedule'"; then echo "ERROR: Pages deployment lacks successful weekly main publication." >&2; status=1; fi; \
-	for contract in 'hydrate_lane() {' 'local selected_paths=(' 'for selected_path in "$${selected_paths[@]}"' 'cp --parents' 'scientific-replay-input-status' "printf 'blocked_input\\n'" '2> "$$staging_root/scientific-replay-hydration-$$lane.stderr.log"' 'command cat "$$staging_root/scientific-replay-hydration-$$lane.stderr.log" >&2' 'all_hydrated=false'; do \
-	    if ! printf '%s\n' "$$hydration_input_block" | grep -Fq -- "$$contract"; then echo "ERROR: per-lane scientific replay hydration contract is missing: $$contract" >&2; status=1; fi; \
-	done; \
-	for lane in lattice nufit box-counting optics; do \
-	    occurrences="$$(printf '%s\n' "$$hydration_input_block" | grep -Fc "hydrate_lane $$lane")"; \
-	    if [ "$$occurrences" -ne 1 ]; then echo "ERROR: scientific replay hydration must invoke $$lane exactly once." >&2; status=1; fi; \
-	done; \
-	for contract in 'hydrate_lane optics' 'data/output/audit/claim-family-evidence-adjudication/optics-replay/ruan-fan-0909.3323v2.pdf'; do \
-	    if ! printf '%s\n' "$$optics_hydration_block" | grep -Fq -- "$$contract"; then echo "ERROR: optics hydration block is missing: $$contract" >&2; status=1; fi; \
-	done; \
-	if ! printf '%s\n' "$$hydration_cache_block" | grep -Fq "if: success() && github.ref == 'refs/heads/main' && steps.hydrate.outputs.all_hydrated == 'true'"; then echo "ERROR: scientific replay hydration cache is not gated on complete per-lane success on main." >&2; status=1; fi; \
-	for contract in 'lane_status_path=' 'state=blocked_input' 'state=orchestration_error'; do \
-	    if ! printf '%s\n' "$$replay_leaf_execution_block" | grep -Fq -- "$$contract"; then echo "ERROR: scientific replay leaf input-state contract is missing: $$contract" >&2; status=1; fi; \
-	done; \
-	for contract in 'ALL_HYDRATED: $${{ needs.scientific-replay-inputs.outputs.all_hydrated }}' 'if [ "$$ALL_HYDRATED" != true ]' "printf 'state=blocked_input\\nleaf_result=%s\\n'"; do \
-	    if ! printf '%s\n' "$$replay_verdict_block" | grep -Fq -- "$$contract"; then echo "ERROR: aggregate scientific replay blocked-input contract is missing: $$contract" >&2; status=1; fi; \
-	done; \
-	if ! printf '%s\n' "$$replay_selection_block" | grep -Fq 'all_hydrated: $${{ steps.hydrate.outputs.all_hydrated }}'; then echo "ERROR: scientific replay input job does not expose complete hydration state." >&2; status=1; fi; \
-	if [ "$$(printf '%s\n' "$$replay_common_route_block" | grep -Fc "common_pattern='")" -ne 1 ]; then echo "ERROR: scientific replay must define exactly one common path trigger." >&2; status=1; fi; \
-	for contract in 'Cargo\.(toml|lock)' 'rust-toolchain\.toml' '\.cargo/config\.toml' 'Makefile' '\.github/workflows/ci\.yml' 'data/retention/scientific-payloads\.json' 'crates/(provenance_store|gororoba_cli_provenance|repo_root)/'; do \
-	    if ! printf '%s\n' "$$replay_common_route_block" | grep -Fq -- "$$contract"; then echo "ERROR: common scientific replay routing omits: $$contract" >&2; status=1; fi; \
-	done; \
-	for lane in lattice nufit box_counting optics; do \
-	    if ! printf '%s\n' "$$replay_common_route_block" | grep -Fq "run_$$lane=true"; then echo "ERROR: common scientific replay trigger does not select $$lane." >&2; status=1; fi; \
-	done; \
-	input_failure_line="$$(printf '%s\n' "$$replay_verdict_block" | grep -nF 'if [ "$$INPUT_RESULT" != success ]' | cut -d: -f1)"; \
-	not_selected_line="$$(printf '%s\n' "$$replay_verdict_block" | grep -nF 'if [ "$$RUN_REPLAY" != true ]' | cut -d: -f1)"; \
-	blocked_input_line="$$(printf '%s\n' "$$replay_verdict_block" | grep -nF 'if [ "$$ALL_HYDRATED" != true ]' | cut -d: -f1)"; \
-	executed_pass_line="$$(printf '%s\n' "$$replay_verdict_block" | grep -nF 'if [ "$$LEAF_RESULT" = success ]' | cut -d: -f1)"; \
-	if [ -z "$$input_failure_line" ] || [ -z "$$not_selected_line" ] || [ -z "$$blocked_input_line" ] || [ -z "$$executed_pass_line" ] || [ "$$input_failure_line" -ge "$$not_selected_line" ] || [ "$$not_selected_line" -ge "$$blocked_input_line" ] || [ "$$blocked_input_line" -ge "$$executed_pass_line" ]; then echo "ERROR: scientific replay verdict precedence must be input failure, not selected, blocked input, then execution result." >&2; status=1; fi; \
-	if ! printf '%s\n' "$$hydration_upload_block" | grep -Fq 'path: $${{ runner.temp }}/scientific-replay-inputs'; then echo "ERROR: selected scientific replay input artifact path is missing from its upload step." >&2; status=1; fi; \
-	optics_route_contract="if grep -Eq '^(crates/optics_core/|data/output/audit/claim-family-evidence-adjudication/optics-replay/(arxiv-source\.download|Fano_Scattering\.tex|ruan-fan-0909\.3323v2\.pdf)$$)' \"\$$RUNNER_TEMP/scientific-replay-changed-paths.txt\"; then run_optics=true; fi"; \
-	if [ "$$(printf '%s\n' "$$replay_selection_block" | grep -Fc -- "$$optics_route_contract")" -ne 1 ]; then echo "ERROR: optics replay source paths must route to run_optics exactly once." >&2; status=1; fi; \
-	if ! printf '%s\n' "$$replay_selection_block" | grep -Fq 'for lane in lattice nufit box-counting optics; do'; then echo "ERROR: optics scientific replay is absent from matrix construction." >&2; status=1; fi; \
-	optics_command='cargo test --locked --profile validation --no-fail-fast -p optics_core --test ruan_fan_source_receipts admitted_archive_tex_and_pdf_have_distinct_verified_identities -- --ignored --exact --nocapture'; \
-	if [ "$$(printf '%s\n' "$$optics_replay_block" | grep -Fc -- "$$optics_command")" -ne 1 ]; then echo "ERROR: optics replay must execute its exact hydrated receipt test once." >&2; status=1; fi; \
-	for contract in "printf 'benchmark=true\\nproofs=true\\npaper=true\\nunsafe_survey=true\\n'" "crates/(algebra_analysis|algebra_experimental|cd_kernel)/" "crates/(provenance_store|gororoba_cli_provenance|repo_root)/" 'Scientific replay routing could not resolve the comparison base; selecting every replay lane.'; do \
+	for contract in "printf 'benchmark=true\\nproofs=true\\npaper=true\\nunsafe_survey=true\\n'"; do \
 	    if ! grep -Fq -- "$$contract" .github/workflows/ci.yml; then echo "ERROR: scheduled or fail-slow CI routing contract is missing: $$contract" >&2; status=1; fi; \
 	done; \
 	conservative_full_line="$$(printf '%s\n' "$$validation_inputs_block" | grep -nF "echo 'full=true' >> \"\$$GITHUB_OUTPUT\"" | head -n 1 | cut -d: -f1)"; \

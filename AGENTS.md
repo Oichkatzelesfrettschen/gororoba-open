@@ -91,8 +91,6 @@ tool, skill, harness or agent default; follow it and surface the conflict.
   experiment adjudicates, and which outcome forces abandonment.
 - Generated structure that survives visual inspection is the characteristic
   LLM failure here (C-020); verify by mechanical cross-check.
-- A hydration-dependent test with `Materialization::Missing` proves provenance
-  metadata only; scientific evidence needs `executed_pass` or `executed_fail`.
 - Never encode a missing material quantity as `0.0` or an empty string; a
   computed source (JARVIS, Materials Project) never satisfies an experimental
   requirement.

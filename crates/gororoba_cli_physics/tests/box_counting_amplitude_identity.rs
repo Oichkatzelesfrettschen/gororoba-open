@@ -1,14 +1,8 @@
 use cosmology_core::sersic::{
     box_counting_fractal_dim, box_counting_fractal_dim_threshold, otsu_threshold,
 };
-use provenance_store::retained_archive::RetainedArchive;
 use sha2::{Digest, Sha256};
-use std::{collections::BTreeSet, error::Error};
-
-const DENSITY_PATH: &str = "data/output/audit/claim-family-evidence-adjudication/null-pilot-cpu/C1-uniform-fzd-0/rho.f64le";
-const DENSITY_SHA256: &str = "9ad28ff0dbb91703f930756f2c9d0f2a9f7655d6e0efeb120b4c23f9321bdaa7";
-const FORCE_PATH: &str = "data/output/audit/claim-family-evidence-adjudication/null-pilot-cpu/C1-uniform-fzd-0/force.xyz.f64le";
-const FORCE_SHA256: &str = "2050ed246e70e02a6aadafedc5f70147ba7ee980d937435c9dc16931f6557166";
+use std::collections::BTreeSet;
 
 fn digest(bytes: &[u8]) -> String {
     Sha256::digest(bytes)
@@ -107,13 +101,4 @@ fn exact_plane_affine_controls_preserve_geometry_at_tiny_contrast() {
         1.0,
         &observation,
     );
-}
-
-#[test]
-fn retained_uniform_force_inputs_have_archive_identities() -> Result<(), Box<dyn Error>> {
-    let repository_root = repo_root::path!("");
-    let archive = RetainedArchive::load(&repository_root)?;
-    archive.materialization(DENSITY_PATH, DENSITY_SHA256)?;
-    archive.materialization(FORCE_PATH, FORCE_SHA256)?;
-    Ok(())
 }

@@ -134,7 +134,6 @@ dependencies = [
  "num-complex",
  "petgraph 0.8.3",
  "plotters",
- "provenance_store",
  "rand 0.10.1",
  "rand_chacha 0.10.0",
  "rand_distr 0.6.0",
@@ -5085,12 +5084,9 @@ dependencies = [
  "provenance_ops",
  "provenance_store",
  "regex",
- "ruzstd",
  "serde",
  "serde_json",
  "sha2 0.11.0",
- "tar",
- "tempfile",
  "tokio",
  "toml 1.1.2+spec-1.1.0",
  "url",
@@ -6321,8 +6317,6 @@ dependencies = [
  "cosmology_core",
  "criterion",
  "rayon",
- "repo_root",
- "sha2 0.11.0",
  "thiserror 2.0.18",
  "verified_core",
  "wide 1.2.0",
@@ -8095,7 +8089,6 @@ dependencies = [
  "gororoba_gpu_vulkan",
  "naga 29.0.1",
  "num-complex",
- "provenance_store",
  "rustfft",
  "sha2 0.11.0",
  "thiserror 2.0.18",
@@ -9350,7 +9343,6 @@ dependencies = [
  "anyhow",
  "chrono",
  "csv",
- "provenance_store",
  "regex",
  "repo_root",
  "rusqlite",
@@ -10288,15 +10280,6 @@ dependencies = [
  "quick-error",
  "tempfile",
  "wait-timeout",
-]
-
-[[package]]
-name = "ruzstd"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69e4ce4a039f42bf25920b95667e4d789e98749ab11bbb8d2c2936f788421bb5"
-dependencies = [
- "twox-hash",
 ]
 
 [[package]]
