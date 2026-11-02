@@ -163,7 +163,7 @@ fn build_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let (req_modules, req_gaps) = build_requirements_hardened(
         &table_array(&requirements_raw, "module")?,
         &table_array(&requirements_raw, "coverage_gap")?,
-    );
+    )?;
     let pyproject = load_toml(&repo_root.join("pyproject.toml"))?;
     let cargo_toml = load_toml(&repo_root.join("Cargo.toml"))?;
     let (module_rows, package_rows, command_rows) =
@@ -1247,7 +1247,7 @@ fn build_hardened_planning_rows(
 fn build_requirements_hardened(
     rows: &[Table],
     gaps: &[Table],
-) -> (Vec<RequirementModule>, Vec<CoverageGap>) {
+) -> Result<(Vec<RequirementModule>, Vec<CoverageGap>)> {
     let known_module_ids = rows
         .iter()
         .map(|row| string_field(row, "id"))
@@ -1260,15 +1260,20 @@ fn build_requirements_hardened(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !REQUIREMENT_STATUS_ALLOWLIST.contains(&status.as_str()) {
-            status = "active".to_string();
+            bail!(
+                "requirements module {mid} has status {status:?}; allowed statuses are active, deprecated, planned and blocked"
+            );
         }
         let install_targets = normalize_string_list(row.get("install_targets"));
         let verify_targets = dedup_sorted(install_targets.clone());
         let runtime_stack = infer_runtime_stack(&collapse(&string_field(&row, "name")));
-        let requires_modules = module_dependency_defaults(&mid)
-            .into_iter()
-            .filter(|dep| known_module_ids.contains(dep))
-            .collect::<Vec<_>>();
+        let requires_modules = module_dependency_defaults(&mid);
+        if let Some(unknown) = requires_modules
+            .iter()
+            .find(|dep| !known_module_ids.contains(*dep))
+        {
+            bail!("requirements module {mid} requires unknown module {unknown}");
+        }
         let acceptance = vec![
             "Runtime stack classification is explicit.".to_string(),
             "Install and verify commands are reproducible.".to_string(),
@@ -1307,7 +1312,10 @@ fn build_requirements_hardened(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !["open", "in_progress", "done"].contains(&status.as_str()) {
-            status = "open".to_string();
+            bail!(
+                "coverage gap {} has status {status:?}; allowed statuses are open, in_progress and done",
+                collapse(&string_field(&row, "id"))
+            );
         }
         let blob = format!(
             "{} {}",
@@ -1332,7 +1340,7 @@ fn build_requirements_hardened(
         );
         coverage_gaps.push(CoverageGap { raw: gap });
     }
-    (modules, coverage_gaps)
+    Ok((modules, coverage_gaps))
 }
 
 fn build_module_requirements(
@@ -2645,6 +2653,40 @@ mod tests {
                 .to_string()
                 .contains("REQ-ASTRO requires unknown module REQ-ASTR0")
         );
+    }
+
+    #[test]
+    fn requirements_hardening_rejects_what_it_used_to_rewrite() {
+        let table = |text: &str| toml::from_str::<Table>(text).unwrap();
+        let core = table("id = \"REQ-CORE\"\nstatus = \"active\"");
+        let astro = table("id = \"REQ-ASTRO\"\nstatus = \"active\"");
+        let gap = table("id = \"REQ-GAP-001\"\nstatus = \"open\"");
+        assert!(build_requirements_hardened(&[core.clone(), astro.clone()], &[gap]).is_ok());
+
+        for (rows, gaps, expected) in [
+            (
+                vec![astro.clone()],
+                vec![],
+                "REQ-ASTRO requires unknown module REQ-CORE",
+            ),
+            (
+                vec![
+                    core.clone(),
+                    table("id = \"REQ-ASTRO\"\nstatus = \"retired\""),
+                ],
+                vec![],
+                "REQ-ASTRO has status \"retired\"",
+            ),
+            (
+                vec![core.clone()],
+                vec![table("id = \"REQ-GAP-001\"\nstatus = \"closed\"")],
+                "coverage gap REQ-GAP-001 has status \"closed\"",
+            ),
+        ] {
+            let error = build_requirements_hardened(&rows, &gaps)
+                .expect_err("hardening must reject the defect instead of rewriting it");
+            assert!(error.to_string().contains(expected), "{error}");
+        }
     }
 
     #[test]
