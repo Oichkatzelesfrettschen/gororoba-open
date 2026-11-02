@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1592
+//! Total claims: 1593
 //!
 //! ## C-001
 //!
@@ -34,7 +34,7 @@
 //!
 //! ## C-004
 //!
-//! - Status: `Verified`
+//! - Status: `Refuted`
 //! - Last verified: 2026-01-28
 //! - Statement: The relevant symmetry group count is `PSL(2,7) has order 168` and an explicit 168-element action is constructed which permutes the 7 box-kites (as computed in-repo) as labeled subgraphs.
 //! - Where stated: `docs/SEDENION_ATLAS.md`, `docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md` (XS-019), `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `crates/algebra_analysis/src/boxkites.rs` (Rust tests: test_sedenion_boxkite_structure, test_coassessor_symmetry)
@@ -11426,7 +11426,7 @@
 //!
 //! ## C-1613
 //!
-//! - Status: `Established`
+//! - Status: `Refuted`
 //! - Last verified: 2026-04-13
 //! - Statement: AlignedWorkspace 256-byte alignment.
 //! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/workspace.rs` (test_aligned_workspace)
@@ -12742,4 +12742,12 @@
 //! - Last verified: 2026-10-30
 //! - Statement: In the 32-dimensional Cayley-Dickson algebra A5, the zero divisors are the doubly pure y = (p, q) with Q G = 0 for z = p + i q, a union of two absolutely irreducible hypersurfaces of C^15 of complex dimension 14. The real nullity of L_y equals 28 - 2 rank_C C_z, so the nullities 4, 8, 12, 16 are the rank 12, 10, 8, 6 loci of C_z. The rank strata have closed equations R_8 = W8 u E8-bar, R_12 = V u B9, R_16 = N_+ u N_-; E8-bar is irreducible of complex dimension 11 with projective degree 24. The unit strata of nullity 4 and 12 are connected and those of nullity 8 and 16 have two connected components.
 //! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1780
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-11-02
+//! - Statement: PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph.
+//! - Where stated: proofs/verified/C004_PSL27Order168.v
 //! - What would verify/refute it:

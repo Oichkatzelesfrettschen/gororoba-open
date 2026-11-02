@@ -36,7 +36,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-C001_CDNonAssociative` | `C001_CDNonAssociative` | `proofs/verified/C001_CDNonAssociative.v` | source_only | explicit_link | C-001 |
 | `THM-LEGACY-C002_SedenionZDAndNormFail` | `C002_SedenionZDAndNormFail` | `proofs/verified/C002_SedenionZDAndNormFail.v` | source_only | explicit_link | C-002 |
 | `THM-LEGACY-C003_AssessorsBoxkites` | `C003_AssessorsBoxkites` | `proofs/verified/C003_AssessorsBoxkites.v` | source_only | explicit_link | C-003 |
-| `THM-LEGACY-C004_PSL27Order168` | `C004_PSL27Order168` | `proofs/verified/C004_PSL27Order168.v` | source_only | explicit_link | C-004 |
+| `THM-LEGACY-C004_PSL27Order168` | `C004_PSL27Order168` | `proofs/verified/C004_PSL27Order168.v` | source_only | explicit_link | C-1780 |
 | `THM-LEGACY-C005_ZDAnnihilatorGeometry` | `C005_ZDAnnihilatorGeometry` | `proofs/verified/C005_ZDAnnihilatorGeometry.v` | source_only | explicit_link | C-005 |
 | `THM-LEGACY-C006_GWAlgebraicAnchor` | `C006_GWAlgebraicAnchor` | `proofs/verified/C006_GWAlgebraicAnchor.v` | source_only | explicit_link | C-006 |
 | `THM-LEGACY-C007_BHMassAlgebraicAnchor` | `C007_BHMassAlgebraicAnchor` | `proofs/verified/C007_BHMassAlgebraicAnchor.v` | source_only | explicit_link | C-007 |

@@ -609,8 +609,9 @@
 //!   - *Systematic enumeration of sedenion zero-divisor structure. K_{2,2,2} graph topology. Basis for qec_boxkite.rs 6-node stabilizer.*
 //! - **De Marrais, R. P.** (2006). *The 42 Assessors and the Box-Kites they fly: Diagonal Axis-Pair Systems of Zero-Divisors in the Sedenions' 16 Dimensions*. [arXiv:math/0604092](https://arxiv.org/abs/math/0604092).
 //!   - *Box-kite geometry of sedenion ZDs: 7 box-kites, 42 assessors, diagonal axis pairs. Core reference for BoxKiteStabilizer and DekaVoudonStabilizer.*
-//! - **Brown, R. B. & Loeb, A. L.** (1997). *Nonassociative algebras and the Cayley-Dickson construction*. Exposition. Math. 15, 229.
-//!   - *Mathematical properties of iterated Cayley-Dickson construction. Alternativity failure above dim 8, zero divisors above dim 16.*
+//! - **Brown, R. B.** (1967). *On generalized Cayley-Dickson algebras*. Pacific J. Math. 20, 415-422. [doi:10.2140/pjm.1967.20.415](https://doi.org/10.2140/pjm.1967.20.415)
+//!   - *Generalized Cayley-Dickson construction with arbitrary gamma parameters: norm formula, division criterion (gamma not a norm and -gamma not a trace-zero norm) and classification up to isomorphism at dims 16, 32 and 64. Over the reals with gamma = -1 the 16-dimensional algebra has zero divisors; over suitable fields the generalized algebras of dim 16 and above can be division algebras. Formalized in crates/brown_1967 and proofs/theories/BrownGeneralizedCD.v.*
+//!   - *Replaces a garbled citation, Brown & Loeb (1997), Exposition. Math. 15, 229, whose locator zbMATH records as Marcolli and Spreafico, Gauge groups and characteristic classes (Zbl 0888.57024); no index holds a Brown and Loeb Cayley-Dickson paper.*
 //! - **Gillard, A. & Gresnigt, N.** (2019). *Three fermion generations with two unbroken gauge symmetries from the complex sedenions*. Eur. Phys. J. C 79, 446.
 //!   - *Sedenion algebraic structure maps to three fermion generations. Connects CD algebra to particle physics representation theory.*
 //! - **Conway, J. H. & Norton, S. P.** (1979). *Monstrous Moonshine*. Bull. London Math. Soc. 11, 308.

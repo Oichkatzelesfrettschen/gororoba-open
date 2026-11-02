@@ -31,12 +31,12 @@ status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C003_AssessorsBoxkit
 where_stated = "`crates/algebra_analysis/src/boxkites.rs` (test_primitive_assessors_count, test_sedenion_boxkite_count, test_assessors_partition_into_boxkites), `docs/SEDENION_ATLAS.md`, `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0073)"
 
 [[claim]]
-formal_proof = "proofs/verified/C004_PSL27Order168.v"
+formal_proof = "na_empirical:the in-repository construction closes to 21 elements; the kernel-checked order theorem moved to C-1780"
 id = "C-004"
 last_verified = "2026-01-28"
 statement = "The relevant symmetry group count is `PSL(2,7) has order 168` and an explicit 168-element action is constructed which permutes the 7 box-kites (as computed in-repo) as labeled subgraphs."
-status = "Verified"
-status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C004_PSL27Order168.v"
+status = "Refuted"
+status_note = "Refuted: generate_psl_2_7_permutations_16d closes to the order-21 Frobenius group, not a 168-element action, and the claim's dossier states the box-kite action is not replicated in code; the kernel-checked order and Fano line count theorems belong to C-1780. Evidence: data/output/audit/2026-11-02/c-004-psl27-generator-closure.toml."
 where_stated = "`docs/SEDENION_ATLAS.md`, `docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md` (XS-019), `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `crates/algebra_analysis/src/boxkites.rs` (Rust tests: test_sedenion_boxkite_structure, test_coassessor_symmetry)"
 
 [[claim]]
@@ -4891,8 +4891,8 @@ where_stated = "TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboqu
 id = "C-1613"
 last_verified = "2026-04-13"
 statement = "AlignedWorkspace 256-byte alignment."
-status = "Established"
-status_note = "Verified by test_aligned_workspace."
+status = "Refuted"
+status_note = "Refuted: AlignedWorkspace buffers use the aligned-vec default CACHELINE_ALIGN, 128 bytes on x86_64 and aarch64; the field docs state 64 and test_aligned_workspace asserts at least 16. Evidence: data/output/audit/2026-11-02/c-1613-aligned-workspace-alignment.toml."
 where_stated = "TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/workspace.rs` (test_aligned_workspace)"
 
 [[claim]]
@@ -8841,6 +8841,15 @@ last_verified = "2026-02-01"
 statement = 'Inner derivation space dimension (via D(a,b)(c) = A(a,b,c) - A(b,a,c) + A(c,a,b)): dim=0 at dim=2,4 (associative -> A=0); dim=21 at dim=8; dim=98 at dim=16; dim=383 at dim=32. Note: at dim=8 (octonions), Der(O) = g2 has dim 14, but this "inner derivation map" spans a 21-dimensional space of linear maps, not all of which satisfy the Leibniz rule.'
 status = "Verified"
 where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v22.py`, `data/csv/cd_algebraic_experiments_v22.json`"
+
+[[claim]]
+formal_proof = "proofs/verified/C004_PSL27Order168.v"
+id = "C-1780"
+last_verified = "2026-11-02"
+statement = "PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph."
+status = "Verified"
+status_note = "Kernel-checked via Rocq: C004_gl3_gf2_order and C004_fano_matches_boxkites in proofs/verified/C004_PSL27Order168.v."
+where_stated = "proofs/verified/C004_PSL27Order168.v"
 
 [[claim]]
 id = "C-179"
