@@ -6,6 +6,7 @@ license.workspace = true
 description = "Repo-owned Rust literature search, deduplication, citation verification, and PDF retrieval"
 
 [dependencies]
+repo_root = { workspace = true }
 anyhow = { workspace = true }
 blake3 = { workspace = true }
 chromiumoxide = { workspace = true }

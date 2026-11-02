@@ -51,8 +51,9 @@ The repository root is treated as a workspace entrypoint, not a scratchpad.
   `.cache/`, `target/`, `target_codex_hve/`, `target_codex_hve2/`, `build/`,
   `logs/`, `out/`, `.claude/`, `.playwright-mcp/`, and similar tool caches.
 - User-local config/cache surfaces such as `~/.cargo/config.toml`,
-  `~/.config/nextest.toml`, `~/.gemini/settings.json`, and
-  `~/.cache/gororoba-lit-cache/` must not be versioned inside the repository.
+  `~/.config/nextest.toml` and `~/.gemini/settings.json` must not be versioned
+  inside the repository. The literature caches live in the primary checkout's
+  git-ignored `.cache/lit-cache/` (`GOROROBA_LIT_CACHE` overrides it).
 - Use `make bootstrap-user-local-xdg` to install the supported user-local
   config bundle; see `docs/engineering/user_local_bootstrap.txt`.
 - API keys and service tokens must live in user-local environment variables or

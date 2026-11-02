@@ -10,7 +10,6 @@ use std::{
 };
 
 const DEFAULT_TTL_SEC: u64 = 7 * 24 * 60 * 60;
-const CACHE_NAMESPACE: &str = "gororoba-lit-cache";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct SearchCachePayload {
@@ -28,17 +27,8 @@ fn current_unix_ts() -> u64 {
         .unwrap_or(0)
 }
 
-fn xdg_cache_root() -> Option<PathBuf> {
-    if let Some(path) = std::env::var_os("XDG_CACHE_HOME") {
-        return Some(PathBuf::from(path));
-    }
-    std::env::var_os("HOME")
-        .map(PathBuf::from)
-        .map(|home| home.join(".cache"))
-}
-
 fn home_cache_dir() -> Option<PathBuf> {
-    xdg_cache_root().map(|root| root.join(CACHE_NAMESPACE).join("search"))
+    crate::cache_root::lit_cache_root().map(|root| root.join("search"))
 }
 
 fn source_ttl_sec(source: &str) -> u64 {
