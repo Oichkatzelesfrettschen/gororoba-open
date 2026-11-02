@@ -253,6 +253,21 @@ mod tests {
     }
 
     #[test]
+    fn e10_and_e11_signatures_match_their_cartan_inertia() {
+        let e10 = e10_cartan();
+        // eigenvalue_signs returns (positive, zero, negative).
+        assert_eq!(e10.eigenvalue_signs(), (9, 0, 1));
+        assert_eq!(e10.determinant(), -1);
+        assert_eq!(E10RootSystem::signature(), (9, 1));
+
+        let e11 = e11_cartan();
+        assert_eq!(e11.rank(), 11);
+        assert_eq!(e11.eigenvalue_signs(), (10, 0, 1));
+        assert_eq!(e11.determinant(), -2);
+        assert_eq!(E11RootSystem::signature(), (10, 1));
+    }
+
+    #[test]
     fn test_e10_simple_roots() {
         let e10 = E10RootSystem::new();
         let simple_roots = e10.simple_roots();
