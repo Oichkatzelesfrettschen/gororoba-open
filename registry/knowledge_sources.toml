@@ -470,13 +470,13 @@ authoring_mode = "manual"
 generated = false
 status = "active"
 migration_priority = "high"
-sha256 = "ce71f492b69da076f778fb83cf4f6fbae1d344e63bd103edaeb3156e167847fb"
-size_bytes = 10918
-line_count = 255
+sha256 = "617a83da85252e1214f812e30dfed0f9a2dd671b21a5b11297f7d433ce2a48d0"
+size_bytes = 11333
+line_count = 260
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 90
+link_count = 106
 link_sample = ["[advisories].ignore", "data/output/audit/2026-04-30/04-gates/deny-check.txt", "data/output/debt_baseline_2026_04_30.toml", "deny.toml", "plans/elucidate-and-build-out-nested-hollerith.md"]
 
 [[document]]
