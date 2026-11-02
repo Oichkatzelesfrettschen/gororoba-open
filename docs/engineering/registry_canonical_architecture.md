@@ -519,6 +519,13 @@ statuses and retained numerical results keep their own evidence contracts.
 `verified_local` in the historical object inventory records the original
 backup verification. That field does not describe the reader's checkout.
 
+`data/retention/scientific-payloads.json` is a plain index of the GitHub
+release asset `scientific-payload-archive`, which the owner keeps as cold
+storage: it binds 3,419 original paths to SHA-256 and byte length and names the
+hash-named tar member holding each object. No repository tool reads it. The 976
+of its paths under `curated/`, `data/csv/` and `data/results/` are tracked in
+Git.
+
 ### Historical source identity
 
 `data/retention/history-commit-map.txt` and `data/retention/history-ref-map.txt` bind original Git identities
