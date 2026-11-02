@@ -1702,13 +1702,13 @@ No point has angles < 2% AND r < 3 sigma. (Complementarity theorem)
   Integration: cd_tower.rs naming conventions, AlgebraDim enum, XOR sign cocycle
   Papers:
   math/0011260 (2000): Original assessor/box-kite framework
-  math/0207003 (2002): Placeholder substructures I (ZD equivalence classes)
+  math/0207003 (2002): Flying higher than a box-kite (kite-chain middens, 2^n-ions beyond the sedenions)
   math/0403113 (2004): Box-kites III (mock octonions, quizzical quaternions)
   Wolfram (2004): Visual box-kite geometry presentation
   math/0603281 (2006): Presto digitization I (CDP bit-string encoding)
-  0704.0026 (2007): Catamaran sails (pathion ZD patterns)
-  0704.0112 (2007): Sedenions XOR (explicit XOR multiplication framework)
-  math/0703745 (2007): Placeholder substructures III (closure properties)
+  0704.0026 (2007): Placeholder substructures II (meta-fractals made of box-kites)
+  0704.0112 (2007): Placeholder substructures III (bit-string recipe theory)
+  math/0703745 (2007): Placeholder substructures I (road from NKS to scale-free networks)
   Local: ~/Documents/Projects/CayleyDickson/tier1_core_cd_algebra/_/de_marrais__.pdf
 
 - Anon (2025): "Cayley-Dickson tower mnemonic" [arXiv:2512.22134v3]
