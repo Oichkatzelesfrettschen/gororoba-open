@@ -573,7 +573,7 @@ fn render_scroll_toml(
     proof_rows: &[Value],
 ) -> Result<(String, ScrollCounts, String)> {
     let heading_re = Regex::new(r"^(#{1,6})\s+(.+?)\s*$")?;
-    let claim_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
     let source_path = table_str(doc, "source_markdown").trim().to_string();
     let body = ascii_sanitize(table_str(doc, "body_markdown").trim_end_matches('\n'));
     let sections = split_sections(&body, &heading_re)?;

@@ -815,7 +815,7 @@ fn build_bibliography_normalized(
 ) -> Result<(Vec<BibliographyNormalized>, BibliographyMeta)> {
     let arxiv_re = Regex::new(r"\barXiv[:\s]*([A-Za-z\-]+/\d{7}|\d{4}\.\d{4,5}(?:v\d+)?)\b")?;
     let year_re = Regex::new(r"\((\d{4})[a-z]?\)")?;
-    let claim_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
     let mut out = Vec::new();
     let mut total_warnings = 0usize;
     let mut rows = entries.to_vec();
@@ -1060,7 +1060,7 @@ fn build_narrative_paragraph_atoms(
     external_rows: &[Value],
     artifact_rows: &[Value],
 ) -> Result<(Vec<NarrativeParagraph>, NarrativeParagraphMeta)> {
-    let claim_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
     let equation_re = Regex::new(r"\bEQA2?-\d{4,5}\b")?;
     let symbol_re = Regex::new(r"\bSYM-\d{4}\b")?;
     let number_re = Regex::new(r"\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b")?;

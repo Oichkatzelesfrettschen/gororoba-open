@@ -1033,7 +1033,7 @@ fn status_token(status: &str) -> String {
 }
 
 fn extract_claim_refs(text: &str) -> Result<Vec<String>> {
-    let claim_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
     Ok(sorted_unique_regex(text, &claim_re))
 }
 

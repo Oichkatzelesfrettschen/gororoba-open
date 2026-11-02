@@ -416,7 +416,7 @@ fn extract_equation_atoms_v2(sources: &[NarrativeSource]) -> Result<Vec<Equation
     let heading_re = Regex::new(r"^(#{1,6})\s+(.+?)\s*$")?;
     let inline_math_re = Regex::new(r"\$([^$\n]{2,260})\$")?;
     let alpha_re = Regex::new(r"[A-Za-z_\\]")?;
-    let claim_id_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_id_re = Regex::new(r"\bC-\d{3,}\b")?;
     let mut atoms = Vec::new();
     let mut seen = BTreeSet::new();
 

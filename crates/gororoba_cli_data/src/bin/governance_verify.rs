@@ -3358,11 +3358,11 @@ fn verify_experiment_reference_identity(args: &CommonArgs) -> Result<()> {
         }
     }
     let bin_targets = collect_bin_targets(&root)?;
-    let id_re = Regex::new(r"\bE-\d{3}\b")?;
+    let id_re = Regex::new(r"\bE-\d{3,}\b")?;
     // A single identifier in parentheses is how a binary labels its own
     // experiment ("Takens tau sweep (E-nnn)"); a list or a bare mention is a
     // citation of another experiment's inputs and only has to resolve.
-    let self_label_re = Regex::new(r"\(E-\d{3}\)")?;
+    let self_label_re = Regex::new(r"\(E-\d{3,}\)")?;
     let mut failures = Vec::new();
     let mut references = 0usize;
     for rel_path in experiment_reference_surfaces(&root)? {
