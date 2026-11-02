@@ -3972,12 +3972,13 @@ id = "BIB-0312"
 order_index = 312
 group = "Primary Research & Data Sources"
 section = "Cayley-Dickson Algebras & Zero Divisors"
-citation_markdown = "**Brown, R. B. & Loeb, A. L.** (1997). *Nonassociative algebras and the Cayley-Dickson construction*. Exposition. Math. 15, 229."
+citation_markdown = "**Brown, R. B.** (1967). *On generalized Cayley-Dickson algebras*. Pacific J. Math. 20, 415-422."
 notes = [
     "*Mathematical properties of iterated Cayley-Dickson construction. Alternativity failure above dim 8, zero divisors above dim 16.*",
+    "*Correction: the earlier \"Brown and Loeb 1997, Exposition. Math. 15, 229\" citation matched no published work (that page is Marcolli-Spreafico, Zbl 0888.57024).*",
 ]
-urls = []
-dois = []
+urls = ["https://doi.org/10.2140/pjm.1967.20.415"]
+dois = ["10.2140/pjm.1967.20.415"]
 source_line = 715
 
 [[entry]]
