@@ -513,7 +513,8 @@ pub(crate) struct ExternalSourceArgs {
 pub(crate) enum ExternalSourceAction {
     /// Empty the bodies of dossiers whose transcriptions live in the documents
     /// repositories, clear their repository Markdown path, record the custody
-    /// sentence, and prune the index dossier, using a typed transactional specification.
+    /// sentence, and replace or drop body lines and path_refs of dossiers that stay,
+    /// using a typed transactional specification.
     RetireDossierBodies {
         #[arg(long)]
         spec: PathBuf,
