@@ -1832,6 +1832,23 @@ fn cmd_artifact_mutation(
             let report = store.retire_artifact_paths(repo_root, &specification)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
         }
+        ArtifactAction::RemoveDownloadPaths { spec, dry_run } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactPathSubsetRemovalSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report =
+                store.remove_artifact_download_paths(repo_root, &specification, *dry_run)?;
+            print_delta(&report);
+            if *dry_run {
+                println!("{} artifact(s) would change", specification.remove.len());
+            } else {
+                println!(
+                    "Removed download paths from {} artifact(s) under key {}.",
+                    specification.remove.len(),
+                    specification.removal_key
+                );
+            }
+        }
         ArtifactAction::RecordRetrieval { spec } => {
             let specification: provenance_store::ArtifactRetrievalSpec =
                 toml::from_str(&fs::read_to_string(repo_root.join(spec))?)?;

@@ -61,7 +61,7 @@ impl RetiredArtifactStatus {
     }
 }
 
-fn check_relative(path: &str) -> Result<()> {
+pub(crate) fn check_relative(path: &str) -> Result<()> {
     if path.is_empty()
         || !Path::new(path)
             .components()
@@ -74,7 +74,7 @@ fn check_relative(path: &str) -> Result<()> {
 
 /// A tracked file means a replacement exists and `repair_artifact_paths` is
 /// the verb; retirement applies only where the index holds no entry.
-fn reject_tracked(root: &Path, path: &str) -> Result<()> {
+pub(crate) fn reject_tracked(root: &Path, path: &str) -> Result<()> {
     let output = repository_git(root)
         .arg("--literal-pathspecs")
         .args(["ls-files", "-z", "--", path])

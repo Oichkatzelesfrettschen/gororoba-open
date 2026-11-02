@@ -598,6 +598,16 @@ pub(crate) enum ArtifactAction {
         #[arg(long)]
         spec: PathBuf,
     },
+    /// Move named untracked paths from an artifact's downloaded set to
+    /// historical_download while the artifact keeps its other downloaded paths,
+    /// its status and its canonical path, using a typed transactional specification.
+    RemoveDownloadPaths {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
     /// Add a compatibility lane to existing artifacts while preserving their records.
     AssignLane {
         /// Exact canonical artifact ID. Repeat for an atomic batch.
