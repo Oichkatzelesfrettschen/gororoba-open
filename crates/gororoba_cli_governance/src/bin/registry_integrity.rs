@@ -247,11 +247,38 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         .collect::<BTreeSet<_>>();
     let markers = table_array(&conflict_raw, "marker");
     let lacunae = table_array(&lacunae_raw, "lacuna");
+    let failures = integrity_failures(&claim_ids, markers, lacunae);
+
+    if !failures.is_empty() {
+        println!(
+            "ERROR: registry-integrity registry lane verification failed (canonical registry-integrity tool)."
+        );
+        for item in failures.iter().take(250) {
+            println!("- {}", item);
+        }
+        if failures.len() > 250 {
+            println!("- ... and {} more failures", failures.len() - 250);
+        }
+        std::process::exit(1);
+    }
+
+    println!(
+        "OK: registry-integrity registry lane verified (canonical registry-integrity tool). markers={} lacunae={}",
+        markers.len(),
+        lacunae.len()
+    );
+    Ok(())
+}
+
+fn integrity_failures(
+    claim_ids: &BTreeSet<String>,
+    markers: &[Value],
+    lacunae: &[Value],
+) -> Vec<String> {
     let marker_ids = markers
         .iter()
         .map(|row| table_str(row, "id").to_string())
         .collect::<BTreeSet<_>>();
-
     let mut failures = Vec::new();
     for row in markers {
         let marker_id = table_str(row, "id");
@@ -292,26 +319,7 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
             failures.push(format!("lacuna missing description: {lacuna_id}"));
         }
     }
-
-    if !failures.is_empty() {
-        println!(
-            "ERROR: registry-integrity registry lane verification failed (canonical registry-integrity tool)."
-        );
-        for item in failures.iter().take(250) {
-            println!("- {}", item);
-        }
-        if failures.len() > 250 {
-            println!("- ... and {} more failures", failures.len() - 250);
-        }
-        std::process::exit(1);
-    }
-
-    println!(
-        "OK: registry-integrity registry lane verified (canonical registry-integrity tool). markers={} lacunae={}",
-        markers.len(),
-        lacunae.len()
-    );
-    Ok(())
+    failures
 }
 
 fn build_conflict_markers(
@@ -1522,5 +1530,79 @@ status = "open"
         let error = build_lacunae(&[], &[], &[], &[], &legacy_lacunae)
             .expect_err("a duplicated retained id must not drop one record silently");
         assert!(error.to_string().contains("appears twice"));
+    }
+
+    /// Each kept verify check guards a field that `build_lacunae` carries
+    /// forward from a retained record. The test mutates that field, reruns
+    /// the builder, re-parses its rendered output and asserts the check still
+    /// fires, so a check whose defect a regeneration repairs cannot pass here.
+    #[test]
+    fn verify_checks_survive_regeneration_of_retained_lacunae() {
+        let claims = [verified_claim(
+            "C-001",
+            "A retained lacuna cites this claim.",
+        )];
+        let claim_ids = BTreeSet::from(["C-001".to_string()]);
+        let retained = r#"
+[[lacuna]]
+id = "L-002"
+origin = "legacy_manual"
+area = "lbm_core"
+title = "Retained manual record"
+description = "Manual evidence remains distinct."
+priority = "low"
+status = "open"
+claim_refs = ["C-001"]
+related_marker_ids = []
+"#;
+        let regenerate = |text: &str| {
+            let (rows, meta) =
+                build_lacunae(&claims, &[], &[], &[], &table_rows(text, "lacuna")).unwrap();
+            table_rows(&render_lacunae(&rows, &meta), "lacuna")
+        };
+        assert!(integrity_failures(&claim_ids, &[], &regenerate(retained)).is_empty());
+
+        for (mutated, expected) in [
+            (
+                retained.replace(
+                    "related_marker_ids = []",
+                    r#"related_marker_ids = ["CM-9999"]"#,
+                ),
+                "unknown conflict marker id: L-002 -> CM-9999",
+            ),
+            (
+                retained.replace(r#"claim_refs = ["C-001"]"#, r#"claim_refs = ["C-1776"]"#),
+                "unknown claim id: L-002 -> C-1776",
+            ),
+            (
+                retained.replace(r#"priority = "low""#, r#"priority = "urgent""#),
+                "invalid lacuna priority: L-002 -> urgent",
+            ),
+            (
+                retained.replace(r#"title = "Retained manual record""#, r#"title = " ""#),
+                "lacuna missing title: L-002",
+            ),
+            (
+                retained.replace(
+                    r#"description = "Manual evidence remains distinct.""#,
+                    r#"description = """#,
+                ),
+                "lacuna missing description: L-002",
+            ),
+        ] {
+            let failures = integrity_failures(&claim_ids, &[], &regenerate(&mutated));
+            assert!(
+                failures.iter().any(|failure| failure.contains(expected)),
+                "regeneration repaired `{expected}`; failures: {failures:?}"
+            );
+        }
+    }
+
+    #[test]
+    fn claim_refs_extraction_admits_four_digit_ids() {
+        assert_eq!(
+            extract_claim_refs("C-001 and C-1776 disagree; C-12 is not an id.").unwrap(),
+            ["C-001", "C-1776"]
+        );
     }
 }
