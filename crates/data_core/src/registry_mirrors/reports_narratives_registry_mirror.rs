@@ -8,7 +8,7 @@
 //!
 //! - Updated: 2026-03-12
 //! - Source markdown glob: `reports/*.md`
-//! - Document count: 53
+//! - Document count: 51
 //!
 //! ## Documents
 //!
@@ -257,12 +257,6 @@
 //! - Line count: 75
 //! - Claim refs (3): C-403, C-404, C-405
 //!
-//! ### RPT-037: Convos PDF inventory
-//!
-//! - Source markdown: `reports/convos_pdf_inventory.md`
-//! - Category: `inventory`
-//! - Line count: 51
-//!
 //! ### RPT-038: Handoff Report: Algebra-Fluid Duality Implementation
 //!
 //! - Source markdown: `reports/handoff_algebra_fluid_duality.md`
@@ -300,12 +294,6 @@
 //! - Source markdown: `reports/package_index.md`
 //! - Category: `report`
 //! - Line count: 70
-//!
-//! ### RPT-044: PDF Inventory
-//!
-//! - Source markdown: `reports/pdf_inventory.md`
-//! - Category: `inventory`
-//! - Line count: 251
 //!
 //! ### RPT-045: Pythonpath Refactor Plan (2026-02-04)
 //!

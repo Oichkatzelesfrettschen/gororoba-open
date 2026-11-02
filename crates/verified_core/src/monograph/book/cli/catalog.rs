@@ -43,7 +43,6 @@
 //! | migrate-insights | Legacy/bootstrap import from markdown insights mirror into SQLite compatibility exports |
 //! | generate-latex | Publication export: generate LaTeX appendices from canonical control-plane data |
 //! | registry-emit | Export derived web and publication views; `control-plane-docs` is the standard refresh path for claims, insights, experiments, and theorems |
-//! | extract-papers | Batch PDF extraction to structured TOML |
 //! | export-hdf5 | Export computed data to HDF5 (feature-gated) |
 //! | fetch-chime-frb | Download CHIME/FRB catalog data |
 //! | fetch-datasets | Download all external astrophysical datasets |

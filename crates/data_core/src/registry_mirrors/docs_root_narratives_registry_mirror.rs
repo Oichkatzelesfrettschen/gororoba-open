@@ -38,7 +38,7 @@
 //! - Line count: 173
 //! - Claim refs (4): C-657, C-658, C-659, E-027
 //!
-//! ### DRN-008: MCP Servers for open_gororoba
+//! ### DRN-008: MCP Servers for gororoba-open
 //!
 //! - Source markdown: `docs/MCP_SERVERS.md`
 //! - Slug: `mcp_servers`
@@ -91,7 +91,7 @@
 //! - Line count: 311
 //! - Claim refs (1): E-027
 //!
-//! ### DRN-010: Scope Guardrails: What open_gororoba Does and Does Not Claim
+//! ### DRN-010: Scope Guardrails: What gororoba-open Does and Does Not Claim
 //!
 //! - Source markdown: `docs/SCOPE_GUARDRAILS.md`
 //! - Slug: `scope_guardrails`

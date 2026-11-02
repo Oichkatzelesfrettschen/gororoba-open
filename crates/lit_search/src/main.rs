@@ -4,7 +4,6 @@
 //!   lit-search "sedenion zero divisor" --limit 10 --tier all
 //!   lit-search --query-file queries.txt --parallel-queries --source openalex --source crossref
 //!   lit-search crawl "https://arxiv.org/abs/2301.00001"
-//!   lit-search extract-pdf ./paper.pdf
 
 use anyhow::{Context, Result, bail};
 use clap::{Parser, Subcommand};
@@ -12,8 +11,7 @@ use lit_search::{
     ALL_SOURCE_NAMES, DatasetDiff, DatasetManifest, DatasetRelease, MultiQueryExecutionReport,
     Paper, SOURCE_FAMILY_NAMES, SearchEngine, SearchExecutionReport, SemanticScholarDatasetsClient,
     crawler::WebCrawler, critique::build_critique_prompt, download, evolution::EvolutionStore,
-    normalize_source_name, pdf::PdfExtractor, search::SourceTier, source_names_for_family,
-    sources::ApiKeys,
+    normalize_source_name, search::SourceTier, source_names_for_family, sources::ApiKeys,
 };
 use serde::Serialize;
 use std::path::{Path, PathBuf};
@@ -101,8 +99,6 @@ enum Commands {
         #[arg(long, default_value_t = 30)]
         timeout: u64,
     },
-    /// Extract text and math from a scientific PDF
-    ExtractPdf { path: PathBuf },
     /// Critique a paper draft using academic personas
     Critique {
         #[arg(long)]
@@ -233,11 +229,6 @@ async fn main() -> Result<()> {
                 } else {
                     eprintln!("Crawl failed: {:?}", res.error);
                 }
-            }
-            Commands::ExtractPdf { path } => {
-                println!("Extracting PDF: {}...", path.display());
-                let md = PdfExtractor::extract_to_markdown(&path)?;
-                println!("{}", md);
             }
             Commands::Critique {
                 draft,

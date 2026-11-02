@@ -277,8 +277,11 @@ impl ProvenanceStore {
         let contracts = self.list_external_source_contracts()?;
         let dossiers_meta = self.external_source_dossiers_meta()?;
         let dossiers = self.list_external_source_dossiers()?;
+        // A dossier with an empty `source_markdown` keeps its transcription outside this
+        // repository and has no Markdown file to generate or verify.
         let docs = dossiers
             .iter()
+            .filter(|dossier| !dossier.source_markdown.trim().is_empty())
             .map(|dossier| {
                 (
                     Utf8PathBuf::from(dossier.source_markdown.clone()),

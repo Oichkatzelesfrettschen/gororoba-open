@@ -1,6 +1,3 @@
-papers/pdf/*.pdf    -text
-data/external/documents_ingest/**/*.pdf    -text
-data/external/documents_extracted/**/*.png    -text
 data/output/heliosphere/soho/celias_pm_native_5min.csv    -text
 # Canonical SQLite registry files are source artifacts; keep them as Git blobs.
 registry/canonical/*.sqlite3 -filter -diff -merge -text
@@ -14,7 +11,6 @@ crates/qgp_scaling/tests/fixtures/alice_pbpb_5020_raa_central.csv -text whitespa
 data/output/audit/claim-family-evidence-adjudication/*.log -text whitespace=-blank-at-eof
 data/output/audit/frb-physical-calibration-replay/*.log -text whitespace=-blank-at-eof
 data/output/audit/claim-family-evidence-adjudication/*replay.txt -text whitespace=-blank-at-eof
-data/output/audit/claim-family-evidence-adjudication/moreno-zero-divisors-source.tex -text whitespace=-blank-at-eol,-blank-at-eof
 data/output/audit/claim-family-evidence-adjudication/*.headers -text whitespace=-blank-at-eol,-blank-at-eof
 data/output/audit/claim-family-evidence-adjudication/optics-replay/*.headers -text whitespace=-blank-at-eol,-blank-at-eof
 data/output/audit/claim-family-evidence-adjudication/optics-replay/reproduction.toml -text whitespace=-blank-at-eof
@@ -52,15 +48,11 @@ data/output/audit/magnonic-source-projection/source-*.tex -text whitespace=-blan
 data/output/audit/magnonic-source-projection/source-*.ppm -text -diff
 data/output/audit/magnonic-source-projection/databank-response.html -text whitespace=-blank-at-eof,-blank-at-eol,cr-at-eol
 data/output/audit/ward-residual-scope/*.log -text whitespace=-blank-at-eof,-blank-at-eol
-data/output/audit/ward-residual-scope/source.txt -text whitespace=-blank-at-eof,-blank-at-eol
-data/output/audit/ward-residual-scope/scalar-source.txt -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/claim-family-evidence-adjudication/instrument-followup-validation.log -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/optics-landmark-identity/FanoCloak-lossy-abs.eps -text whitespace=-blank-at-eof,-blank-at-eol,cr-at-eol
 data/output/audit/optics-landmark-identity/FanoCloak-lossy-sct.eps -text whitespace=-blank-at-eof,-blank-at-eol,cr-at-eol
 data/output/audit/optics-landmark-identity/*.log -text whitespace=-blank-at-eof,-blank-at-eol
-data/output/audit/optics-landmark-identity/source-pdf.txt -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/ward-distributional-identity/*.log -text whitespace=-blank-at-eof,-blank-at-eol
-data/output/audit/ward-distributional-identity/source.tex -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/magnonic-global-gap-certificate/*.log -text whitespace=-blank-at-eof,-blank-at-eol
 data/output/audit/qgp-primary-reference-intake/*.headers -text whitespace=-blank-at-eof,-blank-at-eol,cr-at-eol
 data/output/audit/qgp-primary-reference-intake/*.html -text whitespace=-blank-at-eof,-blank-at-eol,-space-before-tab,cr-at-eol

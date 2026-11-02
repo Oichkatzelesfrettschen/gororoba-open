@@ -241,7 +241,6 @@ crates = [
     "control_core",
     "optics_core",
     "scrolls_core",
-    "docpipe",
 ]
 
 [[shared.architecture_tier]]

@@ -107,13 +107,12 @@ pub(super) fn apply_verified_retrievals(
         let Some(identity) = identities.get(&artifact.key) else {
             continue;
         };
-        retention.verify_archive_identity(&identity.path, &identity.sha256, identity.bytes)?;
         artifact.links.push(identity.url.clone());
         artifact.links = dedupe(std::mem::take(&mut artifact.links));
         artifact.canonical_functional_url = identity.url.clone();
         artifact.sha256 = identity.sha256.clone();
         artifact.byte_length = identity.bytes;
-        if retention.is_retained(&identity.path) {
+        if retention.contains(&identity.path) {
             artifact.downloaded_paths.push(identity.path.clone());
             artifact.downloaded_paths = dedupe(std::mem::take(&mut artifact.downloaded_paths));
             artifact.canonical_download_path = identity.path.clone();
@@ -206,36 +205,26 @@ mod tests {
     }
 
     #[test]
-    fn absent_archived_response_requires_canonical_hash_and_size_agreement() -> Result<()> {
-        let (fixture, identity) = fixture()?;
+    fn retrieval_status_follows_git_retention_of_the_response_path() -> Result<()> {
+        let (fixture, _) = fixture()?;
         let root = fixture.path();
         std::fs::remove_file(root.join("response.pdf"))?;
         let identities = load_verified_retrievals(root)?;
-        for declared in [
-            artifact_retention::FileIdentity {
-                sha256: "0".repeat(64),
-                byte_length: identity.byte_length,
-            },
-            artifact_retention::FileIdentity {
-                sha256: identity.sha256.clone(),
-                byte_length: identity.byte_length + 1,
-            },
-            identity.clone(),
+        for (retention, status, download_path) in [
+            (
+                RetentionSet::from_paths(["response.pdf"]),
+                "downloaded",
+                "response.pdf",
+            ),
+            (RetentionSet::default(), "remotely_materializable", ""),
         ] {
-            let retention = artifact_retention::archive_fixture(root, "response.pdf", &declared)?;
             let mut artifacts = vec![UnifiedArtifact {
                 key: "artifact:a".into(),
                 ..Default::default()
             }];
-            let result = apply_verified_retrievals(&mut artifacts, &identities, &retention);
-            if declared == identity {
-                result?;
-                assert_eq!(artifacts[0].status, "downloaded");
-                assert_eq!(artifacts[0].canonical_download_path, "response.pdf");
-                assert!(!retention.contains("response.pdf"));
-            } else {
-                assert!(result.is_err());
-            }
+            apply_verified_retrievals(&mut artifacts, &identities, &retention)?;
+            assert_eq!(artifacts[0].status, status);
+            assert_eq!(artifacts[0].canonical_download_path, download_path);
         }
         Ok(())
     }

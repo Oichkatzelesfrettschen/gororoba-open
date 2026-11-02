@@ -13,7 +13,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Cayley-Dickson algebras become non-associative at 8D and beyond.
-//! - Where stated: `CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`
+//! - Where stated: `CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `registry/bibliography.toml` (BIB-0077)
 //! - What would verify/refute it:
 //!
 //! ## C-002
@@ -21,7 +21,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: 16D sedenions have zero divisors and lose norm composition.
-//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`
+//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `registry/bibliography.toml` (BIB-0077)
 //! - What would verify/refute it:
 //!
 //! ## C-003
@@ -29,7 +29,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: "42 assessors" / "7 box-kites" organize primitive sedenion zero divisors.
-//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_assessors_count, test_sedenion_boxkite_count, test_assessors_partition_into_boxkites), `docs/SEDENION_ATLAS.md`, `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0073)
+//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_assessors_count, test_sedenion_boxkite_count, test_assessors_partition_into_boxkites), `docs/SEDENION_ATLAS.md`, `registry/bibliography.toml` (BIB-0077), `registry/bibliography.toml` (BIB-0073)
 //! - What would verify/refute it:
 //!
 //! ## C-004
@@ -3621,7 +3621,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-10
 //! - Statement: Cayley-Dickson basis elements at dim=256 embed into an 8-dimensional trinary integer lattice with coordinates in {-1, 0, 1}. The mapping is injective over all 256 basis indices and supports exact lattice-to-index round-trip decoding.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c452_c453_lattice_header_schema_stability)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims and test_c452_c453_lattice_header_schema_stability; each reads the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and executes in CI)
 //! - What would verify/refute it:
 //!
 //! ## C-453
@@ -3629,7 +3629,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-10
 //! - Statement: The 8D lattice embedding extends to dims 512, 1024, and 2048: each map is injective at its native dimension, codomain dimension remains fixed at 8, and filtration growth is exact (new-point deltas 256, 512, 1024 across 256->512->1024->2048).
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses, test_csv_2048d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048, test_c453_filtration_intersection_cardinalities_are_exact, test_c453_filtration_is_lexicographic_prefix_chain)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses, test_csv_2048d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048 and test_c453_filtration_intersection_cardinalities_are_exact; each reads the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and executes in CI)
 //! - What would verify/refute it:
 //!
 //! ## C-454
@@ -3669,7 +3669,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Codebook parity (Thesis A): All lattice codebook points at dims 256, 512, 1024, 2048 satisfy: (a) coordinates in {-1, 0, 1}, (b) coordinate sum is even, (c) number of nonzero coordinates is even, (d) first coordinate is never +1.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity, test_thesis_a_codebook_parity_{256,512,1024,2048}d)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity; test_thesis_a_codebook_parity_256d, test_thesis_a_codebook_parity_512d, test_thesis_a_codebook_parity_1024d and test_thesis_a_codebook_parity_2048d assert conditions (a) to (c) on the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/; condition (d) is asserted by test_base_universe_size_and_exclusion_count, which requires Lambda_2048 to lie inside the base universe with coord[0] in {-1, 0}, and test_thesis_b_filtration_nesting carries it to the smaller dimensions; all execute in CI)
 //! - What would verify/refute it:
 //!
 //! ## C-459
@@ -3677,7 +3677,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Lattice filtration nesting (Thesis B): Lambda_256 is a strict subset of Lambda_512, which is a strict subset of Lambda_1024, which is a strict subset of Lambda_2048. The embedding is by exact lattice-point membership.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration, test_thesis_b_filtration_nesting)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration; test_thesis_b_filtration_nesting and test_c453_filtration_growth_has_expected_new_points assert the strict subset chain on the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and execute in CI)
 //! - What would verify/refute it:
 //!
 //! ## C-460
@@ -3685,7 +3685,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Prefix-cut characterization (Thesis C): Each filtration transition (2048->1024, 1024->512, 512->256) is a lexicographic prefix cut -- the child codebook consists of exactly the first |child| points when the parent is sorted in lexicographic order.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut, test_thesis_c_*_prefix_cut)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut; test_thesis_c_2048_to_1024_prefix_cut, test_thesis_c_1024_to_512_prefix_cut, test_thesis_c_512_to_256_prefix_cut, test_thesis_c_full_filtration_cuts and test_c453_filtration_is_lexicographic_prefix_chain read the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and execute in CI)
 //! - What would verify/refute it:
 //!
 //! ## C-461
@@ -3693,7 +3693,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Lambda_32 (the 32-row alignment) is a "pinned corner" of Lambda_256: all 32 points have first 4 coordinates equal to (-1, -1, -1, -1). It is the lex-first 32 points of Lambda_256 under lex order.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256 asserts that the lex-first 32 points of Lambda_256 all have first four coordinates equal to -1, and test_lambda_256_csv_vs_predicates ties the CSV Lambda_256 to the predicate enumeration; both read the Git-tracked lattice mapping CSV under data/csv/cayley_dickson/ and execute in CI; the 32 points are derived from Lambda_256 in lex order, and no executing test compares them with a separate 32-row alignment table)
 //! - What would verify/refute it:
 //!
 //! ## C-462
@@ -3725,7 +3725,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Scalar shadow action (Thesis D): For each lattice point, the scalar shadow pi(b) = signum(sum(coords)) maps to {-1, 0, 1}. The addition-mode action ell_out = ell + pi(b)*ones_8 shifts lattice points by a multiple of the all-ones vector.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition, test_thesis_d_*)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition; test_thesis_d_scalar_shadow_basic asserts the identity shadow is -1 and test_thesis_d_scalar_shadow_addition_mode asserts that the shadow is ternary over the checked basis elements, both on the Git-tracked 256d lattice mapping CSV under data/csv/cayley_dickson/ and executing in CI; verify_scalar_shadow_addition returns addition_mode_verified, a parity check on ell + pi(b)*ones_8, but no executing test asserts that field, so the claimed shift by a multiple of the all-ones vector has no asserting test beyond its construction in that function)
 //! - What would verify/refute it:
 //!
 //! ## C-466
@@ -5573,7 +5573,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-17
 //! - Statement: 8D codomain lock of CD lattice projection reflects octonion subalgebra shadow: the projection pi(a,b)_i = round((a_i - b_i) * scale) always maps to Z^8 regardless of input dimension.
-//! - Where stated: `crates/lattice_filtration/src/basis_index.rs` (project_to_lattice), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims)
+//! - Where stated: `crates/lattice_filtration/src/basis_index.rs` (project_to_lattice; test_project_to_lattice executes the formula on one 16D sample and checks one coordinate), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims asserts that every stored lattice vector at dims 256, 512, 1024 and 2048 has 8 coordinates, read from the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/; no executing test applies project_to_lattice across input dimensions, so the statement for generic input dimension rests on the [i32; 8] return type)
 //! - What would verify/refute it:
 //!
 //! ## C-697
@@ -12188,8 +12188,8 @@
 //!
 //! - Status: `Provisional`
 //! - Last verified: 2026-08-06
-//! - Statement: The retained Ruan-Fan reproduction metadata contains a 61-character source_tex_sha256 literal, which cannot encode SHA256. A separate preregistration field named source_tex_sha256 identifies compressed archive bytes rather than extracted TeX. Independent receipt tests distinguish the archive, extracted TeX and PDF by their actual hashes while preserving those historical defects. Exhaustive validity of every receipt under data/output/audit remains unadmitted without a finite receipt-to-artifact manifest.
-//! - Where stated: data/output/audit/claim-family-evidence-adjudication/optics-adjudication.toml; crates/optics_core/tests/ruan_fan_source_receipts.rs
+//! - Statement: The retained Ruan-Fan reproduction metadata contains a 61-character source_tex_sha256 literal, which cannot encode SHA256. A separate preregistration field named source_tex_sha256 identifies compressed archive bytes rather than extracted TeX. The executing receipt test asserts only the 61-character length of the runner literal and retains that historical defect. The assertions that distinguished the archive, extracted TeX and PDF by their actual hashes, and the assertions on the method and landmark text of the source, moved with the source PDF to the documents repositories and no longer execute in this repository; the archive, TeX and PDF digests stay recorded in optics-adjudication.toml. Exhaustive validity of every receipt under data/output/audit remains unadmitted without a finite receipt-to-artifact manifest.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/optics-adjudication.toml; crates/optics_core/tests/ruan_fan_source_receipts.rs (legacy_source_hash_declaration_is_not_a_sha256_digest asserts the 61-character length of the runner literal and executes in CI; the byte-identity and source-text assertions are no longer executed here)
 //! - What would verify/refute it: Verification: The historical TeX field has 61 characters, while the independently retained archive and extracted TeX have distinct valid digests; all admitted source hashes reproduce.. Revision: Corrected producer metadata identifies each exact object: retain historical defects and bind the corrected producer separately.. Abandonment: A faithful byte-level replay contradicts the recorded malformed length or artifact identity.. Inconclusive: Missing source bytes or undeclared receipt targets block identity admission.; A repository-wide receipt assertion remains unadmitted until every receipt and target belongs to an explicit finite manifest.
 //!
 //! ## C-1709
@@ -12301,7 +12301,7 @@
 //! - Status: `Provisional`
 //! - Last verified: 2026-08-06
 //! - Statement: For normal ordering, theta_23 = 48.99 degrees lies inside the NuFit 6.0 IC19 without-SK 1-sigma interval [47.6, 49.2], outside the NuFit 6.0 IC24 with-SK interval [42.5, 44.3], and outside both NuFit 6.1 intervals: IC23 without SK [42.45, 44.27] and IC24 with SK [42.50, 44.25]. The value lies inside all four published 3-sigma intervals. Interval membership describes these reference variants; local asymmetric-error pulls do not establish an exclusion confidence.
-//! - Where stated: data/output/audit/claim-family-evidence-adjudication/nufit-variant-intervals.toml; data/output/audit/claim-family-evidence-adjudication/nufit-v60-parameters.pdf; data/output/audit/claim-family-evidence-adjudication/nufit-v61-parameters.pdf
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/nufit-variant-intervals.toml (the NuFit 6.0 and 6.1 parameter PDFs are not tracked in this repository)
 //! - What would verify/refute it: Verification: The fixed angle lies inside NuFit6.0 without-SK1-sigma, outside the other three1-sigma intervals, and inside all four3-sigma intervals.. Revision: A source-column or interval correction changes membership: retain the historical ledger and canonically revise only the affected variant-specific statement.. Abandonment: An admitted source comparison contradicts the asserted membership vector under the declared columns: abandon that reference-membership statement.. Inconclusive: The test verifies transcription identity and membership of a fixed value; independent model fitting, uncertainty propagation and physical agreement require separate contracts.
 //!
 //! ## C-1723

@@ -294,3 +294,23 @@ enabled = true
 severity = "hard_fail"
 command = "cargo run -p gororoba_cli_data --bin data-semantic-validate -- --lane test_zd_1k"
 description = "ZD 1k test fixtures must parse as CSV with header and data rows."
+
+[[validator]]
+id = "SV-030"
+lane_id = "results"
+name = "Results Structure"
+validator_kind = "generic_lane_structure"
+enabled = true
+severity = "hard_fail"
+command = "cargo run -p gororoba_cli_data --bin data-semantic-validate -- --lane results"
+description = "Tracked result tables must pass extension-aware structural checks."
+
+[[validator]]
+id = "SV-031"
+lane_id = "curated"
+name = "Curated Structure"
+validator_kind = "generic_lane_structure"
+enabled = true
+severity = "hard_fail"
+command = "cargo run -p gororoba_cli_data --bin data-semantic-validate -- --lane curated"
+description = "Tracked curated tables and sources must pass extension-aware structural checks."

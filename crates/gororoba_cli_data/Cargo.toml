@@ -181,18 +181,6 @@ name = "fetch-datasets"
 path = "src/bin/fetch_datasets.rs"
 
 [[bin]]
-name = "human-acquire"
-path = "src/bin/human_acquire.rs"
-
-[[bin]]
-name = "cd-cache-reconcile"
-path = "src/bin/cd_cache_reconcile.rs"
-
-[[bin]]
-name = "cd-cache-adapter"
-path = "src/bin/cd_cache_adapter.rs"
-
-[[bin]]
 name = "things-fetch"
 path = "src/bin/things_fetch.rs"
 
@@ -302,11 +290,7 @@ path = "src/bin/migrate_claims.rs"
 name = "migrate-insights"
 path = "src/bin/migrate_insights.rs"
 
-# ---- Publishing (3) ----
-
-[[bin]]
-name = "extract-papers"
-path = "src/bin/extract_papers.rs"
+# ---- Publishing (2) ----
 
 [[bin]]
 name = "generate-latex"
@@ -411,6 +395,10 @@ name = "markdown-registry"
 path = "src/bin/markdown_registry.rs"
 
 [[bin]]
+name = "markdown_to_rust"
+path = "src/bin/markdown_to_rust.rs"
+
+[[bin]]
 name = "knowledge-atoms"
 path = "src/bin/knowledge_atoms.rs"
 
@@ -481,12 +469,6 @@ path = "src/bin/cpd_report.rs"
 name = "extract-nk-arrays"
 path = "src/bin/extract_nk_arrays.rs"
 
-# ---- Document extraction inventory (1) ----
-
-[[bin]]
-name = "document-mineru-replay"
-path = "src/bin/document_mineru_replay.rs"
-
 [dependencies]
 book_docs = { path = "../book_docs" }
 repo_root = { workspace = true }
@@ -504,7 +486,6 @@ cosmology_core = { path = "../cosmology_core", features = ["euclid-catalog"] }
 csv = { workspace = true }
 data_artifacts_core = { path = "../data_artifacts_core" }
 data_core = { path = "../data_core", default-features = false, features = ["fetch", "fits", "nanograv-engine"] }
-docpipe = { path = "../docpipe", features = ["fallback"] }
 env_logger = { workspace = true }
 fitsio = { workspace = true }
 glob = { workspace = true }
@@ -514,7 +495,6 @@ gr_core = { path = "../gr_core" }
 hdf5 = { workspace = true }
 hifitime = { workspace = true }
 lit_search = { path = "../lit_search" }
-lopdf = { workspace = true }
 materials_core = { path = "../materials_core" }
 md5 = { workspace = true }
 parquet = { workspace = true }

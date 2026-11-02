@@ -37,7 +37,6 @@ pub use insight_admission::{
     InsightExecutionStatus, InsightOutcome, InsightPredicate, InsightPredicateKind,
     InsightReferenceRole,
 };
-pub mod retained_archive;
 pub mod quantum_bindings;
 pub use artifact_retrieval::{
     ArtifactRetrievalSpec, DocumentIdentityStatus, RetrievalEvidenceFile, RetrievalRequestEvidence,
@@ -116,6 +115,20 @@ mod artifact_paths;
 pub use artifact_paths::{
     ArtifactPathRepair, ArtifactPathRepairSpec, HistoricalPathRelation, RelatedArtifactPath,
     TransformedPathRelation,
+};
+mod artifact_path_retirement;
+pub use artifact_path_retirement::{
+    ArtifactPathRetirement, ArtifactPathRetirementSpec, RetiredArtifactStatus,
+};
+mod artifact_record_source_drop;
+pub use artifact_record_source_drop::{ArtifactRecordSourceDrop, ArtifactRecordSourceDropSpec};
+mod artifact_path_subset_removal;
+pub use artifact_path_subset_removal::{ArtifactPathSubsetRemoval, ArtifactPathSubsetRemovalSpec};
+mod external_source_dossier_retirement;
+pub use external_source_dossier_retirement::{
+    DossierBodyRetirement, DossierBodyRetirementSpec, DossierIndexPrune,
+    RETIRED_DOSSIER_AUTHORITY_LEVEL, RETIRED_DOSSIER_CONTENT_KIND,
+    RETIRED_DOSSIER_VERIFICATION_LEVEL,
 };
 mod claim_transitions;
 pub use claim_transitions::{
@@ -1241,7 +1254,12 @@ impl ProvenanceStore {
         }
         for dossier in self.list_external_source_dossiers()? {
             if dossier.source_markdown.trim().is_empty() {
-                failures.push(format!("{} has empty source_markdown", dossier.id));
+                if !dossier.body_markdown.trim().is_empty() {
+                    failures.push(format!(
+                        "{} has empty source_markdown but a nonempty body",
+                        dossier.id
+                    ));
+                }
             } else {
                 let path = repo_root.join(&dossier.source_markdown);
                 if let Some(parent) = path.parent()

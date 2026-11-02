@@ -312,7 +312,6 @@ claims_referenced = [
 ]
 backlog_reports = [
     "reports/claims_batch_backlog_C401_C427.md",
-    "reports/convos_pdf_inventory.md",
     "reports/tscp_trial_factor_ledger.md",
 ]
 deliverable_links = ["docs/external_sources/*.md", "src/verification/"]

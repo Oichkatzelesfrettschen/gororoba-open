@@ -9,7 +9,6 @@
 //! debt markers.
 
 use clap::Parser;
-use csv::ReaderBuilder;
 use data_core::{
     catalogs::nanograv::{
         KdeDensityInterpretation, bestfit, extract_free_spectrum_from_kde_zip_with_interpretation,
@@ -163,19 +162,6 @@ fn summarize_nanograv_zip(
     }
 }
 
-fn csv_shape_ok(path: &Path) -> Result<usize, String> {
-    let mut reader = ReaderBuilder::new()
-        .has_headers(true)
-        .from_path(path)
-        .map_err(|err| format!("open {}: {err}", path.display()))?;
-    let mut rows = 0usize;
-    for result in reader.records() {
-        result.map_err(|err| format!("parse {}: {err}", path.display()))?;
-        rows += 1;
-    }
-    Ok(rows)
-}
-
 fn render_zip_extract_section(out: &mut String, section: &str, status: &ZipExtractStatus) {
     let _ = writeln!(out, "[nanograv.{section}]");
     let _ = writeln!(out, "interpretation = \"{}\"", status.interpretation);
@@ -225,21 +211,11 @@ fn main() {
     let nanograv_html_path = repo_path("data/external/nanograv_15yr/smbhb.html");
     let nanograv_extract_readme_path =
         repo_path("data/external/nanograv_15yr/kde_contents/ceffyl_data/README.md");
-    let nanograv_paper_path = repo_path(
-        "data/papers/documents_extracted/arxiv-2306-16213-agazie-et-al-2023-nanograv-15yr-gwb/paper.toml",
-    );
-    let nanograv_table_path = repo_path(
-        "data/papers/documents_extracted/arxiv-2306-16213-agazie-et-al-2023-nanograv-15yr-gwb/table_1.csv",
-    );
     let c070_doc_path = repo_path("docs/external_sources/C070_NANOGRAV_SPECTRUM_MATCH_SOURCES.md");
 
     let pdg_index_path = repo_path("data/external/pdg_2025/index.html");
     let pdg_listings_path = repo_path("data/external/pdg_2025/contents_listings.html");
     let pdg_tables_path = repo_path("data/external/pdg_2025/contents_tables.html");
-    let pdg_leptons_pdf_path = repo_path("data/external/pdg_2025/rpp2025-sum-leptons.pdf");
-    let pdg_quarks_pdf_path = repo_path("data/external/pdg_2025/rpp2025-sum-quarks.pdf");
-    let pdg_bosons_pdf_path =
-        repo_path("data/external/pdg_2025/rpp2025-sum-gauge-higgs-bosons.pdf");
     let pdg_mass_csv_path = repo_path("data/external/pdg_2025/mass_subset.csv");
 
     let legacy_neutrino_fetch_path = repo_path("src/scripts/data/fetch_neutrino_params.py");
@@ -281,10 +257,6 @@ fn main() {
         KdeDensityInterpretation::Log10,
     );
 
-    let extracted_table_rows = match csv_shape_ok(&nanograv_table_path) {
-        Ok(rows) => rows.to_string(),
-        Err(err) => format!("\"{err}\""),
-    };
     let pdg_mass_rows = parse_pdg_mass_reference_csv(&pdg_mass_csv_path)
         .map(|rows| rows.len().to_string())
         .unwrap_or_else(|err| format!("\"{err}\""));
@@ -342,16 +314,6 @@ fn main() {
     );
     let _ = writeln!(
         out,
-        "paper_extract_path = \"{}\"",
-        render_repo_path(&nanograv_paper_path)
-    );
-    let _ = writeln!(
-        out,
-        "table_extract_path = \"{}\"",
-        render_repo_path(&nanograv_table_path)
-    );
-    let _ = writeln!(
-        out,
         "local_html_present = {}",
         render_bool(nanograv_html_path.exists())
     );
@@ -375,17 +337,6 @@ fn main() {
         "c070_source_doc_present = {}",
         render_bool(c070_doc_path.exists())
     );
-    let _ = writeln!(
-        out,
-        "paper_extract_present = {}",
-        render_bool(nanograv_paper_path.exists())
-    );
-    let _ = writeln!(
-        out,
-        "table_extract_present = {}",
-        render_bool(nanograv_table_path.exists())
-    );
-    let _ = writeln!(out, "table_extract_csv_status = {}", extracted_table_rows);
     let _ = writeln!(out);
 
     let _ = writeln!(out, "[nanograv.csv_before]");
@@ -450,21 +401,6 @@ fn main() {
     );
     let _ = writeln!(
         out,
-        "leptons_pdf_path = \"{}\"",
-        render_repo_path(&pdg_leptons_pdf_path)
-    );
-    let _ = writeln!(
-        out,
-        "quarks_pdf_path = \"{}\"",
-        render_repo_path(&pdg_quarks_pdf_path)
-    );
-    let _ = writeln!(
-        out,
-        "gauge_higgs_pdf_path = \"{}\"",
-        render_repo_path(&pdg_bosons_pdf_path)
-    );
-    let _ = writeln!(
-        out,
         "mass_subset_csv_path = \"{}\"",
         render_repo_path(&pdg_mass_csv_path)
     );
@@ -482,21 +418,6 @@ fn main() {
         out,
         "tables_present = {}",
         render_bool(pdg_tables_path.exists())
-    );
-    let _ = writeln!(
-        out,
-        "leptons_pdf_present = {}",
-        render_bool(pdg_leptons_pdf_path.exists())
-    );
-    let _ = writeln!(
-        out,
-        "quarks_pdf_present = {}",
-        render_bool(pdg_quarks_pdf_path.exists())
-    );
-    let _ = writeln!(
-        out,
-        "gauge_higgs_pdf_present = {}",
-        render_bool(pdg_bosons_pdf_path.exists())
     );
     let _ = writeln!(
         out,

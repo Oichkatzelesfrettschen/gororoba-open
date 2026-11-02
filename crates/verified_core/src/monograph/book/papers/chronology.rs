@@ -17,7 +17,7 @@
 //!
 //! This page tracks the active formalization frontier in chronological order. The
 //! full historical chronology lives off-repo in
-//! gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`; this
+//! gororoba-documents-private manifest sha256 `f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31`; this
 //! page is the executable subset we are actively routing into Rust and Rocq. The
 //! pre-Moreno dependency chain and its missing-source audit now live in
 //! `./pre-moreno.md`.

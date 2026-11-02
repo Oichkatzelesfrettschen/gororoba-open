@@ -406,9 +406,13 @@ mod tests {
     fn combined_candidate_scan_preserves_external_publication_and_book_identities() {
         let directory = tempfile::tempdir().expect("temporary repository");
         std::fs::create_dir(directory.path().join("registry")).expect("registry directory");
-        std::fs::create_dir_all(directory.path().join("data/papers")).expect("paper directory");
-        std::fs::write(directory.path().join("data/papers/fixture.pdf"), b"fixture")
-            .expect("local publication copy");
+        std::fs::create_dir_all(directory.path().join("data/external/intake"))
+            .expect("intake directory");
+        std::fs::write(
+            directory.path().join("data/external/intake/fixture.pdf"),
+            b"fixture",
+        )
+        .expect("local publication copy");
         std::fs::write(
             directory.path().join("registry/external_sources.toml"),
             r#"
@@ -421,14 +425,14 @@ title = "DOI source dossier"
 source_markdown = "docs/external_sources/doi.md"
 body_markdown = "A source dossier with publication references."
 url_refs = ["https://doi.org/10.1002/adma.202209988"]
-path_refs = ["data/papers/fixture.pdf"]
+path_refs = ["data/external/intake/fixture.pdf"]
 [[document]]
 id = "XS-URL"
 title = "URL source dossier"
 source_markdown = "docs/external_sources/url.md"
 body_markdown = "A source dossier with an arXiv reference."
 url_refs = ["https://arxiv.org/abs/1710.01373"]
-path_refs = ["data/papers/fixture.pdf"]
+path_refs = ["data/external/intake/fixture.pdf"]
 "#,
         )
         .expect("external-source registry");
@@ -441,7 +445,7 @@ title = "Book introduction"
 source_markdown = "docs/book/src/introduction.md"
 body_markdown = "A book page cites the same publication."
 url_refs = ["https://doi.org/10.1002/adma.202209988"]
-path_refs = ["data/papers/fixture.pdf"]
+path_refs = ["data/external/intake/fixture.pdf"]
 "#,
         )
         .expect("book registry");
@@ -467,7 +471,7 @@ path_refs = ["data/papers/fixture.pdf"]
             assert_eq!(identity_key(dossier[0]), identity_key(dossier[1]));
             assert!(!identity_key(dossier[0]).starts_with("title:"));
             for candidate in dossier {
-                assert_eq!(candidate.local_paths, ["data/papers/fixture.pdf"]);
+                assert_eq!(candidate.local_paths, ["data/external/intake/fixture.pdf"]);
             }
         }
         let artifacts = unify_candidates(candidates);
@@ -489,7 +493,8 @@ path_refs = ["data/papers/fixture.pdf"]
         assert!(
             book.notes
                 .iter()
-                .any(|note| note == "Document reference (path_refs): data/papers/fixture.pdf")
+                .any(|note| note
+                    == "Document reference (path_refs): data/external/intake/fixture.pdf")
         );
     }
 

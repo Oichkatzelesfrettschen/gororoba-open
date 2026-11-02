@@ -156,7 +156,7 @@
 //! - **de Marrais, R. P. C.** (2000). *The 42 Assessors and the Box-Kites they fly: Diagonal Axis-Pair Systems of Zero-Divisors in the Sedenions' 16 Dimensions*. [arXiv:math/0011260](https://arxiv.org/abs/math/0011260). (Mirror PDF: https://lygeros.org/wp-content/uploads/perfections/sedenions.pdf)
 //!   - DOI: 10.48550/arXiv.math/0011260.
 //! - **de Marrais, R. P. C.** (2004). *The "Something From Nothing" Insertion Point: Where NKS Research into Physics Foundations Can Expect the "Most Bang for the Buck"*. Wolfram Science Conference 2004 (slides). [PDF](https://www.wolframscience.com/conference/2004/presentations/material/rdemarrais.pdf).
-//! - **de Marrais, R. P. C.** (2002). *Placeholder Substructures I: The Road from NKS to Scale-Free Networks Is Paved with Zero-Divisors*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003). (Later revision: arXiv:math/0703745v3, with corrections and expanded proofs.)
+//! - **de Marrais, R. P. C.** (2002). *Flying Higher Than a Box-Kite: Kite-Chain Middens, Sand Mandalas, and Zero-Divisor Patterns in the 2n-ions Beyond the Sedenions*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003).
 //! - **de Marrais, R. P. C.** (2007). *Placeholder Substructures I: The Road from NKS to Scale-Free Networks is Paved with Zero-Divisors*. Complex Systems, 17(2), 125-142. DOI: 10.25088/ComplexSystems.17.2.125. [PDF](https://content.wolfram.com/sites/13/2023/02/17-2-3.pdf).
 //! - **de Marrais, R. P. C.** (2004). *Box-Kites III: Quizzical Quaternions, Mock Octonions, and Other Zero-Divisor-Suppressing "Sleeper Cell" Structures in the Sedenions and 2^n-ions*. [arXiv:math/0403113](https://arxiv.org/abs/math/0403113).
 //! - **de Marrais, R. P. C.** (2006). *Presto! Digitization, Part I: From NKS Number Theory to "XORbitant" Semantics, by way of Cayley-Dickson Process and Zero-Divisor-based "Representations"*. [arXiv:math/0603281](https://arxiv.org/abs/math/0603281).
@@ -217,7 +217,7 @@
 //! - **Chen, W., et al.** (2024). *A novel and simple spectral method for nonlocal PDEs with the fractional Laplacian*. Computers & Mathematics with Applications, 168, 133-147. DOI: 10.1016/j.camwa.2024.06.001.
 //! - **Vladimirov, V. S., Volovich, I. V., & Zelenov, E. I.** (1994). *p-adic Analysis and Mathematical Physics*. World Scientific.
 //! - **Taibleson, M. H.** (1975). *Fourier Analysis on Local Fields*. Princeton University Press.
-//! - **Kozyrev, S. V.** (2006). *Wavelet analysis as a p-adic spectral analysis*. [arXiv:math/0612288](https://arxiv.org/abs/math/0612288).
+//! - **Kozyrev, S. V.** (2002). *Wavelet analysis as a p-adic spectral analysis*. Izvestiya: Mathematics 66(2), 367-376. [arXiv:math-ph/0012019](https://arxiv.org/abs/math-ph/0012019).
 //! - **Kac, V. G.** (1990). *Infinite-Dimensional Lie Algebras*. Cambridge University Press, 3rd ed.
 //!   - *Definitive reference on Kac-Moody algebras; affine, hyperbolic, and indefinite types.*
 //! - **Damour, T., Henneaux, M., & Nicolai, H.** (2002). *E10 and a 'small tension expansion' of M Theory*. Phys. Rev. Lett. 89, 221601. [arXiv:hep-th/0207267](https://arxiv.org/abs/hep-th/0207267).

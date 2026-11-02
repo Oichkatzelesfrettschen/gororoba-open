@@ -12,21 +12,20 @@ tool, skill, harness or agent default; follow it and surface the conflict.
 
 ## Where things live
 
-| Path                                                                               | Carries                                                                                                                                                                          |
-| ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `.github/workflows/ci.yml`                                                         | Sole repository-validation authority                                                                                                                                             |
-| `registry/AGENTS.md`                                                               | Registry mutation workflow, `gororoba-db` commands                                                                                                                               |
-| `crates/AGENTS.md`                                                                 | GPU helper-crate routing and crate conventions                                                                                                                                   |
-| `docs/engineering/worktree_build_cache.md`                                         | Shared build-dir, tool identity, cache budget                                                                                                                                    |
-| `docs/engineering/ci_validation.md`                                                | Hosted chain, CPU policy, sccache, failure collection                                                                                                                            |
-| `docs/engineering/research_epistemics.md`                                          | What earns a claim, insight or experiment ID                                                                                                                                     |
-| `docs/engineering/condition_bound_materials.md`                                    | Material, specimen and measurement provenance                                                                                                                                    |
-| `docs/engineering/comment_and_commit_style.md`                                     | Comment voice, finding-doc rules, markdown style                                                                                                                                 |
-| `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`                                 | Active 22-class debt taxonomy; `plans/repo_debt_roadmap_2026_04_11.toml` (11 classes) is historical; baseline git tag `debt-baseline-v0` resolves to commit `2fa31935`           |
-| `~/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory                                                                                                                                                         |
-| `data/papers/document_cache.tsv`                                                   | sha256 of every cached paper PDF; `repo-utilities document-cache --restore` relinks them from the sibling `gororoba-documents-public` and `gororoba-documents-private` checkouts |
-| `proofs/README.md`                                                                 | Rocq toolchain and proof commands                                                                                                                                                |
-| `docs/REQUIREMENTS.md`                                                             | Toolchain prerequisites                                                                                                                                                          |
+| Path                                                                               | Carries                                                                                                                                                                |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.github/workflows/ci.yml`                                                         | Sole repository-validation authority                                                                                                                                   |
+| `registry/AGENTS.md`                                                               | Registry mutation workflow, `gororoba-db` commands                                                                                                                     |
+| `crates/AGENTS.md`                                                                 | GPU helper-crate routing and crate conventions                                                                                                                         |
+| `docs/engineering/worktree_build_cache.md`                                         | Shared build-dir, tool identity, cache budget                                                                                                                          |
+| `docs/engineering/ci_validation.md`                                                | Hosted chain, CPU policy, sccache, failure collection                                                                                                                  |
+| `docs/engineering/research_epistemics.md`                                          | What earns a claim, insight or experiment ID                                                                                                                           |
+| `docs/engineering/condition_bound_materials.md`                                    | Material, specimen and measurement provenance                                                                                                                          |
+| `docs/engineering/comment_and_commit_style.md`                                     | Comment voice, finding-doc rules, markdown style                                                                                                                       |
+| `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`                                 | Active 22-class debt taxonomy; `plans/repo_debt_roadmap_2026_04_11.toml` (11 classes) is historical; baseline git tag `debt-baseline-v0` resolves to commit `2fa31935` |
+| `~/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory                                                                                                                                               |
+| `proofs/README.md`                                                                 | Rocq toolchain and proof commands                                                                                                                                      |
+| `docs/REQUIREMENTS.md`                                                             | Toolchain prerequisites                                                                                                                                                |
 
 ## Validation boundary
 
@@ -91,8 +90,6 @@ tool, skill, harness or agent default; follow it and surface the conflict.
   experiment adjudicates, and which outcome forces abandonment.
 - Generated structure that survives visual inspection is the characteristic
   LLM failure here (C-020); verify by mechanical cross-check.
-- A hydration-dependent test with `Materialization::Missing` proves provenance
-  metadata only; scientific evidence needs `executed_pass` or `executed_fail`.
 - Never encode a missing material quantity as `0.0` or an empty string; a
   computed source (JARVIS, Materials Project) never satisfies an experimental
   requirement.

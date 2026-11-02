@@ -15,10 +15,6 @@ name = "download-recovery"
 path = "src/bin/download_recovery.rs"
 
 [[bin]]
-name = "hydrate-scientific-payloads"
-path = "src/bin/hydrate_scientific_payloads.rs"
-
-[[bin]]
 name = "verify-insight-reference-pilot"
 path = "src/bin/verify_insight_reference_pilot.rs"
 
@@ -36,12 +32,9 @@ regex = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
 sha2 = { workspace = true }
-tar = { workspace = true }
-tempfile = { workspace = true }
 tokio = { workspace = true }
 toml = { workspace = true }
 url = { workspace = true }
-ruzstd = "=0.9.1"
 
 [lints]
 workspace = true

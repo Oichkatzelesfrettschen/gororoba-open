@@ -1200,7 +1200,7 @@ id = "BIB-0075"
 order_index = 75
 group = "Primary Research & Data Sources"
 section = "Algebra & Mathematics"
-citation_markdown = "**de Marrais, R. P. C.** (2002). *Placeholder Substructures I: The Road from NKS to Scale-Free Networks Is Paved with Zero-Divisors*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003). (Later revision: arXiv:math/0703745v3, with corrections and expanded proofs.)"
+citation_markdown = "**de Marrais, R. P. C.** (2002). *Flying Higher Than a Box-Kite: Kite-Chain Middens, Sand Mandalas, and Zero-Divisor Patterns in the 2n-ions Beyond the Sedenions*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003)."
 notes = []
 urls = ["https://arxiv.org/abs/math/0207003"]
 dois = []
@@ -1633,10 +1633,10 @@ id = "BIB-0112"
 order_index = 112
 group = "Primary Research & Data Sources"
 section = "p-adic / Local-Field Analysis"
-citation_markdown = "**Kozyrev, S. V.** (2006). *Wavelet analysis as a p-adic spectral analysis*. [arXiv:math/0612288](https://arxiv.org/abs/math/0612288)."
+citation_markdown = "**Kozyrev, S. V.** (2002). *Wavelet analysis as a p-adic spectral analysis*. Izvestiya: Mathematics 66(2), 367-376. [arXiv:math-ph/0012019](https://arxiv.org/abs/math-ph/0012019)."
 notes = []
-urls = ["https://arxiv.org/abs/math/0612288"]
-dois = []
+urls = ["https://arxiv.org/abs/math-ph/0012019"]
+dois = ["10.1070/im2002v066n02abeh000381"]
 source_line = 239
 
 [[entry]]
