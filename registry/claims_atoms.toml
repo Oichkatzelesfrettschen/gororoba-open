@@ -15,9 +15,9 @@ status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
 last_verified = "2026-02-06"
-where_stated = "`CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0312)"
+where_stated = "`CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`"
 verification_rule = "Kernel-checked via Rocq 9.1: proofs/verified/C001_CDNonAssociative.v"
-where_stated_refs = ["CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs", "CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs", "DE_MARRAIS_BOXKITES_III.md", "bibliography.toml", "cayley_dickson.rs", "crates/algebra_core/src/construction/hypercomplex.rs", "crates/cd_kernel/src/cayley_dickson.rs", "crates/cd_kernel/src/cayley_dickson/mod.rs", "crates/gororoba_algebra/src/construction/hypercomplex.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "hypercomplex.rs", "mod.rs", "registry/bibliography.toml"]
+where_stated_refs = ["CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs", "CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs", "DE_MARRAIS_BOXKITES_III.md", "cayley_dickson.rs", "crates/algebra_core/src/construction/hypercomplex.rs", "crates/cd_kernel/src/cayley_dickson.rs", "crates/cd_kernel/src/cayley_dickson/mod.rs", "crates/gororoba_algebra/src/construction/hypercomplex.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "hypercomplex.rs", "mod.rs"]
 verification_refs = ["proofs/verified/C001_CDNonAssociative.v"]
 cross_refs = []
 
@@ -29,9 +29,9 @@ status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
 last_verified = "2026-02-06"
-where_stated = "`crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0312)"
+where_stated = "`crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`"
 verification_rule = "Kernel-checked via Rocq 9.1: proofs/verified/C002_SedenionZDAndNormFail.v"
-where_stated_refs = ["DE_MARRAIS_BOXKITES_III.md", "annihilator.rs", "bibliography.toml", "boxkites.rs", "crates/algebra_analysis/src/annihilator.rs", "crates/algebra_analysis/src/boxkites.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "registry/bibliography.toml"]
+where_stated_refs = ["DE_MARRAIS_BOXKITES_III.md", "annihilator.rs", "boxkites.rs", "crates/algebra_analysis/src/annihilator.rs", "crates/algebra_analysis/src/boxkites.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md"]
 verification_refs = ["proofs/verified/C002_SedenionZDAndNormFail.v"]
 cross_refs = []
 
@@ -14575,9 +14575,9 @@ status_token = "REFUTED"
 status_detail = "Refuted"
 hypothesis_class = "refuted_claim"
 last_verified = "2026-02-02"
-where_stated = "`registry/bibliography.toml` (BIB-0150), `data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`"
+where_stated = "`data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`"
 verification_rule = ""
-where_stated_refs = ["bibliography.toml", "data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf", "registry/bibliography.toml"]
+where_stated_refs = ["data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf"]
 verification_refs = []
 cross_refs = []
 
@@ -14617,9 +14617,9 @@ status_token = "VERIFIED"
 status_detail = "Verified"
 hypothesis_class = "verified_claim"
 last_verified = "2026-02-06"
-where_stated = "`docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `crates/quantum_core/src/measurement_formalism.rs`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`"
+where_stated = "`docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`"
 verification_rule = ""
-where_stated_refs = ["CONVOS_CLAIMS_INBOX.md", "EMERGENCE_LAYERS_AXIOMS.md", "crates/quantum_core/src/measurement_formalism.rs", "docs/convos/CONVOS_CLAIMS_INBOX.md", "docs/theory/EMERGENCE_LAYERS_AXIOMS.md", "lindblad.py", "measurement_formalism.rs", "redundancy.py", "src/quantum/open_systems/lindblad.py", "src/quantum/open_systems/redundancy.py", "test_open_systems_lindblad.py", "test_open_systems_redundancy.py", "tests/test_open_systems_lindblad.py", "tests/test_open_systems_redundancy.py"]
+where_stated_refs = ["CONVOS_CLAIMS_INBOX.md", "EMERGENCE_LAYERS_AXIOMS.md", "docs/convos/CONVOS_CLAIMS_INBOX.md", "docs/theory/EMERGENCE_LAYERS_AXIOMS.md", "lindblad.py", "redundancy.py", "src/quantum/open_systems/lindblad.py", "src/quantum/open_systems/redundancy.py", "test_open_systems_lindblad.py", "test_open_systems_redundancy.py", "tests/test_open_systems_lindblad.py", "tests/test_open_systems_redundancy.py"]
 verification_refs = []
 cross_refs = []
 

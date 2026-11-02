@@ -112,7 +112,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-001"]
-evidence_refs = ["CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs", "CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs", "DE_MARRAIS_BOXKITES_III.md", "bibliography.toml", "cayley_dickson.rs", "crates/algebra_core/src/construction/hypercomplex.rs", "crates/cd_kernel/src/cayley_dickson.rs", "crates/cd_kernel/src/cayley_dickson/mod.rs", "crates/gororoba_algebra/src/construction/hypercomplex.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "hypercomplex.rs", "mod.rs", "proofs/verified/C001_CDNonAssociative.v", "registry/bibliography.toml"]
+evidence_refs = ["CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs", "CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs", "DE_MARRAIS_BOXKITES_III.md", "cayley_dickson.rs", "crates/algebra_core/src/construction/hypercomplex.rs", "crates/cd_kernel/src/cayley_dickson.rs", "crates/cd_kernel/src/cayley_dickson/mod.rs", "crates/gororoba_algebra/src/construction/hypercomplex.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "hypercomplex.rs", "mod.rs", "proofs/verified/C001_CDNonAssociative.v"]
 
 [[skeleton]]
 id = "PRS-00007"
@@ -148,7 +148,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-002"]
-evidence_refs = ["DE_MARRAIS_BOXKITES_III.md", "annihilator.rs", "bibliography.toml", "boxkites.rs", "crates/algebra_analysis/src/annihilator.rs", "crates/algebra_analysis/src/boxkites.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "proofs/verified/C002_SedenionZDAndNormFail.v", "registry/bibliography.toml"]
+evidence_refs = ["DE_MARRAIS_BOXKITES_III.md", "annihilator.rs", "boxkites.rs", "crates/algebra_analysis/src/annihilator.rs", "crates/algebra_analysis/src/boxkites.rs", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "proofs/verified/C002_SedenionZDAndNormFail.v"]
 
 [[skeleton]]
 id = "PRS-00009"
@@ -18886,7 +18886,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-402"]
-evidence_refs = ["bibliography.toml", "data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf", "registry/bibliography.toml"]
+evidence_refs = ["data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf"]
 
 [[skeleton]]
 id = "PRS-01050"
@@ -18940,7 +18940,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-405"]
-evidence_refs = ["CONVOS_CLAIMS_INBOX.md", "EMERGENCE_LAYERS_AXIOMS.md", "crates/quantum_core/src/measurement_formalism.rs", "docs/convos/CONVOS_CLAIMS_INBOX.md", "docs/theory/EMERGENCE_LAYERS_AXIOMS.md", "lindblad.py", "measurement_formalism.rs", "redundancy.py", "src/quantum/open_systems/lindblad.py", "src/quantum/open_systems/redundancy.py", "test_open_systems_lindblad.py", "test_open_systems_redundancy.py", "tests/test_open_systems_lindblad.py", "tests/test_open_systems_redundancy.py"]
+evidence_refs = ["CONVOS_CLAIMS_INBOX.md", "EMERGENCE_LAYERS_AXIOMS.md", "docs/convos/CONVOS_CLAIMS_INBOX.md", "docs/theory/EMERGENCE_LAYERS_AXIOMS.md", "lindblad.py", "redundancy.py", "src/quantum/open_systems/lindblad.py", "src/quantum/open_systems/redundancy.py", "test_open_systems_lindblad.py", "test_open_systems_redundancy.py", "tests/test_open_systems_lindblad.py", "tests/test_open_systems_redundancy.py"]
 
 [[skeleton]]
 id = "PRS-01053"

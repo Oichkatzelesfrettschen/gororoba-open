@@ -10,7 +10,7 @@ last_verified = "2026-02-06"
 statement = "Cayley-Dickson algebras become non-associative at 8D and beyond."
 status = "Verified"
 status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C001_CDNonAssociative.v"
-where_stated = "`CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0312)"
+where_stated = "`CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`"
 
 [[claim]]
 formal_proof = "proofs/verified/C002_SedenionZDAndNormFail.v"
@@ -19,7 +19,7 @@ last_verified = "2026-02-06"
 statement = "16D sedenions have zero divisors and lose norm composition."
 status = "Verified"
 status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C002_SedenionZDAndNormFail.v"
-where_stated = "`crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`, `registry/bibliography.toml` (BIB-0312)"
+where_stated = "`crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`"
 
 [[claim]]
 formal_proof = "proofs/verified/C003_AssessorsBoxkites.v"
@@ -10452,7 +10452,7 @@ id = "C-402"
 last_verified = "2026-02-02"
 statement = "Metamaterial Gravitational Coupling can reduce warp drive energy requirements to achievable levels."
 status = "Refuted"
-where_stated = "`registry/bibliography.toml` (BIB-0150), `data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`"
+where_stated = "`data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`"
 
 [[claim]]
 id = "C-403"
@@ -10473,7 +10473,7 @@ id = "C-405"
 last_verified = "2026-02-06"
 statement = "Observers can be modeled as (approximate) correctable record algebras selected by open-system dynamics L_open (GKSL/Lindblad); redundancy in the environment yields classical records (pointer observables) resembling repetition-code robustness."
 status = "Verified"
-where_stated = "`docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `crates/quantum_core/src/measurement_formalism.rs`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`"
+where_stated = "`docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`"
 
 [[claim]]
 id = "C-406"
