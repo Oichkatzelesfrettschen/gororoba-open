@@ -126,7 +126,6 @@ pub mod docs_external_sources_c053_pathion_metamaterial_mapping_sources;
 pub mod docs_external_sources_c068_pdg_spectrum_match_sources;
 pub mod docs_external_sources_c071_frb_ultrametric_sources;
 pub mod docs_external_sources_dataset_manifest;
-pub mod docs_external_sources_de_marrais_catamaran;
 pub mod docs_external_sources_de_marrais_placeholder_iii;
 pub mod docs_external_sources_heliosphere_dataset_progress_2026_03_09;
 pub mod docs_external_sources_index;

@@ -32,6 +32,19 @@
 //!   - `http://arxiv.org/abs/hep-th/9501007`
 //! - Notes: Cached transcript mirror for source auditability; not itself a verification result. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
 //!
+//! ### XS-006: Voyage by Catamaran
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_catamaran`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - Notes: Structured summary of a primary paper with claims-supporting context. The dossier body is not stored in this repository; the paper it summarizes is held in the documents repositories.
+//!
 //! ### XS-007: Flying Higher Than A Box-Kite
 //!
 //! - Source markdown: ``
@@ -202,19 +215,6 @@
 //! - Line count: 95
 //! - Notes: Operational provider and source manifest for fetch-datasets registry alignment.
 //!
-//! ### XS-006: Voyage by Catamaran
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_CATAMARAN.md`
-//! - Slug: `de_marrais_catamaran`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_summary`
-//! - Authority level: `primary_paper_summary`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `false`
-//! - Line count: 76
-//! - Notes: Structured summary of a primary paper with claims-supporting context.
-//!
 //! ### XS-009: Placeholder Substructures III
 //!
 //! - Source markdown: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md`
@@ -252,7 +252,7 @@
 //! - Verification level: `operational`
 //! - Operational role: `generated_index`
 //! - Has full transcript: `false`
-//! - Line count: 23
+//! - Line count: 22
 //! - Notes: Auto-generated index of external source dossiers; source of truth is registry/external_sources.toml.
 //!
 //! ### XS-014: Inverse Cayley-Dickson Formalism

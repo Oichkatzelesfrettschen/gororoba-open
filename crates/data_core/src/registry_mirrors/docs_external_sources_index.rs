@@ -13,7 +13,6 @@
 //! - `XS-002` `REFERENCE`: `docs/external_sources/C053_PATHION_METAMATERIAL_MAPPING_SOURCES.md`
 //! - `XS-003` `REFUTED`: `docs/external_sources/C071_FRB_ULTRAMETRIC_SOURCES.md`
 //! - `XS-004` `ACTIVE`: `docs/external_sources/DATASET_MANIFEST.md`
-//! - `XS-006` `REFERENCE`: `docs/external_sources/DE_MARRAIS_CATAMARAN.md`
 //! - `XS-009` `REFERENCE`: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md`
 //! - `XS-012` `ACTIVE`: `docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md`
 //! - `XS-013` `ACTIVE`: `docs/external_sources/INDEX.md`

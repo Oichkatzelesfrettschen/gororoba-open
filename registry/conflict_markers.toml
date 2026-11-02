@@ -2094,10 +2094,10 @@ source_registry = "registry/external_sources.toml"
 source_document = "docs/external_sources/INDEX.md"
 section_label = "External Sources"
 line_start = 1
-line_end = 29
+line_end = 28
 positive_evidence = ["verified"]
 negative_evidence = ["refuted"]
-source_content_sha256 = "2755a179898f6d9044666db6983cf1c187ce32c7029de203cbc60f503da4c266"
+source_content_sha256 = "6c9e21e12a6e1a33603f7a4aea5ae1bde8fd82ace63b45c469b650d61e75ad54"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 

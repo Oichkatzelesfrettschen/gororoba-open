@@ -5,10 +5,10 @@
 updated = "deterministic"
 authoritative = true
 status = "active"
-lacuna_count = 313
-open_count = 142
+lacuna_count = 314
+open_count = 143
 high_priority_count = 183
-medium_priority_count = 124
+medium_priority_count = 125
 low_priority_count = 6
 origin_kind_count = 4
 
@@ -2659,7 +2659,7 @@ historical_marker_ids = ["CM-0068"]
 
 [[lacuna]]
 id = "L-CM-v1-50a8d983908b493e63f0fa4f55c9c26cd5cd154e9c0df7b4ec68613c429d5df5"
-origin = "conflict_marker_scan"
+origin = "conflict_marker_history"
 area = "consistency"
 title = "Resolve section_polarity_conflict in docs/external_sources/INDEX.md"
 description = "Section contains both positive and negative validation language."
@@ -2667,7 +2667,8 @@ priority = "medium"
 status = "open"
 claim_refs = []
 source_refs = ["registry/external_sources.toml", "docs/external_sources/INDEX.md"]
-related_marker_ids = ["CM-0123"]
+related_marker_ids = []
+historical_marker_ids = ["CM-0123"]
 
 [[lacuna]]
 id = "L-CM-v1-511cfe992e05eb92c3c0cb879a33d12437a51cfb7011144d1d911accf7e8cda0"
@@ -3317,6 +3318,18 @@ claim_refs = ["C-476"]
 source_refs = ["registry/claims.toml", "C-476"]
 related_marker_ids = ["CM-0090"]
 historical_marker_ids = ["CM-0091"]
+
+[[lacuna]]
+id = "L-CM-v1-bbe3559628009ad3beef8bf6c34ad1520330fc5bc732256827ac892bf5784633"
+origin = "conflict_marker_scan"
+area = "consistency"
+title = "Resolve section_polarity_conflict in docs/external_sources/INDEX.md"
+description = "Section contains both positive and negative validation language."
+priority = "medium"
+status = "open"
+claim_refs = []
+source_refs = ["registry/external_sources.toml", "docs/external_sources/INDEX.md"]
+related_marker_ids = ["CM-0123"]
 
 [[lacuna]]
 id = "L-CM-v1-bc3dce42dc96448f9aacf6bdf68a6bff1b415525c03c567e9301f20ed14b6366"
