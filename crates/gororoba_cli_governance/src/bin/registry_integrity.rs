@@ -222,10 +222,10 @@ fn build_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
 
 /// Checks the facts a regeneration cannot repair. Marker claim references
 /// come from narrative prose, and `legacy_manual` lacunae carry their
-/// priority, claim references, title and description forward verbatim, so a
-/// dangling claim id, an unknown priority or a blank text survives
-/// `registry-integrity` and fails here. Counts, ids, enums and spans that the
-/// generator assigns itself are not re-checked.
+/// priority, claim references, related marker ids, title and description
+/// forward verbatim, so a dangling claim or marker id, an unknown priority or
+/// a blank text survives `registry-integrity` and fails here. Counts, ids,
+/// enums and spans that the generator assigns itself are not re-checked.
 fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
     let conflict_path = repo_root.join(&args.conflict_out);
     let lacunae_path = repo_root.join(&args.lacunae_out);
@@ -247,6 +247,10 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         .collect::<BTreeSet<_>>();
     let markers = table_array(&conflict_raw, "marker");
     let lacunae = table_array(&lacunae_raw, "lacuna");
+    let marker_ids = markers
+        .iter()
+        .map(|row| table_str(row, "id").to_string())
+        .collect::<BTreeSet<_>>();
 
     let mut failures = Vec::new();
     for row in markers {
@@ -271,6 +275,13 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
             if !claim_ids.contains(&claim_ref) {
                 failures.push(format!(
                     "lacuna references unknown claim id: {lacuna_id} -> {claim_ref}"
+                ));
+            }
+        }
+        for marker_id in string_list(row, "related_marker_ids") {
+            if !marker_ids.contains(&marker_id) {
+                failures.push(format!(
+                    "lacuna references unknown conflict marker id: {lacuna_id} -> {marker_id}"
                 ));
             }
         }
