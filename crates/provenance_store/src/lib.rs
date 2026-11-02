@@ -120,6 +120,12 @@ mod artifact_path_retirement;
 pub use artifact_path_retirement::{
     ArtifactPathRetirement, ArtifactPathRetirementSpec, RetiredArtifactStatus,
 };
+mod external_source_dossier_retirement;
+pub use external_source_dossier_retirement::{
+    DossierBodyRetirement, DossierBodyRetirementSpec, DossierIndexPrune,
+    RETIRED_DOSSIER_AUTHORITY_LEVEL, RETIRED_DOSSIER_CONTENT_KIND,
+    RETIRED_DOSSIER_VERIFICATION_LEVEL,
+};
 mod claim_transitions;
 pub use claim_transitions::{
     AllocatedSuccessor, ClaimRelationView, ClaimTransitionApplyResult, ClaimTransitionCompatPaths,
@@ -1244,7 +1250,12 @@ impl ProvenanceStore {
         }
         for dossier in self.list_external_source_dossiers()? {
             if dossier.source_markdown.trim().is_empty() {
-                failures.push(format!("{} has empty source_markdown", dossier.id));
+                if !dossier.body_markdown.trim().is_empty() {
+                    failures.push(format!(
+                        "{} has empty source_markdown but a nonempty body",
+                        dossier.id
+                    ));
+                }
             } else {
                 let path = repo_root.join(&dossier.source_markdown);
                 if let Some(parent) = path.parent()

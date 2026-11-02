@@ -35,9 +35,7 @@ use super::{
         bool_toml, external_sources_compat_toml_export_header,
         external_sources_markdown_export_header,
     },
-    toml_helpers::{
-        bool_field, optional_integer_field, optional_string_field, string_array_field, string_field,
-    },
+    toml_helpers::{bool_field, optional_integer_field, string_array_field, string_field},
 };
 
 pub(crate) fn load_external_source_contracts_from_registry(
@@ -103,7 +101,12 @@ pub(crate) fn load_external_source_dossiers_from_registry(
         .map(|table| {
             let id = string_field(&table, "id");
             let slug = string_field(&table, "slug");
-            let source_markdown = optional_string_field(&table, "source_markdown")
+            // A present key is authoritative, including the empty path of a dossier whose
+            // transcription lives outside this repository; only an absent key takes the default.
+            let source_markdown = table
+                .get("source_markdown")
+                .and_then(Value::as_str)
+                .map(|path| path.trim().to_string())
                 .unwrap_or_else(|| default_external_source_markdown_path(&id, &slug));
             ExternalSourceDossierRecord {
                 id,
@@ -258,6 +261,9 @@ fn render_string_array_lines(lines: &mut Vec<String>, key: &str, values: &[Strin
 }
 
 fn render_toml_multiline(body: &str) -> String {
+    if body.trim().is_empty() {
+        return "\"\"".to_string();
+    }
     let sanitized = body.replace("'''", "'''\"\"\"'''");
     format!("'''\n{}\n'''", sanitized.trim_end())
 }
@@ -271,4 +277,63 @@ fn default_external_source_markdown_path(id: &str, slug: &str) -> String {
         "UNNAMED_EXTERNAL_SOURCE".to_string()
     };
     format!("docs/external_sources/{stem}.md")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn record(id: &str, source_markdown: &str, body: &str) -> ExternalSourceDossierRecord {
+        ExternalSourceDossierRecord {
+            id: id.to_string(),
+            source_markdown: source_markdown.to_string(),
+            slug: id.to_ascii_lowercase(),
+            title: "Title".to_string(),
+            status_token: "REFERENCE".to_string(),
+            content_kind: "custody_pointer".to_string(),
+            authority_level: "citation_pointer".to_string(),
+            verification_level: "not_captured".to_string(),
+            operational_role: "reference_capture".to_string(),
+            source_lineage_summary: String::new(),
+            truth_surfaces: Vec::new(),
+            artifact_contract_paths: Vec::new(),
+            has_full_transcript: false,
+            claim_refs: Vec::new(),
+            url_refs: vec!["https://example.org/paper".to_string()],
+            path_refs: Vec::new(),
+            line_count: 0,
+            notes: String::new(),
+            body_markdown: body.to_string(),
+        }
+    }
+
+    #[test]
+    fn retired_dossier_round_trips_with_empty_path_and_body() {
+        let meta = ExternalSourceDossiersMeta {
+            updated: "2026-11-01".to_string(),
+            authoritative: true,
+            source_markdown_glob: "docs/external_sources/*.md".to_string(),
+            document_count: 2,
+        };
+        let rows = vec![
+            record("XS-R", "", ""),
+            record("XS-K", "docs/k.md", "# K\n\nBody."),
+        ];
+        let (loaded_meta, loaded) = load_external_source_dossiers_from_registry(
+            &render_external_source_dossiers_registry(&meta, &rows),
+        )
+        .unwrap();
+        assert_eq!(loaded_meta.document_count, 2);
+        assert_eq!(loaded[0].source_markdown, "");
+        assert_eq!(loaded[0].body_markdown, "");
+        assert_eq!(loaded[1].source_markdown, "docs/k.md");
+        assert_eq!(loaded[1].body_markdown, "# K\n\nBody.\n");
+    }
+
+    #[test]
+    fn absent_source_markdown_key_takes_the_slug_default() {
+        let raw = "[external_sources]\ndocument_count = 1\n\n[[document]]\nid = \"XS-D\"\nslug = \"d_slug\"\n";
+        let (_, loaded) = load_external_source_dossiers_from_registry(raw).unwrap();
+        assert_eq!(loaded[0].source_markdown, "docs/external_sources/D_SLUG.md");
+    }
 }

@@ -94,6 +94,9 @@ fn main() -> Result<()> {
         Commands::Experiment(args) => cmd_experiment_mutation(&mut store, &cli.repo_root, &args),
         Commands::Binaries(args) => cmd_binaries_mutation(&mut store, &cli.repo_root, &args),
         Commands::Artifact(args) => cmd_artifact_mutation(&mut store, &cli.repo_root, &args),
+        Commands::ExternalSource(args) => {
+            cmd_external_source_mutation(&mut store, &cli.repo_root, &args)
+        }
         Commands::Theorem(args) => cmd_theorem_mutation(&mut store, &cli.repo_root, &args),
         Commands::Requirements(args) => {
             cmd_requirements_mutation(&mut store, &cli.repo_root, &args)
@@ -1760,6 +1763,44 @@ fn cmd_binaries_mutation(
                 summary.owner_changes.len()
             );
             maybe_regen_toml(*regen_toml)?;
+        }
+    }
+    Ok(())
+}
+
+fn print_delta(report: &serde_json::Value) {
+    for line in report["delta"].as_array().into_iter().flatten() {
+        println!("{}", line.as_str().unwrap_or_default());
+    }
+}
+
+fn cmd_external_source_mutation(
+    store: &mut ProvenanceStore,
+    repo_root: &Path,
+    args: &ExternalSourceArgs,
+) -> Result<()> {
+    match &args.action {
+        ExternalSourceAction::RetireDossierBodies { spec, dry_run } => {
+            let spec = resolve_cli_path(repo_root, spec);
+            let specification: provenance_store::DossierBodyRetirementSpec =
+                toml::from_str(&fs::read_to_string(&spec).with_context(|| {
+                    format!("read dossier retirement spec {}", spec.display())
+                })?)?;
+            let report = store.retire_external_source_dossier_bodies(&specification, *dry_run)?;
+            print_delta(&report);
+            let rows = report["delta"].as_array().map_or(0, Vec::len);
+            if *dry_run {
+                println!(
+                    "{} dossier(s), {rows} field delta(s) would change",
+                    report["dossiers"].as_array().map_or(0, Vec::len)
+                );
+            } else {
+                println!(
+                    "Retired {} dossier body row(s) under key {} ({rows} field deltas).",
+                    specification.retire.len(),
+                    specification.retire_key
+                );
+            }
         }
     }
     Ok(())

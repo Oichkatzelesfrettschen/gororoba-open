@@ -105,6 +105,9 @@ pub(crate) enum Commands {
     /// Register retained local evidence paths in canonical SQLite.
     Artifact(ArtifactArgs),
 
+    /// Mutate external-source dossier rows in canonical SQLite.
+    ExternalSource(ExternalSourceArgs),
+
     /// Manage stable theorem identities and explicit theorem claim bindings.
     Theorem(TheoremArgs),
 
@@ -498,6 +501,26 @@ pub(crate) struct ExperimentMutationArgs {
 pub(crate) struct ArtifactArgs {
     #[command(subcommand)]
     pub(crate) action: ArtifactAction,
+}
+
+#[derive(Parser, Debug)]
+pub(crate) struct ExternalSourceArgs {
+    #[command(subcommand)]
+    pub(crate) action: ExternalSourceAction,
+}
+
+#[derive(Subcommand, Debug)]
+pub(crate) enum ExternalSourceAction {
+    /// Empty the bodies of dossiers whose transcriptions live in the documents
+    /// repositories, clear their repository Markdown path, record the custody
+    /// sentence, and prune the index dossier, using a typed transactional specification.
+    RetireDossierBodies {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
 }
 
 #[derive(Parser, Debug)]
