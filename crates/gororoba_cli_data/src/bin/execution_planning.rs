@@ -1353,6 +1353,13 @@ fn build_module_requirements(
         .collect::<BTreeSet<_>>();
     for row in requirements_modules {
         let mid = collapse(&string_field(&row.raw, "id"));
+        let requires_modules = string_list_field(&row.raw, "requires_modules");
+        if let Some(unknown) = requires_modules
+            .iter()
+            .find(|dep| !module_ids.contains(*dep))
+        {
+            bail!("requirements module {mid} requires unknown module {unknown}");
+        }
         let install_targets = normalize_string_list(row.raw.get("install_targets"));
         let verify_targets = normalize_string_list(row.raw.get("verify_targets"));
         let mut command_refs = Vec::new();
@@ -1383,10 +1390,7 @@ fn build_module_requirements(
             status: collapse(&string_field(&row.raw, "status")),
             status_token: collapse(&string_field(&row.raw, "status_token")),
             source_markdown: collapse(&string_field(&row.raw, "markdown")),
-            requires_modules: string_list_field(&row.raw, "requires_modules")
-                .into_iter()
-                .filter(|dep| module_ids.contains(dep))
-                .collect(),
+            requires_modules,
             command_refs,
             package_refs: Vec::new(),
         });
@@ -2623,6 +2627,38 @@ mod tests {
         fn drop(&mut self) {
             let _ = fs::remove_dir_all(&self.root);
         }
+    }
+
+    #[test]
+    fn module_requirements_reject_unknown_required_module() {
+        let module = |text: &str| RequirementModule {
+            raw: toml::from_str::<Table>(text).unwrap(),
+        };
+        let modules = [
+            module("id = \"REQ-CORE\"\nrequires_modules = []"),
+            module("id = \"REQ-ASTRO\"\nrequires_modules = [\"REQ-CORE\", \"REQ-ASTR0\"]"),
+        ];
+        let error = build_module_requirements(&modules, &Table::new(), &Table::new())
+            .expect_err("a dangling required module must not be filtered away");
+        assert!(
+            error
+                .to_string()
+                .contains("REQ-ASTRO requires unknown module REQ-ASTR0")
+        );
+    }
+
+    #[test]
+    fn experiment_status_outside_allowlist_fails_the_build() {
+        let experiment = toml::from_str::<Table>("id = \"E-1001\"\nstatus = \"complete\"").unwrap();
+        let error = build_experiment_rows(
+            &[experiment],
+            &BTreeMap::new(),
+            &BTreeSet::new(),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        )
+        .expect_err("an out-of-allowlist status must not be rewritten to active");
+        assert!(error.to_string().contains("E-1001 has status \"complete\""));
     }
 
     #[test]
