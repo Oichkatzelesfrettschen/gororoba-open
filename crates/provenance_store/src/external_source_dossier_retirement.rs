@@ -402,6 +402,46 @@ fn replay(transaction: &Connection, spec: &DossierBodyRetirementSpec) -> Result<
     Ok(None)
 }
 
+/// Full-text tables declared `content=<table>, content_rowid='ROWID'` over a rowid table
+/// (`db/migrations/0010_knowledge_and_planning.sql`, `0011_fts5_crossrefs.sql`). They join to
+/// their content table by implicit rowid, which `VACUUM` may renumber.
+const ROWID_EXTERNAL_CONTENT_FTS_TABLES: [&str; 4] = [
+    "claims_fts",
+    "insights_fts",
+    "bibliography_fts",
+    "research_narrative_search",
+];
+
+/// Rewrites the store file without free pages, which hold the removed bodies after `UPDATE`,
+/// and rebuilds the rowid-keyed full-text indexes in one transaction. Runs after the mutation
+/// has committed, so each failure names that state.
+fn compact_store(conn: &mut Connection) -> Result<()> {
+    conn.execute_batch("VACUUM").context(
+        "the retirement is committed, but VACUUM did not run, so the removed bodies remain in \
+         free pages of the store file; close every other connection to the store and run the \
+         same specification again to compact it",
+    )?;
+    let rebuild_failed = |table: &str| {
+        format!(
+            "the retirement is committed and the store is compacted, but the {table} full-text \
+             index was not rebuilt; run the same specification again"
+        )
+    };
+    let rebuild = conn.transaction()?;
+    for table in ROWID_EXTERNAL_CONTENT_FTS_TABLES {
+        rebuild
+            .execute(
+                &format!("INSERT INTO {table}({table}) VALUES('rebuild')"),
+                [],
+            )
+            .with_context(|| rebuild_failed(table))?;
+    }
+    rebuild
+        .commit()
+        .with_context(|| rebuild_failed("external-content"))?;
+    Ok(())
+}
+
 impl ProvenanceStore {
     /// Empty the bodies of the named dossiers, clear their repository Markdown path, record the
     /// custody sentence, and prune the index dossier, atomically. `dry_run` runs every step and
@@ -417,6 +457,12 @@ impl ProvenanceStore {
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
         if let Some(report) = replay(&transaction, spec)? {
+            // A previous run that committed and then failed to compact leaves the removed
+            // bodies in free pages; replaying the specification retries the compaction.
+            transaction.rollback()?;
+            if !dry_run {
+                compact_store(&mut self.conn)?;
+            }
             return Ok(report);
         }
         let mut dossiers = Vec::new();
@@ -487,10 +533,7 @@ impl ProvenanceStore {
             ],
         )?;
         transaction.commit()?;
-        // UPDATE leaves the replaced body in free pages; VACUUM rewrites the file without them.
-        self.conn
-            .execute_batch("VACUUM")
-            .context("release the pages that held the removed bodies")?;
+        compact_store(&mut self.conn)?;
         Ok(report)
     }
 }
@@ -974,5 +1017,120 @@ mod tests {
             error.to_string().contains("XS-C has empty source_markdown"),
             "{error:#}"
         );
+    }
+
+    /// Inserts `survivor` and `removed` rows into a rowid table with an external-content full-text
+    /// index, deletes `removed`, and leaves the index empty so only a rebuild can repopulate it.
+    fn seed_desynchronized_index(fixture: &Fixture) {
+        fixture
+            .store
+            .conn
+            .execute_batch(
+                "INSERT INTO claims (id, statement, status, where_stated, last_verified) VALUES \
+                     ('C-1', 'alphaterm claim', 'open', '', ''), \
+                     ('C-2', 'betaterm claim', 'open', '', ''); \
+                 INSERT INTO insights (id, title, status, claim_refs_json) VALUES \
+                     ('I-1', 'alphaterm insight', 'open', '[]'), \
+                     ('I-2', 'betaterm insight', 'open', '[]'); \
+                 INSERT INTO bibliography (id, title, authors) VALUES \
+                     ('B-1', 'alphaterm paper', 'A'), ('B-2', 'betaterm paper', 'B'); \
+                 INSERT INTO research_narratives (id, title, body_markdown) VALUES \
+                     ('N-1', 'alphaterm note', 'text'), ('N-2', 'betaterm note', 'text'); \
+                 DELETE FROM claims WHERE id = 'C-1'; \
+                 DELETE FROM insights WHERE id = 'I-1'; \
+                 DELETE FROM bibliography WHERE id = 'B-1'; \
+                 DELETE FROM research_narratives WHERE id = 'N-1'; \
+                 INSERT INTO claims_fts(claims_fts) VALUES('delete-all'); \
+                 INSERT INTO insights_fts(insights_fts) VALUES('delete-all'); \
+                 INSERT INTO bibliography_fts(bibliography_fts) VALUES('delete-all'); \
+                 INSERT INTO research_narrative_search(research_narrative_search) VALUES('delete-all');",
+            )
+            .unwrap();
+    }
+
+    fn fts_hits(fixture: &Fixture, fts: &str, table: &str, term: &str) -> Vec<String> {
+        let mut statement = fixture
+            .store
+            .conn
+            .prepare(&format!(
+                "SELECT t.id FROM {fts} f JOIN {table} t ON f.rowid = t.rowid \
+                 WHERE {fts} MATCH ?1 ORDER BY t.id"
+            ))
+            .unwrap();
+        statement
+            .query_map([term], |row| row.get::<_, String>(0))
+            .unwrap()
+            .collect::<std::result::Result<_, _>>()
+            .unwrap()
+    }
+
+    #[test]
+    fn retirement_rebuilds_the_rowid_keyed_full_text_indexes() {
+        let mut fixture = fixture();
+        seed_desynchronized_index(&fixture);
+        for (fts, table) in [
+            ("claims_fts", "claims"),
+            ("insights_fts", "insights"),
+            ("bibliography_fts", "bibliography"),
+            ("research_narrative_search", "research_narratives"),
+        ] {
+            assert!(fts_hits(&fixture, fts, table, "betaterm").is_empty());
+        }
+        fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        for (fts, table, survivor) in [
+            ("claims_fts", "claims", "C-2"),
+            ("insights_fts", "insights", "I-2"),
+            ("bibliography_fts", "bibliography", "B-2"),
+            ("research_narrative_search", "research_narratives", "N-2"),
+        ] {
+            assert_eq!(fts_hits(&fixture, fts, table, "betaterm"), [survivor]);
+            assert!(
+                fts_hits(&fixture, fts, table, "alphaterm").is_empty(),
+                "{fts} still matches the deleted row"
+            );
+        }
+    }
+
+    #[test]
+    fn a_failed_compaction_reports_the_committed_mutation() {
+        let mut fixture = fixture();
+        fixture.store.conn.execute_batch("BEGIN").unwrap();
+        let error = compact_store(&mut fixture.store.conn).unwrap_err();
+        fixture.store.conn.execute_batch("ROLLBACK").unwrap();
+        let message = format!("{error:#}");
+        assert!(
+            message.contains("the retirement is committed, but VACUUM did not run"),
+            "{message}"
+        );
+        assert!(!message.contains("not rebuilt"), "{message}");
+        compact_store(&mut fixture.store.conn).unwrap();
+    }
+
+    #[test]
+    fn replaying_an_applied_specification_retries_the_compaction() {
+        let mut fixture = fixture();
+        seed_desynchronized_index(&fixture);
+        fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        fixture
+            .store
+            .conn
+            .execute_batch("INSERT INTO claims_fts(claims_fts) VALUES('delete-all')")
+            .unwrap();
+        assert!(fts_hits(&fixture, "claims_fts", "claims", "betaterm").is_empty());
+        fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        assert_eq!(
+            fts_hits(&fixture, "claims_fts", "claims", "betaterm"),
+            ["C-2"]
+        );
+        assert_eq!(run_count(&fixture), 1);
     }
 }
