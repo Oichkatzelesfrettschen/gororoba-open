@@ -9,7 +9,7 @@ use crate::{
 };
 use reqwest::{
     Client, StatusCode,
-    header::{AUTHORIZATION, HeaderValue},
+    header::{AUTHORIZATION, HeaderMap, HeaderValue},
 };
 use serde_json::Value;
 
@@ -123,6 +123,17 @@ fn openalex_authorization(key: &str) -> Result<Option<HeaderValue>, SourceError>
     Ok(Some(value))
 }
 
+/// Headers every OpenAlex request carries: the bearer key when one is configured, otherwise
+/// none. The search path and the citation verifier both attach these, so a configured key
+/// reaches every OpenAlex call.
+pub(crate) fn openalex_headers(keys: &ApiKeys) -> Result<HeaderMap, SourceError> {
+    let mut headers = HeaderMap::new();
+    if let Some(authorization) = openalex_authorization(&keys.openalex_api_key)? {
+        headers.insert(AUTHORIZATION, authorization);
+    }
+    Ok(headers)
+}
+
 /// OpenAlex serves keyless requests, and `keys.openalex_api_key` raises the
 /// budget to 30 requests per second and USD 1 per day (a search costs 10
 /// credits).
@@ -142,11 +153,13 @@ pub async fn search_openalex(
         url.push_str(&format!("&filter=publication_year:>={year_min}"));
     }
 
-    let mut request = client.get(&url);
-    if let Some(authorization) = openalex_authorization(&keys.openalex_api_key)? {
-        request = request.header(AUTHORIZATION, authorization);
-    }
-    let resp: Value = request.send().await?.json().await?;
+    let resp: Value = client
+        .get(&url)
+        .headers(openalex_headers(keys)?)
+        .send()
+        .await?
+        .json()
+        .await?;
     let results = resp["results"].as_array().unwrap_or(&Vec::new()).clone();
 
     Ok(results
@@ -1486,9 +1499,11 @@ mod urlencoding {
 #[cfg(test)]
 mod tests {
     use super::{
-        ApiKeys, crossref_link_url, openalex_authorization, semantic_scholar_response_error,
+        ApiKeys, crossref_link_url, openalex_authorization, openalex_headers,
+        semantic_scholar_response_error,
     };
     use reqwest::StatusCode;
+    use reqwest::header::AUTHORIZATION;
     use serde_json::json;
 
     #[test]
@@ -1512,6 +1527,27 @@ mod tests {
             .expect("bearer value");
         assert_eq!(value.to_str().expect("ascii header"), "Bearer oa-key");
         assert!(value.is_sensitive());
+    }
+
+    #[test]
+    fn openalex_headers_carry_the_configured_key_as_a_sensitive_bearer_value() {
+        let keys = ApiKeys {
+            openalex_api_key: "oa-key".into(),
+            ..ApiKeys::default()
+        };
+        let headers = openalex_headers(&keys).expect("valid key");
+        let value = headers.get(AUTHORIZATION).expect("authorization header");
+        assert_eq!(value.to_str().expect("ascii header"), "Bearer oa-key");
+        assert!(value.is_sensitive());
+    }
+
+    #[test]
+    fn openalex_headers_are_empty_without_a_key() {
+        assert!(
+            openalex_headers(&ApiKeys::default())
+                .expect("keyless")
+                .is_empty()
+        );
     }
 
     #[test]

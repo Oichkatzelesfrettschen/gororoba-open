@@ -607,6 +607,11 @@ impl SearchEngine {
         }
     }
 
+    /// Credentials the engine sends with keyed sources.
+    pub(crate) fn keys(&self) -> &ApiKeys {
+        &self.keys
+    }
+
     /// Access the underlying HTTP client (for download module reuse).
     pub fn client(&self) -> &Client {
         &self.client
