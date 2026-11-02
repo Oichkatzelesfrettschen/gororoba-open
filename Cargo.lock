@@ -6509,6 +6509,7 @@ dependencies = [
  "clap",
  "futures",
  "regex",
+ "repo_root",
  "reqwest 0.13.2",
  "scraper",
  "serde",

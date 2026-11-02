@@ -33,6 +33,7 @@
 //! and placeholder export examples.
 
 pub mod cache;
+pub mod cache_root;
 pub mod crawler;
 pub mod critique;
 pub mod dedup;
