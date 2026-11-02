@@ -1264,21 +1264,43 @@ fn build_requirements_hardened(
                 "requirements module {mid} has status {status:?}; allowed statuses are active, deprecated, planned and blocked"
             );
         }
+        // Authored values win; a code default fills only a field the row
+        // omits, because this builder reads and rewrites its own registry
+        // file and gororoba-db upsert_requirement_module accepts all four.
         let install_targets = normalize_string_list(row.get("install_targets"));
-        let verify_targets = dedup_sorted(install_targets.clone());
-        let runtime_stack = infer_runtime_stack(&collapse(&string_field(&row, "name")));
-        let requires_modules = module_dependency_defaults(&mid);
+        let verify_targets = match string_list_field(&row, "verify_targets") {
+            authored if !authored.is_empty() => authored,
+            _ => dedup_sorted(install_targets.clone()),
+        };
+        let runtime_stack = match collapse(&string_field(&row, "runtime_stack")) {
+            authored if authored.is_empty() => {
+                infer_runtime_stack(&collapse(&string_field(&row, "name")))
+            }
+            authored if RUNTIME_STACK_ALLOWLIST.contains(&authored.as_str()) => authored,
+            authored => bail!(
+                "requirements module {mid} has runtime_stack {authored:?}; allowed values are {}",
+                RUNTIME_STACK_ALLOWLIST.join(", ")
+            ),
+        };
+        let requires_modules = if row.contains_key("requires_modules") {
+            string_list_field(&row, "requires_modules")
+        } else {
+            module_dependency_defaults(&mid)
+        };
         if let Some(unknown) = requires_modules
             .iter()
             .find(|dep| !known_module_ids.contains(*dep))
         {
             bail!("requirements module {mid} requires unknown module {unknown}");
         }
-        let acceptance = vec![
-            "Runtime stack classification is explicit.".to_string(),
-            "Install and verify commands are reproducible.".to_string(),
-            "Module dependencies are fully declared in TOML.".to_string(),
-        ];
+        let acceptance = match string_list_field(&row, "acceptance_criteria") {
+            authored if !authored.is_empty() => authored,
+            _ => vec![
+                "Runtime stack classification is explicit.".to_string(),
+                "Install and verify commands are reproducible.".to_string(),
+                "Module dependencies are fully declared in TOML.".to_string(),
+            ],
+        };
         let mut module_row = row.clone();
         module_row.insert("status".to_string(), Value::String(status.clone()));
         module_row.insert(
@@ -2687,6 +2709,45 @@ mod tests {
                 .expect_err("hardening must reject the defect instead of rewriting it");
             assert!(error.to_string().contains(expected), "{error}");
         }
+    }
+
+    #[test]
+    fn requirements_hardening_keeps_authored_fields() {
+        let table = |text: &str| toml::from_str::<Table>(text).unwrap();
+        let core = table("id = \"REQ-CORE\"\nstatus = \"active\"");
+        let astro = table(
+            "id = \"REQ-ASTRO\"\nname = \"astro\"\nstatus = \"active\"\n\
+             runtime_stack = \"rust\"\nrequires_modules = []\n\
+             install_targets = [\"make install-astro\"]\n\
+             verify_targets = [\"make verify-astro\"]\n\
+             acceptance_criteria = [\"Astro catalogs load offline.\"]",
+        );
+        let (modules, _) = build_requirements_hardened(&[core.clone(), astro], &[]).unwrap();
+        let astro = &modules
+            .iter()
+            .find(|module| string_field(&module.raw, "id") == "REQ-ASTRO")
+            .unwrap()
+            .raw;
+        assert_eq!(string_field(astro, "runtime_stack"), "rust");
+        assert!(string_list_field(astro, "requires_modules").is_empty());
+        assert_eq!(
+            string_list_field(astro, "verify_targets"),
+            ["make verify-astro"]
+        );
+        assert_eq!(
+            string_list_field(astro, "acceptance_criteria"),
+            ["Astro catalogs load offline."]
+        );
+
+        let unknown_stack =
+            table("id = \"REQ-ASTRO\"\nstatus = \"active\"\nruntime_stack = \"cobol\"");
+        let error = build_requirements_hardened(&[core, unknown_stack], &[])
+            .expect_err("an authored runtime stack outside the allowlist must fail");
+        assert!(
+            error
+                .to_string()
+                .contains("REQ-ASTRO has runtime_stack \"cobol\"")
+        );
     }
 
     #[test]
