@@ -152,7 +152,7 @@ pub fn hyperbolic_initial_state(cfg: &FlybyConfig, t_before_perigee: f64) -> ([f
 ///
 /// Models Earth's gravitational focusing as a power-law: rho(r) = (R_earth / r)^3.
 /// Normalized so density_factor(R_earth) = 1.0.
-/// See BIB-0303 (Lundberg & Edsjo 2004).
+/// See BIB-0305 (Lundberg & Edsjo 2004).
 pub fn dm_density_factor(r_km: f64) -> f64 {
     if r_km <= R_EARTH {
         return 1.0;

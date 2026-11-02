@@ -528,7 +528,7 @@ gamma_ev = 1.7
 [[material]]
 name = "GOLD_RAKIC_LD"
 eps_inf = 1.0
-reference = "Rakic et al. Appl. Opt. 37, 5271-5283 (1998) BIB-0199. 5-oscillator high-fidelity Au model. Effective Drude omega_p = sqrt(0.760) * 9.03 = 7.8720 eV. Oscillator strengths converted from Rakic f_j to our S_j = f_j * omega_p^2 / omega_0j^2 (omega_p_sq = 81.5409)."
+reference = "Rakic et al. Appl. Opt. 37, 5271-5283 (1998) BIB-0201. 5-oscillator high-fidelity Au model. Effective Drude omega_p = sqrt(0.760) * 9.03 = 7.8720 eV. Oscillator strengths converted from Rakic f_j to our S_j = f_j * omega_p^2 / omega_0j^2 (omega_p_sq = 81.5409)."
 
 [material.drude]
 omega_p_ev = 7.8720

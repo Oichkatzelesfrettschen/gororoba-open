@@ -12280,8 +12280,8 @@ source_refs = ["BIB-0174"]
 
 [[artifact_ref]]
 id = "ASOT-0938"
-key = "title:brown_r_b_loeb_a_l_1997_nonassociative_algebras_and_the_cayley_dickson_construction_exposition_math_15_229"
-title = "**Brown, R. B. & Loeb, A. L.** (1997). *Nonassociative algebras and the Cayley-Dickson construction*. Exposition. Math. 15, 229."
+key = "title:brown_r_b_1967_on_generalized_cayley_dickson_algebras_pacific_j_math_20_415_422"
+title = "**Brown, R. B.** (1967). *On generalized Cayley-Dickson algebras*. Pacific J. Math. 20, 415-422. [doi:10.2140/pjm.1967.20.415](https://doi.org/10.2140/pjm.1967.20.415)"
 status = "citation_only_no_link"
 sha256 = ""
 retrieval_command = ""
@@ -19756,15 +19756,15 @@ source_refs = ["data/papers/intake/global_link_audit_2026_02_15/tmp/arxiv.org_ab
 
 [[artifact_ref]]
 id = "ASOT-2801"
-key = "url:https://arxiv.org/abs/math/0612288"
-title = "**Kozyrev, S. V.** (2006). *Wavelet analysis as a p-adic spectral analysis*. [arXiv:math/0612288](https://arxiv.org/abs/math/0612288)."
+key = "url:https://arxiv.org/abs/math-ph/0012019"
+title = "**Kozyrev, S. V.** (2002). *Wavelet analysis as a p-adic spectral analysis*. Izvestiya: Mathematics 66(2), 367-376. [arXiv:math-ph/0012019](https://arxiv.org/abs/math-ph/0012019)."
 status = "downloadable"
 sha256 = ""
 retrieval_command = ""
 license_disposition = "unreviewed"
 byte_length = 0
 minimum_requirement_met = true
-canonical_functional_url = "https://arxiv.org/abs/math/0612288"
+canonical_functional_url = "https://arxiv.org/abs/math-ph/0012019"
 canonical_download_path = ""
 source_refs = ["BIB-0112", "registry/bibliography.toml::entry/111::BIB-0112"]
 

@@ -11,8 +11,8 @@
 //! divide cleanly into AVT violation counts or CD basis dimensions,
 //! the embedding is "resonant".
 //!
-//! See BIB-0307 (Moreno 1998), BIB-0308 (Cawagas 2004) for CD structure
-//! and BIB-0311 (Conway & Norton 1979), BIB-0312 (Borcherds 1992) for Moonshine.
+//! See BIB-0309 (Moreno 1998), BIB-0310 (Cawagas 2004) for CD structure
+//! and BIB-0314 (Conway & Norton 1979), BIB-0315 (Borcherds 1992) for Moonshine.
 
 use super::moonshine::{J_COEFFICIENTS, MONSTER_REP_DIMENSIONS};
 pub use super::{

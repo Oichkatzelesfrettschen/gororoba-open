@@ -15,7 +15,8 @@
 //! Also provides box-kite zero-divisor counts (literature convention) as a
 //! distinct topological invariant from the alternator counts.
 //!
-//! See BIB-0307 (Moreno 1998), BIB-0310 (Brown & Loeb 1997),
+//! See BIB-0309 (Moreno 1998) for zero-divisor structure, BIB-0312 (Brown 1967)
+//! for the generalized Cayley-Dickson norm and division criterion, and
 //! BIB-0084 for box-kite sub-graph structure.
 
 use cd_kernel::cayley_dickson::SignTable;
@@ -53,7 +54,7 @@ pub const CD_TOWER: [(usize, &str); 13] = [
 /// literature (Moreno, de Marrais, Cawagas), or comparing with box-kite
 /// structural results from BoxKite.v formal proofs.
 ///
-/// See BIB-0307 (Moreno 1998) for zero-divisor classification,
+/// See BIB-0309 (Moreno 1998) for zero-divisor classification,
 /// BIB-0084 for box-kite sub-graph structure.
 pub const BOX_KITE_VIOLATION_COUNTS: [(usize, u64); 5] = [
     (16, 2_688),      // 7 box-kites x 384 permutations
@@ -82,7 +83,7 @@ pub const BOX_KITE_VIOLATION_COUNTS: [(usize, u64); 5] = [
 /// All 11 values are exhaustively enumerated via rayon-parallelized brute force
 /// with SignTable O(1) lookup. Verified on 5600X3D (12 threads, 96 MB L3).
 ///
-/// See BIB-0310 (Brown & Loeb 1997), BIB-0084 (Moreno 1998).
+/// See BIB-0309 (Moreno 1998), BIB-0312 (Brown 1967), BIB-0084 (OEIS A167654).
 pub const EXACT_ALTERNATOR_COUNTS: [(usize, u64); 11] = [
     (16, 336),                  // Sedenion
     (32, 5_040),                // Pathion
@@ -143,7 +144,8 @@ pub fn box_kite_violation_count(dim: usize) -> Option<u64> {
 /// Approximate wall times on 5600X3D (12 threads, 96 MB L3 V-Cache):
 /// - dim=256: ~0.1s, dim=512: ~0.3s, dim=1024: ~2s, dim=2048: ~15s, dim=4096: ~2min
 ///
-/// See BIB-0310 (Brown & Loeb 1997) for alternativity failure above dim 8.
+/// See BIB-0312 (Brown 1967) for the generalized Cayley-Dickson norm and the
+/// zero divisors of the 16-dimensional real algebra.
 pub fn enumerate_violation_count(dim: usize) -> u64 {
     assert!(dim.is_power_of_two());
 

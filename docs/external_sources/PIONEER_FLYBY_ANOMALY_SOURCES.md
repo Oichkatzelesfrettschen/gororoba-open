@@ -20,7 +20,7 @@ not proofs of any proposed explanation.
 - DOI:
   `10.1103/PhysRevD.65.082004`
 - Bibliography:
-  `BIB-0317`
+  `BIB-0303`
 - Governed artifact:
   `data/external/pioneer_anomaly/pioneer_anomaly_benchmark.csv`
 - Current scope:
@@ -40,7 +40,7 @@ not proofs of any proposed explanation.
 - DOI:
   `10.1103/PhysRevLett.100.091102`
 - Bibliography:
-  `BIB-0297`
+  `BIB-0298`
 - Governed artifact:
   `data/external/flyby_anomaly/anderson_2008_flyby_catalog.csv`
 - Current scope:

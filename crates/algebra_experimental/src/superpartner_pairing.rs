@@ -9,7 +9,7 @@
 //! can be interpreted as a Z_3 grading (or equivalently, a parity assignment
 //! with a neutral sector).
 //!
-//! See BIB-0311 (Conway & Norton 1979), BIB-0316 (Conway 1968, Atlas).
+//! See BIB-0314 (Conway & Norton 1979), BIB-0318 (Conway 1968).
 
 use super::moonshine::{J_COEFFICIENTS, MONSTER_REP_DIMENSIONS};
 

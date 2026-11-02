@@ -27,7 +27,7 @@ pub trait EnvironmentModel {
 /// Baseline Earth-only model using a simplified NFW-like 1/r^3 density profile.
 ///
 /// Uses the same profile as dm_force.rs but evaluated in flyby coordinates (km).
-/// See BIB-0302 (Navarro, Frenk & White 1996).
+/// See BIB-0304 (Navarro, Frenk & White 1996).
 pub struct EarthOnlyNfwLike {
     pub base_density: f64,
     pub earth_radius_km: f64,
@@ -62,7 +62,7 @@ impl EnvironmentModel for EarthOnlyNfwLike {
 ///
 /// Density: rho_0 * (R_E/r)^3 * (1 + eta_wake * cos(theta))
 /// where theta is the angle between position and DM wind direction.
-/// See BIB-0303 (Lundberg & Edsjo 2004), BIB-0304 (Lee et al. 2021).
+/// See BIB-0305 (Lundberg & Edsjo 2004), BIB-0306 (Lee et al. 2021).
 pub struct EarthWakeModel {
     pub base_density: f64,
     pub earth_radius_km: f64,
@@ -148,7 +148,7 @@ impl EnvironmentModel for EarthWakeModel {
 /// Parker spiral angle: psi = atan(omega_sun * r_helio / v_sw)
 /// At 1 AU, psi ~ 45 deg; at 10 AU, psi ~ 84 deg (nearly toroidal).
 ///
-/// See BIB-0302 (Navarro, Frenk & White 1996), BIB-0305, BIB-0306.
+/// See BIB-0304 (Navarro, Frenk & White 1996).
 pub struct SolarWindHeliosphericTensorModel {
     pub solar_wind_speed_km_s: f64,
     pub dark_matter_cross_section: f64,
