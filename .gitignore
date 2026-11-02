@@ -125,6 +125,9 @@ data/output/**/*.npz
 data/output/**/*.pkl
 data/output/*.png
 !data/output/audit/**
+# Audit captures cite third-party documents by digest and never hold their bytes.
+data/output/audit/**/*.pdf
+data/output/audit/**/*.pdf.gz
 # Multi-megabyte regenerable snapshots stay out of the tracked audit bundles;
 # `cargo metadata` reproduces them from the lockfile at any commit.
 data/output/audit/**/*cargo-metadata*.json
