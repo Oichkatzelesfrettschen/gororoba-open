@@ -4,7 +4,7 @@
 # Compatibility export lane: source_contracts
 
 [external_sources]
-updated = "2026-11-02T00:20:19.332461334+00:00"
+updated = "2026-11-02T01:03:14.264756390+00:00"
 authoritative = true
 policy_version = "v1"
 
@@ -2438,7 +2438,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2411.18881_sedenion_geometry.pdf https://arxiv.org/pdf/2411.18881"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 12b3e6adcc432f2590b6883624778830e988a96dfb4a337f8ef5f5b5290e9d18."
 evidence_refs = [
   "arXiv:2411.18881",
 ]
@@ -3344,7 +3344,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2512.13002_zd_holonomy.pdf https://arxiv.org/pdf/2512.13002"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 469f13cd838152fd661ac6e4585658542c68532a04ce1c7c38b26645bf35adc9."
 evidence_refs = [
   "arXiv:2512.13002",
 ]

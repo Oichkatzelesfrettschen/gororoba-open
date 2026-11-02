@@ -1304,14 +1304,14 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/external_sources.toml"
-sha256 = "4effeec7278b1d8bbdf6ddaa695fec8a73be6ebb936c181535c704254abdc37e"
-size_bytes = 5717
+sha256 = "b44c6fab7651ae9291b568aa100f7f8bfc4ffc874b156403d975d035bfb56b15"
+size_bytes = 5716
 line_count = 131
 claim_ref_count = 1
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 24
-link_sample = ["crates/algebra_analysis/src/boxkites.rs", "crates/algebra_analysis/src/crystal_bands.rs", "crates/algebra_analysis/src/homotopy_algebra.rs", "crates/algebra_analysis/src/reggiani.rs", "crates/cosmology_core/src/sersic.rs", "crates/quantum_core/src/magnonic_crystal.rs", "data/csv/c010_nonlocal_material_calibrations.csv", "data/papers/corpus/dutt_2022_synthetic_frequency_boundaries.pdf"]
+link_count = 19
+link_sample = ["crates/algebra_analysis/src/boxkites.rs", "crates/algebra_analysis/src/crystal_bands.rs", "crates/algebra_analysis/src/homotopy_algebra.rs", "crates/algebra_analysis/src/reggiani.rs", "crates/cosmology_core/src/sersic.rs", "crates/quantum_core/src/magnonic_crystal.rs", "data/csv/c010_nonlocal_material_calibrations.csv", "papers/MANIFEST.toml"]
 
 [[document]]
 id = "DOC-0070"
@@ -1456,14 +1456,14 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/external_sources.toml"
-sha256 = "b7b324400ca7306b134d81efb594db9f53055fbe7c9121d44dd227d5e2555063"
-size_bytes = 2613
-line_count = 40
+sha256 = "012cdb07f8928a21c4cb396c81ee0a4bd889fbc165ffddce9a0df2691603aa98"
+size_bytes = 2227
+line_count = 35
 claim_ref_count = 0
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 88
-link_sample = ["docs/external_sources/*.md", "docs/external_sources/BUNDY_2015_MANGA_OVERVIEW.md", "docs/external_sources/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS_SOURCES.md", "docs/external_sources/C053_PATHION_METAMATERIAL_MAPPING_SOURCES.md", "docs/external_sources/C071_FRB_ULTRAMETRIC_SOURCES.md", "docs/external_sources/DATASET_MANIFEST.md", "docs/external_sources/DE_MARRAIS_BOXKITES_III.md", "docs/external_sources/DE_MARRAIS_CATAMARAN.md"]
+link_count = 73
+link_sample = ["docs/external_sources/*.md", "docs/external_sources/BUNDY_2015_MANGA_OVERVIEW.md", "docs/external_sources/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS_SOURCES.md", "docs/external_sources/C053_PATHION_METAMATERIAL_MAPPING_SOURCES.md", "docs/external_sources/C071_FRB_ULTRAMETRIC_SOURCES.md", "docs/external_sources/DATASET_MANIFEST.md", "docs/external_sources/DE_MARRAIS_CATAMARAN.md", "docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md"]
 
 [[document]]
 id = "DOC-0078"
@@ -1665,14 +1665,14 @@ generated = true
 status = "active"
 migration_priority = "critical"
 toml_backing = "registry/external_sources.toml"
-sha256 = "3deacd4d09f7d8dce1fdf1e1fc02f26774ec472adcd9b05ff2805e4029b3dc6f"
-size_bytes = 1876
+sha256 = "3bc7a9613bd227910e89739194cf34eb6cf65ab0949a97f03f793e7b36021be6"
+size_bytes = 1875
 line_count = 44
 claim_ref_count = 1
 insight_ref_count = 0
 experiment_ref_count = 0
-link_count = 5
-link_sample = ["data/papers/corpus/reggiani_2024_2411.18881.pdf", "data/papers/corpus/reggiani_2024_2411.18881.txt", "docs/SEDENION_ATLAS.md", "tests/test_reggiani_alignment.py", "tests/test_reggiani_standard_zero_divisors.py"]
+link_count = 3
+link_sample = ["docs/SEDENION_ATLAS.md", "tests/test_reggiani_alignment.py", "tests/test_reggiani_standard_zero_divisors.py"]
 
 [[document]]
 id = "DOC-0089"

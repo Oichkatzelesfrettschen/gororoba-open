@@ -4,9 +4,9 @@
 [conflict_markers]
 updated = "deterministic"
 authoritative = true
-marker_count = 127
+marker_count = 125
 high_severity_count = 114
-medium_severity_count = 13
+medium_severity_count = 11
 low_severity_count = 0
 kind_count = 2
 
@@ -2074,40 +2074,6 @@ severity = "medium"
 status = "open"
 claim_refs = []
 source_registry = "registry/external_sources.toml"
-source_document = "docs/external_sources/DE_MARRAIS_BOXKITES_III.md"
-section_label = "Full Transcript"
-line_start = 7
-line_end = 575
-positive_evidence = ["consistent", "holds"]
-negative_evidence = ["fails"]
-source_content_sha256 = "97627a527ab023d8ef85fdb0248c0baad4c7ca68e38972c2e88612402cfb3f6b"
-jaccard_overlap = 0.000000
-notes = "Section contains both positive and negative validation language."
-
-[[marker]]
-id = "CM-0123"
-marker_kind = "section_polarity_conflict"
-severity = "medium"
-status = "open"
-claim_refs = []
-source_registry = "registry/external_sources.toml"
-source_document = "docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md"
-section_label = "Full Transcript"
-line_start = 80
-line_end = 1754
-positive_evidence = ["confirmed", "consistent"]
-negative_evidence = ["contradiction"]
-source_content_sha256 = "59ac9b276fd432d08b0d730ac80212f96617b06b7351d1a60ac17d7f6c41f8df"
-jaccard_overlap = 0.000000
-notes = "Section contains both positive and negative validation language."
-
-[[marker]]
-id = "CM-0124"
-marker_kind = "section_polarity_conflict"
-severity = "medium"
-status = "open"
-claim_refs = []
-source_registry = "registry/external_sources.toml"
 source_document = "docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md"
 section_label = "Chronological Alignment Rules"
 line_start = 99
@@ -2119,7 +2085,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0125"
+id = "CM-0123"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2128,15 +2094,15 @@ source_registry = "registry/external_sources.toml"
 source_document = "docs/external_sources/INDEX.md"
 section_label = "External Sources"
 line_start = 1
-line_end = 34
+line_end = 29
 positive_evidence = ["verified"]
 negative_evidence = ["refuted"]
-source_content_sha256 = "f1af7260d5ce76630261246fd15e5d7b24ffe8a8484b7a9ce06e3319c7ae3d40"
+source_content_sha256 = "2755a179898f6d9044666db6983cf1c187ce32c7029de203cbc60f503da4c266"
 jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0126"
+id = "CM-0124"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
@@ -2153,7 +2119,7 @@ jaccard_overlap = 0.000000
 notes = "Section contains both positive and negative validation language."
 
 [[marker]]
-id = "CM-0127"
+id = "CM-0125"
 marker_kind = "section_polarity_conflict"
 severity = "medium"
 status = "open"
