@@ -19786,7 +19786,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-452"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01100"
@@ -19804,7 +19804,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-453"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01101"
@@ -19894,7 +19894,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-458"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01106"
@@ -19912,7 +19912,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-459"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01107"
@@ -19930,7 +19930,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-460"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01108"
@@ -19948,7 +19948,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-461"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01109"
@@ -20020,7 +20020,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-465"]
-evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs"]
+evidence_refs = ["cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01113"
@@ -24178,7 +24178,7 @@ source_path = "registry/canonical/control_plane.sqlite3"
 line_start = 0
 line_end = 0
 claim_refs = ["C-696"]
-evidence_refs = ["basis_index.rs", "cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "crates/lattice_filtration/src/basis_index.rs"]
+evidence_refs = ["basis_index.rs", "cd_external.rs", "crates/algebra_experimental/src/cd_external.rs", "crates/lattice_filtration/src/basis_index.rs", "data/csv/cayley_dickson"]
 
 [[skeleton]]
 id = "PRS-01344"

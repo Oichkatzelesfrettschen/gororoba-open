@@ -10806,14 +10806,14 @@ id = "C-452"
 last_verified = "2026-02-10"
 statement = "Cayley-Dickson basis elements at dim=256 embed into an 8-dimensional trinary integer lattice with coordinates in {-1, 0, 1}. The mapping is injective over all 256 basis indices and supports exact lattice-to-index round-trip decoding."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, which skips when the untracked lattice CSV is absent; test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims and test_c452_c453_lattice_header_schema_stability were removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims and test_c452_c453_lattice_header_schema_stability; each reads the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and executes in CI)"
 
 [[claim]]
 id = "C-453"
 last_verified = "2026-02-10"
 statement = "The 8D lattice embedding extends to dims 512, 1024, and 2048: each map is injective at its native dimension, codomain dimension remains fixed at 8, and filtration growth is exact (new-point deltas 256, 512, 1024 across 256->512->1024->2048)."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses and test_csv_2048d_lattice_mapping_parses, which skip when the untracked lattice CSVs are absent; test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048, test_c453_filtration_intersection_cardinalities_are_exact and test_c453_filtration_is_lexicographic_prefix_chain were removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses, test_csv_2048d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048 and test_c453_filtration_intersection_cardinalities_are_exact; each reads the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and executes in CI)"
 
 [[claim]]
 id = "C-454"
@@ -10848,28 +10848,28 @@ id = "C-458"
 last_verified = "2026-02-08"
 statement = "Codebook parity (Thesis A): All lattice codebook points at dims 256, 512, 1024, 2048 satisfy: (a) coordinates in {-1, 0, 1}, (b) coordinate sum is even, (c) number of nonzero coordinates is even, (d) first coordinate is never +1."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity; test_thesis_a_codebook_parity_256d, test_thesis_a_codebook_parity_512d, test_thesis_a_codebook_parity_1024d and test_thesis_a_codebook_parity_2048d were removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity; test_thesis_a_codebook_parity_256d, test_thesis_a_codebook_parity_512d, test_thesis_a_codebook_parity_1024d and test_thesis_a_codebook_parity_2048d assert conditions (a) to (c) on the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/; condition (d) is asserted by test_base_universe_size_and_exclusion_count, which requires Lambda_2048 to lie inside the base universe with coord[0] in {-1, 0}, and test_thesis_b_filtration_nesting carries it to the smaller dimensions; all execute in CI)"
 
 [[claim]]
 id = "C-459"
 last_verified = "2026-02-08"
 statement = "Lattice filtration nesting (Thesis B): Lambda_256 is a strict subset of Lambda_512, which is a strict subset of Lambda_1024, which is a strict subset of Lambda_2048. The embedding is by exact lattice-point membership."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration; test_thesis_b_filtration_nesting was removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration; test_thesis_b_filtration_nesting and test_c453_filtration_growth_has_expected_new_points assert the strict subset chain on the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and execute in CI)"
 
 [[claim]]
 id = "C-460"
 last_verified = "2026-02-08"
 statement = "Prefix-cut characterization (Thesis C): Each filtration transition (2048->1024, 1024->512, 512->256) is a lexicographic prefix cut -- the child codebook consists of exactly the first |child| points when the parent is sorted in lexicographic order."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut; test_thesis_c_2048_to_1024_prefix_cut, test_thesis_c_1024_to_512_prefix_cut and test_thesis_c_512_to_256_prefix_cut were removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut; test_thesis_c_2048_to_1024_prefix_cut, test_thesis_c_1024_to_512_prefix_cut, test_thesis_c_512_to_256_prefix_cut, test_thesis_c_full_filtration_cuts and test_c453_filtration_is_lexicographic_prefix_chain read the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/ and execute in CI)"
 
 [[claim]]
 id = "C-461"
 last_verified = "2026-02-08"
 statement = 'Lambda_32 (the 32-row alignment) is a "pinned corner" of Lambda_256: all 32 points have first 4 coordinates equal to (-1, -1, -1, -1). It is the lex-first 32 points of Lambda_256 under lex order.'
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256 was removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256 asserts that the lex-first 32 points of Lambda_256 all have first four coordinates equal to -1, and test_lambda_256_csv_vs_predicates ties the CSV Lambda_256 to the predicate enumeration; both read the Git-tracked lattice mapping CSV under data/csv/cayley_dickson/ and execute in CI; the 32 points are derived from Lambda_256 in lex order, and no executing test compares them with a separate 32-row alignment table)"
 
 [[claim]]
 id = "C-462"
@@ -10898,7 +10898,7 @@ id = "C-465"
 last_verified = "2026-02-08"
 statement = "Scalar shadow action (Thesis D): For each lattice point, the scalar shadow pi(b) = signum(sum(coords)) maps to {-1, 0, 1}. The addition-mode action ell_out = ell + pi(b)*ones_8 shifts lattice points by a multiple of the all-ones vector."
 status = "Verified"
-where_stated = "`crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition; test_thesis_d_scalar_shadow_basic and test_thesis_d_scalar_shadow_addition_mode were removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition; test_thesis_d_scalar_shadow_basic asserts the identity shadow is -1 and test_thesis_d_scalar_shadow_addition_mode asserts that the shadow is ternary over the checked basis elements, both on the Git-tracked 256d lattice mapping CSV under data/csv/cayley_dickson/ and executing in CI; verify_scalar_shadow_addition returns addition_mode_verified, a parity check on ell + pi(b)*ones_8, but no executing test asserts that field, so the claimed shift by a multiple of the all-ones vector has no asserting test beyond its construction in that function)"
 
 [[claim]]
 id = "C-466"
@@ -12610,7 +12610,7 @@ id = "C-696"
 last_verified = "2026-02-17"
 statement = "8D codomain lock of CD lattice projection reflects octonion subalgebra shadow: the projection pi(a,b)_i = round((a_i - b_i) * scale) always maps to Z^8 regardless of input dimension."
 status = "Verified"
-where_stated = "`crates/lattice_filtration/src/basis_index.rs` (project_to_lattice), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims was removed with the scientific payload archive, so no executing test covers this statement)"
+where_stated = "`crates/lattice_filtration/src/basis_index.rs` (project_to_lattice; test_project_to_lattice executes the formula on one 16D sample and checks one coordinate), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims asserts that every stored lattice vector at dims 256, 512, 1024 and 2048 has 8 coordinates, read from the Git-tracked lattice mapping CSVs under data/csv/cayley_dickson/; no executing test applies project_to_lattice across input dimensions, so the statement for generic input dimension rests on the [i32; 8] return type)"
 
 [[claim]]
 id = "C-697"
