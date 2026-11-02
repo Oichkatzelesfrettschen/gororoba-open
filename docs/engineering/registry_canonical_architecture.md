@@ -505,71 +505,26 @@ canonical artifact history in SQLite.
 before writing compatibility exports. A host scan without reindexing remains
 available for materialization reporting.
 
-## Scientific payload retention
-
-Scientific payloads exceed the repository's Git LFS budget. The repository
-keeps required compile-time fixtures as ordinary Git blobs and declares bulk
-evidence in `data/retention/scientific-payloads.json`. The manifest binds each original path
-to its SHA256, byte length, and object member in one zstd-compressed tar archive.
-The archive contains 4,989 historical objects. Main maps 2,202 current paths;
-the science continuation maps 3,419. Historical objects without a current path
-remain in the archive.
-
-The manifest's release URL is a retrieval locator. Manifest validation proves
-the declared identities and index binding; a successful download and complete
-archive verification establish materialization. A missing local payload remains
-missing even when its retention declaration is valid. Provider availability
-requires a separate retrieval observation.
+## Source retention
 
 The source inventory's `downloaded` label means repository-managed retention:
-an ordinary Git blob or a member declared by an indexed, hash-bound archive
-manifest. The per-host `git_tracked` field continues to report actual Git-index
-membership. Archive membership does not make an ignored file Git-tracked.
-Scientific claim statuses and retained numerical results retain their own
-evidence contracts.
+a path in the Git index. The per-host `git_tracked` field reports the same
+Git-index membership, and the gitignored per-host materialization manifest
+reports whether the bytes are present on the reader's checkout. A missing
+local file remains missing even when the inventory records its canonical URL
+and content identity; that state is `remotely_materializable`. Provider
+availability requires a separate retrieval observation. Scientific claim
+statuses and retained numerical results keep their own evidence contracts.
 
 `verified_local` in the historical object inventory records the original
 backup verification. That field does not describe the reader's checkout.
 
-### Materialize evidence
-
-Download the exact HTTPS asset named in `data/retention/scientific-payloads.json` using a
-bounded retry policy. A Mozilla user agent is appropriate for providers that
-reject generic download clients. Keep downloads outside tracked evidence paths.
-Run `hydrate-scientific-payloads` with the repository root, indexed manifest,
-and downloaded archive. The hydration command verifies archive size and SHA256
-before extraction, validates every historical object, and installs only current
-declared paths. Existing matching files are reused; conflicting bytes fail
-preflight. Destination installation is atomic per file, not across the entire
-collection. Run the command again after an interrupted installation.
-
-Repeat `--path <repository-relative-path>` to install a bounded subset. The
-hydrator still verifies the complete compressed archive identity and archive
-inventory, hashes every selected object, installs only selected current paths,
-and confirms that each selected path is materialized after installation. An
-unknown or duplicate selected path fails before extraction. Omitting `--path`
-preserves complete current-path hydration. The JSON report keeps
-`verified_objects` as the complete archive-inventory count and records the
-bounded hash/install denominator separately as `selected_objects`.
-
-```bash
-mkdir -p .cache/retention
-wget --user-agent='Mozilla/5.0' --timeout=30 --tries=3 --continue \
-  --output-document=.cache/retention/scientific-payloads.tar.zst \
-  "$(jq -er '.archive.url' data/retention/scientific-payloads.json)"
-CARGO_TARGET_DIR="$(pwd)/.cache/gate-target" cargo run --offline --locked \
-  --profile validation -p gororoba_cli_provenance \
-  --bin hydrate-scientific-payloads -- \
-  --repo-root "$(pwd)" \
-  --manifest "$(pwd)/data/retention/scientific-payloads.json" \
-  --archive "$(pwd)/.cache/retention/scientific-payloads.tar.zst"
-```
-
-The archive member layout is `<first-two-hash-digits>/<next-two>/<sha256>`.
-Object hashes are independent of original filenames. The objects table retains
-historical payloads that the current files table does not install. Required
-compile-time fixtures also occur in the manifest so their ordinary Git bytes
-can be checked against the same retained identity.
+`data/retention/scientific-payloads.json` is a plain index of the GitHub
+release asset `scientific-payload-archive`, which the owner keeps as cold
+storage: it binds 3,419 original paths to SHA-256 and byte length and names the
+hash-named tar member holding each object. No repository tool reads it. The 976
+of its paths under `curated/`, `data/csv/` and `data/results/` are tracked in
+Git.
 
 ### Historical source identity
 

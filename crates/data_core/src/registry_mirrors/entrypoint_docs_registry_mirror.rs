@@ -21,7 +21,7 @@
 //!
 //! ## `README.md`
 //!
-//! - Title: open_gororoba: Rust-First Evidence-First Scientific Workspace
+//! - Title: gororoba-open: Rust-First Evidence-First Scientific Workspace
 //! - Body lines: 112
 //!
 //! ## `curated/README.md`

@@ -94,6 +94,9 @@ fn main() -> Result<()> {
         Commands::Experiment(args) => cmd_experiment_mutation(&mut store, &cli.repo_root, &args),
         Commands::Binaries(args) => cmd_binaries_mutation(&mut store, &cli.repo_root, &args),
         Commands::Artifact(args) => cmd_artifact_mutation(&mut store, &cli.repo_root, &args),
+        Commands::ExternalSource(args) => {
+            cmd_external_source_mutation(&mut store, &cli.repo_root, &args)
+        }
         Commands::Theorem(args) => cmd_theorem_mutation(&mut store, &cli.repo_root, &args),
         Commands::Requirements(args) => {
             cmd_requirements_mutation(&mut store, &cli.repo_root, &args)
@@ -1765,6 +1768,64 @@ fn cmd_binaries_mutation(
     Ok(())
 }
 
+fn print_delta(report: &serde_json::Value) {
+    for line in report["delta"].as_array().into_iter().flatten() {
+        println!("{}", line.as_str().unwrap_or_default());
+    }
+}
+
+/// Prints the dry-run outcome. A key already in `export_runs` replays its recorded report, so
+/// the dry run states that nothing would change; otherwise it prints `would_change`.
+fn print_dry_run_outcome(report: &serde_json::Value, key: &str, would_change: &str) {
+    if report["already_applied"] == true {
+        println!(
+            "key {key} is already applied; the delta above is the recorded one and no row would change"
+        );
+    } else {
+        println!("{would_change}");
+    }
+}
+
+fn cmd_external_source_mutation(
+    store: &mut ProvenanceStore,
+    repo_root: &Path,
+    args: &ExternalSourceArgs,
+) -> Result<()> {
+    match &args.action {
+        ExternalSourceAction::RetireDossierBodies { spec, dry_run } => {
+            let spec = resolve_cli_path(repo_root, spec);
+            let specification: provenance_store::DossierBodyRetirementSpec =
+                toml::from_str(&fs::read_to_string(&spec).with_context(|| {
+                    format!("read dossier retirement spec {}", spec.display())
+                })?)?;
+            let report = store.retire_external_source_dossier_bodies(&specification, *dry_run)?;
+            print_delta(&report);
+            let rows = report["delta"].as_array().map_or(0, Vec::len);
+            if *dry_run {
+                print_dry_run_outcome(
+                    &report,
+                    &specification.retire_key,
+                    &format!(
+                        "{} dossier(s), {rows} field delta(s) would change",
+                        report["dossiers"].as_array().map_or(0, Vec::len)
+                    ),
+                );
+            } else {
+                println!(
+                    "Retired {} dossier body row(s) and edited {} dossier(s) under key {} ({rows} field deltas).",
+                    specification.retire.len(),
+                    report["dossiers"]
+                        .as_array()
+                        .map_or(0, Vec::len)
+                        .saturating_sub(specification.retire.len()),
+                    specification.retire_key
+                );
+            }
+        }
+    }
+    Ok(())
+}
+
 fn cmd_artifact_mutation(
     store: &mut ProvenanceStore,
     repo_root: &Path,
@@ -1783,6 +1844,63 @@ fn cmd_artifact_mutation(
                 toml::from_str(&fs::read_to_string(&spec)?)?;
             let report = store.repair_artifact_paths(repo_root, &specification)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
+        }
+        ArtifactAction::RetirePaths { spec, dry_run } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactPathRetirementSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report = store.retire_artifact_paths(repo_root, &specification, *dry_run)?;
+            if *dry_run {
+                print_delta(&report);
+                print_dry_run_outcome(
+                    &report,
+                    &specification.retire_key,
+                    &format!("{} artifact(s) would change", specification.retire.len()),
+                );
+            } else {
+                println!("{}", serde_json::to_string_pretty(&report)?);
+            }
+        }
+        ArtifactAction::RemoveDownloadPaths { spec, dry_run } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactPathSubsetRemovalSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report =
+                store.remove_artifact_download_paths(repo_root, &specification, *dry_run)?;
+            print_delta(&report);
+            if *dry_run {
+                print_dry_run_outcome(
+                    &report,
+                    &specification.removal_key,
+                    &format!("{} artifact(s) would change", specification.remove.len()),
+                );
+            } else {
+                println!(
+                    "Removed download paths from {} artifact(s) under key {}.",
+                    specification.remove.len(),
+                    specification.removal_key
+                );
+            }
+        }
+        ArtifactAction::DropRecordSources { spec, dry_run } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactRecordSourceDropSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report = store.drop_artifact_record_sources(&specification, *dry_run)?;
+            print_delta(&report);
+            if *dry_run {
+                print_dry_run_outcome(
+                    &report,
+                    &specification.drop_key,
+                    &format!("{} artifact(s) would change", specification.drop.len()),
+                );
+            } else {
+                println!(
+                    "Dropped record sources from {} artifact(s) under key {}.",
+                    specification.drop.len(),
+                    specification.drop_key
+                );
+            }
         }
         ArtifactAction::RecordRetrieval { spec } => {
             let specification: provenance_store::ArtifactRetrievalSpec =

@@ -251,14 +251,6 @@ status = "active"
 # ---- CLI / Tooling ----
 
 [[workspace_crate]]
-name = "docpipe"
-manifest_path = "crates/docpipe/Cargo.toml"
-target_types = ["bin", "lib", "test"]
-domain = "cli"
-backend_relevance = "tooling"
-status = "active"
-
-[[workspace_crate]]
 name = "gororoba_cli"
 manifest_path = "crates/gororoba_cli/Cargo.toml"
 target_types = ["bin", "lib", "test"]

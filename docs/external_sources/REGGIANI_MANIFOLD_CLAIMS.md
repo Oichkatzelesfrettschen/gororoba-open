@@ -15,8 +15,8 @@ and validates algebraic invariants.
 
 ## Cached primary source
 
-- Cached PDF: `data/papers/corpus/reggiani_2024_2411.18881.pdf`
-- Cached text: `data/papers/corpus/reggiani_2024_2411.18881.txt`
+- Cached PDF: held in the documents repositories; this repository stores no copy.
+- Cached text: not stored in this repository.
 - URL: https://arxiv.org/abs/2411.18881
 
 ## Key claims (paper-asserted)

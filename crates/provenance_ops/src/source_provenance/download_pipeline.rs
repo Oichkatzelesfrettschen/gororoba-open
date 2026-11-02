@@ -16,7 +16,7 @@
 //!     assembled from intake `pdf_success_added.tsv` files plus the
 //!     hand-maintained `cayley_dickson_canonical_sources.toml` and
 //!     `cayley_dickson_source_recovery_2026_02_15.toml` registries
-//!   * `provenance_intake_roots` -- the two well-known intake roots
+//!   * `provenance_intake_roots` -- the download intake root
 //!   * `extend_download_map_from_local_artifacts` -- promote local
 //!     artifact paths into the URL->path map
 //!   * `register_download_aliases` -- insert under all arxiv-pair
@@ -325,13 +325,7 @@ pub(super) fn collect_download_map(repo_root: &Path) -> Result<HashMap<String, V
 }
 
 pub(super) fn provenance_intake_roots(repo_root: &Path) -> Vec<PathBuf> {
-    let mut roots = vec![
-        repo_root.join("data/external/intake"),
-        repo_root.join("data/papers/intake"),
-    ];
-    roots.sort();
-    roots.dedup();
-    roots
+    vec![repo_root.join("data/external/intake")]
 }
 
 pub(super) fn extend_download_map_from_local_artifacts(

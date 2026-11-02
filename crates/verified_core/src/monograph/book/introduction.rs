@@ -70,7 +70,6 @@
 //!   experiments, binaries, and theorem rows
 //! - `registry/claims.toml`, `registry/insights.toml`, `registry/experiments.toml`,
 //!   and `registry/binaries.toml` as generated compatibility exports
-//! - `data/papers/corpus/MANIFEST.toml` for the repo-owned paper corpus
 //!
 //! ## Quick Start
 //!
@@ -95,9 +94,6 @@
 //!
 //! # Synchronize project counters from registry sources
 //! cargo run --release --bin project-counter-sync
-//!
-//! # Extract a paper to TOML
-//! cargo run --release --bin extract-papers -- --only demarrais-2000-math0011260
 //! ```text
 //!
 //! ## Codebase Structure
@@ -116,11 +112,9 @@
 //!   lbm_core/         Lattice Boltzmann
 //!   control_core/     Control theory
 //!   data_core/        Data loading, benchmarks
-//!   docpipe/          PDF extraction (pdfium-render primary)
 //!   gororoba_py/      PyO3 bindings (thin wrappers)
 //!   gororoba_cli*/    Domain-specific operator surfaces
 //! registry/           SQLite control plane plus generated compatibility registries
-//! data/papers/        Cached paper corpus, sidecar text, and manifests
 //! docs/               Documentation and tracking
 //! ```text
 //!

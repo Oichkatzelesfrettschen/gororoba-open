@@ -60,11 +60,15 @@ The lockfile retains `proc-macro-error2` only through the `iai-callgrind`
 development benchmark macros. RustSec reports no safe upgrade, so
 RUSTSEC-2026-0173 remains an explicit compile-time exception.
 
-The lockfile retains `ttf-parser` 0.20.0 through plotters and 0.25.1 through
-lopdf. RustSec reports these releases as unmaintained with no safe upgrade.
-The exceptions are limited to plotting font support and PDF font parsing;
-they do not hide a known fixed vulnerability. RUSTSEC-2026-0192 remains an
-explicit upstream-maintenance exception.
+The lockfile retains `ttf-parser` 0.20.0 through `plotters` 0.3.7 (a direct
+dependency of `gororoba_cli`, `gororoba_cli_data`, `gororoba_cli_physics`,
+`gororoba_cli_quantum` and `gororoba_cli_warp`) and 0.25.1 through
+`owned_ttf_parser`, `ab_glyph`, `sctk-adwaita` and `winit` 0.30.13, which
+`lbm_vulkan` requests as a development dependency. RustSec reports these
+releases as unmaintained with no safe upgrade. The exceptions are limited to
+plotting font support and window-decoration font rendering in a development
+dependency; they do not hide a known fixed vulnerability.
+RUSTSEC-2026-0192 remains an explicit upstream-maintenance exception.
 
 `spin 0.10.0` remains a yanked transitive dependency through Burn 0.20.1 and
 CubeCL 0.9.0. The workspace does not request `spin` directly, and the current
@@ -79,6 +83,16 @@ dependency-range change or a verified replacement that preserves the affected
 feature. The `spin` warning is removed only after Burn or CubeCL adopts a
 non-yanked compatible release. The `cargo deny check` command remains
 warnings-visible and fails on any new advisory that is not listed here.
+
+## 2026-11-01 PDF-to-text pipeline removal
+
+The `docpipe` crate, `pdf-extract`, `pdfium-render` and their transitive
+packages left the workspace lockfile. The historical RUSTSEC-2026-0105
+section below names `docpipe` and `pdfium-render` as members of the old
+`image` dependency path and stays as the record of that disposition. `lopdf`
+also left the lockfile; `cargo tree -i ttf-parser` shows 0.25.1 only through
+`owned_ttf_parser`, `ab_glyph`, `sctk-adwaita` and `winit`, so the `ttf-parser`
+0.25.1 exception above applies to that path.
 
 ## Per-advisory analysis
 

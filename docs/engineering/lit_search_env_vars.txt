@@ -32,6 +32,7 @@ export CINII_APPID="replace-with-issued-cinii-appid"
 export UNPAYWALL_EMAIL="replace-with-contact-email-for-unpaywall"
 export ADS_API_KEY="replace-with-issued-nasa-ads-token"
 export LENS_API_KEY="replace-with-issued-lens-key"
+export OPENALEX_API_KEY="replace-with-issued-openalex-key"
 ```
 
 Supported variables
@@ -47,10 +48,14 @@ Supported variables
 - `NASA_ADS_TOKEN`
   Alias for NASA ADS.
 - `LENS_API_KEY`
+- `OPENALEX_API_KEY`
+  Optional. Sent as an `Authorization: Bearer` header; raises the OpenAlex
+  budget to 30 requests per second and USD 1 per day (a search costs 10
+  credits).
 
 Notes
 -----
-- OpenAlex and arXiv do not require keys for the current search path.
+- OpenAlex and arXiv serve keyless requests; `OPENALEX_API_KEY` is optional.
 - NASA ADS support is keyed through `ADS_API_KEY` or `NASA_ADS_TOKEN`.
 - If a variable is unset, `lit_search` skips or degrades that keyed source
   instead of looking for versioned workspace secret files.

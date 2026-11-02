@@ -33,7 +33,7 @@ can realize the disconnected 42-assessor / 7 x K6 topology after the local
   "Circuit implementation of a four-dimensional topological insulator."
   Nature Communications 11, 2356.
   DOI: https://doi.org/10.1038/s41467-020-15940-3
-- Local PDF: `data/papers/corpus/wang_2020_4d_topological_insulator.pdf`
+- Local PDF: held in the documents repositories; this repository stores no copy.
 - SHA256:
   `5efd4e5ab05ca6bf9773459b11fbb0a429f48c6a22fcd54f1f9dec72180039c0`
 - Why used here:
@@ -47,7 +47,7 @@ can realize the disconnected 42-assessor / 7 x K6 topology after the local
   "Synthetic space with arbitrary dimensions in a few rings undergoing dynamic modulation."
   arXiv:1710.01373.
   URL: https://arxiv.org/abs/1710.01373
-- Local PDF: `data/papers/corpus/yuan_2017_synthetic_space_arbitrary_dimensions.pdf`
+- Local PDF: held in the documents repositories; this repository stores no copy.
 - SHA256:
   `a990c804071fe12f28478f6117a95b49091d9dc7ff53df14b94ba8af9ebe3766`
 - Why used here:
@@ -60,7 +60,7 @@ can realize the disconnected 42-assessor / 7 x K6 topology after the local
   "Creating boundaries along a synthetic frequency dimension."
   Nature Communications 13, 3377.
   DOI: https://doi.org/10.1038/s41467-022-31140-7
-- Local PDF: `data/papers/corpus/dutt_2022_synthetic_frequency_boundaries.pdf`
+- Local PDF: held in the documents repositories; this repository stores no copy.
 - SHA256:
   `fc7d9c1ebf588e5a9b00e003af4d73836f86d18f1da918710f0acd80018b1fc8`
 - Why used here:
@@ -74,7 +74,7 @@ can realize the disconnected 42-assessor / 7 x K6 topology after the local
   "Simulating graphene dynamics in synthetic space with photonic rings."
   Communications Physics 4, 219.
   DOI: https://doi.org/10.1038/s42005-021-00719-9
-- Local PDF: `data/papers/corpus/yu_2021_graphene_synthetic_photonic_rings.pdf`
+- Local PDF: held in the documents repositories; this repository stores no copy.
 - SHA256:
   `4594a252613b9e9a879c1568459fb8d850c2df798c8cf7bf3274de9109c6d4ec`
 - Why used here:
@@ -87,7 +87,7 @@ can realize the disconnected 42-assessor / 7 x K6 topology after the local
   "Nonlocal Mechano-Optical Metasurfaces."
   ACS Photonics 12(11), 5978-5984.
   DOI: https://doi.org/10.1021/acsphotonics.5c01385
-- Local PDF: `data/papers/corpus/vangorp_2025_nonlocal_mechano_optical_metasurfaces.pdf`
+- Local PDF: held in the documents repositories; this repository stores no copy.
 - SHA256:
   `fa3db13186e1d18ea08bbf76c2fc96567010e5144ff658467d73a0516753eedd`
 - Why used here:

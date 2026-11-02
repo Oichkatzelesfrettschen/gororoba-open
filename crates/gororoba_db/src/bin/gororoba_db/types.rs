@@ -105,6 +105,9 @@ pub(crate) enum Commands {
     /// Register retained local evidence paths in canonical SQLite.
     Artifact(ArtifactArgs),
 
+    /// Mutate external-source dossier rows in canonical SQLite.
+    ExternalSource(ExternalSourceArgs),
+
     /// Manage stable theorem identities and explicit theorem claim bindings.
     Theorem(TheoremArgs),
 
@@ -501,6 +504,27 @@ pub(crate) struct ArtifactArgs {
 }
 
 #[derive(Parser, Debug)]
+pub(crate) struct ExternalSourceArgs {
+    #[command(subcommand)]
+    pub(crate) action: ExternalSourceAction,
+}
+
+#[derive(Subcommand, Debug)]
+pub(crate) enum ExternalSourceAction {
+    /// Empty the bodies of dossiers whose transcriptions live in the documents
+    /// repositories, clear their repository Markdown path, record the custody
+    /// sentence, and replace or drop body lines and path_refs of dossiers that stay,
+    /// using a typed transactional specification.
+    RetireDossierBodies {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
+}
+
+#[derive(Parser, Debug)]
 pub(crate) struct TheoremArgs {
     #[command(subcommand)]
     pub(crate) action: TheoremAction,
@@ -568,6 +592,34 @@ pub(crate) enum ArtifactAction {
     RepairPaths {
         #[arg(long)]
         spec: PathBuf,
+    },
+    /// Move download paths that no tracked file replaces to historical_download
+    /// and set a non-download status, using a typed transactional specification.
+    RetirePaths {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
+    /// Move named untracked paths from an artifact's downloaded set to
+    /// historical_download while the artifact keeps its other downloaded paths,
+    /// its status and its canonical path, using a typed transactional specification.
+    RemoveDownloadPaths {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
+    /// Delete named record-source references from artifacts, using a typed
+    /// transactional specification.
+    DropRecordSources {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
     },
     /// Add a compatibility lane to existing artifacts while preserving their records.
     AssignLane {

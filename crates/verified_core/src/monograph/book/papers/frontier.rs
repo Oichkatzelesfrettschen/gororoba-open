@@ -57,5 +57,5 @@
 //!    lane.
 //! 7. Split Reggiani's standard-zero-divisor and partner-graph logic into its own
 //!    paper crate instead of leaving it embedded in `algebra_analysis`.
-//! 8. Use `docpipe` plus curated equation catalogs to normalize equations paper by
-//!    paper before deciding whether each one belongs in Rust, Rocq, or both.
+//! 8. Normalize equations through curated catalogs paper by paper before deciding
+//!    whether each one belongs in Rust, Rocq, or both.

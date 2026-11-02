@@ -12,6 +12,111 @@
 //!
 //! ## Documents
 //!
+//! ### XS-005: 2004 Math0403113 Boxkites Iii
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_boxkites_iii`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - URL refs (6):
+//!   - `http://arXiv.org/abs/hep-th/9506080`
+//!   - `http://arXiv.org/abs/math.DG/0203158`
+//!   - `http://arXiv.org/abs/math.GM/0011260`
+//!   - `http://arXiv.org/abs/math.RA/0207003`
+//!   - `http://arXiv.org/abs/q-alg/9710013`
+//!   - `http://arxiv.org/abs/hep-th/9501007`
+//! - Notes: Cached transcript mirror for source auditability; not itself a verification result. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
+//!
+//! ### XS-006: Voyage by Catamaran
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_catamaran`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - Notes: Structured summary of a primary paper with claims-supporting context. The dossier body is not stored in this repository; the paper it summarizes is held in the documents repositories.
+//!
+//! ### XS-007: Flying Higher Than A Box-Kite
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_flying_higher`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - URL refs (4):
+//!   - `http://arXiv.org/abs/math.GM/0011260`
+//!   - `http://arXiv.org/abs/math.QA/9802116`
+//!   - `http://arXiv.org/abs/q-alg/9710013`
+//!   - `http://www.innerx.net/~tsmith/Ndalg.html`
+//! - Notes: Contains large transcript and summary notes for downstream claims triage. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
+//!
+//! ### XS-008: Placeholder Substructures I
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_placeholder_i`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - URL refs (1):
+//!   - `http://www.wolframscience.com/conference/2004/presentations/materials/`
+//! - Notes: Revision-aware source capture for placeholder substructure literature. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
+//!
+//! ### XS-010: Presto! Digitization: Part I
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_presto_digitization`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - URL refs (6):
+//!   - `http://arXiv.org.abs/q-alg/9710013`
+//!   - `http://arXiv.org/abs/math.GM/0011260`
+//!   - `http://arXiv.org/abs/math.RA/0207003`
+//!   - `http://arXiv.org/abs/math.RA/0403113`
+//!   - `http://www-groups.dcs.st-and.ac.uk/~history/Quotations/Laplace.html`
+//!   - `http://www.wolframscience.com/conference/2004/presentations/materials/rdemarrais.pdf`
+//! - Notes: Primary transcript with explicit rule extraction for Cayley-Dickson references. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
+//!
+//! ### XS-011: 2004 Wolfram Science Slides
+//!
+//! - Source markdown: ``
+//! - Slug: `de_marrais_wolfram_slides`
+//! - Status token: `REFERENCE`
+//! - Content kind: `custody_pointer`
+//! - Authority level: `citation_pointer`
+//! - Verification level: `not_captured`
+//! - Operational role: `reference_capture`
+//! - Has full transcript: `false`
+//! - Line count: 0
+//! - URL refs (5):
+//!   - `http://arXiv.org/abs.math.RA/0403113`
+//!   - `http://arXiv.org/abs/math.GM/0011260`
+//!   - `http://arXiv.org/abs/math.RA/0207003`
+//!   - `http://arXiv.org/abs/q-alg/9710013`
+//!   - `http://arxiv.org/abs/astro-ph/9801276`
+//! - Notes: Slide transcript capture; interpretation remains separate from source capture. The transcription body is not stored in this repository; the bytes are held in the documents repositories.
+//!
 //! ### XS-027: MaNGA Survey Overview (Bundy et al. 2015 ApJ 798 7)
 //!
 //! - Source markdown: `docs/external_sources/BUNDY_2015_MANGA_OVERVIEW.md`
@@ -110,72 +215,6 @@
 //! - Line count: 95
 //! - Notes: Operational provider and source manifest for fetch-datasets registry alignment.
 //!
-//! ### XS-005: 2004 Math0403113 Boxkites Iii
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`
-//! - Slug: `de_marrais_boxkites_iii`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_transcript`
-//! - Authority level: `primary_cached_paper`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `true`
-//! - Line count: 576
-//! - URL refs (6):
-//!   - `http://arXiv.org/abs/hep-th/9506080`
-//!   - `http://arXiv.org/abs/math.DG/0203158`
-//!   - `http://arXiv.org/abs/math.GM/0011260`
-//!   - `http://arXiv.org/abs/math.RA/0207003`
-//!   - `http://arXiv.org/abs/q-alg/9710013`
-//!   - `http://arxiv.org/abs/hep-th/9501007`
-//! - Notes: Cached transcript mirror for source auditability; not itself a verification result.
-//!
-//! ### XS-006: Voyage by Catamaran
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_CATAMARAN.md`
-//! - Slug: `de_marrais_catamaran`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_summary`
-//! - Authority level: `primary_paper_summary`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `false`
-//! - Line count: 76
-//! - Notes: Structured summary of a primary paper with claims-supporting context.
-//!
-//! ### XS-007: Flying Higher Than A Box-Kite
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_FLYING_HIGHER.md`
-//! - Slug: `de_marrais_flying_higher`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_transcript`
-//! - Authority level: `primary_cached_paper`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `true`
-//! - Line count: 1087
-//! - URL refs (4):
-//!   - `http://arXiv.org/abs/math.GM/0011260`
-//!   - `http://arXiv.org/abs/math.QA/9802116`
-//!   - `http://arXiv.org/abs/q-alg/9710013`
-//!   - `http://www.innerx.net/~tsmith/Ndalg.html`
-//! - Notes: Contains large transcript and summary notes for downstream claims triage.
-//!
-//! ### XS-008: Placeholder Substructures I
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_I.md`
-//! - Slug: `de_marrais_placeholder_i`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_transcript`
-//! - Authority level: `primary_cached_paper`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `true`
-//! - Line count: 670
-//! - URL refs (1):
-//!   - `http://www.wolframscience.com/conference/2004/presentations/materials/`
-//! - Notes: Revision-aware source capture for placeholder substructure literature.
-//!
 //! ### XS-009: Placeholder Substructures III
 //!
 //! - Source markdown: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md`
@@ -188,45 +227,6 @@
 //! - Has full transcript: `false`
 //! - Line count: 37
 //! - Notes: Short-form summary and key-result extraction from placeholder III source.
-//!
-//! ### XS-010: Presto! Digitization: Part I
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md`
-//! - Slug: `de_marrais_presto_digitization`
-//! - Status token: `REFERENCE`
-//! - Content kind: `paper_transcript`
-//! - Authority level: `primary_cached_paper`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `true`
-//! - Line count: 1755
-//! - URL refs (6):
-//!   - `http://arXiv.org.abs/q-alg/9710013`
-//!   - `http://arXiv.org/abs/math.GM/0011260`
-//!   - `http://arXiv.org/abs/math.RA/0207003`
-//!   - `http://arXiv.org/abs/math.RA/0403113`
-//!   - `http://www-groups.dcs.st-and.ac.uk/~history/Quotations/Laplace.html`
-//!   - `http://www.wolframscience.com/conference/2004/presentations/materials/rdemarrais.pdf`
-//! - Notes: Primary transcript with explicit rule extraction for Cayley-Dickson references.
-//!
-//! ### XS-011: 2004 Wolfram Science Slides
-//!
-//! - Source markdown: `docs/external_sources/DE_MARRAIS_WOLFRAM_SLIDES.md`
-//! - Slug: `de_marrais_wolfram_slides`
-//! - Status token: `REFERENCE`
-//! - Content kind: `slides_transcript`
-//! - Authority level: `primary_cached_slides`
-//! - Verification level: `source_capture`
-//! - Operational role: `reference_capture`
-//! - Has full transcript: `true`
-//! - Line count: 885
-//! - URL refs (5):
-//!   - `http://arXiv.org/abs.math.RA/0403113`
-//!   - `http://arXiv.org/abs/math.GM/0011260`
-//!   - `http://arXiv.org/abs/math.RA/0207003`
-//!   - `http://arXiv.org/abs/q-alg/9710013`
-//!   - `http://arxiv.org/abs/astro-ph/9801276`
-//! - Notes: Slide transcript capture; interpretation remains separate from source capture.
 //!
 //! ### XS-012: Heliosphere Dataset Progress 2026-03-09
 //!
@@ -252,7 +252,7 @@
 //! - Verification level: `operational`
 //! - Operational role: `generated_index`
 //! - Has full transcript: `false`
-//! - Line count: 28
+//! - Line count: 22
 //! - Notes: Auto-generated index of external source dossiers; source of truth is registry/external_sources.toml.
 //!
 //! ### XS-014: Inverse Cayley-Dickson Formalism

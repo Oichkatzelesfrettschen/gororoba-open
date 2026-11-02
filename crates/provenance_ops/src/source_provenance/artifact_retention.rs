@@ -3,10 +3,9 @@
 // Separates repository truth from per-host materialization for cited artifacts.
 
 use anyhow::{Context, Result, ensure};
-use provenance_store::retained_archive::RetainedArchive;
 use sha2::{Digest, Sha256};
 use std::{
-    collections::{BTreeMap, BTreeSet},
+    collections::BTreeSet,
     fs,
     path::{Path, PathBuf},
     process::Command,
@@ -16,12 +15,11 @@ use std::{
 /// retrieval_command reproduces the request that produced the bytes.
 pub const RETRIEVAL_USER_AGENT: &str = "gororoba-provenance-fetch/0.1 (research)";
 
-/// Git index membership and hash-bound archive retention are separate facts.
-/// Managed retention does not establish host materialization or provider availability.
+/// Git index membership establishes managed retention. Retention does not
+/// establish host materialization or provider availability.
 #[derive(Clone, Debug, Default)]
 pub struct RetentionSet {
     paths: BTreeSet<String>,
-    archive_identities: BTreeMap<String, FileIdentity>,
 }
 
 impl RetentionSet {
@@ -32,7 +30,6 @@ impl RetentionSet {
     {
         Self {
             paths: paths.into_iter().map(Into::into).collect(),
-            archive_identities: BTreeMap::new(),
         }
     }
 
@@ -67,45 +64,6 @@ impl RetentionSet {
 
     pub fn contains(&self, repo_relative: &str) -> bool {
         self.paths.contains(&repo_relative.replace('\\', "/"))
-    }
-
-    pub fn from_repository(repo_root: &Path) -> Result<Self> {
-        let archive = RetainedArchive::load_optional(repo_root)?;
-        let mut retention = Self::from_git_index(repo_root);
-        if let Some(archive) = archive {
-            retention.archive_identities = archive
-                .members()
-                .map(|member| {
-                    (
-                        member.path.clone(),
-                        FileIdentity {
-                            sha256: member.sha256.clone(),
-                            byte_length: member.byte_length,
-                        },
-                    )
-                })
-                .collect();
-        }
-        Ok(retention)
-    }
-
-    pub fn is_retained(&self, repo_relative: &str) -> bool {
-        self.contains(repo_relative) || self.archive_identities.contains_key(repo_relative)
-    }
-
-    pub(super) fn verify_archive_identity(
-        &self,
-        path: &str,
-        sha256: &str,
-        byte_length: u64,
-    ) -> Result<()> {
-        if let Some(identity) = self.archive_identities.get(path) {
-            ensure!(
-                identity.sha256 == sha256 && identity.byte_length == byte_length,
-                "canonical retrieval identity conflicts with retained archive member: {path}"
-            );
-        }
-        Ok(())
     }
 
     pub fn len(&self) -> usize {
@@ -276,50 +234,14 @@ pub fn write_host_materialization(path: &Path, text: &str) -> Result<()> {
 }
 
 #[cfg(test)]
-pub(super) fn archive_fixture(
-    root: &Path,
-    path: &str,
-    identity: &FileIdentity,
-) -> Result<RetentionSet> {
-    use provenance_store::retained_archive::MANIFEST_PATH;
-    let member = format!(
-        "{}/{}/{}",
-        &identity.sha256[..2],
-        &identity.sha256[2..4],
-        identity.sha256
-    );
-    let manifest = serde_json::json!({"schema_version":1,
-        "archive":{"url":"https://example.org/archive.zst","sha256":"a".repeat(64),"byte_length":100,"format":"tar-zstd"},
-        "objects":[{"sha256":identity.sha256,"byte_length":identity.byte_length,"archive_member":member}],
-        "files":[{"path":path,"sha256":identity.sha256,"byte_length":identity.byte_length,"archive_member":member}]});
-    fs::create_dir_all(root.join("data/retention"))?;
-    fs::write(root.join(MANIFEST_PATH), serde_json::to_vec(&manifest)?)?;
-    for args in [vec!["init", "--quiet"], vec!["add", "--", MANIFEST_PATH]] {
-        let mut command = Command::new("git");
-        for (name, _) in std::env::vars_os() {
-            if name.as_encoded_bytes().starts_with(b"GIT_") {
-                command.env_remove(name);
-            }
-        }
-        ensure!(
-            command.arg("-C").arg(root).args(args).status()?.success(),
-            "fixture Git command failed"
-        );
-    }
-    RetentionSet::from_repository(root)
-}
-
-#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn archived_retention_preserves_missing_host_and_git_observations() -> Result<()> {
+    fn tracked_retention_preserves_missing_host_observations() -> Result<()> {
         let fixture = tempfile::tempdir()?;
-        let identity = identity_from_bytes(b"payload");
-        let retention = archive_fixture(fixture.path(), "payload.bin", &identity)?;
-        assert!(retention.is_retained("payload.bin"));
-        assert!(!retention.contains("payload.bin"));
+        let retention = RetentionSet::from_paths(["payload.bin"]);
+        assert!(retention.contains("payload.bin"));
         let mut artifact = super::super::UnifiedArtifact {
             local_paths: vec!["payload.bin".into(), "host-only.bin".into()],
             ..Default::default()
@@ -341,7 +263,7 @@ mod tests {
             "payload.bin",
         );
         assert!(!observed.present);
-        assert!(!observed.git_tracked);
+        assert!(observed.git_tracked);
         assert!(observed.sha256.is_empty());
         fs::write(fixture.path().join("payload.bin"), b"payload")?;
         let observed = observe_host_materialization(
@@ -353,14 +275,7 @@ mod tests {
             "payload.bin",
         );
         assert!(observed.present);
-        assert!(!observed.git_tracked);
-        fs::write(
-            fixture
-                .path()
-                .join(provenance_store::retained_archive::MANIFEST_PATH),
-            b"{}",
-        )?;
-        assert!(RetentionSet::from_repository(fixture.path()).is_err());
+        assert!(observed.git_tracked);
         Ok(())
     }
 
@@ -391,7 +306,7 @@ mod tests {
             "ART-0002",
             "absent",
             "remotely_materializable",
-            "data/papers/intake/absent.pdf",
+            "data/external/intake/absent.pdf",
         );
         assert!(!absent.present);
         assert!(!absent.git_tracked);

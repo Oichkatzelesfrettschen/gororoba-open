@@ -2746,6 +2746,22 @@ fn emit_external_sources_mirror(args: ExternalSourcesMirrorArgs) -> Result<(), S
     Ok(())
 }
 
+/// Index entries for the dossiers that own a Markdown file; a dossier with an empty
+/// `source_markdown` keeps its transcription outside this repository and has no file to list.
+fn external_sources_index_entries(docs: &[&toml::map::Map<String, Value>]) -> Vec<String> {
+    docs.iter()
+        .filter(|row| !str_field(row, "source_markdown").is_empty())
+        .map(|row| {
+            format!(
+                "- `{}` `{}`: `{}`",
+                str_field(row, "id"),
+                str_field(row, "status_token"),
+                str_field(row, "source_markdown")
+            )
+        })
+        .collect()
+}
+
 fn emit_external_sources_legacy(args: ExternalSourcesLegacyArgs) -> Result<(), String> {
     let data = read_toml_value(&args.input)?;
     let docs = narrative_docs(&data);
@@ -2765,14 +2781,7 @@ fn emit_external_sources_legacy(args: ExternalSourcesLegacyArgs) -> Result<(), S
             .to_string(),
     );
     linesep(&mut index_lines);
-    for row in docs {
-        index_lines.push(format!(
-            "- `{}` `{}`: `{}`",
-            str_field(row, "id"),
-            str_field(row, "status_token"),
-            str_field(row, "source_markdown")
-        ));
-    }
+    index_lines.extend(external_sources_index_entries(&docs));
     index_lines.push(String::new());
     write_output(
         &args.repo_root.join("docs/external_sources/INDEX.md"),
@@ -3953,6 +3962,27 @@ fn main() {
 #[cfg(test)]
 mod experiment_heading_tests {
     use super::*;
+
+    #[test]
+    fn external_sources_index_lists_only_dossiers_with_a_markdown_file() {
+        let data: Value = toml::from_str(
+            r#"
+[[document]]
+id = "XS-1"
+status_token = "ACTIVE"
+source_markdown = "docs/external_sources/A.md"
+[[document]]
+id = "XS-2"
+status_token = "REFERENCE"
+source_markdown = ""
+"#,
+        )
+        .unwrap();
+        assert_eq!(
+            external_sources_index_entries(&narrative_docs(&data)),
+            ["- `XS-1` `ACTIVE`: `docs/external_sources/A.md`"]
+        );
+    }
 
     fn bibliography_author_fixture() -> (BibliographyRegistry, NormalizedBibliographyAuthors) {
         let registry: BibliographyRegistry = toml::from_str(

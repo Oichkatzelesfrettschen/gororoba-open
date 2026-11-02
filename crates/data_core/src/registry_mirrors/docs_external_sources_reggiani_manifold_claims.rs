@@ -16,8 +16,8 @@
 //!
 //! ## Cached primary source
 //!
-//! - Cached PDF: `data/papers/corpus/reggiani_2024_2411.18881.pdf`
-//! - Cached text: `data/papers/corpus/reggiani_2024_2411.18881.txt`
+//! - Cached PDF: held in the documents repositories; this repository stores no copy.
+//! - Cached text: not stored in this repository.
 //! - URL: https://arxiv.org/abs/2411.18881
 //!
 //! ## Key claims (paper-asserted)
@@ -25,10 +25,10 @@
 //! The paper states (paraphrase, see PDF for full proofs):
 //!
 //! 1) Z(S) is (homeomorphic / diffeomorphic) to G2, and the induced metric makes it
-//! >  isometric to G2 with a particular left-invariant metric.
+//! isometric to G2 with a particular left-invariant metric.
 //!
 //! 2) ZD(S) is isometric to the Stiefel manifold V2(R7) (also presented as G2/SU(2))
-//! >  with a specific G2-invariant metric family.
+//! with a specific G2-invariant metric family.
 //!
 //! ## Upstream references cited by Reggiani (not cached here)
 //!

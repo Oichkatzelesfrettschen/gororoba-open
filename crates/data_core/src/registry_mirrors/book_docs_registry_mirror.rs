@@ -155,7 +155,7 @@
 //! - Line count: 197
 //! - Claim refs (1): C-442
 //!
-//! ### BOOK-014: open_gororoba
+//! ### BOOK-014: gororoba-open
 //!
 //! - Source markdown: `docs/book/src/introduction.md`
 //! - Section: `introduction.md`

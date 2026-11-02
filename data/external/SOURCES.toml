@@ -4,7 +4,7 @@
 # Compatibility export lane: source_contracts
 
 [external_sources]
-updated = "2026-09-02T01:48:58.447461960+00:00"
+updated = "2026-11-02T01:03:14.264756390+00:00"
 authoritative = true
 policy_version = "v1"
 
@@ -219,10 +219,10 @@ mirror_urls = [
 ]
 access_class = "manual_or_licensed"
 status = "migrated"
-retrieval_method = "cargo run -p gororoba_cli --bin extract-papers -- --refresh-index"
+retrieval_method = "none: the document refresh tool is removed; document bytes are held outside this repository and cited by SHA-256 digest"
 attempt_deadline_utc = "2026-02-25"
 resolution_deadline_utc = "2026-03-03"
-blocker_note = "Migrated to data/papers/documents_extracted to remove non-dataset evidence corpora from external replay debt."
+blocker_note = "Migrated to data/papers/documents_extracted to remove non-dataset evidence corpora from external replay debt. The directory is removed from this repository: it tracks no document bytes, extracted text, manifests or cache, and cites each source document by the SHA-256 digest in the documents repositories."
 evidence_refs = [
   "data/papers/intake/2026_02_15_manual_override_fetch/fetch_attempts.tsv",
   "registry/external_sources.toml",
@@ -248,10 +248,10 @@ mirror_urls = [
 ]
 access_class = "manual_or_licensed"
 status = "migrated"
-retrieval_method = "cargo run -p gororoba_cli --bin extract-papers -- --refresh-index"
+retrieval_method = "none: the document refresh tool is removed; document bytes are held outside this repository and cited by SHA-256 digest"
 attempt_deadline_utc = "2026-02-25"
 resolution_deadline_utc = "2026-03-03"
-blocker_note = "Migrated to data/papers/documents_ingest to keep manual ingest corpora outside external dataset replay debt."
+blocker_note = "Migrated to data/papers/documents_ingest to keep manual ingest corpora outside external dataset replay debt. The directory is removed from this repository: it tracks no document bytes, extracted text, manifests or cache, and cites each source document by the SHA-256 digest in the documents repositories."
 evidence_refs = [
   "data/papers/documents_ingest/MANIFEST.toml",
   "data/papers/intake/2026_02_15_manual_override_fetch/fetch_attempts.tsv",
@@ -1200,7 +1200,7 @@ status = "migrated"
 retrieval_method = "cargo run -p gororoba_cli --bin claims-audit -- --update-source-lanes"
 attempt_deadline_utc = "2026-02-25"
 resolution_deadline_utc = "2026-03-03"
-blocker_note = "Migrated to data/papers/intake so troubleshooting traces are governed as manual evidence instead of external replay debt."
+blocker_note = "Migrated to data/papers/intake so troubleshooting traces are governed as manual evidence instead of external replay debt. The directory is removed from this repository: it tracks no document bytes, extracted text, manifests or cache, and cites each source document by the SHA-256 digest in the documents repositories."
 evidence_refs = [
   "data/papers/intake/2026_02_15_manual_override_fetch/fetch_attempts.tsv",
   "registry/artifact_source_of_truth.toml",
@@ -1405,7 +1405,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_cond-mat_0005069_ivanov_braiding.pdf https://arxiv.org/pdf/cond-mat/0005069"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 db3e5c1baa853d6e0f7284895db1becd76bff366d3b249936e6ef33bdddf1ada."
 evidence_refs = [
   "Phys. Rev. Lett. 86, 268 (2001)",
 ]
@@ -1428,7 +1428,7 @@ status = "active"
 retrieval_method = "curl -sL -A 'Mozilla/5.0' -o data/external/arxiv_cond-mat_0010440_kitaev_majorana.pdf https://arxiv.org/pdf/cond-mat/0010440"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = "Plan had wrong ID (quant-ph/0002130); correct arXiv ID is cond-mat/0010440."
+blocker_note = "Plan had wrong ID (quant-ph/0002130); correct arXiv ID is cond-mat/0010440. This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 a1db2291c4834d9f1d471cfccb36e5b48a9eb4807e11b222728d397c19986f40."
 evidence_refs = [
   "Phys.-Usp. 44, 131 (2001)",
 ]
@@ -1450,7 +1450,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2207.02472_microsoft_tgp.pdf https://arxiv.org/pdf/2207.02472"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 82e76718f5098ac54b8c6e8bb71106b1dec75f0b6593cae19774aa276f0f3bcc."
 evidence_refs = [
   "Phys. Rev. B 107, 245423 (2023)",
 ]
@@ -1473,7 +1473,7 @@ status = "active"
 retrieval_method = "curl -sL -A 'Mozilla/5.0' -o data/external/arxiv_2502.12252_microsoft_majorana_2025.pdf https://arxiv.org/pdf/2502.12252"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = "arXiv preprint companion to Nature 638, 651-655 (2025). Full Nature PDF behind paywall; arXiv version has complete content."
+blocker_note = "arXiv preprint companion to Nature 638, 651-655 (2025). Full Nature PDF behind paywall; arXiv version has complete content. This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 5f7dd9e1e0390c10cd41f1353baea8f068d3bb7f24c22669623199f5902c16f0."
 evidence_refs = [
   "Nature 638, 651-655 (2025)",
   "arXiv:2502.12252",
@@ -1496,7 +1496,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_0707.1889_nayak_anyons_tqc.pdf https://arxiv.org/pdf/0707.1889"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 9e912c51f931a98715965333b1cb3b064cbde521dc2d921da2814cbba55e00ff."
 evidence_refs = [
   "Rev. Mod. Phys. 80, 1083 (2008)",
 ]
@@ -1560,7 +1560,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2412.19322_mixed_precision_scientific.pdf https://arxiv.org/pdf/2412.19322"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 22c12735a9fafb7c0b17a273a492199cf4e88cc926af3400dea27c97a282ba3c."
 evidence_refs = [
   "arXiv:2412.19322",
 ]
@@ -1862,10 +1862,10 @@ mirror_urls = [
 ]
 access_class = "manual_or_licensed"
 status = "migrated"
-retrieval_method = "cargo run -p gororoba_cli --bin extract-papers -- --refresh-index"
+retrieval_method = "none: the document refresh tool is removed; document bytes are held outside this repository and cited by SHA-256 digest"
 attempt_deadline_utc = "2026-02-25"
 resolution_deadline_utc = "2026-03-03"
-blocker_note = "Migrated paper corpus from data/external to data/papers/corpus so manual/licensed literature artifacts are outside external replay debt."
+blocker_note = "Migrated paper corpus from data/external to data/papers/corpus so manual/licensed literature artifacts are outside external replay debt. The directory is removed from this repository: it tracks no document bytes, extracted text, manifests or cache, and cites each source document by the SHA-256 digest in the documents repositories."
 evidence_refs = [
   "data/papers/intake/2026_02_15_manual_override_fetch/fetch_attempts.tsv",
   "registry/source_lanes/papers_pdf.toml",
@@ -2438,7 +2438,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2411.18881_sedenion_geometry.pdf https://arxiv.org/pdf/2411.18881"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 12b3e6adcc432f2590b6883624778830e988a96dfb4a337f8ef5f5b5290e9d18."
 evidence_refs = [
   "arXiv:2411.18881",
 ]
@@ -2835,7 +2835,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2407.09621_tensor_core_acceleration.pdf https://arxiv.org/pdf/2407.09621"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 0fd6931d03d7c2356c851713de53fd404427ade3e18aa81d871ea559ed3e6ede."
 evidence_refs = [
   "arXiv:2407.09621",
 ]
@@ -2897,7 +2897,7 @@ status = "migrated"
 retrieval_method = "cargo run -p gororoba_cli --bin claims-audit -- --update-source-lanes"
 attempt_deadline_utc = "2026-02-25"
 resolution_deadline_utc = "2026-03-03"
-blocker_note = "Migrated trace logs from data/external to data/papers/intake/traces to keep troubleshooting artifacts outside external replay debt."
+blocker_note = "Migrated trace logs from data/external to data/papers/intake/traces to keep troubleshooting artifacts outside external replay debt. The directory is removed from this repository: it tracks no document bytes, extracted text, manifests or cache, and cites each source document by the SHA-256 digest in the documents repositories."
 evidence_refs = [
   "data/papers/intake/traces/hypothesis_runtime_hott_downloads.json",
   "registry/hypothesis_runtime_hott_sources.toml",
@@ -3272,7 +3272,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2105.10161_wick_rotation.pdf https://arxiv.org/pdf/2105.10161"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 0c1956865dd6a1c26730ae9d40507ea3463f40f8b0e071a03cdf88e01962ea2d."
 evidence_refs = [
   "arXiv:2105.10161",
 ]
@@ -3344,7 +3344,7 @@ status = "active"
 retrieval_method = "wget -O data/external/arxiv_2512.13002_zd_holonomy.pdf https://arxiv.org/pdf/2512.13002"
 attempt_deadline_utc = ""
 resolution_deadline_utc = ""
-blocker_note = ""
+blocker_note = "This repository tracks no copy of the PDF; its bytes are filed in the documents repositories and identified by SHA-256 469f13cd838152fd661ac6e4585658542c68532a04ce1c7c38b26645bf35adc9."
 evidence_refs = [
   "arXiv:2512.13002",
 ]

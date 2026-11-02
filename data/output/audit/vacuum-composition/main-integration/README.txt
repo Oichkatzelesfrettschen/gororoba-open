@@ -3,12 +3,13 @@ canonical evidence with main commit f4f4f9fe20f7cc400bb6451a3a1a6969977993c1.
 The combined proofs/_RocqProject declares 347 modules and hashes to
 d327e4c63c4ce854438da9d1965b7ba31c552bd1c1505c509eedc34a1341688f.
 
-The historical-canonical/control-plane-before-main.sqlite3 artifact retains the
-original dirty database at SHA-256
-3f861b07bb4a8c6ea52988f82c7b4ca02d79b3b3550479d1ba67a253fa3feda1.
+The original dirty database, SHA-256
+3f861b07bb4a8c6ea52988f82c7b4ca02d79b3b3550479d1ba67a253fa3feda1, lives in git
+history at commit 7aee5cef as
+data/output/audit/vacuum-composition/historical-canonical/control-plane-before-main.sqlite3.
 The historical database has 116 theorem events. Twenty-three keys differ from
 merged main: 22 receipts at project identity 1c1c11f503da and one inventory event.
-Those events remain historical execution evidence in the immutable artifact.
+Those events remain historical execution evidence in that commit.
 The active canonical database retains all 308 merged-main theorem events and
 all 220 claim-transition events, then appends a combined inventory event and
 54 current-project receipt events through gororoba-db. The receipt CLI freshly

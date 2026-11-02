@@ -4438,7 +4438,7 @@
 //! ## E-287: NuFit release-specific reference membership audit
 //!
 //! - Binary: `cargo-test:algebra_experimental:nufit_reference_identity`
-//! - Input: Retained NuFit6.0 and6.1 PDF tables, exact SHA256 identities and four normal-ordering analysis variants; fixed scorecard theta23=48.99.
+//! - Input: NuFit6.0 and6.1 PDF tables, held in the documents repositories with their SHA256 identities recorded in the interval contract; four normal-ordering analysis variants; fixed scorecard theta23=48.99.
 //! - Output: Rust integration test output
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4455,7 +4455,7 @@
 //! ## E-288: Moreno source and Rocq theorem hypothesis comparison
 //!
 //! - Binary: `external:rocq:9.1.1`
-//! - Input: Hash-retained Moreno e-print TeX Corollary 1.6, Proposition 1.7 and following Remark; source-matched Rocq bodies and concrete sedenion interface.
+//! - Input: Moreno e-print TeX Corollary 1.6, Proposition 1.7 and following Remark, held in the documents repositories with SHA256 identities in the source map; source-matched Rocq bodies and concrete sedenion interface.
 //! - Output: Focused theorem-body replay, Printed concrete and abstract assumptions, Source-to-theorem implication map
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4472,7 +4472,7 @@
 //! ## E-289: Ruan-Fan retained producer replay and source receipt reconciliation
 //!
 //! - Binary: `p2b-ruan-fan-reproduction`
-//! - Input: Frozen numerical protocol and retained 80-decimal independent pole output; newly retrieved arXiv0909.3323v2 archive and separately hashed extracted TeX and PDF.
+//! - Input: Frozen numerical protocol and retained 80-decimal independent pole output; the arXiv0909.3323v2 archive with its extracted TeX and PDF, held in the documents repositories with SHA256 identities in the adjudication contract.
 //! - Output: Complete numerical replay TOML, Source-receipt test output, Bounded adjudication and unresolved source-landmark discrepancy
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4608,7 +4608,7 @@
 //! ## E-299: Magnonic source-table projected spectra and admitted subspace invariants
 //!
 //! - Binary: `cargo-test:quantum_core:magnonic_source_projection`
-//! - Input: Hash-retained arXiv:2601.03210v2 tables, original source Figure 5/6 rasters, supplemental valley-curvature propositions and declared rectangular geometry.
+//! - Input: arXiv:2601.03210v2 tables, original source Figure 5/6 rasters, supplemental valley-curvature propositions and declared rectangular geometry; the source TeX is held in the documents repositories with SHA256 identities in the adjudication contract.
 //! - Output: Source-frequency raster-support comparisons, Rectangular-folding and geometry residuals, Retained gap failures and subspace invariants, Local valley-patch flux with declared embedding, Independent homogeneous-frequency unit replay
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4642,7 +4642,7 @@
 //! ## E-301: Photon-graviton counterterm proper-time measure and Ward contraction scope
 //!
 //! - Binary: `cargo-test:gr_core:ward_source_scope`
-//! - Input: Source arXiv:2601.23279v1 Eqs.4.9/4.10/A.13 and 7.3-7.7; retained scalar-source gr-qc/0412095v2; two mass fixtures with independent Simpson counterterm integration, transverse polarization/gauge basis pairs, and original full-vector residuals.
+//! - Input: Source arXiv:2601.23279v1 Eqs.4.9/4.10/A.13 and 7.3-7.7 and scalar-source gr-qc/0412095v2, both held in the documents repositories with SHA256 identities in the adjudication contract; two mass fixtures with independent Simpson counterterm integration, transverse polarization/gauge basis pairs, and original full-vector residuals.
 //! - Output: data/output/audit/ward-residual-scope/adjudication.toml
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4676,7 +4676,7 @@
 //! ## E-303: Ruan-Fan Figure 5 source-vector and curve identity extraction
 //!
 //! - Binary: `external:optics-figure5-vector-extractor:e9ae82daed8e9085`
-//! - Input: Exact Figure 5 EPS members from the retained arXiv0909.3323v2 source archive; separate circle, fitted-stroke and printed-prose identities.
+//! - Input: Exact Figure 5 EPS members from the arXiv0909.3323v2 source archive, which is held in the documents repositories with SHA256 identities in the source-extractor contract; separate circle, fitted-stroke and printed-prose identities.
 //! - Output: data/output/audit/optics-landmark-identity/source-adjudication.toml
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4693,7 +4693,7 @@
 //! ## E-304: Distributional photon-graviton source identity and finite Ward predicates
 //!
 //! - Binary: `cargo-test:gr_core:ward_distributional_identity`
-//! - Input: Source arXiv:2601.23279v1 Eqs.4.3-4.11 and Appendix B, retained TeX archive, and scalar gr-qc/0412095v2 Eqs.3.3-3.11 at xi_bar=0. Three fixed proper times, independently transcribed tensor components, periodic delta and signed endpoint controls; retained integrated/transverse/UV fixtures.
+//! - Input: Source arXiv:2601.23279v1 Eqs.4.3-4.11 and Appendix B with its TeX archive, and scalar gr-qc/0412095v2 Eqs.3.3-3.11 at xi_bar=0, all held in the documents repositories with SHA256 identities in the adjudication contracts. Three fixed proper times, independently transcribed tensor components, periodic delta and signed endpoint controls; retained integrated/transverse/UV fixtures.
 //! - Output: data/output/audit/ward-distributional-identity/adjudication.toml
 //! - Deterministic: `true`
 //! - GPU: `false`
@@ -4778,7 +4778,7 @@
 //! ## E-309: Directional path estimator identity and fixed-field numerical conformance
 //!
 //! - Binary: `cargo-test:qgp_scaling:directional_path_identity`
-//! - Input: Retained arXiv2212.01324v1 Eq9/12/17; declared forward rays, independent rectangles and unequal sampled fields; Pb208 hard-sphere optical fields at fixed b0/8 fm on64/128/256 grids.
+//! - Input: arXiv2212.01324v1 Eq9/12/17, held in the documents repositories with its SHA256 identity in the source-quenching contract; declared forward rays, independent rectangles and unequal sampled fields; Pb208 hard-sphere optical fields at fixed b0/8 fm on64/128/256 grids.
 //! - Output: data/output/audit/qgp-directional-path-identity/adjudication.toml
 //! - Deterministic: `true`
 //! - GPU: `false`

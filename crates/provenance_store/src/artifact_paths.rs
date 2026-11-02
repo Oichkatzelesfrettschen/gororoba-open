@@ -66,11 +66,20 @@ pub enum TransformedPathRelation {
     TransformedCopy,
 }
 
-fn sha256(bytes: impl AsRef<[u8]>) -> String {
+pub(crate) fn sha256(bytes: impl AsRef<[u8]>) -> String {
     Sha256::digest(bytes)
         .iter()
         .map(|byte| format!("{byte:02x}"))
         .collect()
+}
+
+/// Marks a report replayed from an applied key as the answer to a dry run: `dry_run` is `true`
+/// and `already_applied` says the key is already in `export_runs`, so no row would change.
+pub(crate) fn mark_dry_run_replay(report: &mut serde_json::Value, dry_run: bool) {
+    if dry_run {
+        report["dry_run"] = serde_json::Value::Bool(true);
+        report["already_applied"] = serde_json::Value::Bool(true);
+    }
 }
 
 fn verify_file(root: &Path, relative: &str, expected: &str) -> Result<()> {
@@ -116,7 +125,7 @@ pub(crate) fn verified_file_bytes(root: &Path, relative: &str, expected: &str) -
     Ok(bytes)
 }
 
-fn repository_git(root: &Path) -> Command {
+pub(crate) fn repository_git(root: &Path) -> Command {
     let mut command = Command::new("git");
     // Hook environments can redirect Git to the caller's index and common dir.
     // Repository admission and test fixtures must resolve the explicit root.
@@ -213,7 +222,7 @@ fn rows(connection: &Connection, query: &str, id: &str) -> Result<Vec<Value>> {
     Ok(result)
 }
 
-fn snapshot(connection: &Connection, id: &str) -> Result<Value> {
+pub(crate) fn snapshot(connection: &Connection, id: &str) -> Result<Value> {
     Ok(json!({
         "artifact": rows(connection, "SELECT * FROM artifacts WHERE id = ?1", id)?,
         "artifact_paths": rows(connection, "SELECT * FROM artifact_paths WHERE artifact_id = ?1 ORDER BY path, relation", id)?,

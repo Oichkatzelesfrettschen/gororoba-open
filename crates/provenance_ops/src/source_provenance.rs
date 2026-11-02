@@ -132,11 +132,10 @@ const BEST_PRACTICE_SOURCES: &[&str] = &[
 ];
 
 /// `downloaded` records repository-managed retention through a Git-tracked
-/// path or an indexed hash-bound release archive member. Retention establishes
-/// neither provider availability nor host materialization. A usable canonical
-/// URL and content identity establish `remotely_materializable` when managed
-/// retention is absent. Per-host presence belongs to the gitignored
-/// materialization manifest.
+/// path. Retention establishes neither provider availability nor host
+/// materialization. A usable canonical URL and content identity establish
+/// `remotely_materializable` when managed retention is absent. Per-host
+/// presence belongs to the gitignored materialization manifest.
 const VALID_STATUSES: &[&str] = &[
     "downloaded",
     "remotely_materializable",
@@ -437,7 +436,7 @@ fn discover_candidate_source_files(repo_root: &Path) -> Vec<PathBuf> {
         "mirror",
         "provenance",
     ];
-    let allowed_prefixes = ["registry/", "reports/", "docs/", "papers/", "data/papers/"];
+    let allowed_prefixes = ["registry/", "reports/", "docs/"];
     let excluded_prefixes = [
         ".git/",
         "target/",
@@ -1567,7 +1566,7 @@ pub fn build_artifact_source_of_truth(
     out_registry: &Path,
     out_report: &Path,
 ) -> Result<BuildSummary> {
-    let retention = RetentionSet::from_repository(repo_root)?;
+    let retention = RetentionSet::from_git_index(repo_root);
     let mut set = StagedWriteSet::new();
     let (mut summary, _) =
         stage_artifact_source_of_truth(repo_root, out_registry, out_report, &retention, &mut set)?;

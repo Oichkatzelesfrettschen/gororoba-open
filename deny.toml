@@ -21,8 +21,10 @@ ignore = [
     # instant 0.1.13 (unmaintained). Runtime via minifb -> gororoba_cli_physics
     # for UI display timing. Migration tracked: see ADR rustsec-dispositions.md.
     "RUSTSEC-2024-0384",
-    # ttf-parser is transitive through plotters and lopdf; RustSec reports no
-    # safe upgrade for the maintained consumers.
+    # ttf-parser 0.20.0 is transitive through plotters; 0.25.1 is transitive
+    # through owned_ttf_parser, ab_glyph, sctk-adwaita and winit (a
+    # lbm_vulkan development dependency). RustSec reports no safe upgrade for
+    # the maintained consumers.
     "RUSTSEC-2026-0192",
     # quick-xml 0.39 is a build-only transitive dependency of wayland-scanner.
     # Runtime XML consumers use quick-xml 0.41.

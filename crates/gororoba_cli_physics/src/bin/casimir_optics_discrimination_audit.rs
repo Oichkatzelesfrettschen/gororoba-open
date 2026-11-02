@@ -50,6 +50,9 @@ const ANGULAR_CONVERGENCE_TARGET: &str = "Au20/SiO2-50/Al2O3-50/Si_vs_Au";
 const PRODUCER_SOURCE: &str = include_str!("casimir_optics_discrimination_audit.rs");
 const SOURCE_RETRIEVAL_MANIFEST: &str = "source-retrieval-manifest.toml";
 const SOURCE_OBSERVATION_DIRECTORY: &str = "source-observations";
+const SOURCE_CUSTODY_MANIFEST: &str = "source-custody.toml";
+const EXPECTED_CUSTODY_SCOPE: &str = "Custody of the retained source bytes that no longer sit in this repository. The listed bodies live in the documents repositories, which hold a manifest row with the same SHA-256; the retrieval manifest and the observation receipts keep the original paths as frozen acquisition records.";
+const DOCUMENTS_CUSTODY: &str = "documents_repository";
 const EXPECTED_RETRIEVAL_DATE: &str = "2026-09-12";
 const EXPECTED_RETRIEVAL_SCOPE: &str = "Observed source bytes for the Casimir, optical, materials, and quantum-admissibility audit. A retained body establishes byte identity and source inspection only.";
 const EXPECTED_OBSERVATION_ACTOR: &str = "codex";
@@ -74,6 +77,15 @@ const PRODUCER_OWNED_OUTPUT_NAMES: [&str; 15] = [
     "unbounded_mimic_coefficients.tsv",
     "uv_model_sensitivity.tsv",
 ];
+/// Where the bytes of a retained source live. CI reads repository-held bytes
+/// and compares their digest. Documents-held bytes sit outside this
+/// repository, so CI compares the digest recorded in each frozen copy instead.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum SourceCustody {
+    Repository,
+    DocumentsRepository,
+}
+
 #[derive(Clone, Copy)]
 struct ExpectedRetainedSource {
     id: &'static str,
@@ -81,6 +93,15 @@ struct ExpectedRetainedSource {
     path: &'static str,
     sha256: &'static str,
     role: &'static str,
+    custody: SourceCustody,
+}
+
+fn expected_custody(source_id: &str) -> Result<SourceCustody> {
+    EXPECTED_RETAINED_SOURCES
+        .iter()
+        .find(|source| source.id == source_id)
+        .map(|source| source.custody)
+        .with_context(|| format!("no expected retained source {source_id}"))
 }
 
 const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
@@ -90,6 +111,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/lifshitz-planar-media-1956.pdf",
         sha256: "94f6bd84212c0ae56f5121485507ee447146b1f866dc3b7787f0a2a8651a1d8c",
         role: "Primary derivation of electromagnetic fluctuation forces between planar media.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "CASIMIR-REVIEW-2009",
@@ -97,6 +119,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/casimir-scattering-review-2009.pdf",
         sha256: "86a3ee1f597fa9aed81214a7b20e7d53f7b8fde849b5201ad9ff20998e6bcc0b",
         role: "Review cross-check for planar Lifshitz and sphere-plane PFA equations.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "HNLS-2017",
@@ -104,6 +127,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/hnls-quantum-metrology-2017.pdf",
         sha256: "6f8c528029a5608d83ae117462c9eb3533c4fa3117daed8bff3283e1c314f8eb",
         role: "Primary theorem source for Hamiltonian-not-in-Lindblad-span assumptions and conclusion.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "MEMORY-KERNEL-CP-2009",
@@ -111,6 +135,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/quantum-memory-kernel-cp-2009.pdf",
         sha256: "2c0864ef3ad0265e0b30ada8ce69bebcd3a49707e7055423945364f40e516b07",
         role: "Primary source showing that quantum memory kernels need explicit complete-positivity conditions.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "AUTOQEC-METROLOGY-2026",
@@ -118,6 +143,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/autonomous-qec-metrology-2026.pdf",
         sha256: "ec96691f8438ccf712cadbaceb96a23d8d20c7cc2f477b1cfbca7793427dde74",
         role: "Primary finite-time sufficient-condition source for autonomous QEC metrology.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "MCPEAK-2015-MANUSCRIPT",
@@ -125,6 +151,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/mcpeak-plasmonic-films-2015.pdf",
         sha256: "0c9b78d3719586778b588e37f34a1908bffbdd92339d9cea924b964b6355cbe5",
         role: "Primary specimen preparation and ellipsometry source for template-stripped gold.",
+        custody: SourceCustody::DocumentsRepository,
     },
     ExpectedRetainedSource {
         id: "RIINFO-AU-JOHNSON",
@@ -132,6 +159,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/au-Johnson.yml",
         sha256: "9f4bdab6bd49f7c6a1c48b5fb5482c7448caf4b6de39594a34ecd66dcf592774",
         role: "CC0 digitized Johnson-Christy optical table; underlying paper remains the experimental authority.",
+        custody: SourceCustody::Repository,
     },
     ExpectedRetainedSource {
         id: "RIINFO-AU-OLMON-EVAPORATED",
@@ -139,6 +167,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/au-Olmon-ev.yml",
         sha256: "be778621e6491fc4e2db6eee400fb329d44ada2b987f7bfd2e219c83fe32a338",
         role: "CC0 digitized evaporated-gold optical table; underlying paper remains the experimental authority.",
+        custody: SourceCustody::Repository,
     },
     ExpectedRetainedSource {
         id: "RIINFO-AU-MCPEAK",
@@ -146,6 +175,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/au-McPeak.yml",
         sha256: "d104232ae43a9b04f978552a7e3dbc448962163e48a023ecca38764eca55e82d",
         role: "CC0 digitized template-stripped-gold optical table linked to the retained primary manuscript.",
+        custody: SourceCustody::Repository,
     },
     ExpectedRetainedSource {
         id: "RIINFO-AU-KLINAVICIUS-11NM",
@@ -153,6 +183,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/au-Klinavicius-11.4nm.yml",
         sha256: "24043ed3549c2bfb50153efbbed625c399b5142b05f015307a0c9fc0151b0b43",
         role: "CC0 digitized nanoparticle optical table demonstrating geometry- and preparation-specific gold records.",
+        custody: SourceCustody::Repository,
     },
     ExpectedRetainedSource {
         id: "RIINFO-DATABASE-LICENSE",
@@ -160,6 +191,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/refractiveindex-info-database-license.txt",
         sha256: "36ffd9dc085d529a7e60e1276d73ae5a030b020313e6c5408593a6ae2af39673",
         role: "Pinned CC0 database license text.",
+        custody: SourceCustody::Repository,
     },
     ExpectedRetainedSource {
         id: "REJECTED-ARXIV-0801.1757",
@@ -167,6 +199,7 @@ const EXPECTED_RETAINED_SOURCES: [ExpectedRetainedSource; 12] = [
         path: "data/output/audit/casimir-optics-discrimination/sources/master-equation-tutorial-nonsupporting-2008.pdf",
         sha256: "19b9184c1c12f2c5688506468637d2e908277c10f66bea6e45e3d4e8f7af10f2",
         role: "Retained negative provenance witness: this tutorial does not support the memory-kernel CP proposition and carries no evidentiary weight for that claim.",
+        custody: SourceCustody::DocumentsRepository,
     },
 ];
 const EXPECTED_SOURCE_OBSERVATIONS: [(&str, &str, &str); 12] = [
@@ -651,6 +684,11 @@ fn verify_source_retrieval_manifest_source(source: &str, repository_root: &Path)
     );
 
     for retained_source in &manifest.source {
+        // The set comparison above fixed this entry's digest to the
+        // constant, so a documents-held body needs no further evidence here.
+        if expected_custody(&retained_source.id)? == SourceCustody::DocumentsRepository {
+            continue;
+        }
         let retained_path = repository_root.join(&retained_source.path);
         let mut inspected_path = repository_root.to_path_buf();
         for component in retained_source.path.components() {
@@ -807,23 +845,93 @@ fn verify_source_observation_source(
         .as_ref()
         .context("body-retained source-observation receipt omits body metadata")?;
     let expected_body_path = retained_source.path.to_string_lossy();
-    let body_bytes = fs::read(repository_root.join(&retained_source.path)).with_context(|| {
-        format!(
-            "reading source-observation body {}",
-            retained_source.path.display()
-        )
-    })?;
-    let body_digest = sha256_hex(&body_bytes);
+    let recorded_identity_agrees = body.path == expected_body_path.as_ref()
+        && body.storage_sha256 == retained_source.sha256
+        && body.decoded_sha256 == retained_source.sha256
+        && matches!(body.encoding, SourceStorageEncoding::Identity);
+    let bytes_agree = match expected_custody(&retained_source.id)? {
+        SourceCustody::Repository => {
+            let body_bytes =
+                fs::read(repository_root.join(&retained_source.path)).with_context(|| {
+                    format!(
+                        "reading source-observation body {}",
+                        retained_source.path.display()
+                    )
+                })?;
+            body.storage_sha256 == sha256_hex(&body_bytes)
+                && body.decoded_bytes == body_bytes.len() as u64
+        }
+        SourceCustody::DocumentsRepository => true,
+    };
     ensure!(
-        body.path == expected_body_path.as_ref()
-            && body.storage_sha256 == retained_source.sha256
-            && body.decoded_sha256 == retained_source.sha256
-            && body.storage_sha256 == body_digest
-            && body.decoded_bytes == body_bytes.len() as u64
-            && matches!(body.encoding, SourceStorageEncoding::Identity),
+        recorded_identity_agrees && bytes_agree,
         "source-observation receipt {receipt_filename} body evidence disagrees with the retained source bytes"
     );
     Ok(())
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SourceCustodyManifest {
+    schema_version: u32,
+    scope: String,
+    source: Vec<CustodySource>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct CustodySource {
+    id: String,
+    sha256: String,
+    custody: String,
+}
+
+/// The custody file lists exactly the documents-held constants, each with the
+/// constant's digest, so the three frozen copies and the custody record agree.
+fn verify_source_custody_source(source: &str) -> Result<()> {
+    let custody: SourceCustodyManifest =
+        toml::from_str(source).context("parsing source-custody manifest")?;
+    ensure!(
+        custody.schema_version == 1 && custody.scope == EXPECTED_CUSTODY_SCOPE,
+        "source-custody manifest schema or scope disagrees with the audit contract"
+    );
+    let expected = EXPECTED_RETAINED_SOURCES
+        .iter()
+        .filter(|source| source.custody == SourceCustody::DocumentsRepository)
+        .map(|source| {
+            (
+                source.id.to_owned(),
+                source.sha256.to_owned(),
+                DOCUMENTS_CUSTODY.to_owned(),
+            )
+        })
+        .collect::<BTreeSet<_>>();
+    let observed = custody
+        .source
+        .iter()
+        .map(|source| {
+            (
+                source.id.clone(),
+                source.sha256.clone(),
+                source.custody.clone(),
+            )
+        })
+        .collect::<BTreeSet<_>>();
+    ensure!(
+        observed == expected && custody.source.len() == expected.len(),
+        "source-custody manifest does not declare the exact documents-held ID/SHA-256 set"
+    );
+    Ok(())
+}
+
+fn verify_source_custody(manifest_path: &Path) -> Result<()> {
+    let custody_path = manifest_path
+        .parent()
+        .context("source-retrieval manifest has no parent directory")?
+        .join(SOURCE_CUSTODY_MANIFEST);
+    let source = fs::read_to_string(&custody_path)
+        .with_context(|| format!("reading source-custody manifest {}", custody_path.display()))?;
+    verify_source_custody_source(&source)
 }
 
 fn verify_source_observations(manifest_path: &Path, repository_root: &Path) -> Result<()> {
@@ -2173,6 +2281,9 @@ fn check_report(output_directory: &Path, generated: &GeneratedAudit) -> Result<(
     if let Err(error) = verify_source_observations(&manifest_path, &repository_root) {
         failures.push(format!("source observation receipts: {error:#}"));
     }
+    if let Err(error) = verify_source_custody(&manifest_path) {
+        failures.push(format!("source custody: {error:#}"));
+    }
     for (name, expected) in render_outputs(generated)? {
         let path = output_directory.join(&name);
         match fs::read_to_string(&path) {
@@ -2243,6 +2354,12 @@ fn main() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn repository_held_sources() -> impl Iterator<Item = &'static ExpectedRetainedSource> {
+        EXPECTED_RETAINED_SOURCES
+            .iter()
+            .filter(|source| source.custody == SourceCustody::Repository)
+    }
 
     fn retained_source_manifest_fixture() -> (PathBuf, String, String) {
         let repository_root = repo_root::resolve!();
@@ -2465,15 +2582,18 @@ mod tests {
         verify_source_retrieval_manifest_source(&manifest_source, &repository_root).unwrap();
 
         let temporary_repository = tempfile::tempdir().unwrap();
-        for source in EXPECTED_RETAINED_SOURCES {
+        for source in repository_held_sources() {
             let destination = temporary_repository.path().join(source.path);
             fs::create_dir_all(destination.parent().unwrap()).unwrap();
             fs::copy(repository_root.join(source.path), destination).unwrap();
         }
+        // Documents-held bodies are absent from the temporary repository.
+        verify_source_retrieval_manifest_source(&manifest_source, temporary_repository.path())
+            .unwrap();
         fs::write(
             temporary_repository
                 .path()
-                .join(EXPECTED_RETAINED_SOURCES[0].path),
+                .join(repository_held_sources().next().unwrap().path),
             b"substituted retained source bytes",
         )
         .unwrap();
@@ -2481,6 +2601,49 @@ mod tests {
             verify_source_retrieval_manifest_source(&manifest_source, temporary_repository.path())
                 .unwrap_err();
         assert!(error.to_string().contains("SHA-256 mismatch"));
+    }
+
+    #[test]
+    fn retained_source_manifest_requires_repository_held_bodies() {
+        let (_, manifest_source, _) = retained_source_manifest_fixture();
+        let empty_repository = tempfile::tempdir().unwrap();
+        let error =
+            verify_source_retrieval_manifest_source(&manifest_source, empty_repository.path())
+                .unwrap_err();
+        assert!(format!("{error:#}").contains("inspecting retained source"));
+    }
+
+    #[test]
+    fn source_custody_manifest_matches_documents_held_constants() {
+        let repository_root = repo_root::resolve!();
+        let manifest_path = repository_root
+            .join(DEFAULT_OUTPUT_DIRECTORY)
+            .join(SOURCE_RETRIEVAL_MANIFEST);
+        verify_source_custody(&manifest_path).unwrap();
+        let custody_source = fs::read_to_string(
+            repository_root
+                .join(DEFAULT_OUTPUT_DIRECTORY)
+                .join(SOURCE_CUSTODY_MANIFEST),
+        )
+        .unwrap();
+        let documents_held = EXPECTED_RETAINED_SOURCES
+            .iter()
+            .filter(|source| source.custody == SourceCustody::DocumentsRepository)
+            .collect::<Vec<_>>();
+        assert_eq!(documents_held.len(), 7);
+        let drifted_digest = custody_source.replacen(documents_held[0].sha256, &"0".repeat(64), 1);
+        assert_ne!(drifted_digest, custody_source);
+        let dropped_entry = custody_source.replacen(
+            &format!("id = {:?}", documents_held[1].id),
+            "id = \"OTHER-SOURCE\"",
+            1,
+        );
+        assert_ne!(dropped_entry, custody_source);
+        let changed_scope = custody_source.replacen("Custody of", "Notes on", 1);
+        assert_ne!(changed_scope, custody_source);
+        for mutated in [drifted_digest, dropped_entry, changed_scope] {
+            assert!(verify_source_custody_source(&mutated).is_err());
+        }
     }
 
     #[test]
@@ -2708,70 +2871,78 @@ mod tests {
         let manifest_bytes = fs::read(&manifest_path).unwrap();
         let manifest_source = std::str::from_utf8(&manifest_bytes).unwrap();
         let manifest: SourceRetrievalManifest = toml::from_str(manifest_source).unwrap();
-        let (source_id, receipt_filename, document_identity_limit) =
-            EXPECTED_SOURCE_OBSERVATIONS[0];
-        let retained_source = manifest
-            .source
+        let repository_held_index = EXPECTED_SOURCE_OBSERVATIONS
             .iter()
-            .find(|source| source.id == source_id)
+            .position(|(id, _, _)| expected_custody(id).unwrap() == SourceCustody::Repository)
             .unwrap();
-        let receipt_path = repository_root
-            .join(DEFAULT_OUTPUT_DIRECTORY)
-            .join(SOURCE_OBSERVATION_DIRECTORY)
-            .join(receipt_filename);
-        let receipt_source = fs::read_to_string(receipt_path).unwrap();
-        let mutations = [
-            (
-                format!("source_key = \"{}\"", retained_source.id),
-                "source_key = \"OTHER-SOURCE\"".to_owned(),
-                "identity or observation fields",
-            ),
-            (
-                format!("observed_at = \"{}\"", manifest.retrieval_date),
-                "observed_at = \"2026-09-11\"".to_owned(),
-                "identity or observation fields",
-            ),
-            (
-                format!("storage_sha256 = \"{}\"", sha256_hex(&manifest_bytes)),
-                format!("storage_sha256 = \"{}\"", "0".repeat(64)),
-                "request evidence",
-            ),
-            (
-                format!("storage_sha256 = \"{}\"", retained_source.sha256),
-                format!("storage_sha256 = \"{}\"", "0".repeat(64)),
-                "body evidence",
-            ),
-            (
-                format!("document_identity_limit = {document_identity_limit:?}"),
-                "document_identity_limit = \"Retained bytes establish physical evidence.\""
-                    .to_owned(),
-                "identity or observation fields",
-            ),
-            (
-                format!("actor = {EXPECTED_OBSERVATION_ACTOR:?}"),
-                "actor = \"other-actor\"".to_owned(),
-                "attribution or evidence-limit fields",
-            ),
-            (
-                format!("tool = {EXPECTED_OBSERVATION_TOOL:?}"),
-                "tool = \"other-tool\"".to_owned(),
-                "attribution or evidence-limit fields",
-            ),
-        ];
-        for (declaration, replacement, expected_error) in mutations {
-            let mutated = receipt_source.replacen(&declaration, &replacement, 1);
-            assert_ne!(mutated, receipt_source);
-            let error = verify_source_observation_source(
-                &mutated,
-                receipt_filename,
-                document_identity_limit,
-                &manifest,
-                &manifest_bytes,
-                retained_source,
-                &repository_root,
-            )
-            .unwrap_err();
-            assert!(format!("{error:#}").contains(expected_error));
+        // Index 0 is documents-held; the repository-held index also covers
+        // the byte comparison that documents-held receipts skip.
+        for observation_index in [0, repository_held_index] {
+            let (source_id, receipt_filename, document_identity_limit) =
+                EXPECTED_SOURCE_OBSERVATIONS[observation_index];
+            let retained_source = manifest
+                .source
+                .iter()
+                .find(|source| source.id == source_id)
+                .unwrap();
+            let receipt_path = repository_root
+                .join(DEFAULT_OUTPUT_DIRECTORY)
+                .join(SOURCE_OBSERVATION_DIRECTORY)
+                .join(receipt_filename);
+            let receipt_source = fs::read_to_string(receipt_path).unwrap();
+            let mutations = [
+                (
+                    format!("source_key = \"{}\"", retained_source.id),
+                    "source_key = \"OTHER-SOURCE\"".to_owned(),
+                    "identity or observation fields",
+                ),
+                (
+                    format!("observed_at = \"{}\"", manifest.retrieval_date),
+                    "observed_at = \"2026-09-11\"".to_owned(),
+                    "identity or observation fields",
+                ),
+                (
+                    format!("storage_sha256 = \"{}\"", sha256_hex(&manifest_bytes)),
+                    format!("storage_sha256 = \"{}\"", "0".repeat(64)),
+                    "request evidence",
+                ),
+                (
+                    format!("storage_sha256 = \"{}\"", retained_source.sha256),
+                    format!("storage_sha256 = \"{}\"", "0".repeat(64)),
+                    "body evidence",
+                ),
+                (
+                    format!("document_identity_limit = {document_identity_limit:?}"),
+                    "document_identity_limit = \"Retained bytes establish physical evidence.\""
+                        .to_owned(),
+                    "identity or observation fields",
+                ),
+                (
+                    format!("actor = {EXPECTED_OBSERVATION_ACTOR:?}"),
+                    "actor = \"other-actor\"".to_owned(),
+                    "attribution or evidence-limit fields",
+                ),
+                (
+                    format!("tool = {EXPECTED_OBSERVATION_TOOL:?}"),
+                    "tool = \"other-tool\"".to_owned(),
+                    "attribution or evidence-limit fields",
+                ),
+            ];
+            for (declaration, replacement, expected_error) in mutations {
+                let mutated = receipt_source.replacen(&declaration, &replacement, 1);
+                assert_ne!(mutated, receipt_source);
+                let error = verify_source_observation_source(
+                    &mutated,
+                    receipt_filename,
+                    document_identity_limit,
+                    &manifest,
+                    &manifest_bytes,
+                    retained_source,
+                    &repository_root,
+                )
+                .unwrap_err();
+                assert!(format!("{error:#}").contains(expected_error));
+            }
         }
     }
 
@@ -2786,10 +2957,10 @@ mod tests {
             .join(SOURCE_RETRIEVAL_MANIFEST);
         let manifest_source = fs::read_to_string(manifest_path).unwrap();
         let temporary_repository = tempfile::tempdir().unwrap();
-        let first_path = PathBuf::from(EXPECTED_RETAINED_SOURCES[0].path);
+        let first_path = PathBuf::from(repository_held_sources().next().unwrap().path);
         let retained_path = temporary_repository.path().join(&first_path);
         fs::create_dir_all(retained_path.parent().unwrap()).unwrap();
-        let external_file = temporary_repository.path().join("external-source.pdf");
+        let external_file = temporary_repository.path().join("external-source.yml");
         fs::write(&external_file, b"external bytes").unwrap();
         symlink(&external_file, &retained_path).unwrap();
 

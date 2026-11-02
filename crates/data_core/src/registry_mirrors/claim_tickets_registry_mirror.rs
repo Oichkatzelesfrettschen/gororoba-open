@@ -155,7 +155,6 @@
 //! - Claims referenced (22): C-401, C-403, C-404, C-405, C-406, C-407, C-408, C-409, C-410, C-411, C-412, C-417, C-418, C-419, C-420, C-421, C-422, C-423, C-424, C-425, C-426, C-427
 //! - Backlog reports:
 //!   - `reports/claims_batch_backlog_C401_C427.md`
-//!   - `reports/convos_pdf_inventory.md`
 //!   - `reports/tscp_trial_factor_ledger.md`
 //! - Acceptance checks:
 //!   - `PYTHONWARNINGS=error make check-parallel`

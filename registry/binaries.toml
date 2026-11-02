@@ -223,16 +223,6 @@ crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; consult crate source for authoritative behavior."
 
 [[binary]]
-name = "cd-cache-adapter"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
-name = "cd-cache-reconcile"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
 name = "cd-domain-survey"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; consult crate source for authoritative behavior."
@@ -509,11 +499,6 @@ crate = "gororoba_cli_physics"
 description = "Dispersion measure ultrametric analysis"
 
 [[binary]]
-name = "document-mineru-replay"
-crate = "gororoba_cli_data"
-description = "Document extraction-quality inventory: identifies source documents by SHA-256 read-only, reconciles the ingest manifest with existing docpipe derivatives, and routes each unique identity to retain_docpipe, mineru_candidate, mineru_required, blocked_source, or manual_review with deterministic reason codes; no OCR execution."
-
-[[binary]]
 name = "download-recovery"
 crate = "gororoba_cli_provenance"
 description = "Rust-native resilient download recovery and route inspection utility. Probes host capabilities, classifies rsync/http-range/VOTable/TAP surfaces, and prints backend decisions for future large-survey fetchers."
@@ -669,11 +654,6 @@ description = "Exhaustive external origin audit and optional re-download verific
 name = "extract-nk-arrays"
 crate = "gororoba_cli_data"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
-name = "extract-papers"
-crate = "gororoba_cli_data"
-description = "Batch PDF extraction to structured TOML via docpipe"
 
 [[binary]]
 name = "extract-real-kv-cache"
@@ -939,16 +919,6 @@ crate = "gororoba_cli_physics"
 description = "Compare homotopy loss and viscosity dynamics via lagged correlation + DTW metrics"
 
 [[binary]]
-name = "human-acquire"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
-
-[[binary]]
-name = "hydrate-scientific-payloads"
-crate = "gororoba_cli_provenance"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_provenance; registry metadata pending."
-
-[[binary]]
 name = "identifiability-compiler"
 crate = "gororoba_cli_physics"
 description = "Workspace executable identifiability-compiler declared by crate gororoba_cli_physics."
@@ -1172,6 +1142,11 @@ crate = "gororoba_cli_data"
 description = "Workspace binary discovered from crates/gororoba_cli_data/Cargo.toml; registry metadata pending."
 
 [[binary]]
+name = "markdown_to_rust"
+crate = "gororoba_cli_data"
+description = "Workspace executable markdown_to_rust declared by crate gororoba_cli_data."
+
+[[binary]]
 name = "mass-binned-phase"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; registry metadata pending."
@@ -1263,11 +1238,6 @@ description = "Workspace binary discovered from cargo metadata in crate gororoba
 name = "modular-chaos"
 crate = "gororoba_cli_algebra"
 description = "Modular chaos simulation: discrete phase scrambling and Fourier resonance, ported from Python"
-
-[[binary]]
-name = "monograph_synthesis"
-crate = "docpipe"
-description = "Workspace binary discovered from cargo metadata in crate docpipe; registry metadata pending."
 
 [[binary]]
 name = "moonshine-closure-test"
