@@ -1756,7 +1756,7 @@ body_markdown = '''
 
 The paper chronology lives off-repo:
 
-- `gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
+- gororoba-documents-private manifest sha256 `f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31`
   is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.
 
@@ -1825,7 +1825,7 @@ body_markdown = '''
 
 This page tracks the active formalization frontier in chronological order. The
 full historical chronology lives off-repo in
-`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`; this
+gororoba-documents-private manifest sha256 `f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31`; this
 page is the executable subset we are actively routing into Rust and Rocq. The
 pre-Moreno dependency chain and its missing-source audit now live in
 `./pre-moreno.md`.
@@ -1962,9 +1962,9 @@ path_refs = [
     "crates/brown_1972/",
     "proofs/theories/",
     "registry/source_lanes/papers_pdf.toml",
-    "gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md",
-    "gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/formalization-roadmap.md",
-    "gororoba-documents-private:mathematics/hypercomplex-analysis/cullen_1965_integral_theorem_analytic_intrinsic_functions_quaternions_archive_reconstructed.pdf",
+    "gororoba-documents-private manifest sha256 f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31",
+    "gororoba-documents-private manifest sha256 d87c949cff15b2e3bfe7fbdc092c096d5a5835750a263d489fe415df70eda1db",
+    "gororoba-documents-private manifest sha256 8eafd53eeb1bfd822804a76a6bdc228c3e85c24cc16e9ce6abbc4675b81b9fe1",
 ]
 line_count = 69
 body_markdown = '''
@@ -1987,8 +1987,8 @@ body_markdown = '''
 
 This page distills the paper chain we need before Moreno (1997), using the
 off-repo chronology matrix and roadmap as reference surfaces:
-`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md` and
-`gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/formalization-roadmap.md`.
+gororoba-documents-private manifest sha256 `f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31` and
+gororoba-documents-private manifest sha256 `d87c949cff15b2e3bfe7fbdc092c096d5a5835750a263d489fe415df70eda1db`.
 
 ## Oldest papers already cached
 

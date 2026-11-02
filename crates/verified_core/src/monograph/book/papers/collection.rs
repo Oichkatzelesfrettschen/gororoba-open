@@ -17,7 +17,7 @@
 //!
 //! The paper chronology lives off-repo:
 //!
-//! - gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
+//! - gororoba-documents-private manifest sha256 `f05f975adf642213042e1fd91b7ad6e14cd8ab60678385163247cde764a16c31`
 //!   is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
 //!   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.
 //!
