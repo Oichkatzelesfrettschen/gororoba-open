@@ -32,7 +32,9 @@ pub struct DossierBodyRetirementSpec {
     pub actor: String,
     pub reason: String,
     /// Sentence appended to each retired dossier's `notes`; states where the bytes live.
+    #[serde(default)]
     pub custody_note: String,
+    #[serde(default)]
     pub retire: Vec<DossierBodyRetirement>,
     /// Index dossier whose body lists the retired dossiers' files.
     #[serde(default)]
@@ -188,18 +190,20 @@ fn check_digest(name: &str, digest: &str) -> Result<()> {
 }
 
 fn validate(spec: &DossierBodyRetirementSpec) -> Result<()> {
-    if spec.schema_version != 1 || spec.retire.is_empty() {
-        bail!("dossier retirement requires schema_version 1 and a nonempty retire set");
+    if spec.schema_version != 1 || (spec.retire.is_empty() && spec_edits(spec).is_empty()) {
+        bail!("dossier retirement requires schema_version 1 and a retire or edit entry");
     }
     for (name, value) in [
         ("retire_key", &spec.retire_key),
         ("actor", &spec.actor),
         ("reason", &spec.reason),
-        ("custody_note", &spec.custody_note),
     ] {
         if value.trim().is_empty() {
             bail!("{name} must be nonempty");
         }
+    }
+    if !spec.retire.is_empty() && spec.custody_note.trim().is_empty() {
+        bail!("custody_note must be nonempty when dossiers are retired");
     }
     let mut ids = BTreeSet::new();
     for retirement in &spec.retire {
@@ -773,6 +777,27 @@ mod tests {
                 .windows(MARKER.len())
                 .any(|window| window == MARKER.as_bytes()),
             "free pages still hold a removed body"
+        );
+    }
+
+    #[test]
+    fn an_edit_only_specification_applies_without_a_retire_set() {
+        let mut fixture = fixture();
+        fixture.spec.retire.clear();
+        fixture.spec.index = None;
+        fixture.spec.custody_note.clear();
+        let report = fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        assert_eq!(report["dossiers"].as_array().unwrap().len(), 1);
+        assert_eq!(state(&fixture, "XS-A")["body"]["bytes"], body("XS-A").len());
+        fixture.spec.edit.clear();
+        assert!(
+            fixture
+                .store
+                .retire_external_source_dossier_bodies(&fixture.spec, false)
+                .is_err()
         );
     }
 
