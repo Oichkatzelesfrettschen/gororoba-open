@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1588
+//! Total claims: 1592
 //!
 //! ## C-001
 //!
@@ -3621,7 +3621,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-10
 //! - Statement: Cayley-Dickson basis elements at dim=256 embed into an 8-dimensional trinary integer lattice with coordinates in {-1, 0, 1}. The mapping is injective over all 256 basis indices and supports exact lattice-to-index round-trip decoding.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c452_c453_lattice_header_schema_stability)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_256d_lattice_mapping_parses, which skips when the untracked lattice CSV is absent; test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims and test_c452_c453_lattice_header_schema_stability were removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-453
@@ -3629,7 +3629,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-10
 //! - Statement: The 8D lattice embedding extends to dims 512, 1024, and 2048: each map is injective at its native dimension, codomain dimension remains fixed at 8, and filtration growth is exact (new-point deltas 256, 512, 1024 across 256->512->1024->2048).
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses, test_csv_2048d_lattice_mapping_parses, test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048, test_c453_filtration_intersection_cardinalities_are_exact, test_c453_filtration_is_lexicographic_prefix_chain)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_csv_512d_lattice_mapping_parses, test_csv_1024d_lattice_mapping_parses and test_csv_2048d_lattice_mapping_parses, which skip when the untracked lattice CSVs are absent; test_c452_c453_embedding_is_injective_and_roundtrip, test_c452_c453_codomain_and_index_coverage_all_dims, test_c453_filtration_growth_has_expected_new_points, test_c453_filtration_layers_are_disjoint_and_partition_2048, test_c453_filtration_intersection_cardinalities_are_exact and test_c453_filtration_is_lexicographic_prefix_chain were removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-454
@@ -3669,7 +3669,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Codebook parity (Thesis A): All lattice codebook points at dims 256, 512, 1024, 2048 satisfy: (a) coordinates in {-1, 0, 1}, (b) coordinate sum is even, (c) number of nonzero coordinates is even, (d) first coordinate is never +1.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity, test_thesis_a_codebook_parity_{256,512,1024,2048}d)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_codebook_parity; test_thesis_a_codebook_parity_256d, test_thesis_a_codebook_parity_512d, test_thesis_a_codebook_parity_1024d and test_thesis_a_codebook_parity_2048d were removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-459
@@ -3677,7 +3677,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Lattice filtration nesting (Thesis B): Lambda_256 is a strict subset of Lambda_512, which is a strict subset of Lambda_1024, which is a strict subset of Lambda_2048. The embedding is by exact lattice-point membership.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration, test_thesis_b_filtration_nesting)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (verify_lattice_filtration; test_thesis_b_filtration_nesting was removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-460
@@ -3685,7 +3685,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Prefix-cut characterization (Thesis C): Each filtration transition (2048->1024, 1024->512, 512->256) is a lexicographic prefix cut -- the child codebook consists of exactly the first |child| points when the parent is sorted in lexicographic order.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut, test_thesis_c_*_prefix_cut)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (learn_prefix_cut, verify_prefix_cut; test_thesis_c_2048_to_1024_prefix_cut, test_thesis_c_1024_to_512_prefix_cut and test_thesis_c_512_to_256_prefix_cut were removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-461
@@ -3693,7 +3693,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Lambda_32 (the 32-row alignment) is a "pinned corner" of Lambda_256: all 32 points have first 4 coordinates equal to (-1, -1, -1, -1). It is the lex-first 32 points of Lambda_256 under lex order.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (test_lambda_32_as_predicate_cut_of_256 was removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-462
@@ -3725,7 +3725,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-08
 //! - Statement: Scalar shadow action (Thesis D): For each lattice point, the scalar shadow pi(b) = signum(sum(coords)) maps to {-1, 0, 1}. The addition-mode action ell_out = ell + pi(b)*ones_8 shifts lattice points by a multiple of the all-ones vector.
-//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition, test_thesis_d_*)
+//! - Where stated: `crates/algebra_experimental/src/cd_external.rs` (scalar_shadow, verify_scalar_shadow_addition; test_thesis_d_scalar_shadow_basic and test_thesis_d_scalar_shadow_addition_mode were removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-466
@@ -5573,7 +5573,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-17
 //! - Statement: 8D codomain lock of CD lattice projection reflects octonion subalgebra shadow: the projection pi(a,b)_i = round((a_i - b_i) * scale) always maps to Z^8 regardless of input dimension.
-//! - Where stated: `crates/lattice_filtration/src/basis_index.rs` (project_to_lattice), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims)
+//! - Where stated: `crates/lattice_filtration/src/basis_index.rs` (project_to_lattice), `crates/algebra_experimental/src/cd_external.rs` (test_c452_c453_codomain_and_index_coverage_all_dims was removed with the scientific payload archive, so no executing test covers this statement)
 //! - What would verify/refute it:
 //!
 //! ## C-697
@@ -12301,7 +12301,7 @@
 //! - Status: `Provisional`
 //! - Last verified: 2026-08-06
 //! - Statement: For normal ordering, theta_23 = 48.99 degrees lies inside the NuFit 6.0 IC19 without-SK 1-sigma interval [47.6, 49.2], outside the NuFit 6.0 IC24 with-SK interval [42.5, 44.3], and outside both NuFit 6.1 intervals: IC23 without SK [42.45, 44.27] and IC24 with SK [42.50, 44.25]. The value lies inside all four published 3-sigma intervals. Interval membership describes these reference variants; local asymmetric-error pulls do not establish an exclusion confidence.
-//! - Where stated: data/output/audit/claim-family-evidence-adjudication/nufit-variant-intervals.toml; data/output/audit/claim-family-evidence-adjudication/nufit-v60-parameters.pdf; data/output/audit/claim-family-evidence-adjudication/nufit-v61-parameters.pdf
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/nufit-variant-intervals.toml (the NuFit 6.0 and 6.1 parameter PDFs are not tracked in this repository)
 //! - What would verify/refute it: Verification: The fixed angle lies inside NuFit6.0 without-SK1-sigma, outside the other three1-sigma intervals, and inside all four3-sigma intervals.. Revision: A source-column or interval correction changes membership: retain the historical ledger and canonically revise only the affected variant-specific statement.. Abandonment: An admitted source comparison contradicts the asserted membership vector under the declared columns: abandon that reference-membership statement.. Inconclusive: The test verifies transcription identity and membership of a fixed value; independent model fitting, uncertainty propagation and physical agreement require separate contracts.
 //!
 //! ## C-1723
@@ -12710,4 +12710,36 @@
 //! - Last verified: 2026-10-13
 //! - Statement: For the eight displayed real quadratic generators in coordinates z5,z6,z13,z16,z17,z18,z19,z20, the common zero set equals the union of the two displayed coordinate planes A15 and B17, with thirteen other coordinates free. The two sum-of-squares identities and explicit rejected-direction controls are proved. Correspondence to Cayley-Dickson multiplication matrices, curve realization, Bouligand tangent limits, plane dimensions and topology require separate bridges.
 //! - Where stated: proofs/theories/NullityTwelveQuadraticLocus.v; docs/engineering/quantum_proof_reconciliation.txt
+//! - What would verify/refute it:
+//!
+//! ## C-1776
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-10-30
+//! - Statement: Open research program: a complete classification of the A5 two-sided rank strata through their attaching data. The limit of the kernel plane along passages from nullity 8 to nullity 12 and 16 is described by the special fiber of the Rees algebra of the Pfaffian kernel-coordinate ideal. For the passage E8-bar to VB the quadric approximation of this fiber has components of degree 3 and 4; the degree-4 component is reached by formal arcs and the degree-3 component is undecided. Nullity-4 kernel bundles, link-to-limit maps and integral invariants remain open.
+//! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1777
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-30
+//! - Statement: On the smooth A5 zero-divisor strata of nullity 8, 12 and 16, ker L_y is a complex vector bundle under J = L_(e_16). All five nullity-12 complex kernel bundles are trivial. On N_+- the complex bundle is C^2 + 3 xi over V_2(R^7), and on E8-bar and X_+- it is C^2 + xi, each carrying the nonzero class of reduced K^0(V_2(R^7)) = Z/2; on W8 it is 2 xi with reduced class 0 and on Iso it is C^4. Every Chern, Stiefel-Whitney and Pontryagin class of these bundles vanishes, so the order-two K-theory class is invisible to characteristic classes.
+//! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1778
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-30
+//! - Statement: Under H = G_2(C) x SO(2, C) x C^*, the rank-8 locus of A5 minus the origin is the disjoint union of twelve H-orbits: five of nullity 8 (W8, E8-bar, Iso, X_+, X_-) and seven of nullity at least 12 (B9, V, VB, V^a_+, V^a_-, N_+, N_-). Sing V = Sing W8 = N_+ u N_-, Sing Iso = VB, Sing X_+- = V^a_+-, Sing E8-bar = V u B9. These orbits, the origin, three nullity-4 strata and the complement form a Whitney stratification of C^15, and the normal link of V u B9 along VB at e_1 + e_18 is S^1 disjoint union S^3.
+//! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1779
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-10-30
+//! - Statement: In the 32-dimensional Cayley-Dickson algebra A5, the zero divisors are the doubly pure y = (p, q) with Q G = 0 for z = p + i q, a union of two absolutely irreducible hypersurfaces of C^15 of complex dimension 14. The real nullity of L_y equals 28 - 2 rank_C C_z, so the nullities 4, 8, 12, 16 are the rank 12, 10, 8, 6 loci of C_z. The rank strata have closed equations R_8 = W8 u E8-bar, R_12 = V u B9, R_16 = N_+ u N_-; E8-bar is irreducible of complex dimension 11 with projective degree 24. The unit strata of nullity 4 and 12 are connected and those of nullity 8 and 16 have two connected components.
+//! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
 //! - What would verify/refute it:

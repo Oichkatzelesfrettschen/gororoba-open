@@ -7,10 +7,10 @@
 //! Authoritative source: `registry/markdown_governance.toml`.
 //!
 //! - Generated at: deterministic
-//! - Document count: 174
+//! - Document count: 169
 //! - TOML generated mirrors: 14
 //! - TOML manual sources: 55
-//! - Generated artifacts: 36
+//! - Generated artifacts: 31
 //! - Manual narratives: 69
 //! - Immutable transcripts: 0
 //!
@@ -644,7 +644,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0073: `docs/external_sources/DE_MARRAIS_BOXKITES_III.md`
+//! ### MDG-0073: `docs/external_sources/DE_MARRAIS_CATAMARAN.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -653,7 +653,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0074: `docs/external_sources/DE_MARRAIS_CATAMARAN.md`
+//! ### MDG-0074: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -662,52 +662,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0075: `docs/external_sources/DE_MARRAIS_FLYING_HIGHER.md`
-//!
-//! - Kind: `generated_markdown`
-//! - Mode: `generated_artifact`
-//! - Header required: `false`
-//! - Source TOML refs:
-//!   - `registry/external_sources.toml`
-//! - Notes: Generated or retained artifact without a TOML mirror contract.
-//!
-//! ### MDG-0076: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_I.md`
-//!
-//! - Kind: `generated_markdown`
-//! - Mode: `generated_artifact`
-//! - Header required: `false`
-//! - Source TOML refs:
-//!   - `registry/external_sources.toml`
-//! - Notes: Generated or retained artifact without a TOML mirror contract.
-//!
-//! ### MDG-0077: `docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md`
-//!
-//! - Kind: `generated_markdown`
-//! - Mode: `generated_artifact`
-//! - Header required: `false`
-//! - Source TOML refs:
-//!   - `registry/external_sources.toml`
-//! - Notes: Generated or retained artifact without a TOML mirror contract.
-//!
-//! ### MDG-0078: `docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md`
-//!
-//! - Kind: `generated_markdown`
-//! - Mode: `generated_artifact`
-//! - Header required: `false`
-//! - Source TOML refs:
-//!   - `registry/external_sources.toml`
-//! - Notes: Generated or retained artifact without a TOML mirror contract.
-//!
-//! ### MDG-0079: `docs/external_sources/DE_MARRAIS_WOLFRAM_SLIDES.md`
-//!
-//! - Kind: `generated_markdown`
-//! - Mode: `generated_artifact`
-//! - Header required: `false`
-//! - Source TOML refs:
-//!   - `registry/external_sources.toml`
-//! - Notes: Generated or retained artifact without a TOML mirror contract.
-//!
-//! ### MDG-0080: `docs/external_sources/EXCEPTIONAL_COSMOLOGY_SOURCES.md`
+//! ### MDG-0075: `docs/external_sources/EXCEPTIONAL_COSMOLOGY_SOURCES.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -716,7 +671,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0081: `docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md`
+//! ### MDG-0076: `docs/external_sources/HELIOSPHERE_DATASET_PROGRESS_2026-03-09.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -725,7 +680,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0082: `docs/external_sources/INDEX.md`
+//! ### MDG-0077: `docs/external_sources/INDEX.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -734,7 +689,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0083: `docs/external_sources/INVERSE_CD_FORMALISM.md`
+//! ### MDG-0078: `docs/external_sources/INVERSE_CD_FORMALISM.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -743,7 +698,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0084: `docs/external_sources/LELLI_2016_SPARC.md`
+//! ### MDG-0079: `docs/external_sources/LELLI_2016_SPARC.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -752,7 +707,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0085: `docs/external_sources/LI_2020_SPARC_NFW_FITS.md`
+//! ### MDG-0080: `docs/external_sources/LI_2020_SPARC_NFW_FITS.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -761,7 +716,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0086: `docs/external_sources/MERGUS_BRIDGE_SOURCES.md`
+//! ### MDG-0081: `docs/external_sources/MERGUS_BRIDGE_SOURCES.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -770,7 +725,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0087: `docs/external_sources/MOSTER_2013_SMHM.md`
+//! ### MDG-0082: `docs/external_sources/MOSTER_2013_SMHM.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -779,7 +734,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0088: `docs/external_sources/NANOGRAV_15YR_PRIMARY_SOURCES.md`
+//! ### MDG-0083: `docs/external_sources/NANOGRAV_15YR_PRIMARY_SOURCES.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -788,7 +743,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0089: `docs/external_sources/NANOGRAV_TIMING_ENGINE_SOURCES.md`
+//! ### MDG-0084: `docs/external_sources/NANOGRAV_TIMING_ENGINE_SOURCES.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -797,7 +752,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0090: `docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md`
+//! ### MDG-0085: `docs/external_sources/OMNI_DATA_AUDIT_2026-03-10.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -806,7 +761,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0091: `docs/external_sources/OPEN_CLAIMS_SOURCES.md`
+//! ### MDG-0086: `docs/external_sources/OPEN_CLAIMS_SOURCES.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -815,7 +770,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0092: `docs/external_sources/PIONEER_FLYBY_ANOMALY_SOURCES.md`
+//! ### MDG-0087: `docs/external_sources/PIONEER_FLYBY_ANOMALY_SOURCES.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -824,7 +779,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0093: `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`
+//! ### MDG-0088: `docs/external_sources/REGGIANI_MANIFOLD_CLAIMS.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -833,7 +788,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0094: `docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md`
+//! ### MDG-0089: `docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -842,7 +797,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0095: `docs/external_sources/SOHO_ARCHIVE_MIRROR_AUDIT_2026-03-09.md`
+//! ### MDG-0090: `docs/external_sources/SOHO_ARCHIVE_MIRROR_AUDIT_2026-03-09.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -851,7 +806,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0096: `docs/external_sources/WESTFALL_2019_MANGA_DRP.md`
+//! ### MDG-0091: `docs/external_sources/WESTFALL_2019_MANGA_DRP.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -860,7 +815,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0097: `docs/external_sources/WHEEL_ALGEBRA_TAXONOMY.md`
+//! ### MDG-0092: `docs/external_sources/WHEEL_ALGEBRA_TAXONOMY.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -869,7 +824,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0098: `docs/external_sources/WOW_SIGNAL_SOURCES.md`
+//! ### MDG-0093: `docs/external_sources/WOW_SIGNAL_SOURCES.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -878,7 +833,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0099: `docs/external_sources/X87_AVX_ACCUMULATION_SOURCES.md`
+//! ### MDG-0094: `docs/external_sources/X87_AVX_ACCUMULATION_SOURCES.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -887,7 +842,7 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0100: `docs/external_sources/ysu_engine_gpu_patterns.md`
+//! ### MDG-0095: `docs/external_sources/ysu_engine_gpu_patterns.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
@@ -896,14 +851,14 @@
 //!   - `registry/external_sources.toml`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0101: `docs/generated/THEOREMS_REGISTRY_MIRROR.md`
+//! ### MDG-0096: `docs/generated/THEOREMS_REGISTRY_MIRROR.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `generated_artifact`
 //! - Header required: `false`
 //! - Notes: Generated or retained artifact without a TOML mirror contract.
 //!
-//! ### MDG-0102: `docs/glossary.md`
+//! ### MDG-0097: `docs/glossary.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -912,7 +867,7 @@
 //!   - `registry/docs_root_narratives.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0103: `docs/lions_commentary_cd_kernel.md`
+//! ### MDG-0098: `docs/lions_commentary_cd_kernel.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -921,245 +876,245 @@
 //!   - `registry/docs_root_narratives.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0104: `docs/monograph/MERGED_MONOGRAPH.md`
+//! ### MDG-0099: `docs/monograph/MERGED_MONOGRAPH.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0105: `docs/physics/sedenion_standard_model.md`
+//! ### MDG-0100: `docs/physics/sedenion_standard_model.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0106: `docs/preregistered/README.md`
+//! ### MDG-0101: `docs/preregistered/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0107: `docs/reports/POST_RC1_32D_EVIDENCE_NOTE.md`
+//! ### MDG-0102: `docs/reports/POST_RC1_32D_EVIDENCE_NOTE.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0108: `docs/reports/POST_RC1_CROSS_DOMAIN_EVIDENCE_NOTE.md`
+//! ### MDG-0103: `docs/reports/POST_RC1_CROSS_DOMAIN_EVIDENCE_NOTE.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0109: `docs/reports/RC1_EVIDENCE_NOTE.md`
+//! ### MDG-0104: `docs/reports/RC1_EVIDENCE_NOTE.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0110: `docs/reports/brown_1972_dissertation_roadmap_2026-03-27.md`
+//! ### MDG-0105: `docs/reports/brown_1972_dissertation_roadmap_2026-03-27.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0111: `docs/reports/cd_cross_domain_synthesis_2026_03_28.md`
+//! ### MDG-0106: `docs/reports/cd_cross_domain_synthesis_2026_03_28.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0112: `docs/reports/cd_legacy_pre1954_roadmap_2026-03-27.md`
+//! ### MDG-0107: `docs/reports/cd_legacy_pre1954_roadmap_2026-03-27.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0113: `docs/reports/diii_d_project_proposal_draft.md`
+//! ### MDG-0108: `docs/reports/diii_d_project_proposal_draft.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0114: `docs/reports/enso_91103_outlook_2026_09_01.md`
+//! ### MDG-0109: `docs/reports/enso_91103_outlook_2026_09_01.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0115: `docs/reports/fusion_enrollment_forms_ready_to_submit.md`
+//! ### MDG-0110: `docs/reports/fusion_enrollment_forms_ready_to_submit.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0116: `docs/reports/root_promoted/bielefeld_jacobson_prefilled_form.md`
+//! ### MDG-0111: `docs/reports/root_promoted/bielefeld_jacobson_prefilled_form.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0117: `docs/reports/root_promoted/cdaweb-voyager-datasets.md`
+//! ### MDG-0112: `docs/reports/root_promoted/cdaweb-voyager-datasets.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0118: `docs/reports/root_promoted/jacobson_googlebooks_accessible_berkeley.md`
+//! ### MDG-0113: `docs/reports/root_promoted/jacobson_googlebooks_accessible_berkeley.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0119: `docs/reports/root_promoted/jacobson_googlebooks_accessible_virginia.md`
+//! ### MDG-0114: `docs/reports/root_promoted/jacobson_googlebooks_accessible_virginia.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0120: `docs/reports/root_promoted/jacobson_googlebooks_classic_search_results.md`
+//! ### MDG-0115: `docs/reports/root_promoted/jacobson_googlebooks_classic_search_results.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0121: `docs/reports/root_promoted/jacobson_googlebooks_search_results.md`
+//! ### MDG-0116: `docs/reports/root_promoted/jacobson_googlebooks_search_results.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0122: `docs/reports/root_promoted/leipzig_freudenthal_request_login.md`
+//! ### MDG-0117: `docs/reports/root_promoted/leipzig_freudenthal_request_login.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0123: `docs/reports/root_promoted/researchgate_huang_security_check.md`
+//! ### MDG-0118: `docs/reports/root_promoted/researchgate_huang_security_check.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0124: `docs/reports/root_promoted/ucsd_jacobson_chapter_detail.md`
+//! ### MDG-0119: `docs/reports/root_promoted/ucsd_jacobson_chapter_detail.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0125: `docs/reports/sedenion_standard_model_commit_audit_2026-03-27.md`
+//! ### MDG-0120: `docs/reports/sedenion_standard_model_commit_audit_2026-03-27.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0126: `docs/reports/turboquant_architecture_2026-03-29.md`
+//! ### MDG-0121: `docs/reports/turboquant_architecture_2026-03-29.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0127: `docs/reports/turboquant_cd_optimization_analysis.md`
+//! ### MDG-0122: `docs/reports/turboquant_cd_optimization_analysis.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0128: `docs/reports/turboquant_claims_2026-03-28.md`
+//! ### MDG-0123: `docs/reports/turboquant_claims_2026-03-28.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0129: `docs/requirements/algebra.md`
+//! ### MDG-0124: `docs/requirements/algebra.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0130: `docs/requirements/analysis.md`
+//! ### MDG-0125: `docs/requirements/analysis.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0131: `docs/requirements/astro.md`
+//! ### MDG-0126: `docs/requirements/astro.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0132: `docs/requirements/cpp.md`
+//! ### MDG-0127: `docs/requirements/cpp.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0133: `docs/requirements/heliosphere.md`
+//! ### MDG-0128: `docs/requirements/heliosphere.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0134: `docs/requirements/latex.md`
+//! ### MDG-0129: `docs/requirements/latex.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0135: `docs/requirements/materials.md`
+//! ### MDG-0130: `docs/requirements/materials.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0136: `docs/requirements/particle.md`
+//! ### MDG-0131: `docs/requirements/particle.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0137: `docs/requirements/rocq.md`
+//! ### MDG-0132: `docs/requirements/rocq.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0138: `docs/research/crossing-detector-statistical-benefit.md`
+//! ### MDG-0133: `docs/research/crossing-detector-statistical-benefit.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -1168,7 +1123,7 @@
 //!   - `registry/research_narratives.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0139: `docs/research/nanograv_15yr_cayley_dickson_synthesis_2026.md`
+//! ### MDG-0134: `docs/research/nanograv_15yr_cayley_dickson_synthesis_2026.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `toml_manual_source`
@@ -1177,245 +1132,245 @@
 //!   - `registry/research_narratives.toml`
 //! - Notes: Manual Markdown source with a declared TOML destination; mirror promotion remains open.
 //!
-//! ### MDG-0140: `docs/tickets/TICKET_PIONEER_FLYBY_FRACTAL_BRIDGE.md`
+//! ### MDG-0135: `docs/tickets/TICKET_PIONEER_FLYBY_FRACTAL_BRIDGE.md`
 //!
 //! - Kind: `generated_markdown`
 //! - Mode: `toml_generated_mirror`
 //! - Header required: `true`
 //! - Notes: Generated Markdown mirror with an explicit immutable header.
 //!
-//! ### MDG-0141: `docs/toolchain/heasarc-catalog-walker.md`
+//! ### MDG-0136: `docs/toolchain/heasarc-catalog-walker.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0142: `docs/toolchain/mast-enumeration-policy.md`
+//! ### MDG-0137: `docs/toolchain/mast-enumeration-policy.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0143: `docs/toolchain/nightly-2026-04-05-ice.md`
+//! ### MDG-0138: `docs/toolchain/nightly-2026-04-05-ice.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0144: `docs/toolchain/shell-retirement.md`
+//! ### MDG-0139: `docs/toolchain/shell-retirement.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0145: `experiments/identifiability/INTEGRATION_NOTES.md`
+//! ### MDG-0140: `experiments/identifiability/INTEGRATION_NOTES.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0146: `experiments/identifiability/README.md`
+//! ### MDG-0141: `experiments/identifiability/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0147: `experiments/identifiability/RESULTS_2026-09-09.md`
+//! ### MDG-0142: `experiments/identifiability/RESULTS_2026-09-09.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0148: `experiments/identifiability/RESULTS_2026-09-10.md`
+//! ### MDG-0143: `experiments/identifiability/RESULTS_2026-09-10.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0149: `plans/README.md`
+//! ### MDG-0144: `plans/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0150: `proofs/README.md`
+//! ### MDG-0145: `proofs/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0151: `registry/AGENTS.md`
+//! ### MDG-0146: `registry/AGENTS.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0152: `tools/vendor/cargo-geiger/README.md`
+//! ### MDG-0147: `tools/vendor/cargo-geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0153: `tools/vendor/cargo-geiger/cargo-geiger-serde/README.md`
+//! ### MDG-0148: `tools/vendor/cargo-geiger/cargo-geiger-serde/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0154: `tools/vendor/cargo-geiger/cargo-geiger/README.md`
+//! ### MDG-0149: `tools/vendor/cargo-geiger/cargo-geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0155: `tools/vendor/cargo-geiger/geiger/README.md`
+//! ### MDG-0150: `tools/vendor/cargo-geiger/geiger/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0156: `tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md`
+//! ### MDG-0151: `tools/vendor/cargo-geiger/test_crates/test1_package_with_no_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0157: `tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md`
+//! ### MDG-0152: `tools/vendor/cargo-geiger/test_crates/test2_package_with_shallow_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0158: `tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md`
+//! ### MDG-0153: `tools/vendor/cargo-geiger/test_crates/test3_package_with_nested_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0159: `tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md`
+//! ### MDG-0154: `tools/vendor/cargo-geiger/test_crates/test4_workspace_with_top_level_package/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0160: `tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md`
+//! ### MDG-0155: `tools/vendor/cargo-geiger/test_crates/test6_cargo_lock_out_of_date/README_DIFFERENT_NAME.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0161: `tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md`
+//! ### MDG-0156: `tools/vendor/cargo-geiger/test_crates/test7_package_with_patched_dep/README_DIFFERENT_NAME.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0162: `tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md`
+//! ### MDG-0157: `tools/vendor/cargo-geiger/test_crates/test8_package_with_build_rs_no_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0163: `tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md`
+//! ### MDG-0158: `tools/vendor/cargo-geiger/test_crates/test9_package_with_git_deps/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0164: `vendor/proc-macro-error2/CHANGELOG.md`
+//! ### MDG-0159: `vendor/proc-macro-error2/CHANGELOG.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0165: `vendor/proc-macro-error2/README.md`
+//! ### MDG-0160: `vendor/proc-macro-error2/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0166: `vendor/zarrs-0.23.14/README.md`
+//! ### MDG-0161: `vendor/zarrs-0.23.14/README.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0167: `vendor/zarrs-0.23.14/VENDORED.md`
+//! ### MDG-0162: `vendor/zarrs-0.23.14/VENDORED.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0168: `vendor/zarrs-0.23.14/doc/ecosystem.md`
+//! ### MDG-0163: `vendor/zarrs-0.23.14/doc/ecosystem.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0169: `vendor/zarrs-0.23.14/doc/status/chunk_grids.md`
+//! ### MDG-0164: `vendor/zarrs-0.23.14/doc/status/chunk_grids.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0170: `vendor/zarrs-0.23.14/doc/status/chunk_key_encodings.md`
+//! ### MDG-0165: `vendor/zarrs-0.23.14/doc/status/chunk_key_encodings.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0171: `vendor/zarrs-0.23.14/doc/status/codecs.md`
+//! ### MDG-0166: `vendor/zarrs-0.23.14/doc/status/codecs.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0172: `vendor/zarrs-0.23.14/doc/status/data_types.md`
+//! ### MDG-0167: `vendor/zarrs-0.23.14/doc/status/data_types.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0173: `vendor/zarrs-0.23.14/doc/status/storage_transformers.md`
+//! ### MDG-0168: `vendor/zarrs-0.23.14/doc/status/storage_transformers.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`
 //! - Header required: `false`
 //! - Notes: Manual narrative source retained until a canonical registry lane is assigned.
 //!
-//! ### MDG-0174: `vendor/zarrs-0.23.14/doc/status/stores.md`
+//! ### MDG-0169: `vendor/zarrs-0.23.14/doc/status/stores.md`
 //!
 //! - Kind: `manual_source`
 //! - Mode: `manual_narrative`

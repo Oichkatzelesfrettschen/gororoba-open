@@ -42,7 +42,7 @@
 //! - Line count: 100
 //! - Claim refs (11): C-001, C-010, C-011, C-012, C-1156, C-1159, C-1162, C-1171, C-1137, C-1140, C-1141
 //!
-//! ### RN-041: Navigator: Conceptual Map of the open_gororoba Research Space
+//! ### RN-041: Navigator: Conceptual Map of the gororoba-open Research Space
 //!
 //! - Source markdown: `docs/NAVIGATOR.md`
 //! - Domain: `research`

@@ -12,7 +12,7 @@ updated = "2026-08-01"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-document_count = 174
+document_count = 169
 [[owner]]
 path = "README_GPU_STEPS.md"
 owner_group = "project"
@@ -588,43 +588,13 @@ removal_status = "active"
 removal_reason = ""
 
 [[owner]]
-path = "docs/external_sources/DE_MARRAIS_BOXKITES_III.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
 path = "docs/external_sources/DE_MARRAIS_CATAMARAN.md"
 owner_group = "project"
 removal_status = "active"
 removal_reason = ""
 
 [[owner]]
-path = "docs/external_sources/DE_MARRAIS_FLYING_HIGHER.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
 path = "docs/external_sources/DE_MARRAIS_PLACEHOLDER_III.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
-path = "docs/external_sources/DE_MARRAIS_PLACEHOLDER_I.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
-path = "docs/external_sources/DE_MARRAIS_PRESTO_DIGITIZATION.md"
-owner_group = "project"
-removal_status = "active"
-removal_reason = ""
-
-[[owner]]
-path = "docs/external_sources/DE_MARRAIS_WOLFRAM_SLIDES.md"
 owner_group = "project"
 removal_status = "active"
 removal_reason = ""
