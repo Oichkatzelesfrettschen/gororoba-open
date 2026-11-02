@@ -392,27 +392,44 @@ fn replay(transaction: &Connection, spec: &DossierBodyRetirementSpec) -> Result<
     let spec_sha256 = sha256(serde_json::to_vec(spec)?);
     let mut statement = transaction
         .prepare("SELECT details_json FROM export_runs WHERE action = ?1 ORDER BY id")?;
-    let reports = statement.query_map([ACTION], |row| row.get::<_, String>(0))?;
-    for report in reports {
-        let report: Value = serde_json::from_str(&report?)?;
-        if report["retire_key"] != spec.retire_key {
-            continue;
-        }
-        if report["spec_sha256"] != spec_sha256 {
-            bail!("retire key already records a different specification");
-        }
-        let retained = report["dossiers"]
-            .as_array()
-            .context("dossier retirement report lacks row evidence")?;
-        for evidence in retained {
-            let id = evidence["id"].as_str().context("evidence lacks an ID")?;
-            if dossier_state(transaction, id)?.summary != evidence["after"] {
-                bail!("post-retirement state drift for {id}");
-            }
-        }
-        return Ok(Some(report));
+    let reports = statement
+        .query_map([ACTION], |row| row.get::<_, String>(0))?
+        .map(|report| Ok(serde_json::from_str::<Value>(&report?)?))
+        .collect::<Result<Vec<Value>>>()?;
+    let Some(position) = reports
+        .iter()
+        .position(|report| report["retire_key"] == spec.retire_key)
+    else {
+        return Ok(None);
+    };
+    let report = &reports[position];
+    if report["spec_sha256"] != spec_sha256 {
+        bail!("retire key already records a different specification");
     }
-    Ok(None)
+    let retained = report["dossiers"]
+        .as_array()
+        .context("dossier retirement report lacks row evidence")?;
+    for evidence in retained {
+        let id = evidence["id"].as_str().context("evidence lacks an ID")?;
+        // A later run of this verb may edit a dossier again (the index dossier loses a line
+        // with each retired file), so the state to match is the `after` of the last run that
+        // lists the dossier.
+        let expected = reports[position..]
+            .iter()
+            .rev()
+            .find_map(|later| {
+                later["dossiers"]
+                    .as_array()?
+                    .iter()
+                    .find(|entry| entry["id"] == evidence["id"])
+                    .map(|entry| &entry["after"])
+            })
+            .unwrap_or(&evidence["after"]);
+        if dossier_state(transaction, id)?.summary != *expected {
+            bail!("post-retirement state drift for {id}");
+        }
+    }
+    Ok(Some(report.clone()))
 }
 
 /// Full-text tables declared `content=<table>, content_rowid='ROWID'` over a rowid table
@@ -1214,5 +1231,65 @@ mod tests {
             serialized,
             r#"{"schema_version":1,"retire_key":"key","actor":"actor","reason":"reason","custody_note":"note","retire":[],"index":null}"#
         );
+    }
+
+    #[test]
+    fn replay_follows_a_later_run_that_edits_the_same_dossier() {
+        let mut fixture = fixture();
+        fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        let later = DossierBodyRetirementSpec {
+            schema_version: 1,
+            retire_key: "later-edit".into(),
+            actor: "test".into(),
+            reason: "one more file left the repository".into(),
+            custody_note: String::new(),
+            retire: Vec::new(),
+            index: None,
+            edit: vec![DossierLineEdit {
+                id: "XS-I".into(),
+                expected_body_sha256: state(&fixture, "XS-I")["body"]["sha256"]
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
+                replace_body_lines: vec![DossierLineReplacement {
+                    from: "- `XS-C`: `docs/c.md`".into(),
+                    to: String::new(),
+                }],
+                remove_path_refs: vec!["docs/c.md".into()],
+            }],
+        };
+        fixture
+            .store
+            .retire_external_source_dossier_bodies(&later, false)
+            .unwrap();
+        for spec in [&fixture.spec, &later] {
+            let rehearsal = fixture
+                .store
+                .retire_external_source_dossier_bodies(spec, true)
+                .unwrap();
+            assert_eq!(rehearsal["already_applied"], true);
+        }
+        fixture
+            .store
+            .conn
+            .execute(
+                "UPDATE external_source_dossiers SET body_markdown = body_markdown || 'drift' WHERE id = 'XS-I'",
+                [],
+            )
+            .unwrap();
+        for spec in [&fixture.spec, &later] {
+            let error = fixture
+                .store
+                .retire_external_source_dossier_bodies(spec, true)
+                .unwrap_err();
+            assert!(
+                error
+                    .to_string()
+                    .contains("post-retirement state drift for XS-I")
+            );
+        }
     }
 }
