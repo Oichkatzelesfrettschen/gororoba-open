@@ -1122,7 +1122,9 @@ fn build_experiment_rows(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !["active", "deprecated", "planned", "blocked"].contains(&status.as_str()) {
-            status = "active".to_string();
+            bail!(
+                "experiment {eid} has status {status:?}; allowed statuses are active, deprecated, planned and blocked"
+            );
         }
         let run_cmd = collapse(&string_field(&row, "run"));
         let existing_lineage = collapse(&string_field(&row, "lineage_id"));
