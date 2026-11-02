@@ -2,9 +2,9 @@
 //! `xtask bootstrap-user-local-xdg`: install the gororoba-open developer
 //! configuration into user-local locations.
 //!
-//! Writes `$HOME/.cargo/config.toml`, `$XDG_CONFIG_HOME/nextest.toml`, the
-//! `$XDG_CACHE_HOME/gororoba-lit-cache/` directory and, on request,
-//! `$HOME/.gemini/settings.json`. An existing target file receives a
+//! Writes `$HOME/.cargo/config.toml`, `$XDG_CONFIG_HOME/nextest.toml` and, on
+//! request, `$HOME/.gemini/settings.json`; the literature caches live in the
+//! primary checkout's `.cache/lit-cache/` (`lit_search::cache_root`). An existing target file receives a
 //! `.bak.<timestamp>` copy unless `--force` is set.
 
 use anyhow::{Context, Result, bail};
@@ -48,7 +48,6 @@ const GEMINI_SETTINGS: &str = "\
 Installed locations:
 - ~/.cargo/config.toml
 - $XDG_CONFIG_HOME/nextest.toml (defaults to ~/.config/nextest.toml)
-- $XDG_CACHE_HOME/gororoba-lit-cache/ (defaults to ~/.cache/gororoba-lit-cache/)
 - ~/.gemini/settings.json (optional; only with --with-gemini)
 
 Existing files are backed up with a timestamp suffix unless --force is used.
@@ -216,11 +215,10 @@ fn install(layout: &Layout, cli: &BootstrapXdgCli) -> Result<()> {
     }
 
     let cargo_dir = layout.home.join(".cargo");
-    let lit_cache = layout.xdg_cache_home.join("gororoba-lit-cache");
-    for dir in [&cargo_dir, &layout.xdg_config_home, &lit_cache, &choice.dir] {
+    for dir in [&cargo_dir, &layout.xdg_config_home, &choice.dir] {
         fs::create_dir_all(dir).with_context(|| format!("create {}", dir.display()))?;
     }
-    for dir in [&cargo_dir, &layout.xdg_config_home, &lit_cache, &choice.dir] {
+    for dir in [&cargo_dir, &layout.xdg_config_home, &choice.dir] {
         require_writable_dir(dir)?;
     }
 
@@ -250,7 +248,6 @@ fn install(layout: &Layout, cli: &BootstrapXdgCli) -> Result<()> {
     println!("Installed user-local open_gororoba config:");
     println!("  ~/.cargo/config.toml");
     println!("  {}", nextest_path.display());
-    println!("  {}/", lit_cache.display());
     if cli.with_gemini {
         println!("  ~/.gemini/settings.json");
     }
@@ -304,7 +301,7 @@ mod tests {
             base.path().display()
         )));
         assert!(layout.xdg_config_home.join("nextest.toml").is_file());
-        assert!(layout.xdg_cache_home.join("gororoba-lit-cache").is_dir());
+        assert!(!layout.xdg_cache_home.join("gororoba-lit-cache").exists());
         assert!(!layout.home.join(".gemini").exists());
     }
 

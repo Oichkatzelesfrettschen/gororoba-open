@@ -500,18 +500,7 @@ fn normalize_bibtex_field(value: &str) -> String {
 }
 
 fn verify_cache_dir() -> Option<PathBuf> {
-    if let Some(path) = std::env::var_os("XDG_CACHE_HOME") {
-        return Some(
-            PathBuf::from(path)
-                .join("gororoba-lit-cache")
-                .join("citation_verify"),
-        );
-    }
-    std::env::var_os("HOME").map(PathBuf::from).map(|home| {
-        home.join(".cache")
-            .join("gororoba-lit-cache")
-            .join("citation_verify")
-    })
+    crate::cache_root::lit_cache_root().map(|root| root.join("citation_verify"))
 }
 
 fn verify_cache_key(title: &str) -> String {
