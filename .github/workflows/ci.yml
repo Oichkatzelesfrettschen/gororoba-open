@@ -398,6 +398,9 @@ jobs:
     if: always() && (needs.validation-core.outputs.run_rust == 'true' || needs.validation-core.outputs.run_governance == 'true')
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    env:
+      SCCACHE_DIR: ${{ github.workspace }}/.cache/sccache
+      SCCACHE_CACHE_SIZE: 2G
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@1.97.0
@@ -426,10 +429,11 @@ jobs:
             ${{ env.CARGO_HOME }}/git
             ${{ env.CARGO_TARGET_DIR }}
             ${{ github.workspace }}/.cache/gate-cbuild
-          key: governance-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+            ${{ env.SCCACHE_DIR }}
+          key: governance-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            governance-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-${{ github.sha }}-
-            governance-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-
+            governance-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-${{ github.sha }}-
+            governance-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-
             ci-v2-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('rust-toolchain.toml', '.cargo/config.toml') }}-${{ hashFiles('Cargo.lock') }}-
       - name: Validate canonical evidence and governance
         id: governance
@@ -441,6 +445,10 @@ jobs:
         if: always()
         continue-on-error: true
         run: make --jobs="$WORKER_BUDGET" --keep-going validate-rust-integrity db-schema-drift-check 2>&1 | tee integrity.log
+      - name: Record governance compiler cache statistics
+        if: always()
+        continue-on-error: true
+        run: sccache --show-stats --stats-format=json > governance-sccache.json
       - name: Report collected governance failures
         if: always()
         env:
@@ -465,6 +473,7 @@ jobs:
           path: |
             governance.log
             integrity.log
+            governance-sccache.json
           if-no-files-found: warn
           retention-days: 14
       - name: Retain governance build artifacts
@@ -476,6 +485,7 @@ jobs:
             ${{ env.CARGO_HOME }}/git
             ${{ env.CARGO_TARGET_DIR }}
             ${{ github.workspace }}/.cache/gate-cbuild
+            ${{ env.SCCACHE_DIR }}
           key: ${{ steps.governance-cache.outputs.cache-primary-key }}
 
   validation-casimir-audit:

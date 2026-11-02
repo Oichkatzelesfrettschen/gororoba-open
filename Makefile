@@ -332,6 +332,10 @@ validation-resource-contract-workers:
 	    if ! printf '%s\n' "$$rust_cache_block" | grep -Fq "$$contract"; then echo "ERROR: Rust compiler cache contract is missing: $$contract" >&2; status=1; fi; \
 	done; \
 	if printf '%s\n' "$$rust_cache_block" | grep -Fq 'SCCACHE_GHA_ENABLED'; then echo "ERROR: Rust matrix enables rate-limited per-compile GitHub cache writes." >&2; status=1; fi; \
+	governance_cache_block="$$(sed -n '/^  validation-governance:/,/^  validation-casimir-audit:/p' .github/workflows/ci.yml)"; \
+	for contract in 'SCCACHE_DIR:' 'SCCACHE_CACHE_SIZE: 2G' '$${{ env.SCCACHE_DIR }}' 'governance-sccache.json'; do \
+	    if ! printf '%s\n' "$$governance_cache_block" | grep -Fq "$$contract"; then echo "ERROR: governance compiler cache contract is missing: $$contract" >&2; status=1; fi; \
+	done; \
 	if ! grep -Fq 'components: clippy, rustfmt' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not provision pinned Rust components before parallel rustc calls." >&2; status=1; fi; \
 	for workflow in .github/workflows/ci.yml .github/workflows/docs-publish.yml .github/workflows/proofs.yml .github/workflows/bench-cd-kernel.yml .github/workflows/unsafe-survey.yml; do \
 	    if ! grep -Fq 'detect_worker_budget.rs' "$$workflow"; then echo "ERROR: hosted Rust workflow lacks process-visible worker detection: $$workflow" >&2; status=1; fi; \
