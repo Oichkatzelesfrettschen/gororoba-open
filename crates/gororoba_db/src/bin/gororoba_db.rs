@@ -1796,8 +1796,12 @@ fn cmd_external_source_mutation(
                 );
             } else {
                 println!(
-                    "Retired {} dossier body row(s) under key {} ({rows} field deltas).",
+                    "Retired {} dossier body row(s) and edited {} dossier(s) under key {} ({rows} field deltas).",
                     specification.retire.len(),
+                    report["dossiers"]
+                        .as_array()
+                        .map_or(0, Vec::len)
+                        .saturating_sub(specification.retire.len()),
                     specification.retire_key
                 );
             }
