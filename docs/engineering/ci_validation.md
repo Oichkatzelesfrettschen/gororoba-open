@@ -57,9 +57,13 @@ The repository carries no hook installer, tracked pre-push executable, or
 local compatibility gate target.
 
 One CI workflow admits pull requests and main pushes, with superseded runs
-canceled per event and ref. It routes benchmark, proof, paper, and unsafe-survey
-jobs through reusable workflows, tests affected consumers, and lints directly
-changed owners. Weekly full runs and explicit full dispatch cover the whole workspace.
+canceled per event and ref. Pull requests compile, test and lint the affected
+crates and run governance and documentation checks; benchmark, proof, paper,
+unsafe-survey, Casimir-audit and certificate jobs never run on a pull request.
+Main pushes route those jobs by changed paths. The nightly schedule covers the
+whole workspace and the paper; the weekly schedule adds proofs, the unsafe
+survey, benchmarks, the Casimir audit and certificates. Explicit full dispatch
+covers everything.
 Pull-request documentation checks render the registry-backed mdBook with a
 two-minute job budget. A separate workflow publishes the full default-feature
 Rust API and book site after successful main CI; Pages deployment requires

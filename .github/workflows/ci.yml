@@ -10,7 +10,11 @@ on:
         description: Validate the complete workspace and dependency policy
         type: boolean
         default: false
+  # Pull requests run routed compile, tests, governance and docs. Nightly adds
+  # the full workspace and paper; weekly adds proofs, the unsafe survey,
+  # benchmarks, the Casimir audit and certificates.
   schedule:
+    - cron: '17 6 * * *'
     - cron: '23 5 * * 1'
 
 permissions:
@@ -53,13 +57,23 @@ jobs:
         continue-on-error: true
         env:
           EVENT_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
           FULL_COMPONENTS: ${{ github.event_name == 'workflow_dispatch' && inputs.full == true }}
         run: |
           set -euo pipefail
           component_outputs="$RUNNER_TEMP/component-outputs"
           route_components() {
-            if [ "${{ github.event_name }}" = schedule ]; then
-              printf 'benchmark=true\nproofs=true\npaper=true\nunsafe_survey=true\n' > "$component_outputs"
+            if [ "$EVENT_NAME" = pull_request ]; then
+              printf 'benchmark=false\nproofs=false\npaper=false\nunsafe_survey=false\n' > "$component_outputs"
+              return
+            fi
+            if [ "$EVENT_NAME" = schedule ]; then
+              if [ "$EVENT_SCHEDULE" = '23 5 * * 1' ]; then
+                printf 'benchmark=true\nproofs=true\npaper=true\nunsafe_survey=true\n' > "$component_outputs"
+              else
+                printf 'benchmark=false\nproofs=false\npaper=true\nunsafe_survey=false\n' > "$component_outputs"
+              fi
               return
             fi
             if [ "$FULL_COMPONENTS" = true ]; then
@@ -224,15 +238,29 @@ jobs:
         continue-on-error: true
         env:
           FULL: ${{ steps.inputs.outputs.full }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
+          # The Casimir audit and certificates run weekly and on push or
+          # dispatch, never on pull requests or the nightly schedule.
+          weekly_lanes=true
+          if [ "$EVENT_NAME" = pull_request ]; then
+            weekly_lanes=false
+          elif [ "$EVENT_NAME" = schedule ] && [ "$EVENT_SCHEDULE" != '23 5 * * 1' ]; then
+            weekly_lanes=false
+          fi
           classify_paths() {
             if [ "$FULL" = true ]; then
-              printf 'docs=true\ndependencies=true\nwarp=true\ncasimir_audit=true\ncertificates=true\n' >> "$GITHUB_OUTPUT"
+              printf 'docs=true\ndependencies=true\nwarp=true\ncasimir_audit=%s\ncertificates=%s\n' "$weekly_lanes" "$weekly_lanes" >> "$GITHUB_OUTPUT"
               return
             fi
             git diff --no-renames --name-only "$DIFF_BASE" HEAD > reports/validation/changed-paths.txt
             for lane in docs dependencies warp casimir_audit certificates; do
+              if [ "$weekly_lanes" = false ] && { [ "$lane" = casimir_audit ] || [ "$lane" = certificates ]; }; then
+                echo "$lane=false" >> "$GITHUB_OUTPUT"
+                continue
+              fi
               case "$lane" in
                 docs) pattern='^docs/book/|^crates/book_docs/|^registry/book_docs\.toml$|^Cargo\.(toml|lock)$|^rust-toolchain\.toml$|^Makefile$|^mk/|^\.cargo/|^\.github/workflows/(ci|docs-publish)\.yml$' ;;
                 dependencies) pattern='(^|/)Cargo\.(toml|lock)$|(^|/)deny\.toml$|^rust-toolchain\.toml$|^\.github/workflows/ci\.yml$' ;;
