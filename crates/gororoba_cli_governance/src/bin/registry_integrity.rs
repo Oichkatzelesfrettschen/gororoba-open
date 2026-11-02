@@ -595,7 +595,10 @@ fn build_lacunae(
             continue;
         }
         if !seen_ids.insert(lacuna_id.clone()) {
-            continue;
+            bail!(
+                "retained lacuna id {lacuna_id} appears twice in the lacunae registry; \
+                 rename or merge one record before regenerating"
+            );
         }
         let conflict_derived = legacy_origin == "conflict_marker_scan"
             || legacy_origin == "conflict_marker_history"
@@ -1500,5 +1503,24 @@ status = "open"
         let error = build_lacunae(&claims, &[], &[], &[], &legacy_lacunae)
             .expect_err("a claim-status projection must not suppress a retained lacuna");
         assert!(error.to_string().contains("collides"));
+    }
+
+    #[test]
+    fn retained_lacuna_duplicate_id_fails_the_build() {
+        let retained = r#"
+[[lacuna]]
+id = "L-002"
+origin = "legacy_manual"
+title = "First retained record"
+description = "First text."
+priority = "low"
+status = "open"
+"#;
+        let duplicated = format!("{retained}{}", retained.replace("First", "Second"));
+        let legacy_lacunae = table_rows(&duplicated, "lacuna");
+
+        let error = build_lacunae(&[], &[], &[], &[], &legacy_lacunae)
+            .expect_err("a duplicated retained id must not drop one record silently");
+        assert!(error.to_string().contains("appears twice"));
     }
 }
