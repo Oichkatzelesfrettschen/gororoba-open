@@ -2691,7 +2691,8 @@ mod tests {
 
     #[test]
     fn experiment_status_outside_allowlist_fails_the_build() {
-        let experiment = toml::from_str::<Table>("id = \"E-1001\"\nstatus = \"complete\"").unwrap();
+        let experiment =
+            toml::from_str::<Table>("id = \"EXP-STATUS-PROBE\"\nstatus = \"complete\"").unwrap();
         let error = build_experiment_rows(
             &[experiment],
             &BTreeMap::new(),
@@ -2700,7 +2701,11 @@ mod tests {
             &BTreeMap::new(),
         )
         .expect_err("an out-of-allowlist status must not be rewritten to active");
-        assert!(error.to_string().contains("E-1001 has status \"complete\""));
+        assert!(
+            error
+                .to_string()
+                .contains("EXP-STATUS-PROBE has status \"complete\"")
+        );
     }
 
     #[test]
