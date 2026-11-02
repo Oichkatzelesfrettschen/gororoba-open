@@ -120,6 +120,8 @@ mod artifact_path_retirement;
 pub use artifact_path_retirement::{
     ArtifactPathRetirement, ArtifactPathRetirementSpec, RetiredArtifactStatus,
 };
+mod artifact_record_source_drop;
+pub use artifact_record_source_drop::{ArtifactRecordSourceDrop, ArtifactRecordSourceDropSpec};
 mod artifact_path_subset_removal;
 pub use artifact_path_subset_removal::{ArtifactPathSubsetRemoval, ArtifactPathSubsetRemovalSpec};
 mod external_source_dossier_retirement;

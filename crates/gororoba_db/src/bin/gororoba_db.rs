@@ -1849,6 +1849,22 @@ fn cmd_artifact_mutation(
                 );
             }
         }
+        ArtifactAction::DropRecordSources { spec, dry_run } => {
+            let spec = repo_root.join(spec);
+            let specification: provenance_store::ArtifactRecordSourceDropSpec =
+                toml::from_str(&fs::read_to_string(&spec)?)?;
+            let report = store.drop_artifact_record_sources(&specification, *dry_run)?;
+            print_delta(&report);
+            if *dry_run {
+                println!("{} artifact(s) would change", specification.drop.len());
+            } else {
+                println!(
+                    "Dropped record sources from {} artifact(s) under key {}.",
+                    specification.drop.len(),
+                    specification.drop_key
+                );
+            }
+        }
         ArtifactAction::RecordRetrieval { spec } => {
             let specification: provenance_store::ArtifactRetrievalSpec =
                 toml::from_str(&fs::read_to_string(repo_root.join(spec))?)?;

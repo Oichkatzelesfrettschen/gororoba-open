@@ -608,6 +608,15 @@ pub(crate) enum ArtifactAction {
         #[arg(long)]
         dry_run: bool,
     },
+    /// Delete named record-source references from artifacts, using a typed
+    /// transactional specification.
+    DropRecordSources {
+        #[arg(long)]
+        spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
+    },
     /// Add a compatibility lane to existing artifacts while preserving their records.
     AssignLane {
         /// Exact canonical artifact ID. Repeat for an atomic batch.
