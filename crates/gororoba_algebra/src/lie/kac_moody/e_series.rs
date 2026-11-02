@@ -273,10 +273,14 @@ impl E11RootSystem {
         }
     }
 
-    /// The signature of E11.
-    /// E11 has an even more indefinite signature than E10.
+    /// The signature of the E11 Cartan matrix: (10, 1).
+    ///
+    /// The E_n Cartan determinant is 9 - n, so det(E11) = -2. A negative
+    /// determinant of a nondegenerate symmetric matrix requires an odd number
+    /// of negative eigenvalues, and E11 contains the (9, 1) E10 lattice, so
+    /// exactly one eigenvalue is negative.
     pub fn signature() -> (usize, usize) {
-        (9, 2) // Rough estimate - actual structure is more complex
+        (10, 1)
     }
 
     /// Connection to 11D supergravity (informational).
