@@ -1291,7 +1291,7 @@ validate-rust-integrity: require-ci-validation-authority registry-validation-too
 	@echo "OK: Rust integrity validation passed."
 
 validate-rust-integrity-claims: registry-validation-tools
-	$(VALIDATION_TOOLS_DIR)/claims-verify --check providers
+	$(VALIDATION_TOOLS_DIR)/claims-verify
 
 validate-rust-integrity-test-inventory: registry-validation-tools
 	$(VALIDATION_TOOLS_DIR)/test-inventory --check
