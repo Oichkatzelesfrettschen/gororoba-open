@@ -598,6 +598,9 @@ pub(crate) enum ArtifactAction {
     RetirePaths {
         #[arg(long)]
         spec: PathBuf,
+        /// Print the row delta and roll the transaction back.
+        #[arg(long)]
+        dry_run: bool,
     },
     /// Move named untracked paths from an artifact's downloaded set to
     /// historical_download while the artifact keeps its other downloaded paths,

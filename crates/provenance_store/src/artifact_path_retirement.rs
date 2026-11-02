@@ -2,7 +2,7 @@
 
 use crate::{
     ProvenanceStore,
-    artifact_paths::{repository_git, sha256, snapshot},
+    artifact_paths::{mark_dry_run_replay, repository_git, sha256, snapshot},
 };
 use anyhow::{Context, Result, bail};
 use chrono::Utc;
@@ -94,11 +94,14 @@ pub(crate) fn reject_tracked(root: &Path, path: &str) -> Result<()> {
 
 impl ProvenanceStore {
     /// Move a bounded artifact set from `downloaded` to `historical_download`
-    /// paths, set a non-download status, and retain row evidence atomically.
+    /// paths, set a non-download status, and retain row evidence atomically. `dry_run` runs
+    /// every step and rolls the transaction back, so the returned report is the exact row delta
+    /// and no `export_runs` row is written.
     pub fn retire_artifact_paths(
         &mut self,
         repo_root: &Path,
         spec: &ArtifactPathRetirementSpec,
+        dry_run: bool,
     ) -> Result<Value> {
         if spec.schema_version != 1 || spec.retire.is_empty() {
             bail!("retirement requires schema_version 1 and a nonempty retire set");
@@ -146,7 +149,7 @@ impl ProvenanceStore {
                 .prepare("SELECT details_json FROM export_runs WHERE action = ?1 ORDER BY id")?;
             let reports = statement.query_map([ACTION], |row| row.get::<_, String>(0))?;
             for report in reports {
-                let report: Value = serde_json::from_str(&report?)?;
+                let mut report: Value = serde_json::from_str(&report?)?;
                 if report["retire_key"] == spec.retire_key {
                     if report["spec_sha256"] != spec_sha256 {
                         bail!("retire key already records a different specification");
@@ -164,11 +167,13 @@ impl ProvenanceStore {
                             bail!("post-retirement state drift for {}", retirement.id);
                         }
                     }
+                    mark_dry_run_replay(&mut report, dry_run);
                     return Ok(report);
                 }
             }
         }
         let mut evidence = Vec::new();
+        let mut delta = Vec::new();
         for retirement in &spec.retire {
             let before = snapshot(&transaction, &retirement.id)?;
             let artifacts = before["artifact"]
@@ -224,10 +229,23 @@ impl ProvenanceStore {
                 params![retirement.id, retirement.new_status.as_str()],
             )?;
             let after = snapshot(&transaction, &retirement.id)?;
+            delta.push(format!(
+                "{}: status {} -> {}; canonical_download_path {} -> none; {} downloaded path(s) -> historical_download",
+                retirement.id,
+                artifact["status"].as_str().unwrap_or_default(),
+                retirement.new_status.as_str(),
+                canonical.unwrap_or("none"),
+                retirement.expected_downloaded_paths.len()
+            ));
             evidence.push(json!({"id": retirement.id, "before": before, "after": after}));
         }
-        let report = json!({"schema_version": 1, "retire_key": spec.retire_key, "actor": spec.actor, "reason": spec.reason,
-            "spec_sha256": spec_sha256, "spec_hash_encoding": "serde_json serialization of typed specification", "spec": spec, "retirements": evidence});
+        let mut report = json!({"schema_version": 1, "retire_key": spec.retire_key, "actor": spec.actor, "reason": spec.reason,
+            "spec_sha256": spec_sha256, "spec_hash_encoding": "serde_json serialization of typed specification", "spec": spec, "retirements": evidence, "delta": delta});
+        if dry_run {
+            report["dry_run"] = Value::Bool(true);
+            transaction.rollback()?;
+            return Ok(report);
+        }
         transaction.execute(
             "INSERT INTO export_runs (action, created_at, artifact_count, document_count, details_json) VALUES (?1, ?2, ?3, 0, ?4)",
             params![
@@ -343,7 +361,7 @@ mod tests {
         let untouched = snapshot(&fixture.store.conn, "B").unwrap();
         let report = fixture
             .store
-            .retire_artifact_paths(&fixture.root, &fixture.spec)
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
             .unwrap();
         let after = &report["retirements"][0]["after"];
         assert_eq!(after["artifact"][0]["status"], "downloadable");
@@ -372,7 +390,7 @@ mod tests {
         assert_eq!(
             fixture
                 .store
-                .retire_artifact_paths(&fixture.root, &fixture.spec)
+                .retire_artifact_paths(&fixture.root, &fixture.spec, false)
                 .unwrap(),
             report
         );
@@ -381,7 +399,7 @@ mod tests {
         assert!(
             fixture
                 .store
-                .retire_artifact_paths(&fixture.root, &fixture.spec)
+                .retire_artifact_paths(&fixture.root, &fixture.spec, false)
                 .is_err()
         );
         fixture.spec.reason = "no copy can be materialized".into();
@@ -393,7 +411,7 @@ mod tests {
         assert!(
             fixture
                 .store
-                .retire_artifact_paths(&fixture.root, &fixture.spec)
+                .retire_artifact_paths(&fixture.root, &fixture.spec, false)
                 .is_err()
         );
     }
@@ -412,7 +430,7 @@ mod tests {
             .unwrap();
         fixture
             .store
-            .retire_artifact_paths(&fixture.root, &fixture.spec)
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
             .unwrap();
         fixture.store.verify_invariants(&fixture.root).unwrap();
     }
@@ -453,7 +471,7 @@ mod tests {
             assert!(
                 fixture
                     .store
-                    .retire_artifact_paths(&fixture.root, &fixture.spec)
+                    .retire_artifact_paths(&fixture.root, &fixture.spec, false)
                     .is_err(),
                 "case {case}"
             );
@@ -476,7 +494,7 @@ mod tests {
         fixture.spec.retire[0].new_status = RetiredArtifactStatus::CitationOnlyNoLink;
         let report = fixture
             .store
-            .retire_artifact_paths(&fixture.root, &fixture.spec)
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
             .unwrap();
         assert_eq!(
             report["retirements"][0]["after"]["artifact"][0]["status"],
@@ -493,7 +511,7 @@ mod tests {
         let before = snapshot(&fixture.store.conn, "A").unwrap();
         let error = fixture
             .store
-            .retire_artifact_paths(&fixture.root, &fixture.spec)
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
             .unwrap_err();
         assert!(error.to_string().contains("Git-tracked"), "{error:#}");
         assert_eq!(snapshot(&fixture.store.conn, "A").unwrap(), before);
@@ -505,7 +523,7 @@ mod tests {
         fs::rename(fixture.root.join(".git"), fixture.root.join("retained-git")).unwrap();
         let error = fixture
             .store
-            .retire_artifact_paths(&fixture.root, &fixture.spec)
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
             .unwrap_err();
         assert!(
             error.to_string().contains("Git index lookup failed"),
@@ -524,10 +542,50 @@ mod tests {
         assert!(
             fixture
                 .store
-                .retire_artifact_paths(&fixture.root, &fixture.spec)
+                .retire_artifact_paths(&fixture.root, &fixture.spec, false)
                 .is_err()
         );
         assert_eq!(snapshot(&fixture.store.conn, "A").unwrap(), before);
         assert_eq!(export_run_count(&fixture), 0);
+    }
+
+    #[test]
+    fn dry_run_reports_the_delta_and_leaves_the_store_unchanged() {
+        let mut fixture = fixture();
+        let before = snapshot(&fixture.store.conn, "A").unwrap();
+        let report = fixture
+            .store
+            .retire_artifact_paths(&fixture.root, &fixture.spec, true)
+            .unwrap();
+        assert_eq!(report["dry_run"], true);
+        assert_eq!(report["delta"].as_array().unwrap().len(), 1);
+        assert_eq!(snapshot(&fixture.store.conn, "A").unwrap(), before);
+        assert_eq!(export_run_count(&fixture), 0);
+        let applied = fixture
+            .store
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
+            .unwrap();
+        assert_eq!(applied["delta"], report["delta"]);
+        assert_eq!(applied["retirements"], report["retirements"]);
+        assert!(applied.get("dry_run").is_none());
+        assert_eq!(export_run_count(&fixture), 1);
+    }
+
+    #[test]
+    fn a_dry_run_against_an_applied_key_reports_the_replayed_content() {
+        let mut fixture = fixture();
+        let applied = fixture
+            .store
+            .retire_artifact_paths(&fixture.root, &fixture.spec, false)
+            .unwrap();
+        let rehearsal = fixture
+            .store
+            .retire_artifact_paths(&fixture.root, &fixture.spec, true)
+            .unwrap();
+        assert_eq!(rehearsal["dry_run"], true);
+        assert_eq!(rehearsal["already_applied"], true);
+        assert_eq!(rehearsal["delta"], applied["delta"]);
+        assert_eq!(rehearsal["retirements"], applied["retirements"]);
+        assert_eq!(export_run_count(&fixture), 1);
     }
 }

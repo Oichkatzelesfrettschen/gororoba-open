@@ -73,6 +73,15 @@ pub(crate) fn sha256(bytes: impl AsRef<[u8]>) -> String {
         .collect()
 }
 
+/// Marks a report replayed from an applied key as the answer to a dry run: `dry_run` is `true`
+/// and `already_applied` says the key is already in `export_runs`, so no row would change.
+pub(crate) fn mark_dry_run_replay(report: &mut serde_json::Value, dry_run: bool) {
+    if dry_run {
+        report["dry_run"] = serde_json::Value::Bool(true);
+        report["already_applied"] = serde_json::Value::Bool(true);
+    }
+}
+
 fn verify_file(root: &Path, relative: &str, expected: &str) -> Result<()> {
     verified_file_bytes(root, relative, expected).map(|_| ())
 }

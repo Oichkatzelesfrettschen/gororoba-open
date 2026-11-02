@@ -4,7 +4,7 @@
 use crate::{
     ProvenanceStore,
     artifact_path_retirement::{check_relative, reject_tracked},
-    artifact_paths::{sha256, snapshot},
+    artifact_paths::{mark_dry_run_replay, sha256, snapshot},
 };
 use anyhow::{Context, Result, bail};
 use chrono::Utc;
@@ -145,7 +145,8 @@ impl ProvenanceStore {
         let transaction = self
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
-        if let Some(report) = replay(&transaction, spec, &spec_sha256)? {
+        if let Some(mut report) = replay(&transaction, spec, &spec_sha256)? {
+            mark_dry_run_replay(&mut report, dry_run);
             return Ok(report);
         }
         let mut evidence = Vec::new();
@@ -486,5 +487,17 @@ mod tests {
         fixture.store.verify_invariants(&fixture.root).unwrap();
         apply(&mut fixture, false).unwrap();
         fixture.store.verify_invariants(&fixture.root).unwrap();
+    }
+
+    #[test]
+    fn a_dry_run_against_an_applied_key_reports_the_replayed_content() {
+        let mut fixture = fixture();
+        let applied = apply(&mut fixture, false).unwrap();
+        let rehearsal = apply(&mut fixture, true).unwrap();
+        assert_eq!(rehearsal["dry_run"], true);
+        assert_eq!(rehearsal["already_applied"], true);
+        assert_eq!(rehearsal["delta"], applied["delta"]);
+        assert_eq!(rehearsal["removals"], applied["removals"]);
+        assert_eq!(export_run_count(&fixture), 1);
     }
 }
