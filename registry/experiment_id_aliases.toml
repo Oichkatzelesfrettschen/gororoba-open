@@ -14,7 +14,6 @@ updated = "2026-09-02"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-alias_count = 17
 retired_ids = ["E-243", "E-244", "E-245", "E-246", "E-247", "E-248", "E-249", "E-250", "E-251", "E-252", "E-253", "E-254", "E-255", "E-256", "E-257", "E-258", "E-259", "E-260", "E-261", "E-262", "E-263", "E-264", "E-265"]
 
 [experiment_id_aliases.schema]

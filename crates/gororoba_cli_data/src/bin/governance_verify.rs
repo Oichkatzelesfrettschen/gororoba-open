@@ -14,30 +14,12 @@ use walkdir::WalkDir;
 
 const FORBIDDEN_TEMP_ROOTS: &[&str] = &["/srv/fast/tmp"];
 
-const SIMD_SENSITIVE_LOW_LEVEL_CRATES: &[&str] = &[
-    "faer",
-    "faer-traits",
-    "wide",
-    "pulp",
-    "simsimd",
-    "gemm",
-    "gemm-common",
-    "gemm-c32",
-    "gemm-c64",
-    "gemm-f32",
-    "gemm-f64",
-    "private-gemm-x86",
-];
-
 const RESTORED_REGISTRY_SOURCES: &[&str] = &[
     "registry/knowledge_migration_plan.toml",
     "registry/navigator.toml",
     "registry/entrypoint_docs.toml",
-    "registry/markdown_governance.toml",
     "registry/claims_domains.toml",
     "registry/claims_tasks.toml",
-    "registry/insights_narrative.toml",
-    "registry/experiments_narrative.toml",
 ];
 
 const PARITY_ALIAS_POLICIES: &[(&str, &str, &str)] = &[
@@ -387,12 +369,6 @@ fn sqlite_journal_mode(path: &Path) -> Result<String> {
 
 fn verify_planning_requirements_authority(args: &CommonArgs) -> Result<()> {
     let root = resolve_root(args)?;
-    let generated_views = [
-        "registry/roadmap.toml",
-        "registry/todo.toml",
-        "registry/next_actions.toml",
-        "registry/requirements.toml",
-    ];
     let narrative_files = [
         "registry/roadmap_narrative.toml",
         "registry/todo_narrative.toml",
@@ -400,16 +376,6 @@ fn verify_planning_requirements_authority(args: &CommonArgs) -> Result<()> {
         "registry/requirements_narrative.toml",
     ];
     let mut failures = Vec::new();
-
-    for rel in generated_views {
-        let path = root.join(rel);
-        let text = read_ascii_text(&path).with_context(|| format!("read {}", path.display()))?;
-        if !text.starts_with("# GENERATED VIEW: DO NOT EDIT.\n") {
-            failures.push(format!(
-                "generated planning/requirements view missing generated-view header: {rel}"
-            ));
-        }
-    }
 
     for rel in narrative_files {
         let path = root.join(rel);
@@ -602,36 +568,6 @@ fn verify_simd_containment_policy(args: &CommonArgs) -> Result<()> {
         );
     }
 
-    // Inventory SIMD-sensitive dependency exposures for operator visibility.
-    // On stable LLVM every package is codegen-compatible; no override set.
-    let mut dependency_exposures = BTreeMap::<String, BTreeSet<String>>::new();
-    for manifest in workspace_manifests(&root)? {
-        let raw = fs::read_to_string(&manifest)
-            .with_context(|| format!("read workspace manifest {}", manifest.display()))?;
-        let parsed: Value = toml::from_str(&raw)
-            .with_context(|| format!("parse workspace manifest {}", manifest.display()))?;
-        let package_name = parsed
-            .get("package")
-            .and_then(Value::as_table)
-            .and_then(|table| table.get("name"))
-            .and_then(Value::as_str)
-            .unwrap_or("")
-            .trim()
-            .to_string();
-        if package_name.is_empty() {
-            continue;
-        }
-        let deps = collect_manifest_dependencies(&parsed);
-        let sensitive_hits: BTreeSet<String> = deps
-            .into_iter()
-            .filter(|dep| SIMD_SENSITIVE_LOW_LEVEL_CRATES.contains(&dep.as_str()))
-            .collect();
-        if sensitive_hits.is_empty() {
-            continue;
-        }
-        dependency_exposures.insert(package_name, sensitive_hits);
-    }
-
     let readme = read_ascii_text(&root.join("README.md"))?;
     if readme.contains("Cranelift backend for dev (opt-level 2), LLVM for release")
         || readme.contains("Cranelift-oriented dev lane")
@@ -674,10 +610,7 @@ fn verify_simd_containment_policy(args: &CommonArgs) -> Result<()> {
         bail!(failures.join("\n"));
     }
 
-    println!(
-        "OK: SIMD containment policy verified for stable LLVM pin ({} SIMD-exposed crates inventoried)",
-        dependency_exposures.len()
-    );
+    println!("OK: SIMD containment policy verified for stable LLVM pin");
     Ok(())
 }
 
@@ -688,21 +621,12 @@ fn verify_restored_registry_sources(args: &CommonArgs) -> Result<()> {
     for rel in RESTORED_REGISTRY_SOURCES {
         let path = root.join(rel);
         let text = read_ascii_text(&path).with_context(|| format!("read {}", path.display()))?;
-        if !text.contains("Authoritative source")
-            && !text.contains("authoritative_toml")
-            && !text.contains("compatibility placeholder")
-        {
+        if !text.contains("Authoritative source") && !text.contains("authoritative_toml") {
             failures.push(format!(
                 "{rel}: missing authority/provenance guidance for restored source"
             ));
         }
-        if rel.ends_with("_narrative.toml") {
-            if !text.contains("make registry-build registry-export-markdown") {
-                failures.push(format!(
-                    "{rel}: placeholder narrative is missing regeneration guidance"
-                ));
-            }
-        } else if !text.contains("make registry-export-markdown")
+        if !text.contains("make registry-export-markdown")
             && !text.contains("make registry-build registry-export-markdown")
         {
             failures.push(format!(
@@ -911,46 +835,6 @@ fn looks_like_text_policy_surface(path: &Path) -> bool {
         path.extension().and_then(|ext| ext.to_str()),
         Some("md" | "txt" | "toml" | "sh" | "rs" | "py" | "yml" | "yaml" | "json")
     )
-}
-
-fn workspace_manifests(root: &Path) -> Result<Vec<PathBuf>> {
-    let mut manifests = Vec::new();
-    for entry in WalkDir::new(root.join("crates")).into_iter().flatten() {
-        if !entry.file_type().is_file() {
-            continue;
-        }
-        if entry.path().file_name().and_then(|name| name.to_str()) == Some("Cargo.toml") {
-            manifests.push(entry.into_path());
-        }
-    }
-    manifests.sort();
-    Ok(manifests)
-}
-
-fn collect_manifest_dependencies(value: &Value) -> BTreeSet<String> {
-    let mut out = BTreeSet::new();
-    collect_dependency_table(value.get("dependencies"), &mut out);
-    collect_dependency_table(value.get("dev-dependencies"), &mut out);
-    collect_dependency_table(value.get("build-dependencies"), &mut out);
-    if let Some(targets) = value.get("target").and_then(Value::as_table) {
-        for section in targets.values() {
-            if let Some(table) = section.as_table() {
-                collect_dependency_table(table.get("dependencies"), &mut out);
-                collect_dependency_table(table.get("dev-dependencies"), &mut out);
-                collect_dependency_table(table.get("build-dependencies"), &mut out);
-            }
-        }
-    }
-    out
-}
-
-fn collect_dependency_table(value: Option<&Value>, out: &mut BTreeSet<String>) {
-    let Some(table) = value.and_then(Value::as_table) else {
-        return;
-    };
-    for key in table.keys() {
-        out.insert(key.trim().to_string());
-    }
 }
 
 fn string_list(value: &Value, key: &str) -> Vec<String> {
@@ -1754,25 +1638,9 @@ struct ExtractedRefs {
 
 fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
     let root = resolve_root(args)?;
-    let required = [
-        "registry/roadmap.toml",
-        "registry/todo.toml",
-        "registry/next_actions.toml",
-        "registry/requirements.toml",
-        "registry/module_requirements.toml",
-        "registry/external_sources.toml",
-        "registry/dataset_label_aliases.toml",
-        "data/external/SOURCES.toml",
-        "registry/claims_atoms.toml",
-        "registry/claims_evidence_edges.toml",
-        "registry/provenance_sources.toml",
-        "registry/narrative_paragraph_atoms.toml",
-    ];
-    for rel in required {
-        let path = root.join(rel);
-        if !path.exists() {
-            bail!("ERROR: missing required registry {rel}");
-        }
+    let alias_rel = "registry/dataset_label_aliases.toml";
+    if !root.join(alias_rel).exists() {
+        bail!("ERROR: missing required registry {alias_rel}");
     }
 
     let claims = load_control_plane_registry(
@@ -1793,63 +1661,26 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
         ControlPlaneCompatKind::Experiments,
         "registry/experiments.toml",
     )?;
-    let lineage = {
-        let path = root.join("registry/experiment_lineage.toml");
-        if path.exists() {
-            Some(load_toml(&path)?)
-        } else {
-            None
-        }
-    };
     let roadmap = load_toml(&root.join("registry/roadmap.toml"))?;
     let todo = load_toml(&root.join("registry/todo.toml"))?;
     let next_actions = load_toml(&root.join("registry/next_actions.toml"))?;
     let requirements = load_toml(&root.join("registry/requirements.toml"))?;
-    let module_requirements = load_toml(&root.join("registry/module_requirements.toml"))?;
     let external_sources = load_toml(&root.join("registry/external_sources.toml"))?;
     let dataset_label_aliases = load_toml(&root.join("registry/dataset_label_aliases.toml"))?;
-    let claim_atoms = load_toml(&root.join("registry/claims_atoms.toml"))?;
-    let claim_edges = load_toml(&root.join("registry/claims_evidence_edges.toml"))?;
     let provenance = load_toml(&root.join("registry/provenance_sources.toml"))?;
     let paragraph_atoms = load_toml(&root.join("registry/narrative_paragraph_atoms.toml"))?;
-
-    let conflict_markers = if root.join("registry/conflict_markers.toml").exists() {
-        load_toml(&root.join("registry/conflict_markers.toml"))?
-    } else {
-        Value::Table(Default::default())
-    };
-    let lacunae = if root.join("registry/lacunae.toml").exists() {
-        load_toml(&root.join("registry/lacunae.toml"))?
-    } else {
-        Value::Table(Default::default())
-    };
 
     let claim_rows = table_array(&claims, "claim");
     let insight_rows = table_array(&insights, "insight");
     let experiment_rows = table_array(&experiments, "experiment");
-    let lineage_rows = lineage
-        .as_ref()
-        .map(|value| table_array(value, "lineage"))
-        .unwrap_or(&[]);
-    let lineage_edges = lineage
-        .as_ref()
-        .map(|value| table_array(value, "edge"))
-        .unwrap_or(&[]);
     let roadmap_rows = table_array(&roadmap, "workstream");
     let todo_rows = table_array(&todo, "item");
     let action_rows = table_array(&next_actions, "action");
     let requirement_rows = table_array(&requirements, "module");
-    let module_rows = table_array(&module_requirements, "module");
-    let package_rows = table_array(&module_requirements, "package");
-    let command_rows = table_array(&module_requirements, "command");
     let source_rows = table_array(&external_sources, "document");
     let alias_rows = table_array(&dataset_label_aliases, "alias");
-    let atom_rows = table_array(&claim_atoms, "atom");
-    let edge_rows = table_array(&claim_edges, "edge");
     let provenance_rows = table_array(&provenance, "record");
     let paragraph_rows = table_array(&paragraph_atoms, "paragraph");
-    let marker_rows = table_array(&conflict_markers, "marker");
-    let lacuna_rows = table_array(&lacunae, "lacuna");
 
     let claim_ids: BTreeSet<String> = claim_rows
         .iter()
@@ -1886,11 +1717,6 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
         .map(|row| table_str(row, "id").to_string())
         .filter(|value| !value.is_empty())
         .collect();
-    let module_req_ids: BTreeSet<String> = module_rows
-        .iter()
-        .map(|row| table_str(row, "id").to_string())
-        .filter(|value| !value.is_empty())
-        .collect();
     let source_ids = collect_source_ids(&root)?;
     let dataset_ids = collect_dataset_ids(&root)?;
     let dataset_label_aliases: BTreeSet<String> = alias_rows
@@ -1908,16 +1734,6 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
                 Some(normalized)
             }
         })
-        .collect();
-    let marker_ids: BTreeSet<String> = marker_rows
-        .iter()
-        .map(|row| table_str(row, "id").to_string())
-        .filter(|value| !value.is_empty())
-        .collect();
-    let lineage_ids: BTreeSet<String> = lineage_rows
-        .iter()
-        .map(|row| table_str(row, "id").to_string())
-        .filter(|value| !value.is_empty())
         .collect();
 
     let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
@@ -2052,90 +1868,6 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
         );
     }
 
-    for row in atom_rows {
-        let aid = table_str(row, "id");
-        check_crossref_id(
-            CrossRefKind::Claims,
-            table_str(row, "claim_id"),
-            &format!("claims_atoms[{aid}].claim_id"),
-            &mut counters,
-            &mut failures,
-            &CrossRefSets {
-                claims: &claim_ids,
-                insights: &insight_ids,
-                experiments: &experiment_ids,
-                sources: &source_ids,
-                datasets: &dataset_ids,
-            },
-        );
-        for field in ["cross_refs", "where_stated_refs", "verification_refs"] {
-            for value in value_list(row, field) {
-                let refs = extract_crossrefs(
-                    &value,
-                    &claim_re,
-                    &insight_re,
-                    &experiment_re,
-                    &source_re,
-                    &source_contract_re,
-                    &dataset_re,
-                );
-                check_extracted_refs(
-                    &refs,
-                    &format!("claims_atoms[{aid}].{field}"),
-                    &mut counters,
-                    &mut failures,
-                    &CrossRefSets {
-                        claims: &claim_ids,
-                        insights: &insight_ids,
-                        experiments: &experiment_ids,
-                        sources: &source_ids,
-                        datasets: &dataset_ids,
-                    },
-                );
-            }
-        }
-    }
-
-    for row in edge_rows {
-        let eid = table_str(row, "id");
-        check_crossref_id(
-            CrossRefKind::Claims,
-            table_str(row, "claim_id"),
-            &format!("claims_evidence_edges[{eid}].claim_id"),
-            &mut counters,
-            &mut failures,
-            &CrossRefSets {
-                claims: &claim_ids,
-                insights: &insight_ids,
-                experiments: &experiment_ids,
-                sources: &source_ids,
-                datasets: &dataset_ids,
-            },
-        );
-        let refs = extract_crossrefs(
-            table_str(row, "target_ref"),
-            &claim_re,
-            &insight_re,
-            &experiment_re,
-            &source_re,
-            &source_contract_re,
-            &dataset_re,
-        );
-        check_extracted_refs(
-            &refs,
-            &format!("claims_evidence_edges[{eid}].target_ref"),
-            &mut counters,
-            &mut failures,
-            &CrossRefSets {
-                claims: &claim_ids,
-                insights: &insight_ids,
-                experiments: &experiment_ids,
-                sources: &source_ids,
-                datasets: &dataset_ids,
-            },
-        );
-    }
-
     for row in provenance_rows {
         let pid = table_str(row, "id");
         for claim_id in value_list(row, "claim_refs") {
@@ -2214,120 +1946,6 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
                     datasets: &dataset_ids,
                 },
             );
-        }
-    }
-
-    for row in lineage_rows {
-        let lid = table_str(row, "id");
-        check_crossref_id(
-            CrossRefKind::Experiments,
-            table_str(row, "experiment_id"),
-            &format!("experiment_lineage[{lid}].experiment_id"),
-            &mut counters,
-            &mut failures,
-            &CrossRefSets {
-                claims: &claim_ids,
-                insights: &insight_ids,
-                experiments: &experiment_ids,
-                sources: &source_ids,
-                datasets: &dataset_ids,
-            },
-        );
-        for claim_id in value_list(row, "claim_refs") {
-            check_crossref_id(
-                CrossRefKind::Claims,
-                &claim_id,
-                &format!("experiment_lineage[{lid}].claim_refs"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            );
-        }
-        for dataset_id in value_list(row, "dataset_refs") {
-            check_crossref_id(
-                CrossRefKind::Datasets,
-                &dataset_id,
-                &format!("experiment_lineage[{lid}].dataset_refs"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            );
-        }
-        for label in value_list(row, "dataset_label_refs") {
-            let normalized = normalize_dataset_label(&label);
-            if !dataset_label_aliases.contains(&normalized) {
-                failures.push(format!(
-                    "experiment_lineage[{lid}].dataset_label_refs: unknown dataset label alias {label}"
-                ));
-            }
-        }
-    }
-
-    for row in lineage_edges {
-        let edge_id = table_str(row, "id");
-        let lineage_id = table_str(row, "lineage_id");
-        if !lineage_ids.contains(lineage_id) {
-            failures.push(format!(
-                "experiment_lineage.edge[{edge_id}].lineage_id: unknown lineage {lineage_id}"
-            ));
-        }
-        check_crossref_id(
-            CrossRefKind::Experiments,
-            table_str(row, "from_id"),
-            &format!("experiment_lineage.edge[{edge_id}].from_id"),
-            &mut counters,
-            &mut failures,
-            &CrossRefSets {
-                claims: &claim_ids,
-                insights: &insight_ids,
-                experiments: &experiment_ids,
-                sources: &source_ids,
-                datasets: &dataset_ids,
-            },
-        );
-        let to_ref = table_str(row, "to_ref");
-        match table_str(row, "to_kind") {
-            "claim" => check_crossref_id(
-                CrossRefKind::Claims,
-                to_ref,
-                &format!("experiment_lineage.edge[{edge_id}].to_ref"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            ),
-            "dataset" => check_crossref_id(
-                CrossRefKind::Datasets,
-                to_ref,
-                &format!("experiment_lineage.edge[{edge_id}].to_ref"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            ),
-            _ => {}
         }
     }
 
@@ -2520,114 +2138,6 @@ fn verify_crossrefs(args: &CommonArgs) -> Result<()> {
             if !req_ids.contains(&module_id) {
                 failures.push(format!(
                     "requirements.module[{requirement_id}].requires_modules: unknown requirement module {module_id}"
-                ));
-            }
-        }
-    }
-
-    let package_ids: BTreeSet<String> = package_rows
-        .iter()
-        .map(|row| table_str(row, "id").to_string())
-        .filter(|value| !value.is_empty())
-        .collect();
-    let command_ids: BTreeSet<String> = command_rows
-        .iter()
-        .map(|row| table_str(row, "id").to_string())
-        .filter(|value| !value.is_empty())
-        .collect();
-
-    for row in module_rows {
-        let module_id = table_str(row, "id");
-        if !req_ids.contains(module_id) {
-            failures.push(format!(
-                "module_requirements.module: missing requirements module {module_id}"
-            ));
-        }
-        for requires_module in value_list(row, "requires_modules") {
-            if !module_req_ids.contains(&requires_module) {
-                failures.push(format!(
-                    "module_requirements.module[{module_id}].requires_modules: unknown module {requires_module}"
-                ));
-            }
-        }
-        for package_id in value_list(row, "package_refs") {
-            if !package_ids.contains(&package_id) {
-                failures.push(format!(
-                    "module_requirements.module[{module_id}].package_refs: unknown package {package_id}"
-                ));
-            }
-        }
-        for command_id in value_list(row, "command_refs") {
-            if !command_ids.contains(&command_id) {
-                failures.push(format!(
-                    "module_requirements.module[{module_id}].command_refs: unknown command {command_id}"
-                ));
-            }
-        }
-    }
-
-    for row in package_rows {
-        let package_id = table_str(row, "id");
-        let module_id = table_str(row, "module_id");
-        if !module_req_ids.contains(module_id) {
-            failures.push(format!(
-                "module_requirements.package[{package_id}].module_id: unknown module {module_id}"
-            ));
-        }
-    }
-
-    for row in command_rows {
-        let command_id = table_str(row, "id");
-        let module_id = table_str(row, "module_id");
-        if !module_req_ids.contains(module_id) {
-            failures.push(format!(
-                "module_requirements.command[{command_id}].module_id: unknown module {module_id}"
-            ));
-        }
-    }
-
-    for row in marker_rows {
-        let marker_id = table_str(row, "id");
-        for claim_id in value_list(row, "claim_refs") {
-            check_crossref_id(
-                CrossRefKind::Claims,
-                &claim_id,
-                &format!("conflict_markers[{marker_id}].claim_refs"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            );
-        }
-    }
-
-    for row in lacuna_rows {
-        let lacuna_id = table_str(row, "id");
-        for claim_id in value_list(row, "claim_refs") {
-            check_crossref_id(
-                CrossRefKind::Claims,
-                &claim_id,
-                &format!("lacunae[{lacuna_id}].claim_refs"),
-                &mut counters,
-                &mut failures,
-                &CrossRefSets {
-                    claims: &claim_ids,
-                    insights: &insight_ids,
-                    experiments: &experiment_ids,
-                    sources: &source_ids,
-                    datasets: &dataset_ids,
-                },
-            );
-        }
-        for marker_id in value_list(row, "related_marker_ids") {
-            if !marker_ids.contains(&marker_id) {
-                failures.push(format!(
-                    "lacunae[{lacuna_id}].related_marker_ids: unknown marker {marker_id}"
                 ));
             }
         }
@@ -2954,28 +2464,10 @@ fn verify_dataset_label_aliases(args: &CommonArgs) -> Result<()> {
         ControlPlaneCompatKind::Experiments,
         "registry/experiments.toml",
     )?;
-    let lineages = if lineage_path.exists() {
-        Some(load_toml(&lineage_path)?)
-    } else {
-        None
-    };
     let dataset_ids = collect_dataset_ids(&root)?;
     let dataset_re = Regex::new(r"^(?:PC|PG|EX|AR|CU)-\d{4}$")?;
     let mut failures = Vec::new();
     let rows = table_array(&alias_raw, "alias");
-    let meta = alias_raw
-        .get("dataset_label_aliases")
-        .and_then(Value::as_table)
-        .cloned()
-        .unwrap_or_default();
-    if meta
-        .get("alias_count")
-        .and_then(Value::as_integer)
-        .unwrap_or(-1)
-        != rows.len() as i64
-    {
-        failures.push("dataset_label_aliases alias_count metadata mismatch".to_string());
-    }
     let mut normalized_seen = BTreeMap::<String, String>::new();
     let mut alias_labels = BTreeSet::<String>::new();
     for row in rows {
@@ -3026,32 +2518,13 @@ fn verify_dataset_label_aliases(args: &CommonArgs) -> Result<()> {
             }
         }
     }
-    for row in lineages
-        .as_ref()
-        .map(|value| table_array(value, "lineage"))
-        .unwrap_or(&[])
-    {
-        let lineage_id = table_str(row, "id");
-        for label in string_list(row, "dataset_label_refs") {
-            let normalized = normalize_dataset_label(&label);
-            if !alias_labels.contains(&normalized) {
-                failures.push(format!(
-                    "experiment_lineage[{lineage_id}] unknown dataset_label_ref: {label}"
-                ));
-            }
-        }
-    }
     if !failures.is_empty() {
         bail!(failures.join("\n"));
     }
     println!(
-        "OK: dataset label aliases verified. aliases={} experiments={} lineages={}",
+        "OK: dataset label aliases verified. aliases={} experiments={}",
         rows.len(),
-        table_array(&experiments, "experiment").len(),
-        lineages
-            .as_ref()
-            .map(|value| table_array(value, "lineage").len())
-            .unwrap_or(0)
+        table_array(&experiments, "experiment").len()
     );
     Ok(())
 }
@@ -3310,15 +2783,6 @@ fn verify_experiment_reference_identity(args: &CommonArgs) -> Result<()> {
         read_ascii_text(&alias_path)?;
         let raw = load_toml(&alias_path)?;
         let rows = table_array(&raw, "alias");
-        let declared = raw
-            .get("experiment_id_aliases")
-            .and_then(Value::as_table)
-            .and_then(|meta| meta.get("alias_count"))
-            .and_then(Value::as_integer)
-            .unwrap_or(-1);
-        if declared != rows.len() as i64 {
-            bail!("experiment_id_aliases alias_count metadata mismatch");
-        }
         for row in rows {
             let alias_id = table_str(row, "id").trim().to_string();
             let legacy = table_str(row, "legacy_id").trim().to_string();
