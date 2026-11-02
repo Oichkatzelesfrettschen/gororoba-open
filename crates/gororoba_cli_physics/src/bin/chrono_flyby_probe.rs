@@ -11,9 +11,9 @@
 //! LatticeQecSnapshot syndrome detector, and emits a CSV row with topological friction
 //! metrics (active syndrome count, mean syndrome strength, error mask size).
 //!
-//! See BIB-0307 (Moreno 1998) for CD zero-divisor structure,
-//! BIB-0314 (Pastawski et al. 2015) for holographic code analogies,
-//! and BIB-0297 (Anderson et al. 2008) for flyby anomaly data.
+//! See BIB-0309 (Moreno 1998) for CD zero-divisor structure,
+//! BIB-0317 (Pastawski et al. 2015) for holographic code analogies,
+//! and BIB-0298 (Anderson et al. 2008) for flyby anomaly data.
 
 use algebra_experimental::moonshine_embedding::LEECH_DIM;
 use clap::Parser;
@@ -84,7 +84,7 @@ struct Cli {
     cd_dim: usize,
 
     /// Plummer softening length in lattice units (prevents 1/r^2 singularity).
-    /// See BIB-0297 (Anderson et al. 2008) for flyby anomaly context.
+    /// See BIB-0298 (Anderson et al. 2008) for flyby anomaly context.
     #[arg(long, default_value_t = 1.5)]
     softening: f64,
 
@@ -203,7 +203,7 @@ fn anomalies_to_lattice_states(
 /// Physical-to-lattice scale: dx_km = 2 * soi_radius_km / max(nx, ny, nz).
 ///
 /// The softening parameter prevents 1/r^2 singularity if the mass transits
-/// through a lattice node. See BIB-0297 (Anderson et al. 2008) for the flyby
+/// through a lattice node. See BIB-0298 (Anderson et al. 2008) for the flyby
 /// anomaly empirical formula that motivates this simulation.
 fn gravity_wake_field(
     nx: usize,
@@ -485,7 +485,7 @@ fn main() -> anyhow::Result<()> {
         // 3.5. Inject gravitational wake from flyby mass into LBM force field.
         //      Maps physical trajectory position to lattice coordinates, computes
         //      Newtonian acceleration at every grid node, and sets via Guo forcing.
-        //      See BIB-0297 (Anderson 2008) for flyby anomaly empirical context.
+        //      See BIB-0298 (Anderson 2008) for flyby anomaly empirical context.
         if !cli.no_gravity_wake {
             let mass_lattice =
                 physical_to_lattice(traj_state.position, cli.nx, cli.ny, cli.nz, dx_km);

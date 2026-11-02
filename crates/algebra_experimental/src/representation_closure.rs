@@ -2,12 +2,12 @@
 //!
 //! Tests whether a finite subset of Monster irreps suffices to decompose
 //! all j-function Fourier coefficients. The McKay-Thompson conjecture
-//! (proved by Borcherds, BIB-0312) guarantees that each c_n decomposes
+//! (proved by Borcherds, BIB-0315) guarantees that each c_n decomposes
 //! into a non-negative integer combination of Monster irreps. This module
 //! checks how quickly the required irrep set saturates as n grows.
 //!
-//! See BIB-0311 (Conway & Norton 1979) for the Moonshine conjecture
-//! and BIB-0312 (Borcherds 1992) for the proof.
+//! See BIB-0314 (Conway & Norton 1979) for the Moonshine conjecture
+//! and BIB-0315 (Borcherds 1992) for the proof.
 
 use super::moonshine::{J_COEFFICIENTS, MONSTER_REP_DIMENSIONS};
 

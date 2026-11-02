@@ -32,7 +32,7 @@ pub const SOI_R_EARTH: f64 = 50.0;
 /// The wake has a cos(theta) profile along the wind axis:
 ///   rho_wake(r, theta) = rho_0 * (1 + ETA_WAKE * cos(theta))
 ///
-/// See BIB-0303 (Lundberg & Edsjo 2004) and BIB-0304 (Lee et al. 2021).
+/// See BIB-0305 (Lundberg & Edsjo 2004) and BIB-0306 (Lee et al. 2021).
 pub const ETA_WAKE: f64 = 0.10;
 
 /// Configuration for a single flyby event.
@@ -59,7 +59,7 @@ pub struct FlybyConfig {
 
 /// Return the standard 6-spacecraft flyby database.
 ///
-/// Data from Anderson et al. (2008) PRL 100, 091102, Table I (BIB-0297).
+/// Data from Anderson et al. (2008) PRL 100, 091102, Table I (BIB-0298).
 pub fn all_flybys() -> Vec<FlybyConfig> {
     use crate::ephemeris_loader::flyby_epochs;
     vec![

@@ -19,9 +19,10 @@
 //! lower-index sectors.
 //!
 //! # References
-//! - BIB-0316 (Conway 1968): Leech lattice characterization
-//! - BIB-0310 (Brown & Loeb 1997): Alternativity failure and zero divisors above dim 8
-//! - BIB-0127 (Conway & Sloane 1999): Sphere Packings, Lattices and Groups
+//! - BIB-0318 (Conway 1968): Leech lattice characterization
+//! - BIB-0312 (Brown 1967): Generalized Cayley-Dickson norm, division criterion and
+//!   zero divisors at dimension 16
+//! - BIB-0131 (Conway & Sloane 1999): Sphere Packings, Lattices and Groups
 
 use cd_kernel::cayley_dickson::SignTable;
 

@@ -58,9 +58,9 @@ claims C-769 through C-773 in the open_gororoba registry.
 
 | ID | Citation | DOI/URL |
 |----|----------|---------|
-| BIB-0212 | Ehman, J. R. (1997). "The Big Ear Wow! Signal: What We Know and Don't Know About It After 20 Years." | bigear.org/wow20th.htm |
-| BIB-0213 | Gray, R. H. & Ellingsen, S. P. (2002). "A Search for Periodic Emissions at the Wow Locale." ApJ 578, 967-971. | 10.1086/342646 |
-| BIB-0214 | Perez, K. et al. (2022). "Breakthrough Listen Observations of the Wow! Signal Region." RNAAS 6, 197. | 10.3847/2515-5172/ac9631 |
+| BIB-0214 | Ehman, J. R. (1997). "The Big Ear Wow! Signal: What We Know and Don't Know About It After 20 Years." | bigear.org/wow20th.htm |
+| BIB-0215 | Gray, R. H. & Ellingsen, S. P. (2002). "A Search for Periodic Emissions at the Wow Locale." ApJ 578, 967-971. | 10.1086/342646 |
+| BIB-0216 | Perez, K. et al. (2022). "Breakthrough Listen Observations of the Wow! Signal Region." RNAAS 6, 197. | 10.3847/2515-5172/ac9631 |
 
 ## Signal Parameters
 

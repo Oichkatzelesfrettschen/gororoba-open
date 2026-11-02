@@ -11,8 +11,8 @@
 //! - `VoidCodeAdapter`: wraps a set of active ZD axes as a StabilizerLikeCode
 //! - `LatticeQecSnapshot`: composite code over an entire lattice region
 //!
-//! See BIB-0307 (Moreno 1998) for CD zero-divisor structure and
-//! BIB-0314 (Pastawski et al. 2015) for holographic code analogies.
+//! See BIB-0309 (Moreno 1998) for CD zero-divisor structure and
+//! BIB-0317 (Pastawski et al. 2015) for holographic code analogies.
 
 use crate::stabilizer_like::{CompositeCode, StabilizerLikeCode};
 use algebra_experimental::higher_cd::SparseApeironState;

@@ -4,8 +4,8 @@
 //! under a common interface. Both codes use non-associative algebraic structure
 //! (zero-divisor parity checks) rather than standard Pauli stabilizers.
 //!
-//! See BIB-0313 (Kitaev 2003) for toric code foundations and
-//! BIB-0314 (Pastawski et al. 2015) for holographic code structure.
+//! See BIB-0316 (Kitaev 2003) for toric code foundations and
+//! BIB-0317 (Pastawski et al. 2015) for holographic code structure.
 
 use std::collections::HashSet;
 
