@@ -17,7 +17,7 @@
 //!
 //! open\_gororoba is organized as a large Rust workspace rooted in `crates/`, with
 //! canonical control-plane state under `registry/`, long-form docs under `docs/`,
-//! generated artifacts under `data/`, and a research corpus under `papers/`.
+//! generated artifacts under `data/`.
 //!
 //! ![Repo operator matrix](../assets/repo_operator_matrix_3160x2820.png)
 //!
@@ -50,12 +50,6 @@
 //!   experiments.toml    SQLite-exported experiments compatibility view
 //!   binaries.toml       SQLite-exported CLI inventory compatibility view
 //!   project.toml        Version, synchronized counts, sprint history
-//!
-//! papers/
-//!   pdf/                Research PDFs
-//!   bib/                Bibliography database
-//!   extracted/          Structured TOML extractions per paper
-//!   MANIFEST.toml       Paper metadata registry
 //!
 //! docs/
 //!   book/               Canonical web-viewable architecture docs

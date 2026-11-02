@@ -15,10 +15,8 @@
 //!
 //! # Paper Collection
 //!
-//! The repo now has two paper layers that should be kept distinct:
+//! The paper chronology lives off-repo:
 //!
-//! - `data/papers/corpus/` is the repo-owned executable corpus. It currently holds
-//!   318 cached files, including PDFs, sidecar text, and a local `MANIFEST.toml`.
 //! - gororoba-documents-private `user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
 //!   is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
 //!   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.

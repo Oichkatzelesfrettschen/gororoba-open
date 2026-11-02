@@ -115,7 +115,6 @@
 //!   gororoba_py/      PyO3 bindings (thin wrappers)
 //!   gororoba_cli*/    Domain-specific operator surfaces
 //! registry/           SQLite control plane plus generated compatibility registries
-//! data/papers/        Cached paper corpus, sidecar text, and manifests
 //! docs/               Documentation and tracking
 //! ```text
 //!

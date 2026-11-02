@@ -782,7 +782,6 @@ path_refs = [
     "[workspace.dependencies]",
     "crates/",
     "docs/*.md",
-    "data/papers/",
     "registry/canonical/",
     "registry/canonical/control_plane.sqlite3",
 ]
@@ -807,7 +806,7 @@ body_markdown = '''
 
 open\_gororoba is organized as a large Rust workspace rooted in `crates/`, with
 canonical control-plane state under `registry/`, long-form docs under `docs/`,
-generated artifacts under `data/`, and a research corpus under `data/papers/`.
+generated artifacts under `data/`.
 
 ![Repo operator matrix](../assets/repo_operator_matrix_3160x2820.png)
 
@@ -830,7 +829,6 @@ crates/
   lbm_core/           Lattice Boltzmann
   control_core/       Control theory
   data_core/          Data loading, benchmarks, HDF5 export
-  docpipe/            PDF extraction (pdfium-render)
   gororoba_py/        PyO3 bindings (thin wrappers)
   gororoba_cli*/      Domain-specific operator surfaces
 
@@ -841,12 +839,6 @@ registry/
   experiments.toml    SQLite-exported experiments compatibility view
   binaries.toml       SQLite-exported CLI inventory compatibility view
   project.toml        Version, synchronized counts, sprint history
-
-data/papers/
-  corpus/             Cached research PDFs and text companions
-  documents_extracted/  Paper extraction evidence
-  transport/          Paper transport inputs
-  corpus/MANIFEST.toml  Corpus inventory; local availability varies by host
 
 docs/
   book/               Canonical web-viewable architecture docs
@@ -1149,7 +1141,6 @@ compatibility view.
 | migrate-insights | Legacy/bootstrap import from markdown insights mirror into SQLite compatibility exports |
 | generate-latex | Publication export: generate LaTeX appendices from canonical control-plane data |
 | registry-emit | Export derived web and publication views; `control-plane-docs` is the standard refresh path for claims, insights, experiments, and theorems |
-| extract-papers | Batch PDF extraction to structured TOML |
 | export-hdf5 | Export computed data to HDF5 (feature-gated) |
 | fetch-chime-frb | Download CHIME/FRB catalog data |
 | fetch-datasets | Download all external astrophysical datasets |
@@ -1704,9 +1695,6 @@ cargo run --release --bin registry-check
 
 # Synchronize project counters from registry sources
 cargo run --release --bin project-counter-sync
-
-# Extract a paper to TOML
-cargo run --release --bin extract-papers -- --only demarrais-2000-math0011260
 ```
 
 ## Codebase Structure
@@ -1725,11 +1713,9 @@ crates/
   lbm_core/         Lattice Boltzmann
   control_core/     Control theory
   data_core/        Data loading, benchmarks
-  docpipe/          PDF extraction (pdfium-render primary)
   gororoba_py/      PyO3 bindings (thin wrappers)
   gororoba_cli*/    Domain-specific operator surfaces
 registry/           SQLite control plane plus generated compatibility registries
-data/papers/        Cached paper corpus, sidecar text, and manifests
 docs/               Documentation and tracking
 ```
 
@@ -1746,8 +1732,6 @@ title = "Paper Collection"
 claim_refs = []
 path_refs = [
     "crates/cd_papers/",
-    "crates/docpipe/",
-    "data/papers/corpus/",
     "proofs/theories/",
     "registry/source_lanes/papers_pdf.toml",
 ]
@@ -1770,10 +1754,8 @@ body_markdown = '''
 
 # Paper Collection
 
-The repo now has two paper layers that should be kept distinct:
+The paper chronology lives off-repo:
 
-- `data/papers/corpus/` contains cached PDFs, sidecar text and `MANIFEST.toml`.
-  Read the manifest for its declared inventory and verify local availability.
 - `gororoba-documents-private:user_documentation/manuscripts/cayley-dickson-workbench/chronological-reference-matrix.md`
   is the broader off-repo chronology and audit surface. As of 2026-03-25 it tracks
   119 rows across precursor, quaternion, octonion, sedenion, and later CD work.
@@ -1784,7 +1766,6 @@ the whole paper corpus. The active paper-to-code surfaces are:
 | Lane | Repo surface | Role |
 |------|--------------|------|
 | Rust paper API | `crates/cd_papers/` | Unified access to paper-scoped Rust crates |
-| PDF and text intake | `crates/docpipe/` + `data/papers/corpus/` | Extraction, normalization, and equation intake |
 | Rocq formalization | `proofs/theories/` | Exact theorem companions for paper results |
 | Provenance registry | `registry/source_lanes/papers_pdf.toml` | Machine-readable paper inventory |
 
@@ -1801,22 +1782,14 @@ the whole paper corpus. The active paper-to-code surfaces are:
 | de Marrais (2000) | `crates/de_marrais_2000/` | `proofs/theories/DeMarraisAssessors.v` |
 | Wilmot (2025) | `crates/wilmot_2025/` | `proofs/theories/WilmotCDStructure.v` and retraction companions |
 
-## Extraction pipeline
+## Equation intake
 
-`docpipe` is already the right place for PDF and sidecar-text extraction, but
-the equation lane needs a curated second stage. For OCR-heavy papers, raw PDF
-text is often not enough to recover equations faithfully. The current strategy
-is therefore:
+For OCR-heavy papers, raw PDF text is often not enough to recover equations
+faithfully, so equation intake is curated:
 
-- use `docpipe` for text, sections, and structural extraction
 - promote paper-specific equations into curated catalogs
 - route each equation to Rust, Rocq, or a paired Rust+Rocq lane depending on
   whether the source result is computational, formal, or both
-
-```sh
-# Extract a specific cached paper
-cargo run --release --bin extract-papers -- --only demarrais-2000-math0011260
-```
 '''
 
 [[document]]
@@ -1828,7 +1801,6 @@ title = "Paper Chronology"
 claim_refs = []
 path_refs = [
     "crates/cd_papers/",
-    "data/papers/corpus/",
     "proofs/theories/",
     "registry/source_lanes/papers_pdf.toml",
 ]
@@ -1891,7 +1863,6 @@ path_refs = [
     "crates/moreno_1997/",
     "crates/algebra_analysis/src/reggiani.rs",
     "crates/cd_papers/",
-    "crates/docpipe/",
     "proofs/theories/",
 ]
 line_count = 57
@@ -1971,8 +1942,8 @@ different first landings:
    lane.
 8. Split Reggiani's standard-zero-divisor and partner-graph logic into its own
    paper crate instead of leaving it embedded in `algebra_analysis`.
-9. Use `docpipe` plus curated equation catalogs to normalize equations paper by
-   paper before deciding whether each one belongs in Rust, Rocq, or both.
+9. Normalize equations through curated catalogs paper by paper before deciding
+   whether each one belongs in Rust, Rocq, or both.
 '''
 
 [[document]]
