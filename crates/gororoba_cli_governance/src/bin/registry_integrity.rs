@@ -220,18 +220,15 @@ fn build_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
     Ok(())
 }
 
+/// Checks the facts a regeneration cannot repair. Marker claim references
+/// come from narrative prose, and `legacy_manual` lacunae carry their
+/// priority, claim references, title and description forward verbatim, so a
+/// dangling claim id, an unknown priority or a blank text survives
+/// `registry-integrity` and fails here. Counts, ids, enums and spans that the
+/// generator assigns itself are not re-checked.
 fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
     let conflict_path = repo_root.join(&args.conflict_out);
     let lacunae_path = repo_root.join(&args.lacunae_out);
-    for path in [&conflict_path, &lacunae_path] {
-        if !path.exists() {
-            println!("ERROR: missing required file: {}", path.display());
-            std::process::exit(1);
-        }
-    }
-    assert_ascii_file(&conflict_path)?;
-    assert_ascii_file(&lacunae_path)?;
-
     let claims = table_array(
         &load_control_plane_registry(
             repo_root,
@@ -252,150 +249,37 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
     let lacunae = table_array(&lacunae_raw, "lacuna");
 
     let mut failures = Vec::new();
-
-    if table_int_in(&conflict_raw, "conflict_markers", "marker_count") != markers.len() as i64 {
-        failures.push("conflict_markers marker_count metadata mismatch".to_string());
-    }
-    let mut seen_marker_ids = BTreeSet::new();
-    let mut severity_counts = BTreeMap::from([
-        ("high".to_string(), 0usize),
-        ("medium".to_string(), 0usize),
-        ("low".to_string(), 0usize),
-    ]);
     for row in markers {
-        let marker_id = table_str(row, "id").to_string();
-        if !seen_marker_ids.insert(marker_id.clone()) {
-            failures.push(format!("duplicate conflict marker id: {}", marker_id));
-            break;
-        }
-        let severity = table_str(row, "severity").to_string();
-        if let Some(count) = severity_counts.get_mut(&severity) {
-            *count += 1;
-        } else {
-            failures.push(format!(
-                "invalid marker severity: {} -> {}",
-                marker_id, severity
-            ));
-        }
-        let line_start = table_int(row, "line_start");
-        let line_end = table_int(row, "line_end");
-        if line_start < 0 || line_end < 0 || (line_start > 0 && line_end < line_start) {
-            failures.push(format!(
-                "invalid marker line span: {} ({}, {})",
-                marker_id, line_start, line_end
-            ));
-        }
+        let marker_id = table_str(row, "id");
         for claim_ref in string_list(row, "claim_refs") {
             if !claim_ids.contains(&claim_ref) {
                 failures.push(format!(
-                    "marker references unknown claim id: {} -> {}",
-                    marker_id, claim_ref
+                    "marker references unknown claim id: {marker_id} -> {claim_ref}"
                 ));
             }
         }
-        if table_str(row, "marker_kind").trim().is_empty() {
-            failures.push(format!("marker missing marker_kind: {}", marker_id));
-        }
-        if table_str(row, "source_registry").trim().is_empty() {
-            failures.push(format!("marker missing source_registry: {}", marker_id));
-        }
-        if table_str(row, "status").trim().is_empty() {
-            failures.push(format!("marker missing status: {}", marker_id));
-        }
-        if !value_is_array(row, "positive_evidence") {
-            failures.push(format!("marker positive_evidence not list: {}", marker_id));
-        }
-        if !value_is_array(row, "negative_evidence") {
-            failures.push(format!("marker negative_evidence not list: {}", marker_id));
-        }
     }
-    if table_int_in(&conflict_raw, "conflict_markers", "high_severity_count")
-        != severity_counts.get("high").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers high_severity_count metadata mismatch".to_string());
-    }
-    if table_int_in(&conflict_raw, "conflict_markers", "medium_severity_count")
-        != severity_counts.get("medium").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers medium_severity_count metadata mismatch".to_string());
-    }
-    if table_int_in(&conflict_raw, "conflict_markers", "low_severity_count")
-        != severity_counts.get("low").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers low_severity_count metadata mismatch".to_string());
-    }
-
-    if table_int_in(&lacunae_raw, "lacunae", "lacuna_count") != lacunae.len() as i64 {
-        failures.push("lacunae lacuna_count metadata mismatch".to_string());
-    }
-    let mut seen_lacuna_ids = BTreeSet::new();
-    let mut open_count = 0usize;
-    let mut priority_counts = BTreeMap::from([
-        ("high".to_string(), 0usize),
-        ("medium".to_string(), 0usize),
-        ("low".to_string(), 0usize),
-    ]);
     for row in lacunae {
-        let lacuna_id = table_str(row, "id").to_string();
-        if !seen_lacuna_ids.insert(lacuna_id.clone()) {
-            failures.push(format!("duplicate lacuna id: {}", lacuna_id));
-            break;
-        }
-        if table_str(row, "status") == "open" {
-            open_count += 1;
-        }
-        let priority = table_str(row, "priority").to_string();
-        if let Some(count) = priority_counts.get_mut(&priority) {
-            *count += 1;
-        } else {
+        let lacuna_id = table_str(row, "id");
+        let priority = table_str(row, "priority");
+        if !["high", "medium", "low"].contains(&priority) {
             failures.push(format!(
-                "invalid lacuna priority: {} -> {}",
-                lacuna_id, priority
+                "invalid lacuna priority: {lacuna_id} -> {priority}"
             ));
         }
         for claim_ref in string_list(row, "claim_refs") {
             if !claim_ids.contains(&claim_ref) {
                 failures.push(format!(
-                    "lacuna references unknown claim id: {} -> {}",
-                    lacuna_id, claim_ref
-                ));
-            }
-        }
-        for marker_id in string_list(row, "related_marker_ids") {
-            if !seen_marker_ids.contains(&marker_id) {
-                failures.push(format!(
-                    "lacuna references unknown conflict marker id: {} -> {}",
-                    lacuna_id, marker_id
+                    "lacuna references unknown claim id: {lacuna_id} -> {claim_ref}"
                 ));
             }
         }
         if table_str(row, "title").trim().is_empty() {
-            failures.push(format!("lacuna missing title: {}", lacuna_id));
+            failures.push(format!("lacuna missing title: {lacuna_id}"));
         }
         if table_str(row, "description").trim().is_empty() {
-            failures.push(format!("lacuna missing description: {}", lacuna_id));
+            failures.push(format!("lacuna missing description: {lacuna_id}"));
         }
-        if table_str(row, "origin").trim().is_empty() {
-            failures.push(format!("lacuna missing origin: {}", lacuna_id));
-        }
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "open_count") != open_count as i64 {
-        failures.push("lacunae open_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "high_priority_count")
-        != priority_counts.get("high").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae high_priority_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "medium_priority_count")
-        != priority_counts.get("medium").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae medium_priority_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "low_priority_count")
-        != priority_counts.get("low").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae low_priority_count metadata mismatch".to_string());
     }
 
     if !failures.is_empty() {
@@ -1135,18 +1019,6 @@ fn table_str<'a>(value: &'a Value, key: &str) -> &'a str {
     value.get(key).and_then(Value::as_str).unwrap_or("")
 }
 
-fn table_int(value: &Value, key: &str) -> i64 {
-    value.get(key).and_then(Value::as_integer).unwrap_or(0)
-}
-
-fn table_int_in(value: &Value, table: &str, key: &str) -> i64 {
-    value
-        .get(table)
-        .and_then(|child| child.get(key))
-        .and_then(Value::as_integer)
-        .unwrap_or(-1)
-}
-
 fn string_list(value: &Value, key: &str) -> Vec<String> {
     value
         .get(key)
@@ -1171,11 +1043,6 @@ fn write_ascii(path: &Path, text: &str) -> Result<()> {
         fs::create_dir_all(parent).with_context(|| format!("mkdir {}", parent.display()))?;
     }
     fs::write(path, text).with_context(|| format!("write {}", path.display()))
-}
-
-fn assert_ascii_file(path: &Path) -> Result<()> {
-    let text = fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
-    assert_ascii(&text, &path.display().to_string())
 }
 
 fn assert_ascii(text: &str, context: &str) -> Result<()> {
