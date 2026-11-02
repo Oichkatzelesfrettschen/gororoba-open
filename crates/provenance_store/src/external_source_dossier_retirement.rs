@@ -43,7 +43,10 @@ pub struct DossierBodyRetirementSpec {
     #[serde(default)]
     pub index: Option<DossierIndexPrune>,
     /// Dossiers that stay in the repository but name removed files in a body line or `path_ref`.
-    #[serde(default)]
+    /// An empty list is omitted from the serialization: `spec_sha256` in `export_runs` hashes
+    /// that serialization, so a specification applied before this field existed keeps the
+    /// digest it was recorded under.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub edit: Vec<DossierLineEdit>,
 }
 
@@ -1192,5 +1195,24 @@ mod tests {
         assert_eq!(rehearsal["delta"], applied["delta"]);
         assert_eq!(rehearsal["dossiers"], applied["dossiers"]);
         assert_eq!(run_count(&fixture), 1);
+    }
+
+    #[test]
+    fn a_specification_without_edits_keeps_its_recorded_serialization() {
+        let spec = DossierBodyRetirementSpec {
+            schema_version: 1,
+            retire_key: "key".to_string(),
+            actor: "actor".to_string(),
+            reason: "reason".to_string(),
+            custody_note: "note".to_string(),
+            retire: Vec::new(),
+            index: None,
+            edit: Vec::new(),
+        };
+        let serialized = serde_json::to_string(&spec).unwrap();
+        assert_eq!(
+            serialized,
+            r#"{"schema_version":1,"retire_key":"key","actor":"actor","reason":"reason","custody_note":"note","retire":[],"index":null}"#
+        );
     }
 }
