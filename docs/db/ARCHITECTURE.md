@@ -44,7 +44,6 @@ files for rebuild and export consistency.
 | Narrative content | 6     | research_narratives.toml, book_docs.toml                    |
 | Project config    | 7     | roadmap.toml, terminology_standards.toml                    |
 | Infrastructure    | 2     | agents_contract.toml, mcp_server_matrix.toml                |
-| Governance lock   | 1     | schema_signatures.toml                                      |
 
 The build step still ingests compatibility TOMLs where migration is incomplete,
 but DB-backed lanes now round-trip through SQLite before their compatibility
@@ -124,12 +123,8 @@ The registry policy validation lane validates the canonical SQLite data plus
 TOML compatibility invariants.
 
 ```bash
-make validate-governance    # Schema signatures, crossrefs, labels, etc.
+make validate-governance    # Crossrefs, labels, control-plane declarations, etc.
 ```
-
-The `schema_signatures.toml` file remains the canonical governance snapshot committed
-to git. It contains content and schema hashes for governance validation.
-Regenerate with `make registry-integrity`.
 
 ## Technology Stack
 

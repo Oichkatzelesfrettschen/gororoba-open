@@ -1435,11 +1435,6 @@ crate = "gororoba_cli_algebra"
 description = "Validates the prefix-chain theorem for Cayley-Dickson lattice filtrations: strict nesting Lambda_256 < Lambda_512 < Lambda_1024 < Lambda_2048 with predicate-derived prefix exclusion rules."
 
 [[binary]]
-name = "project-counter-sync"
-crate = "gororoba_cli_data"
-description = "Synchronize top-level [project] counters with claims/insights/experiments/binaries registries"
-
-[[binary]]
 name = "projector-fhs-polar"
 crate = "gororoba_cli_quantum"
 description = "Projector-FHS with polar link stabilization (SVD-based multiband Chern numbers)"

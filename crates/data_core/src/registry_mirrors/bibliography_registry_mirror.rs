@@ -156,7 +156,7 @@
 //! - **de Marrais, R. P. C.** (2000). *The 42 Assessors and the Box-Kites they fly: Diagonal Axis-Pair Systems of Zero-Divisors in the Sedenions' 16 Dimensions*. [arXiv:math/0011260](https://arxiv.org/abs/math/0011260). (Mirror PDF: https://lygeros.org/wp-content/uploads/perfections/sedenions.pdf)
 //!   - DOI: 10.48550/arXiv.math/0011260.
 //! - **de Marrais, R. P. C.** (2004). *The "Something From Nothing" Insertion Point: Where NKS Research into Physics Foundations Can Expect the "Most Bang for the Buck"*. Wolfram Science Conference 2004 (slides). [PDF](https://www.wolframscience.com/conference/2004/presentations/material/rdemarrais.pdf).
-//! - **de Marrais, R. P. C.** (2002). *Placeholder Substructures I: The Road from NKS to Scale-Free Networks Is Paved with Zero-Divisors*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003). (Later revision: arXiv:math/0703745v3, with corrections and expanded proofs.)
+//! - **de Marrais, R. P. C.** (2002). *Flying Higher Than a Box-Kite: Kite-Chain Middens, Sand Mandalas, and Zero-Divisor Patterns in the 2n-ions Beyond the Sedenions*. [arXiv:math/0207003](https://arxiv.org/abs/math/0207003).
 //! - **de Marrais, R. P. C.** (2007). *Placeholder Substructures I: The Road from NKS to Scale-Free Networks is Paved with Zero-Divisors*. Complex Systems, 17(2), 125-142. DOI: 10.25088/ComplexSystems.17.2.125. [PDF](https://content.wolfram.com/sites/13/2023/02/17-2-3.pdf).
 //! - **de Marrais, R. P. C.** (2004). *Box-Kites III: Quizzical Quaternions, Mock Octonions, and Other Zero-Divisor-Suppressing "Sleeper Cell" Structures in the Sedenions and 2^n-ions*. [arXiv:math/0403113](https://arxiv.org/abs/math/0403113).
 //! - **de Marrais, R. P. C.** (2006). *Presto! Digitization, Part I: From NKS Number Theory to "XORbitant" Semantics, by way of Cayley-Dickson Process and Zero-Divisor-based "Representations"*. [arXiv:math/0603281](https://arxiv.org/abs/math/0603281).
@@ -217,7 +217,7 @@
 //! - **Chen, W., et al.** (2024). *A novel and simple spectral method for nonlocal PDEs with the fractional Laplacian*. Computers & Mathematics with Applications, 168, 133-147. DOI: 10.1016/j.camwa.2024.06.001.
 //! - **Vladimirov, V. S., Volovich, I. V., & Zelenov, E. I.** (1994). *p-adic Analysis and Mathematical Physics*. World Scientific.
 //! - **Taibleson, M. H.** (1975). *Fourier Analysis on Local Fields*. Princeton University Press.
-//! - **Kozyrev, S. V.** (2006). *Wavelet analysis as a p-adic spectral analysis*. [arXiv:math/0612288](https://arxiv.org/abs/math/0612288).
+//! - **Kozyrev, S. V.** (2002). *Wavelet analysis as a p-adic spectral analysis*. Izvestiya: Mathematics 66(2), 367-376. [arXiv:math-ph/0012019](https://arxiv.org/abs/math-ph/0012019).
 //! - **Kac, V. G.** (1990). *Infinite-Dimensional Lie Algebras*. Cambridge University Press, 3rd ed.
 //!   - *Definitive reference on Kac-Moody algebras; affine, hyperbolic, and indefinite types.*
 //! - **Damour, T., Henneaux, M., & Nicolai, H.** (2002). *E10 and a 'small tension expansion' of M Theory*. Phys. Rev. Lett. 89, 221601. [arXiv:hep-th/0207267](https://arxiv.org/abs/hep-th/0207267).
@@ -609,8 +609,9 @@
 //!   - *Systematic enumeration of sedenion zero-divisor structure. K_{2,2,2} graph topology. Basis for qec_boxkite.rs 6-node stabilizer.*
 //! - **De Marrais, R. P.** (2006). *The 42 Assessors and the Box-Kites they fly: Diagonal Axis-Pair Systems of Zero-Divisors in the Sedenions' 16 Dimensions*. [arXiv:math/0604092](https://arxiv.org/abs/math/0604092).
 //!   - *Box-kite geometry of sedenion ZDs: 7 box-kites, 42 assessors, diagonal axis pairs. Core reference for BoxKiteStabilizer and DekaVoudonStabilizer.*
-//! - **Brown, R. B. & Loeb, A. L.** (1997). *Nonassociative algebras and the Cayley-Dickson construction*. Exposition. Math. 15, 229.
-//!   - *Mathematical properties of iterated Cayley-Dickson construction. Alternativity failure above dim 8, zero divisors above dim 16.*
+//! - **Brown, R. B.** (1967). *On generalized Cayley-Dickson algebras*. Pacific J. Math. 20, 415-422. [doi:10.2140/pjm.1967.20.415](https://doi.org/10.2140/pjm.1967.20.415)
+//!   - *Generalized Cayley-Dickson construction with arbitrary gamma parameters: norm formula, division criterion (gamma not a norm and -gamma not a trace-zero norm) and classification up to isomorphism at dims 16, 32 and 64. Over the reals with gamma = -1 the 16-dimensional algebra has zero divisors; over suitable fields the generalized algebras of dim 16 and above can be division algebras. Formalized in crates/brown_1967 and proofs/theories/BrownGeneralizedCD.v.*
+//!   - *Replaces a garbled citation, Brown & Loeb (1997), Exposition. Math. 15, 229, whose locator zbMATH records as Marcolli and Spreafico, Gauge groups and characteristic classes (Zbl 0888.57024); no index holds a Brown and Loeb Cayley-Dickson paper.*
 //! - **Gillard, A. & Gresnigt, N.** (2019). *Three fermion generations with two unbroken gauge symmetries from the complex sedenions*. Eur. Phys. J. C 79, 446.
 //!   - *Sedenion algebraic structure maps to three fermion generations. Connects CD algebra to particle physics representation theory.*
 //! - **Conway, J. H. & Norton, S. P.** (1979). *Monstrous Moonshine*. Bull. London Math. Soc. 11, 308.

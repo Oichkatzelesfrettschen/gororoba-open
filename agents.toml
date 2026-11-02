@@ -383,8 +383,6 @@ source_of_truth = "registry/*.toml"
 generated_mirror = "docs/*.md"
 mirror_command = "cargo run -p gororoba_cli_data --bin registry-emit --"
 do_not_edit_generated_markdown = true
-schema_signature_file = "registry/schema_signatures.toml"
-schema_hash_count = 22
 
 [[shared.registry_table]]
 file = "registry/claims.toml"
@@ -404,15 +402,11 @@ purpose = "CLI binary inventory and descriptions"
 
 [[shared.registry_table]]
 file = "registry/project.toml"
-purpose = "project-level metadata and aggregate counts"
+purpose = "project version, baseline tags and sprint history"
 
 [[shared.registry_table]]
 file = "registry/roadmap.toml"
 purpose = "roadmap source used for docs mirror generation"
-
-[[shared.registry_table]]
-file = "registry/schema_signatures.toml"
-purpose = "integrity signatures for registry schema and records"
 
 [[shared.registry_table]]
 file = "registry/engineering_standards.toml"

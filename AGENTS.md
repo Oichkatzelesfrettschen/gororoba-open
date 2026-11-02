@@ -69,8 +69,8 @@ tool, skill, harness or agent default; follow it and surface the conflict.
 - `registry/canonical/control_plane.sqlite3` is the canonical write target.
 - MUST NOT hand-edit any file whose first line is
   `# AUTO-GENERATED: READ-ONLY COMPATIBILITY EXPORT.`; edit through
-  `gororoba-db`, re-export, refresh signatures, and commit all three together
-  (exact commands in `registry/AGENTS.md`).
+  `gororoba-db`, re-export, regenerate conflict markers and lacunae, and commit
+  the database with its exports (exact commands in `registry/AGENTS.md`).
 - `registry/engineering_standards.toml` and `registry/agents_contract.toml` are
   unmigrated manifest lanes and stay hand-edited TOML.
 - MUST NOT run `gororoba-db build` to refresh exports. It deletes the database

@@ -9,10 +9,15 @@
 use crate::boxkites::{BoxKite, cached_sedenion_boxkites};
 use cd_kernel::cayley_dickson::cd_norm_sq;
 
-/// Generate all 168 permutations of indices 0..15 induced by PSL(2,7)
-/// acting on the 7 octonion units (1..7) and their sedenion partners (9..15).
+/// Generate the permutations of indices 0..15 that the shift x -> x+1 and the
+/// map x -> 2x on Z/7 (unit 7 read as 0) induce on the 7 octonion units (1..7)
+/// and their sedenion partners (9..15).
 ///
-/// Returns 168 permutations of [0, 1, ..., 15].
+/// Both generators are affine maps x -> ax + b with a in {1, 2, 4}, so their
+/// closure is the Frobenius group of order 21, a subgroup of PSL(2,7)
+/// (order 168), and the function returns 21 permutations of [0, 1, ..., 15].
+/// PSL(2,7) itself needs a non-affine generator, such as an action on the
+/// 8-point projective line over GF(7).
 pub fn generate_psl_2_7_permutations_16d() -> Vec<[usize; 16]> {
     let mut permutations = std::collections::HashSet::new();
     let mut queue = std::collections::VecDeque::new();
@@ -231,6 +236,21 @@ pub struct AlignmentScanPoint {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn affine_generators_close_to_the_order_21_frobenius_group() {
+        let perms = generate_psl_2_7_permutations_16d();
+        assert_eq!(perms.len(), 21);
+        for perm in &perms {
+            assert_eq!(perm[0], 0);
+            assert_eq!(perm[8], 8);
+            let mut seen = [false; 16];
+            for &index in perm {
+                assert!(!seen[index], "{perm:?} repeats {index}");
+                seen[index] = true;
+            }
+        }
+    }
 
     #[test]
     fn alignment_of_zero_vector() {

@@ -1,0 +1,14 @@
+# Evidence for the C-004 status transition: the in-repository PSL(2,7)
+# construction closes to 21 elements.
+
+[evidence]
+claim_id = "C-004"
+artifact_id = "LOCAL-PSL27-GENERATOR-CLOSURE-COUNT"
+function = "algebra_analysis::boxkite_alignment::generate_psl_2_7_permutations_16d"
+generators = ["x -> x+1 on Z/7, unit 7 read as 0", "x -> 2x on Z/7"]
+measured_distinct_permutations = 21
+expected_for_psl_2_7 = 168
+derivation = "Both generators are affine maps x -> ax + b with a in the subgroup {1, 2, 4} of GF(7)*, so their closure is {ax + b : a in {1, 2, 4}, b in Z/7}, the Frobenius group of order 21."
+replay = "cargo nextest run -p algebra_analysis --lib -E 'test(affine_generators_close_to_the_order_21_frobenius_group)'"
+dossier = "docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md states the explicit group action on box-kites is not yet replicated in code."
+kernel_checked_scope = "proofs/verified/C004_PSL27Order168.v proves the GL(3,2) order formula and the Fano line count only."

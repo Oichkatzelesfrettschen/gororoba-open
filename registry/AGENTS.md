@@ -10,9 +10,8 @@ Root `AGENTS.md` carries the prohibitions; this file carries the procedure.
 1. Edit through `gororoba-db` (crate `crates/gororoba_db/`) against
    `registry/canonical/control_plane.sqlite3`.
 2. Re-export: `cargo run -p gororoba_cli_provenance --bin provenance -- export-control-plane`.
-3. Refresh signatures: `make registry-integrity`. A registry TOML edit drifts
-   `registry/schema_signatures.toml`; run `make integrity-resolution` rather
-   than patching signatures by hand.
+3. Regenerate `registry/conflict_markers.toml` and `registry/lacunae.toml`
+   from the canonical claims: `make registry-integrity`.
 4. Commit the SQLite delta, regenerated TOMLs and regenerated markdown in one
    commit.
 

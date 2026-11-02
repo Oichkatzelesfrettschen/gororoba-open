@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 221
+event_count = 223
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4761,3 +4761,45 @@ relation_kind = "refines"
 proposal_key = "a5-zero-divisor-strata-classification"
 canonical_claim_id = "C-1779"
 relation_kind = "refines"
+
+[[transition]]
+event_id = 222
+transition_key = "c-1613-aligned-workspace-256-byte-refuted"
+source_claim_id = "C-1613"
+expected_prior_status = "Established"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Refuted"
+current_status = "Refuted"
+exercised_falsifier = "Read the alignment AlignedWorkspace guarantees: its buffers are aligned_vec::AVec with the default alignment CACHELINE_ALIGN, and test_aligned_workspace asserts only an alignment of at least 16 bytes; a guaranteed alignment below 256 bytes refutes the claim."
+rationale = "AlignedWorkspace (crates/cd_kernel/src/turboquant/workspace.rs) allocates aligned_vec::AVec buffers at the crate default CACHELINE_ALIGN, which aligned-vec 0.6.4 sets to 128 bytes on x86_64 and aarch64; the field documentation states 64 bytes and test_aligned_workspace asserts at least 16. No code path requests 256-byte alignment, so the status note 'Verified by test_aligned_workspace' is unsupported."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-ALIGNED-WORKSPACE-ALIGNMENT-AUDIT"]
+experiment_ids = []
+actor = "eirikr"
+reason = "Status contradicted by the allocator default and by the cited test's own assertion."
+transition_timestamp = "2026-11-02T05:50:06Z"
+transition_spec_sha256 = "eef8341f16919ed41872ad2169049f2b538997af668ff13ce06387d29069bb13"
+successors = []
+
+[[transition]]
+event_id = 223
+transition_key = "c-004-psl27-box-kite-action-refuted"
+source_claim_id = "C-004"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Refuted"
+current_status = "Refuted"
+exercised_falsifier = "Call generate_psl_2_7_permutations_16d in crates/algebra_analysis/src/boxkite_alignment.rs and count the distinct permutations its two generators close to; a count other than 168 refutes the claimed in-repository 168-element action."
+rationale = "The in-repository construction returns 21 distinct permutations: its generators x->x+1 and x->2x on Z/7 are both affine and close to the Frobenius group of order 21, not PSL(2,7). The claim's own dossier, docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md, states that the explicit group action on box-kites is not yet replicated in code. The kernel-checked part, the order of GL(3,2) and the Fano line count, moves to a narrowed successor."
+unresolved_assumptions = ["An explicit PSL(2,7) action permuting the 7 box-kites as labeled subgraphs remains unconstructed in the repository."]
+evidence_artifact_ids = ["LOCAL-PSL27-GENERATOR-CLOSURE-COUNT"]
+experiment_ids = []
+actor = "eirikr"
+reason = "Status contradicted by the claim's own dossier and by executing the cited construction."
+transition_timestamp = "2026-11-02T05:50:06Z"
+transition_spec_sha256 = "441b6a0c225ec6128e920d143430e6beebd0d113ddbdb0080407850b7cf7487d"
+
+[[transition.successors]]
+proposal_key = "psl27-order-and-fano-line-count"
+canonical_claim_id = "C-1780"
+relation_kind = "narrows"

@@ -1,0 +1,15 @@
+[transition]
+transition_key = "c-1613-aligned-workspace-256-byte-refuted"
+source_claim_id = "C-1613"
+expected_prior_status = "Established"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-ALIGNED-WORKSPACE-ALIGNMENT-AUDIT"]
+exercised_falsifier = "Read the alignment AlignedWorkspace guarantees: its buffers are aligned_vec::AVec with the default alignment CACHELINE_ALIGN, and test_aligned_workspace asserts only an alignment of at least 16 bytes; a guaranteed alignment below 256 bytes refutes the claim."
+proposed_claim_status = "Refuted"
+rationale = "AlignedWorkspace (crates/cd_kernel/src/turboquant/workspace.rs) allocates aligned_vec::AVec buffers at the crate default CACHELINE_ALIGN, which aligned-vec 0.6.4 sets to 128 bytes on x86_64 and aarch64; the field documentation states 64 bytes and test_aligned_workspace asserts at least 16. No code path requests 256-byte alignment, so the status note 'Verified by test_aligned_workspace' is unsupported."
+unresolved_assumptions = []
+actor = "eirikr"
+reason = "Status contradicted by the allocator default and by the cited test's own assertion."
+transition_timestamp = "2026-11-02T05:50:06Z"
+expected_source_state_sha256 = "faaf6bdef1e92b305b75c47ab56b154cf3adb296f0d7a8d737d6a5a12c0b8ccb"
+expected_claim_id_max = 1779

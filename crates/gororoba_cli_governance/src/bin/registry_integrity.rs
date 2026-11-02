@@ -26,8 +26,6 @@ struct Args {
     conflict_out: PathBuf,
     #[arg(long, default_value = "registry/lacunae.toml")]
     lacunae_out: PathBuf,
-    #[arg(long, default_value = "registry/schema_signatures.toml")]
-    schema_out: PathBuf,
 }
 
 #[derive(Debug, Clone)]
@@ -64,19 +62,6 @@ struct Lacuna {
     historical_marker_ids: Vec<String>,
 }
 
-#[derive(Debug, Clone)]
-struct SchemaSignature {
-    id: String,
-    path: String,
-    top_level_keys: Vec<String>,
-    schema_version: String,
-    schema_sha256: String,
-    content_sha256: String,
-    array_table_count: usize,
-    table_count: usize,
-    shape_json: String,
-}
-
 #[derive(Debug, Default, Clone)]
 struct ConflictMeta {
     marker_count: usize,
@@ -94,12 +79,6 @@ struct LacunaMeta {
     medium_priority_count: usize,
     low_priority_count: usize,
     origin_kind_count: usize,
-}
-
-#[derive(Debug, Default, Clone)]
-struct SchemaMeta {
-    signature_count: usize,
-    version: usize,
 }
 
 const POSITIVE_TERMS: &[&str] = &[
@@ -233,51 +212,23 @@ fn build_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         &render_lacunae(&lacunae_rows, &lacunae_meta),
     )?;
 
-    let registry_paths = vec![
-        "registry/claims.toml",
-        "registry/insights.toml",
-        "registry/experiments.toml",
-        "registry/binaries.toml",
-        "registry/external_sources.toml",
-        "registry/dataset_label_aliases.toml",
-        "registry/claims_evidence_edges.toml",
-        "registry/bibliography.toml",
-        "registry/lacunae.toml",
-        "registry/knowledge/equation_atoms_v2.toml",
-        "registry/knowledge/equation_symbol_table.toml",
-        "registry/knowledge/proof_skeletons.toml",
-        "registry/knowledge/derivation_steps.toml",
-    ]
-    .into_iter()
-    .map(ToOwned::to_owned)
-    .collect::<Vec<_>>();
-    let (signature_rows, signature_meta) = build_schema_signatures(repo_root, &registry_paths)?;
-    write_ascii(
-        &repo_root.join(&args.schema_out),
-        &render_schema_signatures(&signature_rows, &signature_meta, &registry_paths),
-    )?;
-
     println!(
-        "Wrote registry-integrity registry lane artifacts (canonical registry-integrity tool): conflict_markers={} lacunae={} schema_signatures={}",
+        "Wrote registry-integrity registry lane artifacts (canonical registry-integrity tool): conflict_markers={} lacunae={}",
         conflict_rows.len(),
-        lacunae_rows.len(),
-        signature_rows.len()
+        lacunae_rows.len()
     );
     Ok(())
 }
 
+/// Checks the facts a regeneration cannot repair. Marker claim references
+/// come from narrative prose, and `legacy_manual` lacunae carry their
+/// priority, claim references, related marker ids, title and description
+/// forward verbatim, so a dangling claim or marker id, an unknown priority or
+/// a blank text survives `registry-integrity` and fails here. Counts, ids,
+/// enums and spans that the generator assigns itself are not re-checked.
 fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
     let conflict_path = repo_root.join(&args.conflict_out);
     let lacunae_path = repo_root.join(&args.lacunae_out);
-    for path in [&conflict_path, &lacunae_path] {
-        if !path.exists() {
-            println!("ERROR: missing required file: {}", path.display());
-            std::process::exit(1);
-        }
-    }
-    assert_ascii_file(&conflict_path)?;
-    assert_ascii_file(&lacunae_path)?;
-
     let claims = table_array(
         &load_control_plane_registry(
             repo_root,
@@ -296,153 +247,7 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         .collect::<BTreeSet<_>>();
     let markers = table_array(&conflict_raw, "marker");
     let lacunae = table_array(&lacunae_raw, "lacuna");
-
-    let mut failures = Vec::new();
-
-    if table_int_in(&conflict_raw, "conflict_markers", "marker_count") != markers.len() as i64 {
-        failures.push("conflict_markers marker_count metadata mismatch".to_string());
-    }
-    let mut seen_marker_ids = BTreeSet::new();
-    let mut severity_counts = BTreeMap::from([
-        ("high".to_string(), 0usize),
-        ("medium".to_string(), 0usize),
-        ("low".to_string(), 0usize),
-    ]);
-    for row in markers {
-        let marker_id = table_str(row, "id").to_string();
-        if !seen_marker_ids.insert(marker_id.clone()) {
-            failures.push(format!("duplicate conflict marker id: {}", marker_id));
-            break;
-        }
-        let severity = table_str(row, "severity").to_string();
-        if let Some(count) = severity_counts.get_mut(&severity) {
-            *count += 1;
-        } else {
-            failures.push(format!(
-                "invalid marker severity: {} -> {}",
-                marker_id, severity
-            ));
-        }
-        let line_start = table_int(row, "line_start");
-        let line_end = table_int(row, "line_end");
-        if line_start < 0 || line_end < 0 || (line_start > 0 && line_end < line_start) {
-            failures.push(format!(
-                "invalid marker line span: {} ({}, {})",
-                marker_id, line_start, line_end
-            ));
-        }
-        for claim_ref in string_list(row, "claim_refs") {
-            if !claim_ids.contains(&claim_ref) {
-                failures.push(format!(
-                    "marker references unknown claim id: {} -> {}",
-                    marker_id, claim_ref
-                ));
-            }
-        }
-        if table_str(row, "marker_kind").trim().is_empty() {
-            failures.push(format!("marker missing marker_kind: {}", marker_id));
-        }
-        if table_str(row, "source_registry").trim().is_empty() {
-            failures.push(format!("marker missing source_registry: {}", marker_id));
-        }
-        if table_str(row, "status").trim().is_empty() {
-            failures.push(format!("marker missing status: {}", marker_id));
-        }
-        if !value_is_array(row, "positive_evidence") {
-            failures.push(format!("marker positive_evidence not list: {}", marker_id));
-        }
-        if !value_is_array(row, "negative_evidence") {
-            failures.push(format!("marker negative_evidence not list: {}", marker_id));
-        }
-    }
-    if table_int_in(&conflict_raw, "conflict_markers", "high_severity_count")
-        != severity_counts.get("high").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers high_severity_count metadata mismatch".to_string());
-    }
-    if table_int_in(&conflict_raw, "conflict_markers", "medium_severity_count")
-        != severity_counts.get("medium").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers medium_severity_count metadata mismatch".to_string());
-    }
-    if table_int_in(&conflict_raw, "conflict_markers", "low_severity_count")
-        != severity_counts.get("low").copied().unwrap_or(0) as i64
-    {
-        failures.push("conflict_markers low_severity_count metadata mismatch".to_string());
-    }
-
-    if table_int_in(&lacunae_raw, "lacunae", "lacuna_count") != lacunae.len() as i64 {
-        failures.push("lacunae lacuna_count metadata mismatch".to_string());
-    }
-    let mut seen_lacuna_ids = BTreeSet::new();
-    let mut open_count = 0usize;
-    let mut priority_counts = BTreeMap::from([
-        ("high".to_string(), 0usize),
-        ("medium".to_string(), 0usize),
-        ("low".to_string(), 0usize),
-    ]);
-    for row in lacunae {
-        let lacuna_id = table_str(row, "id").to_string();
-        if !seen_lacuna_ids.insert(lacuna_id.clone()) {
-            failures.push(format!("duplicate lacuna id: {}", lacuna_id));
-            break;
-        }
-        if table_str(row, "status") == "open" {
-            open_count += 1;
-        }
-        let priority = table_str(row, "priority").to_string();
-        if let Some(count) = priority_counts.get_mut(&priority) {
-            *count += 1;
-        } else {
-            failures.push(format!(
-                "invalid lacuna priority: {} -> {}",
-                lacuna_id, priority
-            ));
-        }
-        for claim_ref in string_list(row, "claim_refs") {
-            if !claim_ids.contains(&claim_ref) {
-                failures.push(format!(
-                    "lacuna references unknown claim id: {} -> {}",
-                    lacuna_id, claim_ref
-                ));
-            }
-        }
-        for marker_id in string_list(row, "related_marker_ids") {
-            if !seen_marker_ids.contains(&marker_id) {
-                failures.push(format!(
-                    "lacuna references unknown conflict marker id: {} -> {}",
-                    lacuna_id, marker_id
-                ));
-            }
-        }
-        if table_str(row, "title").trim().is_empty() {
-            failures.push(format!("lacuna missing title: {}", lacuna_id));
-        }
-        if table_str(row, "description").trim().is_empty() {
-            failures.push(format!("lacuna missing description: {}", lacuna_id));
-        }
-        if table_str(row, "origin").trim().is_empty() {
-            failures.push(format!("lacuna missing origin: {}", lacuna_id));
-        }
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "open_count") != open_count as i64 {
-        failures.push("lacunae open_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "high_priority_count")
-        != priority_counts.get("high").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae high_priority_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "medium_priority_count")
-        != priority_counts.get("medium").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae medium_priority_count metadata mismatch".to_string());
-    }
-    if table_int_in(&lacunae_raw, "lacunae", "low_priority_count")
-        != priority_counts.get("low").copied().unwrap_or(0) as i64
-    {
-        failures.push("lacunae low_priority_count metadata mismatch".to_string());
-    }
+    let failures = integrity_failures(&claim_ids, markers, lacunae);
 
     if !failures.is_empty() {
         println!(
@@ -463,6 +268,58 @@ fn verify_integrity_resolution(repo_root: &Path, args: &Args) -> Result<()> {
         lacunae.len()
     );
     Ok(())
+}
+
+fn integrity_failures(
+    claim_ids: &BTreeSet<String>,
+    markers: &[Value],
+    lacunae: &[Value],
+) -> Vec<String> {
+    let marker_ids = markers
+        .iter()
+        .map(|row| table_str(row, "id").to_string())
+        .collect::<BTreeSet<_>>();
+    let mut failures = Vec::new();
+    for row in markers {
+        let marker_id = table_str(row, "id");
+        for claim_ref in string_list(row, "claim_refs") {
+            if !claim_ids.contains(&claim_ref) {
+                failures.push(format!(
+                    "marker references unknown claim id: {marker_id} -> {claim_ref}"
+                ));
+            }
+        }
+    }
+    for row in lacunae {
+        let lacuna_id = table_str(row, "id");
+        let priority = table_str(row, "priority");
+        if !["high", "medium", "low"].contains(&priority) {
+            failures.push(format!(
+                "invalid lacuna priority: {lacuna_id} -> {priority}"
+            ));
+        }
+        for claim_ref in string_list(row, "claim_refs") {
+            if !claim_ids.contains(&claim_ref) {
+                failures.push(format!(
+                    "lacuna references unknown claim id: {lacuna_id} -> {claim_ref}"
+                ));
+            }
+        }
+        for marker_id in string_list(row, "related_marker_ids") {
+            if !marker_ids.contains(&marker_id) {
+                failures.push(format!(
+                    "lacuna references unknown conflict marker id: {lacuna_id} -> {marker_id}"
+                ));
+            }
+        }
+        if table_str(row, "title").trim().is_empty() {
+            failures.push(format!("lacuna missing title: {lacuna_id}"));
+        }
+        if table_str(row, "description").trim().is_empty() {
+            failures.push(format!("lacuna missing description: {lacuna_id}"));
+        }
+    }
+    failures
 }
 
 fn build_conflict_markers(
@@ -746,7 +603,10 @@ fn build_lacunae(
             continue;
         }
         if !seen_ids.insert(lacuna_id.clone()) {
-            continue;
+            bail!(
+                "retained lacuna id {lacuna_id} appears twice in the lacunae registry; \
+                 rename or merge one record before regenerating"
+            );
         }
         let conflict_derived = legacy_origin == "conflict_marker_scan"
             || legacy_origin == "conflict_marker_history"
@@ -965,78 +825,6 @@ fn build_lacunae(
     Ok((rows, meta))
 }
 
-fn build_schema_signatures(
-    repo_root: &Path,
-    registry_paths: &[String],
-) -> Result<(Vec<SchemaSignature>, SchemaMeta)> {
-    let mut rows = Vec::new();
-    for path in registry_paths {
-        let full_path = repo_root.join(path);
-        if !full_path.exists() {
-            continue;
-        }
-        let text = fs::read_to_string(&full_path)
-            .with_context(|| format!("read {}", full_path.display()))?;
-        let data: Value =
-            toml::from_str(&text).with_context(|| format!("parse TOML {}", full_path.display()))?;
-        let mut top_level_keys = data
-            .as_table()
-            .map(|table| table.keys().cloned().collect::<Vec<_>>())
-            .unwrap_or_default();
-        top_level_keys.sort();
-        let shapes = top_level_keys
-            .iter()
-            .filter_map(|key| {
-                data.get(key)
-                    .map(|value| (key.clone(), shape_summary(value)))
-            })
-            .collect::<BTreeMap<_, _>>();
-        let schema_payload = serde_json::json!({
-            "path": path,
-            "top_level_keys": top_level_keys,
-            "shapes": shapes,
-        });
-        let normalized =
-            serde_json::to_string(&schema_payload).context("serialize schema payload")?;
-        let schema_sha256 = sha256_hex(normalized.as_bytes());
-        let content_sha256 = sha256_hex(text.as_bytes());
-        rows.push(SchemaSignature {
-            id: String::new(),
-            path: path.clone(),
-            top_level_keys: top_level_keys.clone(),
-            schema_version: "v1".to_string(),
-            schema_sha256,
-            content_sha256,
-            array_table_count: top_level_keys
-                .iter()
-                .filter(|key| {
-                    data.get(key.as_str())
-                        .and_then(Value::as_array)
-                        .map(|rows| rows.iter().all(Value::is_table))
-                        .unwrap_or(false)
-                })
-                .count(),
-            table_count: top_level_keys
-                .iter()
-                .filter(|key| data.get(key.as_str()).map(Value::is_table).unwrap_or(false))
-                .count(),
-            shape_json: normalized,
-        });
-    }
-    rows.sort_by(|a, b| a.path.cmp(&b.path));
-    for (idx, row) in rows.iter_mut().enumerate() {
-        row.id = format!("SIG-{:04}", idx + 1);
-    }
-    let signature_count = rows.len();
-    Ok((
-        rows,
-        SchemaMeta {
-            signature_count,
-            version: 1,
-        },
-    ))
-}
-
 fn render_conflict_markers(rows: &[ConflictMarker], meta: &ConflictMeta) -> String {
     let mut lines = vec![
         "# Conflict marker registry (registry-integrity lane strict schema; legacy batch3 compatibility).".to_string(),
@@ -1131,43 +919,6 @@ fn render_lacunae(rows: &[Lacuna], meta: &LacunaMeta) -> String {
     lines.join("\n")
 }
 
-fn render_schema_signatures(
-    rows: &[SchemaSignature],
-    meta: &SchemaMeta,
-    registry_paths: &[String],
-) -> String {
-    let mut sorted_paths = registry_paths.to_vec();
-    sorted_paths.sort();
-    let mut lines = vec![
-        "# Registry schema signatures (registry-integrity lane strict schema; legacy batch3 compatibility).".to_string(),
-        "# Generated by crates/gororoba_cli_governance/src/bin/registry_integrity.rs.".to_string(),
-        "".to_string(),
-        "[schema_signatures]".to_string(),
-        "updated = \"deterministic\"".to_string(),
-        "authoritative = true".to_string(),
-        format!("version = {}", meta.version),
-        format!("signature_count = {}", meta.signature_count),
-        format!("registry_paths = {}", render_list(&sorted_paths)),
-        "".to_string(),
-    ];
-    for row in rows {
-        lines.extend([
-            "[[signature]]".to_string(),
-            format!("id = {}", esc(&row.id)),
-            format!("path = {}", esc(&row.path)),
-            format!("top_level_keys = {}", render_list(&row.top_level_keys)),
-            format!("schema_version = {}", esc(&row.schema_version)),
-            format!("schema_sha256 = {}", esc(&row.schema_sha256)),
-            format!("content_sha256 = {}", esc(&row.content_sha256)),
-            format!("array_table_count = {}", row.array_table_count),
-            format!("table_count = {}", row.table_count),
-            format!("shape_json = {}", esc(&row.shape_json)),
-            "".to_string(),
-        ]);
-    }
-    lines.join("\n")
-}
-
 fn status_token(status: &str) -> String {
     let mut token = collapse(status).to_uppercase();
     token = token.replace(['/', '-', ' '], "_");
@@ -1188,7 +939,7 @@ fn status_token(status: &str) -> String {
 }
 
 fn extract_claim_refs(text: &str) -> Result<Vec<String>> {
-    let claim_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_re = Regex::new(r"\bC-\d{3,}\b")?;
     Ok(sorted_unique_regex(text, &claim_re))
 }
 
@@ -1257,78 +1008,6 @@ fn split_sections(text: &str) -> Result<Vec<Section>> {
     Ok(sections)
 }
 
-fn shape_summary(value: &Value) -> serde_json::Value {
-    if let Some(table) = value.as_table() {
-        let mut keys = table.keys().cloned().collect::<Vec<_>>();
-        keys.sort();
-        serde_json::json!({"type": "table", "keys": keys})
-    } else if let Some(array) = value.as_array() {
-        if array.is_empty() {
-            serde_json::json!({"type": "array", "row_count": 0, "entry_kind": "empty"})
-        } else if array.iter().all(Value::is_table) {
-            let key_sets = array
-                .iter()
-                .filter_map(Value::as_table)
-                .map(|table| table.keys().cloned().collect::<BTreeSet<_>>())
-                .collect::<Vec<_>>();
-            let intersection = key_sets
-                .iter()
-                .cloned()
-                .reduce(|a, b| a.intersection(&b).cloned().collect())
-                .unwrap_or_default()
-                .into_iter()
-                .collect::<Vec<_>>();
-            let union = key_sets
-                .iter()
-                .cloned()
-                .reduce(|a, b| a.union(&b).cloned().collect())
-                .unwrap_or_default()
-                .into_iter()
-                .collect::<Vec<_>>();
-            serde_json::json!({
-                "type": "array",
-                "row_count": array.len(),
-                "entry_kind": "table",
-                "required_keys": intersection,
-                "union_keys": union,
-            })
-        } else {
-            let entry_types = array
-                .iter()
-                .map(|item| match item {
-                    Value::String(_) => "string",
-                    Value::Integer(_) => "integer",
-                    Value::Float(_) => "float",
-                    Value::Boolean(_) => "boolean",
-                    Value::Array(_) => "array",
-                    Value::Table(_) => "table",
-                    Value::Datetime(_) => "datetime",
-                })
-                .collect::<BTreeSet<_>>()
-                .into_iter()
-                .collect::<Vec<_>>();
-            serde_json::json!({
-                "type": "array",
-                "row_count": array.len(),
-                "entry_kind": "scalar_or_mixed",
-                "entry_types": entry_types,
-            })
-        }
-    } else if value.is_str() {
-        serde_json::json!({"type": "str"})
-    } else if value.is_integer() {
-        serde_json::json!({"type": "int"})
-    } else if value.is_float() {
-        serde_json::json!({"type": "float"})
-    } else if value.is_bool() {
-        serde_json::json!({"type": "bool"})
-    } else if value.is_datetime() {
-        serde_json::json!({"type": "datetime"})
-    } else {
-        serde_json::json!({"type": "unknown"})
-    }
-}
-
 fn load_toml(path: &Path) -> Result<Value> {
     let text = fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
     toml::from_str(&text).with_context(|| format!("parse TOML {}", path.display()))
@@ -1362,18 +1041,6 @@ fn table_str<'a>(value: &'a Value, key: &str) -> &'a str {
     value.get(key).and_then(Value::as_str).unwrap_or("")
 }
 
-fn table_int(value: &Value, key: &str) -> i64 {
-    value.get(key).and_then(Value::as_integer).unwrap_or(0)
-}
-
-fn table_int_in(value: &Value, table: &str, key: &str) -> i64 {
-    value
-        .get(table)
-        .and_then(|child| child.get(key))
-        .and_then(Value::as_integer)
-        .unwrap_or(-1)
-}
-
 fn string_list(value: &Value, key: &str) -> Vec<String> {
     value
         .get(key)
@@ -1398,11 +1065,6 @@ fn write_ascii(path: &Path, text: &str) -> Result<()> {
         fs::create_dir_all(parent).with_context(|| format!("mkdir {}", parent.display()))?;
     }
     fs::write(path, text).with_context(|| format!("write {}", path.display()))
-}
-
-fn assert_ascii_file(path: &Path) -> Result<()> {
-    let text = fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
-    assert_ascii(&text, &path.display().to_string())
 }
 
 fn assert_ascii(text: &str, context: &str) -> Result<()> {
@@ -1849,5 +1511,129 @@ status = "open"
         let error = build_lacunae(&claims, &[], &[], &[], &legacy_lacunae)
             .expect_err("a claim-status projection must not suppress a retained lacuna");
         assert!(error.to_string().contains("collides"));
+    }
+
+    #[test]
+    fn retained_lacuna_duplicate_id_fails_the_build() {
+        let retained = r#"
+[[lacuna]]
+id = "L-002"
+origin = "legacy_manual"
+title = "First retained record"
+description = "First text."
+priority = "low"
+status = "open"
+"#;
+        let duplicated = format!("{retained}{}", retained.replace("First", "Second"));
+        let legacy_lacunae = table_rows(&duplicated, "lacuna");
+
+        let error = build_lacunae(&[], &[], &[], &[], &legacy_lacunae)
+            .expect_err("a duplicated retained id must not drop one record silently");
+        assert!(error.to_string().contains("appears twice"));
+    }
+
+    /// Each kept verify check guards a field that `build_lacunae` carries
+    /// forward from a retained record. The test mutates that field, reruns
+    /// the builder, re-parses its rendered output and asserts the check still
+    /// fires, so a check whose defect a regeneration repairs cannot pass here.
+    #[test]
+    fn verify_checks_survive_regeneration_of_retained_lacunae() {
+        let claims = [verified_claim(
+            "C-001",
+            "A retained lacuna cites this claim.",
+        )];
+        let claim_ids = BTreeSet::from(["C-001".to_string()]);
+        let retained = r#"
+[[lacuna]]
+id = "L-002"
+origin = "legacy_manual"
+area = "lbm_core"
+title = "Retained manual record"
+description = "Manual evidence remains distinct."
+priority = "low"
+status = "open"
+claim_refs = ["C-001"]
+related_marker_ids = []
+"#;
+        let regenerate = |text: &str| {
+            let (rows, meta) =
+                build_lacunae(&claims, &[], &[], &[], &table_rows(text, "lacuna")).unwrap();
+            table_rows(&render_lacunae(&rows, &meta), "lacuna")
+        };
+        assert!(integrity_failures(&claim_ids, &[], &regenerate(retained)).is_empty());
+
+        for (mutated, expected) in [
+            (
+                retained.replace(
+                    "related_marker_ids = []",
+                    r#"related_marker_ids = ["CM-9999"]"#,
+                ),
+                "unknown conflict marker id: L-002 -> CM-9999",
+            ),
+            (
+                retained.replace(r#"claim_refs = ["C-001"]"#, r#"claim_refs = ["C-1776"]"#),
+                "unknown claim id: L-002 -> C-1776",
+            ),
+            (
+                retained.replace(r#"priority = "low""#, r#"priority = "urgent""#),
+                "invalid lacuna priority: L-002 -> urgent",
+            ),
+            (
+                retained.replace(r#"title = "Retained manual record""#, r#"title = " ""#),
+                "lacuna missing title: L-002",
+            ),
+            (
+                retained.replace(
+                    r#"description = "Manual evidence remains distinct.""#,
+                    r#"description = """#,
+                ),
+                "lacuna missing description: L-002",
+            ),
+        ] {
+            let failures = integrity_failures(&claim_ids, &[], &regenerate(&mutated));
+            assert!(
+                failures.iter().any(|failure| failure.contains(expected)),
+                "regeneration repaired `{expected}`; failures: {failures:?}"
+            );
+        }
+    }
+
+    /// Prose is the source of a polarity marker's claim references, so a
+    /// dangling id written in a narrative section survives every rebuild.
+    #[test]
+    fn marker_claim_ref_check_survives_regeneration_of_narrative_prose() {
+        let claim_ids = BTreeSet::from(["C-001".to_string()]);
+        let narrative = |claim_id: &str| {
+            let text = format!(
+                "id = \"DOC-001\"\nsource_markdown = \"docs/probe.md\"\nbody_markdown = \"\"\"\n\
+                 # Probe\n{claim_id} is verified by one run and refuted by another.\n\"\"\"\n"
+            );
+            toml::from_str::<Value>(&text).unwrap()
+        };
+        let regenerate = |claim_id: &str| {
+            let (markers, meta) =
+                build_conflict_markers(&[], &[narrative(claim_id)], &[], &[], &[]).unwrap();
+            table_rows(&render_conflict_markers(&markers, &meta), "marker")
+        };
+
+        let clean = regenerate("C-001");
+        assert_eq!(clean.len(), 1, "the polarity section yields one marker");
+        assert!(integrity_failures(&claim_ids, &clean, &[]).is_empty());
+
+        let failures = integrity_failures(&claim_ids, &regenerate("C-1999"), &[]);
+        assert!(
+            failures
+                .iter()
+                .any(|failure| failure.contains("unknown claim id: CM-0001 -> C-1999")),
+            "regeneration repaired the dangling prose reference; failures: {failures:?}"
+        );
+    }
+
+    #[test]
+    fn claim_refs_extraction_admits_four_digit_ids() {
+        assert_eq!(
+            extract_claim_refs("C-001 and C-1776 disagree; C-12 is not an id.").unwrap(),
+            ["C-001", "C-1776"]
+        );
     }
 }

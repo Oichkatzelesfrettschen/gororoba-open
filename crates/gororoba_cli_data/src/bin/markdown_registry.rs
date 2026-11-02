@@ -1159,15 +1159,6 @@ fn research_narrative_root_doc_failures(repo_root: &Path, value: &toml::Value) -
     }
 
     let rows = table_array(value, "document");
-    let declared_count = meta
-        .and_then(|row| row.get("document_count"))
-        .and_then(toml::Value::as_integer);
-    if declared_count != Some(rows.len() as i64) {
-        failures.push(format!(
-            "research_narratives.document_count={declared_count:?} but found {} document rows",
-            rows.len()
-        ));
-    }
 
     let source_rows: BTreeSet<String> = rows
         .iter()
@@ -1288,7 +1279,6 @@ fn verify_inventory_toml_first(repo_root: &Path) -> Result<()> {
 /// - active entries must not have a removal_reason.
 /// - non-active entries must have a removal_reason.
 /// - owner_group=third_party|external must have removal_status=locked.
-/// - document_count metadata matches the actual entry count.
 /// - No duplicate path entries.
 fn verify_owner_map(repo_root: &Path) -> Result<()> {
     let owner_map = load_owner_map(repo_root)?;
@@ -1302,20 +1292,6 @@ fn verify_owner_map(repo_root: &Path) -> Result<()> {
         "locked",
         "removed",
     ]);
-
-    // Check document_count metadata if present.
-    let meta_count = owner_map
-        .get("markdown_owner_map")
-        .and_then(|m| m.get("document_count"))
-        .and_then(toml::Value::as_integer);
-    if let Some(declared) = meta_count
-        && declared as usize != rows.len()
-    {
-        bail!(
-            "markdown_owner_map.document_count={declared} but found {} [[owner]] entries",
-            rows.len()
-        );
-    }
 
     let mut failures = Vec::new();
     let mut seen_paths = BTreeMap::<String, usize>::new();

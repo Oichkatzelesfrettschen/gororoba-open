@@ -1,0 +1,14 @@
+# Evidence for the C-1613 status transition: AlignedWorkspace guarantees
+# 128-byte alignment on x86_64 and aarch64, not 256.
+
+[evidence]
+claim_id = "C-1613"
+artifact_id = "LOCAL-ALIGNED-WORKSPACE-ALIGNMENT-AUDIT"
+type = "cd_kernel::turboquant::workspace::AlignedWorkspace"
+buffer_type = "aligned_vec::AVec<T> with default alignment ConstAlign<CACHELINE_ALIGN>"
+dependency = "aligned-vec 0.6.4 (Cargo.lock)"
+cacheline_align_x86_64_aarch64_bytes = 128
+field_documentation_bytes = 64
+test = "test_aligned_workspace asserts alignment() >= 16"
+claimed_bytes = 256
+finding = "No code path requests 256-byte alignment; the guaranteed alignment is CACHELINE_ALIGN, and alignment() reports the largest power of two dividing one allocation's address, which can exceed the guarantee by chance."

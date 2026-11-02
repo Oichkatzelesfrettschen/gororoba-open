@@ -3972,12 +3972,13 @@ id = "BIB-0312"
 order_index = 312
 group = "Primary Research & Data Sources"
 section = "Cayley-Dickson Algebras & Zero Divisors"
-citation_markdown = "**Brown, R. B. & Loeb, A. L.** (1997). *Nonassociative algebras and the Cayley-Dickson construction*. Exposition. Math. 15, 229."
+citation_markdown = "**Brown, R. B.** (1967). *On generalized Cayley-Dickson algebras*. Pacific J. Math. 20, 415-422. [doi:10.2140/pjm.1967.20.415](https://doi.org/10.2140/pjm.1967.20.415)"
 notes = [
-    "*Mathematical properties of iterated Cayley-Dickson construction. Alternativity failure above dim 8, zero divisors above dim 16.*",
+    "*Generalized Cayley-Dickson construction with arbitrary gamma parameters: norm formula, division criterion (gamma not a norm and -gamma not a trace-zero norm) and classification up to isomorphism at dims 16, 32 and 64. Over the reals with gamma = -1 the 16-dimensional algebra has zero divisors; over suitable fields the generalized algebras of dim 16 and above can be division algebras. Formalized in crates/brown_1967 and proofs/theories/BrownGeneralizedCD.v.*",
+    "*Replaces a garbled citation, Brown & Loeb (1997), Exposition. Math. 15, 229, whose locator zbMATH records as Marcolli and Spreafico, Gauge groups and characteristic classes (Zbl 0888.57024); no index holds a Brown and Loeb Cayley-Dickson paper.*",
 ]
-urls = []
-dois = []
+urls = ["https://doi.org/10.2140/pjm.1967.20.415"]
+dois = ["10.2140/pjm.1967.20.415"]
 source_line = 715
 
 [[entry]]

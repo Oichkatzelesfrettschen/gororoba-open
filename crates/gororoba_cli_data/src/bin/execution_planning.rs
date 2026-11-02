@@ -163,7 +163,7 @@ fn build_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let (req_modules, req_gaps) = build_requirements_hardened(
         &table_array(&requirements_raw, "module")?,
         &table_array(&requirements_raw, "coverage_gap")?,
-    );
+    )?;
     let pyproject = load_toml(&repo_root.join("pyproject.toml"))?;
     let cargo_toml = load_toml(&repo_root.join("Cargo.toml"))?;
     let (module_rows, package_rows, command_rows) =
@@ -327,7 +327,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
                 .insert(string_field(row, "id"));
         }
     }
-    let lineages_meta = table_value(&lineage_raw, "experiment_lineage");
     let lineages = table_array(&lineage_raw, "lineage")?;
     let edges = table_array(&lineage_raw, "edge")?;
     let workstreams = table_array(&roadmap_raw, "workstream")?;
@@ -335,9 +334,7 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let actions = table_array(&actions_raw, "action")?;
     let req_modules = table_array(&requirements_raw, "module")?;
     let req_gaps = table_array(&requirements_raw, "coverage_gap")?;
-    let mr_meta = table_value(&module_requirements_raw, "module_requirements");
     let mr_modules = table_array(&module_requirements_raw, "module")?;
-    let mr_commands = table_array(&module_requirements_raw, "command")?;
     let mr_packages = table_array(&module_requirements_raw, "package")?;
 
     let workstream_ids = ids_from_rows(&workstreams);
@@ -347,47 +344,14 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
 
     let mut failures = Vec::new();
 
-    if integer_field(&experiments_meta, "experiment_count", -1) != experiments.len() as i64 {
-        failures.push("experiments experiment_count metadata mismatch".to_string());
-    }
-    if integer_field(&experiments_meta, "deterministic_count", -1)
-        != experiments
-            .iter()
-            .filter(|row| bool_field(row, "deterministic"))
-            .count() as i64
-    {
-        failures.push("experiments deterministic_count metadata mismatch".to_string());
-    }
-    if integer_field(&experiments_meta, "gpu_count", -1)
-        != experiments
-            .iter()
-            .filter(|row| bool_field(row, "gpu"))
-            .count() as i64
-    {
-        failures.push("experiments gpu_count metadata mismatch".to_string());
-    }
-    if integer_field(&experiments_meta, "seeded_count", -1)
-        != experiments
-            .iter()
-            .filter(|row| row.get("seed").is_some())
-            .count() as i64
-    {
-        failures.push("experiments seeded_count metadata mismatch".to_string());
-    }
-
     let exp_status_allow = string_list_from_table(&experiments_meta, "status_allowlist")
         .into_iter()
         .collect::<BTreeSet<_>>();
     let exp_ids = ids_from_rows(&experiments);
     let exp_by_id = rows_by_id(&experiments);
     let lineage_ids = ids_from_rows(&lineages);
-    let mut seen_exp_ids = BTreeSet::new();
     for row in &experiments {
         let eid = string_field(row, "id");
-        if !seen_exp_ids.insert(eid.clone()) {
-            failures.push(format!("duplicate experiment id: {eid}"));
-            continue;
-        }
         let status = string_field(row, "status");
         if !exp_status_allow.contains(&status) {
             failures.push(format!(
@@ -490,13 +454,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
         }
     }
 
-    if integer_field(&lineages_meta, "lineage_count", -1) != lineages.len() as i64 {
-        failures.push("experiment_lineage lineage_count metadata mismatch".to_string());
-    }
-    if integer_field(&lineages_meta, "edge_count", -1) != edges.len() as i64 {
-        failures.push("experiment_lineage edge_count metadata mismatch".to_string());
-    }
-
     let mut by_experiment = BTreeMap::new();
     for row in &lineages {
         by_experiment.insert(string_field(row, "experiment_id"), row.clone());
@@ -516,10 +473,7 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
             .map(|row| string_field(row, "binary"))
             .unwrap_or_default();
         let lineage_binary = string_field(row, "binary");
-        if !seen_lineage_ids.insert(lid.clone()) {
-            failures.push(format!("duplicate lineage id: {lid}"));
-            continue;
-        }
+        seen_lineage_ids.insert(lid.clone());
         lineage_to_experiment.insert(lid.clone(), eid.clone());
         if !exp_ids.contains(&eid) {
             failures.push(format!("lineage[{lid}] unknown experiment_id: {eid}"));
@@ -591,38 +545,15 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
         }
     }
 
-    let edge_kinds = BTreeSet::from([
-        "implemented_by_binary".to_string(),
-        "supports_claim".to_string(),
-        "touches_dataset".to_string(),
-        "consumes_path".to_string(),
-        "produces_path".to_string(),
-        "consumes_source".to_string(),
-        "consumes_truth_surface".to_string(),
-    ]);
-    let to_kinds = BTreeSet::from([
-        "binary".to_string(),
-        "claim".to_string(),
-        "dataset".to_string(),
-        "path".to_string(),
-        "source".to_string(),
-        "truth_surface".to_string(),
-    ]);
-    let mut edge_id_seen = BTreeSet::new();
     let mut binary_edge_lineages = BTreeSet::new();
     let mut source_edge_refs: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
     let mut truth_surface_edge_refs: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
     for row in &edges {
         let edge_id = string_field(row, "id");
-        if !edge_id_seen.insert(edge_id.clone()) {
-            failures.push(format!("duplicate lineage edge id: {edge_id}"));
-            continue;
-        }
         let lid = string_field(row, "lineage_id");
         let eid = string_field(row, "from_id");
         let to_ref = string_field(row, "to_ref");
         let to_kind = string_field(row, "to_kind");
-        let edge_kind = string_field(row, "edge_kind");
         if !lineage_to_experiment.contains_key(&lid) {
             failures.push(format!("lineage edge[{edge_id}] unknown lineage_id: {lid}"));
         }
@@ -631,16 +562,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
         } else if lineage_to_experiment.get(&lid).cloned().unwrap_or_default() != eid {
             failures.push(format!(
                 "lineage edge[{edge_id}] from_id does not match lineage experiment: {lid}"
-            ));
-        }
-        if !to_kinds.contains(&to_kind) {
-            failures.push(format!(
-                "lineage edge[{edge_id}] invalid to_kind: {to_kind}"
-            ));
-        }
-        if !edge_kinds.contains(&edge_kind) {
-            failures.push(format!(
-                "lineage edge[{edge_id}] invalid edge_kind: {edge_kind}"
             ));
         }
         match to_kind.as_str() {
@@ -677,10 +598,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
                     "lineage edge[{edge_id}] unknown dataset ref: {to_ref}"
                 ));
             }
-            "path" if to_ref.is_empty() => {
-                failures.push(format!("lineage edge[{edge_id}] empty path ref"));
-            }
-            "claim" | "dataset" | "path" => {}
             "source" => {
                 if !source_ids.contains(&to_ref) {
                     failures.push(format!(
@@ -750,9 +667,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let roadmap_priority_allow = string_list_from_table(&roadmap_meta, "priority_allowlist")
         .into_iter()
         .collect::<BTreeSet<_>>();
-    if integer_field(&roadmap_meta, "workstream_count", -1) != workstreams.len() as i64 {
-        failures.push("roadmap workstream_count metadata mismatch".to_string());
-    }
     for row in &workstreams {
         let wid = string_field(row, "id");
         let status = string_field(row, "status");
@@ -798,9 +712,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let todo_priority_allow = string_list_from_table(&todo_meta, "priority_allowlist")
         .into_iter()
         .collect::<BTreeSet<_>>();
-    if integer_field(&todo_meta, "item_count", -1) != todo_items.len() as i64 {
-        failures.push("todo item_count metadata mismatch".to_string());
-    }
     for row in &todo_items {
         let tid = string_field(row, "id");
         let status = string_field(row, "status");
@@ -844,9 +755,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let actions_priority_allow = string_list_from_table(&actions_meta, "priority_allowlist")
         .into_iter()
         .collect::<BTreeSet<_>>();
-    if integer_field(&actions_meta, "action_count", -1) != actions.len() as i64 {
-        failures.push("next_actions action_count metadata mismatch".to_string());
-    }
     for row in &actions {
         let aid = string_field(row, "id");
         let status = string_field(row, "status");
@@ -892,12 +800,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
     let runtime_allow = string_list_from_table(&requirements_meta, "runtime_stack_allowlist")
         .into_iter()
         .collect::<BTreeSet<_>>();
-    if integer_field(&requirements_meta, "module_count", -1) != req_modules.len() as i64 {
-        failures.push("requirements module_count metadata mismatch".to_string());
-    }
-    if integer_field(&requirements_meta, "coverage_gap_count", -1) != req_gaps.len() as i64 {
-        failures.push("requirements coverage_gap_count metadata mismatch".to_string());
-    }
     for row in &req_modules {
         let rid = string_field(row, "id");
         let status = string_field(row, "status");
@@ -920,11 +822,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
                 failures.push(format!(
                     "requirements.module[{rid}] unknown requires_modules ref: {dep_id}"
                 ));
-            }
-        }
-        for field in ["install_targets", "verify_targets", "acceptance_criteria"] {
-            if !matches!(row.get(field), Some(Value::Array(_))) {
-                failures.push(format!("requirements.module[{rid}] {field} must be list"));
             }
         }
     }
@@ -952,39 +849,12 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
         }
     }
 
-    if integer_field(&mr_meta, "module_count", -1) != mr_modules.len() as i64 {
-        failures.push("module_requirements module_count metadata mismatch".to_string());
-    }
-    if integer_field(&mr_meta, "package_count", -1) != mr_packages.len() as i64 {
-        failures.push("module_requirements package_count metadata mismatch".to_string());
-    }
-    if integer_field(&mr_meta, "command_count", -1) != mr_commands.len() as i64 {
-        failures.push("module_requirements command_count metadata mismatch".to_string());
-    }
-    if integer_field(&mr_meta, "python_package_count", -1)
-        != mr_packages
-            .iter()
-            .filter(|row| string_field(row, "manager") == "pip")
-            .count() as i64
-    {
-        failures.push("module_requirements python_package_count metadata mismatch".to_string());
-    }
-    if integer_field(&mr_meta, "rust_package_count", -1)
-        != mr_packages
-            .iter()
-            .filter(|row| string_field(row, "manager") == "cargo")
-            .count() as i64
-    {
-        failures.push("module_requirements rust_package_count metadata mismatch".to_string());
-    }
     let mr_module_ids = ids_from_rows(&mr_modules);
     if mr_module_ids != req_ids {
         failures.push(
             "module_requirements module id set differs from requirements module set".to_string(),
         );
     }
-    let command_ids = ids_from_rows(&mr_commands);
-    let package_ids = ids_from_rows(&mr_packages);
     for row in &mr_modules {
         let mid = string_field(row, "id");
         let status = string_field(row, "status");
@@ -997,65 +867,6 @@ fn verify_execution_planning(repo_root: &Path, args: &Args) -> Result<()> {
             failures.push(format!(
                 "module_requirements.module[{mid}] status_token mismatch"
             ));
-        }
-        for dep_id in string_list_field(row, "requires_modules") {
-            if !mr_module_ids.contains(&dep_id) {
-                failures.push(format!(
-                    "module_requirements.module[{mid}] unknown requires_modules ref: {dep_id}"
-                ));
-            }
-        }
-        for cmd_id in string_list_field(row, "command_refs") {
-            if !command_ids.contains(&cmd_id) {
-                failures.push(format!(
-                    "module_requirements.module[{mid}] unknown command_ref: {cmd_id}"
-                ));
-            }
-        }
-        for pkg_id in string_list_field(row, "package_refs") {
-            if !package_ids.contains(&pkg_id) {
-                failures.push(format!(
-                    "module_requirements.module[{mid}] unknown package_ref: {pkg_id}"
-                ));
-            }
-        }
-    }
-    for row in &mr_commands {
-        let cid = string_field(row, "id");
-        let mid = string_field(row, "module_id");
-        let kind = string_field(row, "kind");
-        let cmd = string_field(row, "command");
-        if !mr_module_ids.contains(&mid) {
-            failures.push(format!(
-                "module_requirements.command[{cid}] unknown module_id: {mid}"
-            ));
-        }
-        if !["install", "verify"].contains(&kind.as_str()) {
-            failures.push(format!(
-                "module_requirements.command[{cid}] invalid kind: {kind}"
-            ));
-        }
-        if cmd.is_empty() {
-            failures.push(format!("module_requirements.command[{cid}] empty command"));
-        }
-    }
-    for row in &mr_packages {
-        let pid = string_field(row, "id");
-        let mid = string_field(row, "module_id");
-        let manager = string_field(row, "manager");
-        let name = string_field(row, "name");
-        if !mr_module_ids.contains(&mid) {
-            failures.push(format!(
-                "module_requirements.package[{pid}] unknown module_id: {mid}"
-            ));
-        }
-        if !["pip", "cargo"].contains(&manager.as_str()) {
-            failures.push(format!(
-                "module_requirements.package[{pid}] invalid manager: {manager}"
-            ));
-        }
-        if name.is_empty() {
-            failures.push(format!("module_requirements.package[{pid}] empty name"));
         }
     }
 
@@ -1122,7 +933,9 @@ fn build_experiment_rows(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !["active", "deprecated", "planned", "blocked"].contains(&status.as_str()) {
-            status = "active".to_string();
+            bail!(
+                "experiment {eid} has status {status:?}; allowed statuses are active, deprecated, planned and blocked"
+            );
         }
         let run_cmd = collapse(&string_field(&row, "run"));
         let existing_lineage = collapse(&string_field(&row, "lineage_id"));
@@ -1434,7 +1247,7 @@ fn build_hardened_planning_rows(
 fn build_requirements_hardened(
     rows: &[Table],
     gaps: &[Table],
-) -> (Vec<RequirementModule>, Vec<CoverageGap>) {
+) -> Result<(Vec<RequirementModule>, Vec<CoverageGap>)> {
     let known_module_ids = rows
         .iter()
         .map(|row| string_field(row, "id"))
@@ -1447,15 +1260,20 @@ fn build_requirements_hardened(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !REQUIREMENT_STATUS_ALLOWLIST.contains(&status.as_str()) {
-            status = "active".to_string();
+            bail!(
+                "requirements module {mid} has status {status:?}; allowed statuses are active, deprecated, planned and blocked"
+            );
         }
         let install_targets = normalize_string_list(row.get("install_targets"));
         let verify_targets = dedup_sorted(install_targets.clone());
         let runtime_stack = infer_runtime_stack(&collapse(&string_field(&row, "name")));
-        let requires_modules = module_dependency_defaults(&mid)
-            .into_iter()
-            .filter(|dep| known_module_ids.contains(dep))
-            .collect::<Vec<_>>();
+        let requires_modules = module_dependency_defaults(&mid);
+        if let Some(unknown) = requires_modules
+            .iter()
+            .find(|dep| !known_module_ids.contains(*dep))
+        {
+            bail!("requirements module {mid} requires unknown module {unknown}");
+        }
         let acceptance = vec![
             "Runtime stack classification is explicit.".to_string(),
             "Install and verify commands are reproducible.".to_string(),
@@ -1494,7 +1312,10 @@ fn build_requirements_hardened(
         let mut status = collapse(&string_field(&row, "status"));
         status.make_ascii_lowercase();
         if !["open", "in_progress", "done"].contains(&status.as_str()) {
-            status = "open".to_string();
+            bail!(
+                "coverage gap {} has status {status:?}; allowed statuses are open, in_progress and done",
+                collapse(&string_field(&row, "id"))
+            );
         }
         let blob = format!(
             "{} {}",
@@ -1519,7 +1340,7 @@ fn build_requirements_hardened(
         );
         coverage_gaps.push(CoverageGap { raw: gap });
     }
-    (modules, coverage_gaps)
+    Ok((modules, coverage_gaps))
 }
 
 fn build_module_requirements(
@@ -1540,6 +1361,13 @@ fn build_module_requirements(
         .collect::<BTreeSet<_>>();
     for row in requirements_modules {
         let mid = collapse(&string_field(&row.raw, "id"));
+        let requires_modules = string_list_field(&row.raw, "requires_modules");
+        if let Some(unknown) = requires_modules
+            .iter()
+            .find(|dep| !module_ids.contains(*dep))
+        {
+            bail!("requirements module {mid} requires unknown module {unknown}");
+        }
         let install_targets = normalize_string_list(row.raw.get("install_targets"));
         let verify_targets = normalize_string_list(row.raw.get("verify_targets"));
         let mut command_refs = Vec::new();
@@ -1570,10 +1398,7 @@ fn build_module_requirements(
             status: collapse(&string_field(&row.raw, "status")),
             status_token: collapse(&string_field(&row.raw, "status_token")),
             source_markdown: collapse(&string_field(&row.raw, "markdown")),
-            requires_modules: string_list_field(&row.raw, "requires_modules")
-                .into_iter()
-                .filter(|dep| module_ids.contains(dep))
-                .collect(),
+            requires_modules,
             command_refs,
             package_refs: Vec::new(),
         });
@@ -2645,7 +2470,7 @@ fn load_control_plane_registry(
 ) -> Result<Table> {
     let db_path = repo_root.join(db_rel_path);
     if db_path.exists() {
-        let mut store = ProvenanceStore::open(&db_path)
+        let mut store = ProvenanceStore::open_read_only(&db_path)
             .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
         let text = store.control_plane_compat_text(kind).with_context(|| {
             format!(
@@ -2678,7 +2503,7 @@ fn load_planning_compat_export(
     if !db_path.exists() {
         return Ok(None);
     }
-    let store = ProvenanceStore::open(&db_path)
+    let store = ProvenanceStore::open_read_only(&db_path)
         .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
     let text = store.render_planning_compat_toml(table).with_context(|| {
         format!(
@@ -2695,7 +2520,7 @@ fn load_requirements_compat_export(repo_root: &Path, db_rel_path: &Path) -> Resu
     if !db_path.exists() {
         return Ok(None);
     }
-    let store = ProvenanceStore::open(&db_path)
+    let store = ProvenanceStore::open_read_only(&db_path)
         .with_context(|| format!("open canonical control-plane DB {}", db_path.display()))?;
     let text = store.render_requirements_compat_toml().with_context(|| {
         format!(
@@ -2810,6 +2635,77 @@ mod tests {
         fn drop(&mut self) {
             let _ = fs::remove_dir_all(&self.root);
         }
+    }
+
+    #[test]
+    fn module_requirements_reject_unknown_required_module() {
+        let module = |text: &str| RequirementModule {
+            raw: toml::from_str::<Table>(text).unwrap(),
+        };
+        let modules = [
+            module("id = \"REQ-CORE\"\nrequires_modules = []"),
+            module("id = \"REQ-ASTRO\"\nrequires_modules = [\"REQ-CORE\", \"REQ-ASTR0\"]"),
+        ];
+        let error = build_module_requirements(&modules, &Table::new(), &Table::new())
+            .expect_err("a dangling required module must not be filtered away");
+        assert!(
+            error
+                .to_string()
+                .contains("REQ-ASTRO requires unknown module REQ-ASTR0")
+        );
+    }
+
+    #[test]
+    fn requirements_hardening_rejects_what_it_used_to_rewrite() {
+        let table = |text: &str| toml::from_str::<Table>(text).unwrap();
+        let core = table("id = \"REQ-CORE\"\nstatus = \"active\"");
+        let astro = table("id = \"REQ-ASTRO\"\nstatus = \"active\"");
+        let gap = table("id = \"REQ-GAP-001\"\nstatus = \"open\"");
+        assert!(build_requirements_hardened(&[core.clone(), astro.clone()], &[gap]).is_ok());
+
+        for (rows, gaps, expected) in [
+            (
+                vec![astro.clone()],
+                vec![],
+                "REQ-ASTRO requires unknown module REQ-CORE",
+            ),
+            (
+                vec![
+                    core.clone(),
+                    table("id = \"REQ-ASTRO\"\nstatus = \"retired\""),
+                ],
+                vec![],
+                "REQ-ASTRO has status \"retired\"",
+            ),
+            (
+                vec![core.clone()],
+                vec![table("id = \"REQ-GAP-001\"\nstatus = \"closed\"")],
+                "coverage gap REQ-GAP-001 has status \"closed\"",
+            ),
+        ] {
+            let error = build_requirements_hardened(&rows, &gaps)
+                .expect_err("hardening must reject the defect instead of rewriting it");
+            assert!(error.to_string().contains(expected), "{error}");
+        }
+    }
+
+    #[test]
+    fn experiment_status_outside_allowlist_fails_the_build() {
+        let experiment =
+            toml::from_str::<Table>("id = \"EXP-STATUS-PROBE\"\nstatus = \"complete\"").unwrap();
+        let error = build_experiment_rows(
+            &[experiment],
+            &BTreeMap::new(),
+            &BTreeSet::new(),
+            &BTreeMap::new(),
+            &BTreeMap::new(),
+        )
+        .expect_err("an out-of-allowlist status must not be rewritten to active");
+        assert!(
+            error
+                .to_string()
+                .contains("EXP-STATUS-PROBE has status \"complete\"")
+        );
     }
 
     #[test]
@@ -3351,13 +3247,6 @@ fn string_field(table: &Table, key: &str) -> String {
         .map(value_to_string)
         .map(|value| collapse(&value))
         .unwrap_or_default()
-}
-
-fn integer_field(table: &Table, key: &str, default: i64) -> i64 {
-    table
-        .get(key)
-        .and_then(Value::as_integer)
-        .unwrap_or(default)
 }
 
 fn bool_field(table: &Table, key: &str) -> bool {

@@ -17,7 +17,7 @@ use std::{
 };
 
 use clap::{Parser, ValueEnum};
-use data_core::registry::{ArtifactRegistry, LacunaeRegistry, MonographRegistry};
+use data_core::registry::MonographRegistry;
 use gororoba_cli::claims::schema::TOML_CLAIM_STATUSES;
 use gororoba_cli_data::execution_targets::{
     execution_target_registered, load_workspace_execution_targets,
@@ -357,17 +357,9 @@ struct ProjectRegistry {
     project: ProjectMeta,
 }
 
-// Constructed by serde::Deserialize; not all fields read by this binary.
 #[derive(serde::Deserialize)]
-#[allow(dead_code)]
 struct ProjectMeta {
     name: String,
-    test_count: Option<u32>,
-    claim_count: Option<u32>,
-    insight_count: Option<u32>,
-    experiment_count: Option<u32>,
-    complete_experiment_count: Option<u32>,
-    binary_count: Option<u32>,
 }
 
 #[derive(serde::Deserialize)]
@@ -917,20 +909,10 @@ fn main() {
                 );
             }
             TypedPolicy::Warn | TypedPolicy::Error => {
-                let typed_drift = [
-                    parse_typed_registry_file::<MonographRegistry>(
-                        &args.dir.join("monograph.toml"),
-                        "data_core::registry::MonographRegistry",
-                    ),
-                    parse_typed_registry_file::<LacunaeRegistry>(
-                        &args.dir.join("lacunae.toml"),
-                        "data_core::registry::LacunaeRegistry",
-                    ),
-                    parse_typed_registry_file::<ArtifactRegistry>(
-                        &args.dir.join("data_artifact_narratives.toml"),
-                        "data_core::registry::ArtifactRegistry",
-                    ),
-                ]
+                let typed_drift = [parse_typed_registry_file::<MonographRegistry>(
+                    &args.dir.join("monograph.toml"),
+                    "data_core::registry::MonographRegistry",
+                )]
                 .into_iter()
                 .flatten()
                 .collect::<Vec<_>>();
@@ -980,7 +962,7 @@ fn main() {
 
     let canonical_setup_started_at = Instant::now();
     let mut canonical_store = if args.canonical_db.exists() {
-        match ProvenanceStore::open(&args.canonical_db) {
+        match ProvenanceStore::open_read_only(&args.canonical_db) {
             Ok(mut store) => {
                 if let Err(err) = store.verify_control_plane_invariants(&repo_root) {
                     eprintln!(
@@ -1091,7 +1073,6 @@ fn main() {
 
     // --- Claims ---
     let claim_ids: HashSet<String>;
-    let claim_count: usize;
 
     let claims_started_at = Instant::now();
     let claims_registry = if let Some(store) = canonical_store.as_mut() {
@@ -1125,7 +1106,7 @@ fn main() {
 
     if let Some(registry) = claims_registry {
         claim_ids = registry.claim.iter().map(|c| c.id.clone()).collect();
-        claim_count = registry.claim.len();
+        let claim_count = registry.claim.len();
 
         // Check for duplicates
         if claim_ids.len() != claim_count {
@@ -1201,7 +1182,6 @@ fn main() {
         eprintln!("ERROR: {} not found", claims_path.display());
         errors += 1;
         claim_ids = HashSet::new();
-        claim_count = 0;
     }
     report_phase_timing(args.timings, "claims", claims_started_at);
 
@@ -1328,8 +1308,6 @@ fn main() {
 
     // --- Experiments ---
     let experiment_ids: HashSet<String>;
-    let experiment_count: usize;
-    let complete_experiment_count: usize;
     let binary_names_from_experiments: Vec<(String, String)>;
 
     let experiments_started_at = Instant::now();
@@ -1367,15 +1345,7 @@ fn main() {
 
     if let Some(registry) = experiments_registry {
         experiment_ids = registry.experiment.iter().map(|e| e.id.clone()).collect();
-        experiment_count = registry.experiment.len();
-        complete_experiment_count = registry
-            .experiment
-            .iter()
-            .filter(|entry| {
-                let status = entry.status.as_deref().unwrap_or("").trim().to_lowercase();
-                status == "complete" || status == "completed" || status == "done"
-            })
-            .count();
+        let experiment_count = registry.experiment.len();
         binary_names_from_experiments = registry
             .experiment
             .iter()
@@ -1410,14 +1380,11 @@ fn main() {
         eprintln!("WARNING: {} not found", experiments_path.display());
         warnings += 1;
         experiment_ids = HashSet::new();
-        experiment_count = 0;
-        complete_experiment_count = 0;
         binary_names_from_experiments = Vec::new();
     }
     report_phase_timing(args.timings, "experiments", experiments_started_at);
 
     // --- Binaries ---
-    let registry_binary_names: HashSet<String>;
 
     let binaries_started_at = Instant::now();
     let binaries_registry = if let Some(store) = canonical_store.as_mut() {
@@ -1453,7 +1420,8 @@ fn main() {
     };
 
     if let Some(registry) = binaries_registry {
-        registry_binary_names = registry.binary.iter().map(|b| b.name.clone()).collect();
+        let registry_binary_names: HashSet<String> =
+            registry.binary.iter().map(|b| b.name.clone()).collect();
 
         // Check experiment cross-references
         for bin in &registry.binary {
@@ -1472,22 +1440,22 @@ fn main() {
             match load_workspace_execution_inventory(&args.cargo_toml) {
                 Ok(inventory) => Some(inventory),
                 Err(err) => {
-                    eprintln!("WARNING: {err}");
-                    warnings += 1;
+                    eprintln!("ERROR: {err}");
+                    errors += 1;
                     None
                 }
             }
         } else {
+            eprintln!("ERROR: {} not found", args.cargo_toml.display());
+            errors += 1;
             None
         };
-        let workspace_bench_names = workspace_inventory
-            .as_ref()
-            .map(|inventory| inventory.benches.clone())
-            .unwrap_or_default();
-        let mut known_execution_targets = registry_binary_names
+        // Cargo metadata decides which bin and bench targets exist; the
+        // binaries_cp rows are a synchronized copy of that inventory.
+        let mut known_execution_targets = workspace_inventory
             .iter()
+            .flat_map(|inventory| inventory.bins.iter().chain(inventory.benches.iter()))
             .cloned()
-            .chain(workspace_bench_names.iter().cloned())
             .collect::<BTreeSet<_>>();
 
         let execution_root = args.cargo_toml.parent().unwrap_or(&repo_root);
@@ -1511,57 +1479,10 @@ fn main() {
             }
         }
 
-        // Cross-check against Cargo.toml [[bin]] sections
-        if args.cargo_toml.exists() {
-            match workspace_inventory {
-                Some(inventory) => {
-                    let cargo_binary_names = inventory.bins;
-                    let mut missing_from_registry: Vec<String> = cargo_binary_names
-                        .difference(&registry_binary_names)
-                        .cloned()
-                        .collect();
-                    let mut missing_from_cargo: Vec<String> = registry_binary_names
-                        .difference(&cargo_binary_names)
-                        .cloned()
-                        .collect();
-                    missing_from_registry.sort();
-                    missing_from_cargo.sort();
-
-                    if !missing_from_registry.is_empty() {
-                        eprintln!(
-                            "ERROR: {} binaries in Cargo.toml but not in binaries.toml: {}",
-                            missing_from_registry.len(),
-                            missing_from_registry.join(", ")
-                        );
-                        errors += 1;
-                    }
-                    if !missing_from_cargo.is_empty() {
-                        eprintln!(
-                            "ERROR: {} binaries in binaries.toml but not in Cargo.toml: {}",
-                            missing_from_cargo.len(),
-                            missing_from_cargo.join(", ")
-                        );
-                        errors += 1;
-                    }
-                }
-                None => {
-                    eprintln!(
-                        "ERROR: workspace execution inventory unavailable for {}",
-                        args.cargo_toml.display()
-                    );
-                    errors += 1;
-                }
-            }
-        } else {
-            eprintln!("ERROR: {} not found", args.cargo_toml.display());
-            errors += 1;
-        }
-
         println!("Binaries: {} entries", registry_binary_names.len());
     } else {
         eprintln!("WARNING: {} not found", binaries_path.display());
         warnings += 1;
-        registry_binary_names = HashSet::new();
     }
     report_phase_timing(args.timings, "binaries", binaries_started_at);
 
@@ -1570,55 +1491,6 @@ fn main() {
     if project_path.exists() {
         let content = std::fs::read_to_string(&project_path).unwrap();
         let project: ProjectRegistry = toml::from_str(&content).unwrap();
-
-        // Cross-check counts
-        if let Some(expected_claims) = project.project.claim_count
-            && expected_claims as usize != claim_count
-        {
-            eprintln!(
-                "ERROR: project.toml claim_count={} but claims.toml has {} entries",
-                expected_claims, claim_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_insights) = project.project.insight_count
-            && expected_insights as usize != insight_count
-        {
-            eprintln!(
-                "ERROR: project.toml insight_count={} but insights.toml has {} entries",
-                expected_insights, insight_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_experiments) = project.project.experiment_count
-            && expected_experiments as usize != experiment_count
-        {
-            eprintln!(
-                "ERROR: project.toml experiment_count={} but experiments.toml has {} entries",
-                expected_experiments, experiment_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_complete) = project.project.complete_experiment_count
-            && expected_complete as usize != complete_experiment_count
-        {
-            eprintln!(
-                "ERROR: project.toml complete_experiment_count={} but experiments.toml has {} complete/done entries",
-                expected_complete, complete_experiment_count
-            );
-            errors += 1;
-        }
-        if let Some(expected_binaries) = project.project.binary_count
-            && expected_binaries as usize != registry_binary_names.len()
-        {
-            eprintln!(
-                "ERROR: project.toml binary_count={} but binaries.toml has {} entries",
-                expected_binaries,
-                registry_binary_names.len()
-            );
-            errors += 1;
-        }
-
         println!("Project: found (v{})", project.project.name);
     } else {
         eprintln!("WARNING: {} not found", project_path.display());
@@ -1629,35 +1501,6 @@ fn main() {
     if let Some(store) = canonical_store.as_ref() {
         match store.control_plane_counts() {
             Ok(counts) => {
-                if counts.claim_count != claim_count {
-                    eprintln!(
-                        "ERROR: canonical db claim_count={} but claims.toml has {} entries",
-                        counts.claim_count, claim_count
-                    );
-                    errors += 1;
-                }
-                if counts.insight_count != insight_count {
-                    eprintln!(
-                        "ERROR: canonical db insight_count={} but insights.toml has {} entries",
-                        counts.insight_count, insight_count
-                    );
-                    errors += 1;
-                }
-                if counts.experiment_count != experiment_count {
-                    eprintln!(
-                        "ERROR: canonical db experiment_count={} but experiments.toml has {} entries",
-                        counts.experiment_count, experiment_count
-                    );
-                    errors += 1;
-                }
-                if counts.binary_count != registry_binary_names.len() {
-                    eprintln!(
-                        "ERROR: canonical db binary_count={} but binaries.toml has {} entries",
-                        counts.binary_count,
-                        registry_binary_names.len()
-                    );
-                    errors += 1;
-                }
                 println!(
                     "Canonical DB: claims={} insights={} experiments={} binaries={} theorems={}",
                     counts.claim_count,

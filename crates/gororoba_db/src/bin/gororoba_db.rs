@@ -1336,7 +1336,7 @@ fn maybe_regen_toml(regen_toml: bool) -> Result<()> {
         ));
     }
     eprintln!(
-        "regen complete; remember to run `make registry-integrity` to refresh schema_signatures.toml."
+        "regen complete; remember to run `make registry-integrity` to regenerate conflict markers and lacunae."
     );
     Ok(())
 }
@@ -2901,9 +2901,9 @@ fn cmd_xref(store: &ProvenanceStore, args: &XrefArgs) -> Result<()> {
 fn cmd_audit_cmd(store: &ProvenanceStore, repo_root: &Path, args: &AuditArgs) -> Result<()> {
     match &args.action {
         AuditAction::Signatures => {
-            println!("Verifying schema signatures...");
+            println!("Verifying control-plane invariants...");
             store.verify_invariants(repo_root)?;
-            println!("OK: all signatures valid.");
+            println!("OK: control-plane invariants hold.");
         }
         AuditAction::Crossrefs => {
             let dangling = store.dangling_crossrefs()?;

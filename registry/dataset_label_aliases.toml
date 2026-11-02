@@ -5,7 +5,6 @@ updated = "2026-04-15"
 authoritative = true
 status = "active"
 status_token = "ACTIVE"
-alias_count = 14
 
 [dataset_label_aliases.schema]
 required_alias_fields = [

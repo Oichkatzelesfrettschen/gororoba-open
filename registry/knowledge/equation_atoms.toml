@@ -1884,7 +1884,7 @@ source_uid = "CONTROL_PLANE_CLAIMS"
 source_group = "doc_claim_matrix"
 source_registry = "registry/canonical/control_plane.sqlite3"
 source_path = "registry/canonical/control_plane.sqlite3"
-source_line = 1068
+source_line = 1069
 claim_refs = []
 
 [[atom]]
@@ -1903,7 +1903,7 @@ source_uid = "CONTROL_PLANE_CLAIMS"
 source_group = "doc_claim_matrix"
 source_registry = "registry/canonical/control_plane.sqlite3"
 source_path = "registry/canonical/control_plane.sqlite3"
-source_line = 1070
+source_line = 1071
 claim_refs = []
 
 [[atom]]
@@ -5495,7 +5495,7 @@ source_group = "research_narrative"
 source_registry = "registry/research_narratives.toml"
 source_path = "docs/GRAND_SYNTHESIS.md"
 source_line = 46
-claim_refs = []
+claim_refs = ["C-1141"]
 
 [[atom]]
 id = "EQA-0290"
@@ -5514,7 +5514,7 @@ source_group = "research_narrative"
 source_registry = "registry/research_narratives.toml"
 source_path = "docs/GRAND_SYNTHESIS.md"
 source_line = 47
-claim_refs = []
+claim_refs = ["C-1137", "C-1140"]
 
 [[atom]]
 id = "EQA-0291"
@@ -5951,7 +5951,7 @@ source_group = "research_narrative"
 source_registry = "registry/research_narratives.toml"
 source_path = "docs/GRAND_SYNTHESIS_PLAN.md"
 source_line = 25
-claim_refs = []
+claim_refs = ["C-1137", "C-1140"]
 
 [[atom]]
 id = "EQA-0314"

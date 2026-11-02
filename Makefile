@@ -45,7 +45,7 @@
 .PHONY: registry-strict-toml-batch2-build registry-verify-strict-toml-batch2 registry-strict-toml-batch2 registry-wave5-batch2-build registry-verify-wave5-batch2 registry-wave5-batch2 registry-acceptance-gate registry-wave5
 .PHONY: registry-strict-toml-batch3-build registry-verify-strict-toml-batch3 registry-strict-toml-batch3 registry-wave5-batch3-build registry-verify-wave5-batch3 registry-wave5-batch3
 .PHONY: registry-strict-toml-batch4-build registry-verify-strict-toml-batch4 registry-strict-toml-batch4 registry-wave5-batch4-build registry-verify-wave5-batch4 registry-wave5-batch4
-.PHONY: registry-verify-schema-signatures registry-verify-crossrefs
+.PHONY: registry-verify-crossrefs
 .PHONY: registry-verify-typed-policy-error
 .PHONY: registry-verify-dataset-label-aliases
 .PHONY: registry-csv-inventory registry-migrate-legacy-csv registry-verify-legacy-csv
@@ -62,7 +62,7 @@
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
 .PHONY: check-ansi check-terminology check-path-hygiene
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
-.PHONY: validate-registry-control-plane validate-registry-project-counter validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
+.PHONY: validate-registry-control-plane validate-registry-markdown validate-registry-governance validate-registry-semantic-atoms validate-registry-evidence-provenance validate-registry-execution-planning
 .PHONY: run-e183
 .PHONY: cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated patch-static-mirror-headers cargo-cache-status cargo-cache-prune cargo-cache-smoke nanograv-timing-phase1-independent
 
@@ -641,7 +641,6 @@ validate-governance: require-ci-validation-authority registry-validation-tools
 	@echo "=========================================="
 	@echo "[done] Markdown inventory validated (SQLite-first with TOML compatibility checks)"
 	@echo "[done] Markdown owner map verified"
-	@echo "[done] Registry schema signatures checked"
 	@echo "[done] Cross-reference integrity verified"
 	@echo "[done] Dataset label aliases verified"
 	@echo "[done] Canonical control-plane declarations verified"
@@ -741,7 +740,7 @@ $(HOST_PROFILE_CACHE): $(CORE_VALIDATION_STAMP)
 REGISTRY_VALIDATION_BINS := claims-verify registry-check test-inventory \
                             semantic-atoms evidence-provenance registry-integrity \
                             execution-planning governance-verify markdown-registry \
-                            project-counter-sync provenance
+                            provenance
 REGISTRY_BUNDLED_VALIDATION_BINS := $(filter-out registry-integrity,$(REGISTRY_VALIDATION_BINS))
 REGISTRY_VALIDATION_SOURCE_DEPS := $(shell find crates xtask -type f \( -name '*.rs' -o -name 'Cargo.toml' \) -print) \
                                    Cargo.toml Cargo.lock rust-toolchain.toml Makefile
@@ -753,7 +752,6 @@ MARKDOWN_REGISTRY_CACHE := $(VALIDATION_TOOLS_DIR)/markdown-registry
 GOVERNANCE_VERIFY_CACHE := $(VALIDATION_TOOLS_DIR)/governance-verify
 EXECUTION_PLANNING_CACHE := $(VALIDATION_TOOLS_DIR)/execution-planning
 REGISTRY_INTEGRITY_CACHE := $(VALIDATION_TOOLS_DIR)/registry-integrity
-PROJECT_COUNTER_CACHE := $(VALIDATION_TOOLS_DIR)/project-counter-sync
 PROVENANCE_CACHE := $(VALIDATION_TOOLS_DIR)/provenance
 
 # stage_tool copies a compiled tool into the worktree-local tools dir and drops
@@ -1209,7 +1207,7 @@ validate-rust-integrity: require-ci-validation-authority registry-validation-too
 	@echo "OK: Rust integrity validation passed."
 
 validate-rust-integrity-claims: registry-validation-tools
-	$(VALIDATION_TOOLS_DIR)/claims-verify --check providers
+	$(VALIDATION_TOOLS_DIR)/claims-verify
 
 validate-rust-integrity-test-inventory: registry-validation-tools
 	$(VALIDATION_TOOLS_DIR)/test-inventory --check
@@ -1865,17 +1863,8 @@ registry-verify-wave5-batch2: registry-verify-strict-toml-batch2
 registry-wave5-batch2: registry-strict-toml-batch2
 	@echo "DEPRECATED: make registry-wave5-batch2 is a legacy alias. Use make registry-evidence-provenance-gate."
 
-# Convenience fast-path for schema_signatures.toml regeneration.
-#
-# The full registry-strict-toml-batch3-build target always runs
-# `cargo build` (~3 min), even when the binary is already compiled.
-# This target checks for the pre-built binary first and skips the
-# build if it exists (~1.2s vs ~180s).
-#
-# When to use: after editing any registry/*.toml file, run
-#   make registry-integrity
-# to regenerate registry/schema_signatures.toml before committing.
-# Registry validation will fail on content_sha mismatch otherwise.
+# registry-integrity regenerates registry/conflict_markers.toml and
+# registry/lacunae.toml from the canonical claims and narratives.
 registry-integrity: $(REGISTRY_INTEGRITY_CACHE)
 	$(REGISTRY_INTEGRITY_CACHE) --repo-root .
 
@@ -1942,10 +1931,6 @@ registry-strict-toml-batch3-build:
 	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_governance --bin registry-integrity
 	$(REPO_CARGO_TARGET_DIR)/validation/registry-integrity --repo-root .
 
-registry-verify-schema-signatures:
-	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_data --bin governance-verify
-	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify schema-signatures
-
 registry-verify-crossrefs:
 	$(CARGO_ENV) cargo build --profile validation -p gororoba_cli_data --bin governance-verify
 	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify crossrefs
@@ -2011,7 +1996,6 @@ registry-wave5-batch4: registry-strict-toml-batch4
 
 validate-registry: require-ci-validation-authority registry-validation-tools \
                    validate-registry-control-plane \
-                   validate-registry-project-counter \
                    validate-registry-markdown \
                    validate-registry-governance \
                    validate-registry-semantic-atoms \
@@ -2022,9 +2006,6 @@ validate-registry: require-ci-validation-authority registry-validation-tools \
 
 validate-registry-control-plane: registry-validation-tools
 	$(PROVENANCE_CACHE) --repo-root . verify-control-plane --verify-compat-exports
-
-validate-registry-project-counter: registry-validation-tools
-	$(PROJECT_COUNTER_CACHE) --check
 
 validate-registry-markdown: registry-validation-tools
 	$(MARKDOWN_REGISTRY_CACHE) verify-all
@@ -2215,10 +2196,7 @@ registry-verify-mirrors:
 	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify mirror-immutability
 	$(REPO_CARGO_TARGET_DIR)/validation/governance-verify claim-ticket-mirrors
 
-registry-sync-project-counters:
-	$(CARGO_ENV) cargo run --release --bin project-counter-sync
-
-registry: registry-refresh registry-data registry-sync-project-counters
+registry: registry-refresh registry-data
 	$(CARGO_ENV) cargo run --release --bin registry-check
 
 registry-verify-typed-policy-error:

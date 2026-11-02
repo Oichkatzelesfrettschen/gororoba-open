@@ -609,7 +609,7 @@ fn pipe_escape(value: &str) -> String {
 }
 
 fn parse_claim_rows(doc: &SourceDoc) -> Result<Vec<ClaimAtom>> {
-    let claim_id_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_id_re = Regex::new(r"\bC-\d{3,}\b")?;
     let evidence_ref_re = Regex::new(r"\b(?:C|I|E)-\d{3}\b")?;
     let direct_claim_heading_re = Regex::new(r"^(C-\d{3})\s*:\s*(.+)$")?;
     let mut atoms = Vec::new();
@@ -716,7 +716,7 @@ fn parse_claim_rows(doc: &SourceDoc) -> Result<Vec<ClaimAtom>> {
 }
 
 fn extract_equations_from_source(doc: &SourceDoc) -> Result<Vec<EquationAtom>> {
-    let claim_id_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_id_re = Regex::new(r"\bC-\d{3,}\b")?;
     let heading_re = Regex::new(r"^(#{1,6})\s+(.+?)\s*$")?;
     let inline_math_re = Regex::new(r"\$([^$\n]{3,240})\$")?;
     let mut atoms = Vec::new();
@@ -840,7 +840,7 @@ fn extract_equations_from_source(doc: &SourceDoc) -> Result<Vec<EquationAtom>> {
 }
 
 fn extract_proofs_from_source(doc: &SourceDoc) -> Result<Vec<ProofAtom>> {
-    let claim_id_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_id_re = Regex::new(r"\bC-\d{3,}\b")?;
     let proof_keywords = [
         "proof",
         "theorem",
@@ -938,7 +938,7 @@ fn extract_proofs_from_source(doc: &SourceDoc) -> Result<Vec<ProofAtom>> {
 }
 
 fn build_fallback_proof_atom(doc: &SourceDoc) -> Result<Option<ProofAtom>> {
-    let claim_id_re = Regex::new(r"\bC-\d{3}\b")?;
+    let claim_id_re = Regex::new(r"\bC-\d{3,}\b")?;
     for section in split_sections(&doc.body)? {
         let section_text = section.body_lines.join("\n");
         let section_text_ascii = ascii_sanitize(&section_text);

@@ -1,0 +1,25 @@
+[transition]
+transition_key = "c-004-psl27-box-kite-action-refuted"
+source_claim_id = "C-004"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-PSL27-GENERATOR-CLOSURE-COUNT"]
+exercised_falsifier = "Call generate_psl_2_7_permutations_16d in crates/algebra_analysis/src/boxkite_alignment.rs and count the distinct permutations its two generators close to; a count other than 168 refutes the claimed in-repository 168-element action."
+proposed_claim_status = "Refuted"
+rationale = "The in-repository construction returns 21 distinct permutations: its generators x->x+1 and x->2x on Z/7 are both affine and close to the Frobenius group of order 21, not PSL(2,7). The claim's own dossier, docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md, states that the explicit group action on box-kites is not yet replicated in code. The kernel-checked part, the order of GL(3,2) and the Fano line count, moves to a narrowed successor."
+unresolved_assumptions = ["An explicit PSL(2,7) action permuting the 7 box-kites as labeled subgraphs remains unconstructed in the repository."]
+actor = "eirikr"
+reason = "Status contradicted by the claim's own dossier and by executing the cited construction."
+transition_timestamp = "2026-11-02T05:50:06Z"
+expected_source_state_sha256 = "a07c183eb504940854d2d049e9c7e1d50a6e7ffc47234fe502845355d04ad707"
+expected_claim_id_max = 1779
+
+[[successor]]
+proposal_key = "psl27-order-and-fano-line-count"
+statement = "PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph."
+initial_status = "Verified"
+source_or_implementation_boundary = "Kernel-checked arithmetic and line count in Rocq; no group action on box-kites is constructed or implied."
+required_falsifier = "The Rocq theorems C004_gl3_gf2_order or C004_fano_matches_boxkites fail to check under the pinned Rocq toolchain."
+where_stated = ["proofs/verified/C004_PSL27Order168.v"]
+evidence_artifact_ids = ["LOCAL-PSL27-GENERATOR-CLOSURE-COUNT"]
+predecessor_relation_kind = "narrows"

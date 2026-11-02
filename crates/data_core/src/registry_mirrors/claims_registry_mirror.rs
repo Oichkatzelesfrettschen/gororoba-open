@@ -6,14 +6,14 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1592
+//! Total claims: 1593
 //!
 //! ## C-001
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Cayley-Dickson algebras become non-associative at 8D and beyond.
-//! - Where stated: `CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `docs/external_sources/CAYLEY_DICKSON_BASICS_SOURCES.md`
+//! - Where stated: `CURRENT::PATH crates/cd_kernel/src/cayley_dickson/mod.rs (LEGACY::PATH crates/cd_kernel/src/cayley_dickson.rs)` (test_sedenion_non_associative), `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_non_associativity_scaling), `registry/bibliography.toml` (BIB-0077)
 //! - What would verify/refute it:
 //!
 //! ## C-002
@@ -21,7 +21,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: 16D sedenions have zero divisors and lose norm composition.
-//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `docs/external_sources/DE_MARRAIS_SOURCES.md`, `docs/external_sources/CAYLEY_DICKSON_BASICS_SOURCES.md`
+//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_unit_zero_divisors_count), `crates/algebra_analysis/src/annihilator.rs` (test_known_zero_divisor_has_nontrivial_annihilator), `registry/bibliography.toml` (BIB-0077)
 //! - What would verify/refute it:
 //!
 //! ## C-003
@@ -29,15 +29,15 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: "42 assessors" / "7 box-kites" organize primitive sedenion zero divisors.
-//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_assessors_count, test_sedenion_boxkite_count, test_assessors_partition_into_boxkites), `docs/SEDENION_ATLAS.md`, `docs/external_sources/DE_MARRAIS_SOURCES.md`
+//! - Where stated: `crates/algebra_analysis/src/boxkites.rs` (test_primitive_assessors_count, test_sedenion_boxkite_count, test_assessors_partition_into_boxkites), `docs/SEDENION_ATLAS.md`, `registry/bibliography.toml` (BIB-0077), `registry/bibliography.toml` (BIB-0073)
 //! - What would verify/refute it:
 //!
 //! ## C-004
 //!
-//! - Status: `Verified`
+//! - Status: `Refuted`
 //! - Last verified: 2026-01-28
 //! - Statement: The relevant symmetry group count is `PSL(2,7) has order 168` and an explicit 168-element action is constructed which permutes the 7 box-kites (as computed in-repo) as labeled subgraphs.
-//! - Where stated: `docs/SEDENION_ATLAS.md`, `docs/external_sources/PSL_2_7_SOURCES.md`, `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `crates/algebra_analysis/src/boxkites.rs` (Rust tests: test_sedenion_boxkite_structure, test_coassessor_symmetry)
+//! - Where stated: `docs/SEDENION_ATLAS.md`, `docs/external_sources/SEDENION_ZD_EXPERIMENTAL.md` (XS-019), `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `crates/algebra_analysis/src/boxkites.rs` (Rust tests: test_sedenion_boxkite_structure, test_coassessor_symmetry)
 //! - What would verify/refute it:
 //!
 //! ## C-005
@@ -61,7 +61,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: GWTC-3 BH mass distribution is suggestive of multimodality (Phase 2D mixture modeling); any link to \"negative dimension eigenmodes\" remains a speculative interpretation.
-//! - Where stated: `docs/archive/RESEARCH_STATUS.md`, `docs/external_sources/GWTC3_MASS_CLUMPING_PLAN.md`, `docs/external_sources/GWTC3_DECISION_RULE_SUMMARY.md`, `docs/external_sources/GWTC3_POPULATION_SOURCES.md`, `docs/external_sources/GWTC3_SELECTION_FUNCTION_SPEC.md`, `crates/stats_core/src/claims_gates.rs`, `src/scripts/analysis/gwtc3_mass_clumping_null_models.py`, `src/scripts/analysis/gwtc3_mass_clumping_bootstrap.py`, `src/scripts/analysis/gwtc3_mass_clumping_decision_rule_summary.py`, `src/scripts/analysis/gwtc3_selection_weight_sweep.py`, `crates/stats_core/src/claims_gates.rs`, `src/scripts/data/convert_gwtc3_injections_hdf.py`, `src/scripts/analysis/gwtc3_selection_function_from_injections.py`, `src/scripts/analysis/gwtc3_modality_preregistered.py`, `src/scripts/analysis/gwtc3_bayesian_mixture.py`, `data/external/gwtc3_injection_summary.csv`, `data/external/gwtc3_injection_summary_7890398.csv`, `data/csv/gwtc3_selection_function_binned.csv`, `data/csv/gwtc3_selection_function_binned_7890398.csv`, `data/csv/gwtc3_selection_function_binned_combined.csv`, `data/csv/gwtc3_selection_function_binned_combined_altbins.csv`, `data/csv/gwtc3_mass_clumping_metrics.csv`, `data/csv/gwtc3_mass_clumping_null_models.csv`, `data/csv/gwtc3_mass_clumping_bootstrap_counts.csv`, `data/csv/gwtc3_mass_clumping_bootstrap_summary.csv`, `data/csv/gwtc3_mass_clumping_decision_rule_summary.csv`, `data/csv/gwtc3_selection_bias_control_metrics.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o123.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o3a_altbins.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o123_altbins.csv`, `data/csv/gwtc3_selection_weight_sweep.csv`, `data/csv/gwtc3_selection_weight_sweep_o123.csv`, `data/csv/gwtc3_selection_weight_sweep_o3a_altbins.csv`, `data/csv/gwtc3_selection_weight_sweep_o123_altbins.csv`, `data/csv/gwtc3_bayesian_mixture_results.csv`, `docs/preregistered/GWTC3_MODALITY_TEST.md`, `docs/preregistered/GWTC3_BAYESIAN_MIXTURE.md`
+//! - Where stated: `docs/archive/RESEARCH_STATUS.md`, `crates/gororoba_cli_physics/src/bin/mass_clumping.rs`, `registry/bibliography.toml` (BIB-0001), `crates/stats_core/src/claims_gates.rs`, `src/scripts/analysis/gwtc3_mass_clumping_null_models.py`, `src/scripts/analysis/gwtc3_mass_clumping_bootstrap.py`, `src/scripts/analysis/gwtc3_mass_clumping_decision_rule_summary.py`, `src/scripts/analysis/gwtc3_selection_weight_sweep.py`, `crates/stats_core/src/claims_gates.rs`, `src/scripts/data/convert_gwtc3_injections_hdf.py`, `src/scripts/analysis/gwtc3_selection_function_from_injections.py`, `src/scripts/analysis/gwtc3_modality_preregistered.py`, `src/scripts/analysis/gwtc3_bayesian_mixture.py`, `data/external/gwtc3_injection_summary.csv`, `data/external/gwtc3_injection_summary_7890398.csv`, `data/csv/gwtc3_selection_function_binned.csv`, `data/csv/gwtc3_selection_function_binned_7890398.csv`, `data/csv/gwtc3_selection_function_binned_combined.csv`, `data/csv/gwtc3_selection_function_binned_combined_altbins.csv`, `data/csv/gwtc3_mass_clumping_metrics.csv`, `data/csv/gwtc3_mass_clumping_null_models.csv`, `data/csv/gwtc3_mass_clumping_bootstrap_counts.csv`, `data/csv/gwtc3_mass_clumping_bootstrap_summary.csv`, `data/csv/gwtc3_mass_clumping_decision_rule_summary.csv`, `data/csv/gwtc3_selection_bias_control_metrics.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o123.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o3a_altbins.csv`, `data/csv/gwtc3_selection_bias_control_metrics_o123_altbins.csv`, `data/csv/gwtc3_selection_weight_sweep.csv`, `data/csv/gwtc3_selection_weight_sweep_o123.csv`, `data/csv/gwtc3_selection_weight_sweep_o3a_altbins.csv`, `data/csv/gwtc3_selection_weight_sweep_o123_altbins.csv`, `data/csv/gwtc3_bayesian_mixture_results.csv`, `docs/preregistered/GWTC3_MODALITY_TEST.md`, `docs/preregistered/GWTC3_BAYESIAN_MIXTURE.md`
 //! - What would verify/refute it:
 //!
 //! ## C-008
@@ -69,7 +69,7 @@
 //! - Status: `Closed/Toy`
 //! - Last verified: 2026-02-05
 //! - Statement: Toy operator mapping: `alpha = -1.5` yields `abs(d_s)=2` under Convention B; physical interpretation remains speculative.
-//! - Where stated: `src/scripts/analysis/neg_dim_pde.py`, `docs/archive/RESEARCH_STATUS.md`, `docs/NEGATIVE_DIMENSION_CLARIFICATIONS.md`, `docs/external_sources/NEGATIVE_DIMENSION_SOURCES.md`, `docs/theory/PARISI_SOURLAS_ALPHA_DERIVATION.md`, `src/scripts/analysis/parisi_sourlas_spectral_dimension.py`, `tests/test_parisi_sourlas_connection.py`, `data/csv/parisi_sourlas_spectral_dimension.csv`
+//! - Where stated: `src/scripts/analysis/neg_dim_pde.py`, `docs/archive/RESEARCH_STATUS.md`, `docs/NEGATIVE_DIMENSION_CLARIFICATIONS.md`, `docs/theory/PARISI_SOURLAS_ALPHA_DERIVATION.md`, `src/scripts/analysis/parisi_sourlas_spectral_dimension.py`, `tests/test_parisi_sourlas_connection.py`, `data/csv/parisi_sourlas_spectral_dimension.csv`
 //! - What would verify/refute it:
 //!
 //! ## C-009
@@ -77,7 +77,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-02-06
 //! - Statement: Tensor-network experiment exhibits entropy scaling `S ~ log(L) + L^{0.5}`.
-//! - Where stated: `docs/archive/RESEARCH_STATUS_FINAL.md`, `docs/external_sources/TENSOR_NETWORK_SOURCES.md`, `data/csv/tensor_entropy_scaling_fit.csv`, `docs/preregistered/TENSOR_ENTROPY_SCALING.md`
+//! - Where stated: `docs/archive/RESEARCH_STATUS_FINAL.md`, `crates/quantum_core/src/holographic_entropy.rs`, `data/csv/tensor_entropy_scaling_fit.csv`, `docs/preregistered/TENSOR_ENTROPY_SCALING.md`
 //! - What would verify/refute it:
 //!
 //! ## C-010
@@ -85,7 +85,7 @@
 //! - Status: `Closed/Negative-Result`
 //! - Last verified: 2026-03-12
 //! - Statement: Falsifiable thesis: a metamaterial whose unit-cell couplings follow the sedenion zero-divisor incidence graph could realize a mode-selective holographic entropy sink; the disconnected 7-clique ZD topology implies local connected absorbers are insufficient without explicit non-local coupling.
-//! - Where stated: `docs/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS.md`, `docs/external_sources/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS_SOURCES.md`, `crates/materials_core/src/nonlocal_metamaterial.rs`, `crates/gororoba_cli_physics/src/bin/nonlocal_algebraic_metamaterial.rs`, `crates/algebra_analysis/src/boxkites.rs`, `crates/algebra_analysis/src/reggiani.rs`, `crates/algebra_analysis/src/crystal_bands.rs`, `crates/algebra_analysis/src/homotopy_algebra.rs`, `crates/optics_core/src/absorber_benchmark.rs`, `crates/quantum_core/src/magnonic_crystal.rs`, `crates/quantum_core/src/tight_binding.rs`, `crates/cosmology_core/src/sersic.rs`, `data/csv/c010_nonlocal_material_calibrations.csv`, `data/csv/sedenion_box_kites_clustered.csv`, `registry/data/project_csv/canonical/PC-0051_sedenion_box_kites_clustered.toml`, `crates/gororoba_cli_physics/src/bin/entropy_trap.rs`, `crates/gororoba_cli_data/src/bin/repo_utilities.rs`, `crates/gororoba_cli_data/src/bin/repo_utilities.rs`, `papers/MANIFEST.toml`
+//! - Where stated: `docs/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS.md`, `docs/external_sources/C010_NONLOCAL_ALGEBRAIC_METAMATERIALS_SOURCES.md`, `crates/materials_core/src/nonlocal_metamaterial.rs`, `crates/gororoba_cli_physics/src/bin/nonlocal_algebraic_metamaterial.rs`, `crates/algebra_analysis/src/boxkites.rs`, `crates/algebra_analysis/src/reggiani.rs`, `crates/algebra_analysis/src/crystal_bands.rs`, `crates/algebra_analysis/src/homotopy_algebra.rs`, `crates/optics_core/src/absorber_benchmark.rs`, `crates/quantum_core/src/magnonic_crystal.rs`, `crates/quantum_core/src/tight_binding.rs`, `crates/cosmology_core/src/sersic.rs`, `data/csv/c010_nonlocal_material_calibrations.csv`, `data/csv/sedenion_box_kites_clustered.csv`, `registry/data/project_csv/canonical/PC-0051_sedenion_box_kites_clustered.toml`, `crates/gororoba_cli_physics/src/bin/entropy_trap.rs`, `crates/gororoba_cli/src/thesis_42_support.rs`, `papers/MANIFEST.toml`
 //! - What would verify/refute it:
 //!
 //! ## C-011
@@ -93,7 +93,7 @@
 //! - Status: `Closed/Obstructed`
 //! - Last verified: 2026-02-10
 //! - Statement: Falsifiable thesis: in the repo's cosmology-materials synthesis, a gravastar-like anti-diffusion core pressure can be phenomenologically matched to a sedenion non-associative coherence-failure term from a scalar field at D_eff = -1.5; interpreted literally, black-hole candidates become sedenion solitons.
-//! - Where stated: `docs/SEDENION_GRAVASTAR_EQUIVALENCE.md`, `docs/NEGATIVE_DIMENSION_CLARIFICATIONS.md`, `docs/GRAND_SYNTHESIS.md`, `docs/BIBLIOGRAPHY.md`, `refs.bib`, `crates/cosmology_core/src/tov.rs`, `crates/cosmology_core/src/gravastar.rs`, `crates/gororoba_cli_physics/src/bin/gravastar_sweep.rs`, `crates/gororoba_cli/tests/integration_gravastar.rs`, `data/csv/genesis_gravastar_bridge.csv`, `registry/data/project_csv/canonical/PC-0034_genesis_gravastar_bridge.toml`, `data/csv/gravastar_anisotropic_stability.csv`, `data/csv/gravastar_ligo_mass_sweep.csv`, `data/csv/gravastar_polytropic_sweep.csv`, `data/csv/gravastar_radial_stability.csv`, `crates/gororoba_cli/tests/integration_gravastar.rs`, `crates/gororoba_cli_data/src/bin/repo_utilities.rs`, `crates/gororoba_cli_data/src/bin/repo_utilities.rs`
+//! - Where stated: `docs/SEDENION_GRAVASTAR_EQUIVALENCE.md`, `docs/NEGATIVE_DIMENSION_CLARIFICATIONS.md`, `docs/GRAND_SYNTHESIS.md`, `docs/BIBLIOGRAPHY.md`, `refs.bib`, `crates/cosmology_core/src/tov.rs`, `crates/cosmology_core/src/gravastar.rs`, `crates/gororoba_cli_physics/src/bin/gravastar_sweep.rs`, `crates/gororoba_cli/tests/integration_gravastar.rs`, `data/csv/genesis_gravastar_bridge.csv`, `registry/data/project_csv/canonical/PC-0034_genesis_gravastar_bridge.toml`, `data/csv/gravastar_anisotropic_stability.csv`, `data/csv/gravastar_ligo_mass_sweep.csv`, `data/csv/gravastar_polytropic_sweep.csv`, `data/csv/gravastar_radial_stability.csv`, `crates/gororoba_cli/tests/integration_gravastar.rs`, `crates/cosmology_core/src/bypass_models.rs`, `crates/gororoba_cli_physics/src/bin/gravastar-bypass-compare.rs`
 //! - What would verify/refute it:
 //!
 //! ## C-012
@@ -101,7 +101,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-01-30
 //! - Statement: "Dark Energy as Negative Dimension Diffusion" is a defensible physical interpretation (not just a metaphor).
-//! - Where stated: `docs/NAVIGATOR.md`, `docs/PHYSICAL_INTERPRETATION.md`, `docs/external_sources/NEGATIVE_DIMENSION_SOURCES.md`, `docs/external_sources/HZ_DATASETS_SOURCES.md`, `docs/external_sources/COSMOLOGY_MULTIPROBE_SOURCES.md`, `docs/external_sources/ADDITIONAL_COSMOLOGICAL_DATASETS.md`, `docs/NEGATIVE_DIMENSION_DARK_ENERGY_MODEL.md`, `docs/NEG_DIM_MULTIPROBE_EXPERIMENT.md`, `crates/spectral_core/src/neg_dim.rs`, `crates/spectral_core/src/neg_dim.rs`, `src/scripts/analysis/neg_dim_model_comparison.py`, `src/scripts/analysis/neg_dim_free_eta_comparison.py`, `src/scripts/data/fix_bao_observables.py`, `tests/test_neg_dim_dark_energy.py`, `tests/test_neg_dim_multidata.py`, `tests/test_neg_dim_free_eta_comparison.py`, `data/csv/neg_dim_model_comparison_results.csv`, `data/csv/neg_dim_free_eta_comparison_results.csv`, `docs/preregistered/NEG_DIM_MODEL_COMPARISON.md`, `docs/preregistered/NEG_DIM_FREE_ETA_AMENDMENT.md`
+//! - Where stated: `docs/NAVIGATOR.md`, `docs/PHYSICAL_INTERPRETATION.md`, `docs/NEGATIVE_DIMENSION_DARK_ENERGY_MODEL.md`, `docs/NEG_DIM_MULTIPROBE_EXPERIMENT.md`, `crates/spectral_core/src/neg_dim.rs`, `crates/spectral_core/src/neg_dim.rs`, `src/scripts/analysis/neg_dim_model_comparison.py`, `src/scripts/analysis/neg_dim_free_eta_comparison.py`, `src/scripts/data/fix_bao_observables.py`, `tests/test_neg_dim_dark_energy.py`, `tests/test_neg_dim_multidata.py`, `tests/test_neg_dim_free_eta_comparison.py`, `data/csv/neg_dim_model_comparison_results.csv`, `data/csv/neg_dim_free_eta_comparison_results.csv`, `docs/preregistered/NEG_DIM_MODEL_COMPARISON.md`, `docs/preregistered/NEG_DIM_FREE_ETA_AMENDMENT.md`
 //! - What would verify/refute it:
 //!
 //! ## C-013
@@ -157,7 +157,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-01-30
 //! - Statement: Wheels (division-by-zero) provide a mathematically justified way to interpret some Cayley-Dickson zero-divisor phenomena at higher dimensions.
-//! - Where stated: convos narrative, `docs/external_sources/WHEELS_CAYLEY_DICKSON_SOURCES.md`, `CURRENT::PATH crates/gororoba_algebra/src/construction/wheels.rs (LEGACY::PATH crates/algebra_core/src/construction/wheels.rs)`, `data/csv/cd_wheel_roundtrip_results.csv`, `docs/theory/WHEELS_CD_STRUCTURAL_ANALYSIS.md`
+//! - Where stated: convos narrative, `registry/bibliography.toml` (BIB-0065, BIB-0066), `CURRENT::PATH crates/gororoba_algebra/src/construction/wheels.rs (LEGACY::PATH crates/algebra_core/src/construction/wheels.rs)`, `data/csv/cd_wheel_roundtrip_results.csv`, `docs/theory/WHEELS_CD_STRUCTURAL_ANALYSIS.md`
 //! - What would verify/refute it:
 //!
 //! ## C-020
@@ -213,7 +213,7 @@
 //! - Status: `Closed/Research-Program`
 //! - Last verified: 2026-02-06
 //! - Statement: Speculative program: if a statistically significant "lower mass gap" (~2.5-5 M_sun) is established, it may correspond to an "algebraic tension" region between stable zero-divisor nodes in the sedenion box-kite structure.
-//! - Where stated: `docs/stellar_cartography/theory/HYPOTHESIS_DEF.md`, `docs/C026_MASS_GAP_MECHANISM.md`, `docs/external_sources/C026_MASS_GAP_SOURCES.md`, `src/scripts/analysis/gwtc3_lower_mass_gap_metrics.py`, `data/csv/gwtc3_lower_mass_gap_metrics.csv`
+//! - Where stated: `docs/stellar_cartography/theory/HYPOTHESIS_DEF.md`, `docs/C026_MASS_GAP_MECHANISM.md`, `src/scripts/analysis/gwtc3_lower_mass_gap_metrics.py`, `data/csv/gwtc3_lower_mass_gap_metrics.csv`
 //! - What would verify/refute it:
 //!
 //! ## C-027
@@ -221,7 +221,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-03
 //! - Statement: Toy model: define D_eff(rho) = 3 - k*log10(rho/rho_vac). With rho_h(M) = M/((4/3)*pi*r_s^3) at r_s = 2GM/c^2 (average density inside Schwarzschild radius), D_eff(rho_h(M)) crosses 0 at a critical mass M_crit (horizon "phase transition" proxy).
-//! - Where stated: `docs/stellar_cartography/theory/ONTOLOGICAL_AXIOMS.md`, `crates/algebra_analysis/src/grassmannian.rs`, `crates/stats_core/src/claims_gates.rs`, `docs/C027_DEFF_HORIZON_TEST.md`, `src/scripts/analysis/deff_horizon_mass_scaling.py`, `data/csv/deff_horizon_mass_scaling_summary.csv`, `tests/test_c027_deff_horizon_mass_scaling.py`, `docs/external_sources/C027_EFFECTIVE_DIMENSION_SOURCES.md`
+//! - Where stated: `docs/stellar_cartography/theory/ONTOLOGICAL_AXIOMS.md`, `crates/algebra_analysis/src/grassmannian.rs`, `crates/stats_core/src/claims_gates.rs`, `docs/C027_DEFF_HORIZON_TEST.md`, `src/scripts/analysis/deff_horizon_mass_scaling.py`, `data/csv/deff_horizon_mass_scaling_summary.csv`, `tests/test_c027_deff_horizon_mass_scaling.py`, `proofs/verified/C027_DeffHorizonToy.v`
 //! - What would verify/refute it:
 //!
 //! ## C-028
@@ -245,7 +245,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-03
 //! - Statement: Any sedenion-valued action/Lagrangian with products of 3+ fields must specify a bypass mechanism (explicit parenthesization, associative surrogate product, or restriction to associative subalgebras) to be uniquely defined; otherwise parenthesizations differ by the associator A(a,b,c)=(ab)c-a(bc).
-//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `docs/external_sources/C030_SEDENION_LAGRANGIAN_SOURCES.md`, `docs/C030_SEDENION_LAGRANGIAN_BYPASS.md`, `src/scripts/analysis/c030_sedenion_lagrangian_bypass_checks.py`, `data/csv/c030_sedenion_lagrangian_bypass_checks.csv`, `tests/test_c030_sedenion_lagrangian_bypass_checks.py`, `docs/SEDENION_FIELD_THEORY.md`
+//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `crates/gororoba_algebra/src/physics/octonion_field.rs`, `crates/gororoba_algebra/src/physics/sedenion_field.rs`, `docs/C030_SEDENION_LAGRANGIAN_BYPASS.md`, `src/scripts/analysis/c030_sedenion_lagrangian_bypass_checks.py`, `data/csv/c030_sedenion_lagrangian_bypass_checks.csv`, `tests/test_c030_sedenion_lagrangian_bypass_checks.py`, `docs/SEDENION_FIELD_THEORY.md`
 //! - What would verify/refute it:
 //!
 //! ## C-031
@@ -253,7 +253,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-03
 //! - Statement: By Hurwitz theorem, only dims 1/2/4/8 admit normed division algebras (R,C,H,O). In the CD tower at dim=16 (sedenions), norm composition fails and zero divisors exist; therefore any sedenion-valued field theory must specify an associative representation (or restrict to associative subalgebras) to define a unique action and a compatible Hilbert-space structure.
-//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `docs/external_sources/C031_HURWITZ_QUANTIZATION_SOURCES.md`, `src/scripts/analysis/c031_hurwitz_norm_composition_checks.py`, `data/csv/c031_hurwitz_norm_composition_checks.csv`, `tests/test_c031_hurwitz_norm_composition_checks.py`, `docs/C030_SEDENION_LAGRANGIAN_BYPASS.md`, `docs/SEDENION_FIELD_THEORY.md`
+//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `crates/hurwitz_1898/src/composition.rs`, `src/scripts/analysis/c031_hurwitz_norm_composition_checks.py`, `data/csv/c031_hurwitz_norm_composition_checks.csv`, `tests/test_c031_hurwitz_norm_composition_checks.py`, `docs/C030_SEDENION_LAGRANGIAN_BYPASS.md`, `docs/SEDENION_FIELD_THEORY.md`
 //! - What would verify/refute it:
 //!
 //! ## C-032
@@ -261,7 +261,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-04
 //! - Statement: Tang (2025 preprint): non-associative (octonionic/sedenionic) QED uses associator norms to predict charged-lepton masses/ratios at percent level without a Higgs mechanism.
-//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `docs/external_sources/C032_TANG_2025_SEDENIONIC_QED_SOURCES.md`, `docs/BIBLIOGRAPHY.md` (Tang 2025), `docs/SEDENION_FIELD_THEORY.md`, `src/scripts/analysis/c032_tang_2025_min_reproduction.py`, `data/csv/c032_tang_2025_table2_lepton_masses.csv`, `data/csv/c032_tang_2025_associator_subalgebra_summary.csv`, `data/csv/c032_tang_2025_associator_basis_triples.csv`, `tests/test_c032_tang_2025_min_reproduction.py`
+//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `crates/materials_core/src/tang_mass.rs`, `docs/BIBLIOGRAPHY.md` (Tang 2025), `docs/SEDENION_FIELD_THEORY.md`, `src/scripts/analysis/c032_tang_2025_min_reproduction.py`, `data/csv/c032_tang_2025_table2_lepton_masses.csv`, `data/csv/c032_tang_2025_associator_subalgebra_summary.csv`, `data/csv/c032_tang_2025_associator_basis_triples.csv`, `tests/test_c032_tang_2025_min_reproduction.py`
 //! - What would verify/refute it:
 //!
 //! ## C-033
@@ -269,7 +269,7 @@
 //! - Status: `Closed/Source-Insufficient`
 //! - Last verified: 2026-02-18
 //! - Statement: Sedenion basis maps to 24 generators of SU(5) (Tang & Tang 2023).
-//! - Where stated: `data/papers/corpus/arxiv_2308.14768_tang_tang_2023_sedenion_su5_generations.pdf`, `data/papers/corpus/arxiv_2308.14768_tang_tang_2023_sedenion_su5_generations.txt`, `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `docs/external_sources/SEDENION_FIELD_THEORY_SOURCES.md`, `docs/BIBLIOGRAPHY.md` (Tang & Tang 2023), `docs/SEDENION_FIELD_THEORY.md`, `docs/C033_SU5_MAPPING_CLOSURE.md`, `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `src/scripts/analysis/c033_su5_generator_summary.py`, `data/csv/c033_su5_generator_summary.csv`, `tests/test_su5_generators.py` (29 tests)
+//! - Where stated: `data/papers/corpus/arxiv_2308.14768_tang_tang_2023_sedenion_su5_generations.pdf`, `data/papers/corpus/arxiv_2308.14768_tang_tang_2023_sedenion_su5_generations.txt`, `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `crates/algebra_experimental/src/su_n_generators.rs`, `registry/bibliography.toml` (BIB-0142), `docs/BIBLIOGRAPHY.md` (Tang & Tang 2023), `docs/SEDENION_FIELD_THEORY.md`, `docs/C033_SU5_MAPPING_CLOSURE.md`, `CURRENT::PATH crates/gororoba_algebra/src/lie/group_theory.rs (LEGACY::PATH crates/algebra_core/src/lie/group_theory.rs)`, `src/scripts/analysis/c033_su5_generator_summary.py`, `data/csv/c033_su5_generator_summary.csv`, `tests/test_su5_generators.py` (29 tests)
 //! - What would verify/refute it:
 //!
 //! ## C-034
@@ -277,7 +277,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-04
 //! - Statement: Chanyal (2014): a "sedenion unified theory of gravi-electromagnetism" expresses unified potentials/fields/currents of dyons and "gravito-dyons" using two 8D sectors (two eight-potentials), yielding compact generalized Dirac-Maxwell and related equations (abstract-level in repo).
-//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `docs/external_sources/C034_CHANYAL_2014_GRAVI_ELECTROMAGNETISM_SOURCES.md`, `docs/BIBLIOGRAPHY.md` (Chanyal 2014), `docs/SEDENION_FIELD_THEORY.md`, `docs/C034_CHANYAL_2014_REPRODUCTION.md`, `src/scripts/analysis/c034_chanyal_2014_structural_reproduction.py`, `data/csv/c034_sedenion_doubling_identity_check.csv`, `tests/test_c034_sedenion_doubling_identity.py`, `data/papers/intake/traces/chanyal_2014_springer_abstract.txt`
+//! - Where stated: `docs/convos/pdf_extract_3f6ee1e837d1_sedenion_valued_field_theories_action_principles_and_challenges.md`, `proofs/verified/C034_CDDoublingIdentity.v`, `docs/BIBLIOGRAPHY.md` (Chanyal 2014), `docs/SEDENION_FIELD_THEORY.md`, `docs/C034_CHANYAL_2014_REPRODUCTION.md`, `src/scripts/analysis/c034_chanyal_2014_structural_reproduction.py`, `data/csv/c034_sedenion_doubling_identity_check.csv`, `tests/test_c034_sedenion_doubling_identity.py`, `data/papers/intake/traces/chanyal_2014_springer_abstract.txt`
 //! - What would verify/refute it:
 //!
 //! ## C-035
@@ -349,7 +349,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-04
 //! - Statement: "Compact Object" populations (Pulsars, Magnetars, FRBs) can be integrated into the unified framework for multi-messenger testing.
-//! - Where stated: `docs/ROADMAP_DETAILED.md`, `docs/external_sources/C043_COMPACT_OBJECT_CATALOG_SOURCES.md`, `src/scripts/data/fetch_chime_frb.py`, `src/scripts/data/fetch_atnf_pulsars_full.py`, `src/scripts/data/fetch_mcgill_magnetars.py`, `src/scripts/data/fetch_compact_objects.py`, `data/csv/compact_objects_catalog.csv`, `data/csv/compact_objects_catalog.PROVENANCE.json`, `tests/test_c043_compact_objects_catalog_artifact.py`
+//! - Where stated: `docs/ROADMAP_DETAILED.md`, `docs/external_sources/OPEN_CLAIMS_SOURCES.md` (XS-016), `crates/data_core/src/lib.rs`, `src/scripts/data/fetch_chime_frb.py`, `src/scripts/data/fetch_atnf_pulsars_full.py`, `src/scripts/data/fetch_mcgill_magnetars.py`, `src/scripts/data/fetch_compact_objects.py`, `data/csv/compact_objects_catalog.csv`, `data/csv/compact_objects_catalog.PROVENANCE.json`, `tests/test_c043_compact_objects_catalog_artifact.py`
 //! - What would verify/refute it:
 //!
 //! ## C-044
@@ -381,7 +381,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-02-04
 //! - Statement: E9, E10, E11 are Euclidean sphere-packing lattices.
-//! - Where stated: `archive/legacy_conjectures/`, `docs/C047_E_SERIES_KAC_MOODY_AUDIT.md`, `docs/external_sources/C047_E_SERIES_KAC_MOODY_SOURCES.md`, `tests/test_c047_e_series_cartan_signature.py`
+//! - Where stated: `archive/legacy_conjectures/`, `docs/C047_E_SERIES_KAC_MOODY_AUDIT.md`, `crates/gororoba_algebra/src/lie/kac_moody/e_series.rs`, `registry/bibliography.toml` (BIB-0113, BIB-0131), `tests/test_c047_e_series_cartan_signature.py`
 //! - What would verify/refute it:
 //!
 //! ## C-048
@@ -389,7 +389,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-04
 //! - Statement: Analogy: "depth stratification" is used as a terminology/structure analogy to motivic tower stratification (no physical equivalence claimed).
-//! - Where stated: `docs/theory/OPERATOR_DEPTH_STRATIFICATION.md`, `docs/external_sources/C048_MOTIVIC_TOWER_SOURCES.md`
+//! - Where stated: `docs/theory/OPERATOR_DEPTH_STRATIFICATION.md`
 //! - What would verify/refute it:
 //!
 //! ## C-049
@@ -549,7 +549,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-02-03
 //! - Statement: Sedenion 84-ZD interaction matrix eigenvalue spectrum matches PDG particle masses.
-//! - Where stated: `src/scripts/analysis/c068_zd_interaction_spectrum_degeneracy.py`, `data/csv/c068_zd_interaction_eigen_summary.csv`, `tests/test_c068_zd_interaction_spectrum_degeneracy.py`, `docs/external_sources/C068_PDG_SPECTRUM_MATCH_SOURCES.md`, inputs: `data/csv/reggiani_standard_zero_divisors.csv`
+//! - Where stated: `src/scripts/analysis/c068_zd_interaction_spectrum_degeneracy.py`, `data/csv/c068_zd_interaction_eigen_summary.csv`, `tests/test_c068_zd_interaction_spectrum_degeneracy.py`, `crates/gororoba_cli_data/src/bin/cd_pattern_baseline_audit.rs`, `crates/gororoba_cli_data/src/bin/pdg_nanograv_surface_audit.rs`, inputs: `data/csv/reggiani_standard_zero_divisors.csv`
 //! - What would verify/refute it:
 //!
 //! ## C-069
@@ -565,7 +565,7 @@
 //! - Status: `Closed/Methodology-Insufficient`
 //! - Last verified: 2026-02-06
 //! - Statement: CD associator power spectrum shape matches NANOGrav GW background.
-//! - Where stated: `docs/external_sources/C070_NANOGRAV_SPECTRUM_MATCH_SOURCES.md`, `src/scripts/analysis/c070_nanograv_shape_match_audit.py`, `data/csv/c070_nanograv_shape_match_summary.csv`, `tests/test_c070_nanograv_shape_match_audit.py`
+//! - Where stated: `crates/gororoba_cli_data/src/bin/cd_pattern_baseline_audit.rs`, `crates/gororoba_cli_data/src/bin/pdg_nanograv_surface_audit.rs`, `src/scripts/analysis/c070_nanograv_shape_match_audit.py`, `data/csv/c070_nanograv_shape_match_summary.csv`, `tests/test_c070_nanograv_shape_match_audit.py`
 //! - What would verify/refute it:
 //!
 //! ## C-071
@@ -597,7 +597,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: **CD associator growth law: <|A(a,b,c)|^2> = 2.00 * (1 - 14.6 * d^{-1.80}) for unit vectors.**
-//! - Where stated: `crates/stats_core/src/lib.rs` (test_c074_integration_with_real_associator_data), `data/csv/c074_associator_growth_empirical.csv`, `docs/external_sources/C074_ASSOCIATOR_GROWTH_LAW_SOURCES.md`
+//! - Where stated: `crates/stats_core/src/lib.rs` (test_c074_integration_with_real_associator_data), `data/csv/c074_associator_growth_empirical.csv`, `crates/quantum_core/examples/manifold_associator_baire.rs`
 //! - What would verify/refute it:
 //!
 //! ## C-075
@@ -3205,7 +3205,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-02
 //! - Statement: Metamaterials can emulate Alcubierre warp drive metrics for electromagnetic waves (Analog Gravity).
-//! - Where stated: `docs/external_sources/MULTIVERSE_METAMATERIALS_REPORT.md`, `docs/external_sources/WARP_DRIVE_SOURCES.md`, `data/papers/corpus/arxiv_1009.5663_smolyaninov_2010_metamaterial_based_model_alcubierre_warp_drive.pdf`
+//! - Where stated: `data/papers/corpus/arxiv_1009.5663_smolyaninov_2010_metamaterial_based_model_alcubierre_warp_drive.pdf`
 //! - What would verify/refute it:
 //!
 //! ## C-401
@@ -3213,7 +3213,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-02-02
 //! - Statement: A Casimir cavity (1um sphere in 4um cylinder) generates the negative energy density required for a nanoscale warp bubble.
-//! - Where stated: `docs/external_sources/MULTIVERSE_METAMATERIALS_REPORT.md`, `docs/external_sources/WARP_DRIVE_SOURCES.md`, `data/papers/corpus/White_2021_Casimir_Warp.pdf`
+//! - Where stated: `crates/casimir_core/src/energy.rs` (casimir_parallel_plates_exact), `data/papers/corpus/White_2021_Casimir_Warp.pdf`
 //! - What would verify/refute it:
 //!
 //! ## C-402
@@ -3221,7 +3221,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-02-02
 //! - Statement: Metamaterial Gravitational Coupling can reduce warp drive energy requirements to achievable levels.
-//! - Where stated: `docs/external_sources/MULTIVERSE_METAMATERIALS_REPORT.md`, `docs/external_sources/WARP_DRIVE_SOURCES.md`, `data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`
+//! - Where stated: `data/papers/corpus/Rodal_2025_Metamaterial_Gravity.pdf`
 //! - What would verify/refute it:
 //!
 //! ## C-403
@@ -3229,7 +3229,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Geometry from spectral data must be stated at spectral-triple strength (A,H,D_geom) or equivalent; eigenvalues alone are not sufficient in general due to isospectral non-uniqueness.
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/SPECTRAL_TRIPLE_SCOPE.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `docs/external_sources/C403_SPECTRAL_TRIPLE_RECONSTRUCTION_SOURCES.md`, `src/spectral/demo_pairs.py`, `tests/test_isospectral_nonisomorphic_pair.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/SPECTRAL_TRIPLE_SCOPE.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `registry/bibliography.toml` (BIB-0338), `docs/physics/sedenion_standard_model.md`, `src/spectral/demo_pairs.py`, `tests/test_isospectral_nonisomorphic_pair.py`
 //! - What would verify/refute it:
 //!
 //! ## C-404
@@ -3237,7 +3237,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Bulk locality can be organized by boundary modular data K_A=-log rho_A and entanglement wedge reconstruction; robustness is naturally described by operator-algebra QEC (code subspace).
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `docs/external_sources/C404_HOLOGRAPHIC_MODULAR_LOCALITY_SOURCES.md`, `docs/external_sources/EMERGENCE_LAYERS_SOURCES.md`, `docs/external_sources/EMERGENCE_LAYERS_SUMMARIES.md`, `src/holography/maxflow.py`, `tests/test_holography_bit_threads.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `src/holography/maxflow.py`, `tests/test_holography_bit_threads.py`
 //! - What would verify/refute it:
 //!
 //! ## C-405
@@ -3245,7 +3245,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Observers can be modeled as (approximate) correctable record algebras selected by open-system dynamics L_open (GKSL/Lindblad); redundancy in the environment yields classical records (pointer observables) resembling repetition-code robustness.
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `docs/external_sources/C405_OPEN_SYSTEMS_RECORD_ALGEBRA_SOURCES.md`, `docs/external_sources/EMERGENCE_LAYERS_SOURCES.md`, `docs/external_sources/EMERGENCE_LAYERS_SUMMARIES.md`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/theory/EMERGENCE_LAYERS_AXIOMS.md`, `src/quantum/open_systems/lindblad.py`, `tests/test_open_systems_lindblad.py`, `src/quantum/open_systems/redundancy.py`, `tests/test_open_systems_redundancy.py`
 //! - What would verify/refute it:
 //!
 //! ## C-406
@@ -3253,7 +3253,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: TSCP/box-kite sky mapping must be invariant under the relevant algebraic symmetries (or else explicitly enumerate tested embeddings) to avoid "picked the embedding that worked".
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/external_sources/TSCP_METHOD_SOURCES.md`, `docs/preregistered/TSCP_SKY_ALIGNMENT.md`, `crates/algebra_analysis/src/boxkites.rs`, `tests/test_tscp_alignment_offline.py`, `tests/test_tscp_embedding_sweep.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/preregistered/TSCP_SKY_ALIGNMENT.md`, `crates/algebra_analysis/src/boxkites.rs`, `tests/test_tscp_alignment_offline.py`, `tests/test_tscp_embedding_sweep.py`
 //! - What would verify/refute it:
 //!
 //! ## C-407
@@ -3261,7 +3261,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Reported sky-alignment p-values must include explicit trial-factor accounting (look-elsewhere) across tuned degrees of freedom (e.g., box-kite choice, smoothing scale, catalog cuts).
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/external_sources/TSCP_METHOD_SOURCES.md`, `docs/preregistered/TSCP_SKY_ALIGNMENT.md`, `reports/tscp_trial_factor_ledger.md`, `tests/test_tscp_alignment_offline.py`, `tests/test_tscp_embedding_sweep.py`, `src/verification/verify_tscp_prereg_trial_factors.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/preregistered/TSCP_SKY_ALIGNMENT.md`, `reports/tscp_trial_factor_ledger.md`, `tests/test_tscp_alignment_offline.py`, `tests/test_tscp_embedding_sweep.py`, `src/verification/verify_tscp_prereg_trial_factors.py`
 //! - What would verify/refute it:
 //!
 //! ## C-408
@@ -3269,7 +3269,7 @@
 //! - Status: `Verified`
 //! - Last verified: 2026-02-06
 //! - Statement: Every thesis-level hypothesis must have symmetric falsification boundaries: a disconfirmation threshold (N_min, alpha/effect-size) under which the hypothesis is rejected, not merely "needs more data".
-//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/external_sources/TSCP_METHOD_SOURCES.md`, `docs/preregistered/`, `src/verification/verify_preregistered_falsification_boundaries.py`
+//! - Where stated: `docs/convos/CONVOS_CLAIMS_INBOX.md`, `docs/preregistered/README.md`, `docs/preregistered/`, `src/verification/verify_preregistered_falsification_boundaries.py`
 //! - What would verify/refute it:
 //!
 //! ## C-409
@@ -11301,7 +11301,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: WHT rotation 3.2x faster than Haar at d=128: FastJL (D1*WHT*D2) achieves 77 kvec/s vs Haar 25 kvec/s = 3.08x speedup, with 0.5% lower MSE (1.444 vs 1.451 at 3-bit).
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/rotation.rs` (Rotation::FastJL), `crates/gororoba_cli_physics/src/bin/turboquant/bench.rs`, `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1598
@@ -11309,7 +11309,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: BitPackedSigns 8x memory reduction for QJL.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/sign_pack.rs` (test_inner_product_matches_naive), `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1599
@@ -11317,7 +11317,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: SIMD codebook 2.4x faster than scalar at d=128.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/simd_codebook.rs`, `crates/gororoba_cli_physics/src/bin/turboquant/simd_bench.rs`, `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1600
@@ -11325,7 +11325,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: Adaptive bit allocation via CD associator: 23% MSE improvement.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/adaptive_bits.rs` (test_adaptive_vs_uniform), `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1601
@@ -11333,7 +11333,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: E8 rotation KS validated (p=0.816).
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/e8_validation.rs` (test_e8_vs_haar_decorrelation), `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1602
@@ -11341,7 +11341,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: TurboQuant dominates KIVI 4x at 2-bit.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/baselines/kivi.rs`, `crates/gororoba_cli_physics/src/bin/turboquant/comparison.rs`, `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1603
@@ -11349,7 +11349,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: QJL correction helps at 2-bit, hurts at 4-bit.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/qjl.rs`, `crates/gororoba_cli_physics/src/bin/turboquant/validate.rs`, `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1604
@@ -11357,7 +11357,7 @@
 //! - Status: `Refuted`
 //! - Last verified: 2026-04-13
 //! - Statement: Hierarchical CD tower quantization: negative result.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/hierarchical.rs` (compare_hierarchical_vs_uniform), `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1605
@@ -11365,7 +11365,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: E8 rotation roundtrip error < 1e-8.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/rotation.rs` (test_e8_rotation_roundtrip), `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1606
@@ -11373,7 +11373,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: 240 E8 roots verified.
-//! - Where stated: TurboQuant CD bridge (2026-03-28)
+//! - Where stated: TurboQuant CD bridge (2026-03-28), `crates/cd_kernel/src/turboquant/e8_rotation.rs`, `docs/reports/turboquant_claims_2026-03-28.md`
 //! - What would verify/refute it:
 //!
 //! ## C-1607
@@ -11381,7 +11381,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: F4 rotation 18% better MSE at d=64.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/f4_rotation.rs` (test_f4_as_pipeline_rotation)
 //! - What would verify/refute it:
 //!
 //! ## C-1608
@@ -11389,7 +11389,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: E8+WHT = E8 = WHT quality.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/rotation.rs` (Rotation::new_e8_wht), `crates/gororoba_cli_physics/src/bin/turboquant/sweep.rs`
 //! - What would verify/refute it:
 //!
 //! ## C-1609
@@ -11397,7 +11397,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: Q16.16 codebook quality = f32 to 6 sig figs.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/fixed_codebook.rs` (test_codebook_precision_comparison)
 //! - What would verify/refute it:
 //!
 //! ## C-1610
@@ -11405,7 +11405,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: Hybrid 38-60% better at 3-4 bit.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/hybrid.rs` (test_hybrid_vs_turbo_vs_group)
 //! - What would verify/refute it:
 //!
 //! ## C-1611
@@ -11413,7 +11413,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: Cross-layer SLERP 1.94x compression at d=128.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/cross_layer.rs` (test_compression_ratio)
 //! - What would verify/refute it:
 //!
 //! ## C-1612
@@ -11421,15 +11421,15 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: SmallVec inline CD at d=16: zero heap.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/inline_cd.rs` (test_inline_multiply_sedenion)
 //! - What would verify/refute it:
 //!
 //! ## C-1613
 //!
-//! - Status: `Established`
+//! - Status: `Refuted`
 //! - Last verified: 2026-04-13
 //! - Statement: AlignedWorkspace 256-byte alignment.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/workspace.rs` (test_aligned_workspace)
 //! - What would verify/refute it:
 //!
 //! ## C-1614
@@ -11437,7 +11437,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: simsimd dot matches scalar to 1e-4 at d=128.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/simsimd_bridge.rs` (test_large_vector_dot)
 //! - What would verify/refute it:
 //!
 //! ## C-1615
@@ -11445,7 +11445,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: Rayon parallel batch quantize.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/cd_kernel/src/turboquant/synthesized.rs` (test_synthesized_batch_adaptive)
 //! - What would verify/refute it:
 //!
 //! ## C-1616
@@ -11453,7 +11453,7 @@
 //! - Status: `Established`
 //! - Last verified: 2026-04-13
 //! - Statement: fwht standalone crate extracted and wired.
-//! - Where stated: TurboQuant CD bridge (2026-03-29)
+//! - Where stated: TurboQuant CD bridge (2026-03-29), `crates/fwht/src/lib.rs`, `crates/cd_kernel/src/turboquant/rotation.rs` (wht_inplace)
 //! - What would verify/refute it:
 //!
 //! ## C-1617
@@ -12742,4 +12742,12 @@
 //! - Last verified: 2026-10-30
 //! - Statement: In the 32-dimensional Cayley-Dickson algebra A5, the zero divisors are the doubly pure y = (p, q) with Q G = 0 for z = p + i q, a union of two absolutely irreducible hypersurfaces of C^15 of complex dimension 14. The real nullity of L_y equals 28 - 2 rank_C C_z, so the nullities 4, 8, 12, 16 are the rank 12, 10, 8, 6 loci of C_z. The rank strata have closed equations R_8 = W8 u E8-bar, R_12 = V u B9, R_16 = N_+ u N_-; E8-bar is irreducible of complex dimension 11 with projective degree 24. The unit strata of nullity 4 and 12 are connected and those of nullity 8 and 16 have two connected components.
 //! - Where stated: data/output/audit/a5-cayley-dickson-strata/source-binding.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1780
+//!
+//! - Status: `Verified`
+//! - Last verified: 2026-11-02
+//! - Statement: PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph.
+//! - Where stated: proofs/verified/C004_PSL27Order168.v
 //! - What would verify/refute it:

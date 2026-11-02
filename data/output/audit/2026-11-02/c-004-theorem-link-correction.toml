@@ -1,0 +1,12 @@
+correction_key = "c004-psl27-order-theorem-to-narrowed-claim"
+actor = "eirikr"
+reason = "The theorem proves the GL(3,2) order formula and the Fano line count; it moves from the refuted C-004 to its narrowed successor C-1780 and loses the box-kite action wording it never proves."
+applied_at = "2026-11-02T06:05:00Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C004_PSL27Order168"
+proof_path = "proofs/verified/C004_PSL27Order168.v"
+expected_title = "The relevant symmetry group count is `PSL(2,7) has order 168` and an explicit 168-element action is constructed which permutes the 7 box-kites (as computed in-repo) as labeled subgraphs."
+expected_claim_ids = ["C-004"]
+title = "PSL(2,7) = GL(3,2) has order 168, and the Fano plane has 7 lines"
+claim_ids = ["C-1780"]

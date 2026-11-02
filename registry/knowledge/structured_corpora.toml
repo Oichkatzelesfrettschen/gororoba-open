@@ -5,7 +5,7 @@
 updated = "deterministic"
 authoritative = true
 source_count = 28
-claim_atom_count = 953
+claim_atom_count = 1593
 equation_atom_count = 317
 proof_atom_count = 8
 
@@ -188,10 +188,10 @@ source_registry = "registry/canonical/control_plane.sqlite3"
 source_path = "registry/canonical/control_plane.sqlite3"
 derivation_input = "control_plane_claim_rows"
 origin_path_state = "not_applicable"
-canonical_body_sha256 = "fd3e678512b284d323c2d9033841eaa918a5b7b5440761fb051e606af4de6482"
+canonical_body_sha256 = "2b8964f1c89b1af94dc22594b0406cf847ede0d1ff90ff316d59d392d4e5d25a"
 title = "Claims / Evidence Matrix (SQLite compatibility render)"
-line_count = 1600
-claim_atom_count = 953
+line_count = 1601
+claim_atom_count = 1593
 equation_atom_count = 2
 proof_atom_count = 1
 narrative_compaction_recommended = true
