@@ -59,12 +59,8 @@ strict = false
 cleanable = false
 gitignore_required = false
 naming_policy = "mixed_transition"
-required_manifests = [
-    "data/csv/README.md",
-    "registry/project_csv_generated_artifacts.toml",
-    "registry/external_csv_holding_datasets.toml",
-    "registry/data_generated_patterns.toml",
-]
+# The Git index is the manifest of the tracked set, as for the results and curated lanes.
+required_manifests = []
 gitignore_allowlist = ["data/csv/README.md", "data/csv/bl_6equj5_gbt_manifest.csv"]
 
 [[lane]]
