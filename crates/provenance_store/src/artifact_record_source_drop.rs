@@ -1,6 +1,9 @@
 //! Transactional removal of named `record_sources` references from artifacts.
 
-use crate::{ProvenanceStore, artifact_paths::sha256};
+use crate::{
+    ProvenanceStore,
+    artifact_paths::{mark_dry_run_replay, sha256},
+};
 use anyhow::{Context, Result, bail};
 use chrono::Utc;
 use rusqlite::{Connection, params};
@@ -92,22 +95,27 @@ impl ProvenanceStore {
                 .prepare("SELECT details_json FROM export_runs WHERE action = ?1 ORDER BY id")?;
             let reports = statement.query_map([ACTION], |row| row.get::<_, String>(0))?;
             for report in reports {
-                let report: Value = serde_json::from_str(&report?)?;
+                let mut report: Value = serde_json::from_str(&report?)?;
                 if report["drop_key"] != spec.drop_key {
                     continue;
                 }
                 if report["spec_sha256"] != spec_sha256 {
                     bail!("drop key already records a different specification");
                 }
-                for evidence in report["drops"]
+                let retained = report["drops"]
                     .as_array()
-                    .context("drop report lacks row evidence")?
-                {
-                    let id = evidence["id"].as_str().context("evidence lacks an ID")?;
-                    if evidence_row(&transaction, id)? != evidence["after"] {
-                        bail!("post-drop state drift for {id}");
+                    .context("drop report lacks row evidence")?;
+                if retained.len() != spec.drop.len() {
+                    bail!("drop report row count mismatch");
+                }
+                for (entry, evidence) in spec.drop.iter().zip(retained) {
+                    if evidence["id"] != entry.id
+                        || evidence_row(&transaction, &entry.id)? != evidence["after"]
+                    {
+                        bail!("post-drop state drift for {}", entry.id);
                     }
                 }
+                mark_dry_run_replay(&mut report, dry_run);
                 return Ok(report);
             }
         }
@@ -417,5 +425,72 @@ mod tests {
         );
         assert_eq!(all_rows(&fixture), before);
         assert_eq!(export_run_count(&fixture), 0);
+    }
+
+    #[test]
+    fn a_dry_run_against_an_applied_key_reports_the_replayed_content() {
+        let mut fixture = fixture();
+        let applied = fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, false)
+            .unwrap();
+        let rehearsal = fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, true)
+            .unwrap();
+        assert_eq!(rehearsal["dry_run"], true);
+        assert_eq!(rehearsal["already_applied"], true);
+        assert_eq!(rehearsal["delta"], applied["delta"]);
+        assert_eq!(rehearsal["drops"], applied["drops"]);
+        assert_eq!(export_run_count(&fixture), 1);
+    }
+
+    #[test]
+    fn replay_compares_the_evidence_row_count_to_the_specification() {
+        let mut fixture = fixture();
+        fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, false)
+            .unwrap();
+        fixture
+            .store
+            .conn
+            .execute(
+                "UPDATE export_runs SET details_json = json_set(details_json, '$.drops', json('[]')) \
+                 WHERE action = ?1",
+                [ACTION],
+            )
+            .unwrap();
+        let error = fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, false)
+            .unwrap_err();
+        assert!(
+            error.to_string().contains("row count mismatch"),
+            "{error:#}"
+        );
+    }
+
+    #[test]
+    fn replay_compares_the_evidence_ids_to_the_specification() {
+        let mut fixture = fixture();
+        fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, false)
+            .unwrap();
+        fixture
+            .store
+            .conn
+            .execute(
+                "UPDATE export_runs SET details_json = json_set(details_json, '$.drops[0].id', 'B') \
+                 WHERE action = ?1",
+                [ACTION],
+            )
+            .unwrap();
+        let error = fixture
+            .store
+            .drop_artifact_record_sources(&fixture.spec, false)
+            .unwrap_err();
+        assert!(error.to_string().contains("state drift for A"), "{error:#}");
     }
 }

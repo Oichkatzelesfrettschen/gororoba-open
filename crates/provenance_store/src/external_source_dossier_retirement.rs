@@ -7,7 +7,10 @@
 //! dossier registry carries no paper text. The evidence row in `export_runs` records the
 //! SHA-256, byte length and line count of each removed body and never the body text.
 
-use crate::{ProvenanceStore, artifact_paths::sha256};
+use crate::{
+    ProvenanceStore,
+    artifact_paths::{mark_dry_run_replay, sha256},
+};
 use anyhow::{Context, Result, bail};
 use chrono::Utc;
 use rusqlite::{Connection, OptionalExtension, params};
@@ -218,9 +221,16 @@ fn validate(spec: &DossierBodyRetirementSpec) -> Result<()> {
         }
         check_digest("expected_body_sha256", &retirement.expected_body_sha256)?;
     }
+    let mut edited = BTreeSet::new();
     for edit in spec_edits(spec) {
         if ids.contains(&edit.id) {
             bail!("edited dossier {} is also in the retire set", edit.id);
+        }
+        if !edited.insert(edit.id.clone()) {
+            bail!(
+                "dossier {} appears in more than one edit; the index prune counts as an edit, so merge them into one entry",
+                edit.id
+            );
         }
         check_digest("edit expected_body_sha256", &edit.expected_body_sha256)?;
         let refs: BTreeSet<_> = edit.remove_path_refs.iter().collect();
@@ -456,10 +466,11 @@ impl ProvenanceStore {
         let transaction = self
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
-        if let Some(report) = replay(&transaction, spec)? {
+        if let Some(mut report) = replay(&transaction, spec)? {
             // A previous run that committed and then failed to compact leaves the removed
             // bodies in free pages; replaying the specification retries the compaction.
             transaction.rollback()?;
+            mark_dry_run_replay(&mut report, dry_run);
             if !dry_run {
                 compact_store(&mut self.conn)?;
             }
@@ -1131,6 +1142,55 @@ mod tests {
             fts_hits(&fixture, "claims_fts", "claims", "betaterm"),
             ["C-2"]
         );
+        assert_eq!(run_count(&fixture), 1);
+    }
+
+    #[test]
+    fn a_dossier_named_by_two_edits_or_an_edit_and_the_index_prune_is_rejected() {
+        let mut fixture = fixture();
+        let duplicate = fixture.spec.edit[0].clone();
+        fixture.spec.edit.push(duplicate);
+        let error = fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap_err();
+        assert!(
+            error
+                .to_string()
+                .contains("XS-E appears in more than one edit"),
+            "{error:#}"
+        );
+
+        fixture.spec.edit.pop();
+        fixture.spec.edit[0].id = "XS-I".into();
+        let error = fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap_err();
+        assert!(
+            error
+                .to_string()
+                .contains("XS-I appears in more than one edit"),
+            "{error:#}"
+        );
+        assert_eq!(run_count(&fixture), 0);
+    }
+
+    #[test]
+    fn a_dry_run_against_an_applied_key_reports_the_replayed_content() {
+        let mut fixture = fixture();
+        let applied = fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, false)
+            .unwrap();
+        let rehearsal = fixture
+            .store
+            .retire_external_source_dossier_bodies(&fixture.spec, true)
+            .unwrap();
+        assert_eq!(rehearsal["dry_run"], true);
+        assert_eq!(rehearsal["already_applied"], true);
+        assert_eq!(rehearsal["delta"], applied["delta"]);
+        assert_eq!(rehearsal["dossiers"], applied["dossiers"]);
         assert_eq!(run_count(&fixture), 1);
     }
 }

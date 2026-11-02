@@ -1774,6 +1774,18 @@ fn print_delta(report: &serde_json::Value) {
     }
 }
 
+/// Prints the dry-run outcome. A key already in `export_runs` replays its recorded report, so
+/// the dry run states that nothing would change; otherwise it prints `would_change`.
+fn print_dry_run_outcome(report: &serde_json::Value, key: &str, would_change: &str) {
+    if report["already_applied"] == true {
+        println!(
+            "key {key} is already applied; the delta above is the recorded one and no row would change"
+        );
+    } else {
+        println!("{would_change}");
+    }
+}
+
 fn cmd_external_source_mutation(
     store: &mut ProvenanceStore,
     repo_root: &Path,
@@ -1790,9 +1802,13 @@ fn cmd_external_source_mutation(
             print_delta(&report);
             let rows = report["delta"].as_array().map_or(0, Vec::len);
             if *dry_run {
-                println!(
-                    "{} dossier(s), {rows} field delta(s) would change",
-                    report["dossiers"].as_array().map_or(0, Vec::len)
+                print_dry_run_outcome(
+                    &report,
+                    &specification.retire_key,
+                    &format!(
+                        "{} dossier(s), {rows} field delta(s) would change",
+                        report["dossiers"].as_array().map_or(0, Vec::len)
+                    ),
                 );
             } else {
                 println!(
@@ -1829,12 +1845,21 @@ fn cmd_artifact_mutation(
             let report = store.repair_artifact_paths(repo_root, &specification)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
         }
-        ArtifactAction::RetirePaths { spec } => {
+        ArtifactAction::RetirePaths { spec, dry_run } => {
             let spec = repo_root.join(spec);
             let specification: provenance_store::ArtifactPathRetirementSpec =
                 toml::from_str(&fs::read_to_string(&spec)?)?;
-            let report = store.retire_artifact_paths(repo_root, &specification)?;
-            println!("{}", serde_json::to_string_pretty(&report)?);
+            let report = store.retire_artifact_paths(repo_root, &specification, *dry_run)?;
+            if *dry_run {
+                print_delta(&report);
+                print_dry_run_outcome(
+                    &report,
+                    &specification.retire_key,
+                    &format!("{} artifact(s) would change", specification.retire.len()),
+                );
+            } else {
+                println!("{}", serde_json::to_string_pretty(&report)?);
+            }
         }
         ArtifactAction::RemoveDownloadPaths { spec, dry_run } => {
             let spec = repo_root.join(spec);
@@ -1844,7 +1869,11 @@ fn cmd_artifact_mutation(
                 store.remove_artifact_download_paths(repo_root, &specification, *dry_run)?;
             print_delta(&report);
             if *dry_run {
-                println!("{} artifact(s) would change", specification.remove.len());
+                print_dry_run_outcome(
+                    &report,
+                    &specification.removal_key,
+                    &format!("{} artifact(s) would change", specification.remove.len()),
+                );
             } else {
                 println!(
                     "Removed download paths from {} artifact(s) under key {}.",
@@ -1860,7 +1889,11 @@ fn cmd_artifact_mutation(
             let report = store.drop_artifact_record_sources(&specification, *dry_run)?;
             print_delta(&report);
             if *dry_run {
-                println!("{} artifact(s) would change", specification.drop.len());
+                print_dry_run_outcome(
+                    &report,
+                    &specification.drop_key,
+                    &format!("{} artifact(s) would change", specification.drop.len()),
+                );
             } else {
                 println!(
                     "Dropped record sources from {} artifact(s) under key {}.",
