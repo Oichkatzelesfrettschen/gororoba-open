@@ -1598,6 +1598,37 @@ related_marker_ids = []
         }
     }
 
+    /// Prose is the source of a polarity marker's claim references, so a
+    /// dangling id written in a narrative section survives every rebuild.
+    #[test]
+    fn marker_claim_ref_check_survives_regeneration_of_narrative_prose() {
+        let claim_ids = BTreeSet::from(["C-001".to_string()]);
+        let narrative = |claim_id: &str| {
+            let text = format!(
+                "id = \"DOC-001\"\nsource_markdown = \"docs/probe.md\"\nbody_markdown = \"\"\"\n\
+                 # Probe\n{claim_id} is verified by one run and refuted by another.\n\"\"\"\n"
+            );
+            toml::from_str::<Value>(&text).unwrap()
+        };
+        let regenerate = |claim_id: &str| {
+            let (markers, meta) =
+                build_conflict_markers(&[], &[narrative(claim_id)], &[], &[], &[]).unwrap();
+            table_rows(&render_conflict_markers(&markers, &meta), "marker")
+        };
+
+        let clean = regenerate("C-001");
+        assert_eq!(clean.len(), 1, "the polarity section yields one marker");
+        assert!(integrity_failures(&claim_ids, &clean, &[]).is_empty());
+
+        let failures = integrity_failures(&claim_ids, &regenerate("C-1999"), &[]);
+        assert!(
+            failures
+                .iter()
+                .any(|failure| failure.contains("unknown claim id: CM-0001 -> C-1999")),
+            "regeneration repaired the dangling prose reference; failures: {failures:?}"
+        );
+    }
+
     #[test]
     fn claim_refs_extraction_admits_four_digit_ids() {
         assert_eq!(
