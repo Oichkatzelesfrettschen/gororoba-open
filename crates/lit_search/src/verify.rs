@@ -2,7 +2,7 @@
 //!
 //! Rust-native verification helpers derived from the repository's legacy literature baseline.
 
-use crate::{SearchEngine, models::Paper};
+use crate::{SearchEngine, models::Paper, sources::openalex_headers};
 use blake3::Hasher;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
@@ -227,7 +227,13 @@ async fn verify_by_openalex(engine: &SearchEngine, title: &str) -> Option<Citati
         "https://api.openalex.org/works?filter=title.search:{}&per_page=5&mailto=open-gororoba-lit-search@users.noreply.github.com",
         percent_encode(title)
     );
-    let response = engine.client().get(&url).send().await.ok()?;
+    let response = engine
+        .client()
+        .get(&url)
+        .headers(openalex_headers(engine.keys()).ok()?)
+        .send()
+        .await
+        .ok()?;
     if !response.status().is_success() {
         return None;
     }
