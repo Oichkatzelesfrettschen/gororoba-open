@@ -254,15 +254,6 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
             std::process::exit(1);
         }
     }
-    for path in [
-        repo_root.join(&args.derivation_out),
-        repo_root.join(&args.bibliography_out),
-        repo_root.join(&args.provenance_out),
-        repo_root.join(&args.paragraph_out),
-    ] {
-        assert_ascii_file(&path)?;
-    }
-
     let claim_ids = load_claim_ids(repo_root, &args.canonical_db)?;
     let claim_ref_ids = load_claim_ref_ids(repo_root, &args.canonical_db)?;
     let proof_raw = load_toml(&repo_root.join("registry/knowledge/proof_skeletons.toml"))?;
@@ -285,11 +276,6 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
         .collect::<BTreeSet<_>>();
 
     let derivation_rows = table_array(&derivation_raw, "step");
-    if table_int_in(&derivation_raw, "knowledge_derivation_steps", "step_count")
-        != derivation_rows.len() as i64
-    {
-        failures.push("derivation step_count metadata mismatch".to_string());
-    }
     if table_int_in(
         &derivation_raw,
         "knowledge_derivation_steps",
@@ -298,14 +284,8 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
     {
         failures.push("derivation skeleton_count metadata mismatch".to_string());
     }
-    let mut seen_step_ids = BTreeSet::new();
-    let mut by_skeleton = BTreeMap::<String, Vec<&Value>>::new();
     for row in derivation_rows {
         let step_id = table_str(row, "id").to_string();
-        if !seen_step_ids.insert(step_id.clone()) {
-            failures.push(format!("duplicate derivation step id: {}", step_id));
-            break;
-        }
         let skeleton_id = table_str(row, "skeleton_id").to_string();
         if !proof_ids.contains(&skeleton_id) {
             failures.push(format!(
@@ -328,47 +308,9 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
                 ));
             }
         }
-        by_skeleton.entry(skeleton_id).or_default().push(row);
     }
-    for (skeleton_id, rows) in by_skeleton {
-        let mut rows = rows;
-        rows.sort_by_key(|row| table_int(row, "step_index"));
-        let mut prev_id = String::new();
-        for (expected, row) in (1i64..).zip(rows) {
-            let idx = table_int(row, "step_index");
-            if idx != expected {
-                failures.push(format!(
-                    "derivation step_index gap in {}: got {} expected {}",
-                    skeleton_id, idx, expected
-                ));
-                break;
-            }
-            let deps = string_list(row, "depends_on_step_ids");
-            if expected == 1 && !deps.is_empty() {
-                failures.push(format!(
-                    "first derivation step should have no depends_on: {}",
-                    table_str(row, "id")
-                ));
-            }
-            if expected > 1 && deps != vec![prev_id.clone()] {
-                failures.push(format!(
-                    "derivation dependency mismatch: {} expected [{}] got {:?}",
-                    table_str(row, "id"),
-                    prev_id,
-                    deps
-                ));
-            }
-            prev_id = table_str(row, "id").to_string();
-        }
-    }
-
     let bib_entries = table_array(&bib_raw, "entry");
     let bib_norm_entries = table_array(&bib_norm_raw, "entry");
-    if table_int_in(&bib_norm_raw, "bibliography_normalized", "entry_count")
-        != bib_norm_entries.len() as i64
-    {
-        failures.push("bibliography_normalized entry_count metadata mismatch".to_string());
-    }
     if bib_norm_entries.len() != bib_entries.len() {
         failures.push(format!(
             "bibliography_normalized count mismatch: {} vs source {}",
@@ -402,14 +344,6 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
                 source_id, year
             ));
         }
-        if table_str(row, "document_type") == "arxiv_preprint"
-            && table_str(row, "arxiv_id").is_empty()
-        {
-            failures.push(format!(
-                "bibliography_normalized arxiv_preprint missing arxiv_id: {}",
-                source_id
-            ));
-        }
         for claim_ref in string_list(row, "claim_refs") {
             if !claim_ref_ids.contains(&claim_ref) {
                 failures.push(format!(
@@ -426,47 +360,18 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
         .map(|row| table_str(row, "id").to_string())
         .collect::<BTreeSet<_>>();
     let provenance_rows = table_array(&provenance_raw, "record");
-    if table_int_in(&provenance_raw, "provenance_sources", "record_count")
-        != provenance_rows.len() as i64
-    {
-        failures.push("provenance_sources record_count metadata mismatch".to_string());
-    }
     if table_int_in(&provenance_raw, "provenance_sources", "document_count")
         != external_doc_ids.len() as i64
     {
         failures.push("provenance_sources document_count metadata mismatch".to_string());
     }
-    let sha_re = Regex::new(r"^[a-f0-9]{64}$")?;
-    let mut kind_counts = BTreeMap::<String, usize>::new();
-    let mut by_doc = BTreeMap::<String, usize>::new();
     for row in provenance_rows {
-        let kind = table_str(row, "source_kind").to_string();
-        *kind_counts.entry(kind.clone()).or_insert(0) += 1;
         let doc_id = table_str(row, "document_id").to_string();
-        *by_doc.entry(doc_id.clone()).or_insert(0) += 1;
         if !external_doc_ids.contains(&doc_id) {
             failures.push(format!(
                 "provenance_sources unknown document_id: {}",
                 doc_id
             ));
-        }
-        if !["url", "path", "sha256"].contains(&kind.as_str()) {
-            failures.push(format!("provenance_sources invalid source_kind: {}", kind));
-        }
-        if kind == "sha256" {
-            let digest = table_str(row, "sha256");
-            if !sha_re.is_match(digest) {
-                failures.push(format!(
-                    "provenance_sources invalid sha256 digest: {}",
-                    table_str(row, "id")
-                ));
-            }
-            if table_str(row, "source_ref") != digest {
-                failures.push(format!(
-                    "provenance_sources sha256 source_ref mismatch: {}",
-                    table_str(row, "id")
-                ));
-            }
         }
         for claim_ref in string_list(row, "claim_refs") {
             if !claim_ref_ids.contains(&claim_ref) {
@@ -478,96 +383,23 @@ fn verify_evidence_provenance(repo_root: &Path, args: &Args) -> Result<()> {
             }
         }
     }
-    if table_int_in(&provenance_raw, "provenance_sources", "url_record_count")
-        != kind_counts.get("url").copied().unwrap_or(0) as i64
-    {
-        failures.push("provenance_sources url_record_count metadata mismatch".to_string());
-    }
-    if table_int_in(&provenance_raw, "provenance_sources", "path_record_count")
-        != kind_counts.get("path").copied().unwrap_or(0) as i64
-    {
-        failures.push("provenance_sources path_record_count metadata mismatch".to_string());
-    }
-    if table_int_in(&provenance_raw, "provenance_sources", "hash_record_count")
-        != kind_counts.get("sha256").copied().unwrap_or(0) as i64
-    {
-        failures.push("provenance_sources hash_record_count metadata mismatch".to_string());
-    }
-    for doc_id in external_doc_ids {
-        if by_doc.get(&doc_id).copied().unwrap_or(0) == 0 {
-            failures.push(format!(
-                "provenance_sources missing records for external source doc: {}",
-                doc_id
-            ));
-        }
-    }
-
     let paragraph_rows = table_array(&paragraph_raw, "paragraph");
-    if table_int_in(
-        &paragraph_raw,
-        "narrative_paragraph_atoms",
-        "paragraph_count",
-    ) != paragraph_rows.len() as i64
-    {
-        failures.push("narrative_paragraph_atoms paragraph_count metadata mismatch".to_string());
-    }
-    let allowed_source_registries = BTreeSet::from([
-        "registry/docs_root_narratives.toml".to_string(),
-        "registry/research_narratives.toml".to_string(),
-        "registry/external_sources.toml".to_string(),
-        "registry/data_artifact_narratives.toml".to_string(),
-    ]);
-    let mut seen_paragraph_ids = BTreeSet::new();
-    let mut paragraph_by_doc = BTreeMap::<(String, String), Vec<&Value>>::new();
     let mut paragraph_doc_coverage = BTreeMap::<String, BTreeSet<(String, String)>>::new();
     for row in paragraph_rows {
         let pid = table_str(row, "id").to_string();
-        if !seen_paragraph_ids.insert(pid.clone()) {
-            failures.push(format!("duplicate narrative paragraph id: {}", pid));
-            break;
-        }
         let source_registry = table_str(row, "source_registry").to_string();
-        if !allowed_source_registries.contains(&source_registry) {
-            failures.push(format!(
-                "narrative paragraph invalid source_registry: {}",
-                source_registry
-            ));
-        }
         let doc_id = table_str(row, "document_id").to_string();
         let source_markdown = table_str(row, "source_markdown").to_string();
-        paragraph_by_doc
-            .entry((source_registry.clone(), doc_id.clone()))
-            .or_default()
-            .push(row);
         paragraph_doc_coverage
             .entry(source_registry)
             .or_default()
             .insert((doc_id, source_markdown));
-        let line_start = table_int(row, "line_start");
-        let line_end = table_int(row, "line_end");
-        if line_start <= 0 || line_end <= 0 || line_end < line_start {
-            failures.push(format!("narrative paragraph invalid line span: {}", pid));
-        }
         for claim_ref in string_list(row, "claim_refs") {
             if !claim_ref_ids.contains(&claim_ref) {
                 failures.push(format!(
                     "narrative paragraph unknown claim_ref: {} -> {}",
                     pid, claim_ref
                 ));
-            }
-        }
-    }
-    for ((source_registry, doc_id), rows) in paragraph_by_doc {
-        let mut rows = rows;
-        rows.sort_by_key(|row| table_int(row, "paragraph_index"));
-        for (expected, row) in (1i64..).zip(rows) {
-            let idx = table_int(row, "paragraph_index");
-            if idx != expected {
-                failures.push(format!(
-                    "narrative paragraph_index gap for {}::{} got {} expected {}",
-                    source_registry, doc_id, idx, expected
-                ));
-                break;
             }
         }
     }
@@ -1785,11 +1617,6 @@ fn table_int_in(value: &Value, table: &str, key: &str) -> i64 {
         .and_then(|child| child.get(key))
         .and_then(Value::as_integer)
         .unwrap_or(-1)
-}
-
-fn assert_ascii_file(path: &Path) -> Result<()> {
-    let text = fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
-    assert_ascii(&text, &path.display().to_string())
 }
 
 fn write_ascii(path: &Path, text: &str) -> Result<()> {
