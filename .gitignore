@@ -134,31 +134,9 @@ data/output/audit/**/*cargo-metadata*.json
 data/artifacts/frames_*/
 data/e027/
 data/test-e027/
-# data/csv is tracked first-party data; local generated outputs that are not
-# part of the tracked set stay ignored.
-data/csv/motif_dot/
-data/csv/euclid_dm_*.csv
-data/csv/nanograv_*.csv
-data/csv/repo_*.csv
-data/csv/c010_nonlocal_material_calibrations.csv
-data/csv/c053_pathion_tmm_summary.csv
-data/csv/c071g_multi_dataset_ultrametric_residualized.csv
-data/csv/cosmology_map_algebra_alignment.csv
-data/csv/gravastar_sweep.csv
-data/csv/orthoplex_w_of_z.csv
-data/csv/wow_followup_snr.csv
-data/csv/x87_avx_fma_followup_benchmark_summary.csv
-data/csv/zd_crystal_bands_degeneracies_16d.csv
-data/csv/zd_crystal_bands_degeneracies_32d.csv
-data/csv/zd_crystal_bands_reggiani.csv
-data/csv/zd_crystal_bands_summary.csv
-data/csv/zd_laplacian_eigenvalues.csv
-data/csv/zd_motif_invariants.csv
-data/csv/zd_nnsd.csv
-data/csv/zd_nnsd_histogram.csv
-data/csv/zd_nnsd_motif.csv
-data/csv/zd_spectral_dimension_curves.csv
-data/csv/zd_spectral_dimension_plateaus.csv
+# data/csv holds tracked first-party tables; new outputs written there stay local
+# until added with git add -f.
+data/csv/
 
 # Rendered figures beside the tracked data/results tables stay local.
 data/results/e183/*.pdf
