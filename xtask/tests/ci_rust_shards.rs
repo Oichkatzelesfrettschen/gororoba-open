@@ -375,7 +375,6 @@ fn repository_cli_target_shards_isolate_declared_integration_tests() {
         [
             "cli_smoke",
             "facade_reexport_integrity",
-            "library_modules",
             "nanograv_reexport_integrity",
         ]
         .into_iter()
