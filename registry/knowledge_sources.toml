@@ -1019,14 +1019,14 @@ generated = false
 status = "active"
 migration_priority = "high"
 toml_backing = "registry/research_narratives.toml"
-sha256 = "f1d309a23d927ab34423411f059d7a491edd7def0cb3b9b6ff2c3f3ff9bfd532"
-size_bytes = 29075
-line_count = 539
+sha256 = "601fe166a175af2d47fc8008cd90e502f5c4790b6bed56b9027d803a11f5692f"
+size_bytes = 29466
+line_count = 546
 claim_ref_count = 4
 insight_ref_count = 8
 experiment_ref_count = 0
-link_count = 177
-link_sample = [".gitignore", ".vo", "// @generated", "control_plane.sqlite3-shm", "control_plane.sqlite3-wal", "crates/gororoba_cli_data/src/bin/repo_audit.rs", "crates/provenance_store/src/lib.rs", "data/output/audit/insight-canonical-admission/specs/"]
+link_count = 182
+link_sample = [".gitignore", ".vo", "// @generated", "control_plane.sqlite3-shm", "control_plane.sqlite3-wal", "crates/gororoba_cli_data/src/bin/repo_audit.rs", "crates/provenance_store/src/lib.rs", "curated/"]
 
 [[document]]
 id = "DOC-0055"

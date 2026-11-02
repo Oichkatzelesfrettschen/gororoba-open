@@ -6608,9 +6608,9 @@ inconclusive_outcomes = ["Zero sampled matches leaves the continuous interval un
 [[claim]]
 id = "C-1708"
 last_verified = "2026-08-06"
-statement = "The retained Ruan-Fan reproduction metadata contains a 61-character source_tex_sha256 literal, which cannot encode SHA256. A separate preregistration field named source_tex_sha256 identifies compressed archive bytes rather than extracted TeX. Independent receipt tests distinguish the archive, extracted TeX and PDF by their actual hashes while preserving those historical defects. Exhaustive validity of every receipt under data/output/audit remains unadmitted without a finite receipt-to-artifact manifest."
+statement = "The retained Ruan-Fan reproduction metadata contains a 61-character source_tex_sha256 literal, which cannot encode SHA256. A separate preregistration field named source_tex_sha256 identifies compressed archive bytes rather than extracted TeX. The executing receipt test asserts only the 61-character length of the runner literal and retains that historical defect. The assertions that distinguished the archive, extracted TeX and PDF by their actual hashes, and the assertions on the method and landmark text of the source, moved with the source PDF to the documents repositories and no longer execute in this repository; the archive, TeX and PDF digests stay recorded in optics-adjudication.toml. Exhaustive validity of every receipt under data/output/audit remains unadmitted without a finite receipt-to-artifact manifest."
 status = "Provisional"
-where_stated = "data/output/audit/claim-family-evidence-adjudication/optics-adjudication.toml; crates/optics_core/tests/ruan_fan_source_receipts.rs"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/optics-adjudication.toml; crates/optics_core/tests/ruan_fan_source_receipts.rs (legacy_source_hash_declaration_is_not_a_sha256_digest asserts the 61-character length of the runner literal and executes in CI; the byte-identity and source-text assertions are no longer executed here)"
 evidence_layer = "implementation_conformance"
 depth_status = "declared"
 lift_depth = 0
