@@ -1,0 +1,1598 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "schema_version": 1,
+  "captured_at": "2026-11-03T18:59:14.557Z",
+  "evidence_status": "curated_primary_summary_pilot_not_bulk_ingest",
+  "geographies": [
+    {
+      "id": "pasadena",
+      "name": "Pasadena city, California",
+      "level": "city",
+      "parent": "la_county",
+      "code": null
+    },
+    {
+      "id": "la_county",
+      "name": "Los Angeles County, California",
+      "level": "county",
+      "parent": "california",
+      "code": "06037"
+    },
+    {
+      "id": "california",
+      "name": "California",
+      "level": "state",
+      "parent": "united_states",
+      "code": "06"
+    },
+    {
+      "id": "texas",
+      "name": "Texas",
+      "level": "state",
+      "parent": "united_states",
+      "code": "48"
+    },
+    {
+      "id": "kansas",
+      "name": "Kansas",
+      "level": "state",
+      "parent": "united_states",
+      "code": "20"
+    },
+    {
+      "id": "united_states",
+      "name": "United States",
+      "level": "country",
+      "parent": null,
+      "code": "US"
+    },
+    {
+      "id": "la_metro",
+      "name": "Los Angeles-Long Beach-Anaheim CPI area",
+      "level": "metropolitan_statistical_area",
+      "parent": null,
+      "code": null
+    },
+    {
+      "id": "international",
+      "name": "Study-specific foreign-country collection",
+      "level": "study_collection",
+      "parent": null,
+      "code": null
+    }
+  ],
+  "studies": [
+    {
+      "id": "ppic_ca_adults",
+      "source_id": "ppic_oct26",
+      "geography_id": "california",
+      "population": "adult_residents",
+      "reference_start": "2026-10-16",
+      "reference_end": "2026-10-22",
+      "sample_size": 1728,
+      "published_on": null,
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "ppic_ca",
+      "design": "probability_recruited_online_panel",
+      "notes": "English/Spanish; adults are distinct from likely voters."
+    },
+    {
+      "id": "ppic_ca_lv",
+      "source_id": "ppic_oct26",
+      "geography_id": "california",
+      "population": "likely_voters",
+      "reference_start": "2026-10-16",
+      "reference_end": "2026-10-22",
+      "sample_size": null,
+      "published_on": null,
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "ppic_ca",
+      "design": "likely_voter_subset",
+      "notes": "Overall survey n=1728; subgroup n not acquired."
+    },
+    {
+      "id": "ks_speaks_adults",
+      "source_id": "ks_speaks26",
+      "geography_id": "kansas",
+      "population": "adult_residents",
+      "reference_start": "2026-09-23",
+      "reference_end": "2026-10-16",
+      "sample_size": 603,
+      "published_on": "2026-10-26",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "ks_speaks",
+      "design": "opt_in_online_panel_weighted",
+      "notes": "603 respondents; weighted total 585 is not effective n."
+    },
+    {
+      "id": "ucla_la_qol",
+      "source_id": "ucla_qol26",
+      "geography_id": "la_county",
+      "population": "adult_residents",
+      "reference_start": "2026-03-15",
+      "reference_end": "2026-03-29",
+      "sample_size": 1400,
+      "published_on": null,
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "ucla_la_qol",
+      "design": "county_survey",
+      "notes": "March snapshot; index definition and range require codebook before normalization."
+    },
+    {
+      "id": "emerson_us_lv",
+      "source_id": "emerson_national26",
+      "geography_id": "united_states",
+      "population": "likely_voters",
+      "reference_start": "2026-10-24",
+      "reference_end": "2026-10-26",
+      "sample_size": 1000,
+      "published_on": "2026-10-30",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "emerson_us",
+      "design": "mixed_panel_survey",
+      "notes": ""
+    },
+    {
+      "id": "emerson_tx_lv",
+      "source_id": "emerson_tx26",
+      "geography_id": "texas",
+      "population": "likely_voters",
+      "reference_start": "2026-10-17",
+      "reference_end": "2026-10-19",
+      "sample_size": 1000,
+      "published_on": "2026-10-22",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "emerson_tx",
+      "design": "mixed_mode_voter_panel",
+      "notes": ""
+    },
+    {
+      "id": "emerson_ks_lv",
+      "source_id": "emerson_ks26",
+      "geography_id": "kansas",
+      "population": "likely_voters",
+      "reference_start": "2026-10-26",
+      "reference_end": "2026-10-28",
+      "sample_size": 800,
+      "published_on": "2026-10-30",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "emerson_ks",
+      "design": "mixed_mode_voter_panel",
+      "notes": ""
+    },
+    {
+      "id": "apnorc_us_voters",
+      "source_id": "apnorc_oct26",
+      "geography_id": "united_states",
+      "population": "voter_subgroup",
+      "reference_start": "2026-10-08",
+      "reference_end": "2026-10-12",
+      "sample_size": null,
+      "published_on": "2026-10-15",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "apnorc_us_voters",
+      "design": "probability_panel_online_and_phone",
+      "notes": "Overall adult n=1119; voter subgroup n not acquired. Multi-select important-issue questions."
+    },
+    {
+      "id": "nyfed_sce_sep",
+      "source_id": "nyfed_sce_sep26",
+      "geography_id": "united_states",
+      "population": "household_heads",
+      "reference_start": "2026-09-01",
+      "reference_end": "2026-09-30",
+      "sample_size": null,
+      "published_on": "2026-10-07",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "nyfed_sce_sep",
+      "design": "rotating_household_panel",
+      "notes": "About 1300 panelists; exact wave n not acquired. Expectations, not realized outcomes."
+    },
+    {
+      "id": "eia_united_states_2026-10-19",
+      "source_id": "eia_gas26",
+      "geography_id": "united_states",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-10-19",
+      "reference_end": "2026-10-19",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_united_states_2026-10-19",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "eia_united_states_2026-10-26",
+      "source_id": "eia_gas26",
+      "geography_id": "united_states",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-10-26",
+      "reference_end": "2026-10-26",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_united_states_2026-10-26",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "eia_united_states_2026-11-02",
+      "source_id": "eia_gas26",
+      "geography_id": "united_states",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-11-02",
+      "reference_end": "2026-11-02",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_united_states_2026-11-02",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "eia_california_2026-10-19",
+      "source_id": "eia_gas26",
+      "geography_id": "california",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-10-19",
+      "reference_end": "2026-10-19",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_california_2026-10-19",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "eia_california_2026-10-26",
+      "source_id": "eia_gas26",
+      "geography_id": "california",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-10-26",
+      "reference_end": "2026-10-26",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_california_2026-10-26",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "eia_california_2026-11-02",
+      "source_id": "eia_gas26",
+      "geography_id": "california",
+      "population": "retail_regular_gasoline",
+      "reference_start": "2026-11-02",
+      "reference_end": "2026-11-02",
+      "sample_size": null,
+      "published_on": "2026-11-03",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "eia_california_2026-11-02",
+      "design": "weekly_price_survey",
+      "notes": "Current-page vintage; not admitted as historical as-of value before capture."
+    },
+    {
+      "id": "census_retail_sep",
+      "source_id": "census_retail_sep26",
+      "geography_id": "united_states",
+      "population": "retail_and_food_services_businesses",
+      "reference_start": "2026-09-01",
+      "reference_end": "2026-09-30",
+      "sample_size": null,
+      "published_on": "2026-10-15",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "census_retail_sep",
+      "design": "business_survey",
+      "notes": ""
+    },
+    {
+      "id": "bls_jobs_sep",
+      "source_id": "bls_jobs_sep26",
+      "geography_id": "united_states",
+      "population": "civilian_labor_force_and_nonfarm_payrolls",
+      "reference_start": "2026-09-01",
+      "reference_end": "2026-09-30",
+      "sample_size": null,
+      "published_on": "2026-10-02",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "bls_jobs_sep",
+      "design": "two_distinct_labor_surveys",
+      "notes": "Household and establishment estimands must not be merged as respondent-level data."
+    },
+    {
+      "id": "bls_la_cpi_sep",
+      "source_id": "bls_la_cpi_sep26",
+      "geography_id": "la_metro",
+      "population": "urban_consumers",
+      "reference_start": "2026-09-01",
+      "reference_end": "2026-09-30",
+      "sample_size": null,
+      "published_on": "2026-10-14",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "bls_la_cpi_sep",
+      "design": "consumer_price_survey",
+      "notes": "LA and Orange counties; not seasonally adjusted; not Pasadena-specific."
+    },
+    {
+      "id": "pew_global_spring",
+      "source_id": "pew_global26",
+      "geography_id": "international",
+      "population": "median_of_36_country_adult_percentages",
+      "reference_start": "2026-02-08",
+      "reference_end": "2026-05-13",
+      "sample_size": null,
+      "published_on": "2026-06-23",
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "pew_global_spring",
+      "design": "cross_country_surveys",
+      "notes": "42151 total respondents; no pooling into US vote model; unweighted country median."
+    },
+    {
+      "id": "pasadena_2024_measures",
+      "source_id": "la_results_2024",
+      "geography_id": "pasadena",
+      "population": "votes_cast_per_measure",
+      "reference_start": "2024-11-05",
+      "reference_end": "2024-11-05",
+      "sample_size": null,
+      "published_on": null,
+      "available_at": "2026-11-03T18:59:14.557Z",
+      "availability_basis": "observed_by_retrieval_not_original_vintage",
+      "dependence_cluster": "pasadena_2024_measures",
+      "design": "official_published_returns_snapshot",
+      "notes": "Snapshot fetched 2026; totals are per measure, never turnout denominators."
+    }
+  ],
+  "observations": [
+    {
+      "id": "obs_0001",
+      "study_id": "ppic_ca_adults",
+      "series": "top_issue_cost_living",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0002",
+      "study_id": "ppic_ca_adults",
+      "series": "top_issue_housing",
+      "value": 12,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0003",
+      "study_id": "ppic_ca_adults",
+      "series": "newsom_approve",
+      "value": 47,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0004",
+      "study_id": "ppic_ca_adults",
+      "series": "newsom_disapprove",
+      "value": 52,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0005",
+      "study_id": "ppic_ca_adults",
+      "series": "legislature_approve",
+      "value": 42,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0006",
+      "study_id": "ppic_ca_adults",
+      "series": "legislature_disapprove",
+      "value": 55,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0007",
+      "study_id": "ppic_ca_adults",
+      "series": "state_wrong_direction",
+      "value": 59,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0008",
+      "study_id": "ppic_ca_adults",
+      "series": "state_economic_bad_times",
+      "value": 77,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0009",
+      "study_id": "ppic_ca_adults",
+      "series": "income_not_keeping_up",
+      "value": 76,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0010",
+      "study_id": "ppic_ca_adults",
+      "series": "housing_big_problem",
+      "value": 64,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0011",
+      "study_id": "ppic_ca_adults",
+      "series": "trump_approve",
+      "value": 21,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0012",
+      "study_id": "ppic_ca_lv",
+      "series": "becerra_support",
+      "value": 61,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0013",
+      "study_id": "ppic_ca_lv",
+      "series": "hilton_support",
+      "value": 37,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0014",
+      "study_id": "ppic_ca_lv",
+      "series": "house_democratic_support",
+      "value": 63,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0015",
+      "study_id": "ppic_ca_lv",
+      "series": "house_republican_support",
+      "value": 35,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0016",
+      "study_id": "ppic_ca_lv",
+      "series": "newsom_approve",
+      "value": 49,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0017",
+      "study_id": "ppic_ca_lv",
+      "series": "trump_approve",
+      "value": 26,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0018",
+      "study_id": "ppic_ca_lv",
+      "series": "state_economic_bad_times",
+      "value": 79,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0019",
+      "study_id": "ppic_ca_lv",
+      "series": "income_not_keeping_up",
+      "value": 73,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0020",
+      "study_id": "ppic_ca_lv",
+      "series": "state_wrong_direction",
+      "value": 55,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0021",
+      "study_id": "ppic_ca_lv",
+      "series": "election_system_confidence_high",
+      "value": 63,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0022",
+      "study_id": "ks_speaks_adults",
+      "series": "state_economy_good",
+      "value": 20.4,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0023",
+      "study_id": "ks_speaks_adults",
+      "series": "state_economy_poor",
+      "value": 17.5,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0024",
+      "study_id": "ks_speaks_adults",
+      "series": "state_economy_improving",
+      "value": 11.2,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0025",
+      "study_id": "ks_speaks_adults",
+      "series": "state_economy_worsening",
+      "value": 48.6,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0026",
+      "study_id": "ks_speaks_adults",
+      "series": "state_economy_family_threat",
+      "value": 49.4,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0027",
+      "study_id": "ks_speaks_adults",
+      "series": "state_right_track",
+      "value": 36.5,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0028",
+      "study_id": "ks_speaks_adults",
+      "series": "state_wrong_track",
+      "value": 41.1,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0029",
+      "study_id": "ks_speaks_adults",
+      "series": "national_economy_good",
+      "value": 13.1,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0030",
+      "study_id": "ks_speaks_adults",
+      "series": "national_economy_poor",
+      "value": 43.6,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0031",
+      "study_id": "ks_speaks_adults",
+      "series": "national_economy_improving",
+      "value": 13.2,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0032",
+      "study_id": "ks_speaks_adults",
+      "series": "national_economy_worsening",
+      "value": 63.5,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0033",
+      "study_id": "ks_speaks_adults",
+      "series": "national_right_track",
+      "value": 25.6,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0034",
+      "study_id": "ks_speaks_adults",
+      "series": "national_wrong_track",
+      "value": 65.3,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0035",
+      "study_id": "ks_speaks_adults",
+      "series": "kelly_satisfied",
+      "value": 46.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0036",
+      "study_id": "ks_speaks_adults",
+      "series": "kelly_dissatisfied",
+      "value": 29.1,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0037",
+      "study_id": "ks_speaks_adults",
+      "series": "trump_satisfied",
+      "value": 32.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0038",
+      "study_id": "ks_speaks_adults",
+      "series": "trump_dissatisfied",
+      "value": 54,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0039",
+      "study_id": "ks_speaks_adults",
+      "series": "marshall_satisfied",
+      "value": 26.1,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0040",
+      "study_id": "ks_speaks_adults",
+      "series": "marshall_dissatisfied",
+      "value": 46.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0041",
+      "study_id": "ks_speaks_adults",
+      "series": "medicaid_expansion_support",
+      "value": 67.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0042",
+      "study_id": "ks_speaks_adults",
+      "series": "paid_leave_support",
+      "value": 68.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0043",
+      "study_id": "ks_speaks_adults",
+      "series": "medical_marijuana_support",
+      "value": 65,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0044",
+      "study_id": "ks_speaks_adults",
+      "series": "recreational_marijuana_support",
+      "value": 58.3,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0045",
+      "study_id": "ucla_la_qol",
+      "series": "quality_of_life_index",
+      "value": 52,
+      "unit": "index_points",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0046",
+      "study_id": "ucla_la_qol",
+      "series": "deportation_worry",
+      "value": 31,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0047",
+      "study_id": "ucla_la_qol",
+      "series": "wildfire_income_loss",
+      "value": 26,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0048",
+      "study_id": "ucla_la_qol",
+      "series": "wildfire_recovery_dissatisfied",
+      "value": 56,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0049",
+      "study_id": "ucla_la_qol",
+      "series": "economic_future_optimistic",
+      "value": 53,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0050",
+      "study_id": "emerson_us_lv",
+      "series": "generic_democratic_support",
+      "value": 52,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0051",
+      "study_id": "emerson_us_lv",
+      "series": "generic_republican_support",
+      "value": 42,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0052",
+      "study_id": "emerson_us_lv",
+      "series": "undecided",
+      "value": 5,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0053",
+      "study_id": "emerson_us_lv",
+      "series": "trump_approve",
+      "value": 37,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0054",
+      "study_id": "emerson_us_lv",
+      "series": "trump_disapprove",
+      "value": 57,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0055",
+      "study_id": "emerson_us_lv",
+      "series": "top_issue_cost_living",
+      "value": 34,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0056",
+      "study_id": "emerson_us_lv",
+      "series": "top_issue_corruption",
+      "value": 28,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0057",
+      "study_id": "emerson_us_lv",
+      "series": "data_centers_oppose",
+      "value": 59,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0058",
+      "study_id": "emerson_us_lv",
+      "series": "data_centers_support",
+      "value": 29,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0059",
+      "study_id": "emerson_tx_lv",
+      "series": "talarico_support",
+      "value": 48,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0060",
+      "study_id": "emerson_tx_lv",
+      "series": "paxton_support",
+      "value": 46,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0061",
+      "study_id": "emerson_tx_lv",
+      "series": "abbott_support",
+      "value": 49,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0062",
+      "study_id": "emerson_tx_lv",
+      "series": "hinojosa_support",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0063",
+      "study_id": "emerson_tx_lv",
+      "series": "top_issue_economy",
+      "value": 39,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0064",
+      "study_id": "emerson_ks_lv",
+      "series": "hamilton_support",
+      "value": 49,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0065",
+      "study_id": "emerson_ks_lv",
+      "series": "marshall_support",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0066",
+      "study_id": "emerson_ks_lv",
+      "series": "libertarian_support",
+      "value": 3,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0067",
+      "study_id": "emerson_ks_lv",
+      "series": "undecided",
+      "value": 3,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0068",
+      "study_id": "emerson_ks_lv",
+      "series": "trump_approve",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0069",
+      "study_id": "emerson_ks_lv",
+      "series": "trump_disapprove",
+      "value": 51,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0070",
+      "study_id": "emerson_ks_lv",
+      "series": "top_issue_economy",
+      "value": 44,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0071",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_economy",
+      "value": 85,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0072",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_cost_living",
+      "value": 84,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0073",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_healthcare",
+      "value": 69,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0074",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_iran_war",
+      "value": 64,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0075",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_immigration",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0076",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_crime",
+      "value": 45,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0077",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_ai",
+      "value": 35,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0078",
+      "study_id": "apnorc_us_voters",
+      "series": "important_issue_transgender",
+      "value": 12,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0079",
+      "study_id": "apnorc_us_voters",
+      "series": "house_democratic_control_preference",
+      "value": 47,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0080",
+      "study_id": "apnorc_us_voters",
+      "series": "house_republican_control_preference",
+      "value": 38,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0081",
+      "study_id": "apnorc_us_voters",
+      "series": "senate_democratic_control_preference",
+      "value": 46,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0082",
+      "study_id": "apnorc_us_voters",
+      "series": "senate_republican_control_preference",
+      "value": 38,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0083",
+      "study_id": "apnorc_us_voters",
+      "series": "trump_approve",
+      "value": 36,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0084",
+      "study_id": "apnorc_us_voters",
+      "series": "trump_disapprove",
+      "value": 64,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0085",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_inflation_expected_1y",
+      "value": 3.9,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0086",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_inflation_expected_3y",
+      "value": 3.3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0087",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_inflation_expected_5y",
+      "value": 3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0088",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_home_price_growth_expected_1y",
+      "value": 3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0089",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_gas_price_growth_expected_1y",
+      "value": 4.8,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0090",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_food_price_growth_expected_1y",
+      "value": 5.5,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0091",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_medical_price_growth_expected_1y",
+      "value": 9.2,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0092",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_rent_growth_expected_1y",
+      "value": 6.8,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0093",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_earnings_growth_expected_1y",
+      "value": 2.6,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0094",
+      "study_id": "nyfed_sce_sep",
+      "series": "mean_unemployment_rise_probability_1y",
+      "value": 43.9,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0095",
+      "study_id": "nyfed_sce_sep",
+      "series": "mean_job_loss_probability_1y",
+      "value": 13.5,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0096",
+      "study_id": "nyfed_sce_sep",
+      "series": "mean_job_finding_probability",
+      "value": 46.1,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0097",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_household_income_growth_expected_1y",
+      "value": 3.1,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0098",
+      "study_id": "nyfed_sce_sep",
+      "series": "median_household_spending_growth_expected_1y",
+      "value": 5.5,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0099",
+      "study_id": "nyfed_sce_sep",
+      "series": "mean_debt_payment_miss_probability_3m",
+      "value": 12.2,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0100",
+      "study_id": "eia_united_states_2026-10-19",
+      "series": "regular_gasoline_price",
+      "value": 4.284,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0101",
+      "study_id": "eia_united_states_2026-10-26",
+      "series": "regular_gasoline_price",
+      "value": 4.269,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0102",
+      "study_id": "eia_united_states_2026-11-02",
+      "series": "regular_gasoline_price",
+      "value": 4.153,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0103",
+      "study_id": "eia_california_2026-10-19",
+      "series": "regular_gasoline_price",
+      "value": 6.031,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0104",
+      "study_id": "eia_california_2026-10-26",
+      "series": "regular_gasoline_price",
+      "value": 5.888,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0105",
+      "study_id": "eia_california_2026-11-02",
+      "series": "regular_gasoline_price",
+      "value": 5.748,
+      "unit": "USD_per_gallon",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0106",
+      "study_id": "census_retail_sep",
+      "series": "retail_sales",
+      "value": 745,
+      "unit": "USD_billion",
+      "uncertainty": null,
+      "notes": "Seasonally adjusted nominal sales."
+    },
+    {
+      "id": "obs_0107",
+      "study_id": "census_retail_sep",
+      "series": "retail_sales_growth_mom",
+      "value": 0.8,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": "Not price adjusted; published uncertainty +/-0.4 percentage points at 90%."
+    },
+    {
+      "id": "obs_0108",
+      "study_id": "census_retail_sep",
+      "series": "retail_sales_growth_yoy",
+      "value": 6.3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": "Not price adjusted; published uncertainty +/-0.5 percentage points at 90%."
+    },
+    {
+      "id": "obs_0109",
+      "study_id": "bls_jobs_sep",
+      "series": "unemployment_rate",
+      "value": 4.2,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0110",
+      "study_id": "bls_jobs_sep",
+      "series": "nonfarm_payroll_change",
+      "value": 29000,
+      "unit": "persons",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0111",
+      "study_id": "bls_jobs_sep",
+      "series": "hourly_earnings_growth_yoy",
+      "value": 3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0112",
+      "study_id": "bls_la_cpi_sep",
+      "series": "all_items_growth_yoy",
+      "value": 3.7,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0113",
+      "study_id": "bls_la_cpi_sep",
+      "series": "core_growth_yoy",
+      "value": 2.6,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0114",
+      "study_id": "bls_la_cpi_sep",
+      "series": "food_growth_yoy",
+      "value": 2.8,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0115",
+      "study_id": "bls_la_cpi_sep",
+      "series": "energy_growth_yoy",
+      "value": 20.3,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0116",
+      "study_id": "bls_la_cpi_sep",
+      "series": "all_items_growth_mom",
+      "value": 0.5,
+      "unit": "percent_change",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0117",
+      "study_id": "pew_global_spring",
+      "series": "median_confidence_trump",
+      "value": 23,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0118",
+      "study_id": "pew_global_spring",
+      "series": "median_us_contributes_peace",
+      "value": 35,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0119",
+      "study_id": "pew_global_spring",
+      "series": "median_us_respects_freedoms",
+      "value": 39,
+      "unit": "percent",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0120",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PA_yes",
+      "value": 49877,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0121",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PA_no",
+      "value": 7841,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0122",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PB_yes",
+      "value": 48524,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0123",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PB_no",
+      "value": 8163,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0124",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PC_yes",
+      "value": 47398,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0125",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PC_no",
+      "value": 10432,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0126",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PF_yes",
+      "value": 48196,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0127",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PF_no",
+      "value": 8082,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0128",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PL_yes",
+      "value": 44835,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0129",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PL_no",
+      "value": 17074,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0130",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PR_yes",
+      "value": 35351,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    },
+    {
+      "id": "obs_0131",
+      "study_id": "pasadena_2024_measures",
+      "series": "measure_PR_no",
+      "value": 19999,
+      "unit": "votes",
+      "uncertainty": null,
+      "notes": ""
+    }
+  ],
+  "contrasts": [
+    {
+      "id": "us_gas_weekly_change",
+      "left_id": "obs_0102",
+      "right_id": "obs_0101",
+      "unit": "USD_per_gallon",
+      "interpretation": "Current-vintage weekly change, not electoral effect."
+    },
+    {
+      "id": "ca_gas_weekly_change",
+      "left_id": "obs_0105",
+      "right_id": "obs_0104",
+      "unit": "USD_per_gallon",
+      "interpretation": "Current-vintage weekly change."
+    },
+    {
+      "id": "ca_us_gas_price_gap",
+      "left_id": "obs_0105",
+      "right_id": "obs_0102",
+      "unit": "USD_per_gallon",
+      "interpretation": "Different geographies; descriptive comparison explicitly declared."
+    },
+    {
+      "id": "ks_national_state_economy_worsening_gap",
+      "left_id": "obs_0032",
+      "right_id": "obs_0025",
+      "unit": "percentage_points",
+      "interpretation": "Different question referents in same adult sample; no inferred paired switching."
+    },
+    {
+      "id": "ca_adult_governor_president_approval_gap",
+      "left_id": "obs_0003",
+      "right_id": "obs_0011",
+      "unit": "percentage_points",
+      "interpretation": "Different offices; descriptive contrast, not causal attribution."
+    },
+    {
+      "id": "tx_senate_dem_minus_rep",
+      "left_id": "obs_0059",
+      "right_id": "obs_0060",
+      "unit": "percentage_points",
+      "interpretation": "Survey margin; no win probability inferred."
+    },
+    {
+      "id": "tx_governor_dem_minus_rep",
+      "left_id": "obs_0062",
+      "right_id": "obs_0061",
+      "unit": "percentage_points",
+      "interpretation": "Survey margin; no win probability inferred."
+    }
+  ]
+}
