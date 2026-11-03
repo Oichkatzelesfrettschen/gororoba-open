@@ -1,0 +1,247 @@
+SPDX-License-Identifier: GPL-2.0-or-later
+
+POLITICAL OBSERVATORY: EMPIRICAL CONTRACT
+Research specification, 2026-11-03. Status: source discovery and curated pilot.
+No fitted comprehensive political model, local opinion estimate, 32D advantage,
+quantum speedup, causal effect or litigation success rate is established.
+
+1. Scope and outputs
+
+Build and validate in order: Pasadena city; Los Angeles County; California;
+Texas; Kansas; then additional regions and national synthesis. National inputs
+can enter the local observation model as shared context before national outputs
+are authorized by this sequence. The five requested areas are a purposive
+comparison, not a representative sample of the United States.
+
+Retain separate outputs for material conditions, perceived conditions, policy
+preferences, institutional trust, participation, collective action, legal
+outcomes, recovery and electoral outcomes. Do not collapse them into one
+unvalidated political-health score. For each output report observed versus
+modeled values, coverage, missingness, revision age and uncertainty.
+
+The initial pilot contains explicitly curated numerical facts from primary
+summary pages, not full raw survey or event datasets. Every observation uses
+retrieval as a conservative availability bound; none is admitted to a historical
+forecast merely because its fieldwork predates that forecast. Published dates
+are metadata, not proof that today's revised content existed on that date.
+Retain publication intervals, first-seen timestamps and source bytes in future
+adapters. Do not backdate revisions. Zero election counts before reporting are
+unreported, not voter preference or a zero-percent share.
+
+2. Measured domain inventory
+
+Preference and salience: candidate choices, office approval, issue importance,
+policy support, confidence, perceived representation, political efficacy.
+Material conditions: prices by category, real pay, employment, hours, job loss,
+business entry/closure, bankruptcy, credit access, arrears and debt transitions.
+Purchasing: nominal and category-deflated expenditure, quantities where
+available, discretionary/essential mix, income-group differences, local taxable
+sales, merchant-location versus resident-location spending.
+Mobility and travel: TSA screenings, airport enplanements, hotel nights,
+transit boardings, traffic, commute costs and airport connectivity. Airport
+passengers are not necessarily local residents or discretionary tourists.
+Housing and recovery: rent burden, evictions, homelessness, insurance
+nonrenewals, premiums, rebuild permits, disaster aid and displacement.
+Collective action: strikes, lockouts, labor protests, demonstrations,
+participation ranges, worker-days, bargaining outcomes and exposure duration.
+Institutions and law: case cohorts, standing, relief sought, stages,
+injunctions, merits decisions, stays, reversals, settlements, compliance,
+appeals and time at risk.
+Information: topic salience, source diversity, narrative disagreement,
+syndication, language, platform activity and coordinated amplification.
+Representation and administration: electoral geography, registration,
+ballot access, campaign spending, public budgets, procurement, council
+decisions, service requests and documented delivery.
+Context: weather, disaster exposure, public-health disruption, school
+attendance, education costs, utilities, water stress, immigration enforcement,
+international trade/tourism exposure and foreign public opinion.
+
+Sources.json enumerates inspected source surfaces. It does not establish
+complete coverage, live credentials, unrestricted redistribution or successful
+bulk acquisition. Expansion candidates remain in coverage.json with their
+unresolved admission steps.
+
+3. Geography, population and translation
+
+No county value becomes a measured city value. Pasadena, Altadena, South
+Pasadena, Pasadena Unified School District and the Pasadena Continuum of Care
+are distinct. The LA CPI area includes Orange County. LAHSA's LA Continuum of
+Care is not identical to LA County; reconcile Pasadena's separate coverage.
+School districts, council districts, sewersheds, ZIPs, ZCTAs and precincts
+require versioned crosswalks, not name matching.
+
+Use authoritative boundary vintages and stable codes. Preserve the source CRS.
+No geometry is stored or transformed by the pilot. Future area measurement
+requires an appropriate projected/equal-area CRS; never use Web Mercator for
+area weighting. Population-weighted crosswalks require documented source
+counts and uncertainty; area weighting alone assumes uniform density.
+Reconcile one-to-many boundary joins and report unmatched records. A city
+estimate derived from county change assumptions is modeled, not independent
+city evidence; EDD's subcounty employment method makes this distinction
+especially consequential.
+
+Foreign opinion has its own population and measurement model. Country medians
+are not population-weighted global estimates and never enter the US vote
+likelihood as US preferences. Test foreign confidence, trade, tourism and
+domestic exposure relationships as contextual hypotheses. Preserve survey
+language, original prompt, response scale, source-language text, translated
+text, translator/version and adjudication status. Back-translate and compare
+meaning for any cross-language item admitted to pooled estimation. Spanish
+catalog terminology is summarized in literature.json; questionnaire equivalence
+has not been established.
+
+4. Hierarchical model and temporal measurement
+
+For domain d, geography g and time t, define a domain-specific latent state
+z[d,g,t]. Use an explicit observation equation
+ y[j,g,t] = h[j](z[d,g,t]) + source_effect[j] + method_effect[j,t] + error[j,g,t].
+Allow source-cluster and cycle-cluster dependence. Survey likelihoods must
+respect weighted estimates, design effects and respondent overlap.
+Aggregated percentages are not binomial counts formed by multiplying a rounded
+percentage by total sample size.
+
+A dynamic-factor or state-space layer handles ragged releases and mixed
+frequencies. Weekly card spending, monthly prices and quarterly debt remain
+at their measured frequency. No interpolation creates new independent data.
+Estimate factor loadings and scaling inside training folds; missingness,
+staleness and release surprises remain explicit.
+
+Geographic hierarchy: city effects nested in county and state where genuinely
+nested, plus shared national factors. Non-nested geographies require explicit
+cross-classification. Partial pooling does not make a sparse city estimate a
+direct observation. Dynamic MRP is an optional opinion layer only after
+respondent microdata and suitable poststratification counts are acquired and
+diagnostics support identification. Public toplines alone do not supply MRP.
+
+Separate mechanisms from prediction. A causal effect of a protest, strike,
+court ruling or price shock needs a predeclared estimand, timing, comparison
+group, confounder strategy and interference assessment. Event studies require
+pretrend checks and sensitivity; association and forecast gain are insufficient.
+
+5. Litigation and collective-action outcomes
+
+Predeclare separate legal cohorts: election administration, executive-policy
+review, labor, housing/consumer, and local governance. Record unit as case,
+consolidated case-family or requested claim/relief. Do not mix them.
+A preliminary-relief grant is not a final merits win. Dismissal for standing
+does not establish substantive legality. A settlement has separately coded
+terms, not an automatic win. Appeals can change effective outcome.
+
+Report:
+ - preliminary relief granted / eligible relief motions resolved by cutoff;
+ - favorable merits outcomes / classified merits dispositions by cutoff;
+ - stay/reversal rates among review-eligible rulings;
+ - time-to-resolution with pending cases censored;
+ - realized compliance separately from judicial orders.
+Publish numerator, denominator, unclassified and pending counts. FJC
+administrative codes require codebook review and case-document adjudication;
+RECAP's selection limits population claims. No success rates exist in the
+pilot because no adjudicated case cohort has been acquired.
+
+For strikes, distinguish workers, sites, actions, duration, lockouts and
+settlement terms. Deduplicate multi-site disputes while retaining site exposure.
+BLS's >=1000-worker series cannot stand in for all strikes. Protest events
+require event-level deduplication across news articles and separate uncertainty
+for attendance. No count becomes support for a party without additional data.
+
+6. Social and news measurement
+
+Use permitted public aggregate/research access. Preserve sampling queries,
+time windows, returned coverage, language and platform. Do not infer an
+individual's political belief or precise residence from posts, names or
+demographic proxies. No person-level persuasion or targeting.
+Topic prevalence, sentiment, stance, sarcasm and factuality are distinct labels.
+Annotate a geographically and linguistically stratified validation sample;
+report intercoder disagreement and per-language confusion matrices.
+Do not call automated-account scores proof of bots. Use sensitivity analyses
+with and without high-volume and coordinated clusters.
+Separate resident discussion from outsiders discussing a place. Non-geolocated
+content remains unknown geography. Foreign-language content is not foreign
+influence. Handle deleted posts through permitted retention/deletion procedures.
+
+GDELT is a media-observation layer. ACLED is an event-coded layer. Cornell and
+BLS have different labor-action coverage. Syndicated articles are deduplicated
+before topic-frequency estimation, and event records link multiple sources.
+Unavailable data remains a gap; registration-required sources are not scraped
+around their access requirements.
+
+7. Repository mathematics as competing features
+
+First fit baselines: seasonal/persistence, hierarchical lagged regression,
+dynamic factor, conventional nonlinear interactions, covariance/rank and
+matched-window change-point diagnostics. No predictive readiness before EDA,
+missingness, target balance, dependence and temporal coverage are reported.
+
+Candidate 32D construction: eight aligned channels x four declared delays.
+This is a feature construction, not proof of intrinsic political dimension.
+Declare basis order, centering, scales, receptive field and all maps.
+Feature groups must be selected within nested training, never because they
+fit today's narrative. Monitor measurement/calendar artifacts.
+
+Compare the associator against:
+ - temporal and block controls;
+ - phase and multivariate cross-spectral controls with preservation tested;
+ - fixed-support sign-scramble ensembles, not one favorable seed;
+ - alternate algebras and generic cubic contractions at matched support;
+ - dimension and basis-placement ablations;
+ - identical history, parameter budget and tuning budget.
+Zero divisors motivate observability and cancellation hypotheses; a feature
+multiplication zero is not a political mechanism. Use empirical Jacobian/SVD
+analyses for aggregate cancellation and report weak identification.
+
+The current crossing-detector report records a small positive archive AUC
+increment whose interval lies below its declared 0.005 target, and 14-16 of
+19 fixed-support sign controls equal or exceed canonical estimates. Preserve
+this finding. Historical 32D reports do not override later matched controls.
+Quantum implementations compare exact output laws and classical equivalents,
+including loading, compilation, execution and decoding cost. No quantum run,
+credit spending or speedup claim is part of this initial observatory.
+
+8. Validation and sequential gates
+
+G0: acquire source bytes, terms, schema, timestamps and coverage; enumerate all
+expected polls/waves per admitted provider/date interval. Reconcile duplicates,
+excluded records, missing resources and access failures. "Exhaustive" means
+complete relative to that declared provider x geography x period inventory.
+G1: build city/county historical panels and direct-vs-modeled evidence cards.
+G2: validate local descriptive estimates, then state layers CA -> TX -> KS.
+G3: evaluate political outcomes and diagnostic features on chronological
+held-out cycles plus held-out geographies and sources.
+G4: expand to a representative national panel and nationally reconcile totals.
+Do not sum Pasadena and LA County or CA with its counties. Counts aggregate
+only over disjoint units; rates aggregate using their own denominators.
+G5: frozen prospective assessment with report provenance and monitoring.
+
+All imputation/scaling/selection is training-only. Purge overlapping windows
+and labels; retain election-cycle clusters. A hundred districts in one cycle
+are not a hundred independent national experiments. Compare proper scores,
+MAE, calibration, interval coverage, source robustness and domain ablations.
+Report paired differences and uncertainty at defensible dependence units.
+For descriptive diagnostics preregister nulls and correct search multiplicity.
+Model attribution is predictive decomposition, not causal attribution.
+
+A useful feature survives only for its demonstrated task. If generic cubic
+controls match the CD features, retain useful feature engineering but abandon
+algebra-specific advantage. If no held-out improvement survives, keep the
+descriptive source system and reject predictive augmentation.
+
+9. Storage, operation and completion
+
+The separate SQLite schema is an observation ledger, not the canonical claim
+registry. No registry claim IDs are minted here. JSON provenance remains
+inspectable. Raw third-party files stay out of git when redistribution terms,
+size or personal data prohibit inclusion; retain hashes and retrieval recipes.
+
+The first implementation is a Rust Cargo example using existing workspace
+dependencies. It audits the curated bundle, filters by availability cutoff,
+emits coverage and computes only explicitly declared arithmetic contrasts.
+It neither fetches all providers nor fits the proposed models. SQLite schema
+and curated records were checked separately in the session. Rust is absent in
+the execution environment; compile/test evidence must come from hosted CI or
+a Rust-equipped checkout. Do not label this as a validated production model.
+
+Required next acquisition: historical LA community/precinct returns and
+boundary crosswalks; Pasadena taxable sales/recovery series; permitted LA
+survey microdata; then CA/TX/KS polling wave inventories and economic histories.
+No automation, external email, paid data acquisition or deployment is created.
+
