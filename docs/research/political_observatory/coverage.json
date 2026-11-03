@@ -1,0 +1,144 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "schema_version": 1,
+  "status": "Initial discovery and curated pilot; no comprehensive model has been fitted",
+  "requested_geographies": [
+    "pasadena",
+    "la_county",
+    "california",
+    "texas",
+    "kansas"
+  ],
+  "national_output_gate": "Only after local/county/state validation and acquisition of a representative national panel.",
+  "coverage_definition": "Enumerate provider x geography x domain x period x expected wave; completed source discovery is not completed acquisition.",
+  "pilot_not_independent_sample_count": true,
+  "gaps": [
+    {
+      "domain": "polls",
+      "missing": "Provider-by-provider full wave inventory, downloadable toplines/crosstabs, eligible microdata, original vintages and respondent dependence.",
+      "next": "PPIC, Emerson, AP-NORC, UT/Texas Politics, FHSU, UCLA/USC plus primary polling providers beyond this first pass."
+    },
+    {
+      "domain": "pasadena_opinion",
+      "missing": "Direct representative Pasadena political sample or identifiable small-area model.",
+      "next": "Assess permissible LA panel microdata and available city surveys; report no direct city opinion estimate meanwhile."
+    },
+    {
+      "domain": "purchasing",
+      "missing": "Downloaded OI histories and inspected city coverage; no current category-spending trend estimated.",
+      "next": "Enumerate per-file max dates; acquire county/state spending and Pasadena taxable transactions with release history."
+    },
+    {
+      "domain": "consumer_finance",
+      "missing": "Debt/delinquency and hardship histories, comparable denominators.",
+      "next": "NY Fed SCE/HHDC, SHED, CFPB complaints and HTOPS release-specific files."
+    },
+    {
+      "domain": "travel",
+      "missing": "TSA/BTS/airport/transit records and seasonal baselines.",
+      "next": "Extract LAX/BUR separately; resident versus visitor demand cannot be inferred from airport totals."
+    },
+    {
+      "domain": "labor_action",
+      "missing": "Deduplicated action episodes, worker-days, bargaining settlements.",
+      "next": "Public Cornell exports and BLS reports after terms/denominator review; never infer success from publicity."
+    },
+    {
+      "domain": "protest",
+      "missing": "Access-qualified event records and coverage denominator.",
+      "next": "ACLED terms, public municipal records and event-coded cross-source validation."
+    },
+    {
+      "domain": "litigation",
+      "missing": "Adjudicated case-family cohort and stage-specific outcomes.",
+      "next": "CourtListener existing public records and FJC codebook; no paid fetch or contacts."
+    },
+    {
+      "domain": "social_media",
+      "missing": "Authorized platform sample, language annotation and geographical validation.",
+      "next": "Permitted Bluesky aggregates; Reddit RFR approval remains an access condition."
+    },
+    {
+      "domain": "foreign_opinion",
+      "missing": "Country-specific harmonized waves, language equivalence and trade/tourism exposure links.",
+      "next": "Pew/Ipsos and nonredistributed Latinobarometro; add Afrobarometer, Asian Barometer and national providers after discovery."
+    },
+    {
+      "domain": "boundaries",
+      "missing": "Authoritative city/precinct/district vintage crosswalks and uncertainty.",
+      "next": "Census TIGER/ACS and election-authority geographies; verify all codes before joins."
+    },
+    {
+      "domain": "administration_campaigns",
+      "missing": "City/state finance, candidate finance, legislation and service delivery panels.",
+      "next": "FEC, state ethics/finance agencies, Pasadena/LA open records, procurement and budgets."
+    },
+    {
+      "domain": "weather_health_school",
+      "missing": "Matched aggregate disruption/exposure series.",
+      "next": "NOAA/FEMA, CDPH, utility outages, school attendance; no individual health records."
+    },
+    {
+      "domain": "model_validation",
+      "missing": "Historical vintage panel, EDA, baseline fit, held-out cycles and national sampling frame.",
+      "next": "No 32D, quantum or comprehensive forecast claim before this gate."
+    }
+  ],
+  "quarantines": [
+    {
+      "source_id": "la_results_2026",
+      "reason": "Observed pre-close zero counts are unreported, not observed candidate preference.",
+      "resolution": "Retain snapshot status; wait for published nonzero reporting and reporting metadata."
+    },
+    {
+      "source_id": "la_election_download",
+      "reason": "Published schema Type enum omits Judicial, which the observed live payload contains.",
+      "resolution": "Version adapter and explicitly support observed Judicial type; preserve unknown types and raw payload."
+    },
+    {
+      "source_id": "emerson_ks26",
+      "reason": "Published pushed governor figures 53% and 48% sum to 101%; not used in pilot.",
+      "resolution": "Consult full table or source correction; do not repair silently."
+    },
+    {
+      "source_id": "usc_labarometer",
+      "reason": "Registration required for respondent data.",
+      "resolution": "Use public documentation/aggregates until authorized access exists."
+    },
+    {
+      "source_id": "latinobarometro",
+      "reason": "No raw-data redistribution permitted on inspected download policy.",
+      "resolution": "Repository stores citations, recipes and derived results only where allowed."
+    },
+    {
+      "source_id": "reddit_research",
+      "reason": "Research access requires RFR according to current provider help.",
+      "resolution": "No bulk collection performed."
+    }
+  ],
+  "failed_routes": [
+    {
+      "url": "https://www.sos.state.tx.us/elections/historical/index.shtml",
+      "outcome": "403 through web retrieval; source remains inaccessible in this pass."
+    },
+    {
+      "url": "https://sos.ks.gov/elections/elections-statistics.html",
+      "outcome": "404; replaced by validated election-results.html and advance-voting-data.html."
+    }
+  ],
+  "additional_source_candidates_not_yet_verified": [
+    "ANES and Cooperative Election Study respondent data",
+    "Berkeley IGS and SurveyUSA California poll archives",
+    "UT Tyler and Texas Hispanic Policy Foundation archives",
+    "Gallup and Michigan consumer sentiment downloadable series",
+    "BEA real PCE, income and regional price parities",
+    "BLS QCEW, LAUS, JOLTS and employment cost series",
+    "California, Texas and Kansas campaign-finance filings",
+    "Census ACS/TIGER, LEHD and business formation data",
+    "Pasadena Rental Housing Board and local eviction/recovery records",
+    "FEMA OpenFEMA, NOAA weather/storms and utility outage data",
+    "State court administrative statistics and appellate dockets",
+    "Afrobarometer, Asian Barometer, Eurobarometer and national polling institutes",
+    "Local airport, Metro transit and hotel/visitor statistics"
+  ]
+}
