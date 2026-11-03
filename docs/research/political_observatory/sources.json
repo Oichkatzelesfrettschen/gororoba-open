@@ -1,0 +1,818 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "schema_version": 1,
+  "checked_on": "2026-11-03",
+  "scope": "First source-discovery pass, not an exhaustive data acquisition",
+  "sources": [
+    {
+      "id": "pasadena_open",
+      "domain": "local_administration",
+      "url": "https://www.cityofpasadena.net/city-services/open-data/",
+      "geographies": [
+        "pasadena"
+      ],
+      "access": "public_portal",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Dataset endpoints and individual licenses still need enumeration."
+    },
+    {
+      "id": "pasadena_economy",
+      "domain": "local_economy",
+      "url": "https://www.cityofpasadena.net/economicdevelopment/economic-snapshot/",
+      "geographies": [
+        "pasadena"
+      ],
+      "access": "public_dashboard",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Embedded figures require extraction and vintage checks."
+    },
+    {
+      "id": "pasadena_recovery",
+      "domain": "disaster_recovery",
+      "url": "https://www.cityofpasadena.net/Eaton-Fire/",
+      "geographies": [
+        "pasadena"
+      ],
+      "access": "public_portal",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Displacement, rebuilding and service access; distinguish Pasadena from Altadena."
+    },
+    {
+      "id": "la_recovery",
+      "domain": "disaster_recovery",
+      "url": "https://recovery.lacounty.gov/pasadena-recovers/",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_portal",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Event exposure is not inferred voter preference."
+    },
+    {
+      "id": "la_election_archive",
+      "domain": "elections",
+      "url": "https://www.lavote.gov/home/voting-elections/current-elections/election-results/past-election-results",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Community and precinct products differ; small-cell redactions must remain missing."
+    },
+    {
+      "id": "la_election_download",
+      "domain": "elections",
+      "url": "https://www.lavote.gov/home/voting-elections/current-elections/election-results-file-downloads",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_json",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Published enum omits observed Judicial type; use versioned unknown-enum quarantine."
+    },
+    {
+      "id": "la_results_2026",
+      "domain": "elections",
+      "url": "https://results.lavote.gov/electionresults/json?electionid=4348",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_json",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Observed pre-close zero counts are unreported; do not estimate shares or winners."
+    },
+    {
+      "id": "la_results_2024",
+      "domain": "elections",
+      "url": "https://results.lavote.gov/electionresults/json?electionid=4324",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_json",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "County results for overlapping districts are not full-district totals."
+    },
+    {
+      "id": "ca_results",
+      "domain": "elections",
+      "url": "https://www.sos.ca.gov/elections/prior-elections/statewide-election-results/primary-election-june-2-2026/statement-vote",
+      "geographies": [
+        "california"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Certified primary returns; general results require separate acquisition."
+    },
+    {
+      "id": "ks_results",
+      "domain": "elections",
+      "url": "https://sos.ks.gov/elections/election-results.html",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Preserve certification and election-type flags."
+    },
+    {
+      "id": "ks_advance",
+      "domain": "participation",
+      "url": "https://sos.ks.gov/elections/advance-voting-data.html",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Ballots and registration are not candidate choices."
+    },
+    {
+      "id": "ppic_oct26",
+      "domain": "polls",
+      "url": "https://www.ppic.org/publication/ppic-statewide-survey-californians-and-their-government-october-2026/",
+      "geographies": [
+        "california"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Separate adults and likely voters; same-wave questions share respondents."
+    },
+    {
+      "id": "tx_poll_archive",
+      "domain": "polls",
+      "url": "https://texaspolitics.utexas.edu/polling-data-archive",
+      "geographies": [
+        "texas"
+      ],
+      "access": "public_data_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "October panel: 1253 interviewed, matched 1200; no substitution of total n for likely-voter subgroup n."
+    },
+    {
+      "id": "ks_speaks26",
+      "domain": "polls",
+      "url": "https://www.fhsu.edu/docking/Kansas-Speaks/2026-kansas-speaks-survey-report_final.pdf",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "603 adults; weighted count is not effective sample size; 2020 mode change."
+    },
+    {
+      "id": "ks_poll_archive",
+      "domain": "polls",
+      "url": "https://www.fhsu.edu/docking/Kansas-Speaks/",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_reports",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Question wording, weighting and mode changes need harmonization."
+    },
+    {
+      "id": "ucla_qol26",
+      "domain": "polls",
+      "url": "https://luskin.ucla.edu/news/los-angeles-county-residents-satisfaction-with-quality-of-life-at-all-time-low-in-year-11-of-ucla-survey/",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "March fieldwork; do not label as November sentiment."
+    },
+    {
+      "id": "ucla_qol_archive",
+      "domain": "polls",
+      "url": "https://lewis.ucla.edu/qualityoflife/",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_aggregates_restricted_microdata",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Raw data restricted to UCLA community; index is salience-weighted, not a simple mean."
+    },
+    {
+      "id": "usc_labarometer",
+      "domain": "polls",
+      "url": "https://dornsife.usc.edu/cesr/labarometer/",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "registration_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Probability panel; linked respondent waves require panel dependence and attrition treatment."
+    },
+    {
+      "id": "usc_labarometer_data",
+      "domain": "polls",
+      "url": "https://uasdata.usc.edu/index.php?pid=LABarometer&type=3",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "registration_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "No account or download authorization assumed."
+    },
+    {
+      "id": "apnorc_oct26",
+      "domain": "polls",
+      "url": "https://apnorc.org/projects/ahead-of-the-midterms-most-voters-cite-the-economy-and-cost-of-living-as-top-issues-and-favor-political-change/",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "1119 total adults; voter subgroup n not exposed in summary."
+    },
+    {
+      "id": "emerson_national26",
+      "domain": "polls",
+      "url": "https://emersoncollegepolling.com/october-2026-national-poll-democrats-hold-10-point-midterm-advantage/",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Likely-voter panel; preserve methodology and question framing."
+    },
+    {
+      "id": "emerson_tx26",
+      "domain": "polls",
+      "url": "https://emersoncollegepolling.com/texas-2026-poll-toss-up/",
+      "geographies": [
+        "texas"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "October 17-19; distinguish initial choice and leaner push."
+    },
+    {
+      "id": "emerson_ks26",
+      "domain": "polls",
+      "url": "https://emersoncollegepolling.com/october-2026-kansas-poll-hamilton-maintains-edge-over-marshall/",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Do not silently correct a source whose pushed governor shares sum above 100; that passage quarantined."
+    },
+    {
+      "id": "gallup_econ",
+      "domain": "sentiment",
+      "url": "https://www.gallup.com/468833/indicator-economic-performance.aspx",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_summary",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Current vintage varies by page; licensed microdata not assumed."
+    },
+    {
+      "id": "pew_global26",
+      "domain": "foreign_opinion",
+      "url": "https://www.pewresearch.org/global/2026/06/23/trump-gets-negative-reviews-internationally-as-fewer-say-u-s-is-a-reliable-partner/",
+      "geographies": [
+        "international"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Country median is not population-weighted world opinion or US voter preference."
+    },
+    {
+      "id": "ipsos_world",
+      "domain": "foreign_opinion",
+      "url": "https://www.ipsos.com/en/global-opinion-polls/what-worries-world-poll",
+      "geographies": [
+        "international"
+      ],
+      "access": "public_reports",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Cross-country online-sample coverage and issue prompts differ."
+    },
+    {
+      "id": "latinobarometro",
+      "domain": "foreign_opinion",
+      "url": "https://latinobarometro.org/agregados",
+      "geographies": [
+        "international"
+      ],
+      "access": "research_use_no_redistribution",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Spanish documentation translated in literature.json; retain original wording; no raw data redistribution."
+    },
+    {
+      "id": "nyfed_sce_sep26",
+      "domain": "consumer_finance",
+      "url": "https://www.newyorkfed.org/newsevents/news/research/2026/20261007",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Expected spending is nominal; rotating panel and expectation horizons matter."
+    },
+    {
+      "id": "nyfed_hhdc",
+      "domain": "consumer_finance",
+      "url": "https://www.newyorkfed.org/microeconomics/hhdc",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Credit-panel coverage excludes credit-invisible adults; balance vs transition delinquency rates differ."
+    },
+    {
+      "id": "fed_shed",
+      "domain": "consumer_finance",
+      "url": "https://www.federalreserve.gov/consumerscommunities/shed.htm",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Annual financial well-being is slow-moving context."
+    },
+    {
+      "id": "cfpb_complaints",
+      "domain": "consumer_finance",
+      "url": "https://www.consumerfinance.gov/data-research/consumer-complaints/",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_data",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Complaint counts are not representative prevalence; reporting and publication selection."
+    },
+    {
+      "id": "eia_gas26",
+      "domain": "energy",
+      "url": "https://www.eia.gov/petroleum/gasdiesel/",
+      "geographies": [
+        "california",
+        "united_states"
+      ],
+      "access": "public_table",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Dollars per gallon; CA and regional series do not imply Pasadena station prices."
+    },
+    {
+      "id": "eia_api",
+      "domain": "energy",
+      "url": "https://www.eia.gov/opendata/documentation.php",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "api_key_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "No API credential tested; never commit keys."
+    },
+    {
+      "id": "census_retail_sep26",
+      "domain": "purchasing",
+      "url": "https://www.census.gov/retail/marts/www/marts_current.pdf",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Nominal seasonally adjusted sales; current URL mutable; pin source hash for production."
+    },
+    {
+      "id": "census_eits",
+      "domain": "purchasing",
+      "url": "https://www.census.gov/data/developers/data-sets/economic-indicators.html",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "api_key_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Current docs state API key requirement; historical revisions must use vintages."
+    },
+    {
+      "id": "oi_tracker",
+      "domain": "purchasing",
+      "url": "https://github.com/OpportunityInsights/EconomicTracker",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_data",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Provider attribution required; series can be discontinued; verify max date per geography."
+    },
+    {
+      "id": "oi_documentation",
+      "domain": "purchasing",
+      "url": "https://github.com/OpportunityInsights/EconomicTracker/blob/main/docs/oi_tracker_data_documentation.md",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_documentation",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Resident ZIP geography, not merchant location; spending cadence changed in June 2022."
+    },
+    {
+      "id": "cdtfa_city_sales",
+      "domain": "purchasing",
+      "url": "https://cdtfa.ca.gov/DataPortal/dataset.htm?url=TaxSalesCRCityCounty",
+      "geographies": [
+        "pasadena",
+        "california"
+      ],
+      "access": "public_table_api",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Taxable sales exclude nontaxable spending; disclosure suppression; preliminary revisions."
+    },
+    {
+      "id": "bls_jobs_sep26",
+      "domain": "employment",
+      "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "September release; October jobs unavailable before Nov 6."
+    },
+    {
+      "id": "bls_la_cpi_sep26",
+      "domain": "prices",
+      "url": "https://www.bls.gov/regions/west/news-release/2026/consumerpriceindex_losangeles_20261014.htm",
+      "geographies": [
+        "la_metro"
+      ],
+      "access": "public_report",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "LA-Long Beach-Anaheim includes Orange County; local changes not seasonally adjusted."
+    },
+    {
+      "id": "edd_city_jobs",
+      "domain": "employment",
+      "url": "https://labormarketinfo.edd.ca.gov/data/labor-force-and-unemployment-for-cities-and-census-areas.html",
+      "geographies": [
+        "pasadena",
+        "la_county",
+        "california"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Subcounty estimates assume county rates of employment/unemployment change; not independent Pasadena measurement."
+    },
+    {
+      "id": "ks_economy",
+      "domain": "employment",
+      "url": "https://kansascommerce.gov/dataview/city/home",
+      "geographies": [
+        "kansas"
+      ],
+      "access": "public_dashboard",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Underlying data vendors, vintages and licenses require dataset-level review."
+    },
+    {
+      "id": "tsa_bts_method",
+      "domain": "travel",
+      "url": "https://www.bts.gov/browse-statistical-products-and-data/preliminary-estimates/preliminary-estimates-enplanements-tsa",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_documentation",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Screenings differ from enplanements and resident travel demand."
+    },
+    {
+      "id": "bts_air_downloads",
+      "domain": "travel",
+      "url": "https://www.bts.gov/airline-data-downloads",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Airport origin is not traveler residence; publication lag varies by product."
+    },
+    {
+      "id": "tsa_throughput",
+      "domain": "travel",
+      "url": "https://catalog.data.gov/dataset/tsa-foia-reading-room-weekly-passenger-throughput-data",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_catalog",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Catalog update timestamp does not establish current resource data coverage."
+    },
+    {
+      "id": "cornell_labor",
+      "domain": "labor_action",
+      "url": "https://www.ilr.cornell.edu/faculty-and-research/labor-action-tracker",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_reports_data_request",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Protests not exhaustively counted; spreadsheet offered by request; no email sent."
+    },
+    {
+      "id": "cornell_labor_code",
+      "domain": "labor_action",
+      "url": "https://github.com/ilrWebServices/StrikeSiteTracker",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_code",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Static JSON export architecture inspected in README; data reuse terms must be checked separately."
+    },
+    {
+      "id": "bls_stoppages",
+      "domain": "labor_action",
+      "url": "https://www.bls.gov/wsp/overview.htm",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_data",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "1000-worker/one-shift threshold; includes lockouts; misses smaller actions."
+    },
+    {
+      "id": "acled_us",
+      "domain": "protest",
+      "url": "https://acleddata.com/methodology/united-states-scope-and-coverage-acled-data",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "access_terms_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Coverage and definitions documented; events are not news articles; license/access not assumed."
+    },
+    {
+      "id": "gdelt",
+      "domain": "media",
+      "url": "https://gdeltproject.org/data.html",
+      "geographies": [
+        "international"
+      ],
+      "access": "public_data",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Media attention is not event incidence or public opinion; syndication and language coverage require controls."
+    },
+    {
+      "id": "courtlistener_coverage",
+      "domain": "litigation",
+      "url": "https://courtlistener.com/coverage/",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_coverage",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "RECAP is incomplete; current state-court coverage cannot be treated as a census."
+    },
+    {
+      "id": "courtlistener_api",
+      "domain": "litigation",
+      "url": "https://wiki.free.law/c/courtlistener/help/api/rest/v4/recap",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "api_auth_or_paid_fetch",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Read existing public documents only; no paid PACER fetch authorized or attempted."
+    },
+    {
+      "id": "fjc_idb",
+      "domain": "litigation",
+      "url": "https://www.fjc.gov/research/federal-court-cases-fjc-integrated-database-1979-present",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Administrative dispositions require codebook mapping; no universal lawsuit win-rate denominator."
+    },
+    {
+      "id": "bsky_stream",
+      "domain": "social_media",
+      "url": "https://bsky.network/docs/consuming-the-firehose/",
+      "geographies": [
+        "international"
+      ],
+      "access": "public_stream",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Stream is platform-selected population, not representative polling; no precise location inferred."
+    },
+    {
+      "id": "bsky_api",
+      "domain": "social_media",
+      "url": "https://endpoints.bsky.app/",
+      "geographies": [
+        "international"
+      ],
+      "access": "public_read_api",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Aggregate analysis only; sample frame and deletions must be recorded."
+    },
+    {
+      "id": "reddit_research",
+      "domain": "social_media",
+      "url": "https://support.reddithelp.com/hc/en-us/articles/14945211791892-Developer-Platform-Accessing-Reddit-Data",
+      "geographies": [
+        "international"
+      ],
+      "access": "research_approval_required",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Current help directs research to RFR; no bulk scraping or model training assumed."
+    },
+    {
+      "id": "ca_insurance",
+      "domain": "insurance",
+      "url": "https://www.insurance.ca.gov/01-consumers/200-wrr/DataAnalysisOnWildfiresAndInsurance.cfm",
+      "geographies": [
+        "california"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "ZIP is not city; historical counts and nonrenewals not current premium quotes."
+    },
+    {
+      "id": "lahsa",
+      "domain": "housing",
+      "url": "https://www.lahsa.org/data-refresh",
+      "geographies": [
+        "la_county"
+      ],
+      "access": "public_dashboard",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "PIT counts are annual snapshots; LA CoC, LA County and Pasadena CoC are distinct."
+    },
+    {
+      "id": "cdph_wastewater",
+      "domain": "health_disruption",
+      "url": "https://data.ca.gov/@california-department-of-public-health/cdph-wastewater-surveillance-data-california",
+      "geographies": [
+        "california"
+      ],
+      "access": "public_files",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Sewershed is not city boundary; resource-date vs catalog-date mismatch recorded."
+    },
+    {
+      "id": "fec",
+      "domain": "campaign_finance",
+      "url": "https://www.fec.gov/data/",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_files_api",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Amendments supersede originals; transfers and independent expenditures require separate accounting."
+    },
+    {
+      "id": "alfred",
+      "domain": "vintages",
+      "url": "https://alfred.stlouisfed.org/help/downloaddata",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_documentation",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "Vintage data required for backtesting; current revised values cannot substitute."
+    },
+    {
+      "id": "medsl",
+      "domain": "elections",
+      "url": "https://doi.org/10.7910/DVN/NYTPDU",
+      "geographies": [
+        "united_states"
+      ],
+      "access": "public_dataset",
+      "discovery_status": "documentation_or_primary_summary_checked",
+      "bulk_data_acquired": false,
+      "reuse_clearance": "dataset_level_review_required",
+      "limitation": "2024 precinct returns; geography-version concordance and certified source reconciliation required."
+    }
+  ]
+}
