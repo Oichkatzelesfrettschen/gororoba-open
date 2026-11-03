@@ -1,0 +1,170 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "schema_version": 1,
+  "status": "unfitted_research_contract",
+  "as_of": "2026-11-03",
+  "outputs": [
+    {
+      "id": "material_conditions",
+      "targets": [
+        "real_purchasing_power",
+        "housing_burden",
+        "credit_stress",
+        "employment_security",
+        "recovery_delivery"
+      ],
+      "direct_measures_required": true
+    },
+    {
+      "id": "public_opinion",
+      "targets": [
+        "policy_preferences",
+        "issue_salience",
+        "institution_specific_trust",
+        "perceived_material_conditions"
+      ],
+      "direct_or_modeled_labels_required": true
+    },
+    {
+      "id": "collective_action",
+      "targets": [
+        "action_incidence",
+        "participation_ranges",
+        "worker_days",
+        "stage_specific_outcomes"
+      ],
+      "coverage_denominators_required": true
+    },
+    {
+      "id": "institutions_and_law",
+      "targets": [
+        "relief_stage_outcomes",
+        "merits_outcomes",
+        "compliance",
+        "case_resolution_time"
+      ],
+      "case_family_adjudication_required": true
+    },
+    {
+      "id": "electoral",
+      "targets": [
+        "turnout",
+        "vote_share",
+        "seat_outcome",
+        "measure_passage"
+      ],
+      "race_rules_and_denominators_required": true
+    }
+  ],
+  "sequential_geographies": [
+    "pasadena",
+    "la_county",
+    "california",
+    "texas",
+    "kansas"
+  ],
+  "national_extension": {
+    "requires": "Representative additional national panel and independent cycle validation; requested five areas cannot stand for US.",
+    "contexts_allowed_before_fit": [
+      "national_economic_releases",
+      "national_poll_context",
+      "foreign_opinion_context"
+    ]
+  },
+  "hypotheses": [
+    {
+      "id": "H1_material_perception_gap",
+      "claim": "Material-condition changes and perceived conditions differ in geography/time in ways simple common-factor models do not explain.",
+      "falsifier": "Apparent gap disappears after units, population, vintage and uncertainty reconciliation.",
+      "task": "descriptive_then_predictive_if_validated"
+    },
+    {
+      "id": "H2_institution_specific_attribution",
+      "claim": "Federal/state/local evaluations retain separable variation after shared economic factors.",
+      "falsifier": "Institution-specific component has no stable held-out contribution.",
+      "task": "descriptive; causal attribution needs additional design"
+    },
+    {
+      "id": "H3_coordination_change",
+      "claim": "Matched multichannel diagnostics identify a change in relationships beyond persistence and covariance.",
+      "falsifier": "Matched linear, generic cubic or surrogate controls explain diagnostic.",
+      "task": "change_detection"
+    },
+    {
+      "id": "H4_aggregate_cancellation",
+      "claim": "Stable aggregate margins can mask opposing component changes.",
+      "falsifier": "Component changes vanish under sampling uncertainty or fail to reconcile with aggregate.",
+      "task": "decomposition"
+    },
+    {
+      "id": "H5_algebra_specific_increment",
+      "claim": "CD associator adds value beyond fixed-support generic cubic and alternate-algebra controls.",
+      "falsifier": "Held-out matched controls equal/exceed canonical; abandon algebra-specific interpretation.",
+      "task": "preregistered_comparison"
+    },
+    {
+      "id": "H6_quantum_implementation",
+      "claim": "A defined quantum implementation estimates the same admitted political statistic efficiently.",
+      "falsifier": "No same-task accuracy/cost advantage including data loading and decoding.",
+      "task": "separate_future_computation_benchmark"
+    }
+  ],
+  "candidate_features_32d": {
+    "construction": "eight admitted aligned channels x four delays",
+    "channels": null,
+    "delays": null,
+    "basis_assignment": null,
+    "normalization": "training_only",
+    "status": "withheld_until_history_and_target_admission",
+    "padding_missing_with_zero": false,
+    "claim_intrinsic_dimension": false
+  },
+  "comparison_order": [
+    "persistence_and_seasonal",
+    "hierarchical_lagged_regression",
+    "dynamic_factor_mixed_frequency",
+    "generic_nonlinear_and_cubic",
+    "32d_cd_associator",
+    "exact_classical_vs_quantum_if_task_defined"
+  ],
+  "evaluation": {
+    "splits": [
+      "chronological_election_cycles",
+      "held_out_geographies",
+      "held_out_sources"
+    ],
+    "purge_overlapping_windows": true,
+    "preprocessing_training_only": true,
+    "metrics_by_target": {
+      "continuous": [
+        "MAE",
+        "proper_distribution_score",
+        "interval_coverage"
+      ],
+      "binary": [
+        "Brier",
+        "log_score",
+        "calibration"
+      ],
+      "diagnostic": [
+        "false_alert_rate_per_exposure",
+        "event_detection_yield",
+        "matched_null_distribution"
+      ]
+    },
+    "uncertainty_units": [
+      "election_cycle",
+      "source_cluster",
+      "temporal_block_where_defensible"
+    ],
+    "multiple_searches_accounted": true,
+    "success_thresholds": null,
+    "threshold_status": "Must be set from task utility before outcome inspection; no arbitrary usefulness threshold supplied."
+  },
+  "resource_status": {
+    "rust_toolchain_here": false,
+    "bulk_adapters_implemented": false,
+    "models_fitted": false,
+    "qpu_submissions": 0
+  }
+}
