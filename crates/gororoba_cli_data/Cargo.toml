@@ -537,3 +537,8 @@ workspace = true
 name = "enso_local_outlook"
 path = "examples/enso_local_outlook.rs"
 test = true
+
+[[example]]
+name = "political_observatory"
+path = "examples/political_observatory.rs"
+test = true
