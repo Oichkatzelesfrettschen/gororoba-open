@@ -1,0 +1,103 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "status": "pilot_summary_only_no_fitted_model",
+  "captured_at": "2026-11-03T18:59:14.557Z",
+  "catalog_sources": 62,
+  "catalog_domains": 24,
+  "studies": 20,
+  "observations": 131,
+  "observations_by_geography": {
+    "california": 24,
+    "international": 3,
+    "kansas": 30,
+    "la_county": 5,
+    "la_metro": 5,
+    "pasadena": 12,
+    "texas": 5,
+    "united_states": 47
+  },
+  "observations_by_domain": {
+    "consumer_finance": 15,
+    "elections": 12,
+    "employment": 3,
+    "energy": 6,
+    "foreign_opinion": 3,
+    "polls": 84,
+    "prices": 5,
+    "purchasing": 3
+  },
+  "contrasts": [
+    {
+      "id": "ca_adult_governor_president_approval_gap",
+      "value": 26.0,
+      "unit": "percentage_points",
+      "interpretation": "Different offices; descriptive contrast, not causal attribution."
+    },
+    {
+      "id": "ca_gas_weekly_change",
+      "value": -0.13999999999999968,
+      "unit": "USD_per_gallon",
+      "interpretation": "Current-vintage weekly change."
+    },
+    {
+      "id": "ca_us_gas_price_gap",
+      "value": 1.5950000000000006,
+      "unit": "USD_per_gallon",
+      "interpretation": "Different geographies; descriptive comparison explicitly declared."
+    },
+    {
+      "id": "ks_national_state_economy_worsening_gap",
+      "value": 14.899999999999999,
+      "unit": "percentage_points",
+      "interpretation": "Different question referents in same adult sample; no inferred paired switching."
+    },
+    {
+      "id": "tx_governor_dem_minus_rep",
+      "value": -4.0,
+      "unit": "percentage_points",
+      "interpretation": "Survey margin; no win probability inferred."
+    },
+    {
+      "id": "tx_senate_dem_minus_rep",
+      "value": 2.0,
+      "unit": "percentage_points",
+      "interpretation": "Survey margin; no win probability inferred."
+    },
+    {
+      "id": "us_gas_weekly_change",
+      "value": -0.11600000000000055,
+      "unit": "USD_per_gallon",
+      "interpretation": "Current-vintage weekly change, not electoral effect."
+    }
+  ],
+  "validation": {
+    "method": "Independent Python stdlib SQLite/data cross-check; not execution of Rust implementation",
+    "checks_passed": [
+      "foreign_key_integrity",
+      "sqlite_integrity",
+      "all_131_observations_inserted_with_constraints",
+      "duplicate_observation_rejected",
+      "negative_price_rejected",
+      "percent_over_100_rejected",
+      "fractional_votes_rejected",
+      "invalid_geography_rejected",
+      "zero_sample_size_rejected",
+      "pre_capture_cutoff_excludes_all_studies",
+      "exact_capture_cutoff_admits_all_studies",
+      "seven_contrasts_match_independent_expected_arithmetic"
+    ],
+    "rust_compiled": false,
+    "rust_tests_executed": false,
+    "rust_tests_authored": 11,
+    "repository_ci_passed": null
+  },
+  "model_fit": null,
+  "forecast": null,
+  "political_32d_statistic": null,
+  "litigation_success_rate": null,
+  "input_sha256": {
+    "sources.json": "48029ad0aabaef49583a4a08a2d5e997e89602d6c194470cc76e6195d65d74fd",
+    "pilot.json": "0b202b39c054edba580a238ca12df2a6be0bea8f0319cbe3e95b7d6ffef8c6c1",
+    "schema.sql": "f534e13bc9cf5a4dc3aee2ce1b25482683cb60924e3df0f55b092d9cff4b16f8"
+  }
+}
