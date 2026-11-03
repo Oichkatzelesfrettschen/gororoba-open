@@ -1,0 +1,145 @@
+{
+  "spdx_license_identifier": "GPL-2.0-or-later",
+  "reviewed_on": "2026-11-03",
+  "review_depth": "Source abstracts, methodological descriptions and named repository reports; not a systematic full-text review",
+  "works": [
+    {
+      "id": "park_gelman_bafumi_2004",
+      "title": "Bayesian Multilevel Estimation with Poststratification",
+      "url": "https://sites.stat.columbia.edu/gelman/research/published/parkgelmanbafumi.pdf",
+      "method": "Fit cell-level opinion and poststratify by measured population counts.",
+      "translation_to_repo": "Implement only after respondent data, cell counts, weights and validation are acquired.",
+      "boundary": "State-level success does not establish Pasadena accuracy.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "gelman_lax_phillips_dynamic",
+      "title": "Using Multilevel Regression and Poststratification to Estimate Dynamic Public Opinion",
+      "url": "https://www.columbia.edu/~jhp2121/workingpapers/MRT.pdf",
+      "method": "Partial pooling across geography and time.",
+      "translation_to_repo": "Separate a dynamic opinion layer from material-condition factors.",
+      "boundary": "Public toplines alone cannot identify respondent-cell interactions.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "shirani_mehr_2018",
+      "title": "Disentangling Bias and Variance in Election Polls",
+      "url": "https://doi.org/10.1080/01621459.2018.1448823",
+      "method": "Separate election-level shared bias from poll-specific variance.",
+      "translation_to_repo": "Use cycle/state/source covariance in poll likelihood; estimate on historical vintages.",
+      "boundary": "Reported sampling margins do not cover all survey error.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "heidemanns_2020",
+      "title": "An Updated Dynamic Bayesian Forecasting Model for the U.S. Presidential Election",
+      "url": "https://hdsr.mitpress.mit.edu/pub/nw1dzd02/release/2",
+      "method": "Correlated state trends, house/population/mode effects and national errors.",
+      "translation_to_repo": "Reimplement open methodological components in Rust; no proprietary prior values or code presumed.",
+      "boundary": "Presidential model is not a validated local, legislative or multi-domain model.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "gelman_2024_uncertainty",
+      "title": "Grappling With Uncertainty in Forecasting the 2024 U.S. Presidential Election",
+      "url": "https://doi.org/10.1162/99608f92.a919e3fa",
+      "method": "Acknowledge model and unmodeled uncertainty.",
+      "translation_to_repo": "Retain model-class sensitivity alongside sampling and posterior intervals.",
+      "boundary": "Single-cycle outcome cannot validate probability calibration.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "bok_2017",
+      "title": "Macroeconomic Nowcasting and Forecasting with Big Data",
+      "url": "https://www.newyorkfed.org/research/staff_reports/sr830",
+      "method": "Dynamic factors and real-time release processing.",
+      "translation_to_repo": "Mixed-frequency state-space observation layer; ragged edges and vintage replay.",
+      "boundary": "Economic factor loadings do not automatically transfer to political states.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "nyfed_nowcast_current",
+      "title": "New York Fed Staff Nowcast methodological FAQ",
+      "url": "https://www.newyorkfed.org/research/policy/nowcast/",
+      "method": "Bayesian dynamic factor/Kalman layer with mixed-frequency releases and changing volatility.",
+      "translation_to_repo": "Use as a reference design, not a verbatim clone; implement typed Rust components after EDA.",
+      "boundary": "Proprietary input series prevent exact public replication of published nowcast.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "chetty_tracker",
+      "title": "Opportunity Insights Economic Tracker documentation",
+      "url": "https://github.com/OpportunityInsights/EconomicTracker/blob/main/docs/oi_tracker_data_documentation.md",
+      "method": "Private-source aggregate spending by resident location, with documented breaks and revisions.",
+      "translation_to_repo": "Per-series adapter with provider attribution, units, geography basis and break flags.",
+      "boundary": "No transaction microdata, cash-complete coverage or merchant-location equivalence.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "king_ecological",
+      "title": "EI: A Program for Ecological Inference",
+      "url": "https://gking.harvard.edu/publication/ei-a-program-for-ecological-inference-jss/",
+      "method": "Distinguish aggregate observations from assumptions about individual behavior.",
+      "translation_to_repo": "Use bounds/sensitivity if aggregate behavioral decomposition is attempted.",
+      "boundary": "Never identify individual political preferences from neighborhood demographics.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "gayo_avello_2012",
+      "title": "A meta-analysis of state-of-the-art electoral prediction from Twitter data",
+      "url": "https://arxiv.org/abs/1206.5851",
+      "method": "Audit population bias, method selection and weak forecast benchmarks.",
+      "translation_to_repo": "Keep social media as an attention/stance layer; validate against surveys and simple forecasts.",
+      "boundary": "Post volume and sentiment do not constitute representative polling.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "cleveland_networks",
+      "title": "Do Our Social Networks Influence Our Expectations of Inflation?",
+      "url": "https://www.clevelandfed.org/publications/research-in-brief/2024/rib-20240812-social-networks-and-inflation-expectations",
+      "method": "Study network-mediated economic expectations.",
+      "translation_to_repo": "Candidate exposure-weighted interaction between measured gas shocks and expectations.",
+      "boundary": "A network association is not a proved local political causal effect.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "repo_crossing_audit",
+      "title": "Crossing-detector statistical benefit and operational utility",
+      "url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/research/crossing-detector-statistical-benefit.md",
+      "method": "Small archive gain below declared useful target; generic sign controls often match/exceed canonical.",
+      "translation_to_repo": "Require matched history, fixed-support ensembles and generic cubic controls in political tests.",
+      "boundary": "Do not promote algebra-specific advantage from historical 32D notes.",
+      "implementation_status": "specified_not_fitted"
+    },
+    {
+      "id": "repo_epistemics",
+      "title": "Research epistemics",
+      "url": "https://github.com/Oichkatzelesfrettschen/gororoba-open/blob/main/docs/engineering/research_epistemics.md",
+      "method": "Separate source propositions, implementation conformance and phenomenological mappings.",
+      "translation_to_repo": "Enumerate maps, fitted parameters, falsifiers and abandonment criteria.",
+      "boundary": "A source analogy or successful hardware run cannot establish political validity.",
+      "implementation_status": "specified_not_fitted"
+    }
+  ],
+  "language_notes": {
+    "source": "https://latinobarometro.org/agregados",
+    "source_language": "es",
+    "translation_language": "en",
+    "scope": "catalog terminology and access policy only; questionnaires not yet translated or validated",
+    "terms": [
+      [
+        "oleada",
+        "survey wave"
+      ],
+      [
+        "ficha tecnica",
+        "technical/methodological sheet"
+      ],
+      [
+        "datos agregados",
+        "pooled dataset (inspect schema; does not necessarily mean aggregate-only statistics)"
+      ]
+    ],
+    "policy_summary": "Research and educational use permitted under stated conditions; redistribution prohibited on the inspected page. Keep raw files outside public repository."
+  }
+}
