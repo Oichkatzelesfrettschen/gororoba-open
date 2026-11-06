@@ -10,6 +10,13 @@ This file is the operating guide for every agent and human in this repository.
 declared exception to the "MUST NOT create symlinks" rule under Code rules. `AGENTS.md` outranks any Claude
 tool, skill, harness or agent default; follow it and surface the conflict.
 
+The workspace guide, `AGENTS.md` in the directory above the primary checkout
+(kept in the private gororoba-infrastructure repository as
+`workspace/AGENTS.md`), holds the rules shared by every gororoba repository:
+ownership, the boundaries between repositories, shared checkouts, the review
+order and the pull-request shape. Read it together with this file; this file
+governs where the two differ.
+
 ## Where things live
 
 | Path                                                                               | Carries                                                                                                                                                                |
