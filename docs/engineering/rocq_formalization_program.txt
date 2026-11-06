@@ -45,7 +45,10 @@ CHECKPOINT: SchurAccelerationObstruction and CDTowerOperatorCorrespondence prove
             kernel check passed. Sources retain source_only qualification under
             proofs/checkpoints/schur-geometry/ outside the canonical inventory.
 INTEGRATED: geometry checkpoint PR 234 at b83a9ea7; owned checkout archived.
-PENDING: NullityTwelveQuadraticLocus coefficient correspondence and explicit
+PROVED: NullityTwelveCoefficientCertificate reconstruction of the retained
+        58 by 231 coefficient table, source_only under
+        proofs/checkpoints/schur-geometry/.
+PENDING: operator-derived Schur coefficient correspondence and explicit
          rational curve certificates; canonical registration and receipt renewal.
 PENDING: investigate complex-skew representation, persistent kernel limits,
          full selected-center tangent cone, and determinant-line transport.
@@ -137,9 +140,10 @@ and quantum observables continue to require their separate application contracts
 Resumed selected-center coefficient proof
 ----------------------------------------
 The active program resumed from clean canonical main 6dcfba69 after PR 221
-completed hosted validation and merged. The coefficient work uses the isolated
-codex/nullity-twelve-coefficient-certificates branch. Thirteen IBMQuantum source
-files are frozen byte-for-byte; the retained result JSON has its original digest.
+completed hosted validation and merged. The coefficient work lives in the
+checkpoint proofs/checkpoints/schur-geometry/NullityTwelveCoefficientCertificate.v.
+Thirteen IBMQuantum source files are frozen byte-for-byte; the retained result
+JSON has its original digest.
 NullityTwelveCoefficientCertificate proves the complete 58 by 231 integer
 reconstruction, exact monomial order, arbitrary-real row identities, recovery of
 each displayed generator, and equivalence of all retained projected equations

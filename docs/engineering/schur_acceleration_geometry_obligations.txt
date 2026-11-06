@@ -53,15 +53,19 @@ DONE: compile five diagnostic boundary examples and reject four altered laws.
 PROVED: recursive coefficient extraction and basis extensionality.
 PROVED: arbitrary real-coefficient sparse/tower operator equality.
 PROVED: rational sparse matrix specialization and rank transfer to real towers.
-PENDING: freeze parsed nullity-12 JSON and every production-source input byte.
+DONE: freeze parsed nullity-12 JSON and every production-source input byte.
 PENDING: derive exact complement/kernel decoding and pivot identities.
-PENDING: connect all 231 monomials to all 58 projected equations.
-PENDING: check reconstruction, rank-eight minor, and displayed generators.
-PENDING: prove equivalence to the retained A15 union B17 polynomial zero set.
+PROVED: connect all 231 monomials to all 58 projected equations.
+PROVED: check reconstruction and displayed generators.
+PENDING: certify the rank-eight minor.
+PROVED: equivalence of the common zero set of the 58 projected rows to the
+        retained A15 union B17 polynomial zero set.
 PENDING: prove e8 curve denominator, center, norm, and velocity identities.
 PENDING: derive exact complete rank witnesses for the e8 curve.
 PENDING: inspect other retained curve domains and complete applicable witnesses.
-PENDING: reject coefficient, coordinate, denominator, rank, and norm mutations.
+DONE: reject coefficient, reconstruction, monomial-order, and generator-sign
+      mutations of the coefficient table.
+PENDING: reject coordinate, denominator, rank, and norm mutations.
 PENDING: register sources and synchronize the canonical theorem inventory.
 DONE: build the registered dependency corpus; scan admissions and check plugins.
 DONE: kernel-check changed closures and retain exported assumptions.
@@ -159,13 +163,19 @@ tangent-cone investigation rather than the direct rational-curve certificate.
 Coefficient checkpoint progress after reboot
 -------------------------------------------
 IBMQuantum HEAD observed on 2026-10-22 is
-99b94003445c1aac0c9561d0b2db82d2d989316d, with clean tracked status.
+d93cec033c2eff4385b0c1bbab5226a079f43f64, with one modified tracked file,
+tests/scripts/test_local_photonic_compiler_crosscheck.py, outside the thirteen
+frozen paths (source-head.txt and source-tracked-status.txt retain both
+records). Each frozen file hashes, by git hash-object, to its blob at that
+commit; the ancestor 99b94003445c1aac0c9561d0b2db82d2d989316d carries the same
+blobs at those paths.
 The retained nullity-twelve JSON still hashes to
 b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae.
 Thirteen input files have frozen copies and checked SHA-256 identities.
 The full reconstruction G=T R and its arbitrary-real polynomial interpretation
 are now proved in the source-only NullityTwelveCoefficientCertificate checkpoint.
-Every one of the 58 retained polynomial rows vanishes exactly on A15 union B17.
+The common zero set of the 58 retained polynomial rows is A15 union B17; 42
+rows are the zero polynomial and the other 16 carry the coefficients.
 That theorem consumes the retained coefficient table. Connecting the table to
 C^T upper(B^T A0^-1 B) for the actual operator remains the active obligation.
 Exact frame decoders and a certified rank-eight minor remain prerequisites for
