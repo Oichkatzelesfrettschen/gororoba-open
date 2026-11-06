@@ -11,7 +11,9 @@ COMPLETE: Rocq proves all 58 by 231 coefficient reconstruction equations.
 COMPLETE: arbitrary-real row equivalence and A15 union B17 zero set; kernel passed.
 ACTIVE: reconstruct complement/kernel decoders and the exact Schur expansion.
 PENDING: prove rational curve denominator, center, norm, velocity and rank.
-PENDING: reject coefficient, coordinate, denominator, rank and norm mutations.
+COMPLETE: reject coefficient, reconstruction, monomial-order and generator-sign
+          mutations of the coefficient table.
+PENDING: reject coordinate, denominator, rank and norm mutations.
 PENDING: admit checkpoint sources and renew current-project kernel receipts.
 PENDING: independent review, exact-head hosted validation and integration.
 
@@ -29,10 +31,15 @@ monomial order are closed under the global context. Real zero-set results
 retain ClassicalDedekindReals.sig_forall_dec and functional extensionality.
 The proof sources remain checkpoints outside canonical theorem admission.
 
-Input observation: IBMQuantum HEAD 99b94003445c1aac0c9561d0b2db82d2d989316d;
-the result JSON retains b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae.
-The observed tracked source status is clean. Source capture executes zero
-producer scripts and submits zero quantum jobs.
+Input observation: IBMQuantum HEAD d93cec033c2eff4385b0c1bbab5226a079f43f64
+(source-head.txt); the result JSON retains
+b322a2ace603768229ef7aeb36d2e2af0c267b19049e7ddfd6b392a6a197b6ae.
+The observed tracked source status (source-tracked-status.txt) is one modified
+file, tests/scripts/test_local_photonic_compiler_crosscheck.py, outside the
+thirteen frozen paths. Each frozen file equals its git blob at d93cec03, and
+the ancestor 99b94003445c1aac0c9561d0b2db82d2d989316d carries the same blobs
+at those paths. Source capture executes zero producer scripts and submits zero
+quantum jobs.
 The unchanged Rocq control compiled; coefficient, reconstruction, monomial
 order and generator-sign mutations each failed at their mathematical check.
 The retained tool passes its locked/offline tests, Clippy -D warnings and
