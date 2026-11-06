@@ -1,0 +1,22 @@
+Independent read-only coefficient review
+=======================================
+Reviewer: nullity_coefficient_review, fresh context, 2026-10-22.
+
+The reviewer found the bounded mathematical core sound and ready to support
+operator formalization. All 13,398 coefficient positions include implicit zero
+entries; the exact monomial order includes 21 squares and 210 cross terms.
+The arbitrary-real row identities, all eight inverse generator formulas and
+imported zero-set equivalence match the retained equations.
+The reviewer checked all thirteen frozen SHA-256 identities and reproduced the
+generated source byte-for-byte. Its independent rocq check exited zero.
+The parser and mutation harness checks match the retained domains and failures.
+
+Finding: README omitted source-checksum and mutation-harness commands.
+Disposition: the commands are included in the completed replay recipe. Both
+underlying diagnostics ran successfully, and their logs are retained.
+
+Review boundary: operator-to-Schur coefficients, exact matrix rank, curves,
+tangent limits, canonical admission, hosted validation and integration remain
+outside the checkpoint's claims. The reviewer inspected the Rust logs and
+sources; the root executor ran the Rust tests, Clippy and formatter directly.
+The review made zero source, index or HEAD mutations.
