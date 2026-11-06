@@ -39,6 +39,8 @@ The mutation runner compiles the unchanged positive control, then requires
 coefficient, reconstruction, monomial-order and generator-sign rejection at
 the mathematical checks. The retained stdout/stderr files record those verdicts.
 
+rust-clippy.log, rust-tests.log and rust-tests.log.raw.gz record the crate's
+build directory repository-relative; cargo printed it as an absolute path.
 Files ending .raw.gz retain the exact compiler/log bytes before display
 normalization. raw-log-identities.tsv binds each compressed path to the SHA-256
 of its decompressed bytes. The matching plain-text views remove trailing blanks
