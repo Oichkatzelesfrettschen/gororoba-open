@@ -1,0 +1,3 @@
+   Compiling nullity-coefficient-certificate v0.1.0 (/tmp/nullity-next)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
+     Running `/tmp/nullity-next/target/debug/emit-selected-chart-proofs data/output/audit/nullity-twelve-coefficients/frozen/docs/evidence/nullity_twelve_locus/result.json proofs/checkpoints/schur-geometry/NullityTwelveSelectedChart.v`
