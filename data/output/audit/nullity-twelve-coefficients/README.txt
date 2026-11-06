@@ -31,6 +31,7 @@ IBMQuantum remains read-only and quantum submissions remain prohibited.
 Replay source identities and the negative controls from the same repository root:
 
 sha256sum -c data/output/audit/nullity-twelve-coefficients/SHA256SUMS
+sha256sum -c data/output/audit/nullity-twelve-coefficients/proof-identities.SHA256SUMS
 rustc --edition=2024 -D warnings data/output/audit/nullity-twelve-coefficients/mutate_coefficients.rs -o /tmp/nullity-coefficient-mutations
 /tmp/nullity-coefficient-mutations "$PWD" /tmp/nullity-coefficient-mutation-results
 opam exec --switch=rocq-9.3 -- rocq top -quiet -Q proofs/theories OpenGororoba -Q proofs/checkpoints/schur-geometry OpenGororobaCheckpoint < data/output/audit/nullity-twelve-coefficients/exported-assumptions.v
@@ -41,6 +42,8 @@ the mathematical checks. The retained stdout/stderr files record those verdicts.
 
 rust-clippy.log, rust-tests.log and rust-tests.log.raw.gz record the crate's
 build directory repository-relative; cargo printed it as an absolute path.
+proof-identities.SHA256SUMS binds the two Rocq sources and the project file;
+the bundle retains no .vo proof objects, which the compile step regenerates.
 Files ending .raw.gz retain the exact compiler/log bytes before display
 normalization. raw-log-identities.tsv binds each compressed path to the SHA-256
 of its decompressed bytes. The matching plain-text views remove trailing blanks
