@@ -142,8 +142,8 @@ Resumed selected-center coefficient proof
 The active program resumed from clean canonical main 6dcfba69 after PR 221
 completed hosted validation and merged. The coefficient work lives in the
 checkpoint proofs/checkpoints/schur-geometry/NullityTwelveCoefficientCertificate.v.
-Thirteen IBMQuantum source files are frozen byte-for-byte; the retained result
-JSON has its original digest.
+Thirteen IBMQuantum source files are cited by SHA-256 in source-provenance.tsv;
+the retained result JSON has its original digest.
 NullityTwelveCoefficientCertificate proves the complete 58 by 231 integer
 reconstruction, exact monomial order, arbitrary-real row identities, recovery of
 each displayed generator, and equivalence of all retained projected equations

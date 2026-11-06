@@ -25,7 +25,10 @@ opam exec --switch=rocq-9.3 -- rocq check -silent -o -Q proofs/theories OpenGoro
 
 Compile the unchanged dependency theories/NullityTwelveQuadraticLocus.v first
 on a fresh checkout. The full corpus build supplies that dependency at admission.
-Frozen .py files preserve external producer bytes; Rust supplies new tooling.
+The frozen directory retains result.json, the one source file the generator
+and its test read. source-provenance.tsv cites that file and the twelve
+producer files by path, SHA-256 and gororoba-quantum commit; frozen-verification.log
+records the check of all thirteen at capture. Rust supplies new tooling.
 IBMQuantum remains read-only and quantum submissions remain prohibited.
 
 Replay source identities and the negative controls from the same repository root:
