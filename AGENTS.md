@@ -130,3 +130,18 @@ Full rules: `docs/engineering/research_epistemics.md` and
   their trailers; MUST NOT force-push to rewrite them.
 - MUST NOT run the `agents_render` binary in `gororoba_cli_data`; it emits a
   19-line stub and overwrites this hand-maintained file.
+
+## Landing
+
+- Each session edits in its own worktree under
+  `~/worktrees/gororoba-open/<branch>`; the primary checkout stays on `main`.
+- `main` changes through a pull request whose GitHub Actions validation is
+  green, after the review order of the workspace guide
+  (`workspace/AGENTS.md` in gororoba-infrastructure, "Reviews and merges"):
+  the owner's choice of local reviewers, the Advisor last, then hosted Codex
+  and Copilot only when the Codex round needed a fix.
+- A pull request merges by squash with a clean body, the precedent of #261,
+  #263 and #265; a merge commit is the exception the owner names.
+- After the merge, delete the remote branch, pull `main` in the primary
+  checkout, then `git worktree remove` the worktree and `git branch -d` the
+  branch.
