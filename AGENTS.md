@@ -130,3 +130,23 @@ Full rules: `docs/engineering/research_epistemics.md` and
   their trailers; MUST NOT force-push to rewrite them.
 - MUST NOT run the `agents_render` binary in `gororoba_cli_data`; it emits a
   19-line stub and overwrites this hand-maintained file.
+
+## Landing
+
+- Each session edits in its own worktree under
+  `~/worktrees/gororoba-open/<branch>`; the primary checkout stays on `main`.
+- `main` changes through a pull request whose GitHub Actions validation is
+  green, after the workspace guide's review order: the owner's choice of
+  local reviewers, the Advisor last, then the hosted Codex review, and the
+  hosted Copilot review only when resolving the Codex threads pushed a fix.
+- A pull request merges by squash, the method of #261, #263 and #265; a merge
+  commit is the exception the owner names. GitHub allows all three merge
+  methods and protects no branch here, so the operator chooses squash.
+- A squash leaves the branch tip outside `main`, so `git branch -d` refuses
+  it. After the merge: confirm `gh pr view <number> --json state` reads
+  `MERGED`; run `git fetch origin` so `origin/main` holds the squash commit;
+  confirm `git diff <branch> origin/main -- $(git diff --name-only
+  origin/main...<branch>)` prints nothing, the review that
+  `docs/adr/branch-lifecycle.md` asks for before a discard; delete the remote
+  branch; pull `main` in the primary checkout; `git worktree remove` the
+  worktree; and delete the local branch with `git branch -D <branch>`.
