@@ -342,7 +342,6 @@ theories/SchurKernelTransport.v
 theories/RecursiveCDTower.v
 theories/CDTowerMatrixAdapter.v
 theories/CDPureDoublingKernel.v
-theories/CDUnconditionalDoublingNullity.v
 theories/CDConcreteTowerAdapter.v
 theories/CDTowerFoldTransport.v
 theories/CDTowerSignCorrespondence.v

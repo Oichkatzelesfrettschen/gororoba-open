@@ -147,14 +147,15 @@ check-plugins:
 	rocq compile -q -w +default tests/MathCompMatrixCompatibility.v
 	rocq compile -q -w +default tests/PluginCompatibility.v
 
-# Schur geometry sources remain outside the canonical project until receipt renewal.
+# Schur geometry and nullity-doubling sources remain outside the canonical project until receipt renewal.
 .PHONY: check-schur-geometry
 check-schur-geometry: all $(ADMISSION_CHECK)
 	"$(ADMISSION_CHECK)" checkpoints/schur-geometry/ tests/SchurAccelerationBoundaries.v
 	rocq compile -q -w +default -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint checkpoints/schur-geometry/CDTowerOperatorCorrespondence.v
 	rocq compile -q -w +default -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint checkpoints/schur-geometry/SchurAccelerationObstruction.v
+	rocq compile -q -w +default -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint checkpoints/schur-geometry/CDUnconditionalDoublingNullity.v
 	rocq compile -q -w +default -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint -Q tests OpenGororobaTests tests/SchurAccelerationBoundaries.v
-	rocq check -silent -o -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint -Q tests OpenGororobaTests OpenGororobaCheckpoint.CDTowerOperatorCorrespondence OpenGororobaCheckpoint.SchurAccelerationObstruction OpenGororobaTests.SchurAccelerationBoundaries
+	rocq check -silent -o -Q theories OpenGororoba -Q checkpoints/schur-geometry OpenGororobaCheckpoint -Q tests OpenGororobaTests OpenGororobaCheckpoint.CDTowerOperatorCorrespondence OpenGororobaCheckpoint.SchurAccelerationObstruction OpenGororobaCheckpoint.CDUnconditionalDoublingNullity OpenGororobaTests.SchurAccelerationBoundaries
 	@mkdir -p "$(ADMISSION_CHECK_DIR)"
 	$(RUSTC) --edition=2024 -D warnings tests/schur_acceleration_mutations.rs -o "$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations"
 	"$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations" "$(CURDIR)" "$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations-output"
