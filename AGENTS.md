@@ -144,7 +144,8 @@ Full rules: `docs/engineering/research_epistemics.md` and
   methods and protects no branch here, so the operator chooses squash.
 - A squash leaves the branch tip outside `main`, so `git branch -d` refuses
   it. After the merge: confirm `gh pr view <number> --json state` reads
-  `MERGED`; confirm `git diff <branch> origin/main -- $(git diff --name-only
+  `MERGED`; run `git fetch origin` so `origin/main` holds the squash commit;
+  confirm `git diff <branch> origin/main -- $(git diff --name-only
   origin/main...<branch>)` prints nothing, the review that
   `docs/adr/branch-lifecycle.md` asks for before a discard; delete the remote
   branch; pull `main` in the primary checkout; `git worktree remove` the
