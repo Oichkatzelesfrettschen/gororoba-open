@@ -136,12 +136,16 @@ Full rules: `docs/engineering/research_epistemics.md` and
 - Each session edits in its own worktree under
   `~/worktrees/gororoba-open/<branch>`; the primary checkout stays on `main`.
 - `main` changes through a pull request whose GitHub Actions validation is
-  green, after the review order of the workspace guide
-  (`workspace/AGENTS.md` in gororoba-infrastructure, "Reviews and merges"):
-  the owner's choice of local reviewers, the Advisor last, then hosted Codex
-  and Copilot only when the Codex round needed a fix.
-- A pull request merges by squash with a clean body, the precedent of #261,
-  #263 and #265; a merge commit is the exception the owner names.
-- After the merge, delete the remote branch, pull `main` in the primary
-  checkout, then `git worktree remove` the worktree and `git branch -d` the
-  branch.
+  green, after the workspace guide's review order: the owner's choice of
+  local reviewers, the Advisor last, then the hosted Codex review, and the
+  hosted Copilot review only when resolving the Codex threads pushed a fix.
+- A pull request merges by squash, the method of #261, #263 and #265; a merge
+  commit is the exception the owner names. GitHub allows all three merge
+  methods and protects no branch here, so the operator chooses squash.
+- A squash leaves the branch tip outside `main`, so `git branch -d` refuses
+  it. After the merge: confirm `gh pr view <number> --json state` reads
+  `MERGED`; confirm `git diff <branch> origin/main -- $(git diff --name-only
+  origin/main...<branch>)` prints nothing, the review that
+  `docs/adr/branch-lifecycle.md` asks for before a discard; delete the remote
+  branch; pull `main` in the primary checkout; `git worktree remove` the
+  worktree; and delete the local branch with `git branch -D <branch>`.
