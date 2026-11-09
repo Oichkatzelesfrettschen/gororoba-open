@@ -23,6 +23,7 @@ pub mod simd;
 pub mod soa_cache;
 mod symmetry;
 pub mod trigintaduonion;
+pub mod twisted_tower;
 mod zero_divisors;
 
 pub use arith::{
@@ -67,6 +68,12 @@ pub use simd::{
     sedenion_multiply_flat,
 };
 pub use symmetry::{cross_generational_friction, gourlay_epsilon, gourlay_psi, gourlay_psi_n};
+pub use trigintaduonion::Trigintaduonion;
+pub use twisted_tower::{
+    basis_associator_sign, cocycle_cross_ratio, enumerate_sedenion_zero_divisors,
+    find_two_blade_zero_divisor_signs, BasisSupportMask, FloatingCdElement, HardwarePlatform,
+    IntegralCdElement, ModularCdElement, TwistedTowerLevel,
+};
 pub use zero_divisors::{
     GeneralFormZD, count_pathion_zero_divisors, find_zero_divisors, find_zero_divisors_3blade,
     find_zero_divisors_3blade_sign_table, find_zero_divisors_general_form,
