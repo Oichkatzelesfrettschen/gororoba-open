@@ -237,6 +237,7 @@ credentials.*
 ![Gg][Ee][Mm][Ii][Nn][Ii].md
 ![Rr][Ee][Aa][Dd][Mm][Ee].md
 !README_GPU_STEPS.md
+!.github/copilot-instructions.md
 !**/[Rr][Ee][Aa][Dd][Mm][Ee].md
 !data/output/audit/staples-causal-validation/completion-audit.md
 !data/output/audit/staples-causal-validation/source-archives/license-evidence.md
