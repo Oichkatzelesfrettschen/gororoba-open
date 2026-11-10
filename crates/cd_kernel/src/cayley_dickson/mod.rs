@@ -70,9 +70,9 @@ pub use simd::{
 pub use symmetry::{cross_generational_friction, gourlay_epsilon, gourlay_psi, gourlay_psi_n};
 pub use trigintaduonion::Trigintaduonion;
 pub use twisted_tower::{
-    basis_associator_sign, cocycle_cross_ratio, enumerate_sedenion_zero_divisors,
-    find_two_blade_zero_divisor_signs, BasisSupportMask, FloatingCdElement, HardwarePlatform,
-    IntegralCdElement, ModularCdElement, TwistedTowerLevel,
+    BasisSupportMask, IntegralCdElement, ModularCdElement, TwistedTowerLevel,
+    basis_associator_sign, cocycle_cross_ratio, enumerate_two_blade_zero_products,
+    find_two_blade_zero_divisor_signs,
 };
 pub use zero_divisors::{
     GeneralFormZD, count_pathion_zero_divisors, find_zero_divisors, find_zero_divisors_3blade,

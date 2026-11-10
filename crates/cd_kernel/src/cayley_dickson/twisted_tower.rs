@@ -1,29 +1,21 @@
-//! Cayley-Dickson twisted tower architecture and exact representation mapping.
+// SPDX-License-Identifier: GPL-2.0-or-later
+//! Cayley-Dickson tower as a twisted group algebra with exact integer and modular arithmetic.
 //!
-//! This module formalizes the multi-tier twisted group algebra tower:
+//!     A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
 //!
-//!     A_k = R^sigma[Z_2^k]
+//! with sigma_k from `signs::cd_basis_mul_sign_iter`. Every structure constant is +-1, so
+//! products of integer elements are exact in i64 and products of residues are exact in F_p.
 //!
-//! with basis product e_p * e_q = sigma_k(p, q) * e_{p ^ q}, across exact integer
-//! bit widths (Int4, Int8, Int16, Int32, Int64) and floating-point representations
-//! (Float8 through Float64).
-//!
-//! # Epistemic Principles
-//!
-//! 1. The Cayley-Dickson tower is fundamentally integer-exact and combinatorial.
-//!    Its structure is fully determined by the 2-cocycle twist sigma_k and the
-//!    F_2 vector space skeleton (Z_2^k, ^).
-//! 2. IEEE 754 floating-point representations introduce extrinsic non-associativity
-//!    at the scalar level ((a + b) + c != a + (b + c)). Exact algebraic diagnostics
-//!    must operate over discrete integer coordinates or verified modular fields F_p.
-//! 3. Zero divisors (ZDs) vanish for D <= 8 (Hurwitz division theorem) and appear
-//!    at D = 16 (sedenions) governed by the gauge-invariant cocycle cross-ratio:
-//!    chi(i, j; k, l) = sigma(i, k) * sigma(j, l) * sigma(i, l) * sigma(j, k) = +1
-//!    on the skeleton i ^ j = k ^ l.
-//! 4. The associator tensor [e_a, e_b, e_c] = (e_a e_b) e_c - e_a (e_b e_c) is
-//!    non-zero if and only if omega(a, b, c) = -1, yielding exactly
-//!    N(D) = (D - 2)(D - 4)(D + 6) / 2 non-associating ordered triples of distinct
-//!    imaginary units.
+//! - The basis associator [e_a, e_b, e_c] vanishes when omega(a, b, c) = +1 and equals
+//!   +-2 e_{a ^ b ^ c} when omega(a, b, c) = -1 (checked on every basis triple through D = 32 by
+//!   the tests below).
+//! - The number of non-associating ordered triples of distinct imaginary units equals
+//!   N(D) = (D - 2)(D - 4)(D + 6) / 2; the tests enumerate it through D = 64. No proof for
+//!   general D is recorded here.
+//! - A two-blade product (e_i + t e_j)(e_k + s e_l) with disjoint nonzero supports vanishes iff
+//!   i ^ j = k ^ l and the cross-ratio chi(i, j; k, l) = +1, with t s = -sigma(i, k) sigma(j, l).
+//!   The four terms land pairwise on e_{i ^ k} = e_{j ^ l} and e_{i ^ l} = e_{j ^ k}; chi = +1 is
+//!   the condition that one sign s cancels both pairs.
 
 use super::signs::cd_basis_mul_sign_iter;
 
@@ -116,8 +108,8 @@ impl TwistedTowerLevel {
         matches!(self, Self::Sedenion | Self::Trigintaduonion | Self::Chingon)
     }
 
-    /// Exact closed-form count of non-associating ordered triples of distinct imaginary units:
-    /// N(D) = (D - 2)(D - 4)(D + 6) / 2
+    /// Closed-form count of non-associating ordered triples of distinct imaginary units,
+    /// N(D) = (D - 2)(D - 4)(D + 6) / 2, equal to the enumeration through D = 64.
     pub const fn non_associating_triple_count(&self) -> usize {
         let d = self.dimension();
         if d <= 4 {
@@ -127,9 +119,10 @@ impl TwistedTowerLevel {
         }
     }
 
-    /// Theoretical algebraic normal form (ANF) degree of the associator truth table.
-    /// For D = 2^n >= 16, degree is n - 2; for D = 8, degree is 1; for D <= 4, degree is 0.
-    pub const fn associator_anf_degree(&self) -> u32 {
+    /// Maximum, over index pairs (a, b), of the algebraic normal form degree over F_2 of
+    /// c -> [omega(a, b, c) = -1]: 1 at D = 8 and n - 2 for D = 2^n >= 16 (enumerated through
+    /// D = 64 in the tests). The degree of one pair depends on the pair and can be lower.
+    pub const fn max_associator_anf_degree(&self) -> u32 {
         let n = self.basis_bits();
         if n < 3 {
             0
@@ -261,21 +254,20 @@ pub fn find_two_blade_zero_divisor_signs(
     Some((1, s))
 }
 
-/// Enumerate all 336 signed two-blade zero divisor products in the sedenion algebra (D = 16).
-/// These arise from 168 ordered pairs of index pairs with chi = +1, across 42 distinct
-/// assessor pairs (84 signed two-blade elements).
-/// Returns tuples (i, j, t, k, l, s) with 1 <= i < j <= 15, 1 <= k < l <= 15,
-/// {i, j} disjoint from {k, l}, and (e_i + t e_j)(e_k + s e_l) = 0.
-pub fn enumerate_sedenion_zero_divisors() -> Vec<(usize, usize, i32, usize, usize, i32)> {
-    let dim = 16;
-    let mut zds = Vec::with_capacity(84);
+/// Enumerate every signed two-blade zero product (e_i + t e_j)(e_k + s e_l) = 0 at dimension
+/// `dim`, as tuples (i, j, t, k, l, s) with 1 <= i < j < dim, 1 <= k < l < dim, disjoint supports
+/// and t, s in {+1, -1}. D = 16 gives 336 products on 42 index pairs (84 signed elements);
+/// D = 32 gives 5040 products on 294 index pairs (588 signed elements).
+pub fn enumerate_two_blade_zero_products(
+    dim: usize,
+) -> Vec<(usize, usize, i32, usize, usize, i32)> {
+    let mut zds = Vec::new();
     for i in 1..dim {
         for j in (i + 1)..dim {
             for k in 1..dim {
                 for l in (k + 1)..dim {
                     if let Some((t, s)) = find_two_blade_zero_divisor_signs(dim, i, j, k, l) {
                         zds.push((i, j, t, k, l, s));
-                        // The opposite sign pair t = -1, -s is also a zero divisor
                         zds.push((i, j, -t, k, l, -s));
                     }
                 }
@@ -413,172 +405,177 @@ impl<const D: usize> ModularCdElement<D> {
         }
     }
 
-    /// Decompose each coordinate into signed base-256 digits (a = 256 * a1 + a0),
-    /// matching the RTX 4070 Ti SM89 Layer 1 exact modular GEMM architecture:
-    /// a0 in [-128, 127], a1 in [-64, 64].
+    /// Signed base-256 digits of each coordinate for the four-GEMM INT8 product: the residue is
+    /// first centered into (-p/2, p/2], then written a = 256 a1 + a0 with a0 in [-128, 127] and
+    /// a1 in [-64, 64]. The digit bounds need p < 2^15.
+    ///
+    /// # Panics
+    ///
+    /// Panics when the prime is 2^15 or larger.
     pub fn split_base256_digits(&self) -> ([i8; D], [i8; D]) {
+        assert!(
+            self.prime < (1 << 15),
+            "base-256 digit split needs p < 2^15"
+        );
+        let p = self.prime as i32;
         let mut digit0 = [0i8; D];
         let mut digit1 = [0i8; D];
-
         for (i, &coord) in self.coords.iter().enumerate() {
-            let val = coord as i32;
-            let mut a0 = val % 256;
-            let mut a1 = val / 256;
-            if a0 > 127 {
-                a0 -= 256;
-                a1 += 1;
+            let mut val = coord as i32;
+            if val > p / 2 {
+                val -= p;
             }
+            let a0 = (val + 128).rem_euclid(256) - 128;
+            let a1 = (val - a0) / 256;
             digit0[i] = a0 as i8;
             digit1[i] = a1 as i8;
         }
-
         (digit0, digit1)
-    }
-}
-
-/// Sized floating-point Cayley-Dickson element over f64 coordinates with exact sign routing.
-#[derive(Clone, Debug, PartialEq)]
-pub struct FloatingCdElement<const D: usize> {
-    pub coords: [f64; D],
-}
-
-impl<const D: usize> FloatingCdElement<D> {
-    pub const fn zero() -> Self {
-        Self { coords: [0.0; D] }
-    }
-
-    pub fn basis(index: usize, scale: f64) -> Self {
-        assert!(index < D, "basis index exceeds dimension");
-        let mut coords = [0.0; D];
-        coords[index] = scale;
-        Self { coords }
-    }
-
-    /// Multiply two floating-point elements using exact discrete sign routing.
-    pub fn mul_exact_signs(&self, other: &Self) -> Self {
-        let mut out = [0.0; D];
-        for p in 0..D {
-            let ap = self.coords[p];
-            if ap == 0.0 {
-                continue;
-            }
-            for q in 0..D {
-                let bq = other.coords[q];
-                if bq == 0.0 {
-                    continue;
-                }
-                let sign = cd_basis_mul_sign_iter(D, p, q) as f64;
-                out[p ^ q] += sign * ap * bq;
-            }
-        }
-        Self { coords: out }
-    }
-
-    /// Compute the associator [a, b, c] = (a * b) * c - a * (b * c).
-    pub fn associator(&self, b: &Self, c: &Self) -> Self {
-        let ab = self.mul_exact_signs(b);
-        let abc_left = ab.mul_exact_signs(c);
-        let bc = b.mul_exact_signs(c);
-        let abc_right = self.mul_exact_signs(&bc);
-
-        let mut out = [0.0; D];
-        for (i, item) in out.iter_mut().enumerate() {
-            *item = abc_left.coords[i] - abc_right.coords[i];
-        }
-        Self { coords: out }
-    }
-
-    /// Squared Euclidean norm.
-    pub fn norm_sq(&self) -> f64 {
-        self.coords.iter().map(|&x| x * x).sum()
-    }
-
-    /// Euclidean norm.
-    pub fn norm(&self) -> f64 {
-        self.norm_sq().sqrt()
-    }
-}
-
-/// Hardware execution target for the Cayley-Dickson twisted tower operations.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum HardwarePlatform {
-    /// Quandela Ascella: 12-mode Clements dual-rail integrated photonic processor.
-    Ascella12Mode,
-    /// Quandela Belenos: remote multi-mode photonic processor.
-    Belenos,
-    /// IBM Heron: 156-qubit superconducting heavy-hex lattice.
-    IbmHeronHeavyHex,
-    /// NVIDIA RTX 4070 Ti (SM89): Tensor core INT8/INT32 and FP8 modular GEMM.
-    Rtx4070TiSm89,
-    /// Quantum Inspire Tuna-17: 17-qubit spin / transmon processor.
-    Tuna17,
-}
-
-impl HardwarePlatform {
-    /// Supported maximum exact Cayley-Dickson dimension for single-shot kernel evaluation.
-    pub const fn max_supported_dimension(&self) -> usize {
-        match self {
-            Self::Ascella12Mode => 32,      // 8-mode kernel slice + 4 sentinels
-            Self::Belenos => 64,            // Scaled LOQC mesh
-            Self::IbmHeronHeavyHex => 64,   // Parity network mapping up to 64D
-            Self::Rtx4070TiSm89 => 65536,   // Exact GEMM up to n = 32768+ via HMM
-            Self::Tuna17 => 32,             // Parity blocks for A_5
-        }
-    }
-
-    /// Dominant execution precision for algebraic operations.
-    pub const fn primary_precision(&self) -> &'static str {
-        match self {
-            Self::Ascella12Mode => "Discrete single-photon clicks (optical Haar unitary)",
-            Self::Belenos => "Discrete single-photon clicks (scaled linear optical)",
-            Self::IbmHeronHeavyHex => "Binary parity syndromes (Z_2^k XOR bitstrings)",
-            Self::Rtx4070TiSm89 => "INT8 tensor core GEMM with INT32 accumulation (exact F_p)",
-            Self::Tuna17 => "Transmon microwave parity syndromes",
-        }
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::super::associator::cd_associator;
+    use super::super::zero_divisors::find_zero_divisors_sign_table;
     use super::*;
 
-    #[test]
-    fn test_tower_level_properties() {
-        let real = TwistedTowerLevel::Real;
-        assert_eq!(real.dimension(), 1);
-        assert!(real.is_commutative());
-        assert!(real.is_associative());
-        assert!(!real.has_zero_divisors());
+    const LEVELS: [TwistedTowerLevel; 7] = [
+        TwistedTowerLevel::Real,
+        TwistedTowerLevel::Complex,
+        TwistedTowerLevel::Quaternion,
+        TwistedTowerLevel::Octonion,
+        TwistedTowerLevel::Sedenion,
+        TwistedTowerLevel::Trigintaduonion,
+        TwistedTowerLevel::Chingon,
+    ];
 
-        let oct = TwistedTowerLevel::Octonion;
-        assert_eq!(oct.dimension(), 8);
-        assert!(!oct.is_commutative());
-        assert!(!oct.is_associative());
-        assert!(oct.is_alternative());
-        assert!(!oct.has_zero_divisors());
-        assert_eq!(oct.non_associating_triple_count(), 168);
-        assert_eq!(oct.associator_anf_degree(), 1);
+    fn enumerated_non_associating(dim: usize) -> usize {
+        let mut count = 0;
+        for a in 1..dim {
+            for b in 1..dim {
+                for c in 1..dim {
+                    if a != b && b != c && a != c && basis_associator_sign(dim, a, b, c) == -1 {
+                        count += 1;
+                    }
+                }
+            }
+        }
+        count
+    }
 
-        let sed = TwistedTowerLevel::Sedenion;
-        assert_eq!(sed.dimension(), 16);
-        assert!(!sed.is_alternative());
-        assert!(sed.has_zero_divisors());
-        assert_eq!(sed.non_associating_triple_count(), 1848);
-        assert_eq!(sed.associator_anf_degree(), 2);
-
-        let path = TwistedTowerLevel::Trigintaduonion;
-        assert_eq!(path.dimension(), 32);
-        assert!(path.has_zero_divisors());
-        assert_eq!(path.non_associating_triple_count(), 15960);
-        assert_eq!(path.associator_anf_degree(), 3);
+    fn max_anf_degree(dim: usize) -> u32 {
+        let n = dim.trailing_zeros();
+        let mut best = 0;
+        for a in 0..dim {
+            for b in 0..dim {
+                let mut t: Vec<u8> = (0..dim)
+                    .map(|c| u8::from(basis_associator_sign(dim, a, b, c) == -1))
+                    .collect();
+                for bit in 0..n {
+                    for m in 0..dim {
+                        if m >> bit & 1 == 1 {
+                            t[m] ^= t[m ^ (1 << bit)];
+                        }
+                    }
+                }
+                for (m, &v) in t.iter().enumerate() {
+                    if v == 1 {
+                        best = best.max(m.count_ones());
+                    }
+                }
+            }
+        }
+        best
     }
 
     #[test]
-    fn test_octonion_fano_lines_and_associators() {
-        let dim = 8;
-        // Lines in the standard Fano plane (e1..e7) associate: omega = +1
-        // Standard Fano triples: {1, 2, 3}, {1, 4, 5}, {1, 7, 6}, {2, 4, 6}, {2, 5, 7}, {3, 4, 7}, {3, 6, 5}
-        let fano_triples = [
+    fn closed_forms_equal_enumeration() {
+        for level in LEVELS {
+            let dim = level.dimension();
+            assert_eq!(TwistedTowerLevel::from_dimension(dim), Some(level));
+            assert_eq!(1usize << level.basis_bits(), dim);
+            assert_eq!(
+                level.non_associating_triple_count(),
+                enumerated_non_associating(dim),
+                "N({dim})"
+            );
+            assert_eq!(
+                level.max_associator_anf_degree(),
+                max_anf_degree(dim),
+                "ANF degree at {dim}"
+            );
+            assert_eq!(level.is_associative(), enumerated_non_associating(dim) == 0);
+        }
+        assert_eq!(
+            TwistedTowerLevel::Octonion.non_associating_triple_count(),
+            168
+        );
+        assert_eq!(
+            TwistedTowerLevel::Sedenion.non_associating_triple_count(),
+            1848
+        );
+        assert_eq!(
+            TwistedTowerLevel::Trigintaduonion.non_associating_triple_count(),
+            15960
+        );
+        assert_eq!(
+            TwistedTowerLevel::Chingon.non_associating_triple_count(),
+            130_200
+        );
+    }
+
+    #[test]
+    fn omega_decides_every_basis_associator() {
+        for dim in [4usize, 8, 16, 32] {
+            for a in 0..dim {
+                for b in 0..dim {
+                    for c in 0..dim {
+                        let x = IntegralCdElement::<32>::basis(a, 1);
+                        let y = IntegralCdElement::<32>::basis(b, 1);
+                        let z = IntegralCdElement::<32>::basis(c, 1);
+                        let assoc = embedded_associator(dim, &x, &y, &z);
+                        if basis_associator_sign(dim, a, b, c) == 1 {
+                            assert!(assoc.is_zero(), "({a}, {b}, {c}) at {dim}");
+                        } else {
+                            assert_eq!(assoc.support_mask(), BasisSupportMask::single(a ^ b ^ c));
+                            assert_eq!(assoc.coords[a ^ b ^ c].abs(), 2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /// Associator inside the subalgebra of dimension `dim`, computed with that level's signs.
+    fn embedded_associator(
+        dim: usize,
+        x: &IntegralCdElement<32>,
+        y: &IntegralCdElement<32>,
+        z: &IntegralCdElement<32>,
+    ) -> IntegralCdElement<32> {
+        let mul = |u: &IntegralCdElement<32>, v: &IntegralCdElement<32>| {
+            let mut out = IntegralCdElement::<32>::zero();
+            for p in 0..dim {
+                for q in 0..dim {
+                    out.coords[p ^ q] +=
+                        i64::from(cd_basis_mul_sign_iter(dim, p, q)) * u.coords[p] * v.coords[q];
+                }
+            }
+            out
+        };
+        let left = mul(&mul(x, y), z);
+        let right = mul(x, &mul(y, z));
+        let mut out = IntegralCdElement::<32>::zero();
+        for i in 0..32 {
+            out.coords[i] = left.coords[i] - right.coords[i];
+        }
+        out
+    }
+
+    #[test]
+    fn octonion_fano_lines_associate() {
+        for (a, b, c) in [
             (1, 2, 3),
             (1, 4, 5),
             (1, 7, 6),
@@ -586,126 +583,121 @@ mod tests {
             (2, 5, 7),
             (3, 4, 7),
             (3, 6, 5),
-        ];
-
-        for &(a, b, c) in &fano_triples {
-            assert_eq!(
-                basis_associator_sign(dim, a, b, c),
-                1,
-                "Fano line ({a}, {b}, {c}) must associate"
-            );
+        ] {
+            assert_eq!(basis_associator_sign(8, a, b, c), 1, "({a}, {b}, {c})");
         }
+        assert_eq!(enumerated_non_associating(8), 7 * 6 * 5 - 42);
+    }
 
-        // Count total non-associating ordered triples of distinct imaginary units
-        let mut non_assoc = 0;
-        let mut assoc = 0;
-        for a in 1..dim {
-            for b in 1..dim {
-                if b == a {
-                    continue;
-                }
-                for c in 1..dim {
-                    if c == a || c == b {
-                        continue;
+    #[test]
+    fn two_blade_census_and_cross_check() {
+        for (dim, products, pairs) in [(16usize, 336usize, 42usize), (32, 5040, 294)] {
+            let zds = enumerate_two_blade_zero_products(dim);
+            assert_eq!(zds.len(), products, "products at {dim}");
+            let index_pairs: std::collections::BTreeSet<_> =
+                zds.iter().map(|z| (z.0, z.1)).collect();
+            let elements: std::collections::BTreeSet<_> =
+                zds.iter().map(|z| (z.0, z.1, z.2)).collect();
+            assert_eq!(index_pairs.len(), pairs, "index pairs at {dim}");
+            assert_eq!(elements.len(), 2 * pairs, "signed elements at {dim}");
+            // The existing sign-table enumerator fixes t = +1, so it lists half of the products.
+            assert_eq!(
+                find_zero_divisors_sign_table(dim).len(),
+                products / 2,
+                "sign-table enumerator at {dim}"
+            );
+            for &(i, j, t, k, l, s) in &zds {
+                let mut a = IntegralCdElement::<32>::zero();
+                a.coords[i] = 1;
+                a.coords[j] = i64::from(t);
+                let mut b = IntegralCdElement::<32>::zero();
+                b.coords[k] = 1;
+                b.coords[l] = i64::from(s);
+                let mut prod = IntegralCdElement::<32>::zero();
+                for p in 0..dim {
+                    for q in 0..dim {
+                        prod.coords[p ^ q] += i64::from(cd_basis_mul_sign_iter(dim, p, q))
+                            * a.coords[p]
+                            * b.coords[q];
                     }
-                    if basis_associator_sign(dim, a, b, c) == -1 {
-                        non_assoc += 1;
-                    } else {
-                        assoc += 1;
-                    }
                 }
+                assert!(prod.is_zero(), "({i} + {t} e{j})(e{k} + {s} e{l}) at {dim}");
             }
         }
-
-        // 7 * 6 * 5 = 210 distinct imaginary triples.
-        // N(8) = 168 non-associating triples.
-        // 210 - 168 = 42 associating triples (7 Fano lines * 6 permutations).
-        assert_eq!(non_assoc, 168);
-        assert_eq!(assoc, 42);
-        assert_eq!(non_assoc + assoc, 210);
+        assert_eq!(cocycle_cross_ratio(16, 1, 10, 4, 15), 1);
     }
 
     #[test]
-    fn test_sedenion_zero_divisors_cross_ratio() {
-        let dim = 16;
-        // Known de Marrais assessor zero divisor: (e1 + e10)(e4 - e15) = 0
-        // i=1, j=10, k=4, l=15.
-        // Skeleton condition: 1 ^ 10 = 11, 4 ^ 15 = 11. Match!
-        assert_eq!(1 ^ 10, 4 ^ 15);
-        let chi = cocycle_cross_ratio(dim, 1, 10, 4, 15);
-        assert_eq!(chi, 1, "Gauge-invariant cross-ratio must be +1 for zero divisor");
-
-        let zds = enumerate_sedenion_zero_divisors();
-        // Sedenions contain exactly 336 signed two-blade zero divisor products
-        assert_eq!(zds.len(), 336);
-
-        // Verify that there are exactly 42 distinct assessor pairs {i, j} and 84 signed elements
-        let mut distinct_pairs = std::collections::BTreeSet::new();
-        let mut distinct_elements = std::collections::BTreeSet::new();
-        for &(i, j, t, _, _, _) in &zds {
-            distinct_pairs.insert((i, j));
-            distinct_elements.insert((i, j, t));
+    fn sedenion_zero_divisor_has_two_two_sided_inverses() {
+        // x = e1 + e10 is a zero divisor: x (e4 - e15) = (e4 - e15) x = 0. With N(x) = 2,
+        // x conj(x) = conj(x) x = 2, so conj(x) / 2 and conj(x) / 2 + (e4 - e15) are both
+        // two-sided inverses; integer scaling by 2 keeps the check exact.
+        let mut x = IntegralCdElement::<16>::zero();
+        x.coords[1] = 1;
+        x.coords[10] = 1;
+        let mut z = IntegralCdElement::<16>::zero();
+        z.coords[4] = 1;
+        z.coords[15] = -1;
+        let two = IntegralCdElement::<16>::basis(0, 2);
+        let mut conj = IntegralCdElement::<16>::zero();
+        conj.coords[1] = -1;
+        conj.coords[10] = -1;
+        let mut other = conj.clone();
+        other.coords[4] = 2;
+        other.coords[15] = -2;
+        assert!(x.mul_exact(&z).is_zero() && z.mul_exact(&x).is_zero());
+        for y in [&conj, &other] {
+            assert_eq!(x.mul_exact(y), two);
+            assert_eq!(y.mul_exact(&x), two);
         }
-        assert_eq!(distinct_pairs.len(), 42);
-        assert_eq!(distinct_elements.len(), 84);
-
-        // Verify every enumerated zero divisor algebraically with IntegralCdElement
-        for &(i, j, t, k, l, s) in &zds {
-            let mut a = IntegralCdElement::<16>::zero();
-            a.coords[i] = 1;
-            a.coords[j] = t as i64;
-
-            let mut b = IntegralCdElement::<16>::zero();
-            b.coords[k] = 1;
-            b.coords[l] = s as i64;
-
-            let prod = a.mul_exact(&b);
-            assert!(
-                prod.is_zero(),
-                "Candidate ({i} + {t}*{j}) * ({k} + {s}*{l}) must vanish"
-            );
-        }
+        assert_ne!(conj, other);
     }
 
     #[test]
-    fn test_modular_exact_product_and_base256_split() {
+    fn modular_product_and_digit_split() {
         let p = 32009u32;
         let mut a = ModularCdElement::<32>::zero(p);
         let mut b = ModularCdElement::<32>::zero(p);
-
-        // A_5 operands from Ascella kernel slice: (e1 + e10)(e4 + e15) = 2*(e5 - e14)
         a.coords[1] = 1;
         a.coords[10] = 1;
         b.coords[4] = 1;
         b.coords[15] = 1;
-
         let prod = a.mul_mod(&b);
         assert_eq!(prod.coords[5], 2);
-        assert_eq!(prod.coords[14], p - 2); // -2 mod p
+        assert_eq!(prod.coords[14], p - 2);
 
-        // Test base-256 signed digit splitting
-        let mut elem = ModularCdElement::<32>::zero(p);
-        elem.coords[0] = 300; // 300 = 256 * 1 + 44
-        elem.coords[1] = 32000; // near p
-        let (d0, d1) = elem.split_base256_digits();
-        assert_eq!(d0[0], 44);
-        assert_eq!(d1[0], 1);
+        // Every residue of F_32009 splits into in-range digits that reconstruct it mod p.
+        for start in (0..p).step_by(32) {
+            let mut elem = ModularCdElement::<32>::zero(p);
+            for (i, slot) in elem.coords.iter_mut().enumerate() {
+                *slot = (start + i as u32).min(p - 1);
+            }
+            let (d0, d1) = elem.split_base256_digits();
+            for i in 0..32 {
+                assert!((-64..=64).contains(&d1[i]), "a1 out of range");
+                let value = 256 * i64::from(d1[i]) + i64::from(d0[i]);
+                assert_eq!(value.rem_euclid(i64::from(p)), i64::from(elem.coords[i]));
+            }
+        }
     }
 
     #[test]
-    fn test_floating_associator_quads() {
-        // In H (D=4), associator must vanish identically
-        let a = FloatingCdElement::<4>::basis(1, 1.0);
-        let b = FloatingCdElement::<4>::basis(2, 1.0);
-        let c = FloatingCdElement::<4>::basis(3, 1.0);
-        let assoc = a.associator(&b, &c);
-        assert!(assoc.norm() < 1e-12);
+    #[should_panic(expected = "p < 2^15")]
+    fn digit_split_rejects_wide_primes() {
+        let elem = ModularCdElement::<4>::zero(40_009);
+        let _ = elem.split_base256_digits();
+    }
 
-        // In O (D=8), non-Fano triple (1, 2, 4) has non-zero associator
-        let a8 = FloatingCdElement::<8>::basis(1, 1.0);
-        let b8 = FloatingCdElement::<8>::basis(2, 1.0);
-        let c8 = FloatingCdElement::<8>::basis(4, 1.0);
-        let assoc8 = a8.associator(&b8, &c8);
-        assert!(assoc8.norm() > 1.99); // norm is exactly 2.0
+    #[test]
+    fn quaternion_associates_and_octonion_does_not() {
+        let e = |dim: usize, i: usize| {
+            let mut v = vec![0.0; dim];
+            v[i] = 1.0;
+            v
+        };
+        let quat = cd_associator(&e(4, 1), &e(4, 2), &e(4, 3));
+        assert!(quat.iter().all(|&v| v == 0.0));
+        let oct = cd_associator(&e(8, 1), &e(8, 2), &e(8, 4));
+        assert_eq!(oct.iter().map(|v| v * v).sum::<f64>(), 4.0);
     }
 }
