@@ -3,7 +3,9 @@
 //!
 //!     A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
 //!
-//! with sigma_k from `signs::cd_basis_mul_sign_iter`. Every structure constant is +-1, so
+//! with sigma_k from `signs::cd_basis_mul_sign_iter`. From D = 8 on sigma_k is a 2-cochain, not a
+//! 2-cocycle: its coboundary is the associator sign omega below, which is -1 exactly on the
+//! non-associating triples. Every structure constant is +-1, so
 //! products of integer elements are exact in i64 and products of residues are exact in F_p.
 //!
 //! - The basis associator [e_a, e_b, e_c] vanishes when omega(a, b, c) = +1 and equals
