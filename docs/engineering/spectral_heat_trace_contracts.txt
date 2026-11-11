@@ -1,0 +1,62 @@
+Finite-graph full heat trace, version 2
+======================================
+
+Defect and correction
+---------------------
+The former heat_kernel_return_probability omitted zero Laplacian eigenvalues
+and normalized by the number of positive modes. That is a relaxation trace,
+not the uniformly averaged finite-graph return probability. The corrected
+function includes every zero mode. evaluate_heat_trace returns the declared
+convention, zero-mode count, retained count, probability, log probability and
+analytic logarithmic derivative. positive_mode_relaxation_trace exposes the
+old normalization under its correct name.
+
+The derivative is 2t times the exponentially weighted mean eigenvalue. A
+shifted sum remains stable after probabilities underflow. Infinite positive
+exponents contribute zero weight and zero moment; invalid negative or
+non-finite spectra, invalid times and unrepresentable derivatives are refused.
+The grid uses log interpolation rather than t_max/t_min, which could overflow.
+No smoothing or finite difference of log(0) enters the corrected curve.
+
+Two vertices with spectrum (0,2) give P=(1+exp(-2t))/2 and
+D_s=4t/(1+exp(2t)), tending to zero at both ends of diffusion time. The
+positive-mode relaxation gives exp(-2t) and D_s=4t instead. A finite cycle
+can approximate dimension one at intermediate times and still approaches
+zero at sufficiently late times. Neither result measures physical spacetime.
+
+Scope and migration
+-------------------
+zd_laplacian_eigenvalues continues to analyze the first cross-assessor
+component. Its documentation now says so instead of claiming a union. Other
+components are counted, not assumed isospectral. DimensionResult retains the
+full representative spectrum including zero modes. A complete disconnected
+union remains a separate computation when components differ.
+
+PlateauFit.flatness_score replaces the incorrect r_squared name. The score
+is max(0,1-std/abs(mean)), not a regression coefficient of determination.
+The longest-flat-window selector is descriptive: late-time finite-size
+saturation may win and is not a continuum dimensional plateau. The old
+is_expander field remains a finite-graph heuristic, not a theorem about a
+uniform expanding family. The CLI labels that boundary and validates its
+dimension ladder, including zero and overflow cases.
+
+The CLI writes distinct full_trace_v2 filenames and a convention file; it
+does not overwrite historical CSVs, generated registries or proof receipts.
+Existing claims and exported plateaus need a source-bound successor replay
+before they can refer to the corrected definition. Historical data are not
+silently relabeled or re-adjudicated by this change.
+
+Validation
+----------
+Thirteen native library tests and one CLI ladder test cover analytic two-node
+and complete graphs, disconnected limits, isolated nodes, a cycle's intermediate
+window, scaling identities, positive-mode underflow, invalid inputs, the
+representative zero mode and polynomial smoothing. The smoothing helper uses
+SVD rather than normal equations and no longer enters the spectral estimator.
+
+An independent deterministic NumPy/analytic oracle checked 138 cases; the
+maximum complete-graph absolute discrepancy was 4.440892098500626e-16. This
+checks the formulas, not Rust compilation. The implementation container lacks
+rustc/cargo/rustfmt. Native test, clippy, formatting, caller closure and census
+replay are merge prerequisites. No cosmological inference or provider run is
+introduced.
