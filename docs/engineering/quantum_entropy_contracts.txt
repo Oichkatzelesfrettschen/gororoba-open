@@ -1,0 +1,56 @@
+Pure-state subsystem entropy contracts
+======================================
+
+Scope
+-----
+The tensor_networks facade measures exactly the requested subsystem, in nats,
+with site zero the most significant state-vector bit. It no longer replaces
+an arbitrary set by a maximum-index prefix. Full product testing checks every
+prefix cut of a pure state; the tolerance is per cut, not a global trace-distance
+bound. Mixed-state separability is outside this interface.
+
+Dense states and MPS
+--------------------
+The dense helper constructs the actual bipartition coefficient matrix and
+normalizes its squared singular values. Duplicate indices, invalid states,
+overflowing sizes and excessive dense allocation are refused. MPS prefixes
+and suffixes contract BOTH environments. For coefficients L R, the nonzero
+Schmidt weights are the spectrum of sqrt(L*L) (R R*) sqrt(L*L), normalized by
+its trace. A left Gram alone is not the reduced state without a suitable
+right-canonical gauge. Per-environment positive rescaling avoids global-norm
+underflow and leaves normalized entropy unchanged.
+
+Noncontiguous MPS partitions use the existing parallel dense conversion only
+inside the declared 2^20-amplitude facade guard. The dense helper exposes a
+caller-supplied limit. Prefix Gram matrices have the same element-count guard;
+solver workspaces are additional, so this is not a byte-perfect memory cap.
+
+PEPS
+----
+The existing row-cut method is an approximation. The checked facade admits
+bond-one product PEPS and refuses a general exact contraction it cannot supply.
+The old infallible methods remain wrappers that panic on unsupported requests;
+new callers should use try_entanglement_entropy and try_is_product_state.
+
+Validation and remaining migration
+----------------------------------
+Nine native regression tests cover a Bell pair away from site zero, MPS gauge
+invariance, arbitrary complex partitions, complements, empty cuts, malformed
+chains, allocation bounds and PEPS refusal. Required native command:
+
+cargo test -p quantum_core tensor_networks
+
+The implementation environment has no rustc, cargo or rustfmt. These native
+tests have NOT been executed there. An independent NumPy contraction check
+compared both environments with dense Schmidt decompositions in 36 fixed cases
+(2, 3 and 4 qubits; complex, product and GHZ states; nonunitary bond gauges and
+global rescaling), with maximum absolute entropy error 4.440892098500626e-16.
+That checks the formula, not the Rust compilation or workspace integration.
+
+The legacy direct MatrixProductState::measure_entropy and its parallel caller
+are not redirected by this facade change. Their left-only Gram implementation
+requires a separate source/caller migration to mps_prefix_entropy before those
+direct APIs can certify entropy. Retained results are not regenerated or
+re-adjudicated here. Native formatting, clippy, workspace caller checks and
+hosted tests remain merge prerequisites. No provider job or physical claim is
+created by this change.
