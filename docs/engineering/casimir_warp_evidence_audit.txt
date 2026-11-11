@@ -1,0 +1,186 @@
+CASIMIR STRESS AND WARP-SOURCE EVIDENCE
+
+Scope
+=====
+
+This audit separates an ideal electromagnetic stress reference, a scalar
+worldline interaction calculation, a prescribed spacetime and a physical
+measurement. The executable supplies a local counterexample to identifying
+a gravitational source from energy density alone. It does not reproduce the
+White 2021 sphere-cylinder calculation or construct a finite warp bubble.
+
+The quantum repository owns the historical source assessment and QPU
+interpretation in docs/notes/topics/casimir-warp-evidence.md. The Rust
+implementation owns the numerical contract and derivation below.
+
+Existing work and remaining gap
+==============================
+
+The scalar worldline implementation on the parent revision already uses the
+3+1-dimensional real-scalar coefficient -1/(32*pi^2), a distinct-two-body
+interaction indicator and a nonnegative Monte Carlo standard error. Its
+integrated plate benchmark separates scalar and electromagnetic coefficients.
+The older quantum handoff records retain their historical meaning; they are
+not a current defect list.
+
+The remaining source question concerns the gravitational interpretation of
+the computed density. A loop-center effective-action integrand differs from
+local physical T_00 by a total derivative (Gies and Klingmueller 2006, p. 8,
+footnote 3). A scalar boundary model also does not generally supply an
+electromagnetic stress tensor for arbitrary geometries. The energy.rs and
+lib.rs contracts now retain those distinctions.
+
+Ideal electromagnetic reference
+===============================
+
+For zero temperature, infinite perfectly conducting plates and SI separation
+a, define K = pi^2*hbar*c/(720*a^4). In an orthonormal frame with signature
+(-,+,+,+), and plates normal to x, the vacuum contribution is
+
+  T_ab = K diag(-1,-3,+1,+1).
+
+Consequently rho=-K, the normal pressure is -3K, tangential pressures are K,
+and E/A=-K*a. The Lorentzian trace vanishes and normal pressure equals
+-d(E/A)/da. Density and pressure scale as a^-4; area energy scales as a^-3.
+
+The checked API in casimir_core::stress_energy supports all three normal
+axes, normalized null directions and subluminal observers. Tests include
+the virtual-work derivative, tensor orientation, scalar/EM factor two for
+parallel plates, scale powers and floating-point range failures. These
+identities are analytic reference tests, not empirical material validation.
+
+The tensor excludes plate rest energy, supports, exterior fields, finite
+conductivity, thermal corrections and edges. Those contributions cannot be
+omitted when solving for the geometry of a complete apparatus.
+
+Exact local gravitational counterexample
+=======================================
+
+Use x0=c*t, a dimensionless smooth function B(y), and the stationary metric
+
+  ds^2 = -(dx0)^2 + [dx-B(y) dx0]^2 + dy^2 + dz^2.
+
+Its Eulerian orthonormal vectors are e_0=(1,B,0,0), e_x=(0,1,0,0),
+e_y=(0,0,1,0), e_z=(0,0,0,1). Set q=dB/dy and r=d^2B/dy^2.
+The metric coefficients are g_00=-1+B^2, g_0x=-B, g_ii=1.
+The determinant is -1 and the inverse has g^00=-1, g^0x=-B,
+g^xx=1-B^2, g^yy=g^zz=1.
+
+Substitute those coefficients into
+
+  Gamma^a_bc = (g^ad/2)(partial_b g_dc + partial_c g_db - partial_d g_bc),
+  R_bd = partial_a Gamma^a_bd - partial_d Gamma^a_ba
+         + Gamma^a_ae Gamma^e_bd - Gamma^a_de Gamma^e_ba,
+  G_bd = R_bd - g_bd R/2.
+
+Transformation with e_a^mu gives the covariant orthonormal tensor
+
+  G_00=-q^2/4, G_0x=G_x0=r/2, G_xx=-3q^2/4,
+  G_yy=+q^2/4, G_zz=-q^2/4,
+
+with all other components zero and R=q^2/2. Its Lorentzian trace is -R.
+gr_core::warp_stress_energy evaluates this exact tensor with finite/range
+checks. An independent finite-difference metric-curvature test reconstructs
+all sixteen entries; this is separate from checking the closed formula's
+internal identities.
+
+Let kappa=8*pi*G/c^4. Set r=0 and q=2*sqrt(kappa*K), using the ideal plate
+reference above. The 00, xx and yy components match kappa*T, but
+
+  G_zz-kappa*T_zz = -2*kappa*K.
+
+Thus equality of energy density does not imply the Einstein equation.
+The disagreement persists after normalization by kappa*K and remains -2
+at every supported gap, up to floating-point roundoff. The construction is local: it imposes
+no finite-bubble boundary, material realization, stability or propulsion.
+The matched q is a derivative chosen to exhibit the logical counterexample;
+it is not a measured or inferred warp speed.
+
+Metric regression corrections
+=============================
+
+NacelleWarpParams::alcubierre specifies the unmodulated spherical profile.
+The zero-nacelle shift now omits the additional axial taper, which previously
+altered that profile away from the midplane. Its energy-density regression
+uses the analytic spherical-profile derivative at an off-midplane point.
+
+For the implemented ADM convention g_0i=beta_i and lapse one, the Eulerian
+normal has components (1,-beta). Its expansion is -div(beta). The expansion
+function now agrees with that sign and with the existing ADM computation.
+
+The finite-width nacelle and Cayley-Dickson envelope remain phenomenological
+model choices. A logistic gate and tanh profile do not certify a finite
+exactly flat interior or vanishing tidal forces. Naming a constructor after
+White 2025 does not establish quantitative replication of that paper.
+
+Reproduction and output contract
+================================
+
+Use the repository's pinned toolchain. Run these named-surface diagnostics:
+
+  cargo test --locked -p casimir_core --lib stress_energy
+  cargo test --locked -p gr_core --lib warp_
+  cargo test --locked -p gororoba_cli_physics --bin casimir-warp-audit
+  cargo run --locked -p gororoba_cli_physics --bin casimir-warp-audit -- \
+    --gaps-m 1e-6,4e-6 --output-dir data/output/audit/casimir-warp-evidence
+
+Set CARGO_TARGET_DIR to an absolute directory. Local diagnosis leaves worker
+counts at native defaults. GitHub Actions remains the admission authority.
+The CLI uses Rayon for independent cases and ordered collection for output.
+No provider, random seed, service or QPU allocation is required.
+
+reference_scalars.tsv carries SI density, area energy, normal pressure and
+the source-strength scale kappa*K in m^-2. tensor_residuals.tsv retains all
+sixteen entries of G, T, G-kappa*T and its normalization. summary.json binds
+the units, assumptions, classification and unresolved physical requirements.
+The two positive gaps are ideal parallel-plate examples. Their numerical
+sizes do not turn them into the White sphere-cylinder geometry.
+
+The source-strength scale is not a solved curvature invariant. No column
+reports a laboratory propagation delay, experimental signal or warp speed.
+The CLI rejects subnormal source scales because they cannot preserve the
+relative precision required by the normalized tensor-residual contract.
+
+Physical requirements beyond this implementation
+================================================
+
+Obtain a renormalized local stress tensor for the actual boundaries,
+materials and quantum state. Include the apparatus, conservation law and
+consistent gravitational boundary/initial data. Solve the source/geometry
+problem and derive an observable with uncertainties. Discriminate ordinary
+dispersion, waveguide response, electronic delay and instrument drift with
+calibrated controls. A physical transit-time difference alone does not select
+gravity as its cause. Encoded QPU dynamics establish properties of their
+declared simulation, not spacetime curvature in a separate apparatus.
+
+Sources
+=======
+
+NIST, 2022 CODATA recommended values, supplies the central value
+G=6.67430e-11 m^3 kg^-1 s^-2. The SI defining constants c and h are exact.
+https://physics.nist.gov/cuu/pdf/wall_2022.pdf
+The reference uses the central value of G; it does not propagate its measured
+uncertainty, which is distinct from floating-point error.
+
+Brown and Maclay (1969), Vacuum Stress between Conducting Plates: An Image
+Solution, Phys. Rev. 184, 1272. https://doi.org/10.1103/PhysRev.184.1272
+
+Alcubierre (1994), The warp drive: hyper-fast travel within general relativity,
+Class. Quantum Grav. 11, L73. https://doi.org/10.1088/0264-9381/11/5/001
+https://arxiv.org/abs/gr-qc/0009013
+
+Gies and Klingmueller (2006), Worldline algorithms for Casimir configurations,
+Phys. Rev. D 74, 045002. https://arxiv.org/abs/quant-ph/0605141
+
+Schaefer, Huet and Gies (2016; preprint 2015), Worldline Numerics for
+Energy-Momentum Tensors in Casimir Geometries. https://arxiv.org/abs/1509.03509
+
+White et al. (2021), Worldline numerics applied to custom Casimir geometry
+generates unanticipated intersection with Alcubierre warp metric.
+https://doi.org/10.1140/epjc/s10052-021-09484-z
+The licensed public reading copy has SHA-256
+1580be671a957993b796344cb55cfd9b99ea2dbdb37cb57327c4205f005732b5.
+
+White et al. (2025), Interior-flat cylindrical nacelle warp bubbles:
+derivation and comparison with Alcubierre model.
+https://doi.org/10.1088/1361-6382/ae237a

@@ -1,0 +1,5 @@
+claim_id = "C-871"
+expected_statement = "Worldline v-loop reproduces parallel plate Casimir energy E/A=-pi^2/(720*a^3) within Monte Carlo error."
+expected_where_stated = "crates/casimir_core/src/energy.rs (test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
+statement = "The analytic electromagnetic ideal-conductor parallel-plate reference is E/A=-pi^2/(720*a^3) in hbar=c=1 units at zero temperature. The implementation tests its unit-separation value and doubling-gap cubic scaling; these are closed-form reference checks, not Monte Carlo convergence evidence."
+where_stated = "crates/casimir_core/src/energy.rs (casimir_parallel_plates_exact, test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
