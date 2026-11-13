@@ -6,7 +6,7 @@
 
 # Theorems
 
-This file is generated from the canonical SQLite control plane and currently indexes 347 Rocq proof files.
+This file is generated from the canonical SQLite control plane and currently indexes 350 Rocq proof files.
 
 | Stable Theorem ID | Legacy Name | Proof File | Status | Identity Kind | Linked Claims |
 |---|---|---|---|---|---|
@@ -224,6 +224,7 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-CDSparseMatrixTransport` | `CDSparseMatrixTransport` | `proofs/theories/CDSparseMatrixTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTowerFoldTransport` | `CDTowerFoldTransport` | `proofs/theories/CDTowerFoldTransport.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTowerInstantiation` | `CDTowerInstantiation` | `proofs/theories/CDTowerInstantiation.v` | source_only | explicit_link | C-1503 |
+| `THM-LEGACY-CDTowerKernelSwap` | `CDTowerKernelSwap` | `proofs/theories/CDTowerKernelSwap.v` | source_only | unresolved | - |
 | `THM-LEGACY-CDTowerMatrixAdapter` | `CDTowerMatrixAdapter` | `proofs/theories/CDTowerMatrixAdapter.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTowerSignCorrespondence` | `CDTowerSignCorrespondence` | `proofs/theories/CDTowerSignCorrespondence.v` | kernel_checked | unresolved | - |
 | `THM-LEGACY-CDTraceZero` | `CDTraceZero` | `proofs/theories/CDTraceZero.v` | source_only | unresolved | - |
@@ -289,6 +290,8 @@ This file is generated from the canonical SQLite control plane and currently ind
 | `THM-LEGACY-Moreno1997` | `Moreno1997` | `proofs/theories/Moreno1997.v` | source_only | explicit_link | C-1548 |
 | `THM-LEGACY-MorenoKerLaNonAlternative` | `MorenoKerLaNonAlternative` | `proofs/theories/MorenoKerLaNonAlternative.v` | source_only | unresolved | - |
 | `THM-LEGACY-MorenoSedenionInstance` | `MorenoSedenionInstance` | `proofs/theories/MorenoSedenionInstance.v` | source_only | unresolved | - |
+| `THM-LEGACY-MorenoSwapIndependence` | `MorenoSwapIndependence` | `proofs/theories/MorenoSwapIndependence.v` | source_only | unresolved | - |
+| `THM-LEGACY-MorenoTowerInstance` | `MorenoTowerInstance` | `proofs/theories/MorenoTowerInstance.v` | source_only | unresolved | - |
 | `THM-LEGACY-NullityTwelveQuadraticLocus` | `NullityTwelveQuadraticLocus` | `proofs/theories/NullityTwelveQuadraticLocus.v` | kernel_checked | explicit_link | C-1775 |
 | `THM-LEGACY-OctonionInverse` | `OctonionInverse` | `proofs/theories/OctonionInverse.v` | source_only | unresolved | - |
 | `THM-LEGACY-OctonionNorm` | `OctonionNorm` | `proofs/theories/OctonionNorm.v` | source_only | unresolved | - |

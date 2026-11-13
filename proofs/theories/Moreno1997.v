@@ -10,7 +10,14 @@
     import the paper as one module.
 
     Current Moreno companion map:
-    - C1539_MorSkewSymm.v  : Proposition 1.7, skew-symmetry of L_x and R_x
+    - C1539_MorSkewSymm.v  : Proposition 1.7, skew-symmetry of L_x and R_x;
+      the Remark that follows it, Ker(L_x) = Ker(R_x), over CDAlgMorenoSwap
+    - CDTowerKernelSwap.v  : Corollary 1.6, a z = 0 exactly when z a = 0,
+      at every order of the recursive real tower
+    - MorenoSedenionInstance.v, MorenoTowerInstance.v : the interfaces
+      discharged at 16D and at an arbitrary order (32D included)
+    - MorenoSwapIndependence.v : the zero-product swap is independent of the
+      CDAlgMoreno laws (real 3 x 3 matrices)
     - CDTraceZero.v        : Corollary 1.6 trace-zero route
     - C1538_MorZDSymmetry.v: Corollary 1.6, zero-divisor symmetry
     - C1540_MorHaQuaternion.v : Theorem 1.13 canonical octonion H_a witness
@@ -49,6 +56,10 @@ From OpenGororoba Require Export
   OctonionNorm
   FinDimHModule
   C1539_MorSkewSymm
+  CDTowerKernelSwap
+  MorenoSedenionInstance
+  MorenoTowerInstance
+  MorenoSwapIndependence
   CDTraceZero
   C1538_MorZDSymmetry
   C1540_MorHaQuaternion

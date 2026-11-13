@@ -260,8 +260,6 @@ theories/C1546_MorZDAnticomm.v
 theories/C1547_MorSpecialTripleOct.v
 theories/C1543_MorMod4Bound.v
 theories/MorenoKerLaNonAlternative.v
-theories/MorenoSedenionInstance.v
-theories/Moreno1997.v
 theories/WedderburnPrimitive.v
 theories/DicksonCDProcess.v
 theories/Dickson1921.v
@@ -343,6 +341,11 @@ theories/RecursiveCDTower.v
 theories/CDTowerMatrixAdapter.v
 theories/CDPureDoublingKernel.v
 theories/CDConcreteTowerAdapter.v
+theories/CDTowerKernelSwap.v
+theories/MorenoSedenionInstance.v
+theories/MorenoTowerInstance.v
+theories/MorenoSwapIndependence.v
+theories/Moreno1997.v
 theories/CDTowerFoldTransport.v
 theories/CDTowerSignCorrespondence.v
 theories/PassiveMechanicalMemory.v

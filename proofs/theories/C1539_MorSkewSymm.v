@@ -14,9 +14,17 @@
     (d) y perp Im(L_x) => xy = 0 [provable from skew-symm + non-degeneracy]
     (e) y perp Im(R_x) => yx = 0 [provable from skew-symm + non-degeneracy]
 
-    The remaining gap:
-    (f) Im(L_x) = Im(R_x) for purely imaginary x [requires CD structure]
-    Without (f), we cannot close Ker(L_x) = Ker(R_x) from the abstract axioms.
+    Kernel equality (the Remark following Proposition 1.7):
+    (f) Im(L_x)^perp = Im(R_x)^perp for purely imaginary x, hence
+        Ker(L_x) = Ker(R_x).
+    The CDAlgMoreno interface does not determine (f): on the real 3 x 3
+    matrices the laws hold and (f) fails
+    (MorenoSwapIndependence.moreno_laws_leave_image_perp_containment_open).
+    It follows once a model also proves that xy = 0 and yx = 0 are
+    equivalent for purely imaginary x.  CDAlgMorenoSwap adds those two
+    statements as interface obligations and MorKernelEquality derives (f) and the kernel equality
+    from them.  The recursive real tower discharges the obligations at
+    every order through CDTowerKernelSwap.tower_kernel_swap.
 
     Source: Moreno 1997, arXiv:q-alg/9710013v1, Proposition 1.7.
     Claim:  C-1539. *)
@@ -262,55 +270,64 @@ Module MorSkewSymm (Alg : CDAlgMoreno).
     - exact (perp_im_rx_implies_yx_zero x y Hpure).
   Qed.
 
-  (* ================================================================== *)
-  (** ** The remaining gap: Ker(L_x) = Ker(R_x). *)
-  (* ================================================================== *)
+End MorSkewSymm.
 
-  (** From the above, we have:
-        Ker(L_x) = Im(L_x)^perp   [ker_lx_iff_perp_im_lx]
-        Ker(R_x) = Im(R_x)^perp   [ker_rx_iff_perp_im_rx]
+(** * Kernel equality: the Remark following Proposition 1.7. *)
 
-      So Ker(L_x) = Ker(R_x) iff Im(L_x) = Im(R_x).
+(** From MorSkewSymm:
+      Ker(L_x) = Im(L_x)^perp   [ker_lx_iff_perp_im_lx]
+      Ker(R_x) = Im(R_x)^perp   [ker_rx_iff_perp_im_rx]
+    so Ker(L_x) = Ker(R_x) exactly when Im(L_x)^perp = Im(R_x)^perp.  The
+    CDAlgMoreno laws hold in algebras where the two kernels differ
+    (MorenoSwapIndependence.moreno_laws_leave_left_swap_open), so the
+    zero-product swap for a purely imaginary factor is an obligation of the
+    model: CDAlgMorenoSwap states it in both directions. *)
+Module Type CDAlgMorenoSwap.
+  Include CDAlgMoreno.
 
-      In the abstract module type, Im(L_x) and Im(R_x) can differ for
-      non-commutative x.  The equality Im(L_x) = Im(R_x) for purely
-      imaginary x in A_n (n >= 4) requires the CD-specific quaternion
-      subalgebra H_a and the direct sum decomposition (Theorem 1.15),
-      which shows that both L_x and R_x respect the same block structure.
+  Axiom pure_left_zero_swap : forall x y,
+    conj x = neg x -> mul x y = zero -> mul y x = zero.
 
-      This axiom captures that finite-dimensional CD-specific fact. *)
+  Axiom pure_right_zero_swap : forall x y,
+    conj x = neg x -> mul y x = zero -> mul x y = zero.
+End CDAlgMorenoSwap.
 
-  Axiom im_lx_eq_im_rx : forall x y,
+Module MorKernelEquality (Alg : CDAlgMorenoSwap).
+  Module Skew := MorSkewSymm Alg.
+  Import Alg.
+
+  (** Im(L_x)^perp is contained in Im(R_x)^perp for purely imaginary x. *)
+  Lemma im_lx_eq_im_rx : forall x y,
     conj x = neg x ->
     (forall z, inner y (mul x z) = 0) ->
     (forall z, inner y (mul z x) = 0).
+  Proof.
+    intros x y Hpure Hperp.
+    apply (Skew.rx_zero_implies_perp x y Hpure).
+    apply (pure_left_zero_swap x y Hpure).
+    exact (Skew.perp_im_lx_implies_xy_zero x y Hpure Hperp).
+  Qed.
 
-  (** Symmetric direction: Im(R_x) perp implies Im(L_x) perp.
-      Both directions hold by the same Theorem 1.15 H_a-module argument. *)
-  Axiom im_rx_eq_im_lx : forall x y,
+  (** Im(R_x)^perp is contained in Im(L_x)^perp for purely imaginary x. *)
+  Lemma im_rx_eq_im_lx : forall x y,
     conj x = neg x ->
     (forall z, inner y (mul z x) = 0) ->
     (forall z, inner y (mul x z) = 0).
+  Proof.
+    intros x y Hpure Hperp.
+    apply (Skew.lx_zero_implies_perp x y Hpure).
+    apply (pure_right_zero_swap x y Hpure).
+    exact (Skew.perp_im_rx_implies_yx_zero x y Hpure Hperp).
+  Qed.
 
-  (** Moreno's unnumbered Remark following Proposition 1.7: Ker(L_x) =
-      Ker(R_x).  (Prop 1.7 itself is the skew-symmetry of L_x and R_x,
-      proved above; the kernel equality is the Remark that follows it, and
-      depends on the Im(L_x) = Im(R_x) axioms below.) *)
+  (** Moreno's Remark following Proposition 1.7: Ker(L_x) = Ker(R_x). *)
   Theorem ker_lx_eq_ker_rx : forall x y,
     conj x = neg x ->
     (mul x y = zero <-> mul y x = zero).
   Proof.
     intros x y Hpure. split.
-    - (* xy = 0 => yx = 0 *)
-      intro Hxy.
-      apply (perp_im_rx_implies_yx_zero x y Hpure).
-      apply (im_lx_eq_im_rx x y Hpure).
-      exact (lx_zero_implies_perp x y Hpure Hxy).
-    - (* yx = 0 => xy = 0 *)
-      intro Hyx.
-      apply (perp_im_lx_implies_xy_zero x y Hpure).
-      apply (im_rx_eq_im_lx x y Hpure).
-      exact (rx_zero_implies_perp x y Hpure Hyx).
+    - exact (pure_left_zero_swap x y Hpure).
+    - exact (pure_right_zero_swap x y Hpure).
   Qed.
 
-End MorSkewSymm.
+End MorKernelEquality.

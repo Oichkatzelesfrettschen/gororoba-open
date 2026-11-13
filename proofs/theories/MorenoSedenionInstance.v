@@ -19,14 +19,18 @@
     structure -- closing the never-instantiated gap for the skew-symmetry
     lane.
 
-    (The kernel-equality MorSkewSymm.ker_lx_eq_ker_rx still rests on the
-    functor-internal im_lx_eq_im_rx axioms encoding Moreno Thm 1.15; this
-    instantiation does not discharge those -- they are a separate, honestly
-    labeled gap -- but the skew-symmetry results it exposes do not use them,
-    as Print Assumptions confirms.) *)
+    The kernel equality of the Remark following Proposition 1.7 holds on
+    the same model: SedMorenoSwap discharges the two zero-product swap
+    obligations of CDAlgMorenoSwap from CDTowerKernelSwap.tower_kernel_swap
+    through the CDConcreteTowerAdapter isomorphism with order 4 of the
+    recursive tower, and MorKernelEquality then gives
+    sed_ker_lx_eq_ker_rx under the two axioms the Stdlib real numbers
+    bring in (ClassicalDedekindReals.sig_forall_dec and functional
+    extensionality). *)
 
 From OpenGororoba Require Import Prelude CayleyDicksonAlgebra Sedenion OctonionNorm.
 From OpenGororoba Require Import CDInnerProduct CDNegLemmas C1539_MorSkewSymm.
+From OpenGororoba Require Import RecursiveCDTower CDConcreteTowerAdapter CDTowerKernelSwap.
 Open Scope R_scope.
 
 (** The concrete sedenion model of CDAlgMoreno. *)
@@ -111,6 +115,44 @@ Theorem sed_r_x_skew_symm : forall x y z : CDSed,
   sed_conj x = sed_neg x ->
   sed_inner (sed_mul y x) z = - sed_inner y (sed_mul z x).
 Proof. exact SedMorSkew.r_x_skew_symm. Qed.
+
+(** A vanishing sedenion product vanishes in the other order: the
+    recursive-tower kernel swap at order 4, carried through the adapter. *)
+Theorem sed_kernel_swap : forall x y : CDSed,
+  sed_mul x y = sed_zero -> sed_mul y x = sed_zero.
+Proof.
+  intros x y vanishing.
+  rewrite <- (tower_sedenion_round_trip x), <- (tower_sedenion_round_trip y) in vanishing |- *.
+  rewrite <- tower_sedenion_mul, <- tower_sedenion_zero in vanishing |- *.
+  apply (f_equal sedenion_tower) in vanishing.
+  rewrite !sedenion_tower_round_trip in vanishing.
+  f_equal. apply tower_kernel_swap. exact vanishing.
+Qed.
+
+(** The sedenion model with the zero-product swap obligations discharged. *)
+Module SedMorenoSwap <: CDAlgMorenoSwap.
+  Include SedMoreno.
+
+  Lemma pure_left_zero_swap : forall x y,
+    conj x = neg x -> mul x y = zero -> mul y x = zero.
+  Proof. intros x y _. exact (sed_kernel_swap x y). Qed.
+
+  Lemma pure_right_zero_swap : forall x y,
+    conj x = neg x -> mul y x = zero -> mul x y = zero.
+  Proof. intros x y _. exact (sed_kernel_swap y x). Qed.
+End SedMorenoSwap.
+
+Module SedMorKernel := MorKernelEquality SedMorenoSwap.
+
+(** Moreno's Remark following Proposition 1.7 for the sedenions:
+    Ker(L_x) = Ker(R_x) for purely imaginary x. *)
+Theorem sed_ker_lx_eq_ker_rx : forall x y : CDSed,
+  sed_conj x = sed_neg x ->
+  (sed_mul x y = sed_zero <-> sed_mul y x = sed_zero).
+Proof. exact SedMorKernel.ker_lx_eq_ker_rx. Qed.
+
+Print Assumptions sed_kernel_swap.
+Print Assumptions sed_ker_lx_eq_ker_rx.
 
 (** The companion C1538 MorZDSymmetry functor runs over the richer
     CDAlgInnerTrace (= CDTraceZero.CDAlgTraceZero plus four structural
