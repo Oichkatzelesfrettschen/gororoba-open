@@ -34,7 +34,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         retained_log.extend_from_slice(&result.stderr);
         fs::write(output_root.join(format!("{name}.log")), retained_log)?;
         println!("{name}: {}", result.status);
-        Ok(result.status.success())
+        // rocq compile exits 0 on acceptance and 1 on a rejected proof. A signal (a memory-cap
+        // kill) or any other exit code leaves the verdict unknown and fails the harness.
+        match result.status.code() {
+            Some(0) => Ok(true),
+            Some(1) => Ok(false),
+            _ => Err(format!(
+                "{name}: compiler ended with {}; verdict unknown",
+                result.status
+            )
+            .into()),
+        }
     };
     if !compile("UnalteredDoubling", &source)? {
         return Err("unaltered doubling file failed; mutation rejection is inconclusive".into());
