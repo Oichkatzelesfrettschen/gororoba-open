@@ -39,9 +39,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if !compile("UnalteredDoubling", &source)? {
         return Err("unaltered doubling file failed; mutation rejection is inconclusive".into());
     }
-    // Each nullity mutation drops one summand of a doubled nullity, a claim that fails at the zero
+    // Each nullity mutation drops one summand of a doubled nullity, a false claim at the zero
     // operand, where every nullity equals the full dimension. The rank mutation equates rank R_a
-    // with rank L_0 = 0, a claim that fails at the real unit, whose operators have full rank.
+    // with rank L_0 = 0, a false claim at the real unit, whose operators have full rank. The
+    // harness checks that the unchanged proof script no longer closes the altered statement; it
+    // does not instantiate those counterexamples.
     let mutations = [
         (
             "LeftDoublingSingleNullity",
@@ -57,6 +59,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "ZeroLowerHalfSingleNullity",
             "Theorem zero_lower_half_nullity order operand :\n tower_left_nullity (S order) (tower_zero order,operand) =\n ssrnat.addn (tower_left_nullity order operand) (tower_left_nullity order operand).",
             "Theorem zero_lower_half_nullity order operand :\n tower_left_nullity (S order) (tower_zero order,operand) =\n tower_left_nullity order operand.",
+        ),
+        (
+            "ZeroLowerHalfRightSingleNullity",
+            "Theorem zero_lower_half_right_nullity order operand :\n tower_right_nullity (S order) (tower_zero order,operand) =\n ssrnat.addn (tower_right_nullity order operand) (tower_right_nullity order operand).",
+            "Theorem zero_lower_half_right_nullity order operand :\n tower_right_nullity (S order) (tower_zero order,operand) =\n tower_right_nullity order operand.",
         ),
         (
             "RightLeftRankAgainstZero",
