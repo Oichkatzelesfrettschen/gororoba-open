@@ -1,0 +1,3 @@
+1599:Error: control-plane invariants failed:
+1600:- kernel_checked theorem THM-LEGACY-BooleanANFDegree lacks a valid source-bound execution receipt
+1601-make: *** [Makefile:2012: validate-registry-control-plane] Error 1
