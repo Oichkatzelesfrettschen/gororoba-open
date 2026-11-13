@@ -44,7 +44,7 @@ Module TowerMoreno (Level : TowerOrder) <: CDAlgMorenoSwap.
   Proof. exact (tower_inner_neg_left Level.order). Qed.
 
   Lemma inner_neg_right : forall x y, inner x (neg y) = - inner x y.
-  Proof. intros x y. exact (tower_inner_neg_right Level.order y x). Qed.
+  Proof. exact (tower_inner_neg_right Level.order). Qed.
 
   Lemma inner_zero_left : forall y, inner zero y = 0.
   Proof. exact (tower_inner_zero_left Level.order). Qed.

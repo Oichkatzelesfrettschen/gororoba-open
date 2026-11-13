@@ -12,8 +12,8 @@
     yields z a = 0.
 
     The inner product is positive definite over the reals, which is where
-    the argument uses the coefficient field: over a ring with a square root
-    of -1 in which 2 is nonzero the statement fails from order 2 on.
+    the argument uses the coefficient field (tower_inner_self_zero).  This
+    file proves nothing over another ring of coefficients.
 
     No step uses associativity, alternativity or multiplicativity of the
     norm, so the theorem holds at orders 4 and higher, where those fail. *)
@@ -142,7 +142,7 @@ Lemma tower_mul_add_left order first second right :
  tower_add order (tower_mul order first right) (tower_mul order second right).
 Proof. apply tower_mul_linear. Qed.
 
-Lemma tower_mul_add_right order first second left :
+Lemma tower_mul_add_right order left first second :
  tower_mul order left (tower_add order first second) =
  tower_add order (tower_mul order left first) (tower_mul order left second).
 Proof. apply tower_mul_linear. Qed.
@@ -151,7 +151,7 @@ Lemma tower_mul_scale_left order factor value right :
  tower_mul order (tower_scale order factor value) right = tower_scale order factor (tower_mul order value right).
 Proof. apply tower_mul_linear. Qed.
 
-Lemma tower_mul_scale_right order factor value left :
+Lemma tower_mul_scale_right order left factor value :
  tower_mul order left (tower_scale order factor value) = tower_scale order factor (tower_mul order left value).
 Proof. apply tower_mul_linear. Qed.
 
@@ -208,7 +208,8 @@ Proof.
  rewrite tower_mul_add_right, tower_mul_neg_right, tower_mul_scale_right, tower_mul_one_right. reflexivity.
 Qed.
 
-(** The coordinate inner product: bilinear, symmetric and positive definite. *)
+(** The coordinate inner product: bilinear over the reals (additive and
+    homogeneous in each argument), symmetric and positive definite. *)
 
 Lemma tower_inner_linear order :
  (forall first second right, tower_inner order (tower_add order first second) right =
@@ -230,7 +231,7 @@ Lemma tower_inner_add_left order first second right :
  tower_inner order first right + tower_inner order second right.
 Proof. apply tower_inner_linear. Qed.
 
-Lemma tower_inner_add_right order first second left :
+Lemma tower_inner_add_right order left first second :
  tower_inner order left (tower_add order first second) =
  tower_inner order left first + tower_inner order left second.
 Proof. apply tower_inner_linear. Qed.
@@ -239,9 +240,30 @@ Lemma tower_inner_neg_left order value right :
  tower_inner order (tower_neg order value) right = - tower_inner order value right.
 Proof. apply tower_inner_linear. Qed.
 
-Lemma tower_inner_neg_right order value left :
+Lemma tower_inner_neg_right order left value :
  tower_inner order left (tower_neg order value) = - tower_inner order left value.
 Proof. apply tower_inner_linear. Qed.
+
+Lemma tower_inner_scale order :
+ (forall factor value right, tower_inner order (tower_scale order factor value) right =
+   factor * tower_inner order value right) /\
+ (forall left factor value, tower_inner order left (tower_scale order factor value) =
+   factor * tower_inner order left value).
+Proof.
+ induction order as [|order induction_scale]; simpl.
+ - split; intros; ring.
+ - destruct induction_scale as [scale_left scale_right].
+   split; intros; cbn [tower_inner tower_scale fst snd];
+   rewrite ?scale_left, ?scale_right; ring.
+Qed.
+
+Lemma tower_inner_scale_left order factor value right :
+ tower_inner order (tower_scale order factor value) right = factor * tower_inner order value right.
+Proof. apply tower_inner_scale. Qed.
+
+Lemma tower_inner_scale_right order left factor value :
+ tower_inner order left (tower_scale order factor value) = factor * tower_inner order left value.
+Proof. apply tower_inner_scale. Qed.
 
 Lemma tower_inner_symmetric order : forall first second,
  tower_inner order first second = tower_inner order second first.

@@ -17,10 +17,12 @@
     Kernel equality (the Remark following Proposition 1.7):
     (f) Im(L_x)^perp = Im(R_x)^perp for purely imaginary x, hence
         Ker(L_x) = Ker(R_x).
-    The CDAlgMoreno interface does not determine (f): it follows once a
-    model also proves that xy = 0 and yx = 0 are equivalent for purely
-    imaginary x.  CDAlgMorenoSwap adds those two statements as interface
-    obligations and MorKernelEquality derives (f) and the kernel equality
+    The CDAlgMoreno interface does not determine (f): on the real 3 x 3
+    matrices the laws hold and (f) fails
+    (MorenoSwapIndependence.moreno_laws_leave_image_perp_containment_open).
+    It follows once a model also proves that xy = 0 and yx = 0 are
+    equivalent for purely imaginary x.  CDAlgMorenoSwap adds those two
+    statements as interface obligations and MorKernelEquality derives (f) and the kernel equality
     from them.  The recursive real tower discharges the obligations at
     every order through CDTowerKernelSwap.tower_kernel_swap.
 
@@ -276,7 +278,8 @@ End MorSkewSymm.
       Ker(L_x) = Im(L_x)^perp   [ker_lx_iff_perp_im_lx]
       Ker(R_x) = Im(R_x)^perp   [ker_rx_iff_perp_im_rx]
     so Ker(L_x) = Ker(R_x) exactly when Im(L_x)^perp = Im(R_x)^perp.  The
-    CDAlgMoreno laws hold in algebras where the two kernels differ, so the
+    CDAlgMoreno laws hold in algebras where the two kernels differ
+    (MorenoSwapIndependence.moreno_laws_leave_left_swap_open), so the
     zero-product swap for a purely imaginary factor is an obligation of the
     model: CDAlgMorenoSwap states it in both directions. *)
 Module Type CDAlgMorenoSwap.

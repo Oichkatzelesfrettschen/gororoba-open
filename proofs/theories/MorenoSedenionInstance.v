@@ -24,7 +24,9 @@
     obligations of CDAlgMorenoSwap from CDTowerKernelSwap.tower_kernel_swap
     through the CDConcreteTowerAdapter isomorphism with order 4 of the
     recursive tower, and MorKernelEquality then gives
-    sed_ker_lx_eq_ker_rx with no axiom beyond the Stdlib reals. *)
+    sed_ker_lx_eq_ker_rx under the two axioms the Stdlib real numbers
+    bring in (ClassicalDedekindReals.sig_forall_dec and functional
+    extensionality). *)
 
 From OpenGororoba Require Import Prelude CayleyDicksonAlgebra Sedenion OctonionNorm.
 From OpenGororoba Require Import CDInnerProduct CDNegLemmas C1539_MorSkewSymm.
