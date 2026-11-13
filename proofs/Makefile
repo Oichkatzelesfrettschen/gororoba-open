@@ -159,6 +159,8 @@ check-schur-geometry: all $(ADMISSION_CHECK)
 	@mkdir -p "$(ADMISSION_CHECK_DIR)"
 	$(RUSTC) --edition=2024 -D warnings tests/schur_acceleration_mutations.rs -o "$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations"
 	"$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations" "$(CURDIR)" "$(ADMISSION_CHECK_DIR)/schur-acceleration-mutations-output"
+	$(RUSTC) --edition=2024 -D warnings tests/doubling_nullity_mutations.rs -o "$(ADMISSION_CHECK_DIR)/doubling-nullity-mutations"
+	"$(ADMISSION_CHECK_DIR)/doubling-nullity-mutations" "$(CURDIR)" "$(ADMISSION_CHECK_DIR)/doubling-nullity-mutations-output"
 
 extract: all
 	@echo "Extracting OCaml code from Rocq..."

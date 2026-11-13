@@ -795,4 +795,80 @@ mod tests {
             Err(CertificateError::InvalidPivotIndices)
         );
     }
+
+    fn exact_nullity(coordinates: &[BigRational], side: MultiplicationSide) -> usize {
+        coordinates.len() - exact_rank(&multiplication_matrix_exact(coordinates, side).unwrap())
+    }
+
+    fn two_unit_operand(
+        dimension: usize,
+        first: usize,
+        second: usize,
+        sign: i64,
+    ) -> Vec<BigRational> {
+        let mut coordinates = vec![integer(0); dimension];
+        coordinates[first] = integer(1);
+        coordinates[second] = integer(sign);
+        coordinates
+    }
+
+    /// The pure pairs e_low + sign e_high with 1 <= low < d/2 <= high < d have a pure nonzero
+    /// low half and a nonzero high half in the doubling (a, b). In 16D (sedenions) and 32D the
+    /// exact left nullity of every member of this family is a multiple of 4 and equals the right
+    /// nullity, which the Rocq theorem `tower_right_left_rank` states for every operand. The full
+    /// histogram pins the zero-divisor counts, so the divisibility check never passes on a family
+    /// of invertible operands alone; divisibility outside this family is untested here.
+    #[test]
+    fn pure_two_unit_pairs_have_left_nullity_divisible_by_four() {
+        for (dimension, expected) in [
+            (16, vec![(0, 28), (4, 84)]),
+            (32, vec![(0, 60), (4, 168), (12, 252)]),
+        ] {
+            let half = dimension / 2;
+            let mut histogram = std::collections::BTreeMap::new();
+            for low in 1..half {
+                for high in half..dimension {
+                    for sign in [1, -1] {
+                        let operand = two_unit_operand(dimension, low, high, sign);
+                        let nullity = exact_nullity(&operand, MultiplicationSide::Left);
+                        assert_eq!(nullity % 4, 0, "e{low} + {sign} e{high} in {dimension}D");
+                        assert_eq!(
+                            exact_nullity(&operand, MultiplicationSide::Right),
+                            nullity,
+                            "e{low} + {sign} e{high} in {dimension}D"
+                        );
+                        *histogram.entry(nullity).or_insert(0_usize) += 1;
+                    }
+                }
+            }
+            assert_eq!(histogram.into_iter().collect::<Vec<_>>(), expected);
+        }
+    }
+
+    /// The Rocq theorems `doubling_nullity`, `right_doubling_nullity`, `zero_lower_half_nullity`
+    /// and `zero_lower_half_right_nullity` state that (b, 0) and (0, b) carry twice the nullity of b
+    /// on both sides. The 16D two-unit operands, 84 of them sedenion zero divisors, lift to 32D here.
+    #[test]
+    fn doubling_lifts_double_both_nullities_of_two_unit_operands() {
+        let dimension = 16;
+        let zero_half = vec![integer(0); dimension];
+        let mut zero_divisors = 0;
+        for first in 0..dimension {
+            for second in first + 1..dimension {
+                for sign in [1, -1] {
+                    let operand = two_unit_operand(dimension, first, second, sign);
+                    let nullity = exact_nullity(&operand, MultiplicationSide::Left);
+                    zero_divisors += usize::from(nullity > 0);
+                    let lower_lift = [operand.clone(), zero_half.clone()].concat();
+                    let upper_lift = [zero_half.clone(), operand].concat();
+                    for lift in [&lower_lift, &upper_lift] {
+                        for side in [MultiplicationSide::Left, MultiplicationSide::Right] {
+                            assert_eq!(exact_nullity(lift, side), 2 * nullity);
+                        }
+                    }
+                }
+            }
+        }
+        assert_eq!(zero_divisors, 84);
+    }
 }

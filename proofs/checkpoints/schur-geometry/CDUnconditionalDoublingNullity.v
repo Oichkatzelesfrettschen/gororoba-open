@@ -1,10 +1,14 @@
 (** Every real operand doubles the left nullity of the recursive Cayley-Dickson tower.
     A nonzero real part r makes L_a + L_conj(a) = 2r I with L_a^T = L_conj(a) (and the same for R_a),
     so x^T L_a x = r |x|^2 and L_a, R_a are invertible (nullity 0) at every order.
-    A zero real part is the pure case of [pure_doubling_nullity]; the two cases give [doubling_nullity]. *)
+    A zero real part is the pure case of [pure_doubling_nullity]; the two cases give [doubling_nullity].
+    Transposition and conjugation give rank R_a = rank L_a for every operand ([tower_right_left_rank]),
+    so the right nullity of (a,0) doubles ([right_doubling_nullity]) and both nullities of the
+    operand (0,b) double ([zero_lower_half_nullity], [zero_lower_half_right_nullity]). *)
 From Stdlib Require Import Reals Arith Lia Lra.
 From mathcomp Require boot order algebra.
-From OpenGororoba Require Import StdlibRealFieldAdapter RecursiveCDTower CDTowerMatrixAdapter CDPureDoublingKernel.
+From OpenGororoba Require Import StdlibRealFieldAdapter RecursiveCDTower CDTowerMatrixAdapter CDPureDoublingKernel
+ FiniteMatrixConventions.
 Import ssreflect ssrbool divalg matrix mxalgebra.
 Local Open Scope R_scope.
 Theorem tower_left_matrix_neg order operand :
@@ -235,6 +239,131 @@ Proof.
     (nonpure_right_full_rank order operand nonzero). cbn [tower_dimension].
    unfold ssrnat.subn, ssrnat.addn. lia.
 Qed.
+(** R_a and L_a share one rank for every operand: mxrank_tr with R_a^T = R_conj(a) gives rank R_a = rank R_conj(a),
+    and R_conj(a) = C L_a C with C C = 1 gives rank R_conj(a) = rank L_a. *)
+Lemma conjugation_column_rank order (operator : matrix.matrix R (tower_dimension order) (tower_dimension order)) :
+ mxrank (matrix.mulmx operator (tower_conjugation_matrix order)) = mxrank operator.
+Proof.
+ apply (@inverse_coordinate_rank stdlib_real_field _ _ _ _ operator
+   (matrix.mulmx operator (tower_conjugation_matrix order))
+   (matrix.scalar_mx R1) (tower_conjugation_matrix order)
+   (matrix.scalar_mx R1) (tower_conjugation_matrix order)).
+ - rw mul1mx. reflexivity.
+ - rw mul1mx -mulmxA tower_conjugation_matrix_involution mulmx1. reflexivity.
+Qed.
+Theorem tower_right_left_rank order operand :
+ mxrank (tower_right_matrix order operand) = mxrank (tower_left_matrix order operand).
+Proof.
+ rw -(mxrank_tr (tower_right_matrix order operand)) (proj2 (tower_matrix_transpose order operand))
+  tower_right_matrix_conjugate conjugation_column_rank.
+ apply (@inverse_coordinate_rank stdlib_real_field _ _ _ _ (tower_left_matrix order operand)
+   (matrix.mulmx (tower_conjugation_matrix order) (tower_left_matrix order operand))
+   (tower_conjugation_matrix order) (matrix.scalar_mx R1)
+   (tower_conjugation_matrix order) (matrix.scalar_mx R1)).
+ - rw mulmx1. reflexivity.
+ - rw mulmx1 mulmxA tower_conjugation_matrix_involution mul1mx. reflexivity.
+Qed.
+Definition tower_right_nullity order operand :=
+ ssrnat.subn (tower_dimension order) (mxrank (tower_right_matrix order operand)).
+Theorem tower_right_left_nullity order operand :
+ tower_right_nullity order operand = tower_left_nullity order operand.
+Proof. unfold tower_right_nullity, tower_left_nullity. rw tower_right_left_rank. reflexivity. Qed.
+Lemma doubled_nullity_arithmetic dimension rank :
+ ssrnat.subn (ssrnat.addn dimension dimension) (ssrnat.addn rank rank) =
+ ssrnat.addn (ssrnat.subn dimension rank) (ssrnat.subn dimension rank).
+Proof. unfold ssrnat.subn, ssrnat.addn. lia. Qed.
+(** The right operator of (a,0) is block_mx R_a 0 0 R_conj(a), so its rank is rank R_a + rank R_a^T. *)
+Theorem zero_upper_half_right_matrix order operand :
+ tower_right_matrix (S order) (operand,tower_zero order) =
+ matrix.block_mx (tower_right_matrix order operand) nmodule.Algebra.zero nmodule.Algebra.zero
+  (tower_right_matrix order (tower_conj order operand)).
+Proof.
+ cbn [tower_right_matrix fst snd].
+ rw tower_conj_zero (proj1 (tower_zero_multiplication_matrices order)) nmodule.Algebra.oppr0.
+ reflexivity.
+Qed.
+Theorem right_doubling_nullity order operand :
+ tower_right_nullity (S order) (operand,tower_zero order) =
+ ssrnat.addn (tower_right_nullity order operand) (tower_right_nullity order operand).
+Proof.
+ unfold tower_right_nullity.
+ rw zero_upper_half_right_matrix rank_diag_block_mx -(proj2 (tower_matrix_transpose order operand)) mxrank_tr.
+ exact (doubled_nullity_arithmetic (tower_dimension order) _).
+Qed.
+(** The operand (0,b) has anti-diagonal operators: L_(0,b) = block_mx 0 (-(R_b C)) (L_b C) 0 and
+    R_(0,b) = block_mx 0 (-L_conj(b)) L_b 0. The half swap S = block_mx 0 1 1 0 squares to 1 and moves
+    each anti-diagonal block to the diagonal, so both nullities double exactly as for (a,0). *)
+Definition half_swap_matrix size : matrix.matrix R (ssrnat.addn size size) (ssrnat.addn size size) :=
+ matrix.block_mx nmodule.Algebra.zero (matrix.scalar_mx R1) (matrix.scalar_mx R1) nmodule.Algebra.zero.
+Lemma half_swap_involution size :
+ matrix.mulmx (half_swap_matrix size) (half_swap_matrix size) = matrix.scalar_mx R1.
+Proof.
+ unfold half_swap_matrix.
+ rw mulmx_block !mul0mx !mulmx0 !mul1mx !nmodule.Algebra.add0r !nmodule.Algebra.addr0 -scalar_mx_block.
+ reflexivity.
+Qed.
+Theorem anti_diagonal_rank size (upper lower : matrix.matrix R size size) :
+ mxrank (matrix.block_mx nmodule.Algebra.zero upper lower nmodule.Algebra.zero) =
+ ssrnat.addn (mxrank upper) (mxrank lower).
+Proof.
+ assert (diagonal : matrix.mulmx (matrix.block_mx nmodule.Algebra.zero upper lower nmodule.Algebra.zero)
+   (half_swap_matrix size) = matrix.block_mx upper nmodule.Algebra.zero nmodule.Algebra.zero lower).
+ { unfold half_swap_matrix.
+   rw mulmx_block !mul0mx !mulmx0 !mulmx1 !nmodule.Algebra.add0r !nmodule.Algebra.addr0. reflexivity. }
+ rw -rank_diag_block_mx -diagonal. symmetry.
+ apply (@inverse_coordinate_rank stdlib_real_field _ _ _ _
+   (matrix.block_mx nmodule.Algebra.zero upper lower nmodule.Algebra.zero)
+   (matrix.mulmx (matrix.block_mx nmodule.Algebra.zero upper lower nmodule.Algebra.zero) (half_swap_matrix size))
+   (matrix.scalar_mx R1) (half_swap_matrix size) (matrix.scalar_mx R1) (half_swap_matrix size)).
+ - rw mul1mx. reflexivity.
+ - rw mul1mx -mulmxA half_swap_involution mulmx1. reflexivity.
+Qed.
+Theorem zero_lower_half_matrix order operand :
+ tower_left_matrix (S order) (tower_zero order,operand) =
+ matrix.block_mx nmodule.Algebra.zero
+  (nmodule.Algebra.opp (matrix.mulmx (tower_right_matrix order operand) (tower_conjugation_matrix order)))
+  (matrix.mulmx (tower_left_matrix order operand) (tower_conjugation_matrix order))
+  nmodule.Algebra.zero.
+Proof.
+ cbn [tower_left_matrix fst snd].
+ rw (proj1 (tower_zero_multiplication_matrices order)) (proj2 (tower_zero_multiplication_matrices order)).
+ reflexivity.
+Qed.
+Theorem zero_lower_half_right_matrix order operand :
+ tower_right_matrix (S order) (tower_zero order,operand) =
+ matrix.block_mx nmodule.Algebra.zero (nmodule.Algebra.opp (tower_left_matrix order (tower_conj order operand)))
+  (tower_left_matrix order operand) nmodule.Algebra.zero.
+Proof.
+ cbn [tower_right_matrix fst snd].
+ rw tower_conj_zero (proj2 (tower_zero_multiplication_matrices order)).
+ reflexivity.
+Qed.
+Theorem zero_lower_half_nullity order operand :
+ tower_left_nullity (S order) (tower_zero order,operand) =
+ ssrnat.addn (tower_left_nullity order operand) (tower_left_nullity order operand).
+Proof.
+ unfold tower_left_nullity.
+ rw zero_lower_half_matrix anti_diagonal_rank mxrank_opp !conjugation_column_rank tower_right_left_rank.
+ exact (doubled_nullity_arithmetic (tower_dimension order) _).
+Qed.
+Theorem zero_lower_half_right_nullity order operand :
+ tower_right_nullity (S order) (tower_zero order,operand) =
+ ssrnat.addn (tower_right_nullity order operand) (tower_right_nullity order operand).
+Proof.
+ unfold tower_right_nullity.
+ rw zero_lower_half_right_matrix anti_diagonal_rank mxrank_opp -(proj1 (tower_matrix_transpose order operand))
+  mxrank_tr tower_right_left_rank.
+ exact (doubled_nullity_arithmetic (tower_dimension order) _).
+Qed.
 Print Assumptions nonpure_left_full_rank.
 Print Assumptions nonpure_right_full_rank.
 Print Assumptions doubling_nullity.
+Print Assumptions tower_right_left_rank.
+Print Assumptions tower_right_left_nullity.
+Print Assumptions right_doubling_nullity.
+Print Assumptions anti_diagonal_rank.
+Print Assumptions zero_lower_half_nullity.
+Print Assumptions zero_lower_half_right_nullity.
+Print Assumptions zero_upper_half_right_matrix.
+Print Assumptions zero_lower_half_matrix.
+Print Assumptions zero_lower_half_right_matrix.
