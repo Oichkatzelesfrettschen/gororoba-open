@@ -17,7 +17,14 @@ on:
     paths:
       - ci/gororoba_math.pin
       - registry/**
+      - Cargo.lock
       - crates/provenance_store/**
+      - crates/repo_root/**
+      - crates/gororoba_db/**
+      - crates/gororoba_cli_physics/src/bin/vacuum_response_audit.rs
+      - crates/gororoba_cli_physics/src/bin/vacuum_response_audit/**
+      - plans/vacuum_energy_falsification.toml
+      - plans/vacuum_integration_contract.toml
       - .github/workflows/proofs.yml
       - .github/actions/fetch-gororoba-math/action.yml
 
@@ -141,13 +148,20 @@ jobs:
         run: |
           set -euo pipefail
           failure_count=0
-          for outcome_variable in CACHE_SAVE_OUTCOME RECEIPT_REPLAY_OUTCOME OBSERVABLE_BINDINGS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
+          # A verification lane that did not succeed (failed, was skipped because
+          # an earlier step stopped the job, or was cancelled) is a failure. The
+          # cache save is skipped on a cache hit, so it fails only on failure.
+          for outcome_variable in RECEIPT_REPLAY_OUTCOME OBSERVABLE_BINDINGS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
-            if [ "$outcome" = failure ]; then
+            if [ "$outcome" != success ]; then
               failure_count=$((failure_count + 1))
             fi
           done
+          printf 'CACHE_SAVE_OUTCOME=%s\n' "$CACHE_SAVE_OUTCOME"
+          if [ "$CACHE_SAVE_OUTCOME" = failure ] || [ "$CACHE_SAVE_OUTCOME" = cancelled ]; then
+            failure_count=$((failure_count + 1))
+          fi
           if [ "$failure_count" -ne 0 ]; then
             echo "Collected $failure_count failing proof lane(s)." >&2
             exit 1
