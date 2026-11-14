@@ -200,8 +200,7 @@ fn rows(connection: &Connection, query: &str, id: &str) -> Result<Vec<Value>> {
     let mut statement = connection.prepare(query)?;
     let columns: Vec<String> = statement
         .column_names()
-        .iter()
-        .map(|name| (*name).to_owned())
+        .map(str::to_owned)
         .collect();
     let mut cursor = statement.query([id])?;
     let mut result = Vec::new();
