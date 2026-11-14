@@ -7,9 +7,19 @@ name: proofs
 # the control-plane receipts and the retained evidence, against the
 # gororoba-math commit that ci/gororoba_math.pin names.
 
+# A pull request that changes the pin, the registry or the provenance store
+# runs the workflow, so the proof-source checks that the governance gate skips
+# without a checkout run in full before merge.
 on:
   workflow_call:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - ci/gororoba_math.pin
+      - registry/**
+      - crates/provenance_store/**
+      - .github/workflows/proofs.yml
+      - .github/actions/fetch-gororoba-math/action.yml
 
 permissions:
   contents: read
@@ -39,42 +49,9 @@ jobs:
           echo "Hosted proof validation uses $worker_budget workers from std::thread::available_parallelism()."
 
       - name: Fetch the pinned gororoba-math checkout
-        run: |
-          set -euo pipefail
-          pin="$(tr -d ' \t\r\n' < ci/gororoba_math.pin)"
-          case "$pin" in
-            *[!0-9a-f]* | "")
-              echo "ci/gororoba_math.pin is not 40 hex digits" >&2
-              exit 2
-              ;;
-          esac
-          if [ "${#pin}" -ne 40 ]; then
-            echo "ci/gororoba_math.pin holds ${#pin} digits, expected 40" >&2
-            exit 2
-          fi
-          destination="$GITHUB_WORKSPACE/.cache/gororoba-math"
-          mkdir -p "$destination"
-          git -C "$destination" init -q
-          git -C "$destination" remote add origin https://github.com/Oichkatzelesfrettschen/gororoba-math.git
-          git -C "$destination" sparse-checkout init --cone
-          git -C "$destination" sparse-checkout set ci rocq/open
-          attempt=1
-          until git -C "$destination" fetch -q --filter=blob:none origin "$pin"; do
-            if [ "$attempt" -ge 3 ]; then
-              echo "cannot fetch gororoba-math commit $pin" >&2
-              exit 1
-            fi
-            attempt=$((attempt + 1))
-            sleep $((attempt * 5))
-          done
-          git -C "$destination" checkout -q --detach "$pin"
-          head="$(git -C "$destination" rev-parse HEAD)"
-          if [ "$head" != "$pin" ]; then
-            echo "gororoba-math HEAD $head differs from pin $pin" >&2
-            exit 1
-          fi
-          echo "GOROROBA_MATH=$destination" >> "$GITHUB_ENV"
-          echo "gororoba-math $head fetched into $destination"
+        uses: ./.github/actions/fetch-gororoba-math
+        with:
+          paths: ci rocq/open
 
       - name: Install opam 2.6.1 and Rust linker
         run: |

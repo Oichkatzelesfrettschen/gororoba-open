@@ -323,7 +323,11 @@ validation-resource-contract-workers:
 	    'cargo build --locked --keep-going --profile validation -p gororoba_cli_governance --bin registry-integrity'; do \
 	    if ! grep -Fq "$$contract" Makefile; then echo "ERROR: staged validation-tool build can mutate Cargo.lock: $$contract" >&2; status=1; fi; \
 	done; \
-	if ! grep -Fq 'ci/gororoba_math.pin' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not fetch the pinned gororoba-math commit." >&2; status=1; fi; \
+	if ! grep -Fq 'ci/gororoba_math.pin' .github/actions/fetch-gororoba-math/action.yml; then echo "ERROR: gororoba-math fetch action does not read the pin." >&2; status=1; fi; \
+	for workflow in .github/workflows/proofs.yml .github/workflows/paper.yml; do \
+	    if ! grep -Fq './.github/actions/fetch-gororoba-math' "$$workflow"; then echo "ERROR: workflow does not fetch the pinned gororoba-math commit: $$workflow" >&2; status=1; fi; \
+	done; \
+	if ! grep -Fq 'GOROROBA_MATH/rocq/open' .github/workflows/paper.yml; then echo "ERROR: paper workflow does not point TEXINPUTS at the pinned proof tree." >&2; status=1; fi; \
 	if ! grep -Fq 'ci/install_rocq.sh' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not install the Rocq toolchain from the pinned gororoba-math checkout." >&2; status=1; fi; \
 	if grep -Fq 'ci-rust-$${{ matrix.lane }}' .github/workflows/ci.yml; then echo "ERROR: Rust matrix jobs retain quota-consuming duplicate target caches." >&2; status=1; fi; \
 	rust_cache_block="$$(sed -n '/^  rust-validation:/,/^  benchmark:/p' .github/workflows/ci.yml)"; \
@@ -346,8 +350,10 @@ validation-resource-contract-workers:
 	done; \
 	for workflow in .github/workflows/proofs.yml .github/workflows/bench-cd-kernel.yml .github/workflows/paper.yml .github/workflows/unsafe-survey.yml .github/workflows/navier-stokes-certificates.yml; do \
 	    if ! grep -Fq 'workflow_call:' "$$workflow"; then echo "ERROR: component evidence workflow is not reusable: $$workflow" >&2; status=1; fi; \
-	    if grep -Eq '^  (push|pull_request):' "$$workflow"; then echo "ERROR: component workflow retains an independent push or pull-request admission root: $$workflow" >&2; status=1; fi; \
+	    if grep -Eq '^  push:' "$$workflow"; then echo "ERROR: component workflow retains an independent push admission root: $$workflow" >&2; status=1; fi; \
+	    if [ "$$workflow" != .github/workflows/proofs.yml ] && grep -Eq '^  pull_request:' "$$workflow"; then echo "ERROR: component workflow retains an independent pull-request admission root: $$workflow" >&2; status=1; fi; \
 	done; \
+	if ! awk '/^  pull_request:/ { inpr = 1; next } inpr && /^    paths:/ { found = 1 } inpr && /^  [a-z_]+:/ { inpr = 0 } END { exit !found }' .github/workflows/proofs.yml; then echo "ERROR: proof workflow pull-request trigger lacks its path filter." >&2; status=1; fi; \
 	exit "$$status"
 
 validation-resource-contract-collectors:
@@ -2576,7 +2582,8 @@ latex:
 	@command -v latexmk >/dev/null 2>&1 || { echo "ERROR: latexmk not found. Install TeX Live (see docs/requirements/latex.md)"; exit 1; }
 	$(CARGO_ENV) cargo run --release --bin generate-latex
 	@mkdir -p docs/latex/out
-	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -shell-escape -output-directory=out llm_scaffold_paper.tex
+	$(require_proof_tree)
+	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/:$(GOROROBA_MATH)/rocq/open: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -shell-escape -output-directory=out llm_scaffold_paper.tex
 	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -output-directory=out MASTER_SYNTHESIS.tex
 	cd docs/latex && latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -output-directory=out MATHEMATICAL_FORMALISM.tex
 	$(MAKE) latex-heliosphere
