@@ -1,208 +1,176 @@
-//! ZD Spectral Dimension Census
+//! Finite-graph spectral-dimension census, full heat trace v2.
 //!
-//! Computes the graph spectral dimension d_s(t) of cross-assessor zero-divisor
-//! graphs across Cayley-Dickson dimensions. Tests whether the sequence of
-//! plateau values flows from ~2 (UV) to ~4 (IR), recovering the Calcagni
-//! spectral dimension flow from pure algebraic structure.
-//!
-//! # Usage
-//!
-//! zd-spectral-dimension --min-dim 16 --max-dim 256 --t-points 300
+//! Each CD dimension selects the first cross-assessor component. The curve
+//! includes its stationary mode and is a graph diagnostic, not a measurement
+//! of physical spacetime or a recovered cosmological dimensional flow.
 
 use algebra_analysis::spectral_dimension::{dimensional_flow_analysis, spectral_gap_census};
 use std::path::PathBuf;
 
 #[derive(clap::Args)]
 pub struct Cli {
-    /// Minimum CD dimension (must be power of 2, >= 16).
+    /// Minimum CD dimension (power of two, at least 16).
     #[arg(long, default_value = "16")]
     min_dim: usize,
-
-    /// Maximum CD dimension (must be power of 2).
+    /// Maximum CD dimension (power of two, no smaller than min_dim).
     #[arg(long, default_value = "256")]
     max_dim: usize,
-
-    /// Number of diffusion-time sample points.
+    /// Number of logarithmically spaced diffusion-time samples.
     #[arg(long, default_value = "300")]
     t_points: usize,
-
-    /// Minimum diffusion time.
+    /// Minimum positive diffusion time.
     #[arg(long, default_value = "0.01")]
     t_min: f64,
-
-    /// Maximum diffusion time.
+    /// Maximum finite diffusion time.
     #[arg(long, default_value = "50.0")]
     t_max: f64,
-
-    /// Output directory for CSV files.
+    /// Output directory; versioned filenames leave historical CSVs untouched.
     #[arg(long, default_value = "data/csv")]
     output_dir: PathBuf,
 }
 
-pub fn run(cli: Cli) -> anyhow::Result<()> {
-    // Build dimension list: powers of 2 from min_dim to max_dim
-    let mut dims = Vec::new();
-    let mut d = cli.min_dim;
-    while d <= cli.max_dim {
-        if d >= 16 && d.is_power_of_two() {
-            dims.push(d);
-        }
-        d *= 2;
-    }
-
-    if dims.is_empty() {
-        eprintln!(
-            "No valid dimensions in range [{}, {}]",
-            cli.min_dim, cli.max_dim
-        );
-        std::process::exit(1);
-    }
-
-    eprintln!("ZD Spectral Dimension Census");
-    eprintln!("Dimensions: {:?}", dims);
-    eprintln!(
-        "t range: [{}, {}], {} points",
-        cli.t_min, cli.t_max, cli.t_points
+fn dimensions(minimum: usize, maximum: usize) -> anyhow::Result<Vec<usize>> {
+    anyhow::ensure!(
+        minimum >= 16 && minimum.is_power_of_two(),
+        "minimum dimension must be a power of two at least 16",
     );
-    eprintln!();
+    anyhow::ensure!(
+        maximum >= minimum && maximum.is_power_of_two(),
+        "maximum dimension must be a power of two no smaller than the minimum",
+    );
+    let mut dimensions = vec![minimum];
+    let mut current = minimum;
+    while current < maximum {
+        current = current
+            .checked_mul(2)
+            .ok_or_else(|| anyhow::anyhow!("dimension ladder overflows usize"))?;
+        dimensions.push(current);
+    }
+    Ok(dimensions)
+}
 
+pub fn run(cli: Cli) -> anyhow::Result<()> {
+    let dims = dimensions(cli.min_dim, cli.max_dim)?;
+    anyhow::ensure!(cli.t_points >= 3, "at least three diffusion-time points are required");
+    anyhow::ensure!(
+        cli.t_min.is_finite()
+            && cli.t_max.is_finite()
+            && cli.t_min > 0.0
+            && cli.t_max > cli.t_min,
+        "diffusion times must satisfy finite 0 < t_min < t_max",
+    );
+    eprintln!("ZD spectral census: full trace v2, first component per algebra dimension");
+    eprintln!("Dimensions: {dims:?}");
+    eprintln!("Time range [{}, {}], {} samples", cli.t_min, cli.t_max, cli.t_points);
     let result = dimensional_flow_analysis(&dims, cli.t_min, cli.t_max, cli.t_points);
-
-    // Print summary table
     eprintln!(
         "{:<8} {:>6} {:>8} {:>12} {:>10}",
-        "CD_dim", "comps", "nodes", "d_s_plateau", "R^2"
+        "CD_dim", "comps", "nodes", "flat_window", "flatness",
     );
-    eprintln!("{}", "-".repeat(50));
-
-    for dim_result in &result.dimensions {
-        let plateau_str = match &dim_result.plateau {
-            Some(p) => format!("{:.4}", p.d_s),
-            None => "N/A".to_string(),
-        };
-        let r2_str = match &dim_result.plateau {
-            Some(p) => format!("{:.4}", p.r_squared),
-            None => "N/A".to_string(),
+    for value in &result.dimensions {
+        let (dimension, flatness) = match &value.plateau {
+            Some(window) => (format!("{:.4}", window.d_s), format!("{:.4}", window.flatness_score)),
+            None => ("N/A".to_string(), "N/A".to_string()),
         };
         eprintln!(
             "{:<8} {:>6} {:>8} {:>12} {:>10}",
-            dim_result.cd_dim,
-            dim_result.n_components,
-            dim_result.nodes_per_component,
-            plateau_str,
-            r2_str,
+            value.cd_dim, value.n_components, value.nodes_per_component, dimension, flatness,
         );
     }
-
-    // Write curve CSV
     std::fs::create_dir_all(&cli.output_dir)?;
+    std::fs::write(
+        cli.output_dir.join("zd_spectral_full_trace_v2_convention.txt"),
+        "schema: finite-graph-full-heat-trace-v2\n\
+         P(t): sum_i exp(-lambda_i*t)/N, including zero modes\n\
+         d_s(t): 2*t*sum_i lambda_i*exp(-lambda_i*t)/sum_i exp(-lambda_i*t)\n\
+         scope: first cross-assessor component, not the disconnected union\n\
+         flatness_score: max(0, 1 - std/abs(mean)); not R-squared\n\
+         plateau: flat-window candidate only; finite-size endpoints may be flat\n\
+         is_expander: historical finite-graph heuristic, not a family theorem\n\
+         physical interpretation: no inference of spacetime dimension\n",
+    )?;
 
-    let curve_path = cli.output_dir.join("zd_spectral_dimension_curves.csv");
-    let mut wtr = csv::Writer::from_path(&curve_path)?;
-    wtr.write_record(["cd_dim", "ln_t", "d_s"])?;
-    for dim_result in &result.dimensions {
-        for &(ln_t, d_s) in &dim_result.curve {
-            wtr.write_record([
-                dim_result.cd_dim.to_string(),
-                format!("{ln_t:.6}"),
-                format!("{d_s:.6}"),
+    let curve_path = cli.output_dir.join("zd_spectral_full_trace_v2_curves.csv");
+    let mut writer = csv::Writer::from_path(&curve_path)?;
+    writer.write_record(["cd_dim", "ln_t", "d_s"])?;
+    for value in &result.dimensions {
+        for &(log_t, dimension) in &value.curve {
+            writer.write_record([
+                value.cd_dim.to_string(),
+                format!("{log_t:.17e}"),
+                format!("{dimension:.17e}"),
             ])?;
         }
     }
-    wtr.flush()?;
-    eprintln!("\nCurves written to {}", curve_path.display());
+    writer.flush()?;
 
-    // Write plateau summary CSV
-    let plateau_path = cli.output_dir.join("zd_spectral_dimension_plateaus.csv");
-    let mut wtr = csv::Writer::from_path(&plateau_path)?;
-    wtr.write_record([
-        "cd_dim",
-        "n_components",
-        "nodes_per_component",
-        "d_s_plateau",
-        "ln_t_min",
-        "ln_t_max",
-        "r_squared",
+    let window_path = cli.output_dir.join("zd_spectral_full_trace_v2_flat_windows.csv");
+    let mut writer = csv::Writer::from_path(&window_path)?;
+    writer.write_record([
+        "cd_dim", "n_components", "first_component_nodes", "d_s_mean",
+        "ln_t_min", "ln_t_max", "flatness_score",
     ])?;
-    for dim_result in &result.dimensions {
-        if let Some(p) = &dim_result.plateau {
-            wtr.write_record([
-                dim_result.cd_dim.to_string(),
-                dim_result.n_components.to_string(),
-                dim_result.nodes_per_component.to_string(),
-                format!("{:.6}", p.d_s),
-                format!("{:.6}", p.ln_t_min),
-                format!("{:.6}", p.ln_t_max),
-                format!("{:.6}", p.r_squared),
+    for value in &result.dimensions {
+        if let Some(window) = &value.plateau {
+            writer.write_record([
+                value.cd_dim.to_string(),
+                value.n_components.to_string(),
+                value.nodes_per_component.to_string(),
+                format!("{:.17e}", window.d_s),
+                format!("{:.17e}", window.ln_t_min),
+                format!("{:.17e}", window.ln_t_max),
+                format!("{:.17e}", window.flatness_score),
             ])?;
         }
     }
-    wtr.flush()?;
-    eprintln!("Plateaus written to {}", plateau_path.display());
+    writer.flush()?;
 
-    // Write eigenvalue summary
-    let eigen_path = cli.output_dir.join("zd_laplacian_eigenvalues.csv");
-    let mut wtr = csv::Writer::from_path(&eigen_path)?;
-    wtr.write_record(["cd_dim", "eigenvalue_index", "eigenvalue"])?;
-    for dim_result in &result.dimensions {
-        for (i, &ev) in dim_result.eigenvalues.iter().enumerate() {
-            wtr.write_record([
-                dim_result.cd_dim.to_string(),
-                i.to_string(),
-                format!("{ev:.10}"),
+    let eigen_path = cli.output_dir.join("zd_spectral_full_trace_v2_eigenvalues.csv");
+    let mut writer = csv::Writer::from_path(&eigen_path)?;
+    writer.write_record(["cd_dim", "eigenvalue_index", "eigenvalue"])?;
+    for value in &result.dimensions {
+        for (index, eigenvalue) in value.eigenvalues.iter().enumerate() {
+            writer.write_record([
+                value.cd_dim.to_string(), index.to_string(), format!("{eigenvalue:.17e}"),
             ])?;
         }
     }
-    wtr.flush()?;
-    eprintln!("Eigenvalues written to {}", eigen_path.display());
+    writer.flush()?;
 
-    // Spectral gap census
-    eprintln!();
-    eprintln!("Spectral Gap Census");
-    eprintln!(
-        "{:<8} {:>6} {:>8} {:>10} {:>10} {:>10} {:>9}",
-        "CD_dim", "comps", "nodes", "lambda_2", "lambda_max", "gap_ratio", "expander"
-    );
-    eprintln!("{}", "-".repeat(67));
-
-    let gap_results = spectral_gap_census(&dims);
-    for r in &gap_results {
-        eprintln!(
-            "{:<8} {:>6} {:>8} {:>10.4} {:>10.4} {:>10.4} {:>9}",
-            r.cd_dim,
-            r.n_components,
-            r.nodes_per_component,
-            r.lambda_2,
-            r.lambda_max,
-            r.gap_ratio,
-            if r.is_expander { "YES" } else { "NO" }
-        );
-    }
-
-    let gap_path = cli.output_dir.join("zd_spectral_gap.csv");
-    let mut wtr = csv::Writer::from_path(&gap_path)?;
-    wtr.write_record([
-        "cd_dim",
-        "n_components",
-        "nodes_per_component",
-        "lambda_2",
-        "lambda_max",
-        "gap_ratio",
-        "is_expander",
+    let gap_path = cli.output_dir.join("zd_spectral_first_component_v2_gap.csv");
+    let mut writer = csv::Writer::from_path(&gap_path)?;
+    writer.write_record([
+        "cd_dim", "n_components", "first_component_nodes", "lambda_2",
+        "lambda_max", "gap_ratio", "finite_gap_heuristic",
     ])?;
-    for r in &gap_results {
-        wtr.write_record([
-            r.cd_dim.to_string(),
-            r.n_components.to_string(),
-            r.nodes_per_component.to_string(),
-            format!("{:.10}", r.lambda_2),
-            format!("{:.10}", r.lambda_max),
-            format!("{:.10}", r.gap_ratio),
-            r.is_expander.to_string(),
+    for value in spectral_gap_census(&dims) {
+        writer.write_record([
+            value.cd_dim.to_string(),
+            value.n_components.to_string(),
+            value.nodes_per_component.to_string(),
+            format!("{:.17e}", value.lambda_2),
+            format!("{:.17e}", value.lambda_max),
+            format!("{:.17e}", value.gap_ratio),
+            value.is_expander.to_string(),
         ])?;
     }
-    wtr.flush()?;
-    eprintln!("Spectral gaps written to {}", gap_path.display());
-
+    writer.flush()?;
+    eprintln!("Versioned full-trace files written to {}", cli.output_dir.display());
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn dimension_ladder_is_finite_and_validated() {
+        assert_eq!(dimensions(16, 64).unwrap(), vec![16, 32, 64]);
+        assert!(dimensions(0, 256).is_err());
+        assert!(dimensions(17, 256).is_err());
+        assert!(dimensions(64, 16).is_err());
+        assert!(dimensions(16, 65).is_err());
+        let last = 1_usize << (usize::BITS - 1);
+        assert_eq!(dimensions(last, last).unwrap(), vec![last]);
+    }
 }
