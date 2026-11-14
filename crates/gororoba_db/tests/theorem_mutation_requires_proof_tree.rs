@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 //! A theorem mutation reads the proof tree, which `GOROROBA_MATH` names, and
 //! opening the store creates its directory and applies migrations. With the
 //! variable unset the command must stop before it touches the file system.
