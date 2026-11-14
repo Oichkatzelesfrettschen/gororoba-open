@@ -68,8 +68,10 @@ fn main() -> Result<()> {
         return cmd_theorem_identity_read_only(&store, &cli.repo_root);
     }
 
-    // A theorem mutation reads the proof tree, and opening the store creates its
-    // directory and applies migrations, so the tree is required first.
+    // Every theorem mutation reads the proof tree, and opening the store creates
+    // its directory and applies migrations, so the tree is required first.
+    // `theorem identity validate` returned above through `open_read_only`, so a
+    // theorem command that reaches this point is always a mutation.
     let theorem_proof_tree = match &cli.command {
         Commands::Theorem(_) => Some(ProofTree::from_environment().context(
             "theorem identity mutations read the proof tree; nothing was opened or written",
