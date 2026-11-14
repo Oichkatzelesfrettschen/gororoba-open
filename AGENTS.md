@@ -83,7 +83,12 @@ governs where the two differ.
   `GOROROBA_MATH` (a gororoba-math checkout). A check that needs the tree
   fails with a message naming the variable, or reports its skip; a test that
   reads the tree is `#[ignore]` and runs in `proofs.yml` with
-  `--include-ignored`.
+  `--include-ignored`. The governance gate skips and counts the proof-source
+  checks without a checkout; `proofs.yml` runs them in full at the commit
+  `ci/gororoba_math.pin` names and fails on any skip.
+- A record that pins `_RocqProject` by sha256 `d327e4c6...` (the first import)
+  verifies at gororoba-math commit 93ae476; the pin's `_RocqProject` is
+  `ee514ff4...`, which the latest kernel receipts bind.
 
 ## Registry
 
