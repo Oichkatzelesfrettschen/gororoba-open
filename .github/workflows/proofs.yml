@@ -71,7 +71,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y clang mold
+          sudo apt-get install -y clang mold glslc libcfitsio-dev libhdf5-dev libfontconfig1-dev libopenblas-dev libblas-dev liblapack-dev pkg-config
           curl --fail --location --retry 3 \
             https://github.com/ocaml/opam/releases/download/2.6.1/opam-2.6.1-x86_64-linux \
             --output "$RUNNER_TEMP/opam"
