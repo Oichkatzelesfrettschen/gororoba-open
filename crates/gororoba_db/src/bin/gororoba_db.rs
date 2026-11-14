@@ -68,6 +68,14 @@ fn main() -> Result<()> {
         return cmd_theorem_identity_read_only(&store, &cli.repo_root);
     }
 
+    // A theorem mutation reads the proof tree, and opening the store creates its
+    // directory and applies migrations, so the tree is required first.
+    let theorem_proof_tree = match &cli.command {
+        Commands::Theorem(_) => Some(ProofTree::from_environment().context(
+            "theorem identity mutations read the proof tree; nothing was opened or written",
+        )?),
+        _ => None,
+    };
     let mut store = ProvenanceStore::open(&db_path)
         .with_context(|| format!("open database {}", db_path.display()))?;
 
@@ -98,7 +106,10 @@ fn main() -> Result<()> {
         Commands::ExternalSource(args) => {
             cmd_external_source_mutation(&mut store, &cli.repo_root, &args)
         }
-        Commands::Theorem(args) => cmd_theorem_mutation(&mut store, &cli.repo_root, &args),
+        Commands::Theorem(args) => {
+            let proof_tree = theorem_proof_tree.context("theorem mutation lacks its proof tree")?;
+            cmd_theorem_mutation(&mut store, &cli.repo_root, &proof_tree, &args)
+        }
         Commands::Requirements(args) => {
             cmd_requirements_mutation(&mut store, &cli.repo_root, &args)
         }
@@ -1951,11 +1962,10 @@ fn cmd_artifact_mutation(
 fn cmd_theorem_mutation(
     store: &mut ProvenanceStore,
     repo_root: &Path,
+    proof_tree: &ProofTree,
     args: &TheoremArgs,
 ) -> Result<()> {
     let TheoremAction::Identity(identity_args) = &args.action;
-    let proof_tree =
-        ProofTree::from_environment().context("theorem identity mutations read the proof tree")?;
     match &identity_args.action {
         TheoremIdentityAction::Bind { spec, regen_toml } => {
             let spec_path = resolve_cli_path(repo_root, spec);
@@ -1963,7 +1973,7 @@ fn cmd_theorem_mutation(
                 .with_context(|| format!("read theorem identity spec {}", spec_path.display()))?;
             let parsed = parse_theorem_identity_spec(&raw_spec)?;
             let result =
-                store.bind_theorem_identities(repo_root, &proof_tree, &parsed, &raw_spec)?;
+                store.bind_theorem_identities(repo_root, proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1972,7 +1982,7 @@ fn cmd_theorem_mutation(
             let raw_spec = fs::read_to_string(&spec_path)
                 .with_context(|| format!("read theorem correction spec {}", spec_path.display()))?;
             let parsed = parse_theorem_link_correction_spec(&raw_spec)?;
-            let result = store.correct_theorem_links(repo_root, &proof_tree, &parsed, &raw_spec)?;
+            let result = store.correct_theorem_links(repo_root, proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1984,8 +1994,7 @@ fn cmd_theorem_mutation(
             let raw_spec = fs::read_to_string(&spec_path)
                 .with_context(|| format!("read theorem inventory spec {}", spec_path.display()))?;
             let parsed = parse_theorem_inventory_sync_spec(&raw_spec)?;
-            let result =
-                store.sync_theorem_inventory(repo_root, &proof_tree, &parsed, &raw_spec)?;
+            let result = store.sync_theorem_inventory(repo_root, proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1996,7 +2005,7 @@ fn cmd_theorem_mutation(
             })?;
             let parsed = parse_theorem_kernel_evidence_spec(&raw_spec)?;
             let result =
-                store.record_theorem_kernel_evidence(repo_root, &proof_tree, &parsed, &raw_spec)?;
+                store.record_theorem_kernel_evidence(repo_root, proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
