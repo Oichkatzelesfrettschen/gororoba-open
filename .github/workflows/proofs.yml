@@ -110,9 +110,16 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
+          # Without the tree every proof-source check is skipped and counted, so
+          # that run reports how many checks the registry lists; the run with the
+          # tree must verify exactly that many and skip none.
+          env -u GOROROBA_MATH cargo run --locked -p gororoba_db --bin gororoba-db -- theorem identity validate | tee "$RUNNER_TEMP/theorem-identity-listed.log"
           cargo run --locked -p gororoba_db --bin gororoba-db -- theorem identity validate | tee "$RUNNER_TEMP/theorem-identity.log"
-          if ! grep -Fq ', 0 skipped' "$RUNNER_TEMP/theorem-identity.log"; then
-            echo "proof-source checks were skipped; GOROROBA_MATH must resolve the pinned checkout" >&2
+          listed="$(sed -n 's/.*proof-source checks: 0 verified, \([0-9][0-9]*\) skipped.*/\1/p' "$RUNNER_TEMP/theorem-identity-listed.log")"
+          verified="$(sed -n 's/.*proof-source checks: \([0-9][0-9]*\) verified, 0 skipped.*/\1/p' "$RUNNER_TEMP/theorem-identity.log")"
+          echo "proof-source checks listed by the registry: ${listed:-missing}; verified against the pinned tree: ${verified:-missing}"
+          if [ -z "$listed" ] || [ -z "$verified" ] || [ "$verified" -eq 0 ] || [ "$verified" -ne "$listed" ]; then
+            echo "proof-source checks are missing, zero, skipped or fewer than the registry lists" >&2
             exit 1
           fi
 
