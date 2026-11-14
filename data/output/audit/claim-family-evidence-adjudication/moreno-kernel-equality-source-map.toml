@@ -44,6 +44,8 @@ query = "data/output/audit/claim-family-evidence-adjudication/moreno_kernel_equa
 log = "data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log"
 log_sha256 = "ae79e9fb1d234b4a5c0b36320747bb5ad60cc09b52c0aabf2a50ed49d64e519f"
 axioms = "ClassicalDedekindReals.sig_forall_dec, FunctionalExtensionality.functional_extensionality_dep"
+theorems = ["CDTowerKernelSwap.tower_kernel_swap", "CDTowerKernelSwap.tower_kernel_equality", "MorenoSedenionInstance.sed_l_x_skew_symm", "MorenoSedenionInstance.sed_r_x_skew_symm", "MorenoSedenionInstance.sed_ker_lx_eq_ker_rx", "MorenoTowerInstance.pathion_l_x_skew_symm", "MorenoTowerInstance.pathion_ker_lx_eq_ker_rx", "MorenoTowerInstance.SedenionTowerKernel.ker_lx_eq_ker_rx"]
+scope = "The axioms are those of the eight theorems above. The log queries no theorem of C1538_MorZDSymmetry.v and no functor theorem over an abstract interface."
 
 [[formal_input]]
 path = "rocq/open/theories/CDTowerKernelSwap.v"
