@@ -38,7 +38,7 @@ runs:
         fi
         for word in "${cone[@]}"; do
           case "$word" in
-            -* | */../* | ../* | */.. | ..)
+            -* | /* | */ | . | ./* | */./* | */. | .. | ../* | */../* | */.. | *//*)
               echo "invalid cone path: $word" >&2
               exit 2
               ;;
