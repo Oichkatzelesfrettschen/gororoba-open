@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 223
+event_count = 224
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4803,3 +4803,26 @@ transition_spec_sha256 = "441b6a0c225ec6128e920d143430e6beebd0d113ddbdb008040785
 proposal_key = "psl27-order-and-fano-line-count"
 canonical_claim_id = "C-1780"
 relation_kind = "narrows"
+
+[[transition]]
+event_id = 224
+transition_key = "c-1721-moreno-kernel-equality-supersession"
+source_claim_id = "C-1721"
+expected_prior_status = "Provisional"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Print Assumptions and Check on CDTowerKernelSwap.tower_kernel_equality, MorenoSedenionInstance.sed_ker_lx_eq_ker_rx and MorenoTowerInstance.pathion_ker_lx_eq_ker_rx under the pinned Rocq toolchain. The kernel-equality sentence of C-1721 stays true of the present files if any of them lists im_lx_eq_im_rx or im_rx_eq_im_lx, or if tower_kernel_equality is stated with a hypothesis on its operands; it is falsified when none does."
+rationale = "C-1721 states two things about the files of 2026-08-06: that C1538_MorZDSymmetry.zd_symmetry and the C1539 skew-adjoint theorems have the scopes it lists, and that the kernel-equality theorem of C1539_MorSkewSymm.v additionally depends on the axioms im_lx_eq_im_rx and im_rx_eq_im_lx, which leaves full source-general kernel equality unproved. Only the second sentence is stale: CDTowerKernelSwap.tower_kernel_equality proves a z = 0 exactly when z a = 0 at every order of the real Cayley-Dickson tower, MorKernelEquality.ker_lx_eq_ker_rx derives Ker(L_x) = Ker(R_x) from the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and TowerMoreno discharge that interface. The C1538 purity and nonzero restriction and the skew-adjoint scopes are unchanged; the successor statement carries those two sentences forward beside the present scope of the kernel equality, so no live claim loses them. C-1721 mixes a retained part with a falsified sentence and becomes Superseded, as events 193 to 195 did for claims of that shape; its evidence contract names this outcome a revision (retain the partial result and update the formal edge), and the Superseded row keeps the adjudicated text while the successor holds the updated edge."
+unresolved_assumptions = ["The axioms listed in the retained Print Assumptions log remain assumptions of the successor statement.", "The successor statement is for the real Cayley-Dickson tower; the swap is not asserted over other coefficient rings.", "CDAlgMorenoSwap adds the swap to the interface as an obligation; which laws force the swap in general remains unproved.", "The theorem inventory holds no kernel receipt for the cited modules, so their rows read source_only."]
+evidence_artifact_ids = ["LOCAL-MORENO-KERNEL-EQUALITY"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register the present scope of the Moreno kernel equality as the successor of C-1721 after the recursive-tower kernel swap."
+transition_timestamp = "2026-11-14T22:28:28Z"
+transition_spec_sha256 = "dc6f49b0498accaa37183724e8c0a833dae8b6b850bd9ec5a123ffb03979b19d"
+
+[[transition.successors]]
+proposal_key = "moreno-kernel-equality-real-tower"
+canonical_claim_id = "C-1781"
+relation_kind = "supersedes"

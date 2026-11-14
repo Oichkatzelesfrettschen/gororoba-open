@@ -1,0 +1,16 @@
+From OpenGororoba Require Import CDTowerKernelSwap C1539_MorSkewSymm MorenoSedenionInstance MorenoTowerInstance.
+
+Print Assumptions CDTowerKernelSwap.tower_kernel_swap.
+Print Assumptions CDTowerKernelSwap.tower_kernel_equality.
+Print Assumptions MorenoSedenionInstance.sed_l_x_skew_symm.
+Print Assumptions MorenoSedenionInstance.sed_r_x_skew_symm.
+Print Assumptions MorenoSedenionInstance.sed_ker_lx_eq_ker_rx.
+Print Assumptions MorenoTowerInstance.pathion_l_x_skew_symm.
+Print Assumptions MorenoTowerInstance.pathion_ker_lx_eq_ker_rx.
+Print Assumptions MorenoTowerInstance.SedenionTowerKernel.ker_lx_eq_ker_rx.
+
+Check CDTowerKernelSwap.tower_kernel_swap.
+Check CDTowerKernelSwap.tower_kernel_equality.
+Check MorenoSedenionInstance.sed_ker_lx_eq_ker_rx.
+Check MorenoTowerInstance.pathion_ker_lx_eq_ker_rx.
+Check MorenoTowerInstance.SedenionTowerKernel.ker_lx_eq_ker_rx.
