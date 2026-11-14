@@ -1011,17 +1011,23 @@ impl ProvenanceStore {
                 && !crate::claim_proofs::is_formal_proof_disposition(proof_path)
             {
                 match proof_tree {
-                    Some(tree) if !tree.resolve(repo_root, proof_path).exists() => {
-                        failures.push(format!(
+                    Some(tree) => match tree.exists(repo_root, proof_path) {
+                        Ok(true) => checks.verified += 1,
+                        Ok(false) => failures.push(format!(
                             "{} formal_proof path missing on disk: {}",
                             claim.id, proof_path
-                        ));
-                    }
-                    Some(_) => checks.verified += 1,
+                        )),
+                        Err(error) => failures.push(format!(
+                            "{} formal_proof path is refused: {error}",
+                            claim.id
+                        )),
+                    },
                     None if repo_root::proof_tree::recorded_relative(proof_path).is_some() => {
                         checks.skipped += 1;
                     }
-                    None if !repo_root.join(proof_path).exists() => {
+                    None if !repo_root::proof_tree::is_plain_relative(proof_path)
+                        || !repo_root.join(proof_path).exists() =>
+                    {
                         failures.push(format!(
                             "{} formal_proof path missing on disk: {}",
                             claim.id, proof_path
@@ -1039,17 +1045,16 @@ impl ProvenanceStore {
 
         for theorem in self.list_theorems()? {
             match proof_tree {
-                Some(tree)
-                    if !tree
-                        .resolve(repo_root, theorem.proof_path.as_str())
-                        .exists() =>
-                {
-                    failures.push(format!(
+                Some(tree) => match tree.exists(repo_root, theorem.proof_path.as_str()) {
+                    Ok(true) => checks.verified += 1,
+                    Ok(false) => failures.push(format!(
                         "{} proof path missing on disk: {}",
                         theorem.id, theorem.proof_path
-                    ));
-                }
-                Some(_) => checks.verified += 1,
+                    )),
+                    Err(error) => {
+                        failures.push(format!("{} proof path is refused: {error}", theorem.id))
+                    }
+                },
                 None => checks.skipped += 1,
             }
             for claim_id in theorem.linked_claim_ids {

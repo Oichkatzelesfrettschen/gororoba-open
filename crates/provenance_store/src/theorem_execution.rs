@@ -196,9 +196,19 @@ impl<'a> EvidenceRoots<'a> {
         }
     }
 
-    /// Location of a recorded path, without any check of the file.
-    pub(crate) fn locate(&self, recorded: &str) -> PathBuf {
-        self.tree.resolve(self.repository, recorded)
+    /// Location of a recorded path, refused when it leaves its directory.
+    pub(crate) fn locate(&self, recorded: &str) -> Result<PathBuf> {
+        Ok(self.tree.resolve(self.repository, recorded)?)
+    }
+
+    /// Whether the file of a recorded path exists; an escaping path is an error.
+    pub(crate) fn exists(&self, recorded: &str) -> Result<bool> {
+        Ok(self.tree.exists(self.repository, recorded)?)
+    }
+
+    /// Whether a recorded path names a regular file; an escaping path is an error.
+    pub(crate) fn is_file(&self, recorded: &str) -> Result<bool> {
+        Ok(self.tree.is_file(self.repository, recorded)?)
     }
 }
 
@@ -833,7 +843,7 @@ pub(crate) fn validate_kernel_witness(
         "kernel checker log lacks its context summary"
     );
     let declarations =
-        source_declarations(&fs::read_to_string(roots.locate(&witness.proof_path))?)?;
+        source_declarations(&fs::read_to_string(roots.locate(&witness.proof_path)?)?)?;
     ensure!(
         !witness.declarations.is_empty(),
         "kernel witness needs declaration-specific scope and assumptions"
@@ -1281,7 +1291,7 @@ mod tests {
         fn file(&self, path: &str) -> Result<ProofFileDigest> {
             Ok(ProofFileDigest {
                 path: path.to_owned(),
-                sha256: file_sha256(&self.tree.resolve(&self.root, path))?,
+                sha256: file_sha256(&self.tree.resolve(&self.root, path)?)?,
             })
         }
 
@@ -2017,10 +2027,10 @@ mod tests {
             let mut fixture = Fixture::new()?;
             fixture.sync("initial")?;
             fixture.record(&fixture.witness()?)?;
-            let original = fs::read(fixture.tree.resolve(&fixture.root, path))?;
+            let original = fs::read(fixture.tree.resolve(&fixture.root, path)?)?;
             let mut changed = original;
             changed.extend_from_slice(b"\n(* changed input *)\n");
-            fs::write(fixture.tree.resolve(&fixture.root, path), changed)?;
+            fs::write(fixture.tree.resolve(&fixture.root, path)?, changed)?;
             assert_eq!(
                 fixture.sync("changed-input")?.kernel_checked_count,
                 0,
@@ -2179,6 +2189,35 @@ mod tests {
             ]
         );
         assert!(source_commands("(* unterminated").is_err());
+        Ok(())
+    }
+
+    #[test]
+    fn verification_refuses_a_recorded_proof_path_that_leaves_the_tree() -> Result<()> {
+        let fixture = Fixture::new()?;
+        fixture.store.conn.execute(
+            "UPDATE theorems SET status='source_only' WHERE id='C900_Test'",
+            [],
+        )?;
+        let intact = fixture
+            .store
+            .verify_control_plane_invariants(&fixture.root, Some(&fixture.tree))
+            .map(|checks| checks.verified);
+        assert!(intact.is_ok(), "{intact:?}");
+        fixture
+            .store
+            .conn
+            .execute_batch("PRAGMA foreign_keys=OFF;")?;
+        fixture.store.conn.execute(
+            "UPDATE theorems SET proof_path='proofs/../../outside.v' WHERE id='C900_Test'",
+            [],
+        )?;
+        let error = fixture
+            .store
+            .verify_control_plane_invariants(&fixture.root, Some(&fixture.tree))
+            .unwrap_err()
+            .to_string();
+        assert!(error.contains("refused"), "{error}");
         Ok(())
     }
 

@@ -171,7 +171,7 @@ pub(crate) fn load_theorems_from_inventory(
             .find(|claim| linked_claim_ids.iter().any(|id| id == &claim.id))
             .map(|claim| claim.statement.clone())
             .unwrap_or_else(|| entry.stem.replace('_', " "));
-        if !roots.locate(entry.path.as_str()).is_file() {
+        if !roots.is_file(entry.path.as_str())? {
             bail!("listed proof source disappeared: {}", entry.path);
         }
         let existing = connection.query_row(

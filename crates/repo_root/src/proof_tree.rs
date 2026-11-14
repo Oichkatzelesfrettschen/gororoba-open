@@ -48,6 +48,16 @@ pub fn recorded_relative(recorded: &str) -> Option<&str> {
     recorded.strip_prefix(RECORDED_PREFIX)
 }
 
+/// Whether `path` is a nonempty relative path of plain names, which names no
+/// parent directory, root or absolute location.
+pub fn is_plain_relative(path: &str) -> bool {
+    let path = Path::new(path);
+    !path.as_os_str().is_empty()
+        && path
+            .components()
+            .all(|component| matches!(component, Component::Normal(_)))
+}
+
 /// The recorded locator of a file at `relative` inside the proof tree.
 pub fn recorded_locator(relative: &str) -> String {
     format!("{RECORDED_PREFIX}{relative}")
@@ -150,9 +160,72 @@ impl ProofTree {
 
     /// The file a recorded path names: in this tree for a `proofs/` locator,
     /// below `repository_root` for every other path.
-    pub fn resolve(&self, repository_root: &Path, recorded: &str) -> PathBuf {
-        self.locate(recorded)
-            .unwrap_or_else(|| repository_root.join(recorded))
+    ///
+    /// The locator must be a nonempty relative path of plain names, which
+    /// rules out `..`, a root and an absolute path. Where the file or one of
+    /// its parent directories exists, the canonical path must stay under
+    /// the tree (proof locator) or under `repository_root` (any other path),
+    /// so a symbolic link that leaves its directory is refused. A path that
+    /// does not exist is returned unchanged for the caller to report as
+    /// missing.
+    pub fn resolve(
+        &self,
+        repository_root: &Path,
+        recorded: &str,
+    ) -> Result<PathBuf, ProofTreeError> {
+        let (base, relative) = match recorded_relative(recorded) {
+            Some(inside) => (self.root.as_path(), inside),
+            None => (repository_root, recorded),
+        };
+        if !is_plain_relative(relative) {
+            return Err(ProofTreeError(format!(
+                "recorded path is not a relative path of plain names: {recorded}"
+            )));
+        }
+        let candidate = base.join(relative);
+        contain(base, &candidate, recorded)?;
+        Ok(candidate)
+    }
+
+    /// Whether the file a recorded path names exists; see [`ProofTree::resolve`]
+    /// for the paths it refuses.
+    pub fn exists(&self, repository_root: &Path, recorded: &str) -> Result<bool, ProofTreeError> {
+        Ok(self.resolve(repository_root, recorded)?.exists())
+    }
+
+    /// Whether a recorded path names a regular file; see [`ProofTree::resolve`]
+    /// for the paths it refuses.
+    pub fn is_file(&self, repository_root: &Path, recorded: &str) -> Result<bool, ProofTreeError> {
+        Ok(self.resolve(repository_root, recorded)?.is_file())
+    }
+}
+
+/// Fails unless the deepest existing part of `candidate` canonicalizes to a
+/// path under `base`.
+fn contain(base: &Path, candidate: &Path, recorded: &str) -> Result<(), ProofTreeError> {
+    let escape = || {
+        ProofTreeError(format!(
+            "recorded path leaves {}: {recorded}",
+            base.display()
+        ))
+    };
+    let canonical_base = base
+        .canonicalize()
+        .map_err(|error| ProofTreeError(format!("cannot resolve {}: {error}", base.display())))?;
+    let mut probe = candidate;
+    loop {
+        if fs::symlink_metadata(probe).is_ok() {
+            let canonical = probe.canonicalize().map_err(|_| escape())?;
+            return if canonical.starts_with(&canonical_base) {
+                Ok(())
+            } else {
+                Err(escape())
+            };
+        }
+        match probe.parent() {
+            Some(parent) => probe = parent,
+            None => return Err(escape()),
+        }
     }
 }
 
@@ -224,13 +297,16 @@ mod tests {
         let directory = tempfile::tempdir().unwrap();
         let tree_root = tree_directory(directory.path());
         let tree = ProofTree::at_root(&tree_root).unwrap();
-        let repository = Path::new("/repository");
+        let repository = directory.path().join("repository");
+        fs::create_dir_all(&repository).unwrap();
         assert_eq!(
-            tree.resolve(repository, "proofs/verified/C001_Test.v"),
+            tree.resolve(&repository, "proofs/verified/C001_Test.v")
+                .unwrap(),
             tree_root.join("verified/C001_Test.v")
         );
         assert_eq!(
-            tree.resolve(repository, "data/output/audit/receipt.toml"),
+            tree.resolve(&repository, "data/output/audit/receipt.toml")
+                .unwrap(),
             repository.join("data/output/audit/receipt.toml")
         );
         assert_eq!(recorded_locator("theories/A.v"), "proofs/theories/A.v");
@@ -249,5 +325,78 @@ mod tests {
         ] {
             assert_eq!(tree.locate(recorded), None, "{recorded}");
         }
+    }
+
+    #[test]
+    fn traversal_and_absolute_locators_are_refused_for_both_kinds_of_path() {
+        let directory = tempfile::tempdir().unwrap();
+        let tree = ProofTree::at_root(tree_directory(directory.path())).unwrap();
+        let repository = directory.path().join("repository");
+        fs::create_dir_all(&repository).unwrap();
+        for recorded in [
+            "proofs/../../../outside",
+            "proofs/../escape",
+            "proofs//absolute",
+            "proofs/",
+            "../outside",
+            "data/../../outside",
+            "/etc/passwd",
+            "",
+        ] {
+            assert!(
+                tree.resolve(&repository, recorded).is_err(),
+                "{recorded:?} must be refused"
+            );
+            assert!(tree.exists(&repository, recorded).is_err(), "{recorded:?}");
+        }
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn a_symbolic_link_that_leaves_its_directory_is_refused() {
+        let directory = tempfile::tempdir().unwrap();
+        let tree_root = tree_directory(directory.path());
+        let tree = ProofTree::at_root(&tree_root).unwrap();
+        let repository = directory.path().join("repository");
+        let outside = directory.path().join("outside");
+        fs::create_dir_all(&repository).unwrap();
+        fs::create_dir_all(&outside).unwrap();
+        fs::write(outside.join("secret.v"), "").unwrap();
+        fs::write(tree_root.join("kept.v"), "").unwrap();
+        std::os::unix::fs::symlink(&outside, tree_root.join("theories")).unwrap();
+        std::os::unix::fs::symlink(outside.join("secret.v"), tree_root.join("leak.v")).unwrap();
+        std::os::unix::fs::symlink(directory.path().join("gone"), tree_root.join("dangling.v"))
+            .unwrap();
+        std::os::unix::fs::symlink(&outside, repository.join("linked")).unwrap();
+        for recorded in [
+            "proofs/theories/secret.v",
+            "proofs/leak.v",
+            "proofs/dangling.v",
+            "linked/secret.v",
+        ] {
+            assert!(
+                tree.resolve(&repository, recorded).is_err(),
+                "{recorded} must be refused"
+            );
+        }
+        assert!(tree.is_file(&repository, "proofs/kept.v").unwrap());
+    }
+
+    #[test]
+    fn existing_and_missing_paths_inside_their_directory_resolve() {
+        let directory = tempfile::tempdir().unwrap();
+        let tree_root = tree_directory(directory.path());
+        let tree = ProofTree::at_root(&tree_root).unwrap();
+        let repository = directory.path().join("repository");
+        fs::create_dir_all(repository.join("data")).unwrap();
+        fs::write(repository.join("data/log.txt"), "").unwrap();
+        assert!(tree.is_file(&repository, "data/log.txt").unwrap());
+        assert!(!tree.exists(&repository, "data/missing.txt").unwrap());
+        assert!(
+            !tree
+                .exists(&repository, "proofs/verified/Missing.v")
+                .unwrap()
+        );
+        assert!(tree.is_file(&repository, "proofs/_RocqProject").unwrap());
     }
 }

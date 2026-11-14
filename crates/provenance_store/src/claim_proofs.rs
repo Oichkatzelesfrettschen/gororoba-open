@@ -59,7 +59,8 @@ pub(crate) fn canonical_formal_proof_for_claim(
 ) -> Option<String> {
     if let Some(formal_proof) = claim.formal_proof.as_deref()
         && !formal_proof.trim().is_empty()
-        && (is_formal_proof_disposition(formal_proof) || roots.locate(formal_proof).exists())
+        && (is_formal_proof_disposition(formal_proof)
+            || roots.exists(formal_proof).unwrap_or(false))
     {
         return Some(formal_proof.trim().to_string());
     }
@@ -71,7 +72,7 @@ pub(crate) fn canonical_formal_proof_for_claim(
     if let Some(formal_proof) = claim.formal_proof.as_deref() {
         referenced_paths.extend(extract_proof_paths(formal_proof));
     }
-    referenced_paths.retain(|path| roots.locate(path).exists());
+    referenced_paths.retain(|path| roots.exists(path).unwrap_or(false));
     referenced_paths.sort();
     referenced_paths.dedup();
 

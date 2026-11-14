@@ -238,7 +238,7 @@ pub fn bind_theorem_identities(
                 binding.legacy_name
             );
         }
-        if !proof_tree.resolve(repo_root, &binding.proof_path).is_file() {
+        if !proof_tree.is_file(repo_root, &binding.proof_path)? {
             bail!("proof path is missing: {}", binding.proof_path);
         }
         let stable_conflict: Option<String> = tx
@@ -495,10 +495,12 @@ pub(crate) fn validate_theorem_identities(
             bail!("theorem {stable_id} has an invalid legacy name");
         }
         match proof_tree {
-            Some(tree) if !tree.resolve(repo_root, &proof_path).is_file() => {
-                bail!("theorem {stable_id} proof path is missing: {proof_path}");
+            Some(tree) => {
+                if !tree.is_file(repo_root, &proof_path)? {
+                    bail!("theorem {stable_id} proof path is missing: {proof_path}");
+                }
+                checks.verified += 1;
             }
-            Some(_) => checks.verified += 1,
             None => checks.skipped += 1,
         }
         if !matches!(

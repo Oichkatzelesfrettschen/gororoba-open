@@ -388,7 +388,7 @@ fn validate_result(
     proof_tree: &ProofTree,
     state: &TheoremLinkState,
 ) -> Result<()> {
-    if !proof_tree.resolve(repo_root, &state.proof_path).is_file() {
+    if !proof_tree.is_file(repo_root, &state.proof_path)? {
         bail!("theorem proof path is missing: {}", state.proof_path);
     }
     if state.identity_kind == "explicit_link" && state.claim_ids.is_empty() {
