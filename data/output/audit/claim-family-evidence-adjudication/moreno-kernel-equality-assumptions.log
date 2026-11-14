@@ -1,0 +1,93 @@
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+Axioms:
+ClassicalDedekindReals.sig_forall_dec :
+  forall P : nat -> Prop,
+  (forall n : nat, {P n} + {~ P n}) ->
+  {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep :
+  forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+  (forall x : A, f x = g x) -> f = g
+tower_kernel_swap
+     : forall (order : nat)
+         (operand vector : RecursiveCDTower.cd_tower order),
+       RecursiveCDTower.tower_mul order operand vector =
+       RecursiveCDTower.tower_zero order ->
+       RecursiveCDTower.tower_mul order vector operand =
+       RecursiveCDTower.tower_zero order
+tower_kernel_equality
+     : forall (order : nat)
+         (operand vector : RecursiveCDTower.cd_tower order),
+       RecursiveCDTower.tower_mul order operand vector =
+       RecursiveCDTower.tower_zero order <->
+       RecursiveCDTower.tower_mul order vector operand =
+       RecursiveCDTower.tower_zero order
+sed_ker_lx_eq_ker_rx
+     : forall x y : Sedenion.CDSed,
+       Sedenion.sed_conj x = OctonionNorm.sed_neg x ->
+       Sedenion.sed_mul x y = Sedenion.sed_zero <->
+       Sedenion.sed_mul y x = Sedenion.sed_zero
+pathion_ker_lx_eq_ker_rx
+     : forall x y : RecursiveCDTower.cd_tower 5,
+       RecursiveCDTower.tower_conj 5 x = RecursiveCDTower.tower_neg 5 x ->
+       RecursiveCDTower.tower_mul 5 x y = RecursiveCDTower.tower_zero 5 <->
+       RecursiveCDTower.tower_mul 5 y x = RecursiveCDTower.tower_zero 5
+SedenionTowerKernel.ker_lx_eq_ker_rx
+     : forall x y : SedenionTowerMoreno.A,
+       SedenionTowerMoreno.conj x = SedenionTowerMoreno.neg x ->
+       SedenionTowerMoreno.mul x y = SedenionTowerMoreno.zero <->
+       SedenionTowerMoreno.mul y x = SedenionTowerMoreno.zero

@@ -1,0 +1,70 @@
+schema_version = 1
+claims = ["C-1539", "C-1721"]
+formal_evidence_layer = "implementation_conformance"
+source_evidence_layer = "source_proposition"
+predecessor_source_map = "data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml"
+predecessor_assumptions_log = "data/output/audit/claim-family-evidence-adjudication/moreno-proof-assumptions.log"
+supersession = "The claim transition that registers this map records C-1721 as superseded; its successor is the claim whose claim_relations row has predecessor C-1721 and relation_kind supersedes. The predecessor map and log keep their bytes."
+locator_form = "A recorded locator proofs/NAME names gororoba-math rocq/open/NAME; this map gives the gororoba-math path."
+
+[formal_source]
+repository = "gororoba-math"
+tree = "rocq/open"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+pin_file = "ci/gororoba_math.pin"
+toolchain = "Rocq 9.3.0 with Stdlib 9.2.0 in the opam switch rocq-9.3 (gororoba-math rocq/open/README.md)"
+
+[source]
+retained_tex_sha256 = "ad9bf59860da8079a640648b7ac8bc2425042a746e0bb2711025ed46a6d3c928"
+retrieval_identity = "The TeX bytes are the e-print that the predecessor map pins by this digest; this map does not retrieve them again."
+proposition = "Proposition 1.7, TeX lines 390-407"
+remark = "Unnumbered Remark following Proposition 1.7, TeX lines 408-412"
+
+[[formal_edge]]
+claim = "C-1539"
+source = "Unnumbered Remark following Proposition 1.7"
+source_conclusion = "Ker L_x = Ker R_x for trace-zero x"
+formal_locator = "C1539_MorSkewSymm.MorKernelEquality.ker_lx_eq_ker_rx"
+formal_file = "rocq/open/theories/C1539_MorSkewSymm.v"
+interface = "CDAlgMorenoSwap with the obligations pure_left_zero_swap and pure_right_zero_swap"
+discharged_by = ["MorenoSedenionInstance.SedMorenoSwap (16D; sed_ker_lx_eq_ker_rx)", "MorenoTowerInstance.TowerMoreno, a functor over TowerOrder (every order; instantiated at orders 4 and 5; pathion_ker_lx_eq_ker_rx)"]
+formal_scope = "The conclusion carries the source purity hypothesis conj x = neg x. The obligations are the zero-product swap of CDTowerKernelSwap.tower_kernel_swap, so the theorem holds at every order of the real tower."
+missing_obligations = ["Models of CDAlgMorenoSwap other than the real tower and the sedenions are not constructed here."]
+
+[[formal_edge]]
+claim = "C-1721"
+source = "Corollary 1.6 item 1 for the pair x, y of the real tower"
+formal_locator = "CDTowerKernelSwap.tower_kernel_swap and tower_kernel_equality"
+formal_file = "rocq/open/theories/CDTowerKernelSwap.v"
+formal_scope = "a z = 0 exactly when z a = 0 for all a and z at every order, with no purity or nonzero hypothesis. The proof uses the positive definite real inner product (tower_inner_self_zero)."
+missing_obligations = ["The remaining items of Corollary 1.6 and Theorem 2.9 are outside this map."]
+
+[observed_assumptions]
+query = "data/output/audit/claim-family-evidence-adjudication/moreno_kernel_equality_assumption_query.v"
+log = "data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log"
+log_sha256 = "ae79e9fb1d234b4a5c0b36320747bb5ad60cc09b52c0aabf2a50ed49d64e519f"
+axioms = "ClassicalDedekindReals.sig_forall_dec, FunctionalExtensionality.functional_extensionality_dep"
+
+[[formal_input]]
+path = "rocq/open/theories/CDTowerKernelSwap.v"
+sha256 = "873e144b37ddd6e547f26df539a06ecf20d73829c6dc5bd6cefc897d798090ed"
+
+[[formal_input]]
+path = "rocq/open/theories/C1539_MorSkewSymm.v"
+sha256 = "718f989068dd964462c446eb083eac1053b437132276d7f7894f275959392f41"
+
+[[formal_input]]
+path = "rocq/open/theories/MorenoSedenionInstance.v"
+sha256 = "579436ffd68fc37fa9ee30b6b7d6164681d30938d28f5c23407d3db39a37d429"
+
+[[formal_input]]
+path = "rocq/open/theories/MorenoTowerInstance.v"
+sha256 = "3b2c19116fe0a92bff2157f99d4caffa776f0515dcfc65b2f0f2faa660431c0a"
+
+[[formal_input]]
+path = "rocq/open/theories/RecursiveCDTower.v"
+sha256 = "758341182c8ab0c9fa213326e8b269aad1329b0b7139016b766dccc56a75680f"
+
+[[formal_input]]
+path = "rocq/open/theories/C1538_MorZDSymmetry.v"
+sha256 = "ae3bef6e24047ccf819157936b5608bea7eeba58a2ea2f95a90f3bfdcf439250"

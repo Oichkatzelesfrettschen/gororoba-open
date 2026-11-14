@@ -4606,7 +4606,7 @@ id = "C-1539"
 last_verified = "2026-03-23"
 statement = "Moreno Proposition 1.7 (skew-symmetry): For x in circ-A_n (purely imaginary), L_x and R_x are skew-symmetric operators on A_n (with respect to the Euclidean inner product). Ker(L_x) = Ker(R_x). Source: Moreno (1997) arXiv:q-alg/9710013v1."
 status = "Theoretical"
-status_note = "(status_note is NULL) | ADJUDICATED 2026-08-06 by the claim falsification fleet: status Theoretical, fleet finding confirmed. DURABLE CHECK that would decide this claim: Source locator: thezero.tex lines 390-407 (Proposition 1.7) and 408-412 (the Remark carrying Ker L_x = Ker R_x), sha256 ad9bf59860da8079a640648b7ac8bc2425042a746e0bb2711025ed46a6d3c928. Formal locator: proofs/theories/C1539_MorSkewSymm.v theorems l_x_skew_symm and r_x_skew_symm (full match); the Ker equality edge belongs to C1538_MorZDSymmetry.v and is hypothesis-narrowed. Retained finding: data/output/audit/2026-08-06/claim-falsification-fleet-k-pmns.toml"
+status_note = "ADJUDICATED 2026-08-06 by the claim falsification fleet: status Theoretical, fleet finding confirmed. DURABLE CHECK that would decide this claim: Source locator: thezero.tex lines 390-407 (Proposition 1.7) and 408-412 (the Remark carrying Ker L_x = Ker R_x), sha256 ad9bf59860da8079a640648b7ac8bc2425042a746e0bb2711025ed46a6d3c928. UPDATED after the recursive-tower kernel swap (gororoba-open pull request 276); the status stays Theoretical pending the adjudicator. Formal locator: gororoba-math rocq/open/theories/C1539_MorSkewSymm.v (recorded as proofs/theories/C1539_MorSkewSymm.v), theorems l_x_skew_symm and r_x_skew_symm (full match) and MorKernelEquality.ker_lx_eq_ker_rx (the Ker equality of the Remark) over the interface CDAlgMorenoSwap; SedMorenoSwap (16D, rocq/open/theories/MorenoSedenionInstance.v) and TowerMoreno (every order, rocq/open/theories/MorenoTowerInstance.v) discharge the interface through CDTowerKernelSwap.tower_kernel_swap. The formal statement covers every order of the real tower; the source statement is for purely imaginary x in A_n. Retained finding: data/output/audit/2026-08-06/claim-falsification-fleet-k-pmns.toml. Successor source map: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml"
 where_stated = "crates/moreno_1997/src/lib.rs (l_a_squared, moreno_decomposition)"
 
 [[claim]]
@@ -7284,7 +7284,7 @@ inconclusive_outcomes = ["Per-field original-source receipts for the historical 
 id = "C-1721"
 last_verified = "2026-08-06"
 statement = "C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace; Moreno Corollary 1.6 states an unrestricted four-way chain for x,y in A_n with n>=4. C1539's left and right skew-adjoint theorems match Proposition 1.7's purity scope and have a concrete sedenion instance. Its kernel-equality theorem, corresponding to the following Remark, additionally depends on im_lx_eq_im_rx and im_rx_eq_im_lx axioms even after that instance; these files leave full source-general kernel equality unproved."
-status = "Provisional"
+status = "Superseded"
 where_stated = "data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-proof-assumptions.log; proofs/theories/C1538_MorZDSymmetry.v; proofs/theories/C1539_MorSkewSymm.v"
 evidence_layer = "implementation_conformance"
 depth_status = "declared"
@@ -8850,6 +8850,15 @@ statement = "PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^
 status = "Verified"
 status_note = "Kernel-checked via Rocq: C004_gl3_gf2_order and C004_fano_matches_boxkites in proofs/verified/C004_PSL27Order168.v."
 where_stated = "proofs/verified/C004_PSL27Order168.v"
+
+[[claim]]
+formal_proof = "proofs/theories/CDTowerKernelSwap.v"
+id = "C-1781"
+last_verified = "2026-11-14"
+statement = "C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace, while Moreno Corollary 1.6 states an unrestricted four-way chain for x, y in A_n with n>=4. The left and right skew-adjoint theorems of C1539_MorSkewSymm.v match the purity scope of Proposition 1.7 and have a concrete sedenion instance. For every order n of the recursive real Cayley-Dickson tower and all a and z, a z = 0 exactly when z a = 0 (CDTowerKernelSwap.tower_kernel_equality; Biss, Dugger and Isaksen arXiv:math/0511691 Corollary 9.3). Moreno's Remark after Proposition 1.7, Ker(L_x) = Ker(R_x) for purely imaginary x, follows: MorKernelEquality.ker_lx_eq_ker_rx holds over the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and the functor TowerMoreno (every order, instantiated at orders 4 and 5) discharge that interface through CDTowerKernelSwap.tower_kernel_swap. The theorems rest on the axioms listed in the retained Print Assumptions log of the pinned Rocq toolchain."
+status = "Provisional"
+status_note = "Kernel equality of the real recursive Cayley-Dickson tower and Moreno's Remark Ker L_x = Ker R_x. Formal locator: gororoba-math rocq/open/theories/CDTowerKernelSwap.v (tower_kernel_swap, tower_kernel_equality); rocq/open/theories/C1539_MorSkewSymm.v (MorKernelEquality.ker_lx_eq_ker_rx over CDAlgMorenoSwap); rocq/open/theories/MorenoSedenionInstance.v (SedMorenoSwap, 16D); rocq/open/theories/MorenoTowerInstance.v (TowerMoreno, every order). Each file is recorded as proofs/theories/NAME.v at the gororoba-math commit of ci/gororoba_math.pin. Supersedes C-1721 through the claim relation. Evidence: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v"
 
 [[claim]]
 id = "C-179"

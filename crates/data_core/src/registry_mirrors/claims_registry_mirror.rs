@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1593
+//! Total claims: 1594
 //!
 //! ## C-001
 //!
@@ -12290,7 +12290,7 @@
 //!
 //! ## C-1721
 //!
-//! - Status: `Provisional`
+//! - Status: `Superseded`
 //! - Last verified: 2026-08-06
 //! - Statement: C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace; Moreno Corollary 1.6 states an unrestricted four-way chain for x,y in A_n with n>=4. C1539's left and right skew-adjoint theorems match Proposition 1.7's purity scope and have a concrete sedenion instance. Its kernel-equality theorem, corresponding to the following Remark, additionally depends on im_lx_eq_im_rx and im_rx_eq_im_lx axioms even after that instance; these files leave full source-general kernel equality unproved.
 //! - Where stated: data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-proof-assumptions.log; proofs/theories/C1538_MorZDSymmetry.v; proofs/theories/C1539_MorSkewSymm.v
@@ -12750,4 +12750,12 @@
 //! - Last verified: 2026-11-02
 //! - Statement: PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph.
 //! - Where stated: proofs/verified/C004_PSL27Order168.v
+//! - What would verify/refute it:
+//!
+//! ## C-1781
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-14
+//! - Statement: C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace, while Moreno Corollary 1.6 states an unrestricted four-way chain for x, y in A_n with n>=4. The left and right skew-adjoint theorems of C1539_MorSkewSymm.v match the purity scope of Proposition 1.7 and have a concrete sedenion instance. For every order n of the recursive real Cayley-Dickson tower and all a and z, a z = 0 exactly when z a = 0 (CDTowerKernelSwap.tower_kernel_equality; Biss, Dugger and Isaksen arXiv:math/0511691 Corollary 9.3). Moreno's Remark after Proposition 1.7, Ker(L_x) = Ker(R_x) for purely imaginary x, follows: MorKernelEquality.ker_lx_eq_ker_rx holds over the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and the functor TowerMoreno (every order, instantiated at orders 4 and 5) discharge that interface through CDTowerKernelSwap.tower_kernel_swap. The theorems rest on the axioms listed in the retained Print Assumptions log of the pinned Rocq toolchain.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v
 //! - What would verify/refute it:
