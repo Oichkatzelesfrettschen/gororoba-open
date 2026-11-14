@@ -32,12 +32,28 @@ runs:
           exit 2
         fi
         read -r -a cone <<< "$SPARSE_PATHS"
+        if [ "${#cone[@]}" -eq 0 ]; then
+          echo "the paths input names no directory" >&2
+          exit 2
+        fi
+        for word in "${cone[@]}"; do
+          case "$word" in
+            -* | */../* | ../* | */.. | ..)
+              echo "invalid cone path: $word" >&2
+              exit 2
+              ;;
+          esac
+          if ! printf '%s' "$word" | grep -Eq '^[A-Za-z0-9._/-]+$'; then
+            echo "invalid cone path: $word" >&2
+            exit 2
+          fi
+        done
         destination="$GITHUB_WORKSPACE/.cache/gororoba-math"
         mkdir -p "$destination"
         git -C "$destination" init -q
         git -C "$destination" remote add origin https://github.com/Oichkatzelesfrettschen/gororoba-math.git
         git -C "$destination" sparse-checkout init --cone
-        git -C "$destination" sparse-checkout set "${cone[@]}"
+        git -C "$destination" sparse-checkout set -- "${cone[@]}"
         attempt=1
         until git -C "$destination" fetch -q --filter=blob:none origin "$pin"; do
           if [ "$attempt" -ge 3 ]; then
