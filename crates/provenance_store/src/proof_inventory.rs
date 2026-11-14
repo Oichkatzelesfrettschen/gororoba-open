@@ -237,7 +237,7 @@ pub(crate) fn normalize_claims_against_proof_inventory(
     for claim in claims {
         normalize_claim_record(claim)?;
         let canonical_formal_proof =
-            canonical_formal_proof_for_claim(roots, claim, proof_inventory);
+            canonical_formal_proof_for_claim(roots, claim, proof_inventory)?;
         if claim.formal_proof != canonical_formal_proof {
             claim.formal_proof = canonical_formal_proof;
             claim.compat_toml_text = render_normalized_claim_compat_toml(claim)?;
