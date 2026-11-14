@@ -13,7 +13,7 @@
 //!   Production Rule #1 (three-ring circuits), and the 168 = 42 * 4
 //!   zero-divisor count decomposition.
 //!
-//! Rocq companion: proofs/theories/DeMarraisAssessors.v (256 lines, 0 Admitted).
+//! Rocq companion: gororoba-math rocq/open/theories/DeMarraisAssessors.v (256 lines, 0 Admitted).
 
 pub mod assessors;
 pub mod count;

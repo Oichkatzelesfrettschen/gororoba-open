@@ -4,7 +4,7 @@
 //! Dickson, L.E. "On Quaternions and Their Generalization and the History
 //! of the Eight Square Theorem", Annals of Math., 20(3), 1919, pp. 155-171.
 //!
-//! Mirrors: proofs/theories/DicksonCDProcess.v (239 lines, 0 Admitted)
+//! Mirrors: gororoba-math rocq/open/theories/DicksonCDProcess.v (239 lines, 0 Admitted)
 //!
 //! # Library Usage
 //!

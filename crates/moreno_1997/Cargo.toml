@@ -8,9 +8,9 @@ description = "Moreno (1997) Zero divisors of real Cayley-Dickson algebras -- ve
 # Source: Moreno, G. (1997) "The zero divisors of the Cayley-Dickson algebras
 # over the real numbers", arXiv:q-alg/9710013v1.
 #
-# Rocq companions: proofs/theories/C1538_MorZDSymmetry.v,
-# proofs/theories/C1539_MorSkewSymm.v, proofs/theories/C1543_MorMod4Bound.v,
-# plus the sign-table bridge files under proofs/theories/CDSign*.v.
+# Rocq companions: gororoba-math rocq/open/theories/C1538_MorZDSymmetry.v,
+# gororoba-math rocq/open/theories/C1539_MorSkewSymm.v, gororoba-math rocq/open/theories/C1543_MorMod4Bound.v,
+# plus the sign-table bridge files under gororoba-math rocq/open/theories/CDSign*.v.
 #
 # This crate exposes the executable linear-algebra side of Moreno's operator
 # theorems: H_a, T_a, T~_a, S(a,b), eigenspace decompositions, and the

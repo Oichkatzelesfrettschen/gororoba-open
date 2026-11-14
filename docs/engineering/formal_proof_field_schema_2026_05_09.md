@@ -20,7 +20,8 @@ proofs/verified/C957_VoudonZD.v                     1
 
 ## Proposed taxonomy
 
-Each entry must match one of these patterns:
+Each entry must match one of these patterns. A `proofs/<path>` locator names the
+file at gororoba-math `rocq/open/<path>`; the locator text stays as recorded.
 
 ### `na_empirical[:rationale]`
 

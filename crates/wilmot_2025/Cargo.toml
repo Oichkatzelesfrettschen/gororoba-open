@@ -8,8 +8,8 @@ description = "Wilmot (2025) Structure of Cayley-Dickson Algebras -- verified Ru
 # Source: Wilmot, G.P. (2025) "Structure of the Cayley-Dickson algebras",
 # arXiv:2505.11747v3, University of Adelaide.
 #
-# Rocq verification: proofs/theories/WilmotPathionRetraction.v,
-#                     proofs/theories/WilmotRetractionTheorem.v (292 lines total)
+# Rocq verification: gororoba-math rocq/open/theories/WilmotPathionRetraction.v,
+#                     gororoba-math rocq/open/theories/WilmotRetractionTheorem.v (292 lines total)
 #
 # Key results: graded CD construction, 3 associativity types (A/B/C/X),
 # 8 cycle silos (AAA/ACC/XBB/BBA/BXC/CAB/CCX/XXX), zero divisor

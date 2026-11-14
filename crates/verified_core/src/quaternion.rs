@@ -1,7 +1,7 @@
 //! Quaternion operations derived from Rocq extraction.
 //!
 //! This module is a MANUAL TRANSLATION of the OCaml output in
-//! `proofs/extraction/golden/extracted_quat.ml.golden`. Every function
+//! gororoba-math `rocq/open/extraction/golden/extracted_quat.ml.golden`. Every function
 //! mirrors the extracted functor `QuatOps` instantiated at f64 via
 //! `axioms.rs`.
 //!

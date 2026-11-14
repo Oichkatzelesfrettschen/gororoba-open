@@ -31,7 +31,8 @@ governs where the two differ.
 | `docs/engineering/comment_and_commit_style.md`                                     | Comment voice, finding-doc rules, markdown style                                                                                                                       |
 | `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`                                 | Active 22-class debt taxonomy; `plans/repo_debt_roadmap_2026_04_11.toml` (11 classes) is historical; baseline git tag `debt-baseline-v0` resolves to commit `2fa31935` |
 | `~/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory                                                                                                                                               |
-| `proofs/README.md`                                                                 | Rocq toolchain and proof commands                                                                                                                                      |
+| gororoba-math `rocq/open/README.md`                                                | Rocq toolchain and proof commands of the proof tree, which gororoba-math holds                                                                                         |
+| `ci/gororoba_math.pin`                                                             | gororoba-math commit that hosted CI fetches for the proof tree                                                                                                         |
 | `docs/REQUIREMENTS.md`                                                             | Toolchain prerequisites                                                                                                                                                |
 
 ## Validation boundary
@@ -70,6 +71,19 @@ governs where the two differ.
   `gororoba_gpu_cuda`; see `crates/AGENTS.md`.
 - Generated code: `crates/data_core/src/registry_mirrors/` is generated; MUST
   NOT be hand-edited.
+
+## Proof tree
+
+- The Rocq proof tree lives in gororoba-math under `rocq/open`; its build,
+  admission scan and extraction checks run there (`ci/check_rocq.sh`).
+- Retained records (registry rows, receipts, witnesses, `data/output/audit`)
+  keep the locators they were recorded under, `proofs/<path>`; each such
+  locator names gororoba-math `rocq/open/<path>`. Their bytes stay as recorded.
+- Code resolves a locator through `repo_root::ProofTree`, built from
+  `GOROROBA_MATH` (a gororoba-math checkout). A check that needs the tree
+  fails with a message naming the variable, or reports its skip; a test that
+  reads the tree is `#[ignore]` and runs in `proofs.yml` with
+  `--include-ignored`.
 
 ## Registry
 

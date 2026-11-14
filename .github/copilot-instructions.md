@@ -27,11 +27,12 @@ claim to test, not a fact to summarize.
 Repository rules a review checks here (`AGENTS.md` holds them in full):
 
 - Validation runs in GitHub Actions. `.github/workflows/ci.yml` routes components per event, and `proofs.yml` runs
-  on the push to main, the schedule and dispatch, never on a pull request; a body that claims a proof build on the
-  pull request is wrong unless it cites a dispatched run.
-- Rocq: kernel-checked theorem receipts bind the sha256 of `proofs/_RocqProject` and of the theories they name, so a
-  change to either needs a receipt renewal; a new theory states its `Print Assumptions` result and carries no
-  `Admitted`.
+  on the push to main, the schedule and dispatch, never on a pull request; a body that claims a proof check on the
+  pull request is wrong unless it cites a dispatched run. The Rocq build runs in gororoba-math (`ci/check_rocq.sh`);
+  `proofs.yml` fetches the commit named by `ci/gororoba_math.pin`.
+- Rocq: kernel-checked theorem receipts bind the sha256 of gororoba-math `rocq/open/_RocqProject` (recorded as
+  `proofs/_RocqProject`) and of the theories they name, so a change to either needs a receipt renewal; a new theory
+  states its `Print Assumptions` result and carries no `Admitted`.
 - Registry: `registry/canonical/control_plane.sqlite3` is the source of truth and `registry/*.toml` are its exports;
   a tracked markdown file needs its `.gitignore` exception and a `markdown-registry register` entry.
 - New automation and analysis code is Rust.

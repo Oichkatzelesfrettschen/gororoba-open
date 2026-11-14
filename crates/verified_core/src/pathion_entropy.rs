@@ -1,6 +1,6 @@
 //! Pathion entropy cross-validation.
 //!
-//! Mirrors proofs/theories/BekensteinEntropy.v and PathionZDGraph.v.
+//! Mirrors gororoba-math rocq/open/theories/BekensteinEntropy.v and PathionZDGraph.v.
 //! Validates the 15-component structure against the Rust boxkites computation.
 
 /// Bekenstein-Hawking entropy: S = A / (4 * l_P^2).

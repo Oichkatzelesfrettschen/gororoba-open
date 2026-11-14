@@ -361,7 +361,7 @@ its external libraries and the canonical-store writer. Actual local replay
 establishes source/object conformance within that boundary. The record supplies
 neither cryptographic process attestation nor physical or QPU evidence.
 
-A change to `proofs/_RocqProject` changes the source-bound execution identity.
+A change to gororoba-math `rocq/open/_RocqProject` (recorded as `proofs/_RocqProject`) changes the source-bound execution identity.
 Run `gororoba-db theorem identity sync-inventory --spec <inventory.toml>` before
 recording replacement kernel evidence. Inventory synchronization preserves theorem
 identities, claim links and append-only history while classifying receipts against
