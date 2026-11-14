@@ -2915,7 +2915,9 @@ deterministic = true
         assert!(rendered.contains("id = \"E-002\""));
         assert!(!rendered.contains("id = \"E-001\""));
         assert!(exported.contains("id = \"E-002\""));
-        store.verify_control_plane_invariants(&fixture.root)?;
+        let proof_tree =
+            provenance_store::ProofTree::at_root(fixture.root.join("gororoba-math/rocq/open"))?;
+        store.verify_control_plane_invariants(&fixture.root, Some(&proof_tree))?;
         let claims = fixture.root.join("registry/claims.toml");
         let insights = fixture.root.join("registry/insights.toml");
         let experiments = fixture.root.join("registry/experiments.toml");
@@ -3095,11 +3097,15 @@ description = "Mini binary"
 experiment = "E-001"
 "#,
         )?;
-        write_ascii(&root.join("proofs/_RocqProject"), "verified/C001_Test.v\n")?;
+        // The proof tree sits under the fixture root at the gororoba-math
+        // layout, so a recorded `proofs/` path resolves only through it.
+        let tree_root = root.join("gororoba-math/rocq/open");
+        write_ascii(&tree_root.join("_RocqProject"), "verified/C001_Test.v\n")?;
         write_ascii(
-            &root.join("proofs/verified/C001_Test.v"),
+            &tree_root.join("verified/C001_Test.v"),
             "(* proof placeholder *)\n",
         )?;
+        let proof_tree = provenance_store::ProofTree::at_root(&tree_root)?;
 
         let db = root.join("registry/canonical/control_plane.sqlite3");
         let mut store = ProvenanceStore::open(&db)?;
@@ -3110,7 +3116,7 @@ experiment = "E-001"
                 insights: &root.join("registry/insights.toml"),
                 experiments: &root.join("registry/experiments.toml"),
                 binaries: &root.join("registry/binaries.toml"),
-                rocq_project: &root.join("proofs/_RocqProject"),
+                proof_tree: &proof_tree,
             },
             provenance_store::ReimportOptions::bootstrap(),
         )?;

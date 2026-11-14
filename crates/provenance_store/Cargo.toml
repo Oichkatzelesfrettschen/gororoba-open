@@ -13,6 +13,7 @@ camino = { workspace = true, features = ["serde1"] }
 chrono = { workspace = true }
 flate2 = { workspace = true }
 provenance_core = { path = "../provenance_core" }
+repo_root = { workspace = true }
 rusqlite = { workspace = true }
 rusqlite_migration = { workspace = true }
 serde = { workspace = true }

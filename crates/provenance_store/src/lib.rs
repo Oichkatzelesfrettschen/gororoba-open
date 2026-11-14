@@ -92,14 +92,15 @@ mod requirements_mut;
 
 mod theorem_execution;
 mod theorem_identity;
+pub use repo_root::ProofTree;
 pub use theorem_execution::{
     ProofDeclarationEvidence, ProofFileDigest, TheoremEvidenceMutationResult,
     TheoremInventorySyncSpec, TheoremKernelEvidenceSpec, TheoremKernelWitness,
     parse_theorem_inventory_sync_spec, parse_theorem_kernel_evidence_spec,
 };
 pub use theorem_identity::{
-    TheoremBindingSpec, TheoremClaimMapping, TheoremIdentityBindResult, TheoremIdentitySpec,
-    bind_theorem_identities, parse_theorem_identity_spec,
+    ProofSourceChecks, TheoremBindingSpec, TheoremClaimMapping, TheoremIdentityBindResult,
+    TheoremIdentitySpec, bind_theorem_identities, parse_theorem_identity_spec,
 };
 use theorem_identity::{
     default_stable_theorem_id, is_declared_legacy_alias, validate_theorem_identities,
@@ -331,10 +332,17 @@ impl ProvenanceStore {
     pub fn bind_theorem_identities(
         &mut self,
         repo_root: &Path,
+        proof_tree: &ProofTree,
         spec: &TheoremIdentitySpec,
         raw_spec: &str,
     ) -> Result<TheoremIdentityBindResult> {
-        theorem_identity::bind_theorem_identities(&mut self.conn, repo_root, spec, raw_spec)
+        theorem_identity::bind_theorem_identities(
+            &mut self.conn,
+            repo_root,
+            proof_tree,
+            spec,
+            raw_spec,
+        )
     }
 
     pub fn open(db_path: &Path) -> Result<Self> {
@@ -601,24 +609,24 @@ impl ProvenanceStore {
             insights: insights_path,
             experiments: experiments_path,
             binaries: binaries_path,
-            rocq_project: proofs_project_path,
+            proof_tree,
         } = paths;
         let indexed_at = Utc::now().to_rfc3339();
         let claims_text = load_toml_text(claims_path)?;
         let insights_text = load_toml_text(insights_path)?;
         let experiments_text = load_toml_text(experiments_path)?;
         let binaries_text = load_toml_text(binaries_path)?;
-        let proof_inventory = load_proof_inventory(proofs_project_path)?;
+        let roots = theorem_execution::EvidenceRoots::new(repo_root, proof_tree);
+        let proof_inventory = load_proof_inventory(proof_tree)?;
         let mut claims = load_claims_from_registry(&claims_text)?;
-        normalize_claims_against_proof_inventory(repo_root, &mut claims, &proof_inventory)?;
+        normalize_claims_against_proof_inventory(roots, &mut claims, &proof_inventory)?;
         let insights = load_insights_from_registry(&insights_text)?;
         let experiments = load_experiments_from_registry(&experiments_text)?;
         let experiments_meta_toml =
             load_registry_table_toml(&experiments_text, "experiments")?.unwrap_or_default();
         let registry_binaries = load_binaries_from_registry(&binaries_text)?;
         let binaries = merge_workspace_binaries(repo_root, &registry_binaries)?;
-        let theorems =
-            load_theorems_from_inventory(&self.conn, repo_root, &proof_inventory, &claims)?;
+        let theorems = load_theorems_from_inventory(&self.conn, roots, &proof_inventory, &claims)?;
 
         // Every column the importer touches has to be either written from the
         // mirror or carried across from SQLite. A schema column in neither set
@@ -709,7 +717,9 @@ impl ProvenanceStore {
             &tx,
             repo_root,
             "rocq_project",
-            proofs_project_path,
+            Path::new(&repo_root::proof_tree::recorded_locator(
+                repo_root::proof_tree::PROJECT_FILE,
+            )),
             &proof_inventory.project_raw,
             &indexed_at,
         )?;
@@ -897,7 +907,9 @@ impl ProvenanceStore {
                     "insights": to_repo_rel(repo_root, insights_path),
                     "experiments": to_repo_rel(repo_root, experiments_path),
                     "binaries": to_repo_rel(repo_root, binaries_path),
-                    "rocq_project": to_repo_rel(repo_root, proofs_project_path),
+                    "rocq_project": repo_root::proof_tree::recorded_locator(
+                        repo_root::proof_tree::PROJECT_FILE,
+                    ),
                 })
                 .to_string()
             ],
@@ -962,7 +974,16 @@ impl ProvenanceStore {
         })
     }
 
-    pub fn verify_control_plane_invariants(&self, repo_root: &Path) -> Result<()> {
+    /// Checks the control plane. Each recorded `proofs/` path and kernel
+    /// receipt is read from `proof_tree`, the gororoba-math checkout resolved
+    /// by the caller; with `None` those checks do not run and the returned
+    /// tally counts each skipped one.
+    pub fn verify_control_plane_invariants(
+        &self,
+        repo_root: &Path,
+        proof_tree: Option<&ProofTree>,
+    ) -> Result<ProofSourceChecks> {
+        let mut checks = ProofSourceChecks::default();
         let mut failures = Vec::new();
         if let Err(error) = self.verify_claim_evidence_artifacts(repo_root) {
             failures.push(format!("{error:#}"));
@@ -988,25 +1009,48 @@ impl ProvenanceStore {
             if let Some(proof_path) = claim.formal_proof.as_deref()
                 && !proof_path.trim().is_empty()
                 && !crate::claim_proofs::is_formal_proof_disposition(proof_path)
-                && !repo_root.join(proof_path).exists()
             {
-                failures.push(format!(
-                    "{} formal_proof path missing on disk: {}",
-                    claim.id, proof_path
-                ));
+                match proof_tree {
+                    Some(tree) if !tree.resolve(repo_root, proof_path).exists() => {
+                        failures.push(format!(
+                            "{} formal_proof path missing on disk: {}",
+                            claim.id, proof_path
+                        ));
+                    }
+                    Some(_) => checks.verified += 1,
+                    None if repo_root::proof_tree::recorded_relative(proof_path).is_some() => {
+                        checks.skipped += 1;
+                    }
+                    None if !repo_root.join(proof_path).exists() => {
+                        failures.push(format!(
+                            "{} formal_proof path missing on disk: {}",
+                            claim.id, proof_path
+                        ));
+                    }
+                    None => {}
+                }
             }
         }
 
-        if let Err(error) = validate_theorem_identities(&self.conn, repo_root) {
-            failures.push(error.to_string());
+        match validate_theorem_identities(&self.conn, repo_root, proof_tree) {
+            Ok(identity_checks) => checks.add(identity_checks),
+            Err(error) => failures.push(error.to_string()),
         }
 
         for theorem in self.list_theorems()? {
-            if !repo_root.join(theorem.proof_path.as_str()).exists() {
-                failures.push(format!(
-                    "{} proof path missing on disk: {}",
-                    theorem.id, theorem.proof_path
-                ));
+            match proof_tree {
+                Some(tree)
+                    if !tree
+                        .resolve(repo_root, theorem.proof_path.as_str())
+                        .exists() =>
+                {
+                    failures.push(format!(
+                        "{} proof path missing on disk: {}",
+                        theorem.id, theorem.proof_path
+                    ));
+                }
+                Some(_) => checks.verified += 1,
+                None => checks.skipped += 1,
             }
             for claim_id in theorem.linked_claim_ids {
                 let claim_exists = self.conn.query_row(
@@ -1026,7 +1070,7 @@ impl ProvenanceStore {
                 failures.join("\n- ")
             );
         }
-        Ok(())
+        Ok(checks)
     }
 
     pub fn reindex_external_sources_from_compat(
@@ -3632,7 +3676,7 @@ mod tests {
         insights: PathBuf,
         experiments: PathBuf,
         binaries: PathBuf,
-        rocq_project: PathBuf,
+        proof_tree: ProofTree,
         db: PathBuf,
     }
 
@@ -3653,7 +3697,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3689,7 +3733,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3722,7 +3766,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3747,7 +3791,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3772,7 +3816,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3818,7 +3862,7 @@ mod tests {
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3862,7 +3906,7 @@ claim_refs = ["C-001"]
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -3987,7 +4031,7 @@ claim_refs = ["C-001"]
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -4329,7 +4373,7 @@ claim_refs = ["C-001"]
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;
@@ -4442,8 +4486,9 @@ path = "benches/mini_bench.rs"
         let insights = root.join("registry/insights.toml");
         let experiments = root.join("registry/experiments.toml");
         let binaries = root.join("registry/binaries.toml");
-        let rocq_project = root.join("proofs/_RocqProject");
-        let proof_file = root.join("proofs/verified/C001_Test.v");
+        let tree_root = root.join("gororoba-math/rocq/open");
+        let rocq_project = tree_root.join("_RocqProject");
+        let proof_file = tree_root.join("verified/C001_Test.v");
         let db = root.join("registry/canonical/control_plane.sqlite3");
 
         write_text(
@@ -4493,6 +4538,7 @@ experiment = "E-001"
         )?;
         write_text(&rocq_project, "verified/C001_Test.v")?;
         write_text(&proof_file, "(* mini proof placeholder *)")?;
+        let proof_tree = ProofTree::at_root(tree_root)?;
 
         Ok(TestWorkspace {
             root,
@@ -4500,7 +4546,7 @@ experiment = "E-001"
             insights,
             experiments,
             binaries,
-            rocq_project,
+            proof_tree,
             db,
         })
     }
@@ -4526,7 +4572,7 @@ claims = ["C-001"]
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::bootstrap(),
         )?;
@@ -4595,7 +4641,7 @@ claims = ["C-001"]
                             insights: &fixture.insights,
                             experiments: &fixture.experiments,
                             binaries: &fixture.binaries,
-                            rocq_project: &fixture.rocq_project,
+                            proof_tree: &fixture.proof_tree,
                         },
                         ReimportOptions::destructive(&fixture.db),
                     )?;
@@ -4738,7 +4784,7 @@ claims = ["C-001"]
                     insights: &fixture.insights,
                     experiments: &fixture.experiments,
                     binaries: &fixture.binaries,
-                    rocq_project: &fixture.rocq_project,
+                    proof_tree: &fixture.proof_tree,
                 },
                 ReimportOptions::bootstrap(),
             )
@@ -4761,7 +4807,7 @@ claims = ["C-001"]
                 insights: &fixture.insights,
                 experiments: &fixture.experiments,
                 binaries: &fixture.binaries,
-                rocq_project: &fixture.rocq_project,
+                proof_tree: &fixture.proof_tree,
             },
             ReimportOptions::destructive(&fixture.db),
         )?;

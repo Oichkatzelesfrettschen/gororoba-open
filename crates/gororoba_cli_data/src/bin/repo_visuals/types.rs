@@ -23,9 +23,6 @@ pub(crate) struct Cli {
     #[arg(long, default_value = "registry/canonical/control_plane.sqlite3")]
     pub(crate) db: PathBuf,
 
-    #[arg(long, default_value = "proofs/_RocqProject")]
-    pub(crate) rocq_project: PathBuf,
-
     #[arg(long, default_value = "data/papers/document_cache.tsv")]
     pub(crate) document_cache: PathBuf,
 

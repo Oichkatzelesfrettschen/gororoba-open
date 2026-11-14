@@ -9,7 +9,7 @@
 use anyhow::{Context, Result, bail};
 use clap::Parser;
 use provenance_store::{
-    ExecutionTargetRetarget, PlanningCompatTable, ProvenanceStore, SourcePathRetarget,
+    ExecutionTargetRetarget, PlanningCompatTable, ProofTree, ProvenanceStore, SourcePathRetarget,
     parse_theorem_identity_spec, parse_theorem_inventory_sync_spec,
     parse_theorem_kernel_evidence_spec, parse_theorem_link_correction_spec,
 };
@@ -35,7 +35,8 @@ fn main() -> Result<()> {
 
     // Build command creates DB from scratch; all others open existing.
     if let Commands::Build(ref args) = cli.command {
-        return cmd_build(&cli.repo_root, &db_path, args);
+        let proof_tree = ProofTree::from_environment_if_set().context("resolve the proof tree")?;
+        return cmd_build(&cli.repo_root, &db_path, args, proof_tree.as_ref());
     }
 
     if let Commands::Claim(args) = &cli.command
@@ -1953,13 +1954,16 @@ fn cmd_theorem_mutation(
     args: &TheoremArgs,
 ) -> Result<()> {
     let TheoremAction::Identity(identity_args) = &args.action;
+    let proof_tree =
+        ProofTree::from_environment().context("theorem identity mutations read the proof tree")?;
     match &identity_args.action {
         TheoremIdentityAction::Bind { spec, regen_toml } => {
             let spec_path = resolve_cli_path(repo_root, spec);
             let raw_spec = fs::read_to_string(&spec_path)
                 .with_context(|| format!("read theorem identity spec {}", spec_path.display()))?;
             let parsed = parse_theorem_identity_spec(&raw_spec)?;
-            let result = store.bind_theorem_identities(repo_root, &parsed, &raw_spec)?;
+            let result =
+                store.bind_theorem_identities(repo_root, &proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1968,7 +1972,7 @@ fn cmd_theorem_mutation(
             let raw_spec = fs::read_to_string(&spec_path)
                 .with_context(|| format!("read theorem correction spec {}", spec_path.display()))?;
             let parsed = parse_theorem_link_correction_spec(&raw_spec)?;
-            let result = store.correct_theorem_links(repo_root, &parsed, &raw_spec)?;
+            let result = store.correct_theorem_links(repo_root, &proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1980,7 +1984,8 @@ fn cmd_theorem_mutation(
             let raw_spec = fs::read_to_string(&spec_path)
                 .with_context(|| format!("read theorem inventory spec {}", spec_path.display()))?;
             let parsed = parse_theorem_inventory_sync_spec(&raw_spec)?;
-            let result = store.sync_theorem_inventory(repo_root, &parsed, &raw_spec)?;
+            let result =
+                store.sync_theorem_inventory(repo_root, &proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1990,7 +1995,8 @@ fn cmd_theorem_mutation(
                 format!("read theorem kernel evidence spec {}", spec_path.display())
             })?;
             let parsed = parse_theorem_kernel_evidence_spec(&raw_spec)?;
-            let result = store.record_theorem_kernel_evidence(repo_root, &parsed, &raw_spec)?;
+            let result =
+                store.record_theorem_kernel_evidence(repo_root, &proof_tree, &parsed, &raw_spec)?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -1999,8 +2005,18 @@ fn cmd_theorem_mutation(
 }
 
 fn cmd_theorem_identity_read_only(store: &ProvenanceStore, repo_root: &Path) -> Result<()> {
-    store.verify_control_plane_invariants(repo_root)?;
-    println!("theorem identity validation passed");
+    let proof_tree = ProofTree::from_environment_if_set().context("resolve the proof tree")?;
+    let checks = store.verify_control_plane_invariants(repo_root, proof_tree.as_ref())?;
+    println!(
+        "theorem identity validation passed; proof-source checks: {} verified, {} skipped{}",
+        checks.verified,
+        checks.skipped,
+        if checks.skipped > 0 {
+            " (GOROROBA_MATH is unset: recorded proofs/ paths and kernel receipts were not read)"
+        } else {
+            ""
+        }
+    );
     Ok(())
 }
 
@@ -2569,8 +2585,32 @@ struct SourceEntry {
     description: String,
 }
 
-fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
+fn cmd_build(
+    repo_root: &Path,
+    db_path: &Path,
+    args: &BuildArgs,
+    proof_tree: Option<&ProofTree>,
+) -> Result<()> {
     ProvenanceStore::ensure_artifact_reimport_safe(db_path)?;
+    // The control-plane import resolves every recorded `proofs/` path against
+    // the gororoba-math checkout, and a missing checkout would drop the
+    // `formal_proof` values it cannot find. The check precedes `build_fresh`,
+    // which deletes the existing database.
+    let control_plane_sources = [
+        "registry/claims.toml",
+        "registry/insights.toml",
+        "registry/experiments.toml",
+        "registry/binaries.toml",
+    ]
+    .map(|relative| repo_root.join(relative));
+    let control_plane_proof_tree = if control_plane_sources.iter().all(|path| path.exists()) {
+        Some(proof_tree.context(
+            "the control-plane import reads the proof tree: set GOROROBA_MATH to a gororoba-math \
+             checkout at the commit named by ci/gororoba_math.pin",
+        )?)
+    } else {
+        None
+    };
     println!("Building derived registry database...");
     println!("  DB path: {}", db_path.display());
 
@@ -2619,17 +2659,9 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
     store.record_build_metadata("source_count", &manifest.source.len().to_string())?;
 
     // Ingest core registries via existing reindex methods.
-    let claims_path = repo_root.join("registry/claims.toml");
-    let insights_path = repo_root.join("registry/insights.toml");
-    let experiments_path = repo_root.join("registry/experiments.toml");
-    let binaries_path = repo_root.join("registry/binaries.toml");
-    let proofs_project_path = repo_root.join("proofs/_RocqProject");
+    let [claims_path, insights_path, experiments_path, binaries_path] = control_plane_sources;
 
-    if claims_path.exists()
-        && insights_path.exists()
-        && experiments_path.exists()
-        && binaries_path.exists()
-    {
+    if let Some(proof_tree) = control_plane_proof_tree {
         let stats = store.reindex_control_plane_from_registries(
             repo_root,
             provenance_store::RegistryImportPaths {
@@ -2637,7 +2669,7 @@ fn cmd_build(repo_root: &Path, db_path: &Path, args: &BuildArgs) -> Result<()> {
                 insights: &insights_path,
                 experiments: &experiments_path,
                 binaries: &binaries_path,
-                rocq_project: &proofs_project_path,
+                proof_tree,
             },
             // build_fresh deleted the file, so the tables are empty and the
             // bootstrap importer is the correct mode here.
@@ -3023,8 +3055,11 @@ mod tests {
         }
         let _cleanup = Cleanup(repository_root.clone());
         fs::create_dir(repository_root.join("registry"))?;
-        fs::create_dir_all(repository_root.join("proofs/theories"))?;
-        fs::create_dir(repository_root.join("proofs/verified"))?;
+        // The proof tree sits beside the repository, as the gororoba-math
+        // checkout does.
+        let tree_root = repository_root.join("gororoba-math/rocq/open");
+        fs::create_dir_all(tree_root.join("theories"))?;
+        fs::create_dir(tree_root.join("verified"))?;
         fs::write(
             repository_root.join("registry/source_manifest.toml"),
             "source = []\n",
@@ -3045,20 +3080,18 @@ mod tests {
             "[package]\nname = \"proof-inventory-fixture\"\nversion = \"0.0.0\"\nedition = \"2024\"\n[lib]\npath = \"fixture_lib.rs\"\n[workspace]\nmembers = []\n",
         )?;
         fs::write(repository_root.join("fixture_lib.rs"), "")?;
+        fs::write(tree_root.join("_CoqProject"), "theories/ActiveTheory.v\n")?;
         fs::write(
-            repository_root.join("proofs/_CoqProject"),
-            "theories/ActiveTheory.v\n",
-        )?;
-        fs::write(
-            repository_root.join("proofs/_RocqProject"),
+            tree_root.join("_RocqProject"),
             "-R theories OpenGororoba\n-R verified OpenGororobaVerified\ntheories/ActiveTheory.v\nverified/ActiveVerified.v\n",
         )?;
         for proof in ["theories/ActiveTheory.v", "verified/ActiveVerified.v"] {
             fs::write(
-                repository_root.join("proofs").join(proof),
+                tree_root.join(proof),
                 "Theorem fixture : True. Proof. exact I. Qed.\n",
             )?;
         }
+        let proof_tree = ProofTree::at_root(&tree_root)?;
         for database_name in ["fresh.sqlite3", "expendable.sqlite3"] {
             let database = repository_root.join(database_name);
             if database_name == "expendable.sqlite3" {
@@ -3075,6 +3108,7 @@ mod tests {
                     verify: true,
                     allow_transition_history_loss: false,
                 },
+                Some(&proof_tree),
             )?;
             let built = ProvenanceStore::open_read_only(&database)?;
             let theorems = built.list_theorems()?;
@@ -3133,6 +3167,7 @@ mod tests {
                     verify: false,
                     allow_transition_history_loss,
                 },
+                None,
             )
             .unwrap_err();
             assert!(error.to_string().contains("theorem identity events"));

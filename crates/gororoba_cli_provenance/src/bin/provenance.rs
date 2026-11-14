@@ -14,7 +14,8 @@ use provenance_core::{
 };
 use provenance_ops::source_provenance;
 use provenance_store::{
-    ExternalSourceContractPatch, ProvenanceStore, RegistryImportPaths, ReimportOptions,
+    ExternalSourceContractPatch, ProofSourceChecks, ProofTree, ProvenanceStore,
+    RegistryImportPaths, ReimportOptions,
 };
 use regex::Regex;
 use serde_json::json;
@@ -204,9 +205,6 @@ struct IndexControlPlaneArgs {
 
     #[arg(long, default_value = "registry/binaries.toml")]
     binaries: PathBuf,
-
-    #[arg(long, default_value = "proofs/_RocqProject")]
-    rocq_project: PathBuf,
 
     /// Acknowledge that this run overwrites canonical values with mirror values.
     #[arg(long)]
@@ -828,6 +826,10 @@ fn run_index_control_plane(
     db_path: &Path,
     args: IndexControlPlaneArgs,
 ) -> Result<()> {
+    // Recorded `proofs/` paths resolve against the gororoba-math checkout;
+    // an import without it would drop every `formal_proof` it cannot find.
+    let proof_tree =
+        ProofTree::from_environment().context("index-control-plane reads the proof tree")?;
     let mut store = ProvenanceStore::open(db_path)?;
     let stats = store.reindex_control_plane_from_registries(
         repo_root,
@@ -836,7 +838,7 @@ fn run_index_control_plane(
             insights: &repo_path(repo_root, &args.insights),
             experiments: &repo_path(repo_root, &args.experiments),
             binaries: &repo_path(repo_root, &args.binaries),
-            rocq_project: &repo_path(repo_root, &args.rocq_project),
+            proof_tree: &proof_tree,
         },
         // db_path is named in both modes so the refusal text identifies the
         // database it protected.
@@ -892,13 +894,30 @@ fn run_export_control_plane(
     Ok(())
 }
 
+/// Prints how many checks read the proof tree. A skipped check is reported,
+/// never counted as verified.
+fn report_proof_source_checks(checks: ProofSourceChecks) {
+    println!(
+        "Proof-source checks: {} verified, {} skipped{}",
+        checks.verified,
+        checks.skipped,
+        if checks.skipped > 0 {
+            " (GOROROBA_MATH is unset: recorded proofs/ paths and kernel receipts were not read)"
+        } else {
+            ""
+        }
+    );
+}
+
 fn run_verify_control_plane(
     repo_root: &Path,
     db_path: &Path,
     args: VerifyControlPlaneArgs,
 ) -> Result<()> {
     let mut store = ProvenanceStore::open_read_only(db_path)?;
-    store.verify_control_plane_invariants(repo_root)?;
+    let proof_tree = ProofTree::from_environment_if_set().context("resolve the proof tree")?;
+    let checks = store.verify_control_plane_invariants(repo_root, proof_tree.as_ref())?;
+    report_proof_source_checks(checks);
     let counts = store.control_plane_counts()?;
     if args.verify_compat_exports {
         let claims = repo_path(repo_root, &args.claims);

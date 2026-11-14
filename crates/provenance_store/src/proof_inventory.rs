@@ -1,7 +1,8 @@
 //! Rocq `_RocqProject` inventory loader and theorem-table rendering.
 //!
-//! - `load_proof_inventory(proofs_project_path)`: parses the
-//!   `_RocqProject` text file, checks both proof roots against disk,
+//! - `load_proof_inventory(proof_tree)`: parses the `_RocqProject` text
+//!   file of the proof tree (held by gororoba-math, resolved through
+//!   `repo_root::ProofTree`), checks both proof roots against disk,
 //!   computes the theorem stem, and indexes numeric prefixes only for
 //!   collision reporting and identifier reservation.
 //! - `load_theorems_from_inventory`: builds `Vec<TheoremRecord>` from the
@@ -24,6 +25,7 @@ use std::{
 use anyhow::{Context, Result, bail};
 use camino::Utf8PathBuf;
 use provenance_core::{ClaimRecord, TheoremRecord};
+use repo_root::ProofTree;
 use rusqlite::{Connection, OptionalExtension};
 
 use super::{
@@ -34,24 +36,27 @@ use super::{
     },
     compat_render::compat_markdown_export_header,
     status_normalize::normalize_claim_record,
+    theorem_execution::EvidenceRoots,
     toml_helpers::load_text,
 };
 
-pub(crate) fn load_proof_inventory(proofs_project_path: &Path) -> Result<ProofInventory> {
-    if !fs::symlink_metadata(proofs_project_path)?
+/// Reads the sources that `_RocqProject` of `proof_tree` lists. Each entry
+/// keeps its recorded `proofs/<path>` locator, the form registry rows and
+/// receipts retain, whatever directory holds the tree.
+pub(crate) fn load_proof_inventory(proof_tree: &ProofTree) -> Result<ProofInventory> {
+    let proofs_project_path = proof_tree.project_file();
+    if !fs::symlink_metadata(&proofs_project_path)?
         .file_type()
         .is_file()
     {
         bail!("proof project must be a regular file");
     }
-    let raw = load_text(proofs_project_path)?;
+    let raw = load_text(&proofs_project_path)?;
     let mut inventory = ProofInventory {
         project_raw: raw.clone(),
         ..ProofInventory::default()
     };
-    let project_root = proofs_project_path
-        .parent()
-        .context("proof project has no parent")?;
+    let project_root = proof_tree.root();
     if !fs::symlink_metadata(project_root)?.file_type().is_dir() {
         bail!("proof project root must be a regular directory");
     }
@@ -78,7 +83,7 @@ pub(crate) fn load_proof_inventory(proofs_project_path: &Path) -> Result<ProofIn
         if !listed.insert(trimmed.to_owned()) {
             bail!("duplicate proof project source: {trimmed}");
         }
-        let path = Utf8PathBuf::from(format!("proofs/{trimmed}"));
+        let path = Utf8PathBuf::from(repo_root::proof_tree::recorded_locator(trimmed));
         let stem = Path::new(trimmed)
             .file_stem()
             .and_then(|value| value.to_str())
@@ -154,7 +159,7 @@ fn collect_sources(root: &Path, directory: &Path, sources: &mut BTreeSet<String>
 
 pub(crate) fn load_theorems_from_inventory(
     connection: &Connection,
-    repo_root: &Path,
+    roots: EvidenceRoots<'_>,
     proof_inventory: &ProofInventory,
     claims: &[ClaimRecord],
 ) -> Result<Vec<TheoremRecord>> {
@@ -166,7 +171,7 @@ pub(crate) fn load_theorems_from_inventory(
             .find(|claim| linked_claim_ids.iter().any(|id| id == &claim.id))
             .map(|claim| claim.statement.clone())
             .unwrap_or_else(|| entry.stem.replace('_', " "));
-        if !repo_root.join(entry.path.as_str()).is_file() {
+        if !roots.locate(entry.path.as_str()).is_file() {
             bail!("listed proof source disappeared: {}", entry.path);
         }
         let existing = connection.query_row(
@@ -203,7 +208,7 @@ pub(crate) fn load_theorems_from_inventory(
             }
             if super::theorem_execution::kernel_witness_matches(
                 connection,
-                repo_root,
+                roots,
                 &stable_id,
                 &entry.path,
             )? {
@@ -225,14 +230,14 @@ pub(crate) fn load_theorems_from_inventory(
 }
 
 pub(crate) fn normalize_claims_against_proof_inventory(
-    repo_root: &Path,
+    roots: EvidenceRoots<'_>,
     claims: &mut [ClaimRecord],
     proof_inventory: &ProofInventory,
 ) -> Result<()> {
     for claim in claims {
         normalize_claim_record(claim)?;
         let canonical_formal_proof =
-            canonical_formal_proof_for_claim(repo_root, claim, proof_inventory);
+            canonical_formal_proof_for_claim(roots, claim, proof_inventory);
         if claim.formal_proof != canonical_formal_proof {
             claim.formal_proof = canonical_formal_proof;
             claim.compat_toml_text = render_normalized_claim_compat_toml(claim)?;

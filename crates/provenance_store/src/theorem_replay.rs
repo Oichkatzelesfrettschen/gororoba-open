@@ -11,7 +11,7 @@ use std::{
 use anyhow::{Context, Result, ensure};
 use serde::{Deserialize, Serialize};
 
-use super::{ProofFileDigest, TheoremKernelWitness};
+use super::{EvidenceRoots, ProofFileDigest, TheoremKernelWitness};
 
 const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
 const RETAINED_TOOLCHAINS: [&str; 3] = [
@@ -155,9 +155,9 @@ fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
     arguments
 }
 
-fn uses_flocq(root: &Path, witness: &TheoremKernelWitness) -> Result<bool> {
+fn uses_flocq(roots: EvidenceRoots<'_>, witness: &TheoremKernelWitness) -> Result<bool> {
     for source in &witness.sources {
-        let contents = fs::read_to_string(super::verify_file(root, source)?)?;
+        let contents = fs::read_to_string(super::verify_file(roots, source)?)?;
         for command in super::source_commands(&contents)? {
             let words = command.split_whitespace().collect::<Vec<_>>();
             if (words.first() == Some(&"From")
@@ -178,7 +178,7 @@ fn uses_flocq(root: &Path, witness: &TheoremKernelWitness) -> Result<bool> {
     Ok(false)
 }
 
-fn configured_flocq_root(root: &Path) -> Result<PathBuf> {
+fn configured_flocq_root(tree: &Path) -> Result<PathBuf> {
     let configured = if let Some(path) = std::env::var_os("FLOCQ_ROOT") {
         PathBuf::from(path)
     } else if let Some(prefix) = std::env::var_os("OPAM_SWITCH_PREFIX") {
@@ -202,7 +202,7 @@ fn configured_flocq_root(root: &Path) -> Result<PathBuf> {
     let configured = if configured.is_absolute() {
         configured
     } else {
-        root.join("proofs").join(configured)
+        tree.join(configured)
     };
     ensure!(
         configured.join("Core/Core.vo").is_file(),
@@ -255,16 +255,16 @@ fn copy_flocq_objects(
 }
 
 fn prepare_flocq(
-    root: &Path,
+    roots: EvidenceRoots<'_>,
     directory: &Path,
     witness: &TheoremKernelWitness,
 ) -> Result<Vec<ProofFileDigest>> {
-    if !uses_flocq(root, witness)? {
+    if !uses_flocq(roots, witness)? {
         return Ok(Vec::new());
     }
     let mut objects = Vec::new();
     copy_flocq_objects(
-        &configured_flocq_root(root)?,
+        &configured_flocq_root(roots.tree.root())?,
         &directory.join("external/Flocq"),
         Path::new(""),
         &mut objects,
@@ -462,7 +462,10 @@ fn run(program: &Path, directory: &Path, arguments: Vec<String>) -> Result<Comma
     Ok(evidence)
 }
 
-pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<KernelReplayEvidence> {
+pub(super) fn execute(
+    roots: EvidenceRoots<'_>,
+    witness: &TheoremKernelWitness,
+) -> Result<KernelReplayEvidence> {
     ensure!(
         witness.toolchain == TOOLCHAIN,
         "witness toolchain differs from the trusted pinned replay toolchain"
@@ -472,8 +475,7 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
     let scratch = ScratchDirectory::new()?;
     fs::create_dir(scratch.0.join("theories"))?;
     fs::create_dir(scratch.0.join("verified"))?;
-    let inventory =
-        crate::proof_inventory::load_proof_inventory(&root.join("proofs/_RocqProject"))?;
+    let inventory = crate::proof_inventory::load_proof_inventory(roots.tree)?;
     let modules = inventory
         .source_entries
         .iter()
@@ -481,14 +483,14 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
         .collect::<Result<BTreeMap<_, _>>>()?;
     let mut ordered = Vec::new();
     super::project_dependencies(
-        root,
+        roots,
         &witness.proof_path,
         &modules,
         &mut BTreeSet::new(),
         &mut ordered,
     )?;
     for source in &witness.sources {
-        let contents = fs::read(super::verify_file(root, source)?)?;
+        let contents = fs::read(super::verify_file(roots, source)?)?;
         let destination = scratch.0.join(relative_source(&source.path)?);
         fs::create_dir_all(
             destination
@@ -502,7 +504,7 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
             source.path
         );
     }
-    let flocq_objects = prepare_flocq(root, &scratch.0, witness)?;
+    let flocq_objects = prepare_flocq(roots, &scratch.0, witness)?;
     let flocq = !flocq_objects.is_empty();
     let mut compilation = Vec::new();
     for source in ordered {
@@ -561,15 +563,19 @@ pub(super) fn execute(root: &Path, witness: &TheoremKernelWitness) -> Result<Ker
         assumptions,
     };
     evidence.validate(witness)?;
-    super::validate_kernel_witness(root, witness, true)?;
+    super::validate_kernel_witness(roots, witness, true)?;
     Ok(evidence)
 }
 
 #[cfg(test)]
-pub(super) fn genuine_fixture_artifacts(root: &Path, witness: &TheoremKernelWitness) -> Result<()> {
+pub(super) fn genuine_fixture_artifacts(
+    roots: EvidenceRoots<'_>,
+    witness: &TheoremKernelWitness,
+) -> Result<()> {
+    let root = roots.repository;
     let program = trusted_program()?;
-    let directory = root.join("proofs");
-    let flocq = !prepare_flocq(root, &directory, witness)?.is_empty();
+    let directory = roots.tree.root().to_path_buf();
+    let flocq = !prepare_flocq(roots, &directory, witness)?.is_empty();
     let mut target_log = String::new();
     for source in &witness.sources {
         let evidence = run(

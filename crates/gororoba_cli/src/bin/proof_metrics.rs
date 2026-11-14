@@ -1,11 +1,15 @@
 //! proof_metrics: Pure Rust port of `proofs/scripts/collect_metrics.sh`.
 //! Gathers proof compilation metrics for PGFPlots.
 
-use std::{fs, path::Path, process::Command, time::Instant};
+use std::{fs, process::Command, time::Instant};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let repo_root = Path::new(".");
-    let proofs_dir = repo_root.join("proofs");
+    // The proof tree is the rocq/open directory of the gororoba-math checkout
+    // that GOROROBA_MATH names; the generated output lands in its ignored
+    // metrics/ and html/ directories.
+    let proofs_dir = repo_root::ProofTree::from_environment()?
+        .root()
+        .to_path_buf();
     let out_dir = proofs_dir.join("metrics");
     let out_file = out_dir.join("compile_times.csv");
     let summary_file = out_dir.join("summary.csv");

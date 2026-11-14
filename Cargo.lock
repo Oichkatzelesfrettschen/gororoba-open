@@ -9312,6 +9312,7 @@ dependencies = [
  "chrono",
  "flate2",
  "provenance_core",
+ "repo_root",
  "rusqlite",
  "rusqlite_migration",
  "serde",

@@ -4,6 +4,10 @@
 //! `verified/` directories are the source inventory. This verifier compares
 //! both directions so a source cannot silently fall outside the compiled
 //! project and a project entry cannot point at a missing file.
+//!
+//! The proof tree is the `rocq/open` directory of the gororoba-math checkout
+//! that `--math-checkout` or `GOROROBA_MATH` names; the audit's root is that
+//! directory.
 
 use std::{
     collections::BTreeSet,
@@ -15,7 +19,7 @@ use anyhow::{Context, Result, bail};
 use clap::Parser;
 use walkdir::WalkDir;
 
-const DEFAULT_PROJECT_FILE: &str = "proofs/_RocqProject";
+const DEFAULT_PROJECT_FILE: &str = "_RocqProject";
 
 #[derive(Debug, Parser)]
 #[command(
@@ -23,19 +27,20 @@ const DEFAULT_PROJECT_FILE: &str = "proofs/_RocqProject";
     about = "Verify Rocq project-file parity against the proof source inventory"
 )]
 struct Args {
-    /// Repository root containing proofs/_RocqProject.
-    #[arg(long, default_value = ".")]
-    repo_root: PathBuf,
+    /// gororoba-math checkout whose rocq/open holds _RocqProject; defaults to
+    /// the checkout GOROROBA_MATH names.
+    #[arg(long)]
+    math_checkout: Option<PathBuf>,
 
-    /// Active Rocq project file, resolved relative to --repo-root.
+    /// Active Rocq project file, resolved relative to the proof tree.
     #[arg(long, default_value = DEFAULT_PROJECT_FILE)]
     project_file: PathBuf,
 
-    /// Intended proof source roots, resolved relative to --repo-root.
+    /// Intended proof source roots, resolved relative to the proof tree.
     #[arg(
         long = "source-root",
         value_name = "PATH",
-        default_values = ["proofs/theories", "proofs/verified"]
+        default_values = ["theories", "verified"]
     )]
     source_roots: Vec<PathBuf>,
 }
@@ -48,8 +53,13 @@ struct ProjectInventory {
 
 fn main() -> Result<()> {
     let args = Args::parse();
-    let repo_root = fs::canonicalize(&args.repo_root)
-        .with_context(|| format!("resolve repository root {}", args.repo_root.display()))?;
+    let proof_tree = match &args.math_checkout {
+        Some(checkout) => repo_root::ProofTree::in_checkout(checkout),
+        None => repo_root::ProofTree::from_environment(),
+    }
+    .context("resolve the proof tree")?;
+    let repo_root = fs::canonicalize(proof_tree.root())
+        .with_context(|| format!("resolve proof tree {}", proof_tree.root().display()))?;
     let project_file = resolve_repo_path(&repo_root, &args.project_file)?;
     let source_roots = args
         .source_roots

@@ -17,15 +17,14 @@
 //! - `normalized_claim_id_from_theorem_stem`: parses a numeric prefix for
 //!   reservation and collision reporting only.
 
-use std::path::Path;
-
 use anyhow::{Context, Result};
 use camino::Utf8PathBuf;
 use provenance_core::ClaimRecord;
 use toml::Value;
 
 use super::{
-    ProofInventory, status_normalize::normalize_insight_status, toml_helpers::render_toml_table,
+    ProofInventory, status_normalize::normalize_insight_status, theorem_execution::EvidenceRoots,
+    toml_helpers::render_toml_table,
 };
 
 /// An explicit non-path disposition of the `formal_proof` field. The field
@@ -38,25 +37,29 @@ use super::{
 /// unrelated proof file.
 pub fn is_formal_proof_disposition(value: &str) -> bool {
     let value = value.trim();
-    ["na_empirical", "na_observational", "na_methodology", "pending"]
-        .iter()
-        .any(|prefix| {
-            value == *prefix
-                || value
-                    .strip_prefix(prefix)
-                    .is_some_and(|rest| rest.starts_with(':'))
-        })
-        || value.starts_with("external:")
+    [
+        "na_empirical",
+        "na_observational",
+        "na_methodology",
+        "pending",
+    ]
+    .iter()
+    .any(|prefix| {
+        value == *prefix
+            || value
+                .strip_prefix(prefix)
+                .is_some_and(|rest| rest.starts_with(':'))
+    }) || value.starts_with("external:")
 }
 
 pub(crate) fn canonical_formal_proof_for_claim(
-    repo_root: &Path,
+    roots: EvidenceRoots<'_>,
     claim: &ClaimRecord,
     _proof_inventory: &ProofInventory,
 ) -> Option<String> {
     if let Some(formal_proof) = claim.formal_proof.as_deref()
         && !formal_proof.trim().is_empty()
-        && (is_formal_proof_disposition(formal_proof) || repo_root.join(formal_proof).exists())
+        && (is_formal_proof_disposition(formal_proof) || roots.locate(formal_proof).exists())
     {
         return Some(formal_proof.trim().to_string());
     }
@@ -68,7 +71,7 @@ pub(crate) fn canonical_formal_proof_for_claim(
     if let Some(formal_proof) = claim.formal_proof.as_deref() {
         referenced_paths.extend(extract_proof_paths(formal_proof));
     }
-    referenced_paths.retain(|path| repo_root.join(path).exists());
+    referenced_paths.retain(|path| roots.locate(path).exists());
     referenced_paths.sort();
     referenced_paths.dedup();
 
