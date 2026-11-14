@@ -42,6 +42,12 @@ jobs:
         with:
           components: clippy, rustfmt
 
+      # .cargo/config.toml names sccache as the rustc wrapper, so every cargo
+      # command of this workflow needs it on PATH.
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: sccache@0.15.0
+
       - name: Resolve process-visible worker count
         run: |
           set -euo pipefail
