@@ -25,6 +25,7 @@ pub mod error_analysis;
 pub mod helpers;
 pub mod homology;
 pub mod hypergraph;
+pub mod measurement_scores;
 pub mod mutual_information;
 pub mod quantile_regression;
 pub mod tda_bridge;
