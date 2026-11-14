@@ -8,6 +8,13 @@
 //! multiply by hbar*c for SI energy per volume. Electromagnetic polarization
 //! and material-response effects require separate models.
 //!
+//! A loop-center density is an effective-action integrand, not physical local
+//! T_00. Gies and Klingmueller, "Worldline algorithms for Casimir configurations",
+//! Phys. Rev. D 74, 045002 (2006), p. 8, footnote 3, identify their difference as
+//! a total derivative. Spatial integration supplies the interaction energy;
+//! a local gravitational-source interpretation needs a separate stress-tensor
+//! estimator and a specified field and boundary model.
+//!
 //! Finite proper-time bounds, polygon resolution and quadrature introduce
 //! systematic errors outside the reported Monte Carlo standard error.
 
@@ -50,10 +57,11 @@ impl Default for WorldlineCasimirConfig {
     }
 }
 
-/// Result of a Casimir energy computation at a point.
+/// Result of a loop-center interaction calculation or integrated plate estimate.
 #[derive(Debug, Clone)]
 pub struct CasimirEnergyResult {
-    /// Interaction energy density, or energy per area for the integrated plate estimator.
+    /// Loop-center effective-action density, or energy per area for the plate estimator.
+    /// A point value does not supply the physical local stress-tensor component T_00.
     pub energy: f64,
     /// Nonnegative Monte Carlo standard error, excluding discretization and truncation.
     /// A zero empirical variance does not establish a confidence interval.
@@ -123,7 +131,7 @@ fn theta_sigma_average<G: CasimirGeometry>(
     Ok((mean, standard_error))
 }
 
-/// Compute a checked loop-center interaction energy density in hbar=c=1 units.
+/// Compute a checked loop-center effective-action density in hbar=c=1 units.
 ///
 /// Each quadrature node uses its own ChaCha stream. Equal seeds across spatial
 /// points give common random numbers, so spatial estimates are correlated.
@@ -204,7 +212,7 @@ pub fn try_casimir_energy_at_point<G: CasimirGeometry>(
     }
 }
 
-/// Compute a scalar interaction density; use the checked API for input errors.
+/// Compute a scalar loop-center integrand; use the checked API for input errors.
 ///
 /// # Panics
 /// Panics for unsupported geometries, invalid sampling, or unrepresentable
@@ -284,9 +292,9 @@ pub fn scalar_parallel_plates_worldline(
     })
 }
 
-/// Compute Casimir energy density along a line between two points.
+/// Sample loop-center effective-action density along a line between two points.
 ///
-/// Returns Vec<(position_parameter, energy_density)>.
+/// Returns Vec<(position_parameter, loop_center_density)>.
 /// The line is parameterized by t in [0, 1], with:
 ///   point(t) = start + t * (end - start)
 ///
@@ -321,11 +329,11 @@ pub fn casimir_energy_profile<G: CasimirGeometry>(
 
 /// Result of a 3D Casimir energy field computation.
 ///
-/// Contains a flat grid of energy density values suitable for GPU volume
+/// Contains a flat grid of loop-center effective-action density for GPU volume
 /// rendering, plus the spatial bounds and resolution for reconstruction.
 #[derive(Debug, Clone)]
 pub struct CasimirEnergyField3D {
-    /// Energy density values in row-major order: data[z * ny * nx + y * nx + x].
+    /// Loop-center integrand in row-major order: data[z * ny * nx + y * nx + x].
     pub data: Vec<f64>,
     /// Grid resolution (nx, ny, nz).
     pub resolution: (usize, usize, usize),
@@ -335,7 +343,7 @@ pub struct CasimirEnergyField3D {
     pub total_loops: u64,
 }
 
-/// Compute Casimir energy density on a 3D grid.
+/// Compute loop-center effective-action density on a 3D grid.
 ///
 /// Evaluates the worldline path integral at each grid point within the
 /// specified spatial bounds. The result is a flat `Vec<f64>` suitable for
