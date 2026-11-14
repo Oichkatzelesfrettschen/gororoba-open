@@ -4,7 +4,7 @@
 //! diagonal value `a` and off-diagonal value `b`.  When `a = b` (uniform
 //! mixing), the matrix is democratic with all entries equal.  For doubly
 //! stochastic normalization (row sum = 1), this forces `a = b = 1/3`.
-//! Kernel-checked in `proofs/verified/C885_DemocraticMixing.v`.
+//! Kernel-checked in gororoba-math `rocq/open/verified/C885_DemocraticMixing.v`.
 
 /// Check whether a 3x3 matrix is democratic (all entries equal within tolerance).
 pub fn is_democratic(matrix: &[[f64; 3]; 3], tol: f64) -> bool {

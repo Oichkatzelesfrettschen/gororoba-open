@@ -2008,8 +2008,8 @@ The formal development consists of \prooffilecount{} source files
 \end{itemize}
 
 All proofs are kernel-checked by \texttt{rocq compile}, producing
-\texttt{.vo} proof objects.  An automated check (\texttt{make -C proofs
-check}) verifies zero \texttt{Admitted} axioms across the entire
+\texttt{.vo} proof objects.  An automated check (\texttt{make check} in the gororoba-math
+\texttt{rocq/open} directory) verifies zero \texttt{Admitted} axioms across the entire
 development.  No external libraries (MathComp, Coquelicot) are
 required; all proofs use only the Rocq standard library
 (\texttt{From Stdlib Require Import}).
@@ -2035,7 +2035,7 @@ makes the polynomial identity unconditional and amenable to
 The abstract field module type \texttt{FLOAT\_OPS} captures the algebraic
 axioms needed by all proofs:
 
-\inputminted[firstline=17,lastline=44,fontsize=\scriptsize]{coq}{../../proofs/theories/FloatAxioms.v}
+\inputminted[firstline=17,lastline=44,fontsize=\scriptsize]{coq}{theories/FloatAxioms.v}
 
 \begin{figure}[htbp]
 \centering
@@ -2152,13 +2152,13 @@ to source lines.  Colors by domain.}
 The fundamental theorem connecting the quaternion sandwich product
 $q \cdot v \cdot \bar{q}$ to $\mathrm{SO}(3)$ rotation matrices:
 
-\inputminted[firstline=31,lastline=49,fontsize=\scriptsize]{coq}{../../proofs/verified/C876_QuaternionRotation.v}
+\inputminted[firstline=31,lastline=49,fontsize=\scriptsize]{coq}{verified/C876_QuaternionRotation.v}
 
 \paragraph{C-871: Casimir Energy Cubic Scaling.}
 Proves that $E(a) = 8 \cdot E(2a)$, i.e., doubling the plate separation
 reduces the energy by a factor of 8:
 
-\inputminted[firstline=21,lastline=29,fontsize=\scriptsize]{coq}{../../proofs/verified/C871_CasimirExact.v}
+\inputminted[firstline=21,lastline=29,fontsize=\scriptsize]{coq}{verified/C871_CasimirExact.v}
 
 \paragraph{Imbalance Sign Property.}
 The algebraic York-time correction $\delta = (F - 3/8) \cdot
@@ -2169,7 +2169,7 @@ correction vanishes exactly.  The proof uses \texttt{lra} for the
 sign of $(F - 3/8)$ and \texttt{nra} to propagate positivity through the
 product of three factors:
 
-\inputminted[firstline=23,lastline=33,fontsize=\scriptsize]{coq}{../../proofs/verified/C_OverImbalancedSign.v}
+\inputminted[firstline=23,lastline=33,fontsize=\scriptsize]{coq}{verified/C_OverImbalancedSign.v}
 
 This proof directly mirrors the Rust implementation in
 \texttt{adm\_algebra\_bridge.rs} (lines 328--343), connecting the

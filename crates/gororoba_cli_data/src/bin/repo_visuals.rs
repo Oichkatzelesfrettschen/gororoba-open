@@ -67,7 +67,6 @@ fn main() -> Result<()> {
     let workspace_crates = collect_workspace_crates(&metadata);
     let counts = measure_repo_counts(
         &absolutize(&root, &cli.db),
-        &absolutize(&root, &cli.rocq_project),
         &absolutize(&root, &cli.document_cache),
         &workspace_crates,
     )?;
@@ -213,7 +212,6 @@ fn load_project(path: &Path) -> Result<ProjectBlock> {
 
 fn measure_repo_counts(
     db_path: &Path,
-    rocq_project_path: &Path,
     document_cache_path: &Path,
     crates: &[WorkspaceCrate],
 ) -> Result<RepoCounts> {
@@ -222,17 +220,10 @@ fn measure_repo_counts(
     let control_plane = store
         .control_plane_counts()
         .context("count canonical claim, insight and experiment rows")?;
-    let rocq_project = fs::read_to_string(rocq_project_path)
-        .with_context(|| format!("read {}", rocq_project_path.display()))?;
-    // A proof file is a `.v` entry under `verified/` or `theories/`; the
-    // `-Q`/`-R` load-path lines and checkpoint or extraction files stay out.
-    let rocq_project_files = rocq_project
-        .lines()
-        .map(str::trim)
-        .filter(|line| {
-            line.ends_with(".v") && (line.starts_with("verified/") || line.starts_with("theories/"))
-        })
-        .count();
+    // `proof_file_count` counts the `.v` entries under `verified/` or
+    // `theories/` in the `_RocqProject` snapshot the last control-plane import
+    // stored, so the count needs no checkout of the proof tree.
+    let rocq_project_files = control_plane.proof_file_count;
     let document_cache = fs::read_to_string(document_cache_path)
         .with_context(|| format!("read {}", document_cache_path.display()))?;
     let cached_paper_pdfs = document_cache

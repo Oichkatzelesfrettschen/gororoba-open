@@ -14,6 +14,9 @@
 use std::env;
 use std::path::{Path, PathBuf};
 
+pub mod proof_tree;
+pub use proof_tree::ProofTree;
+
 /// Environment variable naming the root explicitly. The Makefile exports it
 /// as `$(CURDIR)` so every gate tool reads the checkout that runs the gate.
 pub const ROOT_ENV: &str = "GOROROBA_REPO_ROOT";

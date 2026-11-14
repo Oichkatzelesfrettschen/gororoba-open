@@ -29,7 +29,6 @@ gororoba-open/
   crates/              68 Rust crates (libraries + CLI binaries)
   registry/            TOML registries (claims, insights, experiments, binaries)
   registry/canonical/  SQLite source-of-truth database (control_plane.sqlite3)
-  proofs/              262 Rocq 9.2.0 formal proofs (105 verified theories)
   data/                External datasets and computed results (LFS-tracked)
   db/migrations/       14 SQLite migration scripts
   docs/                Synthesis documents, evidence notes, architecture references
@@ -44,7 +43,7 @@ The repository root is treated as a workspace entrypoint, not a scratchpad.
   `README.md`, `LICENSE`, `agents.toml`, formatter/lint config, `results.json`,
   and the tracked root test fixtures.
 - Canonical visible root directories: `crates/`, `docs/`, `registry/`,
-  `data/`, `proofs/`, `db/`, `reports/`, `plans/`, `archive/`, `scripts/`,
+  `data/`, `db/`, `reports/`, `plans/`, `archive/`, `scripts/`,
   `apps/`, `bin/`, `docker/`, `curated/`, and `xtask/`.
 - Canonical hidden support surfaces: `.githooks/` and `.github/`.
 - Local-only temporary directories may appear during development:
@@ -196,12 +195,16 @@ See `docs/reports/RC1_EVIDENCE_NOTE.md` for the frozen evidence envelope.
 
 ## Formal verification
 
-262 Rocq files in `proofs/` (105 verified theories) verify algebraic
-identities, norm bounds, and obstruction invariants. Build with:
+The Rocq files of gororoba-math `rocq/open` verify algebraic identities, norm
+bounds, and obstruction invariants. Registry rows and receipts here name them
+by the locators they were recorded under, `proofs/<path>`, which denote
+gororoba-math `rocq/open/<path>`. `GOROROBA_MATH` names a gororoba-math
+checkout, and `ci/gororoba_math.pin` names the commit that hosted validation
+fetches. Build with:
 
 ```bash
-make -C proofs vos   # Interface-only compilation (fast)
-make -C proofs vok   # Full parallel body verification
+make -C "$GOROROBA_MATH/rocq/open" vos   # Interface-only compilation (fast)
+make -C "$GOROROBA_MATH/rocq/open" vok   # Full parallel body verification
 ```
 
 Key tactics: `ring_simplify; lra` for concrete norm proofs,

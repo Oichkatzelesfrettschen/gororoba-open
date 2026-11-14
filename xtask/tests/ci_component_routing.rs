@@ -14,7 +14,9 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
         .expect("proofs component route");
     let route = Regex::new(pattern).expect("valid component regex");
     for path in [
-        "proofs/theories/BooleanPermutation.v",
+        "ci/gororoba_math.pin",
+        "registry/canonical/control_plane.sqlite3",
+        "crates/gororoba_db/src/bin/gororoba_db.rs",
         "crates/provenance_store/src/theorem_execution.rs",
         "crates/provenance_store/src/theorem_replay.rs",
         "crates/provenance_store/Cargo.toml",
@@ -23,6 +25,7 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
         "rust-toolchain.toml",
         ".cargo/config.toml",
         ".github/workflows/proofs.yml",
+        ".github/actions/fetch-gororoba-math/action.yml",
         ".github/workflows/ci.yml",
     ] {
         assert!(
@@ -30,7 +33,11 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
             "genuine Rocq replay omitted for {path}"
         );
     }
-    for path in ["docs/engineering/unrelated.txt", "crates/lbm_3d/src/lib.rs"] {
+    for path in [
+        "docs/engineering/unrelated.txt",
+        "crates/lbm_3d/src/lib.rs",
+        "proofs/theories/BooleanPermutation.v",
+    ] {
         assert!(!route.is_match(path), "unrelated path selected: {path}");
     }
 }

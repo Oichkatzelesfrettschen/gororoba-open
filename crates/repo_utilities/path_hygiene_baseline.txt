@@ -540,8 +540,6 @@ data/output/static_analysis/machete_2026_04_30.txt
 docs/engineering/quantum_associator_evidence_reconciliation.txt
 docs/physics/sedenion_standard_model.md
 plans/external-execution-targets.toml
-proofs/.CoqMakefile.d
-proofs/CoqMakefile.conf
 registry/experiment_lineage.toml
 registry/experiments.toml
 registry/knowledge_sources.toml

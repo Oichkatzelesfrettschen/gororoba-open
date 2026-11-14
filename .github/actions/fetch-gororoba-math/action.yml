@@ -1,0 +1,73 @@
+name: Fetch the pinned gororoba-math checkout
+description: >-
+  Fetches the gororoba-math commit named by ci/gororoba_math.pin into
+  .cache/gororoba-math, materializing only the listed cone paths, and exports
+  GOROROBA_MATH for the later steps of the job. The calling job checks out
+  gororoba-open first.
+
+inputs:
+  paths:
+    description: Space-separated cone directories of gororoba-math to materialize.
+    required: false
+    default: ci rocq/open
+
+runs:
+  using: composite
+  steps:
+    - name: Fetch the commit named by ci/gororoba_math.pin
+      shell: bash
+      env:
+        SPARSE_PATHS: ${{ inputs.paths }}
+      run: |
+        set -euo pipefail
+        pin="$(tr -d ' \t\r\n' < ci/gororoba_math.pin)"
+        case "$pin" in
+          *[!0-9a-f]* | "")
+            echo "ci/gororoba_math.pin is not 40 hex digits" >&2
+            exit 2
+            ;;
+        esac
+        if [ "${#pin}" -ne 40 ]; then
+          echo "ci/gororoba_math.pin holds ${#pin} digits, expected 40" >&2
+          exit 2
+        fi
+        read -r -a cone <<< "$SPARSE_PATHS"
+        if [ "${#cone[@]}" -eq 0 ]; then
+          echo "the paths input names no directory" >&2
+          exit 2
+        fi
+        for word in "${cone[@]}"; do
+          case "$word" in
+            -* | /* | */ | . | ./* | */./* | */. | .. | ../* | */../* | */.. | *//*)
+              echo "invalid cone path: $word" >&2
+              exit 2
+              ;;
+          esac
+          if ! printf '%s' "$word" | grep -Eq '^[A-Za-z0-9._/-]+$'; then
+            echo "invalid cone path: $word" >&2
+            exit 2
+          fi
+        done
+        destination="$GITHUB_WORKSPACE/.cache/gororoba-math"
+        mkdir -p "$destination"
+        git -C "$destination" init -q
+        git -C "$destination" remote add origin https://github.com/Oichkatzelesfrettschen/gororoba-math.git
+        git -C "$destination" sparse-checkout init --cone
+        git -C "$destination" sparse-checkout set -- "${cone[@]}"
+        attempt=1
+        until git -C "$destination" fetch -q --filter=blob:none origin "$pin"; do
+          if [ "$attempt" -ge 3 ]; then
+            echo "cannot fetch gororoba-math commit $pin" >&2
+            exit 1
+          fi
+          attempt=$((attempt + 1))
+          sleep $((attempt * 5))
+        done
+        git -C "$destination" checkout -q --detach "$pin"
+        head="$(git -C "$destination" rev-parse HEAD)"
+        if [ "$head" != "$pin" ]; then
+          echo "gororoba-math HEAD $head differs from pin $pin" >&2
+          exit 1
+        fi
+        echo "GOROROBA_MATH=$destination" >> "$GITHUB_ENV"
+        echo "gororoba-math $head fetched into $destination"

@@ -964,12 +964,34 @@ fn main() {
     let mut canonical_store = if args.canonical_db.exists() {
         match ProvenanceStore::open_read_only(&args.canonical_db) {
             Ok(mut store) => {
-                if let Err(err) = store.verify_control_plane_invariants(&repo_root) {
-                    eprintln!(
-                        "ERROR: canonical control-plane invariants failed for {}: {err}",
-                        args.canonical_db.display()
-                    );
-                    errors += 1;
+                // Recorded `proofs/` paths and kernel receipts are read from the
+                // gororoba-math checkout that GOROROBA_MATH names. Without it
+                // those checks are skipped and the skip is reported.
+                match provenance_store::ProofTree::from_environment_if_set() {
+                    Ok(proof_tree) => {
+                        match store.verify_control_plane_invariants(&repo_root, proof_tree.as_ref())
+                        {
+                            Ok(checks) => {
+                                if checks.skipped > 0 {
+                                    eprintln!(
+                                        "SKIP: {} proof-source checks did not run ({} ran): GOROROBA_MATH is unset, so recorded proofs/ paths and kernel receipts were not read",
+                                        checks.skipped, checks.verified
+                                    );
+                                }
+                            }
+                            Err(err) => {
+                                eprintln!(
+                                    "ERROR: canonical control-plane invariants failed for {}: {err}",
+                                    args.canonical_db.display()
+                                );
+                                errors += 1;
+                            }
+                        }
+                    }
+                    Err(err) => {
+                        eprintln!("ERROR: resolve the proof tree: {err}");
+                        errors += 1;
+                    }
                 }
                 match args.compat_export_policy {
                     CompatExportPolicy::On => {

@@ -4,7 +4,7 @@
 //! Schafer, R.D. "On a Construction for Division Algebras of Order 16",
 //! Bull. Amer. Math. Soc., 51, 1945, pp. 532-534.
 //!
-//! Mirrors: proofs/theories/SchaferDivAlg16.v (0 Admitted)
+//! Mirrors: gororoba-math rocq/open/theories/SchaferDivAlg16.v (0 Admitted)
 //!
 //! # Library Usage
 //!

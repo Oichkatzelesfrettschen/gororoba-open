@@ -385,5 +385,6 @@ pub struct RegistryImportPaths<'a> {
     pub insights: &'a Path,
     pub experiments: &'a Path,
     pub binaries: &'a Path,
-    pub rocq_project: &'a Path,
+    /// The proof tree whose `_RocqProject` lists the theorem sources.
+    pub proof_tree: &'a repo_root::ProofTree,
 }

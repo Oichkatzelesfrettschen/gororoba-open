@@ -663,7 +663,7 @@ mod tests {
         );
         assert!(
             store
-                .verify_control_plane_invariants(&protocol_repo.root)
+                .verify_control_plane_invariants(&protocol_repo.root, None)
                 .unwrap_err()
                 .to_string()
                 .contains("SHA256 mismatch")

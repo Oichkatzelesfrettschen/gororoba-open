@@ -2,6 +2,7 @@
 
 use anyhow::{Context, Result, bail};
 use chrono::DateTime;
+use repo_root::ProofTree;
 use rusqlite::{Connection, OptionalExtension, params};
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeSet, path::Path};
@@ -11,6 +12,23 @@ use crate::{
     migrations::{CANONICAL_CLAIM_STATUSES, JUSTIFIED_UNLINKED_THEOREM_IDS},
     sha256_hex,
 };
+
+/// Tally of the checks that read the proof tree: a recorded proof path or a
+/// kernel receipt counts as `verified` when it matched the tree and as
+/// `skipped` when no tree was resolved, so a run without the tree reports what
+/// it left unchecked.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
+pub struct ProofSourceChecks {
+    pub verified: usize,
+    pub skipped: usize,
+}
+
+impl ProofSourceChecks {
+    pub fn add(&mut self, other: Self) {
+        self.verified += other.verified;
+        self.skipped += other.skipped;
+    }
+}
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct TheoremIdentitySpec {
@@ -137,6 +155,7 @@ pub(crate) fn validate_identity_spec(spec: &TheoremIdentitySpec) -> Result<()> {
 pub fn bind_theorem_identities(
     conn: &mut Connection,
     repo_root: &Path,
+    proof_tree: &ProofTree,
     spec: &TheoremIdentitySpec,
     raw_spec: &str,
 ) -> Result<TheoremIdentityBindResult> {
@@ -219,7 +238,7 @@ pub fn bind_theorem_identities(
                 binding.legacy_name
             );
         }
-        if !repo_root.join(&binding.proof_path).is_file() {
+        if !proof_tree.is_file(repo_root, &binding.proof_path)? {
             bail!("proof path is missing: {}", binding.proof_path);
         }
         let stable_conflict: Option<String> = tx
@@ -444,7 +463,16 @@ pub(crate) fn default_stable_theorem_id(legacy_name: &str) -> String {
     format!("THM-LEGACY-{legacy_name}")
 }
 
-pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -> Result<()> {
+/// Checks every theorem identity. With a proof tree, each recorded proof path
+/// must name a file of that tree and each `kernel_checked` identity must hold a
+/// receipt whose bytes still match the tree. Without one the file and receipt
+/// checks do not run, and the returned counts report each skipped identity.
+pub(crate) fn validate_theorem_identities(
+    conn: &Connection,
+    repo_root: &Path,
+    proof_tree: Option<&ProofTree>,
+) -> Result<ProofSourceChecks> {
+    let mut checks = ProofSourceChecks::default();
     let mut statement = conn.prepare(
         "SELECT identity.stable_id, identity.legacy_name, identity.proof_path, identity.identity_kind, theorem.status
          FROM theorem_identities identity LEFT JOIN theorems theorem ON theorem.id=identity.legacy_name ORDER BY identity.stable_id",
@@ -466,8 +494,14 @@ pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -
         if !legacy_name.is_ascii() || legacy_name.trim().is_empty() {
             bail!("theorem {stable_id} has an invalid legacy name");
         }
-        if !repo_root.join(&proof_path).is_file() {
-            bail!("theorem {stable_id} proof path is missing: {proof_path}");
+        match proof_tree {
+            Some(tree) => {
+                if !tree.is_file(repo_root, &proof_path)? {
+                    bail!("theorem {stable_id} proof path is missing: {proof_path}");
+                }
+                checks.verified += 1;
+            }
+            None => checks.skipped += 1,
         }
         if !matches!(
             identity_kind.as_str(),
@@ -495,17 +529,23 @@ pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -
             }
             _ => {}
         }
-        if theorem_status.as_deref() == Some(super::theorem_execution::KERNEL_CHECKED)
-            && !super::theorem_execution::kernel_witness_matches(
-                conn,
-                repo_root,
-                &stable_id,
-                camino::Utf8Path::new(&proof_path),
-            )?
-        {
-            bail!(
-                "kernel_checked theorem {stable_id} lacks a valid source-bound execution receipt"
-            );
+        if theorem_status.as_deref() == Some(super::theorem_execution::KERNEL_CHECKED) {
+            match proof_tree {
+                Some(tree) => {
+                    if !super::theorem_execution::kernel_witness_matches(
+                        conn,
+                        super::theorem_execution::EvidenceRoots::new(repo_root, tree),
+                        &stable_id,
+                        camino::Utf8Path::new(&proof_path),
+                    )? {
+                        bail!(
+                            "kernel_checked theorem {stable_id} lacks a valid source-bound execution receipt"
+                        );
+                    }
+                    checks.verified += 1;
+                }
+                None => checks.skipped += 1,
+            }
         }
     }
 
@@ -539,7 +579,7 @@ pub(crate) fn validate_theorem_identities(conn: &Connection, repo_root: &Path) -
         }
     }
 
-    Ok(())
+    Ok(checks)
 }
 
 fn explicit_claim_links(

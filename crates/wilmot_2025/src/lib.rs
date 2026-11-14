@@ -3,8 +3,8 @@
 //! Implements the graded CD construction, associativity classification,
 //! cycle/mode theory, and zero divisor counting from arXiv:2505.11747v3.
 //!
-//! Mirrors: proofs/theories/WilmotPathionRetraction.v,
-//!          proofs/theories/WilmotRetractionTheorem.v
+//! Mirrors: gororoba-math rocq/open/theories/WilmotPathionRetraction.v,
+//!          gororoba-math rocq/open/theories/WilmotRetractionTheorem.v
 //!
 //! # Key formulas
 //!

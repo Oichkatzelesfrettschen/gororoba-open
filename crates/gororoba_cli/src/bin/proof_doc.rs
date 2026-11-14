@@ -1,11 +1,15 @@
 //! proof_doc: Pure Rust port of `proofs/scripts/generate_rocqdoc.sh`.
 //! Produces browsable HTML documentation via rocq doc.
 
-use std::{fs, path::Path, process::Command};
+use std::{fs, process::Command};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let repo_root = Path::new(".");
-    let proofs_dir = repo_root.join("proofs");
+    // The proof tree is the rocq/open directory of the gororoba-math checkout
+    // that GOROROBA_MATH names; the generated output lands in its ignored
+    // metrics/ and html/ directories.
+    let proofs_dir = repo_root::ProofTree::from_environment()?
+        .root()
+        .to_path_buf();
     let out_dir = proofs_dir.join("html");
 
     if Command::new("rocq").arg("--version").output().is_err() {

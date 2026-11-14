@@ -2,7 +2,7 @@
 //!
 //! |E(K_n)| = n*(n-1)/2.  At CD dim=16: 2*K_4 = 12 edges.
 //! At CD dim=32: 2*K_8 = 56 edges.
-//! Kernel-checked in `proofs/verified/C882_ParityCliqueExact.v`.
+//! Kernel-checked in gororoba-math `rocq/open/verified/C882_ParityCliqueExact.v`.
 
 /// Number of edges in a complete graph K_n.
 pub fn clique_edges(n: usize) -> usize {

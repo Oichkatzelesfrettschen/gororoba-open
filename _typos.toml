@@ -9,8 +9,6 @@ extend-exclude = [
     "target/",
     "reports/",
     "data/external/",
-    "proofs/**/*.vo",
-    "proofs/**/*.glob",
     "*.sqlite3",
     "*.h5",
     "Cargo.lock",

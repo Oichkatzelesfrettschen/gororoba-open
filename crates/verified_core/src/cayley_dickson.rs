@@ -2,7 +2,7 @@
 //!
 //! Complex and quaternion arithmetic beyond what quaternion.rs provides.
 //! Includes associator, inverse, and property-tower witnesses.
-//! Kernel-checked in `proofs/theories/CayleyDicksonAlgebra.v`, CDAssociator.v, CDInverse.v.
+//! Kernel-checked in gororoba-math `rocq/open/theories/CayleyDicksonAlgebra.v`, CDAssociator.v, CDInverse.v.
 
 use crate::{
     axioms,

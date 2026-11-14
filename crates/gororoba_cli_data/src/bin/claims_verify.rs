@@ -93,6 +93,12 @@ fn main() {
         })
     };
 
+    // Recorded `proofs/` paths resolve against the gororoba-math checkout that
+    // GOROROBA_MATH names; without it those checks are skipped and counted.
+    let proof_tree = repo_root::ProofTree::from_environment_if_set().unwrap_or_else(|error| {
+        eprintln!("ERROR: resolve the proof tree: {error}");
+        process::exit(2);
+    });
     let mut all_ok = true;
 
     match check_type {
@@ -112,9 +118,18 @@ fn main() {
                         where_stated.len()
                     ));
                     combined.extend(where_stated);
-                    let evidence = verify_claim_evidence_links_from_db(&repo_root, &store);
-                    summaries.push(format!("claim_evidence_sqlite: {} issues", evidence.len()));
-                    combined.extend(evidence);
+                    let evidence = verify_claim_evidence_links_from_db(
+                        &repo_root,
+                        proof_tree.as_ref(),
+                        &store,
+                    );
+                    summaries.push(format!(
+                        "claim_evidence_sqlite: {} issues, {} proof-source checks skipped",
+                        evidence.failures.len(),
+                        evidence.skipped
+                    ));
+                    report_skipped_proof_checks(evidence.skipped);
+                    combined.extend(evidence.failures);
                     combined
                 }
                 Err(err) => vec![err],
@@ -170,7 +185,15 @@ fn main() {
         }
         "evidence" => {
             let f = match open_claim_store(&db_path) {
-                Ok(store) => verify_claim_evidence_links_from_db(&repo_root, &store),
+                Ok(store) => {
+                    let evidence = verify_claim_evidence_links_from_db(
+                        &repo_root,
+                        proof_tree.as_ref(),
+                        &store,
+                    );
+                    report_skipped_proof_checks(evidence.skipped);
+                    evidence.failures
+                }
                 Err(err) => vec![err],
             };
             if !run_check("evidence_links", f) {
@@ -397,38 +420,110 @@ fn is_gitignored(repo_root: &std::path::Path, path: &str) -> bool {
         .unwrap_or(false)
 }
 
+/// Failures of the evidence-link check, and the number of proof-source checks
+/// that did not run because no proof tree was resolved.
+struct EvidenceLinkChecks {
+    failures: Vec<String>,
+    skipped: usize,
+}
+
+/// Prints the count of skipped proof-source checks; a skip is reported apart
+/// from the passes and never counted as one.
+fn report_skipped_proof_checks(skipped: usize) {
+    if skipped > 0 {
+        eprintln!(
+            "SKIP: {skipped} proof-source checks did not run: GOROROBA_MATH is unset, so recorded proofs/ paths were not read"
+        );
+    }
+}
+
+/// Checks one recorded path. A `proofs/` locator is read from the proof tree
+/// (a skip without one); any other path is read below the repository root,
+/// where a path that git ignores is allowed to be absent. Both kinds refuse a
+/// path that leaves its directory.
+fn check_recorded_path(
+    repo_root: &std::path::Path,
+    proof_tree: Option<&repo_root::ProofTree>,
+    recorded: &str,
+    allow_ignored: bool,
+    failures: &mut Vec<String>,
+    skipped: &mut usize,
+    label: &str,
+) {
+    if repo_root::proof_tree::recorded_relative(recorded).is_some() {
+        match proof_tree {
+            None => *skipped += 1,
+            Some(tree) => match tree.exists(repo_root, recorded) {
+                Ok(true) => {}
+                Ok(false) => failures.push(format!("{label}: missing proof path {recorded}")),
+                Err(error) => failures.push(format!("{label}: proof path is refused: {error}")),
+            },
+        }
+        return;
+    }
+    match repo_root::proof_tree::resolve_below(repo_root, recorded, recorded) {
+        Ok(path) => {
+            if !path.exists() && !(allow_ignored && is_gitignored(repo_root, recorded)) {
+                failures.push(format!("{label}: missing referenced path {recorded}"));
+            }
+        }
+        Err(error) => failures.push(format!("{label}: referenced path is refused: {error}")),
+    }
+}
+
 fn verify_claim_evidence_links_from_db(
     repo_root: &std::path::Path,
+    proof_tree: Option<&repo_root::ProofTree>,
     store: &ProvenanceStore,
-) -> Vec<String> {
+) -> EvidenceLinkChecks {
     let mut failures = Vec::new();
+    let mut skipped = 0;
     let claims = match store.list_claims() {
         Ok(rows) => rows,
-        Err(err) => return vec![format!("load claims from SQLite: {err}")],
+        Err(err) => {
+            return EvidenceLinkChecks {
+                failures: vec![format!("load claims from SQLite: {err}")],
+                skipped,
+            };
+        }
     };
     for claim in claims {
         for path in extract_backtick_paths(&claim.where_stated) {
-            let full = repo_root.join(&path);
-            if !full.exists() && !is_gitignored(repo_root, &path) {
-                failures.push(format!("{}: missing referenced path {}", claim.id, path));
-            }
+            check_recorded_path(
+                repo_root,
+                proof_tree,
+                &path,
+                true,
+                &mut failures,
+                &mut skipped,
+                &claim.id,
+            );
         }
     }
     // verify_control_plane_invariants owns the formal_proof existence rule,
     // including the non-path dispositions that is_formal_proof_disposition
     // admits.
-    for theorem in match store.list_theorems() {
+    let theorems = match store.list_theorems() {
         Ok(rows) => rows,
-        Err(err) => return vec![format!("load theorems from SQLite: {err}")],
-    } {
-        if !repo_root.join(theorem.proof_path.as_str()).exists() {
-            failures.push(format!(
-                "{}: missing theorem proof path {}",
-                theorem.id, theorem.proof_path
-            ));
+        Err(err) => {
+            return EvidenceLinkChecks {
+                failures: vec![format!("load theorems from SQLite: {err}")],
+                skipped,
+            };
         }
+    };
+    for theorem in theorems {
+        check_recorded_path(
+            repo_root,
+            proof_tree,
+            theorem.proof_path.as_str(),
+            false,
+            &mut failures,
+            &mut skipped,
+            &theorem.id,
+        );
     }
-    failures
+    EvidenceLinkChecks { failures, skipped }
 }
 
 fn extract_backtick_paths(text: &str) -> Vec<String> {
@@ -458,4 +553,70 @@ fn extract_backtick_paths(text: &str) -> Vec<String> {
         }
     }
     out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn check(
+        repository: &std::path::Path,
+        tree: Option<&repo_root::ProofTree>,
+        recorded: &str,
+    ) -> (Vec<String>, usize) {
+        let mut failures = Vec::new();
+        let mut skipped = 0;
+        check_recorded_path(
+            repository,
+            tree,
+            recorded,
+            false,
+            &mut failures,
+            &mut skipped,
+            "T",
+        );
+        (failures, skipped)
+    }
+
+    #[test]
+    fn proof_paths_are_read_from_the_tree_and_skipped_without_one() {
+        let directory =
+            std::env::temp_dir().join(format!("gororoba-claims-verify-{}", std::process::id()));
+        let tree_root = directory.join("tree");
+        let repository = directory.join("repository");
+        std::fs::create_dir_all(tree_root.join("verified")).unwrap();
+        std::fs::create_dir_all(repository.join("docs")).unwrap();
+        std::fs::write(tree_root.join("_RocqProject"), "").unwrap();
+        std::fs::write(tree_root.join("verified/C001_Test.v"), "").unwrap();
+        std::fs::write(repository.join("docs/kept.md"), "").unwrap();
+        let tree = repo_root::ProofTree::at_root(&tree_root).unwrap();
+
+        assert_eq!(
+            check(&repository, Some(&tree), "proofs/verified/C001_Test.v"),
+            (vec![], 0)
+        );
+        assert_eq!(
+            check(&repository, None, "proofs/verified/C001_Test.v"),
+            (vec![], 1)
+        );
+        assert_eq!(check(&repository, None, "docs/kept.md"), (vec![], 0));
+        assert_eq!(check(&repository, Some(&tree), "docs/kept.md"), (vec![], 0));
+        for recorded in [
+            "proofs/verified/Absent.v",
+            "proofs/../x.v",
+            "docs/missing.md",
+            "docs/../../x",
+            "/etc/passwd",
+        ] {
+            let (failures, skipped) = check(&repository, Some(&tree), recorded);
+            assert_eq!(
+                (failures.len(), skipped),
+                (1, 0),
+                "{recorded}: {failures:?}"
+            );
+        }
+        let (failures, _) = check(&repository, None, "docs/../../x");
+        assert_eq!(failures.len(), 1);
+        std::fs::remove_dir_all(&directory).unwrap();
+    }
 }

@@ -19,6 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The main paper includes four Rocq sources of the proof tree, which
+      # gororoba-math holds; minted finds them through TEXINPUTS.
+      - name: Fetch the pinned gororoba-math checkout
+        uses: ./.github/actions/fetch-gororoba-math
+        with:
+          paths: rocq/open
+
       - name: Fetch pinned Astronomy and Astrophysics class
         id: fetch-aa-class
         continue-on-error: true
@@ -57,6 +64,7 @@ jobs:
         working-directory: docs/latex
         run: |
           mkdir -p out
+          export TEXINPUTS=".:$GOROROBA_MATH/rocq/open:"
           latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error \
             -shell-escape -output-directory=out llm_scaffold_paper.tex
 

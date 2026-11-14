@@ -5,6 +5,7 @@
 
 use anyhow::{Context, Result, bail};
 use chrono::DateTime;
+use repo_root::ProofTree;
 use rusqlite::{Connection, OptionalExtension, params};
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeSet, path::Path};
@@ -159,6 +160,7 @@ impl ProvenanceStore {
     pub fn correct_theorem_links(
         &mut self,
         repo_root: &Path,
+        proof_tree: &ProofTree,
         spec: &TheoremLinkCorrectionSpec,
         raw_spec: &str,
     ) -> Result<TheoremLinkCorrectionResult> {
@@ -205,7 +207,7 @@ impl ProvenanceStore {
                         current.stable_id
                     );
                 }
-                validate_result(&transaction, repo_root, &current)?;
+                validate_result(&transaction, repo_root, proof_tree, &current)?;
             }
             transaction.commit()?;
             return Ok(TheoremLinkCorrectionResult {
@@ -244,7 +246,7 @@ impl ProvenanceStore {
             if let Some(assumptions) = &correction.assumptions {
                 after.assumptions.clone_from(assumptions);
             }
-            validate_result(&transaction, repo_root, &after)?;
+            validate_result(&transaction, repo_root, proof_tree, &after)?;
             changes.push(TheoremLinkCorrectionChange { before, after });
         }
 
@@ -383,9 +385,10 @@ pub(crate) fn read_state(connection: &Connection, stable_id: &str) -> Result<The
 fn validate_result(
     connection: &Connection,
     repo_root: &Path,
+    proof_tree: &ProofTree,
     state: &TheoremLinkState,
 ) -> Result<()> {
-    if !repo_root.join(&state.proof_path).is_file() {
+    if !proof_tree.is_file(repo_root, &state.proof_path)? {
         bail!("theorem proof path is missing: {}", state.proof_path);
     }
     if state.identity_kind == "explicit_link" && state.claim_ids.is_empty() {
@@ -441,6 +444,9 @@ mod tests {
     struct Fixture {
         store: ProvenanceStore,
         root: PathBuf,
+        // The fixture proofs are repository-relative paths, so this tree
+        // only has to exist: no recorded path begins with `proofs/`.
+        tree: ProofTree,
     }
 
     impl Fixture {
@@ -481,13 +487,15 @@ mod tests {
                 "gororoba-theorem-link-correction-{}-{nonce}",
                 std::process::id()
             ));
-            fs::create_dir(&root)?;
+            fs::create_dir_all(root.join("tree"))?;
+            fs::write(root.join("tree/_RocqProject"), "")?;
             fs::write(
                 root.join("proof.v"),
                 "Theorem fixture : True. Proof. exact I. Qed.\n",
             )?;
             Ok(Self {
                 store: ProvenanceStore { conn: connection },
+                tree: ProofTree::at_root(root.join("tree"))?,
                 root,
             })
         }
@@ -509,13 +517,16 @@ mod tests {
             spec: &TheoremLinkCorrectionSpec,
         ) -> Result<TheoremLinkCorrectionResult> {
             let raw = toml::to_string(spec)?;
-            self.store.correct_theorem_links(&self.root, spec, &raw)
+            self.store
+                .correct_theorem_links(&self.root, &self.tree, spec, &raw)
         }
     }
 
     impl Drop for Fixture {
         fn drop(&mut self) {
             let _ = fs::remove_file(self.root.join("proof.v"));
+            let _ = fs::remove_file(self.root.join("tree/_RocqProject"));
+            let _ = fs::remove_dir(self.root.join("tree"));
             let _ = fs::remove_dir(&self.root);
         }
     }
@@ -651,7 +662,7 @@ mod tests {
         assert!(
             fixture
                 .store
-                .correct_theorem_links(&fixture.root, &spec, &raw)
+                .correct_theorem_links(&fixture.root, &fixture.tree, &spec, &raw)
                 .is_err()
         );
         let mut altered = spec.clone();
@@ -680,7 +691,7 @@ mod tests {
         assert!(
             fixture
                 .store
-                .correct_theorem_links(&fixture.root, &spec, &raw)
+                .correct_theorem_links(&fixture.root, &fixture.tree, &spec, &raw)
                 .is_err()
         );
         assert_eq!(fixture.state()?, before);
