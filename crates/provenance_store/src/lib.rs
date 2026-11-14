@@ -1025,15 +1025,23 @@ impl ProvenanceStore {
                     None if repo_root::proof_tree::recorded_relative(proof_path).is_some() => {
                         checks.skipped += 1;
                     }
-                    None if !repo_root::proof_tree::is_plain_relative(proof_path)
-                        || !repo_root.join(proof_path).exists() =>
-                    {
-                        failures.push(format!(
-                            "{} formal_proof path missing on disk: {}",
-                            claim.id, proof_path
-                        ));
+                    // A repository path needs no tree. It counts as skipped so the
+                    // run without a tree lists the same checks as the run with one.
+                    None => {
+                        match repo_root::proof_tree::resolve_below(
+                            repo_root, proof_path, proof_path,
+                        ) {
+                            Ok(path) if path.exists() => checks.skipped += 1,
+                            Ok(_) => failures.push(format!(
+                                "{} formal_proof path missing on disk: {}",
+                                claim.id, proof_path
+                            )),
+                            Err(error) => failures.push(format!(
+                                "{} formal_proof path is refused: {error}",
+                                claim.id
+                            )),
+                        }
                     }
-                    None => {}
                 }
             }
         }

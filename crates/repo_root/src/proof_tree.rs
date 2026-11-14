@@ -142,22 +142,6 @@ impl ProofTree {
         self.root.join(PROJECT_FILE)
     }
 
-    /// The file of this tree that a recorded `proofs/<path>` locator names.
-    /// `None` when the locator lacks the prefix or its remainder holds a
-    /// component other than a plain name.
-    pub fn locate(&self, recorded: &str) -> Option<PathBuf> {
-        let relative = recorded_relative(recorded)?;
-        let path = Path::new(relative);
-        if relative.is_empty()
-            || !path
-                .components()
-                .all(|component| matches!(component, Component::Normal(_)))
-        {
-            return None;
-        }
-        Some(self.root.join(path))
-    }
-
     /// The file a recorded path names: in this tree for a `proofs/` locator,
     /// below `repository_root` for every other path.
     ///
@@ -173,18 +157,10 @@ impl ProofTree {
         repository_root: &Path,
         recorded: &str,
     ) -> Result<PathBuf, ProofTreeError> {
-        let (base, relative) = match recorded_relative(recorded) {
-            Some(inside) => (self.root.as_path(), inside),
-            None => (repository_root, recorded),
-        };
-        if !is_plain_relative(relative) {
-            return Err(ProofTreeError(format!(
-                "recorded path is not a relative path of plain names: {recorded}"
-            )));
+        match recorded_relative(recorded) {
+            Some(inside) => resolve_below(&self.root, inside, recorded),
+            None => resolve_below(repository_root, recorded, recorded),
         }
-        let candidate = base.join(relative);
-        contain(base, &candidate, recorded)?;
-        Ok(candidate)
     }
 
     /// Whether the file a recorded path names exists; see [`ProofTree::resolve`]
@@ -198,6 +174,24 @@ impl ProofTree {
     pub fn is_file(&self, repository_root: &Path, recorded: &str) -> Result<bool, ProofTreeError> {
         Ok(self.resolve(repository_root, recorded)?.is_file())
     }
+}
+
+/// The file that `relative` names below `base`, under the checks of
+/// [`ProofTree::resolve`]. Callers without a proof tree use it for paths of the
+/// repository; `recorded` is the text quoted in an error.
+pub fn resolve_below(
+    base: &Path,
+    relative: &str,
+    recorded: &str,
+) -> Result<PathBuf, ProofTreeError> {
+    if !is_plain_relative(relative) {
+        return Err(ProofTreeError(format!(
+            "recorded path is not a relative path of plain names: {recorded}"
+        )));
+    }
+    let candidate = base.join(relative);
+    contain(base, &candidate, recorded)?;
+    Ok(candidate)
 }
 
 /// Fails unless the deepest existing part of `candidate` canonicalizes to a
@@ -314,20 +308,6 @@ mod tests {
     }
 
     #[test]
-    fn a_locator_that_leaves_the_tree_is_not_located() {
-        let directory = tempfile::tempdir().unwrap();
-        let tree = ProofTree::at_root(tree_directory(directory.path())).unwrap();
-        for recorded in [
-            "proofs/",
-            "proofs/../escape",
-            "proofs//absolute",
-            "proofs/./x",
-        ] {
-            assert_eq!(tree.locate(recorded), None, "{recorded}");
-        }
-    }
-
-    #[test]
     fn traversal_and_absolute_locators_are_refused_for_both_kinds_of_path() {
         let directory = tempfile::tempdir().unwrap();
         let tree = ProofTree::at_root(tree_directory(directory.path())).unwrap();
@@ -398,5 +378,22 @@ mod tests {
                 .unwrap()
         );
         assert!(tree.is_file(&repository, "proofs/_RocqProject").unwrap());
+    }
+
+    #[test]
+    fn a_repository_path_resolves_below_its_base_without_a_tree() {
+        let directory = tempfile::tempdir().unwrap();
+        fs::write(directory.path().join("kept.txt"), "").unwrap();
+        assert!(
+            resolve_below(directory.path(), "kept.txt", "kept.txt")
+                .unwrap()
+                .is_file()
+        );
+        for recorded in ["../outside", "/etc/passwd", "", "a/../../b"] {
+            assert!(
+                resolve_below(directory.path(), recorded, recorded).is_err(),
+                "{recorded:?}"
+            );
+        }
     }
 }

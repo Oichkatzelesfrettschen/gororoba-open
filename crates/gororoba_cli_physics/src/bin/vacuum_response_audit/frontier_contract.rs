@@ -41,12 +41,21 @@ struct Ledger {
 /// tree by its recorded `proofs/theories/<file>.v::<declaration>` locator:
 /// its shape is checked always, and the file, the declaration and the project
 /// listing are checked when `tree` holds the gororoba-math proof tree.
+///
+/// A formal reference without a tree is `Skipped`: its file, declaration and
+/// listing were not read, which the caller reports rather than counts as a pass.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ReferenceCheck {
+    Read,
+    Skipped,
+}
+
 fn validate_reference(
     root: &Path,
     tree: Option<&repo_root::ProofTree>,
     reference: &str,
     formal: bool,
-) -> Result<(), String> {
+) -> Result<ReferenceCheck, String> {
     let (file, symbol) = reference
         .split_once("::")
         .map_or((reference, None), |(file, symbol)| (file, Some(symbol)));
@@ -77,12 +86,13 @@ fn validate_reference(
     let located = if formal {
         match tree {
             Some(tree) => tree
-                .locate(file)
-                .ok_or_else(|| format!("{reference}: locator lies outside the proof tree"))?,
-            None => return Ok(()),
+                .resolve(root, file)
+                .map_err(|error| format!("{reference}: {error}"))?,
+            None => return Ok(ReferenceCheck::Skipped),
         }
     } else {
-        root.join(path)
+        repo_root::proof_tree::resolve_below(root, file, reference)
+            .map_err(|error| format!("{reference}: {error}"))?
     };
     let metadata =
         fs::symlink_metadata(&located).map_err(|error| format!("{reference}: {error}"))?;
@@ -126,7 +136,7 @@ fn validate_reference(
             }
         }
     }
-    Ok(())
+    Ok(ReferenceCheck::Read)
 }
 
 fn visit<'a>(
@@ -157,7 +167,8 @@ fn validate(
     tree: Option<&repo_root::ProofTree>,
     expected: &BTreeSet<String>,
     ledger: &Ledger,
-) -> Result<(), String> {
+) -> Result<usize, String> {
+    let mut skipped = 0;
     let contract = &ledger.contract;
     if contract.source_ledger != "plans/vacuum_energy_falsification.toml"
         || contract.leaf_count != expected.len()
@@ -202,7 +213,9 @@ fn validate(
             ));
         }
         for reference in &leaf.formal {
-            validate_reference(root, tree, reference, true)?;
+            if validate_reference(root, tree, reference, true)? == ReferenceCheck::Skipped {
+                skipped += 1;
+            }
         }
         for reference in &leaf.implementation {
             validate_reference(root, tree, reference, false)?;
@@ -220,7 +233,7 @@ fn validate(
     for id in rows.keys() {
         visit(id, &rows, &mut BTreeSet::new(), &mut complete)?;
     }
-    Ok(())
+    Ok(skipped)
 }
 
 fn fixture() -> (std::path::PathBuf, BTreeSet<String>, Ledger) {
@@ -254,16 +267,26 @@ fn proof_tree() -> repo_root::ProofTree {
 
 #[test]
 fn every_original_leaf_has_one_checked_integration_and_acyclic_dependencies() {
-    // Without the proof tree the formal references are checked for shape only.
+    // Without the proof tree the formal references are checked for shape only,
+    // and the count of references left unread is reported.
     let (root, expected, ledger) = fixture();
-    validate(&root, None, &expected, &ledger).unwrap();
+    let skipped = validate(&root, None, &expected, &ledger).unwrap();
+    let formal: usize = ledger.leaf.iter().map(|leaf| leaf.formal.len()).sum();
+    assert_eq!(
+        skipped, formal,
+        "every formal reference is skipped without a tree"
+    );
+    eprintln!(
+        "SKIP: {skipped} formal references were not read: GOROROBA_MATH is unset, so their files, declarations and project listing are unchecked"
+    );
 }
 
 #[test]
 #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
 fn every_formal_reference_resolves_in_the_proof_tree() {
     let (root, expected, ledger) = fixture();
-    validate(&root, Some(&proof_tree()), &expected, &ledger).unwrap();
+    let skipped = validate(&root, Some(&proof_tree()), &expected, &ledger).unwrap();
+    assert_eq!(skipped, 0);
 }
 
 #[test]
@@ -326,4 +349,5 @@ fn stale_declarations_and_missing_theories_reject_against_the_proof_tree() {
         )
         .is_err()
     );
+    assert!(validate_reference(&root, Some(&tree), "proofs/theories/../C001.v::x", true).is_err());
 }
