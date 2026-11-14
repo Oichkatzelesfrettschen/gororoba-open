@@ -57,14 +57,6 @@ curated/01_theory_frameworks/*.vo
 curated/01_theory_frameworks/*.vos
 curated/01_theory_frameworks/*.vok
 curated/01_theory_frameworks/*.glob
-proofs/**/*.vo
-proofs/**/*.vos
-proofs/**/*.vok
-proofs/**/*.glob
-proofs/**/*.aux
-proofs/Makefile.coq
-proofs/Makefile.coq.conf
-proofs/.Makefile.coq.d
 *.lia.cache
 *.nra.cache
 *.nia.cache
@@ -241,7 +233,6 @@ credentials.*
 !**/[Rr][Ee][Aa][Dd][Mm][Ee].md
 !data/output/audit/staples-causal-validation/completion-audit.md
 !data/output/audit/staples-causal-validation/source-archives/license-evidence.md
-!proofs/EPISTEMIC_BOUNDARIES.md
 !docs/toolchain/
 !docs/toolchain/*.md
 !docs/adr/
@@ -298,17 +289,6 @@ credentials.*
 *.h5
 .venv/
 h_trace_*.csv
-
-# CertiRocq (rocq-certirocq) verified Gallina->C extraction output
-proofs/OpenGororoba.*.c
-proofs/OpenGororoba.*.h
-proofs/extraction/OpenGororoba.*.c
-proofs/extraction/OpenGororoba.*.h
-proofs/extraction/glue.*
-proofs/extraction/r2vb_dp4_glue.c
-proofs/extraction/r2vb_dp4_glue.h
-proofs/extraction/test_r2vb_dp4
-proofs/extraction/test_r2vb_dp4_admit
 
 # Per-host artifact materialization manifests: host state, never repository truth.
 data/output/external_manifests/
