@@ -21,6 +21,7 @@ on:
       - crates/provenance_store/**
       - crates/repo_root/**
       - crates/gororoba_db/**
+      - crates/gororoba_cli_data/src/bin/claims_verify.rs
       - crates/gororoba_cli_physics/src/bin/vacuum_response_audit.rs
       - crates/gororoba_cli_physics/src/bin/vacuum_response_audit/**
       - plans/vacuum_energy_falsification.toml
@@ -133,6 +134,13 @@ jobs:
           echo "proof-source checks listed by the registry: ${listed:-missing}; verified against the pinned tree: ${verified:-missing}"
           if [ -z "$listed" ] || [ -z "$verified" ] || [ "$verified" -eq 0 ] || [ "$verified" -ne "$listed" ]; then
             echo "proof-source checks are missing, zero, skipped or fewer than the registry lists" >&2
+            exit 1
+          fi
+          # claims-verify reads every recorded proofs/ path of the claim and
+          # theorem rows from the pinned tree; a SKIP line means it read none.
+          cargo run --locked -p gororoba_cli_data --bin claims-verify -- --check evidence 2>&1 | tee "$RUNNER_TEMP/claims-evidence.log"
+          if grep -q '^SKIP:' "$RUNNER_TEMP/claims-evidence.log"; then
+            echo "claims-verify skipped its proof-source checks although the tree is fetched" >&2
             exit 1
           fi
 
