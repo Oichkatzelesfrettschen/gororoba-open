@@ -25,6 +25,7 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
         "rust-toolchain.toml",
         ".cargo/config.toml",
         ".github/workflows/proofs.yml",
+        ".github/actions/fetch-gororoba-math/action.yml",
         ".github/workflows/ci.yml",
     ] {
         assert!(
