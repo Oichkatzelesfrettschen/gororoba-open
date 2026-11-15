@@ -912,6 +912,10 @@ name = "lbm-cd-precursor-null"
 path = "src/bin/lbm_cd_precursor_null.rs"
 
 [[bin]]
+name = "themis-cd-crossing-null"
+path = "src/bin/themis_cd_crossing_null.rs"
+
+[[bin]]
 name = "themis-cd-crossing-survey"
 path = "src/bin/themis_cd_crossing_survey.rs"
 
