@@ -2000,14 +2000,35 @@ fn cmd_theorem_mutation(
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
-        TheoremIdentityAction::RecordKernelEvidence { spec, regen_toml } => {
+        TheoremIdentityAction::RecordKernelEvidence {
+            spec,
+            evidence,
+            regen_toml,
+        } => {
             let spec_path = resolve_cli_path(repo_root, spec);
             let raw_spec = fs::read_to_string(&spec_path).with_context(|| {
                 format!("read theorem kernel evidence spec {}", spec_path.display())
             })?;
             let parsed = parse_theorem_kernel_evidence_spec(&raw_spec)?;
-            let result =
-                store.record_theorem_kernel_evidence(repo_root, proof_tree, &parsed, &raw_spec)?;
+            let raw_evidence = evidence
+                .as_ref()
+                .map(|path| {
+                    let evidence_path = resolve_cli_path(repo_root, path);
+                    fs::read_to_string(&evidence_path).with_context(|| {
+                        format!(
+                            "read theorem kernel replay evidence {}",
+                            evidence_path.display()
+                        )
+                    })
+                })
+                .transpose()?;
+            let result = store.record_theorem_kernel_evidence(
+                repo_root,
+                proof_tree,
+                &parsed,
+                &raw_spec,
+                raw_evidence.as_deref(),
+            )?;
             println!("{}", serde_json::to_string_pretty(&result)?);
             maybe_regen_toml(*regen_toml)?;
         }
@@ -2999,16 +3020,50 @@ mod tests {
                 {
                     (spec, regen_toml)
                 }
-                TheoremIdentityAction::RecordKernelEvidence { spec, regen_toml }
-                    if command == "record-kernel-evidence" =>
-                {
-                    (spec, regen_toml)
-                }
+                TheoremIdentityAction::RecordKernelEvidence {
+                    spec,
+                    evidence: None,
+                    regen_toml,
+                } if command == "record-kernel-evidence" => (spec, regen_toml),
                 _ => bail!("expected the requested theorem identity action"),
             };
             assert_eq!(spec, Path::new("receipt.toml"));
             assert!(!regen_toml);
         }
+        Ok(())
+    }
+
+    #[test]
+    fn cli_parses_kernel_receipt_replay_evidence_file() -> Result<()> {
+        let cli = Cli::try_parse_from([
+            "gororoba-db",
+            "theorem",
+            "identity",
+            "record-kernel-evidence",
+            "--spec",
+            "receipt.toml",
+            "--evidence",
+            "C900_Test.evidence.json",
+        ])?;
+        let Commands::Theorem(TheoremArgs {
+            action: TheoremAction::Identity(identity),
+        }) = cli.command
+        else {
+            bail!("expected theorem identity command");
+        };
+        let TheoremIdentityAction::RecordKernelEvidence {
+            evidence,
+            regen_toml,
+            ..
+        } = identity.action
+        else {
+            bail!("expected the kernel evidence action");
+        };
+        assert_eq!(
+            evidence.as_deref(),
+            Some(Path::new("C900_Test.evidence.json"))
+        );
+        assert!(regen_toml);
         Ok(())
     }
 
