@@ -1,7 +1,7 @@
 use regex::Regex;
 
 #[test]
-fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
+fn proofs_component_routes_owning_sources_and_build_inputs() {
     let workflow = include_str!("../../.github/workflows/ci.yml");
     let pattern = workflow
         .lines()
@@ -19,6 +19,7 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
         "crates/gororoba_db/src/bin/gororoba_db.rs",
         "crates/provenance_store/src/theorem_execution.rs",
         "crates/provenance_store/src/theorem_replay.rs",
+        "crates/provenance_store/fixtures/kernel_replay/C900_Test.evidence.json",
         "crates/provenance_store/Cargo.toml",
         "Cargo.toml",
         "Cargo.lock",
@@ -28,10 +29,7 @@ fn genuine_rocq_replay_routes_owning_sources_and_build_inputs() {
         ".github/actions/fetch-gororoba-math/action.yml",
         ".github/workflows/ci.yml",
     ] {
-        assert!(
-            route.is_match(path),
-            "genuine Rocq replay omitted for {path}"
-        );
+        assert!(route.is_match(path), "proofs component omitted for {path}");
     }
     for path in [
         "docs/engineering/unrelated.txt",

@@ -323,32 +323,49 @@ rows. Corrections represent metadata revisions rather than additional requests.
 
 ## Theorem source execution
 
-`gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>`
-admits `kernel_checked` only after a fresh Rocq source execution. The process
-selects `rocq` from the trusted host PATH/opam switch and verifies Rocq 9.3.0
-compiled with OCaml 5.5.1. The receipt supplies hashes and historical command
-descriptions; its `compile_command` and `kernel_command` strings never execute.
-The internally-produced `execution_replay` argument vectors and actual process
-results provide the execution authority.
+`gororoba-db theorem identity record-kernel-evidence --spec <receipt.toml>
+--evidence <evidence.json>` admits `kernel_checked` from the replay evidence
+file that gororoba-math's `ci/kernel_replay_evidence.py` wrote for the
+receipt's proof source. The command never runs Rocq: gororoba-math compiles the
+source closure with Rocq 9.3.0 compiled with OCaml 5.5.1, re-checks the proof
+object with the kernel checker, queries the assumptions of each declaration,
+and writes the evidence file together with the proof object and the compile,
+kernel and assumption logs that the receipt's witness binds. The receipt
+supplies hashes and historical command descriptions; its `compile_command` and
+`kernel_command` strings never execute. The `execution_replay` argument vectors
+and process results in the evidence file are the execution record.
 
-The replayer copies and digest-checks the complete project-local source closure
-into a private temporary directory. Fixed relative source arguments and the two
-project namespaces make fresh object bytes comparable with retained objects.
-Dependency-first full compilation must reproduce the retained target `.vo`
-SHA-256 exactly. The independent kernel checker and fresh labeled
-`Print Assumptions` queries must then pass for the same object and every
-recognized declaration. Admission requires a fatal warning policy and rejects
-warning output, failed processes, changed source bytes, unmatched objects and
-incorrect assumption sets. Successful replay retains stdout and stderr as
-separate streams; local absolute paths fail the canonical-output boundary.
+The evidence file has `deny_unknown_fields` and schema version 1: toolchain,
+project hash, source digests, proof object digest, Flocq object digests when a
+source imports Flocq, the compilation of every source in dependency order, the
+checker run and the assumption query, each with arguments, exit code, stdout
+and stderr. Admission compares the arguments with the fixed argument vectors of
+`theorem_replay.rs` and the two project namespaces. It requires a fatal warning
+policy, the pinned toolchain, exit status 0, no warning or error output, no
+local absolute path in any output, source digests equal to the witness and the
+proof tree, a compilation order equal to the dependency order of the closure,
+the proof object digest of the retained object, retained compile, kernel and
+assumption logs equal to the output of the matching commands, and assumption
+reports that match the witness declarations exactly. A new receipt without an
+evidence file fails; a repeated recording of an existing event key replays the
+stored envelope and ignores the file.
 
-Version 2 theorem-event envelopes retain the internally-produced replay evidence.
-The process finishes replay before opening the canonical mutation transaction;
-the transaction rechecks file and metadata prestates. Activation and exact
+Version 2 theorem-event envelopes retain the replay evidence. The canonical
+mutation transaction rechecks file and metadata prestates. Activation and exact
 idempotent replay use pure byte/scope freshness checks and launch zero compiler
-processes. A public caller supplies neither an executor nor a verification result.
-Private synthetic fixtures test state transitions; the separately invoked genuine
-Rocq integration test exercises the public admission method.
+processes. The evidence file carries the command results: exit codes, standard
+output and standard error of the compilations, the checker and the assumption
+query. The admission method binds the sources, the project file and the proof
+object by digest to the witness and the proof tree, binds the three retained
+logs byte for byte to the matching command output, and checks the argument
+vectors and the compilation order. It trusts the producer
+(gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
+process attestation exists, so a file with the right bytes and an invented
+transcript is accepted. Flocq object digests are recorded as the producer
+reports them and are compared with no bytes in this repository. Private
+synthetic fixtures test state transitions, and a committed evidence file that
+the gororoba-math producer wrote for the synthetic fixture tree exercises the
+public admission method without Rocq.
 
 Version 1 operator-declared events, specifications and raw artifacts remain
 immutable history. Their original token/file correspondence checks provide
@@ -356,9 +373,11 @@ historical provenance; they supply zero active `kernel_checked` admissions.
 Inventory sync withdraws their active projection. A fresh distinct evidence key
 records a version 2 admission against the resulting exact prestate.
 
-The execution boundary trusts the host-selected compiler/kernel installation,
-its external libraries and the canonical-store writer. Actual local replay
-establishes source/object conformance within that boundary. The record supplies
+The execution boundary trusts the producer's host-selected compiler/kernel
+installation, its external libraries, the evidence file's author and the
+canonical-store writer. The producer's replay establishes source/object
+conformance within that boundary, and admission re-establishes the byte
+bindings of the evidence file. The record supplies
 neither cryptographic process attestation nor physical or QPU evidence.
 
 A change to gororoba-math `rocq/open/_RocqProject` (recorded as `proofs/_RocqProject`) changes the source-bound execution identity.
@@ -366,7 +385,7 @@ Run `gororoba-db theorem identity sync-inventory --spec <inventory.toml>` before
 recording replacement kernel evidence. Inventory synchronization preserves theorem
 identities, claim links and append-only history while classifying receipts against
 the current project hash. Prior kernel admissions with stale project identities
-return to `source_only` until fresh trusted replay succeeds. Refresh every prior
+return to `source_only` until fresh replay evidence is admitted. Refresh every prior
 kernel admission plus each newly admitted module, then export compatibility lanes
 and regenerate signatures. A corpus-wide kernel check remains separate from each
 canonical receipt's retained source, object and declaration-assumption contract.

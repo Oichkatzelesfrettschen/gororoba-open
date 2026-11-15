@@ -30,11 +30,6 @@ const BINARY_CHECKS: &[Check] = &[
         args: &["--version"],
     },
     Check {
-        name: "coqc",
-        cmd: "coqc",
-        args: &["--version"],
-    },
-    Check {
         name: "latexmk",
         cmd: "latexmk",
         args: &["--version"],

@@ -25,34 +25,20 @@
 //!     +-> catchfilebetweentags -> source-anchored code in LaTeX
 //! ```
 //!
-//! ## Quick Start
+//! ## Where The Pipeline Runs
 //!
-//! ```sh
-//! # Full verification pipeline
-//! cd proofs && just all
+//! The Rocq proof tree lives in the gororoba-math repository under
+//! `rocq/open`; gororoba-open holds no `proofs/` tree and runs no Rocq. The
+//! toolchain, the proof commands and the `Justfile` targets (`check`,
+//! `extract`, `all`) are described in `rocq/open/README.md` there, and
+//! `sh ci/check_rocq.sh` in gororoba-math compiles and kernel-checks the tree
+//! under Rocq 9.3.0.
 //!
-//! # Paper-ready artifacts only (metrics + TikZ dep graph)
-//! cd proofs && just paper-artifacts
-//!
-//! # Build proofs + paper in one command (from repo root)
-//! make lva-paper
-//!
-//! # Browsable HTML documentation
-//! cd proofs && just rocqdoc
-//! ```
-//!
-//! ## Pipeline Targets
-//!
-//! | Target | Command | Output |
-//! |--------|---------|--------|
-//! | Kernel check | `just check` | 38 .vo files, zero Admitted |
-//! | Extraction | `just extract` | OCaml golden file diff |
-//! | Metrics | `just metrics` | `metrics/compile_times.csv`, `metrics/summary.csv` |
-//! | Dep graph | `just depgraph` | `metrics/dep_graph.{dot,pdf,svg}` |
-//! | TikZ graph | `just depgraph-tikz` | `metrics/dep_graph.tikz` |
-//! | HTML docs | `just rocqdoc` | `html/index.html` |
-//! | Paper artifacts | `just paper-artifacts` | metrics + TikZ |
-//! | Full pipeline | `just all` | check + extract + metrics + tikz |
+//! gororoba-open ingests the result as a replay evidence file that
+//! `ci/kernel_replay_evidence.py` in gororoba-math writes, through
+//! `gororoba-db theorem identity record-kernel-evidence`. The metrics, the
+//! dependency-graph figures and the `rocq doc` output named in the diagram
+//! above have no target in this repository.
 //!
 //! ## Trust Boundary
 //!
@@ -131,6 +117,6 @@
 //!   translation in verified_core is simpler and more idiomatic for numerical
 //!   f64 code. Re-evaluate when the tool supports struct extraction and trait
 //!   mapping from abstract module types.
-//! - **No CI**: Proofs are not yet checked in GitHub Actions. Pipeline runs
-//!   locally via `just all`.
+//! - **Proof checking**: gororoba-math checks the proofs (`ci/check_rocq.sh`);
+//!   gororoba-open runs no Rocq lane.
 //!

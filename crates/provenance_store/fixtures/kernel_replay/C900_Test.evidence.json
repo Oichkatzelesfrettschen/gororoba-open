@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "toolchain": "Rocq 9.3.0; OCaml 5.5.1",
+  "project_sha256": "fdd07cfb6a6f2af939cfe37c8afacc3cef4525171ca4c7c743be611df8565d2e",
+  "sources": [
+    {
+      "path": "proofs/theories/Prelude.v",
+      "sha256": "6bb7c1fbc8950b7948f09d987a2c199df4d491f12af19a1991a07364d7fe0274"
+    },
+    {
+      "path": "proofs/verified/C900_Test.v",
+      "sha256": "61e4a786a7eb3d498c449f7da642c1f8d1ff94653ce4c8b41b3a2a391d4d9167"
+    }
+  ],
+  "proof_object_sha256": "080a0e4400a8ca746ed790ceb3bf771032228b4e7f87bdf1afae06779abecb47",
+  "compilation": [
+    {
+      "arguments": [
+        "compile",
+        "-q",
+        "-w",
+        "+all",
+        "-R",
+        "theories",
+        "OpenGororoba",
+        "-R",
+        "verified",
+        "OpenGororobaVerified",
+        "theories/Prelude.v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "compile",
+        "-q",
+        "-w",
+        "+all",
+        "-R",
+        "theories",
+        "OpenGororoba",
+        "-R",
+        "verified",
+        "OpenGororobaVerified",
+        "verified/C900_Test.v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "checker": {
+    "arguments": [
+      "check",
+      "-silent",
+      "-o",
+      "-R",
+      "theories",
+      "OpenGororoba",
+      "-R",
+      "verified",
+      "OpenGororobaVerified",
+      "OpenGororobaVerified.C900_Test"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "\nCONTEXT SUMMARY\n===============\n\n* Theory: Set is predicative\n  \n* Theory: Rewrite rules are not allowed\n  \n* Axioms: <none>\n  \n* Constants/Inductives relying on type-in-type: <none>\n  \n* Constants/Inductives relying on unsafe (co)fixpoints: <none>\n  \n* Inductives whose positivity is assumed: <none>\n  \n* Inductives relying on indices not mattering:\n    Corelib.Init.Datatypes.eq_true\n    Corelib.Init.Logic.eq\n  \n"
+  },
+  "assumptions": {
+    "arguments": [
+      "compile",
+      "-q",
+      "-w",
+      "+all",
+      "-R",
+      "theories",
+      "OpenGororoba",
+      "-R",
+      "verified",
+      "OpenGororobaVerified",
+      "KernelReceiptAssumptions.v"
+    ],
+    "exit_code": 0,
+    "stdout": "Declaration: fixture\nClosed under the global context\n",
+    "stderr": ""
+  }
+}

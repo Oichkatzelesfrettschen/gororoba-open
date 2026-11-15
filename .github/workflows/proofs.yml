@@ -5,7 +5,9 @@ name: proofs
 # fixtures and the extraction golden diff run in gororoba-math through
 # ci/check_rocq.sh. This workflow keeps the checks that read gororoba-open code,
 # the control-plane receipts and the retained evidence, against the
-# gororoba-math commit that ci/gororoba_math.pin names.
+# gororoba-math commit that ci/gororoba_math.pin names. No step runs Rocq:
+# gororoba-math produces kernel replay evidence, and the receipts here are
+# validated from the retained bytes.
 
 # A pull request that changes the pin, the registry or the provenance store
 # runs the workflow, so the proof-source checks that the governance gate skips
@@ -55,7 +57,6 @@ jobs:
           rustc --edition=2024 -D warnings crates/gororoba_cli/src/bin/detect_worker_budget.rs -o "$RUNNER_TEMP/detect-worker-budget"
           worker_budget="$("$RUNNER_TEMP/detect-worker-budget")"
           {
-            echo "OPAMJOBS=$worker_budget"
             echo "CARGO_BUILD_JOBS=$worker_budget"
             echo "RAYON_NUM_THREADS=$worker_budget"
             echo "RUST_TEST_THREADS=$worker_budget"
@@ -65,49 +66,13 @@ jobs:
       - name: Fetch the pinned gororoba-math checkout
         uses: ./.github/actions/fetch-gororoba-math
         with:
-          paths: ci rocq/open
+          paths: rocq/open
 
-      - name: Install opam 2.6.1 and Rust linker
+      - name: Install Rust linker and system libraries
         run: |
           set -euo pipefail
           sudo apt-get update
           sudo apt-get install -y clang mold glslc libcfitsio-dev libhdf5-dev libfontconfig1-dev libopenblas-dev libblas-dev liblapack-dev pkg-config
-          curl --fail --location --retry 3 \
-            https://github.com/ocaml/opam/releases/download/2.6.1/opam-2.6.1-x86_64-linux \
-            --output "$RUNNER_TEMP/opam"
-          echo "b533d393a6967150d6ef41cb3d71e147e93ecbabeb59e921aa412c0ae79ebe3d  $RUNNER_TEMP/opam" | sha256sum --check
-          chmod +x "$RUNNER_TEMP/opam"
-          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
-
-      # The key follows the ports and the installer of the pinned checkout, so a
-      # pin that leaves them unchanged reuses the switch.
-      - name: Restore opam
-        id: opam-cache
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.opam
-          key: opam2.6.1-${{ runner.os }}-${{ runner.arch }}-ubuntu24-ocaml5.5.1-rocq9.3.0-plugins-${{ hashFiles('.cache/gororoba-math/rocq/open/opam/**', '.cache/gororoba-math/ci/install_rocq.sh') }}-v2
-
-      - name: Install Rocq 9.3 from the pinned gororoba-math checkout
-        run: sh "$GOROROBA_MATH/ci/install_rocq.sh"
-
-      - name: Save installed proof toolchain
-        id: opam-cache-save
-        if: steps.opam-cache.outputs.cache-hit != 'true'
-        continue-on-error: true
-        uses: actions/cache/save@v4
-        with:
-          path: ~/.opam
-          key: ${{ steps.opam-cache.outputs.cache-primary-key }}
-
-      - name: Verify genuine theorem receipt replay
-        id: receipt-replay
-        continue-on-error: true
-        run: |
-          eval "$(opam env --switch=rocq-9.3)"
-          cargo test --locked -p provenance_store --lib \
-            theorem_execution::tests::genuine_rocq_replay \
-            -- --ignored
 
       - name: Verify theorem observable bindings
         id: observable-bindings
@@ -154,8 +119,6 @@ jobs:
       - name: Report collected proof failures
         if: always()
         env:
-          CACHE_SAVE_OUTCOME: ${{ steps.opam-cache-save.outcome }}
-          RECEIPT_REPLAY_OUTCOME: ${{ steps.receipt-replay.outcome }}
           OBSERVABLE_BINDINGS_OUTCOME: ${{ steps.observable-bindings.outcome }}
           CONTROL_PLANE_OUTCOME: ${{ steps.control-plane.outcome }}
           FORMAL_REFERENCES_OUTCOME: ${{ steps.formal-references.outcome }}
@@ -163,19 +126,14 @@ jobs:
           set -euo pipefail
           failure_count=0
           # A verification lane that did not succeed (failed, was skipped because
-          # an earlier step stopped the job, or was cancelled) is a failure. The
-          # cache save is skipped on a cache hit, so it fails only on failure.
-          for outcome_variable in RECEIPT_REPLAY_OUTCOME OBSERVABLE_BINDINGS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
+          # an earlier step stopped the job, or was cancelled) is a failure.
+          for outcome_variable in OBSERVABLE_BINDINGS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
             if [ "$outcome" != success ]; then
               failure_count=$((failure_count + 1))
             fi
           done
-          printf 'CACHE_SAVE_OUTCOME=%s\n' "$CACHE_SAVE_OUTCOME"
-          if [ "$CACHE_SAVE_OUTCOME" = failure ] || [ "$CACHE_SAVE_OUTCOME" = cancelled ]; then
-            failure_count=$((failure_count + 1))
-          fi
           if [ "$failure_count" -ne 0 ]; then
             echo "Collected $failure_count failing proof lane(s)." >&2
             exit 1

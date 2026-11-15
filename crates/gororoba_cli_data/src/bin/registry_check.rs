@@ -387,6 +387,18 @@ struct CargoBinEntry {
 struct WorkspaceExecutionInventory {
     bins: HashSet<String>,
     benches: HashSet<String>,
+    /// True when `cargo metadata` produced the inventory. The manifest-walk
+    /// fallback reads only explicit `[[bin]]` tables and misses auto-discovered
+    /// `src/bin` targets, so it cannot prove a registry row stale.
+    from_cargo_metadata: bool,
+}
+
+/// Registry binary names that no Cargo `bin` target carries, in name order.
+fn registry_binaries_without_cargo_target(
+    registry: &HashSet<String>,
+    cargo_bins: &HashSet<String>,
+) -> BTreeSet<String> {
+    registry.difference(cargo_bins).cloned().collect()
 }
 
 #[derive(Default, serde::Deserialize)]
@@ -604,7 +616,10 @@ fn load_workspace_execution_inventory_via_cargo_metadata(
     }
     let metadata: MetadataRoot = serde_json::from_slice(&output.stdout)
         .map_err(|err| format!("parse cargo metadata JSON: {err}"))?;
-    let mut inventory = WorkspaceExecutionInventory::default();
+    let mut inventory = WorkspaceExecutionInventory {
+        from_cargo_metadata: true,
+        ..WorkspaceExecutionInventory::default()
+    };
     for package in metadata.packages {
         for target in package.targets {
             if target.kind.iter().any(|kind| kind == "bin") {
@@ -1473,7 +1488,21 @@ fn main() {
             None
         };
         // Cargo metadata decides which bin and bench targets exist; the
-        // binaries_cp rows are a synchronized copy of that inventory.
+        // binaries_cp rows are a synchronized copy of that inventory, so a
+        // row without a Cargo bin target is stale.
+        if let Some(inventory) = workspace_inventory
+            .as_ref()
+            .filter(|inventory| inventory.from_cargo_metadata)
+        {
+            for name in
+                registry_binaries_without_cargo_target(&registry_binary_names, &inventory.bins)
+            {
+                eprintln!(
+                    "ERROR: registry binary {name} has no Cargo bin target; run `gororoba-db binaries sync`"
+                );
+                errors += 1;
+            }
+        }
         let mut known_execution_targets = workspace_inventory
             .iter()
             .flat_map(|inventory| inventory.bins.iter().chain(inventory.benches.iter()))
@@ -1588,6 +1617,27 @@ mod execution_target_tests {
                 "{target}"
             );
         }
+    }
+
+    #[test]
+    fn stale_registry_binaries_are_the_names_cargo_does_not_declare() {
+        let names = |items: &[&str]| -> HashSet<String> {
+            items.iter().map(|item| item.to_string()).collect()
+        };
+        let cargo = names(&["alpha", "beta", "gamma"]);
+        // Known good: every registry name is a Cargo target; an unregistered
+        // Cargo target is `binaries sync` territory and not stale.
+        assert!(
+            registry_binaries_without_cargo_target(&names(&["alpha", "beta"]), &cargo).is_empty()
+        );
+        // Known bad: removed targets surface in name order.
+        assert_eq!(
+            registry_binaries_without_cargo_target(
+                &names(&["rocq-project-audit", "alpha", "proof-doc"]),
+                &cargo
+            ),
+            BTreeSet::from(["proof-doc".to_string(), "rocq-project-audit".to_string()])
+        );
     }
 
     #[test]
