@@ -4,9 +4,9 @@
 //! The statistic of `themis-cd-crossing-survey` is the mean of the last 6 of 12
 //! associator norms over the mean of the 6 before them, computed from the 22
 //! FGM rows that end at the row before a catalogued magnetopause crossing. An
-//! associator norm at index .map(|q| x[q..q + ENERGY_WINDOW].iter().sum::<f64>()) reads rows q..q+9 of the 22 (three Takens windows
-//! of 8 rows, each shifted by one), so a norm near the crossing reads the
-//! crossing's own field jump. This binary measures, for the crossings and for
+//! associator norm at index q reads rows q to q+9 of the 22 (three Takens
+//! windows of 8 rows, each shifted by one), so a norm near the crossing reads
+//! the crossing's own field jump. This binary measures, for the crossings and for
 //! rows drawn at random times:
 //!
 //! 1. the ratio of three series (the associator norms, the increment energy
@@ -21,16 +21,21 @@
 //! 3. the offset-0 and mirrored ratios on the gap-free, isolated and clustered
 //!    subsets (a cadence gap is a time step above 1.5 times the file's median
 //!    among the 22 rows before the crossing or the 22 rows of the mirrored
-//!    window; isolated means no other analyzed crossing of the file within
-//!    120 rows);
+//!    window; isolated means no other catalogued crossing within 120 rows);
 //! 4. the per-lag median of the raw increment energy from 100 rows before to
 //!    100 rows after the event.
 //!
 //! A random-time control index is drawn uniformly from the rows of the file at
 //! or after `--back-rows` and kept when it lies more than 400 rows from every
-//! analyzed crossing of the file.
+//! catalogued crossing. Both rules count every catalogued crossing of the
+//! probe, those before `--back-rows` and those of the adjacent days included,
+//! at the signed row positions of `crossing_positions`.
 //!
-//! Output: one JSON file; a summary on stderr.
+//! The default seed is index 0 of the ANU QRNG draw retained at
+//! `data/output/audit/claim-family-evidence-adjudication/anu_qrng/draw-2026-11-15T230053Z.json`.
+//!
+//! Output: one JSON file that binds the sha256 of the catalog and of every day
+//! file read; a summary on stderr.
 
 use std::{
     collections::BTreeMap,
@@ -43,7 +48,14 @@ use clap::Parser;
 use rand::{RngExt, SeedableRng};
 use rand_chacha::ChaCha8Rng;
 use serde::Serialize;
+use sha2::{Digest, Sha256};
 
+/// Index 0 of the retained ANU QRNG draw named by `QRNG_DRAW`.
+const QRNG_SEED: u64 = 57_236;
+const QRNG_DRAW: &str =
+    "data/output/audit/claim-family-evidence-adjudication/anu_qrng/draw-2026-11-15T230053Z.json#0";
+/// Seconds in a day: the offset of the adjacent days' crossing times.
+const DAY_SECS: f64 = 86_400.0;
 /// Rows per Takens window; four channels (bx, by, bz, |B|) make the 32-vector.
 const STEPS: usize = 8;
 const DIM: usize = 4 * STEPS;
@@ -93,8 +105,9 @@ struct Cli {
     #[arg(long, default_value_t = 120)]
     back_rows: usize,
 
-    /// Seed of the ChaCha8 stream that draws the random-time controls.
-    #[arg(long, default_value_t = 20_261_115)]
+    /// Seed of the ChaCha8 stream that draws the random-time controls; the
+    /// default is `QRNG_SEED`.
+    #[arg(long, default_value_t = QRNG_SEED)]
     seed: u64,
 
     /// Output JSON path.
@@ -208,8 +221,17 @@ struct SkippedFile {
 }
 
 #[derive(Debug, Serialize)]
+struct InputFile {
+    name: String,
+    sha256: String,
+}
+
+#[derive(Debug, Serialize)]
 struct Output {
     seed: u64,
+    seed_source: String,
+    catalog_sha256: String,
+    input_files: Vec<InputFile>,
     probe: String,
     back_rows: usize,
     catalog_crossings: usize,
@@ -593,15 +615,83 @@ fn draw_control(
     rng: &mut ChaCha8Rng,
     rows: usize,
     back: usize,
-    crossings: &[usize],
+    crossings: &[i64],
 ) -> Option<usize> {
     for _ in 0..CONTROL_DRAWS {
         let j = rng.random_range(back..rows);
-        if crossings.iter().all(|&c| c.abs_diff(j) > CONTROL_SPAN) {
+        if crossings.iter().all(|&c| row_distance(c, j) > CONTROL_SPAN) {
             return Some(j);
         }
     }
     None
+}
+
+/// Rows between a signed crossing position and a row of the file.
+fn row_distance(position: i64, row: usize) -> usize {
+    let row = i64::try_from(row).unwrap_or(i64::MAX);
+    usize::try_from(position.abs_diff(row)).unwrap_or(usize::MAX)
+}
+
+/// Signed row positions of crossing times given in seconds of the file's day.
+/// A time inside the file takes its nearest row; a time before the first row
+/// or after the last lies beyond that end by its distance in median steps, so
+/// the crossings of the adjacent days and of a gap at the day's edge keep their
+/// distance from the file's rows.
+fn crossing_positions(secs: &[f64], median_dt: f64, targets: &[f64]) -> Vec<i64> {
+    let first = secs[0];
+    let last_row = secs.len() - 1;
+    let last = secs[last_row];
+    let steps = |gap: f64| {
+        let n = (gap / median_dt).ceil();
+        if n.is_finite() && n < 9.0e15 {
+            n as i64
+        } else {
+            i64::MAX / 4
+        }
+    };
+    targets
+        .iter()
+        .map(|&t| {
+            if t < first {
+                -steps(first - t)
+            } else if t > last {
+                i64::try_from(last_row).unwrap_or(i64::MAX / 4) + steps(t - last)
+            } else {
+                i64::try_from(nearest_row(secs, t)).unwrap_or(i64::MAX / 4)
+            }
+        })
+        .collect()
+}
+
+/// Days in a calendar year.
+fn days_in_year(year: u32) -> u32 {
+    if (year.is_multiple_of(4) && !year.is_multiple_of(100)) || year.is_multiple_of(400) {
+        366
+    } else {
+        365
+    }
+}
+
+/// The (year, day of year) keys of the days before and after a day.
+fn adjacent_days(year: u32, doy: u32) -> [(u32, u32); 2] {
+    let previous = if doy > 1 {
+        (year, doy - 1)
+    } else {
+        (year - 1, days_in_year(year - 1))
+    };
+    let next = if doy < days_in_year(year) {
+        (year, doy + 1)
+    } else {
+        (year + 1, 1)
+    };
+    [previous, next]
+}
+
+fn sha256_hex(bytes: &[u8]) -> String {
+    Sha256::digest(bytes)
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
 }
 
 /// Index of the row whose time is nearest `target` (the earlier row on a tie).
@@ -675,6 +765,7 @@ fn main() -> Result<()> {
     eprintln!("Parsing crossing catalog: {}", cli.crossings_txt.display());
     let content = std::fs::read_to_string(&cli.crossings_txt)
         .with_context(|| format!("read {}", cli.crossings_txt.display()))?;
+    let catalog_sha256 = sha256_hex(content.as_bytes());
     let (groups, catalog_crossings) = parse_catalog(&content, &cli.probe);
     eprintln!(
         "Probe '{}' crossings parsed: {catalog_crossings} across {} file groups",
@@ -686,6 +777,7 @@ fn main() -> Result<()> {
     let mut skips = SkipCounts::default();
     let mut skipped_files = Vec::new();
     let mut files = 0usize;
+    let mut input_files: Vec<InputFile> = Vec::new();
     let mut crossing_events: Vec<Event> = Vec::new();
     let mut control_events: Vec<Event> = Vec::new();
 
@@ -707,6 +799,15 @@ fn main() -> Result<()> {
             skip_file("missing_file", None, &mut skips.missing_file);
             continue;
         }
+        let bytes = std::fs::read(&path).with_context(|| format!("read {}", path.display()))?;
+        input_files.push(InputFile {
+            name: path
+                .file_name()
+                .map(|n| n.to_string_lossy().into_owned())
+                .unwrap_or_default(),
+            sha256: sha256_hex(&bytes),
+        });
+        drop(bytes);
         let loaded = match load_fgm_csv(&path) {
             Ok(r) => r,
             Err(e) => {
@@ -733,18 +834,30 @@ fn main() -> Result<()> {
                 indices.push(i);
             }
         }
+        // Every catalogued crossing of the probe bounds isolation and controls:
+        // the day's own (analyzable or not) and the adjacent days', shifted by
+        // a day so their positions fall beyond the file's ends.
+        let mut catalogued = crossing_secs.clone();
+        let [previous, next] = adjacent_days(year, doy);
+        if let Some(times) = groups.get(&previous) {
+            catalogued.extend(times.iter().map(|t| t - DAY_SECS));
+        }
+        if let Some(times) = groups.get(&next) {
+            catalogued.extend(times.iter().map(|t| t + DAY_SECS));
+        }
+        let positions = crossing_positions(&secs, median_dt, &catalogued);
         let near = |i: usize, own: usize| {
-            indices
+            positions
                 .iter()
-                .filter(|&&c| c.abs_diff(i) <= ISOLATION_ROWS)
+                .filter(|&&c| row_distance(c, i) <= ISOLATION_ROWS)
                 .count()
-                - own
+                .saturating_sub(own)
         };
         for &i in &indices {
             crossing_events.push(measure_event(&rows, &secs, i, median_dt, near(i, 1)));
         }
         for _ in 0..indices.len() {
-            if let Some(j) = draw_control(&mut rng, rows.len(), cli.back_rows, &indices) {
+            if let Some(j) = draw_control(&mut rng, rows.len(), cli.back_rows, &positions) {
                 control_events.push(measure_event(&rows, &secs, j, median_dt, near(j, 0)));
             }
         }
@@ -786,6 +899,13 @@ fn main() -> Result<()> {
 
     let output = Output {
         seed: cli.seed,
+        seed_source: if cli.seed == QRNG_SEED {
+            format!("qrng:{QRNG_DRAW}")
+        } else {
+            "--seed".to_string()
+        },
+        catalog_sha256,
+        input_files,
         probe: cli.probe.clone(),
         back_rows: cli.back_rows,
         catalog_crossings,
@@ -889,7 +1009,9 @@ mod tests {
 
     #[test]
     fn control_indices_stay_clear_of_every_crossing() {
-        let crossings = [200usize, 1000, 1500, 2990];
+        // 30 lies before the first analyzable row and -250 and 3150 belong to
+        // the adjacent days; each still excludes the rows near it.
+        let crossings = [-250i64, 30, 1000, 1500, 2990, 3150];
         let mut rng = ChaCha8Rng::seed_from_u64(9);
         let mut drawn = 0;
         for _ in 0..500 {
@@ -898,13 +1020,44 @@ mod tests {
                 assert!((120..3000).contains(&j));
                 for &c in &crossings {
                     assert!(
-                        c.abs_diff(j) > CONTROL_SPAN,
+                        row_distance(c, j) > CONTROL_SPAN,
                         "control {j} near crossing {c}"
                     );
                 }
             }
         }
         assert!(drawn > 0);
+    }
+
+    #[test]
+    fn positions_place_outside_times_beyond_the_file_ends() {
+        let secs: Vec<f64> = (0..1000).map(|r| 30.0 + 3.0 * f64::from(r)).collect();
+        let pos = crossing_positions(&secs, 3.0, &[96.0, -60.0, 30.0 + 3.0 * 999.0 + 30.0]);
+        assert_eq!(pos, vec![22, -30, 1009]);
+    }
+
+    #[test]
+    fn a_crossing_before_back_rows_still_counts_for_isolation() {
+        // The catalog example of 2014-04-25: 00:01:36 and 00:07:04, 328 s apart
+        // on a 3-second file. The first lies before row 120 and is not
+        // analyzed; the second is, and it is not isolated.
+        let secs: Vec<f64> = (0..2000).map(|r| 3.0 * f64::from(r)).collect();
+        let pos = crossing_positions(&secs, 3.0, &[96.0, 424.0]);
+        let second = nearest_row(&secs, 424.0);
+        assert!(second >= 120);
+        let near = pos
+            .iter()
+            .filter(|&&c| row_distance(c, second) <= ISOLATION_ROWS)
+            .count()
+            - 1;
+        assert_eq!(near, 1);
+    }
+
+    #[test]
+    fn adjacent_days_cross_year_ends() {
+        assert_eq!(adjacent_days(2008, 1), [(2007, 365), (2008, 2)]);
+        assert_eq!(adjacent_days(2008, 366), [(2008, 365), (2009, 1)]);
+        assert_eq!(adjacent_days(2009, 365), [(2009, 364), (2010, 1)]);
     }
 
     #[test]
