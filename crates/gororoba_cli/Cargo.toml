@@ -63,18 +63,6 @@ name = "detect-worker-budget"
 path = "src/bin/detect_worker_budget.rs"
 
 [[bin]]
-name = "proof-dep-graph"
-path = "src/bin/proof_dep_graph.rs"
-
-[[bin]]
-name = "proof-metrics"
-path = "src/bin/proof_metrics.rs"
-
-[[bin]]
-name = "proof-doc"
-path = "src/bin/proof_doc.rs"
-
-[[bin]]
 name = "attractor-sweep-runner"
 path = "src/bin/attractor_sweep_runner.rs"
 

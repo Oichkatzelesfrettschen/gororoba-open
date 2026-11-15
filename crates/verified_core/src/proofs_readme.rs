@@ -34,9 +34,6 @@
 //! # Paper-ready artifacts only (metrics + TikZ dep graph)
 //! cd proofs && just paper-artifacts
 //!
-//! # Build proofs + paper in one command (from repo root)
-//! make lva-paper
-//!
 //! # Browsable HTML documentation
 //! cd proofs && just rocqdoc
 //! ```

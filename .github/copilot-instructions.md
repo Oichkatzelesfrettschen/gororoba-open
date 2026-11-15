@@ -33,7 +33,9 @@ Repository rules a review checks here (`AGENTS.md` holds them in full):
   `proofs.yml` fetches the commit named by `ci/gororoba_math.pin`.
 - Rocq: kernel-checked theorem receipts bind the sha256 of gororoba-math `rocq/open/_RocqProject` (recorded as
   `proofs/_RocqProject`) and of the theories they name, so a change to either needs a receipt renewal; a new theory
-  states its `Print Assumptions` result and carries no `Admitted`.
+  states its `Print Assumptions` result and carries no `Admitted`. A renewal records the evidence file that
+  gororoba-math's `ci/kernel_replay_evidence.py` wrote (`gororoba-db theorem identity record-kernel-evidence
+  --evidence FILE`); no lane in this repository runs Rocq.
 - Registry: `registry/canonical/control_plane.sqlite3` is the source of truth and `registry/*.toml` are its exports;
   a tracked markdown file needs its `.gitignore` exception and a `markdown-registry register` entry.
 - New automation and analysis code is Rust.

@@ -9,7 +9,7 @@ inputs:
   paths:
     description: Space-separated cone directories of gororoba-math to materialize.
     required: false
-    default: ci rocq/open
+    default: rocq/open
 
 runs:
   using: composite
