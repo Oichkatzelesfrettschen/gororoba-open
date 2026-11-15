@@ -15,8 +15,8 @@
 //!    energy and the field magnitude around the peaks;
 //! 3. the same numbers on two nulls: a phase-randomized copy (one shared set
 //!    of phases for all four columns keeps every power and cross spectrum) and
-//!    the record's own increments in random order (keeps the increment
-//!    distribution, destroys their time order).
+//!    the record's own increments permuted inside one-hour blocks (keeps
+//!    every increment, destroys their time order below one hour).
 //!
 //! Output: one JSON file; a summary table on stderr.
 
@@ -47,9 +47,9 @@ const OFFSETS: [usize; 5] = [0, 4, 10, 20, 40];
 /// Epoch profile extent around each peak, in samples.
 const LAGS_BEFORE: usize = 24;
 const LAGS_AFTER: usize = 16;
-/// Width of the centered running mean that removes the shuffled walk's wander
-/// (one hour of 16-second samples).
-const WANDER_WINDOW: usize = 225;
+/// Length of the blocks inside which the increments are permuted (one hour
+/// of 16-second samples). The ratio's window spans 12 norms, 22 samples.
+const SHUFFLE_BLOCK: usize = 225;
 
 #[derive(Parser)]
 #[command(name = "cd-precursor-null")]
@@ -405,56 +405,37 @@ fn phase_randomize(rows: &[[f64; 4]], rng: &mut ChaCha8Rng) -> Vec<[f64; 4]> {
     out
 }
 
-/// The record's three-component increments in a random order.
+/// The record's three-component increments, permuted inside consecutive
+/// blocks of SHUFFLE_BLOCK increments.
 fn permuted_increments(rows: &[[f64; 4]], rng: &mut ChaCha8Rng) -> Vec<[f64; 3]> {
     let mut increments: Vec<[f64; 3]> = rows
         .windows(2)
         .map(|w| [w[1][0] - w[0][0], w[1][1] - w[0][1], w[1][2] - w[0][2]])
         .collect();
-    increments.shuffle(rng);
+    for block in increments.chunks_mut(SHUFFLE_BLOCK) {
+        block.shuffle(rng);
+    }
     increments
 }
 
-/// Subtract from each entry the mean of the WANDER_WINDOW entries centered on
-/// it; entries beyond either end count as zero (convolution mode "same").
-fn remove_running_mean(x: &mut [f64]) {
-    let n = x.len();
-    let half = WANDER_WINDOW / 2;
-    let mut prefix = vec![0.0; n + 1];
-    for i in 0..n {
-        prefix[i + 1] = prefix[i] + x[i];
-    }
-    for (i, v) in x.iter_mut().enumerate() {
-        let lo = i.saturating_sub(half);
-        let hi = (i + half + 1).min(n);
-        *v -= (prefix[hi] - prefix[lo]) / WANDER_WINDOW as f64;
-    }
-}
-
-/// Shuffled-increment series: the permuted increments summed from zero, column
-/// means removed, the hour-scale wander removed, the record's column means
-/// restored; the fourth column is the magnitude of the other three. The
-/// increment distribution survives exactly, every time ordering of the
-/// increments does not.
+/// Shuffled-increment series: the block-permuted increments summed from the
+/// record's first row; the fourth column is the magnitude of the other
+/// three. Every increment of the record survives unchanged and the series
+/// meets the record at each block boundary, so the field magnitude stays at
+/// the record's level. Order in time is destroyed below the block length and
+/// kept above it.
 fn shuffled_increment_series(rows: &[[f64; 4]], rng: &mut ChaCha8Rng) -> Vec<[f64; 4]> {
     let increments = permuted_increments(rows, rng);
     let n = rows.len();
-    let record_mean: Vec<f64> = (0..3)
-        .map(|c| rows.iter().map(|r| r[c]).sum::<f64>() / n as f64)
-        .collect();
     let mut columns: Vec<Vec<f64>> = Vec::with_capacity(3);
     for c in 0..3 {
         let mut walk = Vec::with_capacity(n);
-        let mut acc = 0.0;
+        let mut acc = rows.first().map_or(0.0, |r| r[c]);
         walk.push(acc);
         for inc in &increments {
             acc += inc[c];
             walk.push(acc);
         }
-        let m = mean(&walk);
-        walk.iter_mut().for_each(|v| *v -= m);
-        remove_running_mean(&mut walk);
-        walk.iter_mut().for_each(|v| *v += record_mean[c]);
         columns.push(walk);
     }
     (0..n)
@@ -625,17 +606,26 @@ mod tests {
             b.sort_by(f64::total_cmp);
             assert_eq!(a, b, "component {c}");
         }
-        // The full series has the record's length and column means.
+        // The series holds the same increments and meets the record at every
+        // block boundary.
         let series = shuffled_increment_series(&rows, &mut ChaCha8Rng::seed_from_u64(5));
         assert_eq!(series.len(), rows.len());
-    }
-
-    #[test]
-    fn running_mean_uses_zero_padding_at_the_edges() {
-        let mut x = vec![1.0; 300];
-        remove_running_mean(&mut x);
-        // Interior: 225 ones average to 1. Index 0 sees 113 ones of 225.
-        assert!(x[150].abs() < 1e-12);
-        assert!((x[0] - (1.0 - 113.0 / 225.0)).abs() < 1e-12);
+        for c in 0..3 {
+            let mut a: Vec<f64> = original.iter().map(|v| v[c]).collect();
+            let mut b: Vec<f64> = series.windows(2).map(|w| w[1][c] - w[0][c]).collect();
+            a.sort_by(f64::total_cmp);
+            b.sort_by(f64::total_cmp);
+            for (x, y) in a.iter().zip(&b) {
+                assert!((x - y).abs() < 1e-9, "component {c}");
+            }
+        }
+        let rows = test_rows(2 * SHUFFLE_BLOCK + 40, 4);
+        let series = shuffled_increment_series(&rows, &mut ChaCha8Rng::seed_from_u64(6));
+        for boundary in [0, SHUFFLE_BLOCK, 2 * SHUFFLE_BLOCK] {
+            for c in 0..3 {
+                assert!((series[boundary][c] - rows[boundary][c]).abs() < 1e-9);
+            }
+        }
+        assert_ne!(series[SHUFFLE_BLOCK / 2], rows[SHUFFLE_BLOCK / 2]);
     }
 }
