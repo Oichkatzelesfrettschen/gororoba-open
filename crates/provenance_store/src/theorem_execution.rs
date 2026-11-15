@@ -1666,8 +1666,8 @@ mod tests {
                 assert!(!fixture.record_with(&spec, Some(&evidence))?.exact_replay);
                 let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
                 let retained = serde_json::from_str::<serde_json::Value>(&envelope)?;
-                // The retained list is the producer's list verbatim; no digest in
-                // it is compared with bytes here.
+                // The retained list is the producer's list verbatim, and ingest
+                // required it to equal the pinned manifest.
                 assert!(
                     fixture_flocq_objects
                         .as_array()

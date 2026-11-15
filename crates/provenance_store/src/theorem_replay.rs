@@ -19,7 +19,10 @@ const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
 /// The bytes equal `ci/flocq-manifest.json` of gororoba-math, whose sha256 is
 /// `4f881f92f000f60bfb3be28b8a8dbf8d55ad240702e02442bd5c8d52a2c5f903`, at
 /// commit `ecf95ce5f1a11a9d20d79adea802e443dfd25e4a`. A replay that lists
-/// Flocq objects admits only this list.
+/// Flocq objects admits only this list. The list identifies one build of the
+/// opam export: a hosted runner that built the same export produced different
+/// Flocq object bytes (measured; first difference at `Calc/Bracket.vo`), so
+/// evidence from another build of the switch is rejected.
 const PINNED_FLOCQ_MANIFEST: &str = include_str!("../fixtures/flocq_manifest/rocq-9.3.json");
 const RETAINED_TOOLCHAINS: [&str; 3] = [
     "Rocq 9.1.1; OCaml 5.4.0",
@@ -142,7 +145,8 @@ fn validate_flocq_objects(objects: &[ProofFileDigest]) -> Result<()> {
                     .sha256
                     .bytes()
                     .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
-            "invalid Flocq object digest"
+            "invalid Flocq object digest for {}",
+            object.path
         );
         previous = &object.path;
     }
@@ -258,22 +262,29 @@ fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
     arguments
 }
 
+/// Whether one command is a `Require` of a Flocq module. A command prefix
+/// (an attribute such as `#[warnings("-w")]`, or `Time`) can stand before
+/// `From NAMESPACE Require` and before `Require`, so the check anchors on the
+/// `Require` word and not on the first word.
+fn command_imports_flocq(words: &[&str]) -> bool {
+    let Some(require) = words.iter().position(|word| *word == "Require") else {
+        return false;
+    };
+    let from_flocq = require >= 2
+        && words[require - 2] == "From"
+        && (words[require - 1] == "Flocq" || words[require - 1].starts_with("Flocq."));
+    from_flocq
+        || words[require + 1..]
+            .iter()
+            .any(|module| module.starts_with("Flocq."))
+}
+
 fn uses_flocq(roots: EvidenceRoots<'_>, witness: &TheoremKernelWitness) -> Result<bool> {
     for source in &witness.sources {
         let contents = fs::read_to_string(super::verify_file(roots, source)?)?;
         for command in super::source_commands(&contents)? {
             let words = command.split_whitespace().collect::<Vec<_>>();
-            if (words.first() == Some(&"From")
-                && words.get(2) == Some(&"Require")
-                && words.get(1).is_some_and(|namespace| {
-                    *namespace == "Flocq" || namespace.starts_with("Flocq.")
-                }))
-                || (words.first() == Some(&"Require")
-                    && words
-                        .iter()
-                        .skip(1)
-                        .any(|module| module.starts_with("Flocq.")))
-            {
+            if command_imports_flocq(&words) {
                 return Ok(true);
             }
         }
@@ -362,9 +373,16 @@ impl KernelReplayEvidence {
 /// the witnessed source, log and object bytes (re-hashed through
 /// `validate_kernel_witness`, which also gives the proof object digest the
 /// evidence records), a compilation order equal to the dependency order of the
-/// closure, a Flocq object list present exactly when a source imports Flocq
-/// and equal to the pinned manifest of the producer's switch, and retained compile, kernel and assumption logs equal to the output of the
+/// closure, a Flocq object list present exactly when a source imports Flocq,
+/// and retained compile, kernel and assumption logs equal to the output of the
 /// matching commands.
+///
+/// A non-empty Flocq list must also equal [`PINNED_FLOCQ_MANIFEST`]. The
+/// manifest identifies one build of the opam export: a hosted runner that
+/// built the same export produced different Flocq object bytes (measured;
+/// first difference at `Calc/Bracket.vo`), so evidence from another build of
+/// the switch is rejected here. The comparison applies to a new event key at
+/// admission; a stored envelope keeps the contract it was admitted under.
 pub(super) fn ingest(
     roots: EvidenceRoots<'_>,
     witness: &TheoremKernelWitness,
@@ -504,6 +522,37 @@ mod tests {
             "{:#}",
             compare_flocq_objects(recorded, manifest).expect_err("the lists differ")
         )
+    }
+
+    #[test]
+    fn flocq_imports_are_found_behind_command_prefixes() {
+        for (command, expected) in [
+            ("From Flocq Require Import Core", true),
+            ("From Flocq.Core Require Import Raux", true),
+            ("Require Import Flocq.Core.Core", true),
+            ("Time From Flocq Require Import Core", true),
+            ("#[warnings(\"-w\")] From Flocq Require Import Core", true),
+            ("Time Require Import Flocq.Core.Core", true),
+            ("From Stdlib Require Import List", false),
+            ("Require Import Stdlib.Reals.Reals", false),
+            ("Definition Flocq_unrelated := 0", false),
+            ("Require", false),
+        ] {
+            let words = command.split_whitespace().collect::<Vec<_>>();
+            assert_eq!(command_imports_flocq(&words), expected, "{command}");
+        }
+    }
+
+    #[test]
+    fn a_malformed_digest_is_rejected_at_its_path() {
+        let mut objects = fixture_objects();
+        let index = objects.len() / 2;
+        objects[index].sha256 = "Z".repeat(64);
+        let text = format!(
+            "{:#}",
+            validate_flocq_objects(&objects).expect_err("digest is malformed")
+        );
+        assert!(text.contains(&objects[index].path), "{text}");
     }
 
     #[test]
