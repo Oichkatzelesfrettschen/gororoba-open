@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "switch": "rocq-9.3",
+  "packages": {
+    "coq-flocq": "4.2.2",
+    "rocq-core": "9.3.0"
+  },
+  "flocq_objects": [
+    {
+      "path": "external/Flocq/Calc/Bracket.vo",
+      "sha256": "1367bb96aa041ce6e7affc189219dc06d0322bc4d0750c1ec924af8f76e783f0"
+    },
+    {
+      "path": "external/Flocq/Calc/Div.vo",
+      "sha256": "989d7ba67e73be5c51499c07a70ae9883e9822a0b134114c80e411dec717de69"
+    },
+    {
+      "path": "external/Flocq/Calc/Operations.vo",
+      "sha256": "ee2ea2b42b39849fd1df5226d9efb5a0baaac2adab0294cb7eeaaadbcf4989f9"
+    },
+    {
+      "path": "external/Flocq/Calc/Plus.vo",
+      "sha256": "5afdeaba1022ac400d0c85143257c2aa7a25157b27e8a5dc68bf051aa57c204d"
+    },
+    {
+      "path": "external/Flocq/Calc/Round.vo",
+      "sha256": "b3a94f3b7c14364228f1de69f0b1750a9db4acbc13926a2415698cf08b4ef070"
+    },
+    {
+      "path": "external/Flocq/Calc/Sqrt.vo",
+      "sha256": "c0c9109b154926541b3290bacd751263f56546bc3a398c23583867089986fb3d"
+    },
+    {
+      "path": "external/Flocq/Core/Core.vo",
+      "sha256": "a62ba75f11ec9a773dbd7d3eac602aef719ebe7525c55ea6d6aff21981a3cfbc"
+    },
+    {
+      "path": "external/Flocq/Core/Defs.vo",
+      "sha256": "78098dae678c7331dbf4b5ace25a18c1ad43e833430d27d5cf44a691f2e2f0a5"
+    },
+    {
+      "path": "external/Flocq/Core/Digits.vo",
+      "sha256": "69eaef4168cea73ea20ac16e60ec6b199a13386786b6cc2006e5f0ee96abedbf"
+    },
+    {
+      "path": "external/Flocq/Core/FIX.vo",
+      "sha256": "c51ea69af9fdd940c968d51685d2c352d800027ea4287b941936fe0d2e2e340c"
+    },
+    {
+      "path": "external/Flocq/Core/FLT.vo",
+      "sha256": "14633bbb90b59d2cec138f0e326e8c9e4c765e085b992e95e0068cefc9fee096"
+    },
+    {
+      "path": "external/Flocq/Core/FLX.vo",
+      "sha256": "1d8251a976a90a904faac364fd92b18fd2960ad50eed1f35d1194b6c648856c1"
+    },
+    {
+      "path": "external/Flocq/Core/FTZ.vo",
+      "sha256": "a46d6880e65614efbbf8fca40b3ac5372d8be59e2cc349b9be18dc99f2f6d3c1"
+    },
+    {
+      "path": "external/Flocq/Core/Float_prop.vo",
+      "sha256": "87622850e07344c5d35e8e8d74eeb8592cc35a7fd893c8d8974bf6059623c9ee"
+    },
+    {
+      "path": "external/Flocq/Core/Generic_fmt.vo",
+      "sha256": "33d4dbc3ad9e29bc1bfa9983a5b4b1a04ac7ca3bdc05659e3e9f2497be459562"
+    },
+    {
+      "path": "external/Flocq/Core/Raux.vo",
+      "sha256": "2a6d9f651c26cd9921b81d3ee6e727c648c304922fd2a0d8d7a1bdbf13526ecd"
+    },
+    {
+      "path": "external/Flocq/Core/Round_NE.vo",
+      "sha256": "026fe9d55ed7c86bb020c1f1d938b9d24089af2468c5e1224b9518ebc986a64c"
+    },
+    {
+      "path": "external/Flocq/Core/Round_pred.vo",
+      "sha256": "0b64513df25a37980b80d762500c5087728488ef3837a90edd4a12e02f52864c"
+    },
+    {
+      "path": "external/Flocq/Core/Ulp.vo",
+      "sha256": "54983505c6646b305037c6452755f8f372eb5bdcf02757401a452633c261142f"
+    },
+    {
+      "path": "external/Flocq/Core/Zaux.vo",
+      "sha256": "0ea141f8f840982d9473fd7fb0803129be62a4ac96bc597b82e59c6a00032d2d"
+    },
+    {
+      "path": "external/Flocq/IEEE754/Binary.vo",
+      "sha256": "97b725e27c1145cc726991ec710914c8966f79ab50a4ccb3c918bf9a3548ee6a"
+    },
+    {
+      "path": "external/Flocq/IEEE754/BinarySingleNaN.vo",
+      "sha256": "e4b89c1d0997a7cd61b062472bc97ca4acc3ccf35547f159fbe660947c1a9957"
+    },
+    {
+      "path": "external/Flocq/IEEE754/Bits.vo",
+      "sha256": "1bf097713aa5e79e05f67857d6cdbc59dacb77c7194c0aae45e546bc387eb1e1"
+    },
+    {
+      "path": "external/Flocq/IEEE754/PrimFloat.vo",
+      "sha256": "2a805b104ea1fbc99f18e5e56098ce8116a3cf8ea697695ab1203e0d4759b823"
+    },
+    {
+      "path": "external/Flocq/Pff/Pff.vo",
+      "sha256": "36940d6bd234eb1d7ddc443ad1d6811f01d8903c12986bf615c851eacfd713fc"
+    },
+    {
+      "path": "external/Flocq/Pff/Pff2Flocq.vo",
+      "sha256": "fc1a60364e4fca4f10629db1c3e6090e1de3029f3213e75e3e752a77ac2d94c2"
+    },
+    {
+      "path": "external/Flocq/Pff/Pff2FlocqAux.vo",
+      "sha256": "4349b09ee5c8097a3dc4ebfca1885182efa17fe2f2f50c2502dbe20bd61ce734"
+    },
+    {
+      "path": "external/Flocq/Prop/Div_sqrt_error.vo",
+      "sha256": "8fde6d74b65a4fd8cdff9a62092ae9a0d872c1b9b37d60599f5eecac501beade"
+    },
+    {
+      "path": "external/Flocq/Prop/Double_rounding.vo",
+      "sha256": "392b15fcde33d0276a50fedd5f9c7d3f7a188f8cd58828494d3cea125f21d261"
+    },
+    {
+      "path": "external/Flocq/Prop/Mult_error.vo",
+      "sha256": "48c5cf8dc575b8712dcc98163f39ed31ccc6917ac1873fa797e0ff883d213161"
+    },
+    {
+      "path": "external/Flocq/Prop/Plus_error.vo",
+      "sha256": "913d0d4d35df3f4374ea5d9827fd39a42b57e0770593c469533fc73252633fd6"
+    },
+    {
+      "path": "external/Flocq/Prop/Relative.vo",
+      "sha256": "192534d1015a781c3754cb5273943a1fc4162636d9be2ebde52f4dccfc901f0d"
+    },
+    {
+      "path": "external/Flocq/Prop/Round_odd.vo",
+      "sha256": "443a51ffc8c08618e3543a182819683c9683b883a2b9684968f5aae0e3211a3f"
+    },
+    {
+      "path": "external/Flocq/Prop/Sterbenz.vo",
+      "sha256": "343b07eb11e2b61a43db52a2a1bf64911cba9ebafe5f4d82017951ae17937333"
+    },
+    {
+      "path": "external/Flocq/Version.vo",
+      "sha256": "5df2ae419e1e6cb011d0f9b25aeef1895a997a8bc80b41c29c2f647da18f7a7e"
+    }
+  ]
+}

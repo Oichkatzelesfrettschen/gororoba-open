@@ -1690,6 +1690,62 @@ mod tests {
     }
 
     #[test]
+    fn producer_evidence_flocq_objects_must_equal_the_pinned_manifest() -> Result<()> {
+        for (case, needle) in [
+            ("changed digest", "differs from the pinned manifest"),
+            ("removed object", "absent from the Flocq replay"),
+            ("added object", "absent from the pinned manifest"),
+        ] {
+            let mut fixture = Fixture::new()?;
+            let source = fixture.tree.root().join("verified/C900_Test.v");
+            let original = fs::read_to_string(&source)?;
+            fs::write(
+                &source,
+                format!("From Flocq Require Import Core.\n{original}"),
+            )?;
+            fixture.sync("flocq-manifest-prestate")?;
+            fixture.install_producer_outputs(true)?;
+            let mut spec = fixture.witness()?;
+            spec.witness.warning_policy = "fatal_default".to_owned();
+            spec.witness.compile_command = spec.witness.compile_command.replace("+all", "+default");
+            let mut evidence: serde_json::Value = serde_json::from_str(FLOCQ_EVIDENCE)?;
+            evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+            let mut objects = evidence["flocq_objects"]
+                .as_array()
+                .cloned()
+                .context("flocq fixture lists objects")?;
+            let path = match case {
+                "changed digest" => {
+                    objects[3]["sha256"] = "0".repeat(64).into();
+                    objects[3]["path"].as_str().unwrap_or_default().to_owned()
+                }
+                "removed object" => objects.remove(3)["path"]
+                    .as_str()
+                    .unwrap_or_default()
+                    .to_owned(),
+                _ => {
+                    let path = "external/Flocq/Core/Zzz_extra.vo".to_owned();
+                    objects.push(serde_json::json!({"path": path, "sha256": "1".repeat(64)}));
+                    objects
+                        .sort_by(|left, right| left["path"].as_str().cmp(&right["path"].as_str()));
+                    path
+                }
+            };
+            evidence["flocq_objects"] = objects.into();
+            let evidence = serde_json::to_string(&evidence)?;
+            let before = fixture.events()?;
+            let error = fixture.record_with(&spec, Some(&evidence)).unwrap_err();
+            let text = format!("{error:#}");
+            assert!(
+                text.contains(needle) && text.contains(&path),
+                "{case}: {text}"
+            );
+            assert_eq!(fixture.events()?, before, "{case}");
+        }
+        Ok(())
+    }
+
+    #[test]
     fn retained_replay_accepts_supported_matching_toolchains() -> Result<()> {
         let fixture = Fixture::new()?;
         let current_witness = fixture.witness()?.witness;

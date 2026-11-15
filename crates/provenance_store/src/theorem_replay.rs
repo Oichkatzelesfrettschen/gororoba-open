@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 use super::{EvidenceRoots, ProofFileDigest, TheoremKernelWitness};
 
 const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
+
+/// The Flocq object list of the opam switch that runs the replay producer.
+/// The bytes equal `ci/flocq-manifest.json` of gororoba-math, whose sha256 is
+/// `4f881f92f000f60bfb3be28b8a8dbf8d55ad240702e02442bd5c8d52a2c5f903`, at
+/// commit `ecf95ce5f1a11a9d20d79adea802e443dfd25e4a`. A replay that lists
+/// Flocq objects admits only this list.
+const PINNED_FLOCQ_MANIFEST: &str = include_str!("../fixtures/flocq_manifest/rocq-9.3.json");
 const RETAINED_TOOLCHAINS: [&str; 3] = [
     "Rocq 9.1.1; OCaml 5.4.0",
     "Rocq 9.2; OCaml 5.5.0",
@@ -75,13 +82,102 @@ pub(super) struct KernelReplayEvidence {
     sources: Vec<ProofFileDigest>,
     proof_object_sha256: String,
     /// Flocq object digests as the producer reports them. The repository holds
-    /// no Flocq object bytes, so ingest checks each digest's form and records
-    /// the list verbatim; no digest is compared with a file.
+    /// no Flocq object bytes, so ingest checks each digest's form, requires the
+    /// list to equal [`PINNED_FLOCQ_MANIFEST`] and records it verbatim.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     flocq_objects: Vec<ProofFileDigest>,
     compilation: Vec<CommandEvidence>,
     checker: CommandEvidence,
     assumptions: CommandEvidence,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct FlocqManifest {
+    schema_version: u32,
+    switch: String,
+    packages: BTreeMap<String, String>,
+    flocq_objects: Vec<ProofFileDigest>,
+}
+
+fn pinned_flocq_manifest() -> Result<FlocqManifest> {
+    let manifest: FlocqManifest =
+        serde_json::from_str(PINNED_FLOCQ_MANIFEST).context("parse pinned Flocq manifest")?;
+    ensure!(
+        manifest.schema_version == 1
+            && !manifest.switch.is_empty()
+            && !manifest.packages.is_empty(),
+        "unsupported pinned Flocq manifest identity"
+    );
+    validate_flocq_objects(&manifest.flocq_objects)?;
+    Ok(manifest)
+}
+
+/// Checks a Flocq object list for its core object, sorted unique `.vo` paths
+/// below `external/Flocq/` and lowercase hexadecimal digests.
+fn validate_flocq_objects(objects: &[ProofFileDigest]) -> Result<()> {
+    ensure!(
+        objects
+            .iter()
+            .any(|object| object.path == "external/Flocq/Core/Core.vo"),
+        "Flocq replay lacks its core object"
+    );
+    let mut previous = "";
+    for object in objects {
+        let relative = object
+            .path
+            .strip_prefix("external/Flocq/")
+            .context("invalid Flocq replay object root")?;
+        ensure!(
+            object.path.as_str() > previous
+                && relative.ends_with(".vo")
+                && Path::new(relative)
+                    .components()
+                    .all(|component| matches!(component, std::path::Component::Normal(_))),
+            "invalid or repeated Flocq replay object path"
+        );
+        ensure!(
+            object.sha256.len() == 64
+                && object
+                    .sha256
+                    .bytes()
+                    .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
+            "invalid Flocq object digest"
+        );
+        previous = &object.path;
+    }
+    Ok(())
+}
+
+/// Requires two sorted object lists to be equal, and names the first path at
+/// which they differ: a changed digest, an object the manifest lacks, or a
+/// manifest object the replay lacks.
+fn compare_flocq_objects(recorded: &[ProofFileDigest], manifest: &[ProofFileDigest]) -> Result<()> {
+    for index in 0..recorded.len().max(manifest.len()) {
+        match (recorded.get(index), manifest.get(index)) {
+            (Some(object), Some(pinned)) if object.path == pinned.path => ensure!(
+                object.sha256 == pinned.sha256,
+                "Flocq replay object {} differs from the pinned manifest: digest {} against {}",
+                object.path,
+                object.sha256,
+                pinned.sha256
+            ),
+            (Some(object), Some(pinned)) if object.path < pinned.path => anyhow::bail!(
+                "Flocq replay object {} is absent from the pinned manifest",
+                object.path
+            ),
+            (Some(object), None) => anyhow::bail!(
+                "Flocq replay object {} is absent from the pinned manifest",
+                object.path
+            ),
+            (_, Some(pinned)) => anyhow::bail!(
+                "pinned manifest object {} is absent from the Flocq replay",
+                pinned.path
+            ),
+            (None, None) => unreachable!("the index is below the longer list length"),
+        }
+    }
+    Ok(())
 }
 
 fn relative_source(path: &str) -> Result<&str> {
@@ -202,39 +298,7 @@ impl KernelReplayEvidence {
         let mut compiled = BTreeSet::new();
         let flocq = !self.flocq_objects.is_empty();
         if flocq {
-            ensure!(
-                self.flocq_objects
-                    .iter()
-                    .any(|object| object.path == "external/Flocq/Core/Core.vo"),
-                "Flocq replay lacks its core object"
-            );
-            let mut previous = "";
-            for object in &self.flocq_objects {
-                let relative = object
-                    .path
-                    .strip_prefix("external/Flocq/")
-                    .context("invalid Flocq replay object root")?;
-                ensure!(
-                    object.path.as_str() > previous
-                        && relative.ends_with(".vo")
-                        && Path::new(relative)
-                            .components()
-                            .all(|component| matches!(component, std::path::Component::Normal(_))),
-                    "invalid or repeated Flocq replay object path"
-                );
-                // The digest is checked for its form (64 lowercase hexadecimal
-                // characters) and recorded as the producer reports it; this
-                // repository holds no Flocq object bytes to compare it with.
-                ensure!(
-                    object.sha256.len() == 64
-                        && object
-                            .sha256
-                            .bytes()
-                            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
-                    "invalid Flocq object digest"
-                );
-                previous = &object.path;
-            }
+            validate_flocq_objects(&self.flocq_objects)?;
         }
         for command in &self.compilation {
             let source = command
@@ -298,8 +362,8 @@ impl KernelReplayEvidence {
 /// the witnessed source, log and object bytes (re-hashed through
 /// `validate_kernel_witness`, which also gives the proof object digest the
 /// evidence records), a compilation order equal to the dependency order of the
-/// closure, a Flocq object list present exactly when a source imports Flocq,
-/// and retained compile, kernel and assumption logs equal to the output of the
+/// closure, a Flocq object list present exactly when a source imports Flocq
+/// and equal to the pinned manifest of the producer's switch, and retained compile, kernel and assumption logs equal to the output of the
 /// matching commands.
 pub(super) fn ingest(
     roots: EvidenceRoots<'_>,
@@ -348,6 +412,12 @@ pub(super) fn ingest(
         uses_flocq(roots, witness)? == !evidence.flocq_objects.is_empty(),
         "Flocq replay objects disagree with the witnessed sources"
     );
+    if !evidence.flocq_objects.is_empty() {
+        compare_flocq_objects(
+            &evidence.flocq_objects,
+            &pinned_flocq_manifest()?.flocq_objects,
+        )?;
+    }
     let target = ordered
         .iter()
         .position(|source| *source == witness.proof_path)
@@ -413,4 +483,106 @@ pub(super) fn fixture_evidence(witness: &TheoremKernelWitness) -> Result<KernelR
             stdout,
         ),
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const FLOCQ_EVIDENCE: &str =
+        include_str!("../fixtures/kernel_replay/flocq/C900_Test.evidence.json");
+
+    fn fixture_objects() -> Vec<ProofFileDigest> {
+        let evidence: serde_json::Value =
+            serde_json::from_str(FLOCQ_EVIDENCE).expect("flocq fixture evidence parses");
+        serde_json::from_value(evidence["flocq_objects"].clone())
+            .expect("flocq fixture lists objects")
+    }
+
+    fn message(recorded: &[ProofFileDigest], manifest: &[ProofFileDigest]) -> String {
+        format!(
+            "{:#}",
+            compare_flocq_objects(recorded, manifest).expect_err("the lists differ")
+        )
+    }
+
+    #[test]
+    fn pinned_manifest_is_well_formed_and_names_the_producer_switch() -> Result<()> {
+        let manifest = pinned_flocq_manifest()?;
+        assert_eq!(manifest.switch, "rocq-9.3");
+        assert_eq!(
+            manifest
+                .packages
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>(),
+            ["coq-flocq", "rocq-core"]
+        );
+        assert!(manifest.flocq_objects.len() > 1);
+        Ok(())
+    }
+
+    #[test]
+    fn the_flocq_fixture_evidence_equals_the_pinned_manifest() -> Result<()> {
+        compare_flocq_objects(&fixture_objects(), &pinned_flocq_manifest()?.flocq_objects)
+    }
+
+    #[test]
+    fn a_changed_digest_is_rejected_at_its_path() -> Result<()> {
+        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let mut recorded = fixture_objects();
+        let index = recorded.len() / 2;
+        let flipped = if recorded[index].sha256.starts_with('0') {
+            '1'
+        } else {
+            '0'
+        };
+        recorded[index]
+            .sha256
+            .replace_range(..1, &flipped.to_string());
+        let text = message(&recorded, &manifest);
+        assert!(text.contains(&recorded[index].path), "{text}");
+        assert!(text.contains("differs from the pinned manifest"), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn a_removed_object_is_rejected_at_its_path() -> Result<()> {
+        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let mut recorded = fixture_objects();
+        let removed = recorded.remove(recorded.len() / 2);
+        let text = message(&recorded, &manifest);
+        assert!(text.contains(&removed.path), "{text}");
+        assert!(text.contains("absent from the Flocq replay"), "{text}");
+        let mut last = fixture_objects();
+        let dropped = last.pop().context("fixture lists objects")?;
+        let text = message(&last, &manifest);
+        assert!(text.contains(&dropped.path), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn an_added_object_is_rejected_at_its_path() -> Result<()> {
+        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let mut recorded = fixture_objects();
+        let added = ProofFileDigest {
+            path: "external/Flocq/Core/Extra.vo".to_owned(),
+            sha256: "0".repeat(64),
+        };
+        recorded.push(added.clone());
+        recorded.sort_by(|left, right| left.path.cmp(&right.path));
+        validate_flocq_objects(&recorded)?;
+        let text = message(&recorded, &manifest);
+        assert!(text.contains(&added.path), "{text}");
+        assert!(text.contains("absent from the pinned manifest"), "{text}");
+        let mut trailing = fixture_objects();
+        let last = ProofFileDigest {
+            path: "external/Flocq/Zzz.vo".to_owned(),
+            sha256: "1".repeat(64),
+        };
+        trailing.push(last.clone());
+        let text = message(&trailing, &manifest);
+        assert!(text.contains(&last.path), "{text}");
+        Ok(())
+    }
 }
