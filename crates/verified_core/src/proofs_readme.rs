@@ -6,23 +6,27 @@
 //! the PDF cannot desynchronize from the prover.
 //!
 //! ```
-//! Rocq .v sources
+//! gororoba-math rocq/open: Rocq .v sources
 //!     |
 //!     v
-//! rocq compile -> .vo (kernel-checked proof objects)
+//! sh ci/check_rocq.sh: compile -> .vo, kernel check, axiom ledger
 //!     |
-//!     +-> Extraction -> OCaml functor -> golden file diff
+//!     +-> ci/kernel_replay_evidence.py -> replay evidence file
 //!     |                                     |
-//!     |                                     v (manual translation)
-//!     |                                 verified_core/ (Rust crate)
+//!     |                                     v (gororoba-db theorem identity
+//!     |                                        record-kernel-evidence)
+//!     |                               provenance_store theorem_replay::ingest
 //!     |                                     |
 //!     |                                     v
-//!     |                                 cross_validate.rs (FFI Oracle)
+//!     |                               kernel receipt in the registry
 //!     |
-//!     +-> rocq doc --html (browsable documentation)
-//!     +-> collect_metrics.sh -> compile_times.csv + summary.csv (PGFPlots)
-//!     +-> dep_graph.sh + dot2tex -> dep_graph.tikz (paper figure)
-//!     +-> catchfilebetweentags -> source-anchored code in LaTeX
+//!     +-> Extraction -> OCaml functor -> golden file diff
+//!                                         |
+//!                                         v (manual translation)
+//!                                     verified_core/ (Rust crate)
+//!                                         |
+//!                                         v
+//!                                     cross_validate.rs (FFI Oracle)
 //! ```
 //!
 //! ## Where The Pipeline Runs
@@ -36,9 +40,12 @@
 //!
 //! gororoba-open ingests the result as a replay evidence file that
 //! `ci/kernel_replay_evidence.py` in gororoba-math writes, through
-//! `gororoba-db theorem identity record-kernel-evidence`. The metrics, the
-//! dependency-graph figures and the `rocq doc` output named in the diagram
-//! above have no target in this repository.
+//! `gororoba-db theorem identity record-kernel-evidence`. When a proof source
+//! imports Flocq, ingest requires the evidence file's Flocq object list to
+//! equal `crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`, the
+//! copy of `ci/flocq-manifest.json` in gororoba-math that names the objects
+//! of the producer's opam switch. This repository has no target for proof
+//! metrics, dependency-graph figures or `rocq doc` output.
 //!
 //! ## Trust Boundary
 //!
@@ -84,16 +91,16 @@
 //!
 //! ## Opam Environment
 //!
-//! - Switch: `rocq-9.2`
-//! - Rocq: 9.2.0 (OCaml 5.5.0)
-//! - No external Rocq dependencies (stdlib only)
-//! - Backup: `opam switch export rocq-9.2-backup.export`
+//! - Switch: `rocq-9.3`, built by `ci/install_rocq.sh` in gororoba-math
+//! - Rocq: 9.3.0 (OCaml 5.5.1)
+//! - External Rocq dependencies: Flocq 4.2.2 (`coq-flocq`) and the plugin
+//!   ports that `rocq/open/README.md` in gororoba-math lists
 //!
 //! ## Tool Versions
 //!
 //! | Tool | Version | Purpose |
 //! |------|---------|---------|
-//! | rocq | 9.2.0 | Proof compiler |
+//! | rocq | 9.3.0 | Proof compiler (gororoba-math) |
 //! | latexmk | system | LaTeX build |
 //! | dot2tex | 2.11.3 | DOT -> TikZ |
 //! | pygmentize | 2.19.2 | Syntax highlighting (minted) |
