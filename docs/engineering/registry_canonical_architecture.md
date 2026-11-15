@@ -361,10 +361,15 @@ logs byte for byte to the matching command output, and checks the argument
 vectors and the compilation order. It trusts the producer
 (gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
 process attestation exists, so a file with the right bytes and an invented
-transcript is accepted. Admission requires the Flocq object
-digests to equal the committed copy of the gororoba-math Flocq manifest
-(`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`); this
-repository holds no Flocq object bytes. Private
+transcript is accepted. Admission of a new event key requires the Flocq
+object digests to equal the committed copy of the gororoba-math Flocq
+manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`);
+a stored envelope keeps the contract it was admitted under, and this
+repository holds no Flocq object bytes. The manifest identifies one build of
+the opam export: a hosted runner that built the same export produced
+different Flocq object bytes (measured; first difference at
+`Calc/Bracket.vo`), so evidence from another build of the switch is
+rejected. Private
 synthetic fixtures test state transitions, and a committed evidence file that
 the gororoba-math producer wrote for the synthetic fixture tree exercises the
 public admission method without Rocq.
@@ -570,14 +575,19 @@ attestation is accepted.
 - Receipts recorded before the attestation exists stay valid history; the
   requirement applies to a new event key, by schema version.
 - A key or secret value is stored in no checkout.
+- Flocq object bytes are build-specific (measured, hosted runner against the
+  build host, first difference at `Calc/Bracket.vo`), so a hosted producer
+  run (Designs A and C) needs the manifest of the switch it runs under,
+  cached with that switch, and Design C's byte-for-byte comparison of
+  evidence files holds only between runs on one switch build.
 
 ### Design A: detached Ed25519 signature by a hosted producer run
 
 - Producer: a `workflow_dispatch` workflow of gororoba-math runs
   `ci/kernel_replay_evidence.py` for one proof source on a hosted runner under
-  the cached opam switch, then signs the canonical bytes of
-  `STEM.evidence.json` with an Ed25519 key held as an Actions secret of that
-  repository. It uploads the evidence file, the three logs, the proof object
+  the cached opam switch, then signs a statement that binds the canonical
+  bytes of `STEM.evidence.json` by digest, with an Ed25519 key held as an
+  Actions secret of that repository. It uploads the evidence file, the three logs, the proof object
   and `STEM.evidence.sig` as one artifact.
 - Signed statement: the 32-byte sha256 of the evidence file, prefixed by a
   fixed domain string (`gororoba-kernel-replay-evidence-v2\n`), the
@@ -618,7 +628,9 @@ attestation is accepted.
   run in its hermetic gate.
 - What it establishes, when fully verified: GitHub attests that the named
   workflow at the named commit produced these bytes. That is a stronger
-  statement than Design A, since no party holds a reusable key.
+  statement than Design A, since no party holds a reusable key; a workflow
+  that a branch edit changes can still produce arbitrary bytes, so the
+  statement covers the workflow identity and not the Rocq run inside it.
 - Cost: full verification is a large dependency (`sigstore` crate, trust
   root updates) or an on-demand check outside the admission gate; with only
   the digest binding in the gate, a forged bundle passes the gate and fails
@@ -633,10 +645,11 @@ attestation is accepted.
   vectors, scratch directory, no absolute path in any output), so equality is
   expected; a first measurement of two runs on different hosts decides
   whether it holds.
-- It needs no key and no new dependency, and it catches an invented
-  transcript, because a real run produces different bytes. It moves the
-  check from admission time to a hosted lane, so a receipt is admitted
-  first and confirmed later.
+- It needs no key and no new dependency, and it catches a transcript that
+  differs from the output of a real run. A hand-written file equal to that
+  deterministic output passes, so Design C confirms the content of a receipt
+  and attests no process. It moves the check from admission time to a hosted
+  lane, so a receipt is admitted first and confirmed later.
 
 ### Recommendation
 
@@ -653,4 +666,6 @@ verification is small enough to audit.
 - Whether admission pins the attested commit to `ci/gororoba_math.pin`
   exactly or accepts any commit that leaves the bound source bytes unchanged
   (the rule the gororoba-quantum pin follows).
+- Which date admission compares with the accepted dates of a key: the
+  receipt's `applied_at` or a signing time recorded in the attestation.
 - Whether existing version 2 receipts are re-attested or left as recorded.

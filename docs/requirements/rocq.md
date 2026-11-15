@@ -25,8 +25,12 @@ Notes:
   vectors and the compilation order of the evidence file. It trusts the
   producer for the fact that Rocq ran; no process attestation exists.
 - Flocq object digests must equal the committed copy of the gororoba-math
-  Flocq manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`);
-  this repository holds no Flocq object bytes.
+  Flocq manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`)
+  when a new event key is admitted; this repository holds no Flocq object
+  bytes. The manifest identifies one build of the opam export: a hosted runner
+  that built the same export produced different Flocq object bytes (measured;
+  first difference at `Calc/Bracket.vo`), so evidence from another build of
+  the switch is rejected.
 - The statement inventories under `curated/01_theory_frameworks/`
   (`ConfineModel.v` and `confine_theorems_512.v`, `confine_theorems_1024.v`,
   `confine_theorems_2048.v`) are statements without proofs here.

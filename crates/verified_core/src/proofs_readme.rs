@@ -26,15 +26,15 @@
 //!                                     verified_core/ (Rust crate)
 //!                                         |
 //!                                         v
-//!                                     cross_validate.rs (FFI Oracle)
+//!                                     cross_validate.rs (Rust cross-check)
 //! ```
 //!
 //! ## Where The Pipeline Runs
 //!
 //! The Rocq proof tree lives in the gororoba-math repository under
 //! `rocq/open`; gororoba-open holds no `proofs/` tree and runs no Rocq. The
-//! toolchain, the proof commands and the `Justfile` targets (`check`,
-//! `extract`, `all`) are described in `rocq/open/README.md` there, and
+//! toolchain and the proof commands are described in `rocq/open/README.md`
+//! there, its `Justfile` names the targets (`check`, `extract`, `all`), and
 //! `sh ci/check_rocq.sh` in gororoba-math compiles and kernel-checks the tree
 //! under Rocq 9.3.0.
 //!
@@ -42,9 +42,11 @@
 //! `ci/kernel_replay_evidence.py` in gororoba-math writes, through
 //! `gororoba-db theorem identity record-kernel-evidence`. When a proof source
 //! imports Flocq, ingest requires the evidence file's Flocq object list to
-//! equal `crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`, the
-//! copy of `ci/flocq-manifest.json` in gororoba-math that names the objects
-//! of the producer's opam switch. This repository has no target for proof
+//! equal the committed copy of `ci/flocq-manifest.json` in gororoba-math,
+//! which names the objects of the producer's opam switch. The manifest
+//! identifies one build of the opam export: a hosted runner that built the
+//! same export produced different Flocq object bytes (measured; first
+//! difference at `Calc/Bracket.vo`). This repository has no target for proof
 //! metrics, dependency-graph figures or `rocq doc` output.
 //!
 //! ## Trust Boundary
@@ -76,7 +78,7 @@
 //! format is incompatible with Rocq/Rust comment syntax. `\inputminted`
 //! provides the same source-anchoring guarantee plus syntax highlighting.
 //!
-//! Tags in use:
+//! Tags in use (Rocq paths are relative to `rocq/open` in gororoba-math):
 //!
 //! | File | Tag | Content |
 //! |------|-----|---------|
