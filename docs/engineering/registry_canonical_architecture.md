@@ -361,8 +361,10 @@ logs byte for byte to the matching command output, and checks the argument
 vectors and the compilation order. It trusts the producer
 (gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
 process attestation exists, so a file with the right bytes and an invented
-transcript is accepted. Flocq object digests are recorded as the producer
-reports them and are compared with no bytes in this repository. Private
+transcript is accepted. Admission requires the Flocq object
+digests to equal the committed copy of the gororoba-math Flocq manifest
+(`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`); this
+repository holds no Flocq object bytes. Private
 synthetic fixtures test state transitions, and a committed evidence file that
 the gororoba-math producer wrote for the synthetic fixture tree exercises the
 public admission method without Rocq.
