@@ -41,12 +41,13 @@
 //! gororoba-open ingests the result as a replay evidence file that
 //! `ci/kernel_replay_evidence.py` in gororoba-math writes, through
 //! `gororoba-db theorem identity record-kernel-evidence`. When a proof source
-//! imports Flocq, ingest requires the evidence file's Flocq object list to
-//! equal the committed copy of `ci/flocq-manifest.json` in gororoba-math,
-//! which names the objects of the producer's opam switch. The manifest
-//! identifies one build of the opam export: a hosted runner that built the
-//! same export produced different Flocq object bytes (measured; first
-//! difference at `Calc/Bracket.vo`). This repository has no target for proof
+//! imports Flocq, ingest requires the evidence file to name its producer in
+//! `flocq_producer` and its Flocq object list to equal that producer's entry
+//! of the committed copy of `ci/flocq-manifest.json` in gororoba-math. The
+//! object bytes depend on the install prefix and the native toolchain of the
+//! producer (measured: a hosted runner that built the same export produced
+//! different Flocq object bytes, first at `Calc/Bracket.vo`), so the manifest
+//! holds one entry per producer. This repository has no target for proof
 //! metrics, dependency-graph figures or `rocq doc` output.
 //!
 //! ## Trust Boundary

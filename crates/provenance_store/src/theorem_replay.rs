@@ -15,14 +15,17 @@ use super::{EvidenceRoots, ProofFileDigest, TheoremKernelWitness};
 
 const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
 
-/// The Flocq object list of the opam switch that runs the replay producer.
-/// The bytes equal `ci/flocq-manifest.json` of gororoba-math, whose sha256 is
-/// `4f881f92f000f60bfb3be28b8a8dbf8d55ad240702e02442bd5c8d52a2c5f903`, at
-/// commit `ecf95ce5f1a11a9d20d79adea802e443dfd25e4a`. A replay that lists
-/// Flocq objects admits only this list. The list identifies one build of the
-/// opam export: a hosted runner that built the same export produced different
-/// Flocq object bytes (measured; first difference at `Calc/Bracket.vo`), so
-/// evidence from another build of the switch is rejected.
+/// The Flocq object lists of the producers of the replay evidence, one entry
+/// per producer. The bytes equal `ci/flocq-manifest.json` of gororoba-math
+/// (schema_version 2), whose sha256 is
+/// `01cbaf6d07f088508defb5d23910a920df06aabeaaedead3044038007f1ced35`, at
+/// commit `adea94cedc67d1b0c3014a153c3ee859a2cd6800`. A `.vo` records the md5
+/// of each OCaml plugin it loads, and those plugin bytes depend on the install
+/// prefix and the native toolchain of the producer (measured: the same opam
+/// export gave different Flocq object bytes on a hosted runner, first at
+/// `Calc/Bracket.vo`). A replay that lists Flocq objects names its producer in
+/// `flocq_producer` and admits only that producer's list, so evidence from a
+/// build of the switch that no entry records is rejected.
 const PINNED_FLOCQ_MANIFEST: &str = include_str!("../fixtures/flocq_manifest/rocq-9.3.json");
 const RETAINED_TOOLCHAINS: [&str; 3] = [
     "Rocq 9.1.1; OCaml 5.4.0",
@@ -86,9 +89,14 @@ pub(super) struct KernelReplayEvidence {
     proof_object_sha256: String,
     /// Flocq object digests as the producer reports them. The repository holds
     /// no Flocq object bytes, so ingest checks each digest's form, requires the
-    /// list to equal [`PINNED_FLOCQ_MANIFEST`] and records it verbatim.
+    /// list to equal the entry of [`PINNED_FLOCQ_MANIFEST`] that
+    /// `flocq_producer` names and records it verbatim.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     flocq_objects: Vec<ProofFileDigest>,
+    /// The manifest entry of the producer whose switch supplied
+    /// `flocq_objects`; present exactly when that list is non-empty.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    flocq_producer: Option<String>,
     compilation: Vec<CommandEvidence>,
     checker: CommandEvidence,
     assumptions: CommandEvidence,
@@ -99,21 +107,102 @@ pub(super) struct KernelReplayEvidence {
 struct FlocqManifest {
     schema_version: u32,
     switch: String,
+    producers: Vec<FlocqProducer>,
+}
+
+/// One producer of the manifest: its name, the toolchain that built its
+/// switch, its package versions and its Flocq object list.
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct FlocqProducer {
+    name: String,
+    toolchain: FlocqToolchain,
     packages: BTreeMap<String, String>,
     flocq_objects: Vec<ProofFileDigest>,
 }
 
+/// The toolchain identity of a producer. The md5 of `ltac_plugin.cmxs` is the
+/// digest every Flocq `.vo` of the producer inherits; the three versions
+/// describe the build.
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct FlocqToolchain {
+    gcc: String,
+    binutils: String,
+    glibc: String,
+    ltac_plugin_md5: String,
+}
+
+fn lowercase_hexadecimal(text: &str, length: usize) -> bool {
+    text.len() == length
+        && text
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+}
+
 fn pinned_flocq_manifest() -> Result<FlocqManifest> {
+    parse_flocq_manifest(PINNED_FLOCQ_MANIFEST)
+}
+
+/// Parses a manifest document and checks its identity: schema version 2, sorted
+/// unique producer names, unique plugin digests and well-formed object lists.
+fn parse_flocq_manifest(text: &str) -> Result<FlocqManifest> {
     let manifest: FlocqManifest =
-        serde_json::from_str(PINNED_FLOCQ_MANIFEST).context("parse pinned Flocq manifest")?;
+        serde_json::from_str(text).context("parse pinned Flocq manifest")?;
     ensure!(
-        manifest.schema_version == 1
+        manifest.schema_version == 2
             && !manifest.switch.is_empty()
-            && !manifest.packages.is_empty(),
+            && !manifest.producers.is_empty(),
         "unsupported pinned Flocq manifest identity"
     );
-    validate_flocq_objects(&manifest.flocq_objects)?;
+    let mut previous = "";
+    let mut plugins = BTreeSet::new();
+    for producer in &manifest.producers {
+        ensure!(
+            producer.name.as_str() > previous
+                && !producer.name.is_empty()
+                && producer.name.bytes().all(|byte| {
+                    byte.is_ascii_lowercase()
+                        || byte.is_ascii_digit()
+                        || byte == b'.'
+                        || byte == b'-'
+                }),
+            "invalid or repeated pinned Flocq producer name {}",
+            producer.name
+        );
+        let toolchain = &producer.toolchain;
+        ensure!(
+            ![&toolchain.gcc, &toolchain.binutils, &toolchain.glibc]
+                .iter()
+                .any(|version| version.is_empty())
+                && lowercase_hexadecimal(&toolchain.ltac_plugin_md5, 32)
+                && plugins.insert(toolchain.ltac_plugin_md5.as_str())
+                && !producer.packages.is_empty(),
+            "invalid toolchain identity of pinned Flocq producer {}",
+            producer.name
+        );
+        validate_flocq_objects(&producer.flocq_objects)?;
+        previous = &producer.name;
+    }
     Ok(manifest)
+}
+
+/// Requires the recorded Flocq objects to equal the pinned entry of the
+/// producer that the evidence names. A missing name, a name no entry carries
+/// and a list that differs from the named entry each reject the evidence.
+fn check_flocq_producer(
+    manifest: &FlocqManifest,
+    producer: Option<&str>,
+    objects: &[ProofFileDigest],
+) -> Result<()> {
+    let name = producer.context("Flocq replay objects lack their flocq_producer")?;
+    let entry = manifest
+        .producers
+        .iter()
+        .find(|entry| entry.name == name)
+        .with_context(|| format!("Flocq producer {name} is not in the pinned manifest"))?;
+    compare_flocq_objects(objects, &entry.flocq_objects)
+        .with_context(|| format!("Flocq producer {name}"))
 }
 
 /// Checks a Flocq object list for its core object, sorted unique `.vo` paths
@@ -140,11 +229,7 @@ fn validate_flocq_objects(objects: &[ProofFileDigest]) -> Result<()> {
             "invalid or repeated Flocq replay object path"
         );
         ensure!(
-            object.sha256.len() == 64
-                && object
-                    .sha256
-                    .bytes()
-                    .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
+            lowercase_hexadecimal(&object.sha256, 64),
             "invalid Flocq object digest for {}",
             object.path
         );
@@ -311,6 +396,10 @@ impl KernelReplayEvidence {
         if flocq {
             validate_flocq_objects(&self.flocq_objects)?;
         }
+        ensure!(
+            flocq || self.flocq_producer.is_none(),
+            "a Flocq producer is named without Flocq replay objects"
+        );
         for command in &self.compilation {
             let source = command
                 .arguments
@@ -377,12 +466,14 @@ impl KernelReplayEvidence {
 /// and retained compile, kernel and assumption logs equal to the output of the
 /// matching commands.
 ///
-/// A non-empty Flocq list must also equal [`PINNED_FLOCQ_MANIFEST`]. The
-/// manifest identifies one build of the opam export: a hosted runner that
-/// built the same export produced different Flocq object bytes (measured;
-/// first difference at `Calc/Bracket.vo`), so evidence from another build of
-/// the switch is rejected here. The comparison applies to a new event key at
-/// admission; a stored envelope keeps the contract it was admitted under.
+/// A non-empty Flocq list must also name its producer in `flocq_producer` and
+/// equal that producer's entry of [`PINNED_FLOCQ_MANIFEST`]. The object bytes
+/// depend on the install prefix and the native toolchain of the producer
+/// (measured: a hosted runner that built the same export produced different
+/// bytes, first at `Calc/Bracket.vo`), so evidence from a build of the switch
+/// that no entry records is rejected here. The comparison applies to a new
+/// event key at admission; a stored envelope keeps the contract it was
+/// admitted under.
 pub(super) fn ingest(
     roots: EvidenceRoots<'_>,
     witness: &TheoremKernelWitness,
@@ -431,9 +522,10 @@ pub(super) fn ingest(
         "Flocq replay objects disagree with the witnessed sources"
     );
     if !evidence.flocq_objects.is_empty() {
-        compare_flocq_objects(
+        check_flocq_producer(
+            &pinned_flocq_manifest()?,
+            evidence.flocq_producer.as_deref(),
             &evidence.flocq_objects,
-            &pinned_flocq_manifest()?.flocq_objects,
         )?;
     }
     let target = ordered
@@ -494,6 +586,7 @@ pub(super) fn fixture_evidence(witness: &TheoremKernelWitness) -> Result<KernelR
         sources: witness.sources.clone(),
         proof_object_sha256: witness.proof_object.sha256.clone(),
         flocq_objects: Vec::new(),
+        flocq_producer: None,
         compilation,
         checker: command(checker_arguments(witness)?, "CONTEXT SUMMARY\n".to_owned()),
         assumptions: command(
@@ -555,30 +648,137 @@ mod tests {
         assert!(text.contains(&objects[index].path), "{text}");
     }
 
+    const PRODUCER_A: &str = "cachyos-gcc-16.2.1";
+    const PRODUCER_B: &str = "ubuntu-26.04-gcc-15.2.0";
+
+    fn producer_objects(name: &str) -> Result<Vec<ProofFileDigest>> {
+        pinned_flocq_manifest()?
+            .producers
+            .into_iter()
+            .find(|producer| producer.name == name)
+            .map(|producer| producer.flocq_objects)
+            .with_context(|| format!("the pinned manifest lacks producer {name}"))
+    }
+
+    fn rejection(producer: Option<&str>, objects: &[ProofFileDigest]) -> Result<String> {
+        let error = check_flocq_producer(&pinned_flocq_manifest()?, producer, objects)
+            .expect_err("the evidence is rejected");
+        Ok(format!("{error:#}"))
+    }
+
     #[test]
-    fn pinned_manifest_is_well_formed_and_names_the_producer_switch() -> Result<()> {
+    fn pinned_manifest_is_well_formed_and_names_both_producers() -> Result<()> {
         let manifest = pinned_flocq_manifest()?;
         assert_eq!(manifest.switch, "rocq-9.3");
         assert_eq!(
             manifest
-                .packages
-                .keys()
-                .map(String::as_str)
+                .producers
+                .iter()
+                .map(|producer| producer.name.as_str())
                 .collect::<Vec<_>>(),
-            ["coq-flocq", "rocq-core"]
+            [PRODUCER_A, PRODUCER_B]
         );
-        assert!(manifest.flocq_objects.len() > 1);
+        for producer in &manifest.producers {
+            assert_eq!(
+                producer
+                    .packages
+                    .keys()
+                    .map(String::as_str)
+                    .collect::<Vec<_>>(),
+                ["coq-flocq", "rocq-core"]
+            );
+            assert!(producer.flocq_objects.len() > 1);
+        }
+        assert_eq!(
+            manifest
+                .producers
+                .iter()
+                .map(|producer| producer.toolchain.ltac_plugin_md5.as_str())
+                .collect::<Vec<_>>(),
+            [
+                "1014006bc3627f54b6f91150cf1d341b",
+                "5a8480da6ef6fbb19e3d4a62ab3c0e6f"
+            ]
+        );
+        let (first, second) = (&manifest.producers[0], &manifest.producers[1]);
+        assert_eq!(first.flocq_objects.len(), second.flocq_objects.len());
+        for (left, right) in first.flocq_objects.iter().zip(&second.flocq_objects) {
+            assert_eq!(left.path, right.path);
+            assert_ne!(left.sha256, right.sha256, "{}", left.path);
+        }
         Ok(())
     }
 
     #[test]
-    fn the_flocq_fixture_evidence_equals_the_pinned_manifest() -> Result<()> {
-        compare_flocq_objects(&fixture_objects(), &pinned_flocq_manifest()?.flocq_objects)
+    fn a_manifest_with_a_shared_plugin_digest_or_old_schema_is_rejected() -> Result<()> {
+        let shared = PINNED_FLOCQ_MANIFEST.replace(
+            "5a8480da6ef6fbb19e3d4a62ab3c0e6f",
+            "1014006bc3627f54b6f91150cf1d341b",
+        );
+        assert!(parse_flocq_manifest(&shared).is_err());
+        let old = PINNED_FLOCQ_MANIFEST.replace("\"schema_version\": 2", "\"schema_version\": 1");
+        assert!(parse_flocq_manifest(&old).is_err());
+        let unsorted = PINNED_FLOCQ_MANIFEST
+            .replace(PRODUCER_A, "zz-first")
+            .replace(PRODUCER_B, PRODUCER_A)
+            .replace("zz-first", PRODUCER_B);
+        assert!(parse_flocq_manifest(&unsorted).is_err());
+        Ok(())
+    }
+
+    #[test]
+    fn the_flocq_fixture_evidence_equals_its_producer_entry() -> Result<()> {
+        let evidence: serde_json::Value = serde_json::from_str(FLOCQ_EVIDENCE)?;
+        assert_eq!(evidence["flocq_producer"], PRODUCER_A);
+        check_flocq_producer(
+            &pinned_flocq_manifest()?,
+            evidence["flocq_producer"].as_str(),
+            &fixture_objects(),
+        )
+    }
+
+    #[test]
+    fn each_recorded_producer_admits_its_own_objects() -> Result<()> {
+        let manifest = pinned_flocq_manifest()?;
+        for producer in &manifest.producers {
+            check_flocq_producer(
+                &manifest,
+                Some(producer.name.as_str()),
+                &producer.flocq_objects,
+            )?;
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn an_unrecorded_producer_is_rejected() -> Result<()> {
+        let text = rejection(Some("fedora-44-gcc-16.1.0"), &producer_objects(PRODUCER_A)?)?;
+        assert!(text.contains("fedora-44-gcc-16.1.0"), "{text}");
+        assert!(text.contains("not in the pinned manifest"), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn a_missing_producer_name_is_rejected() -> Result<()> {
+        let text = rejection(None, &producer_objects(PRODUCER_A)?)?;
+        assert!(text.contains("lack their flocq_producer"), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn one_producers_digests_under_another_producers_name_are_rejected() -> Result<()> {
+        for (digests, name) in [(PRODUCER_A, PRODUCER_B), (PRODUCER_B, PRODUCER_A)] {
+            let text = rejection(Some(name), &producer_objects(digests)?)?;
+            assert!(text.contains(name), "{text}");
+            assert!(text.contains("external/Flocq/Calc/Bracket.vo"), "{text}");
+            assert!(text.contains("differs from the pinned manifest"), "{text}");
+        }
+        Ok(())
     }
 
     #[test]
     fn a_changed_digest_is_rejected_at_its_path() -> Result<()> {
-        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let manifest = producer_objects(PRODUCER_A)?;
         let mut recorded = fixture_objects();
         let index = recorded.len() / 2;
         let flipped = if recorded[index].sha256.starts_with('0') {
@@ -597,7 +797,7 @@ mod tests {
 
     #[test]
     fn a_removed_object_is_rejected_at_its_path() -> Result<()> {
-        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let manifest = producer_objects(PRODUCER_A)?;
         let mut recorded = fixture_objects();
         let removed = recorded.remove(recorded.len() / 2);
         let text = message(&recorded, &manifest);
@@ -612,7 +812,7 @@ mod tests {
 
     #[test]
     fn an_added_object_is_rejected_at_its_path() -> Result<()> {
-        let manifest = pinned_flocq_manifest()?.flocq_objects;
+        let manifest = producer_objects(PRODUCER_A)?;
         let mut recorded = fixture_objects();
         let added = ProofFileDigest {
             path: "external/Flocq/Core/Extra.vo".to_owned(),

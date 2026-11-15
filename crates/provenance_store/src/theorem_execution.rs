@@ -1661,13 +1661,15 @@ mod tests {
             }
             evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
             let fixture_flocq_objects = evidence["flocq_objects"].clone();
+            let fixture_flocq_producer = evidence["flocq_producer"].clone();
             let evidence = serde_json::to_string(&evidence)?;
             if admitted {
                 assert!(!fixture.record_with(&spec, Some(&evidence))?.exact_replay);
                 let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
                 let retained = serde_json::from_str::<serde_json::Value>(&envelope)?;
-                // The retained list is the producer's list verbatim, and ingest
-                // required it to equal the pinned manifest.
+                // The retained list and producer name are the producer's verbatim,
+                // and ingest required the list to equal that producer's entry of
+                // the pinned manifest.
                 assert!(
                     fixture_flocq_objects
                         .as_array()
@@ -1676,6 +1678,10 @@ mod tests {
                 assert_eq!(
                     retained["execution_replay"]["flocq_objects"],
                     fixture_flocq_objects
+                );
+                assert_eq!(
+                    retained["execution_replay"]["flocq_producer"],
+                    fixture_flocq_producer
                 );
             } else {
                 fixture.refuses(
@@ -1742,6 +1748,123 @@ mod tests {
             );
             assert_eq!(fixture.events()?, before, "{case}");
         }
+        Ok(())
+    }
+
+    const PINNED_FLOCQ_MANIFEST: &str = include_str!("../fixtures/flocq_manifest/rocq-9.3.json");
+
+    /// Admits or rejects the Flocq fixture evidence after `change` rewrote its
+    /// producer name and object list; returns the retained envelope when
+    /// admitted, or the error text.
+    fn flocq_evidence_outcome(
+        change: impl FnOnce(&mut serde_json::Value) -> Result<()>,
+    ) -> Result<std::result::Result<serde_json::Value, String>> {
+        let mut fixture = Fixture::new()?;
+        let source = fixture.tree.root().join("verified/C900_Test.v");
+        let original = fs::read_to_string(&source)?;
+        fs::write(
+            &source,
+            format!("From Flocq Require Import Core.\n{original}"),
+        )?;
+        fixture.sync("flocq-producer-prestate")?;
+        fixture.install_producer_outputs(true)?;
+        let mut spec = fixture.witness()?;
+        spec.witness.warning_policy = "fatal_default".to_owned();
+        spec.witness.compile_command = spec.witness.compile_command.replace("+all", "+default");
+        let mut evidence: serde_json::Value = serde_json::from_str(FLOCQ_EVIDENCE)?;
+        evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+        change(&mut evidence)?;
+        let evidence = serde_json::to_string(&evidence)?;
+        match fixture.record_with(&spec, Some(&evidence)) {
+            Ok(_) => {
+                let envelope: String = fixture.store.conn.query_row(
+                    "SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'",
+                    [],
+                    |row| row.get(0),
+                )?;
+                Ok(Ok(serde_json::from_str(&envelope)?))
+            }
+            Err(error) => Ok(Err(format!("{error:#}"))),
+        }
+    }
+
+    fn flocq_rejection(
+        change: impl FnOnce(&mut serde_json::Value) -> Result<()>,
+    ) -> Result<String> {
+        flocq_evidence_outcome(change)?
+            .err()
+            .context("the evidence was admitted")
+    }
+
+    fn manifest_producer(name: &str) -> Result<serde_json::Value> {
+        let manifest: serde_json::Value = serde_json::from_str(PINNED_FLOCQ_MANIFEST)?;
+        manifest["producers"]
+            .as_array()
+            .and_then(|producers| producers.iter().find(|producer| producer["name"] == name))
+            .cloned()
+            .with_context(|| format!("the pinned manifest lacks producer {name}"))
+    }
+
+    #[test]
+    fn producer_evidence_is_admitted_for_each_recorded_producer() -> Result<()> {
+        for name in ["cachyos-gcc-16.2.1", "ubuntu-26.04-gcc-15.2.0"] {
+            let producer = manifest_producer(name)?;
+            let retained = flocq_evidence_outcome(|evidence| {
+                evidence["flocq_producer"] = name.into();
+                evidence["flocq_objects"] = producer["flocq_objects"].clone();
+                Ok(())
+            })?
+            .map_err(|text| anyhow::anyhow!("{name}: {text}"))?;
+            assert_eq!(retained["execution_replay"]["flocq_producer"], name);
+            assert_eq!(
+                retained["execution_replay"]["flocq_objects"],
+                producer["flocq_objects"]
+            );
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn producer_evidence_flocq_producer_must_name_its_manifest_entry() -> Result<()> {
+        let other = manifest_producer("ubuntu-26.04-gcc-15.2.0")?;
+        let text = flocq_rejection(|evidence| {
+            evidence
+                .as_object_mut()
+                .context("evidence is an object")?
+                .remove("flocq_producer");
+            Ok(())
+        })?;
+        assert!(text.contains("lack their flocq_producer"), "{text}");
+        let text = flocq_rejection(|evidence| {
+            evidence["flocq_producer"] = "fedora-44-gcc-16.1.0".into();
+            Ok(())
+        })?;
+        assert!(text.contains("fedora-44-gcc-16.1.0"), "{text}");
+        assert!(text.contains("not in the pinned manifest"), "{text}");
+        // The fixture holds the first producer's digests; the second
+        // producer's name selects the second entry, which they do not equal.
+        let text = flocq_rejection(|evidence| {
+            evidence["flocq_producer"] = other["name"].clone();
+            Ok(())
+        })?;
+        assert!(text.contains("ubuntu-26.04-gcc-15.2.0"), "{text}");
+        assert!(text.contains("external/Flocq/Calc/Bracket.vo"), "{text}");
+        assert!(text.contains("differs from the pinned manifest"), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn a_flocq_producer_without_flocq_objects_is_rejected() -> Result<()> {
+        let fixture = Fixture::new()?;
+        let current_witness = fixture.witness()?.witness;
+        let mut encoded = serde_json::to_value(replay::fixture_evidence(&current_witness)?)?;
+        encoded["flocq_producer"] = "cachyos-gcc-16.2.1".into();
+        let retained: replay::KernelReplayEvidence = serde_json::from_value(encoded)?;
+        let error = retained.validate(&current_witness).unwrap_err();
+        assert!(
+            format!("{error:#}").contains("without Flocq replay objects"),
+            "{error:#}"
+        );
         Ok(())
     }
 

@@ -336,8 +336,8 @@ supplies hashes and historical command descriptions; its `compile_command` and
 and process results in the evidence file are the execution record.
 
 The evidence file has `deny_unknown_fields` and schema version 1: toolchain,
-project hash, source digests, proof object digest, Flocq object digests when a
-source imports Flocq, the compilation of every source in dependency order, the
+project hash, source digests, proof object digest, Flocq object digests and
+the producer that supplied them when a source imports Flocq, the compilation of every source in dependency order, the
 checker run and the assumption query, each with arguments, exit code, stdout
 and stderr. Admission compares the arguments with the fixed argument vectors of
 `theorem_replay.rs` and the two project namespaces. It requires a fatal warning
@@ -361,14 +361,17 @@ logs byte for byte to the matching command output, and checks the argument
 vectors and the compilation order. It trusts the producer
 (gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
 process attestation exists, so a file with the right bytes and an invented
-transcript is accepted. Admission of a new event key requires the Flocq
-object digests to equal the committed copy of the gororoba-math Flocq
+transcript is accepted. Admission of a new event key requires the evidence
+to name its producer in `flocq_producer` and the Flocq object digests to
+equal that producer's entry in the committed copy of the gororoba-math Flocq
 manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`);
 a stored envelope keeps the contract it was admitted under, and this
-repository holds no Flocq object bytes. The manifest identifies one build of
-the opam export: a hosted runner that built the same export produced
-different Flocq object bytes (measured; first difference at
-`Calc/Bracket.vo`), so evidence from another build of the switch is
+repository holds no Flocq object bytes. A `.vo` records the md5 of each
+OCaml plugin it loads, and the plugin bytes depend on the install prefix and
+the native toolchain of the producer (measured: a hosted runner that built the
+same export produced different Flocq object bytes, first at
+`Calc/Bracket.vo`), so the manifest holds one entry per producer and
+evidence that names no entry, an unknown entry or another producer's digests is
 rejected. Private
 synthetic fixtures test state transitions, and a committed evidence file that
 the gororoba-math producer wrote for the synthetic fixture tree exercises the
@@ -575,11 +578,12 @@ attestation is accepted.
 - Receipts recorded before the attestation exists stay valid history; the
   requirement applies to a new event key, by schema version.
 - A key or secret value is stored in no checkout.
-- Flocq object bytes are build-specific (measured, hosted runner against the
-  build host, first difference at `Calc/Bracket.vo`), so a hosted producer
-  run (Designs A and C) needs the manifest of the switch it runs under,
-  cached with that switch, and Design C's byte-for-byte comparison of
-  evidence files holds only between runs on one switch build.
+- Flocq object bytes depend on the install prefix and the native toolchain of
+  the producer (measured, hosted runner against the build host, first
+  difference at `Calc/Bracket.vo`), so a hosted producer run (Designs A and C)
+  needs its own entry in the per-producer manifest, recorded with that
+  switch, and Design C's byte-for-byte comparison of evidence files holds
+  only between runs on one producer.
 
 ### Design A: detached Ed25519 signature by a hosted producer run
 

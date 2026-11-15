@@ -155,6 +155,7 @@
       "sha256": "5df2ae419e1e6cb011d0f9b25aeef1895a997a8bc80b41c29c2f647da18f7a7e"
     }
   ],
+  "flocq_producer": "cachyos-gcc-16.2.1",
   "compilation": [
     {
       "arguments": [
