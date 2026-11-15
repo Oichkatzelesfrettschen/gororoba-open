@@ -74,6 +74,9 @@ pub(super) struct KernelReplayEvidence {
     project_sha256: String,
     sources: Vec<ProofFileDigest>,
     proof_object_sha256: String,
+    /// Flocq object digests as the producer reports them. The repository holds
+    /// no Flocq object bytes, so ingest checks each digest's form and records
+    /// the list verbatim; no digest is compared with a file.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     flocq_objects: Vec<ProofFileDigest>,
     compilation: Vec<CommandEvidence>,
@@ -219,6 +222,9 @@ impl KernelReplayEvidence {
                             .all(|component| matches!(component, std::path::Component::Normal(_))),
                     "invalid or repeated Flocq replay object path"
                 );
+                // The digest is checked for its form (64 lowercase hexadecimal
+                // characters) and recorded as the producer reports it; this
+                // repository holds no Flocq object bytes to compare it with.
                 ensure!(
                     object.sha256.len() == 64
                         && object

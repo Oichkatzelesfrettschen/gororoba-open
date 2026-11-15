@@ -353,11 +353,19 @@ stored envelope and ignores the file.
 Version 2 theorem-event envelopes retain the replay evidence. The canonical
 mutation transaction rechecks file and metadata prestates. Activation and exact
 idempotent replay use pure byte/scope freshness checks and launch zero compiler
-processes. A public caller supplies no verification result; the evidence file
-is parsed and validated inside the admission method. Private synthetic fixtures
-test state transitions, and a committed evidence file that the gororoba-math
-producer wrote for the synthetic fixture tree exercises the public admission
-method without Rocq.
+processes. The evidence file carries the command results: exit codes, standard
+output and standard error of the compilations, the checker and the assumption
+query. The admission method binds the sources, the project file and the proof
+object by digest to the witness and the proof tree, binds the three retained
+logs byte for byte to the matching command output, and checks the argument
+vectors and the compilation order. It trusts the producer
+(gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
+process attestation exists, so a file with the right bytes and an invented
+transcript is accepted. Flocq object digests are recorded as the producer
+reports them and are compared with no bytes in this repository. Private
+synthetic fixtures test state transitions, and a committed evidence file that
+the gororoba-math producer wrote for the synthetic fixture tree exercises the
+public admission method without Rocq.
 
 Version 1 operator-declared events, specifications and raw artifacts remain
 immutable history. Their original token/file correspondence checks provide

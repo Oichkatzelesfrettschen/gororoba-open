@@ -1660,15 +1660,22 @@ mod tests {
                     spec.witness.compile_command.replace("+all", "+default");
             }
             evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+            let fixture_flocq_objects = evidence["flocq_objects"].clone();
             let evidence = serde_json::to_string(&evidence)?;
             if admitted {
                 assert!(!fixture.record_with(&spec, Some(&evidence))?.exact_replay);
                 let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
                 let retained = serde_json::from_str::<serde_json::Value>(&envelope)?;
+                // The retained list is the producer's list verbatim; no digest in
+                // it is compared with bytes here.
                 assert!(
-                    retained["execution_replay"]["flocq_objects"]
+                    fixture_flocq_objects
                         .as_array()
                         .is_some_and(|objects| objects.len() > 1)
+                );
+                assert_eq!(
+                    retained["execution_replay"]["flocq_objects"],
+                    fixture_flocq_objects
                 );
             } else {
                 fixture.refuses(
