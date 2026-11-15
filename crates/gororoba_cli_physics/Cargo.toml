@@ -904,6 +904,10 @@ name = "cd-domain-survey"
 path = "src/bin/cd_domain_survey.rs"
 
 [[bin]]
+name = "cd-precursor-null"
+path = "src/bin/cd_precursor_null.rs"
+
+[[bin]]
 name = "themis-cd-crossing-survey"
 path = "src/bin/themis_cd_crossing_survey.rs"
 

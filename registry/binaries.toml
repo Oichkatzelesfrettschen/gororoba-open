@@ -250,6 +250,11 @@ description = "Deterministic audit for refuted Cayley-Dickson spectrum, shape-ma
 experiment = "E-207"
 
 [[binary]]
+name = "cd-precursor-null"
+crate = "gororoba_cli_physics"
+description = "Workspace executable cd-precursor-null declared by crate gororoba_cli_physics."
+
+[[binary]]
 name = "cd-tower-report"
 crate = "gororoba_cli_algebra"
 description = "Comprehensive CD tower analysis: property retention, psi/eta convergence, ZD geometry, face sign census, imbalance indexs, split-CD, scaling laws"
