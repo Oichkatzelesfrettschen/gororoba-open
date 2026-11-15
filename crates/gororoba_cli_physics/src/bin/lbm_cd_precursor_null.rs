@@ -389,22 +389,12 @@ fn spatial_mean(state: &[f64], cell: usize) -> f64 {
     mean(&batch_sliding_associator_norms_parallel(&vectors, DIM))
 }
 
-/// Ranks 1..n in sorted order; equal values take consecutive ranks in index
-/// order.
-fn ordinal_ranks(x: &[f64]) -> Vec<f64> {
-    let mut order: Vec<usize> = (0..x.len()).collect();
-    order.sort_by(|&a, &b| x[a].total_cmp(&x[b]));
-    let mut out = vec![0.0; x.len()];
-    for (rank, &k) in order.iter().enumerate() {
-        out[k] = rank as f64 + 1.0;
-    }
-    out
-}
-
 /// Area under the ROC curve of `score` for the positive `label`, by the
-/// rank-sum formula.
+/// rank-sum formula. Tied scores share their mean rank, so a tie between a
+/// positive and a negative cell counts one half and the area does not depend
+/// on cell order; the lattice symmetry gives many cells equal scores.
 fn auc(score: &[f64], label: &[bool]) -> f64 {
-    let ranks = ordinal_ranks(score);
+    let ranks = mean_ranks(score);
     let positives = label.iter().filter(|&&l| l).count() as f64;
     let negatives = label.len() as f64 - positives;
     if positives == 0.0 || negatives == 0.0 {
@@ -717,6 +707,13 @@ mod tests {
         assert!((auc(&score, &label) - 1.0).abs() < 1e-12);
         let negated: Vec<f64> = score.iter().map(|s| -s).collect();
         assert!(auc(&negated, &label).abs() < 1e-12);
+    }
+
+    #[test]
+    fn auc_of_tied_scores_is_one_half_in_either_label_order() {
+        let score = [1.0, 1.0, 1.0, 1.0];
+        assert!((auc(&score, &[false, false, true, true]) - 0.5).abs() < 1e-12);
+        assert!((auc(&score, &[true, true, false, false]) - 0.5).abs() < 1e-12);
     }
 
     #[test]

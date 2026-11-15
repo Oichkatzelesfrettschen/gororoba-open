@@ -13,12 +13,16 @@
 //!    normalized by the squared field, and the raw increment energy, each
 //!    summed over 9 increments from index q) at window ends 0, 12, 24, 48 and
 //!    96 rows before the crossing;
-//! 2. the same ratios on the 22 rows after the crossing, each series reversed so
-//!    the ratio reads near six over far six;
+//! 2. the same ratios on the 22 rows that start two rows after the crossing,
+//!    each series reversed so the ratio reads near six over far six. The 12
+//!    values before the crossing read rows i-22 to i-2 (the last row of the
+//!    22 enters no Takens vector and no energy window), so the mirrored
+//!    values read rows i+2 to i+22;
 //! 3. the offset-0 and mirrored ratios on the gap-free, isolated and clustered
 //!    subsets (a cadence gap is a time step above 1.5 times the file's median
-//!    among the 22 rows; isolated means no other analyzed crossing of the file
-//!    within 120 rows);
+//!    among the 22 rows before the crossing or the 22 rows of the mirrored
+//!    window; isolated means no other analyzed crossing of the file within
+//!    120 rows);
 //! 4. the per-lag median of the raw increment energy from 100 rows before to
 //!    100 rows after the event.
 //!
@@ -60,6 +64,9 @@ const CONTROL_SPAN: usize = 400;
 const CONTROL_DRAWS: usize = 40;
 /// A time step above this multiple of the file's median step is a gap.
 const GAP_FACTOR: f64 = 1.5;
+/// Rows between the event and the mirrored window's first row. The values
+/// before the event read rows up to i - 2, so their reflection starts at i + 2.
+const MIRROR_SKIP: usize = 2;
 /// Profile extent in rows around the event.
 const PROFILE_LAG: usize = 100;
 
@@ -558,15 +565,21 @@ fn measure_event(
     median_dt: f64,
     near_crossings: usize,
 ) -> Event {
-    let largest_step = (i - NEED..i - 1)
-        .map(|j| secs[j + 1] - secs[j])
-        .fold(f64::NEG_INFINITY, f64::max);
+    let largest_step = |from: usize| {
+        (from..from + NEED - 1)
+            .map(|j| secs[j + 1] - secs[j])
+            .fold(f64::NEG_INFINITY, f64::max)
+    };
     let offsets = OFFSETS.map(|k| triple(&rows[i - k - NEED..i - k], false));
-    let mirror = (i + 1 + NEED <= rows.len()).then(|| triple(&rows[i + 1..i + 1 + NEED], true));
+    let after = i + MIRROR_SKIP;
+    let has_mirror = after + NEED <= rows.len();
+    let mirror = has_mirror.then(|| triple(&rows[after..after + NEED], true));
+    let gap_limit = GAP_FACTOR * median_dt;
+    let gap = largest_step(i - NEED) > gap_limit || (has_mirror && largest_step(after) > gap_limit);
     let profile = (i >= PROFILE_LAG && i + PROFILE_LAG + 2 <= rows.len())
         .then(|| raw_increment_energy(&rows[i - PROFILE_LAG..i + PROFILE_LAG + 2]));
     Event {
-        gap: largest_step > GAP_FACTOR * median_dt,
+        gap,
         isolated: near_crossings == 0,
         offsets,
         mirror,
@@ -816,6 +829,28 @@ mod tests {
         reversed.reverse();
         let back = triple(&reversed, false);
         assert!(back[1] < 1.0 && back[2] < 1.0, "reversed {back:?}");
+    }
+
+    #[test]
+    fn a_field_symmetric_about_the_event_has_equal_raw_energy_ratios_on_both_sides() {
+        let i = 30usize;
+        let rows: Vec<[f64; 3]> = (0..2 * i + 1)
+            .map(|t| {
+                let d = t.abs_diff(i) as f64;
+                [
+                    5.0 + 0.3 * d + 0.01 * d * d,
+                    2.0 - 0.02 * d * d,
+                    1.0 + (0.4 * d).sin(),
+                ]
+            })
+            .collect();
+        let before = triple(&rows[i - NEED..i], false);
+        let after = i + MIRROR_SKIP;
+        let mirrored = triple(&rows[after..after + NEED], true);
+        assert!(
+            (before[2] - mirrored[2]).abs() < 1e-9 * before[2].abs(),
+            "before {before:?} mirrored {mirrored:?}"
+        );
     }
 
     #[test]
