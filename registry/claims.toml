@@ -4931,7 +4931,7 @@ where_stated = "E-225 LBM CD spatial associator probe (2026-04-14)"
 id = "C-1618"
 last_verified = "2026-04-14"
 statement = "The CD associator early-to-late norm ratio (12-step precursor window, split 6/6) before high-norm events (local maxima above p95) in the ACE 2004 Halloween storm solar wind B-field data (334502 valid rows, 32D Takens embeddings, 8-step x 4-channel) is 4.30x mean / 2.40x median across 4471 detected events. This exceeds the LBM BGK C-1617 baseline of 1.92x and confirms that the CD associator precursor buildup is a general property of continuous dynamical systems, not a BGK lattice artifact. The TeraScale-2 VLIW5 LDS barrier wg-sweep shows no monotonic precursor, confirming the regime boundary."
-status = "Established"
+status = "Superseded"
 status_note = "ESTABLISHED: ACE p95-event ratio 4.30x (mean), 2.40x (median), IQR [1.32, 4.61]. GPU step-function: no precursor. Regime boundary confirmed. Binary: cd-domain-survey."
 where_stated = "E-226 cross-domain CD associator survey (2026-04-14)"
 
@@ -8859,6 +8859,13 @@ statement = "C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetr
 status = "Provisional"
 status_note = "Kernel equality of the real recursive Cayley-Dickson tower and Moreno's Remark Ker L_x = Ker R_x. Formal locator: gororoba-math rocq/open/theories/CDTowerKernelSwap.v (tower_kernel_swap, tower_kernel_equality); rocq/open/theories/C1539_MorSkewSymm.v (MorKernelEquality.ker_lx_eq_ker_rx over CDAlgMorenoSwap); rocq/open/theories/MorenoSedenionInstance.v (SedMorenoSwap, 16D); rocq/open/theories/MorenoTowerInstance.v (TowerMoreno, every order). Each file is recorded as proofs/theories/NAME.v at the gororoba-math commit of ci/gororoba_math.pin. Supersedes C-1721 through the claim relation. Evidence: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml"
 where_stated = "data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v"
+
+[[claim]]
+id = "C-1782"
+last_verified = "2026-11-15"
+statement = "On the ACE MFI 16-second magnetic field record of December 2004 and January 2005 (334502 valid rows, 32D unit-normalized delay windows of 8 samples by 4 channels), the sliding Cayley-Dickson associator norm follows the windowed increment energy, the sum over the window of |dB|^2 / |B|^2, with Spearman rank correlation 0.972. Its late-to-early ratio over the 12 norms before a local maximum above the 95th percentile has median 2.41 and mean 4.30 over 4470 peaks when the window ends at the peak, and median 1.13 when the window ends 10 indices earlier and shares no sample with the peak's triple (1.05 at 20 indices). A phase-randomized copy scores 1.23 and 1.07 at those two offsets, and the record's increments in random order score 3.00 and 1.17. The ratio at the peak is therefore the overlap of the windows with a heavy-tailed increment (kurtosis 90.6 for the Bx increments against 3.0 for the phase-randomized copy), and it is reproduced without temporal structure. The record's clustering of large increments appears in the raw increment energy: its median over peaks stands at 2.47 times the record's median 24 samples before a peak and at 3.62 times one sample before, while both randomized series stay between 0.85 and 1.36."
+status = "Provisional"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/cd_precursor_null.rs"
 
 [[claim]]
 id = "C-179"

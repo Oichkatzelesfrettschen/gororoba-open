@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1594
+//! Total claims: 1595
 //!
 //! ## C-001
 //!
@@ -11466,7 +11466,7 @@
 //!
 //! ## C-1618
 //!
-//! - Status: `Established`
+//! - Status: `Superseded`
 //! - Last verified: 2026-04-14
 //! - Statement: The CD associator early-to-late norm ratio (12-step precursor window, split 6/6) before high-norm events (local maxima above p95) in the ACE 2004 Halloween storm solar wind B-field data (334502 valid rows, 32D Takens embeddings, 8-step x 4-channel) is 4.30x mean / 2.40x median across 4471 detected events. This exceeds the LBM BGK C-1617 baseline of 1.92x and confirms that the CD associator precursor buildup is a general property of continuous dynamical systems, not a BGK lattice artifact. The TeraScale-2 VLIW5 LDS barrier wg-sweep shows no monotonic precursor, confirming the regime boundary.
 //! - Where stated: E-226 cross-domain CD associator survey (2026-04-14)
@@ -12758,4 +12758,12 @@
 //! - Last verified: 2026-11-14
 //! - Statement: C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace, while Moreno Corollary 1.6 states an unrestricted four-way chain for x, y in A_n with n>=4. The left and right skew-adjoint theorems of C1539_MorSkewSymm.v match the purity scope of Proposition 1.7 and have a concrete sedenion instance. For every order n of the recursive real Cayley-Dickson tower and all a and z, a z = 0 exactly when z a = 0 (CDTowerKernelSwap.tower_kernel_equality; Biss, Dugger and Isaksen arXiv:math/0511691 Corollary 9.3). Moreno's Remark after Proposition 1.7, Ker(L_x) = Ker(R_x) for purely imaginary x, follows: MorKernelEquality.ker_lx_eq_ker_rx holds over the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and the functor TowerMoreno (every order, instantiated at orders 4 and 5) discharge that interface through CDTowerKernelSwap.tower_kernel_swap. The eight tower and concrete-instance theorems queried in the retained Print Assumptions log of the pinned Rocq toolchain rest on the two Stdlib axioms it lists; zd_symmetry and the functor theorems hold over their module interfaces, whose fields are obligations of each model.
 //! - Where stated: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v
+//! - What would verify/refute it:
+//!
+//! ## C-1782
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-15
+//! - Statement: On the ACE MFI 16-second magnetic field record of December 2004 and January 2005 (334502 valid rows, 32D unit-normalized delay windows of 8 samples by 4 channels), the sliding Cayley-Dickson associator norm follows the windowed increment energy, the sum over the window of |dB|^2 / |B|^2, with Spearman rank correlation 0.972. Its late-to-early ratio over the 12 norms before a local maximum above the 95th percentile has median 2.41 and mean 4.30 over 4470 peaks when the window ends at the peak, and median 1.13 when the window ends 10 indices earlier and shares no sample with the peak's triple (1.05 at 20 indices). A phase-randomized copy scores 1.23 and 1.07 at those two offsets, and the record's increments in random order score 3.00 and 1.17. The ratio at the peak is therefore the overlap of the windows with a heavy-tailed increment (kurtosis 90.6 for the Bx increments against 3.0 for the phase-randomized copy), and it is reproduced without temporal structure. The record's clustering of large increments appears in the raw increment energy: its median over peaks stands at 2.47 times the record's median 24 samples before a peak and at 3.62 times one sample before, while both randomized series stay between 0.85 and 1.36.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/cd_precursor_null.rs
 //! - What would verify/refute it:
