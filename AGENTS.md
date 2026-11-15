@@ -86,6 +86,12 @@ governs where the two differ.
   `--include-ignored`. The governance gate skips and counts the proof-source
   checks without a checkout; `proofs.yml` runs them in full at the commit
   `ci/gororoba_math.pin` names and fails on any skip.
+- No lane, make target, command or binary here runs Rocq. gororoba-math
+  compiles and kernel-checks a proof source with `ci/kernel_replay_evidence.py`
+  and writes the replay evidence file; `gororoba-db theorem identity
+  record-kernel-evidence --spec SPEC --evidence FILE` validates that file
+  against the witness and the pinned tree (`theorem_replay.rs`) and records the
+  receipt. Digest and existence checks against the tree stay here.
 - A record that pins `_RocqProject` by sha256 `d327e4c6...` (the first import)
   verifies at gororoba-math commit 93ae476; the pin's `_RocqProject` is
   `ee514ff4...`, which the latest kernel receipts bind.

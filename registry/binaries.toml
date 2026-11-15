@@ -1440,21 +1440,6 @@ crate = "gororoba_cli_quantum"
 description = "Projector-FHS with polar link stabilization (SVD-based multiband Chern numbers)"
 
 [[binary]]
-name = "proof-dep-graph"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
-name = "proof-doc"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
-name = "proof-metrics"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
 name = "provenance"
 crate = "gororoba_cli_provenance"
 description = "Workspace binary discovered from crates/gororoba_cli_provenance/Cargo.toml; registry metadata pending."
@@ -1556,11 +1541,6 @@ name = "riemann-resonance-sweep"
 crate = "gororoba_cli_physics"
 description = "Orthoplex Laplacian spacing-statistics sweep for Brody-parameter and quantum-chaos diagnostics."
 experiment = "E-093"
-
-[[binary]]
-name = "rocq-project-audit"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
 
 [[binary]]
 name = "routon-chaos-crucible"

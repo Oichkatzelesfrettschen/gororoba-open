@@ -200,12 +200,10 @@ bounds, and obstruction invariants. Registry rows and receipts here name them
 by the locators they were recorded under, `proofs/<path>`, which denote
 gororoba-math `rocq/open/<path>`. `GOROROBA_MATH` names a gororoba-math
 checkout, and `ci/gororoba_math.pin` names the commit that hosted validation
-fetches. Build with:
-
-```bash
-make -C "$GOROROBA_MATH/rocq/open" vos   # Interface-only compilation (fast)
-make -C "$GOROROBA_MATH/rocq/open" vok   # Full parallel body verification
-```
+fetches. This repository runs no Rocq: gororoba-math builds and checks the
+proofs (its README gives the commands) and produces the kernel replay evidence
+that `gororoba-db theorem identity record-kernel-evidence --evidence FILE`
+ingests.
 
 Key tactics: `ring_simplify; lra` for concrete norm proofs,
 `cbv [whitelist]` for Cayley-Dickson dimension >= 8 (avoids OOM from
@@ -239,7 +237,7 @@ superseded runs canceled.
 - **Edition**: 2024
 - **Build**: default LLVM codegen for all profiles (stable pin; no Cranelift)
 - **GPU**: CUDA via `cudarc 0.19.1`, Vulkan via `ash` (feature-gated)
-- **Formal proofs**: Rocq 9.2.0
+- **Formal proofs**: built in gororoba-math (Rocq 9.3.0)
 - **Allocator**: mimalloc (workspace default)
 
 ## License
