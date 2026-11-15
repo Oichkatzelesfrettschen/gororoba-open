@@ -11,7 +11,7 @@
 //! 1. the ratio at window offsets 0, 4, 10, 20, 40 before each peak (at offset
 //!    10 no window sample is read by the peak's own triple);
 //! 2. the Spearman correlation of the norms with the increment energy summed
-//!    over the same 8-sample span, and the epoch profile of the increment
+//!    over the increments of the samples one norm reads, and the epoch profile of the increment
 //!    energy and the field magnitude around the peaks;
 //! 3. the same numbers on two nulls: a phase-randomized copy (one shared set
 //!    of phases for all four columns keeps every power and cross spectrum) and
@@ -36,6 +36,12 @@ use serde::Serialize;
 
 /// Samples per Takens window; four channels make the 32-dimensional vector.
 const STEPS: usize = 8;
+/// Samples one associator norm reads: three windows of STEPS, each shifted by one.
+const SUPPORT_SAMPLES: usize = STEPS + 2;
+/// Nominal cadence of the ACE MFI record and the factor above which a time
+/// step counts as a gap.
+const CADENCE_SECONDS: f64 = 16.0;
+const GAP_FACTOR: f64 = 1.5;
 /// Embedding dimension (a pathion).
 const DIM: usize = 4 * STEPS;
 /// Number of norms in each of the early and late halves of the ratio window.
@@ -102,20 +108,57 @@ struct SeriesResult {
     field_magnitude_profile: Profile,
 }
 
+/// Departures of the record from a uniform cadence, and the record's ratio
+/// over the peaks whose samples hold none of them.
+#[derive(Debug, Serialize)]
+struct GapSummary {
+    cadence_seconds: f64,
+    gaps: usize,
+    longest_gap_seconds: f64,
+    zero_field_rows_dropped: usize,
+    gap_free_ratio_offset_0: RatioStats,
+    gap_free_ratio_offset_10: RatioStats,
+}
+
 #[derive(Debug, Serialize)]
 struct Output {
     seed: u64,
+    record_gaps: GapSummary,
     record: SeriesResult,
     phase_randomized: SeriesResult,
     shuffled_increments: SeriesResult,
 }
 
+/// Seconds since 2004-12-01T00:00:00 of an ACE time field
+/// (`YYYY-MM-DDTHH:MM:SS.sssZ`) inside December 2004 or January 2005.
+fn interval_seconds(field: &str) -> Option<f64> {
+    let month_start_day = match field.get(..7)? {
+        "2004-12" => 0.0,
+        "2005-01" => 31.0,
+        _ => return None,
+    };
+    let day: f64 = field.get(8..10)?.parse().ok()?;
+    let hour: f64 = field.get(11..13)?.parse().ok()?;
+    let minute: f64 = field.get(14..16)?.parse().ok()?;
+    let second: f64 = field.get(17..)?.trim_end_matches('Z').parse().ok()?;
+    Some((((month_start_day + day - 1.0) * 24.0 + hour) * 60.0 + minute) * 60.0 + second)
+}
+
+/// The retained rows, their times and the count of rows dropped for a zero field.
+struct Record {
+    rows: Vec<[f64; 4]>,
+    seconds: Vec<f64>,
+    zero_field_rows_dropped: usize,
+}
+
 /// Load [Bx, By, Bz, |B|] rows of one month from an ACE MFI CSV.
 ///
 /// Columns: ISO time, |B|, Bx, By, Bz. A row is kept when its time starts with
-/// `prefix` and its four numbers parse, are finite and are below 1e4 in magnitude
-/// (the file marks fill values with large magnitudes and non-numbers).
-fn load_month(path: &Path, prefix: &str, rows: &mut Vec<[f64; 4]>) -> Result<()> {
+/// `prefix` and parses, and its four numbers parse, are finite and are below
+/// 1e4 in magnitude (the file marks fill values with large magnitudes and
+/// non-numbers). A row whose three components are all zero is dropped and
+/// counted: the increment energy divides by the squared field.
+fn load_month(path: &Path, prefix: &str, record: &mut Record) -> Result<()> {
     let file = File::open(path).with_context(|| format!("open {}", path.display()))?;
     for line in BufReader::new(file).lines() {
         let line = line.with_context(|| format!("read {}", path.display()))?;
@@ -126,25 +169,91 @@ fn load_month(path: &Path, prefix: &str, rows: &mut Vec<[f64; 4]>) -> Result<()>
         if fields.len() < 5 {
             continue;
         }
+        let Some(seconds) = interval_seconds(fields[0].trim()) else {
+            continue;
+        };
         let parse = |i: usize| fields[i].trim().parse::<f64>();
         if let (Ok(b), Ok(bx), Ok(by), Ok(bz)) = (parse(1), parse(2), parse(3), parse(4)) {
             let row = [bx, by, bz, b];
-            if row.iter().all(|v| v.is_finite() && v.abs() < 1.0e4) {
-                rows.push(row);
+            if !row.iter().all(|v| v.is_finite() && v.abs() < 1.0e4) {
+                continue;
             }
+            if bx == 0.0 && by == 0.0 && bz == 0.0 {
+                record.zero_field_rows_dropped += 1;
+                continue;
+            }
+            record.rows.push(row);
+            record.seconds.push(seconds);
         }
     }
     Ok(())
 }
 
-fn load_ace(dir: &Path) -> Result<Vec<[f64; 4]>> {
-    let mut rows = Vec::new();
-    load_month(&dir.join("ac_h0_mfi_2004.csv"), "2004-12", &mut rows)?;
-    load_month(&dir.join("ac_h0_mfi_2005.csv"), "2005-01", &mut rows)?;
-    if rows.len() < 10_000 {
-        bail!("too few ACE rows in {}: {}", dir.display(), rows.len());
+fn load_ace(dir: &Path) -> Result<Record> {
+    let mut record = Record {
+        rows: Vec::new(),
+        seconds: Vec::new(),
+        zero_field_rows_dropped: 0,
+    };
+    load_month(&dir.join("ac_h0_mfi_2004.csv"), "2004-12", &mut record)?;
+    load_month(&dir.join("ac_h0_mfi_2005.csv"), "2005-01", &mut record)?;
+    if record.rows.len() < 10_000 {
+        bail!(
+            "too few ACE rows in {}: {}",
+            dir.display(),
+            record.rows.len()
+        );
     }
-    Ok(rows)
+    Ok(record)
+}
+
+/// Prefix count of cadence gaps: entry i counts the gaps between samples
+/// before index i, so samples a..=b hold a gap when the entries differ.
+fn gap_prefix(seconds: &[f64]) -> Vec<usize> {
+    let mut prefix = Vec::with_capacity(seconds.len());
+    let mut count = 0;
+    prefix.push(count);
+    for w in seconds.windows(2) {
+        if w[1] - w[0] > GAP_FACTOR * CADENCE_SECONDS {
+            count += 1;
+        }
+        prefix.push(count);
+    }
+    prefix
+}
+
+/// The record's ratio over the peaks whose ratio window and triple, samples
+/// p - back - 12 ..= p + 9, hold no cadence gap.
+fn gap_summary(record: &Record, back_offsets: [usize; 2]) -> Result<GapSummary> {
+    let prefix = gap_prefix(&record.seconds);
+    let longest = record
+        .seconds
+        .windows(2)
+        .map(|w| w[1] - w[0])
+        .fold(0.0, f64::max);
+    let embedded = embed_unit(&record.rows)?;
+    let norms = batch_sliding_associator_norms_parallel(&embedded, DIM);
+    let peaks = peak_indices(&norms, PEAK_PERCENTILE);
+    let last = record.rows.len() - 1;
+    let clean = |back: usize| -> Vec<usize> {
+        peaks
+            .iter()
+            .copied()
+            .filter(|&p| {
+                p >= back + 2 * HALF_WINDOW
+                    && prefix[(p + SUPPORT_SAMPLES - 1).min(last)]
+                        == prefix[p - back - 2 * HALF_WINDOW]
+            })
+            .collect()
+    };
+    Ok(GapSummary {
+        cadence_seconds: CADENCE_SECONDS,
+        gaps: prefix[last],
+        longest_gap_seconds: longest,
+        zero_field_rows_dropped: record.zero_field_rows_dropped,
+        gap_free_ratio_offset_0: offset_ratio(&norms, &clean(back_offsets[0]), back_offsets[0]),
+        gap_free_ratio_offset_10: offset_ratio(&norms, &clean(back_offsets[1]), back_offsets[1]),
+    })
 }
 
 /// Unit-normalized Takens windows: window s holds rows s..s+STEPS row-major.
@@ -246,11 +355,12 @@ fn normalized_increment_energy(rows: &[[f64; 4]], raw: &[f64]) -> Vec<f64> {
         .collect()
 }
 
-/// Sum of `energy` over STEPS consecutive samples starting at each index,
-/// truncated to `len` entries.
+/// Sum of `energy` over the SUPPORT_SAMPLES - 1 increments that join the
+/// samples one associator norm reads, starting at each index, truncated to
+/// `len` entries.
 fn windowed_sum(energy: &[f64], len: usize) -> Vec<f64> {
     energy
-        .windows(STEPS)
+        .windows(SUPPORT_SAMPLES - 1)
         .take(len)
         .map(|w| w.iter().sum())
         .collect()
@@ -474,7 +584,18 @@ fn report(name: &str, s: &SeriesResult) {
 
 fn main() -> Result<()> {
     let cli = Cli::parse();
-    let rows = load_ace(&cli.data_dir)?;
+    let loaded = load_ace(&cli.data_dir)?;
+    let record_gaps = gap_summary(&loaded, [0, 10])?;
+    eprintln!(
+        "gaps {} longest {:.0} s zero-field rows {}; gap-free median ratio {:.3} (offset 0, {} peaks), {:.3} (offset 10)",
+        record_gaps.gaps,
+        record_gaps.longest_gap_seconds,
+        record_gaps.zero_field_rows_dropped,
+        record_gaps.gap_free_ratio_offset_0.median,
+        record_gaps.gap_free_ratio_offset_0.peaks_used,
+        record_gaps.gap_free_ratio_offset_10.median,
+    );
+    let rows = loaded.rows;
     let mut rng = ChaCha8Rng::seed_from_u64(cli.seed);
 
     let record = analyze(&rows)?;
@@ -487,6 +608,7 @@ fn main() -> Result<()> {
 
     let output = Output {
         seed: cli.seed,
+        record_gaps,
         record,
         phase_randomized,
         shuffled_increments,
@@ -627,5 +749,30 @@ mod tests {
             }
         }
         assert_ne!(series[SHUFFLE_BLOCK / 2], rows[SHUFFLE_BLOCK / 2]);
+    }
+
+    #[test]
+    fn interval_seconds_spans_the_two_months() {
+        assert_eq!(interval_seconds("2004-12-01T00:00:12.000Z"), Some(12.0));
+        assert_eq!(
+            interval_seconds("2005-01-01T00:00:00.000Z"),
+            Some(31.0 * 86400.0)
+        );
+        assert_eq!(interval_seconds("2004-11-30T23:59:44.000Z"), None);
+        assert_eq!(interval_seconds("2004-12"), None);
+    }
+
+    #[test]
+    fn gap_prefix_counts_steps_above_the_cadence() {
+        let seconds = [0.0, 16.0, 32.0, 4640.0, 4656.0];
+        assert_eq!(gap_prefix(&seconds), vec![0, 0, 0, 1, 1]);
+    }
+
+    #[test]
+    fn windowed_sum_spans_the_increments_of_one_triple() {
+        let energy = vec![1.0; 20];
+        let sums = windowed_sum(&energy, 5);
+        assert_eq!(sums.len(), 5);
+        assert!(sums.iter().all(|&v| v == (SUPPORT_SAMPLES - 1) as f64));
     }
 }
