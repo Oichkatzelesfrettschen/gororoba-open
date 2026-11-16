@@ -4911,8 +4911,8 @@ evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
 actor = "registry-statement-correction"
 reason = "Scope C-869 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:03:26Z"
-transition_spec_sha256 = "dc1a7261cfb1a6097c4506361242bc24bd853fb449052c9092cd3bc20a171fe4"
+transition_timestamp = "2026-11-16T13:17:36Z"
+transition_spec_sha256 = "9d92413f391af0a1c52e4957d7bfc3958e1b9852737a8edb047b78f26745f73d"
 successors = []
 
 [[transition]]
@@ -4930,8 +4930,8 @@ evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
 actor = "registry-statement-correction"
 reason = "Scope C-874 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:03:26Z"
-transition_spec_sha256 = "62cd25207d5fc22844dce7dee8c31eb23a7f0634c9f781f2173679dbefededd5"
+transition_timestamp = "2026-11-16T13:17:36Z"
+transition_spec_sha256 = "59ab71655663f418a54ed94640e7b279a6bf4afd2d1a994d9d3428ca7cc3c8ff"
 successors = []
 
 [[transition]]
@@ -4949,8 +4949,8 @@ evidence_artifact_ids = ["LOCAL-SPECTRAL-FULL-TRACE-V2"]
 experiment_ids = ["E-084"]
 actor = "registry-statement-correction"
 reason = "Scope C-922 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:03:26Z"
-transition_spec_sha256 = "d6e9d133ba8346795f61ac7c8fa02632d1b954f26def82452904144cc7e4609c"
+transition_timestamp = "2026-11-16T13:17:36Z"
+transition_spec_sha256 = "26af089c184661e7f05663b76a46a5172de44081f12736a0523275ff445b8780"
 successors = []
 
 [[transition]]
@@ -4968,8 +4968,8 @@ evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = ["E-081"]
 actor = "registry-statement-correction"
 reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
-transition_timestamp = "2026-11-16T13:03:26Z"
-transition_spec_sha256 = "acc07aa5432b3e4da7c387775af122069af931c1fa72b5d78941e113c4cf4ef8"
+transition_timestamp = "2026-11-16T13:17:36Z"
+transition_spec_sha256 = "14225610241815261ece48e28b7734aba6b7d853b531c0464d5d0bbfad2d295c"
 
 [[transition.successors]]
 proposal_key = "scalar-worldline-plate-polygon-refinement"

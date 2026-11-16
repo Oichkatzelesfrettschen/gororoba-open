@@ -11,7 +11,7 @@ rationale = "The narrowed statement is the closed-form electromagnetic reference
 unresolved_assumptions = ["Polygon, proper-time and quadrature biases of the scalar estimator remain outside its reported Monte Carlo standard error."]
 actor = "registry-statement-correction"
 reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
-transition_timestamp = "2026-11-16T13:03:26Z"
+transition_timestamp = "2026-11-16T13:17:36Z"
 expected_source_state_sha256 = "06d7c8ec63396d89c5584b0319d58cf49218911f2c0ed1122af707104b144ed5"
 expected_claim_id_max = 1784
 

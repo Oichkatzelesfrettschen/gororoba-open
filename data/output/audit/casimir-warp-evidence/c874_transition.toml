@@ -11,6 +11,6 @@ rationale = "The retained Rust tests bound the center values by 0.01 and the Yor
 unresolved_assumptions = []
 actor = "registry-statement-correction"
 reason = "Scope C-874 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:03:26Z"
+transition_timestamp = "2026-11-16T13:17:36Z"
 expected_source_state_sha256 = "0bf7b1b4cb46dc377a3b913a50de895994dfe3b2005aacc9c6d1f6f4ac3cfd27"
 expected_claim_id_max = 1784

@@ -11,6 +11,6 @@ rationale = "The retained Rust tests bound the shape derivative and the gate by 
 unresolved_assumptions = []
 actor = "registry-statement-correction"
 reason = "Scope C-869 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:03:26Z"
+transition_timestamp = "2026-11-16T13:17:36Z"
 expected_source_state_sha256 = "e740ced147b92372c588f20ffca5107e03065b3915ef3a6e99732844cd7802e9"
 expected_claim_id_max = 1784
