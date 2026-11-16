@@ -24,6 +24,13 @@ use crate::energy::casimir_parallel_plates_exact;
 // The SI definitions fix h and c exactly; hbar = h/(2*pi).
 const HBAR_C_J_M: f64 = 6.626_070_15e-34 / std::f64::consts::TAU * 299_792_458.0;
 
+/// Electromagnetic (two-polarization) ideal-conductor interaction energy per
+/// area at unit gap, -pi^2*hbar*c/720 in J*m^2; the real-scalar Dirichlet
+/// value is half of it.
+fn electromagnetic_unit_gap_energy_per_area_si() -> f64 {
+    casimir_parallel_plates_exact(1.0) * HBAR_C_J_M
+}
+
 /// Axis normal to the two conducting plates.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum PlateNormal {
@@ -94,7 +101,7 @@ pub fn ideal_parallel_plate_stress_si(
     if !separation_m.is_finite() || separation_m <= 0.0 {
         return Err(CasimirStressError::InvalidSeparation);
     }
-    let mut energy_per_area = -casimir_parallel_plates_exact(1.0) * HBAR_C_J_M;
+    let mut energy_per_area = -electromagnetic_unit_gap_energy_per_area_si();
     for _ in 0..3 {
         energy_per_area /= separation_m;
     }
