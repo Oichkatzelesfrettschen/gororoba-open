@@ -66,6 +66,9 @@
 //! records the direct-relabeling quantile beside it; a pair whose associator
 //! area, threshold or product-free area is not finite receives no call, stays
 //! out of the pair count behind the floor of 8 and is listed under `skipped`.
+//! A pair with an orbit that holds both labels likewise receives no call, is
+//! listed under `skipped` with its reason, and leaves the pair count and the
+//! floor of 8.
 //!
 //! The count statistic of the null is a Poisson-binomial sum over the
 //! (run, quartile) pairs, which treats pairs of one run as independent; the
