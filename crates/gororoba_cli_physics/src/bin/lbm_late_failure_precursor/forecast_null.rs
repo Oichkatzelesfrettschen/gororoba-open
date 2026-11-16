@@ -1365,9 +1365,33 @@ fn phase_sample(bins_of: &[Complex<f64>], phased: &[[Complex<f64>; 2]], s: usize
     (bins_of[0].re + 2.0 * acc) / INCREMENTS as f64
 }
 
-/// Newton fit of a logistic model with an intercept; returns the log
-/// likelihood, the linear predictor and whether the classes separate.
-fn logit_fit(columns: &[&[f64]], y: &[bool]) -> (f64, Vec<f64>, bool) {
+/// Iterations of the Newton fit of a logistic model.
+const LOGIT_ITERATIONS: usize = 200;
+
+/// A Newton fit of a logistic model with an intercept.
+struct LogitFit {
+    ll: f64,
+    /// Linear predictor of each case.
+    eta: Vec<f64>,
+    /// Fitted coefficients, intercept first; the tests read them.
+    #[cfg(test)]
+    beta: Vec<f64>,
+    /// The classes separate: the likelihood has no finite maximum, so the
+    /// coefficients and the likelihood-ratio statistic carry no meaning.
+    separated: bool,
+}
+
+/// Newton fit of a logistic model with an intercept.
+///
+/// The maximum of the likelihood is finite exactly when no hyperplane keeps
+/// every case of a class on its side. The fit reports `separated` when the
+/// linear predictor of an iterate puts every case on the side of its own class
+/// (a certificate of complete separation), or when the iteration has not
+/// converged after `LOGIT_ITERATIONS` steps (the coefficients of a separated
+/// fit grow without bound, and with them the step). A large coefficient alone
+/// proves nothing: nearly collinear columns give finite coefficients of
+/// either sign and large size.
+fn logit_fit(columns: &[&[f64]], y: &[bool]) -> LogitFit {
     let n = y.len();
     let p = columns.len() + 1;
     let x = |i: usize, j: usize| if j == 0 { 1.0 } else { columns[j - 1][i] };
@@ -1382,7 +1406,9 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> (f64, Vec<f64>, bool) {
             })
             .collect()
     };
-    for _ in 0..200 {
+    let mut separated = false;
+    let mut converged = false;
+    for _ in 0..LOGIT_ITERATIONS {
         let eta = eta_of(&beta);
         let mu: Vec<f64> = eta.iter().map(|e| 1.0 / (1.0 + (-e).exp())).collect();
         let mut grad = vec![0.0; p];
@@ -1392,6 +1418,14 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> (f64, Vec<f64>, bool) {
             let w = mu[i] * (1.0 - mu[i]);
             for j in 0..p {
                 grad[j] += x(i, j) * r;
+        if eta
+            .iter()
+            .zip(y)
+            .all(|(&e, &yy)| if yy { e > 0.0 } else { e < 0.0 })
+        {
+            separated = true;
+            break;
+        }
                 for k in 0..p {
                     hess[j * p + k] += x(i, j) * x(i, k) * w;
                 }
@@ -1414,12 +1448,19 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> (f64, Vec<f64>, bool) {
         .iter()
         .zip(y)
         .map(|(e, &yy)| {
+            converged = true;
             let mu = (1.0 / (1.0 + (-e).exp())).clamp(1e-12, 1.0 - 1e-12);
             if yy { mu.ln() } else { (1.0 - mu).ln() }
         })
+    let separated = separated || !converged;
         .sum();
-    let separated = beta.iter().fold(0.0_f64, |m, b| m.max(b.abs())) > 15.0 || auc(&eta, y) > 0.999;
-    (ll, eta, separated)
+    LogitFit {
+        ll,
+        eta,
+        #[cfg(test)]
+        beta,
+        separated,
+    }
 }
 
 /// Solution of `a x = b` by Gaussian elimination with partial pivoting (`a` is `p x p`).
@@ -1472,11 +1513,16 @@ fn normal_scores(x: &[f64]) -> Vec<f64> {
 fn likelihood_ratio(columns: &[Vec<f64>], y: &[bool]) -> (f64, f64, bool, f64) {
     let reduced: Vec<&[f64]> = columns[1..].iter().map(Vec::as_slice).collect();
     let full: Vec<&[f64]> = columns.iter().map(Vec::as_slice).collect();
-    let (ll0, eta0, sep0) = logit_fit(&reduced, y);
-    let (ll1, eta1, sep1) = logit_fit(&full, y);
-    let stat = (2.0 * (ll1 - ll0)).max(0.0);
+    let reduced_fit = logit_fit(&reduced, y);
+    let full_fit = logit_fit(&full, y);
+    let stat = (2.0 * (full_fit.ll - reduced_fit.ll)).max(0.0);
     let p = ChiSquared::new(1.0).map_or(f64::NAN, |c| 1.0 - c.cdf(stat));
-    (stat, p, sep0 || sep1, auc(&eta1, y) - auc(&eta0, y))
+    (
+        stat,
+        p,
+        reduced_fit.separated || full_fit.separated,
+        auc(&full_fit.eta, y) - auc(&reduced_fit.eta, y),
+    )
 }
 
 // ------------------------------------------------------------ per-run output
@@ -2772,6 +2818,71 @@ mod tests {
         let mut last = vec![0usize; blocks];
         for _ in 0..9000 {
             let order = block_order(&mut rng);
+    /// Two normal-score columns that differ by about 0.05 and a label drawn from the
+    /// logistic law of their difference: the maximum-likelihood coefficients are finite
+    /// near -16 and 16, and the classes overlap.
+    fn correlated_columns_with_a_finite_fit() -> (Vec<f64>, Vec<f64>, Vec<bool>) {
+        let mut rng = stream(41, 0, 0);
+        let n = 400;
+        let base: Vec<f64> = (0..n).map(|_| StandardNormal.sample(&mut rng)).collect();
+        let jitter: Vec<f64> = base
+            .iter()
+            .map(|&b| {
+                let e: f64 = StandardNormal.sample(&mut rng);
+                b + 0.05 * e
+            })
+            .collect();
+        let (z1, z2) = (normal_scores(&base), normal_scores(&jitter));
+        let y: Vec<bool> = z1
+            .iter()
+            .zip(&z2)
+            .map(|(a, b)| rng.random::<f64>() < 1.0 / (1.0 + (-16.0 * (b - a)).exp()))
+            .collect();
+        (z1, z2, y)
+    }
+
+    #[test]
+    fn correlated_columns_with_large_finite_coefficients_are_not_separated() {
+        let (z1, z2, y) = correlated_columns_with_a_finite_fit();
+        let fit = logit_fit(&[&z1, &z2], &y);
+        assert!(
+            fit.beta[1] < -15.0 && fit.beta[2] > 15.0,
+            "the coefficients exceed the size of 15 that once marked separation: {:?}",
+            fit.beta
+        );
+        assert!(
+            fit.eta.iter().zip(&y).any(|(&e, &yy)| (e > 0.0) != yy),
+            "the fitted predictor misclassifies a case, so no hyperplane separates"
+        );
+        assert!(!fit.separated, "{:?}", fit.beta);
+        let (_, p, separated, _) = likelihood_ratio(&[z1, z2], &y);
+        assert!(!separated && p.is_finite());
+    }
+
+    #[test]
+    fn separable_classes_are_flagged() {
+        let mut rng = stream(42, 0, 0);
+        let n = 200;
+        let x: Vec<f64> = (0..n).map(|_| StandardNormal.sample(&mut rng)).collect();
+        let noise: Vec<f64> = (0..n).map(|_| StandardNormal.sample(&mut rng)).collect();
+        let y: Vec<bool> = x.iter().map(|&v| v > 0.3).collect();
+        assert!(
+            logit_fit(&[&x, &noise], &y).separated,
+            "complete separation"
+        );
+        assert!(likelihood_ratio(&[x, noise], &y).2);
+        // Cases at x = 0 carry both labels: no hyperplane separates strictly, yet the
+        // likelihood has no finite maximum.
+        let mut tied: Vec<f64> = (0..40).map(|i| f64::from(i) - 19.5).collect();
+        let mut labels: Vec<bool> = tied.iter().map(|&v| v > 0.0).collect();
+        tied.extend([0.0; 6]);
+        labels.extend([true, true, true, false, false, false]);
+        assert!(
+            logit_fit(&[&tied], &labels).separated,
+            "quasi-complete separation"
+        );
+    }
+
             let mut sorted = order.clone();
             sorted.sort_unstable();
             assert_eq!(
