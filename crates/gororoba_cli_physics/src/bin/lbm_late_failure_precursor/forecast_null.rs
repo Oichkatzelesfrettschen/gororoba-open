@@ -995,6 +995,18 @@ struct PairSel {
     labels: Vec<bool>,
 }
 
+/// The orbits of `orbits` whose share of positive cells is 0 or 1, and the count of the others,
+/// which hold both labels and are left out of every orbit-level test.
+fn label_homogeneous(orbits: &[usize], share_positive: &[f64]) -> (Vec<usize>, usize) {
+    let kept: Vec<usize> = orbits
+        .iter()
+        .copied()
+        .filter(|&o| share_positive[o] <= 0.0 || share_positive[o] >= 1.0)
+        .collect();
+    let excluded = orbits.len() - kept.len();
+    (kept, excluded)
+}
+
 fn select(values: &[f64], cells: &[usize]) -> Vec<f64> {
     cells.iter().map(|&c| values[c]).collect()
 }
@@ -1082,7 +1094,7 @@ fn direct_units(
             size.len() - 1
         });
         if label[u] != labels[i] {
-            return Err("an orbit of the pair holds both labels".to_string());
+            return Err(MIXED_ORBIT_REASON.to_string());
         }
         size[u] += 1;
         for k in 0..6 {
@@ -1557,7 +1569,8 @@ struct PairOut {
     levels: Vec<LevelNull>,
     /// Direct orbit relabeling of the cell-level areas, or why it is unavailable.
     direct: std::result::Result<DirectNull, String>,
-    orbit_mixed: usize,
+    /// Orbits of the pair's quartile that hold both labels: the orbit level leaves them out.
+    orbits_excluded: usize,
     /// Per score, the oriented area of every shifted field.
     torus: Vec<Vec<f64>>,
     z0_diff: f64,
@@ -1845,15 +1858,12 @@ fn process_run(
         let cells0: Vec<usize> = p.cells.iter().copied().filter(|&c| c < layer).collect();
         let labels0: Vec<bool> = cells0.iter().map(|&c| run.labels[c]).collect();
         let pos0 = labels0.iter().filter(|&&l| l).count();
-        let members: Vec<usize> = (0..n_orbits)
+        let in_quartile: Vec<usize> = (0..n_orbits)
             .filter(|&o| o_quartile[o] as usize == p.quartile)
             .collect();
-        let o_y: Vec<bool> = members.iter().map(|&o| o_label[o] >= 0.5).collect();
+        let (members, orbits_excluded) = label_homogeneous(&in_quartile, &o_label);
+        let o_y: Vec<bool> = members.iter().map(|&o| o_label[o] > 0.0).collect();
         let o_pos = o_y.iter().filter(|&&y| y).count();
-        let orbit_mixed = members
-            .iter()
-            .filter(|&&o| o_label[o] > 0.0 && o_label[o] < 1.0)
-            .count();
         let level_inputs = [
             (n_pos, n_cells - n_pos),
             (pos0, labels0.len() - pos0),
@@ -1944,7 +1954,7 @@ fn process_run(
             oriented: observed,
             levels,
             direct,
-            orbit_mixed,
+            orbits_excluded,
             torus,
             z0_diff,
             spearman_gram: spearman(
@@ -2277,13 +2287,22 @@ fn lr_section(pairs: &[&PairOut]) -> Value {
     })
 }
 
+/// Reason of a pair whose orbit units are not label-homogeneous.
+const MIXED_ORBIT_REASON: &str = "an orbit of the pair holds both labels";
+
 /// The call of P13d for one pair: the largest product-free area and whether the associator
 /// area exceeds both the threshold and that area plus the margin, or the reason the pair is
-/// skipped. A non-finite area or threshold gives no call, since `f64::max` would drop it.
+/// skipped. A non-finite area or threshold gives no call, since `f64::max` would drop it. A
+/// pair with an orbit that holds both labels gets no call either: its orbit counts exclude
+/// that orbit, so the threshold belongs to a smaller pair than the one the area ranks.
 fn p13d_decide(
     oriented: &[f64; 6],
     threshold: f64,
+    mixed_orbits: usize,
 ) -> std::result::Result<(f64, bool), &'static str> {
+    if mixed_orbits > 0 {
+        return Err(MIXED_ORBIT_REASON);
+    }
     if !oriented[0].is_finite() {
         return Err("the associator area is not finite");
     }
@@ -2316,11 +2335,15 @@ fn p13d_section(pairs: &[&PairOut], heldout: bool) -> Value {
     let mut calls_direct = 0usize;
     for p in pairs {
         let (rank_sum, direct) = (p.levels[2].threshold, direct_threshold(p));
-        let by_rank_sum = p13d_decide(&p.oriented, rank_sum);
-        calls_direct += usize::from(matches!(p13d_decide(&p.oriented, direct), Ok((_, true))));
+        let by_rank_sum = p13d_decide(&p.oriented, rank_sum, p.orbits_excluded);
+        calls_direct += usize::from(matches!(
+            p13d_decide(&p.oriented, direct, p.orbits_excluded),
+            Ok((_, true))
+        ));
         let head = json!({"run": p.run, "quartile": p.quartile,
             "associator_oriented": p.oriented[0],
-            "orbit_positives": p.levels[2].positives, "orbit_negatives": p.levels[2].negatives});
+            "orbit_positives": p.levels[2].positives, "orbit_negatives": p.levels[2].negatives,
+            "orbits_excluded_for_mixed_labels": p.orbits_excluded});
         match by_rank_sum {
             Ok((best, call)) => {
                 calls += usize::from(call);
@@ -2499,7 +2522,7 @@ fn assemble(
             "symmetry": o.symmetry,
         })).collect::<Vec<_>>(),
         "pairs": pairs.iter().map(|p| json!({"run": p.run, "quartile": p.quartile, "cells": p.cells,
-            "positives": p.positives, "orbit_mixed_labels": p.orbit_mixed, "raw_area": p.raw.to_vec()})).collect::<Vec<_>>(),
+            "positives": p.positives, "orbits_excluded_for_mixed_labels": p.orbits_excluded, "raw_area": p.raw.to_vec()})).collect::<Vec<_>>(),
         "p13c_better_orientation": {
             "pairs": pairs.len(), "at_most_bound": at_most, "above_bound": above, "verdict": verdict,
             "retained_forecast_record": retained_p13c,
@@ -2513,6 +2536,13 @@ fn assemble(
             "median_abs_area_difference_two_step_vs_associator": median(&dauc),
             "excess_over_best_of_five_by_pair": excess5,
         },
+        "orbit_level_exclusions": json!({
+            "rule": "an orbit that holds both labels has no label at orbit level: it leaves the orbit counts, the orbit-level label null and the likelihood-ratio test, and a pair that loses one gets no P13d call",
+            "orbits_excluded": pairs.iter().map(|p| p.orbits_excluded).sum::<usize>(),
+            "pairs_with_an_excluded_orbit": count_where(&pairs, |p| p.orbits_excluded > 0),
+            "pairs": pairs.len(),
+            "by_run_orbits_holding_both_labels": outs.iter().map(|o| o.symmetry["orbits_with_mixed_labels"].clone()).collect::<Vec<_>>(),
+        }),
         "label_permutation_null": label_section(&pairs),
         "orbit_direct_relabeling": direct_section(&pairs),
         "torus_shift_null": torus_section(&pairs),
@@ -3159,24 +3189,94 @@ mod tests {
     #[test]
     fn p13d_skips_a_pair_whose_area_or_threshold_is_not_finite() {
         let ok = [0.9, 0.5, 0.6, 0.55, 0.52, 0.58];
-        let (best, call) = p13d_decide(&ok, 0.7).expect("finite inputs");
+        let (best, call) = p13d_decide(&ok, 0.7, 0).expect("finite inputs");
         assert!((best - 0.6).abs() < 1e-15 && call);
-        assert_eq!(p13d_decide(&ok, 0.95), Ok((0.6, false)));
+        assert_eq!(p13d_decide(&ok, 0.95, 0), Ok((0.6, false)));
         let mut a = ok;
         a[0] = f64::NAN;
-        assert!(p13d_decide(&a, 0.7).is_err());
-        assert!(p13d_decide(&ok, f64::NAN).is_err());
+        assert!(p13d_decide(&a, 0.7, 0).is_err());
+        assert!(p13d_decide(&ok, f64::NAN, 0).is_err());
         for k in 1..6 {
             let mut b = ok;
             b[k] = f64::NAN;
             assert_eq!(
-                p13d_decide(&b, 0.7),
+                p13d_decide(&b, 0.7, 0),
                 Err("a product-free area is not finite")
             );
         }
         // The margin applies against the best product-free area.
         let close = [0.62, 0.5, 0.6, 0.55, 0.52, 0.58];
-        assert_eq!(p13d_decide(&close, 0.5).map(|r| r.1), Ok(false));
+        assert_eq!(p13d_decide(&close, 0.5, 0).map(|r| r.1), Ok(false));
+    }
+
+    #[test]
+    fn orbits_that_hold_both_labels_leave_the_orbit_level() {
+        let share = [0.0, 1.0, 0.5, 0.25, 1.0];
+        let (kept, excluded) = label_homogeneous(&[0, 1, 2, 3, 4], &share);
+        assert_eq!(kept, vec![0, 1, 4]);
+        assert_eq!(excluded, 2);
+        let (kept, excluded) = label_homogeneous(&[2, 3], &share);
+        assert!(kept.is_empty() && excluded == 2);
+    }
+
+    /// A pair that holds a P13d call: the associator area 0.99 against a threshold of 0.7.
+    fn calling_pair(run: usize, orbits_excluded: usize) -> PairOut {
+        let level = || LevelNull {
+            positives: 3,
+            negatives: 20,
+            p_above_bound: 0.1,
+            mean: 0.6,
+            threshold: 0.7,
+            p_ge: [0.5; 6],
+        };
+        PairOut {
+            run,
+            quartile: 1,
+            cells: 400,
+            positives: 48,
+            raw: [0.99, 0.5, 0.5, 0.5, 0.5, 0.5],
+            oriented: [0.99, 0.5, 0.5, 0.5, 0.5, 0.5],
+            levels: vec![level(), level(), level()],
+            direct: Err(MIXED_ORBIT_REASON.to_string()),
+            orbits_excluded,
+            torus: Vec::new(),
+            z0_diff: 0.0,
+            spearman_gram: 0.0,
+            spearman_two_step: 0.0,
+            algebra_raw: Vec::new(),
+            algebra_spearman: Vec::new(),
+            order_raw: Vec::new(),
+            inc_shift: [[0.0; 3]; 3],
+            lr: None,
+        }
+    }
+
+    #[test]
+    fn p13d_gives_no_call_to_a_pair_with_an_orbit_that_holds_both_labels() {
+        let clean: Vec<PairOut> = (0..8).map(|r| calling_pair(r, 0)).collect();
+        let refs: Vec<&PairOut> = clean.iter().collect();
+        let section = p13d_section(&refs, true);
+        assert_eq!(section["pairs"], 8);
+        assert_eq!(section["calls"], 8);
+        assert_eq!(section["verdict"], "failed");
+
+        let mut mixed: Vec<PairOut> = (0..8).map(|r| calling_pair(r, 0)).collect();
+        mixed[3].orbits_excluded = 1;
+        let refs: Vec<&PairOut> = mixed.iter().collect();
+        let section = p13d_section(&refs, true);
+        assert_eq!(section["pairs"], 7);
+        assert_eq!(section["calls"], 7);
+        assert_eq!(section["pairs_skipped"], 1);
+        assert_eq!(section["skipped"][0]["skip_reason"], MIXED_ORBIT_REASON);
+        assert_eq!(section["skipped"][0]["orbits_excluded_for_mixed_labels"], 1);
+        assert_eq!(section["verdict"], "undecided");
+    }
+
+    #[test]
+    fn p13d_decide_refuses_a_pair_with_a_mixed_orbit() {
+        let ok = [0.9, 0.5, 0.6, 0.55, 0.52, 0.58];
+        assert_eq!(p13d_decide(&ok, 0.7, 1), Err(MIXED_ORBIT_REASON));
+        assert_eq!(p13d_decide(&ok, 0.7, 0).map(|r| r.1), Ok(true));
     }
 
     #[test]
