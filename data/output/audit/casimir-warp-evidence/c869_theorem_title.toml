@@ -1,0 +1,12 @@
+correction_key = "c869-model-function-scope-2026-11"
+actor = "registry-statement-correction"
+reason = "Align the theorem title with the proved model-function lemmas; the proof source states no K_ij or implemented-shift result. Preserve the existing source_only status and formal claim relation."
+applied_at = "2026-11-16T12:27:05Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C869_InteriorFlat"
+proof_path = "proofs/verified/C869_InteriorFlat.v"
+expected_title = "Nacelle warp bubble interior-flat condition: K_ij=0 at bubble center (rho << rho_0) to machine precision."
+expected_claim_ids = ["C-869"]
+title = "Rocq model functions: the shape-function derivative vanishes at the bubble center and the gating function is below 1/2 at rho = 0."
+claim_ids = ["C-869"]

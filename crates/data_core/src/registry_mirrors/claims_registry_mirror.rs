@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1597
+//! Total claims: 1598
 //!
 //! ## C-001
 //!
@@ -6954,10 +6954,10 @@
 //!
 //! ## C-869
 //!
-//! - Status: `Verified`
+//! - Status: `Partial`
 //! - Last verified: 2026-02-28
-//! - Statement: Nacelle warp bubble interior-flat condition: K_ij=0 at bubble center (rho << rho_0) to machine precision.
-//! - Where stated: crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)
+//! - Statement: At the center of the implemented nacelle shift, the shape-function derivative is below 0.01 in magnitude (test_shape_derivative_zero_at_center), the logistic gating function is below 0.01 at the tested interior radius (test_gating_interior_is_zero), and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center). The Rocq theorem C869_interior_flat gives the exact zero of the shape-function derivative at the center of the Rocq model, and C869_gating_suppressed bounds its gating function below 1/2 at rho = 0 under the hypothesis delta < rho_0 (with kappa > 0 and rho_0 > 0). test_center_extrinsic_curvature_is_zero asserts the exact center values at default parameters: every K_ij component and every component of its trace-free part equals 0.0, and the ADM York time and nacelle_york_time(0,0,0) equal 0.0 (a signed zero -0.0 compares equal). Flatness on an interior region (a constant shift and vanishing tidal forces away from the center) is not established: the logistic gate and nearly uniform modulation do not certify it.
+//! - Where stated: crates/gr_core/src/warp_metric.rs (test_shape_derivative_zero_at_center, test_gating_interior_is_zero, test_york_time_zero_at_center, test_center_extrinsic_curvature_is_zero)
 //! - What would verify/refute it:
 //!
 //! ## C-870
@@ -6972,8 +6972,8 @@
 //!
 //! - Status: `Verified`
 //! - Last verified: 2026-02-28
-//! - Statement: Worldline v-loop reproduces parallel plate Casimir energy E/A=-pi^2/(720*a^3) within Monte Carlo error.
-//! - Where stated: crates/casimir_core/src/energy.rs (test_parallel_plates_exact, test_exact_scales_as_a_minus_3)
+//! - Statement: The analytic electromagnetic ideal-conductor parallel-plate reference is E/A=-pi^2/(720*a^3) in hbar=c=1 units at zero temperature. The implementation tests its unit-separation value and doubling-gap cubic scaling; these are closed-form reference checks, not Monte Carlo convergence evidence.
+//! - Where stated: crates/casimir_core/src/energy.rs (casimir_parallel_plates_exact, test_parallel_plates_exact, test_exact_scales_as_a_minus_3)
 //! - What would verify/refute it:
 //!
 //! ## C-872
@@ -6994,10 +6994,10 @@
 //!
 //! ## C-874
 //!
-//! - Status: `Verified`
+//! - Status: `Partial`
 //! - Last verified: 2026-02-28
-//! - Statement: York time vanishes in nacelle warp interior (rho << rho_0, |x| << L).
-//! - Where stated: crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)
+//! - Statement: At the center of the implemented nacelle shift, the shape function and the axial taper equal 1 within 0.01 (test_shape_function_at_center, test_axial_taper_center) and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center); test_center_extrinsic_curvature_is_zero asserts that at the center with default parameters nacelle_york_time(0,0,0) and the ADM York time equal 0.0 (a signed zero -0.0 compares equal). The Rocq theorems C874_shape_unity, C874_axial_taper_unity and C874_axial_deriv_zero give the exact center values and the zero axial taper derivative for the Rocq model functions. Vanishing York time throughout the nacelle interior (rho << rho_0, |x| << L) is a region statement and is not established: the logistic gate and tanh envelope are phenomenological and do not certify exact flatness away from the center.
+//! - Where stated: crates/gr_core/src/warp_metric.rs (test_shape_function_at_center, test_axial_taper_center, test_york_time_zero_at_center, test_center_extrinsic_curvature_is_zero)
 //! - What would verify/refute it:
 //!
 //! ## C-875
@@ -7378,9 +7378,9 @@
 //!
 //! ## C-922
 //!
-//! - Status: `Verified`
+//! - Status: `Partial`
 //! - Last verified: 2026-03-03
-//! - Statement: Zero-divisor graph spectral dimension d_s(t) at CD dim N: heat kernel on the graph Laplacian of cross-assessor ZD components. Measured for N = 16, 32, 64, 128, 256, 512. Result: no stable plateau at any dimension. d_s(t) grows monotonically because components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure.
+//! - Statement: Zero-divisor graph spectral dimension d_s(t) at CD dim N from the full finite-graph heat trace (zero Laplacian modes included) of the first cross-assessor ZD component, measured for N = 16, 32, 64, 128, 256, 512 on the 300-point geometric time grid from 0.01 to 50 (298 curve rows per N). Result: all 1788 retained d_s values are finite and lie between 0 and 6.661; at each N, d_s(t) rises monotonically to one peak (1.574, 2.585, 3.567, 4.567, 5.597, 6.660 for N = 16 to 512) and then falls toward 0 at late time: the fall is strict at N = 16 and 32 and non-increasing at N >= 64, where the last 22, 48, 74 and 99 curve rows (N = 64, 128, 256, 512) are exactly 0. The longest slope-flat window at each N is a finite-size tail that ends at ln t = 3.855 near the late end of the grid and has flatness_score 0 (d_s mean 4.7e-3 at N = 16, 1.6e-4 at N = 512), so no continuum plateau appears. Components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure.
 //! - Where stated: crates/algebra_analysis/src/spectral_dimension.rs
 //! - What would verify/refute it:
 //!
@@ -12782,4 +12782,12 @@
 //! - Last verified: 2026-11-15
 //! - Statement: At 9455 THEMIS-A magnetopause crossings of the Staples et al. (2020) version 2 catalog (3-second FGM rows, 32D unit-normalized delay windows of 8 rows by 4 channels), the late-to-early ratio of the sliding Cayley-Dickson associator norm over the 12 norms that end one row before the catalogued crossing has median 1.44 with 64.0 percent of crossings above 1; at random times of the same day files the median is 1.00 with 50.3 percent above 1. The same ratio of the windowed increment energy, a sum of squared field increments with no product, has median 1.54 normalized by the squared field and 1.39 raw. With the window moved back 12, 24 and 96 rows the associator median is 1.08, 1.04 and 1.00, and mirrored over the rows after the crossing it is 1.56 with 67.6 percent above 1. The median raw increment energy is 6.4 nT squared 100 rows before the crossing, 22.1 at 5 rows before, 50.7 at the crossing, 31.0 at 5 rows after and 7.9 at 100 rows after, against 0.17 to 0.18 at random times. The ratio therefore measures the flank of a peak of magnetic fluctuation 10 rows (30 seconds) wide at half maximum centered on the catalogued crossing, present on both sides of it, inside an interval about 35 times more disturbed than random times of the same days.
 //! - Where stated: data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null.json; data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null-transition.toml; crates/gororoba_cli_physics/src/bin/themis_cd_crossing_null.rs
+//! - What would verify/refute it:
+//!
+//! ## C-1785
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-16
+//! - Statement: For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate is more negative than (larger in magnitude than) the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly (assert_eq on both in the same test). The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error.
+//! - Where stated: crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)
 //! - What would verify/refute it:

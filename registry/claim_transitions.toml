@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 227
+event_count = 231
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4895,3 +4895,83 @@ transition_spec_sha256 = "a6b36b7965328126b9f17dba6ac717cc7eedec867a3858b99076b4
 proposal_key = "themis-crossing-ratio-boundary-fluctuation-layer"
 canonical_claim_id = "C-1784"
 relation_kind = "supersedes"
+
+[[transition]]
+event_id = 228
+transition_key = "c-869-interior-flat-scope-partial"
+source_claim_id = "C-869"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or test_center_extrinsic_curvature_is_zero fails (a nonzero K_ij component, trace-free component or York time at the center of the implemented metric: the registered center proposition); flatness on an interior region stays unestablished and a center value does not falsify it."
+rationale = "The retained Rust tests bound the shape derivative and the gate by 0.01 and the York time at the center by 0.1, and test_center_extrinsic_curvature_is_zero asserts K_ij = 0 exactly at the center. The module documentation states that the logistic gate does not establish exact flatness, so no retained check decides flatness on an interior region; the Rocq lemmas concern model functions."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = []
+actor = "registry-statement-correction"
+reason = "Scope C-869 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "16f6c77c7cc1dfff04a048afdb51ede20d6ec0b8a4b0fa18d34d46f62c9c3e41"
+successors = []
+
+[[transition]]
+event_id = 229
+transition_key = "c-874-york-time-scope-partial"
+source_claim_id = "C-874"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or test_center_extrinsic_curvature_is_zero fails (a nonzero York time at the center); vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
+rationale = "The retained Rust tests bound the center values by 0.01 and the York time by 0.1, and the Rocq lemmas concern model functions; no retained check decides vanishing York time across the interior, which the module documentation says the logistic gate does not establish."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = []
+actor = "registry-statement-correction"
+reason = "Scope C-874 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "45683d95598e87fc6a67f7e132df9e84bcf93cd9824490d1caea344d4ec27dcf"
+successors = []
+
+[[transition]]
+event_id = 230
+transition_key = "c-922-full-trace-scope-partial"
+source_claim_id = "C-922"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "A replay of the registered E-084 command writes a non-finite d_s value, a d_s value above 6.661, or a longest slope-flat window with flatness_score above 0 and d_s mean above 0.1, or its curves differ in sha256 from the retained census."
+rationale = "The registered monotonic-growth and marginal-plateau statements describe the positive-mode relaxation normalization. The retained full-trace census is finite and unimodal at N = 16 to 512 with finite-size tails of flatness_score 0, but it covers the first component and one time grid, and the flat-window selector is descriptive and not an adjudicated plateau test."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-SPECTRAL-FULL-TRACE-V2"]
+experiment_ids = ["E-084"]
+actor = "registry-statement-correction"
+reason = "Scope C-922 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "e304e83f133cc56647fb61558bdc7c793534880484dcd37aceb31121dac3804b"
+successors = []
+
+[[transition]]
+event_id = 231
+transition_key = "c-871-worldline-scalar-diagnostic-split"
+source_claim_id = "C-871"
+expected_prior_status = "Verified"
+experiment_verdict = "SurvivesChallenge"
+proposed_claim_status = "Verified"
+current_status = "Verified"
+exercised_falsifier = "casimir_parallel_plates_exact at unit separation differs from -pi^2/720 in the hbar=c=1 convention, or the doubling-gap ratio of E/A differs from 1/8."
+rationale = "The narrowed statement is the closed-form electromagnetic reference, which test_parallel_plates_exact and test_exact_scales_as_a_minus_3 assert. The former proposition that the worldline estimator reproduces that energy within Monte Carlo error concerned a different calculation, the scalar estimator of E-081, whose retained regression allows five standard errors plus 15 percent; the successor claim carries it with that tolerance."
+unresolved_assumptions = ["Polygon, proper-time and quadrature biases of the scalar estimator remain outside its reported Monte Carlo standard error."]
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = ["E-081"]
+actor = "registry-statement-correction"
+reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "97952e9a077151fa709e9cd01885ed8e1709fe77d49bd3d0f6e263780198c2af"
+
+[[transition.successors]]
+proposal_key = "scalar-worldline-plate-polygon-refinement"
+canonical_claim_id = "C-1785"
+relation_kind = "implementation_split"

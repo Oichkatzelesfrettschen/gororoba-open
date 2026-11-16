@@ -627,6 +627,28 @@ mod tests {
         assert!(theta.abs() < 0.1, "York time at center: {theta}");
     }
 
+    #[test]
+    fn test_center_extrinsic_curvature_is_zero() {
+        // The ADM extrinsic curvature and York time evaluate to zero at the
+        // origin with default parameters in f64 (-0.0 == 0.0 holds).
+        let params = NacelleWarpParams::default();
+        let bubble = NacelleWarpBubble::new(params.clone());
+        let data = crate::adm::extrinsic_curvature(&bubble, &[0.0, 0.0, 0.0, 0.0]);
+        for i in 0..3 {
+            for j in 0..3 {
+                assert!(data.k_ij[i][j] == 0.0, "K[{i}][{j}] = {}", data.k_ij[i][j]);
+                assert!(
+                    data.tracefree_k[i][j] == 0.0,
+                    "A[{i}][{j}] = {}",
+                    data.tracefree_k[i][j]
+                );
+            }
+        }
+        assert!(data.york_time == 0.0, "ADM York time = {}", data.york_time);
+        let theta = nacelle_york_time(0.0, 0.0, 0.0, &params);
+        assert!(theta == 0.0, "nacelle_york_time at center = {theta}");
+    }
+
     // -- Nacelle count effects --
 
     #[test]

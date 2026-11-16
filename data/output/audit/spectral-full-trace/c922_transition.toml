@@ -1,0 +1,16 @@
+[transition]
+transition_key = "c-922-full-trace-scope-partial"
+source_claim_id = "C-922"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+evidence_artifact_ids = ["LOCAL-SPECTRAL-FULL-TRACE-V2"]
+experiment_ids = ["E-084"]
+exercised_falsifier = "A replay of the registered E-084 command writes a non-finite d_s value, a d_s value above 6.661, or a longest slope-flat window with flatness_score above 0 and d_s mean above 0.1, or its curves differ in sha256 from the retained census."
+proposed_claim_status = "Partial"
+rationale = "The registered monotonic-growth and marginal-plateau statements describe the positive-mode relaxation normalization. The retained full-trace census is finite and unimodal at N = 16 to 512 with finite-size tails of flatness_score 0, but it covers the first component and one time grid, and the flat-window selector is descriptive and not an adjudicated plateau test."
+unresolved_assumptions = []
+actor = "registry-statement-correction"
+reason = "Scope C-922 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+expected_source_state_sha256 = "1cbf42fc1d36c43b405e639ccadc252d4d49ee8cd9a5b7ea1ca08b734aeea7d6"
+expected_claim_id_max = 1784
