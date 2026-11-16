@@ -203,22 +203,17 @@ pub fn multinomial_scores(
     let mut means = DVector::zeros(scores.nrows());
     let mut weighted_centered = DMatrix::zeros(scores.nrows(), scores.ncols());
     for row in 0..scores.nrows() {
-        let mut minimum = f64::INFINITY;
-        let mut maximum = f64::NEG_INFINITY;
+        // The anchor is the score of the most frequent outcome (the first on
+        // ties). Its offset is exactly zero, so the dominant probability mass
+        // contributes no rounding, and a rare outcome's share of the mean is
+        // never cancelled against a distant anchor.
+        let mut modal = 0;
         for (column, count) in counts.iter().enumerate() {
-            if *count != 0 {
-                minimum = minimum.min(scores[(row, column)]);
-                maximum = maximum.max(scores[(row, column)]);
+            if *count > counts[modal] {
+                modal = column;
             }
         }
-        // Same-sign ranges use subtraction to preserve small representable
-        // differences beside a common offset. Opposite extremes use half sums.
-        let range = maximum - minimum;
-        let anchor = if range.is_finite() {
-            minimum + range / 2.0
-        } else {
-            minimum / 2.0 + maximum / 2.0
-        };
+        let anchor = scores[(row, modal)];
         let offsets: Vec<f64> = counts
             .iter()
             .enumerate()
@@ -392,6 +387,22 @@ mod tests {
         // The pairwise identity gives (2^-52)^2 / 2^3 = 2^-107.
         assert_eq!(result.means[0], 1.0);
         assert_eq!(result.covariance_of_means[(0, 0)], 2_f64.powi(-107));
+    }
+
+    #[test]
+    fn imbalanced_counts_keep_the_rare_outcome_mean() {
+        // N = 2^53 and one rare outcome of score 3: the exact mean is 3 / 2^53,
+        // and the exact plug-in variance of the mean is 9 (N - 1) / N^3.
+        let scores = DMatrix::from_row_slice(1, 2, &[0.0, 3.0]);
+        let counts = [MAX_EXACT_TOTAL_COUNT - 1, 1];
+        let result = multinomial_scores(&counts, &scores, CovarianceEstimator::PlugIn).unwrap();
+        let total = MAX_EXACT_TOTAL_COUNT as f64;
+        assert_eq!(result.means[0], 3.0 / total);
+        assert_relative_eq!(
+            result.covariance_of_means[(0, 0)],
+            9.0 * (total - 1.0) / (total * total * total),
+            max_relative = 1e-15,
+        );
     }
 
     #[test]
