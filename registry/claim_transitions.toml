@@ -4904,15 +4904,15 @@ expected_prior_status = "Verified"
 experiment_verdict = "MethodologyInvalid"
 proposed_claim_status = "Partial"
 current_status = "Partial"
-exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or a direct ADM evaluation of K_ij at the center of the implemented metric returns a nonzero value (the registered center proposition); flatness on an interior region stays unestablished and a center value does not falsify it."
-rationale = "The retained Rust tests bound the shape derivative and the gate by 0.01 and the York time at the center by 0.1, and the module documentation states that the logistic gate does not establish exact flatness, so no retained check decides the registered proposition K_ij = 0 to machine precision; the Rocq lemmas concern model functions."
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or test_center_extrinsic_curvature_is_zero fails (a nonzero K_ij component, trace-free component or York time at the center of the implemented metric: the registered center proposition); flatness on an interior region stays unestablished and a center value does not falsify it."
+rationale = "The retained Rust tests bound the shape derivative and the gate by 0.01 and the York time at the center by 0.1, and test_center_extrinsic_curvature_is_zero asserts K_ij = 0 exactly at the center. The module documentation states that the logistic gate does not establish exact flatness, so no retained check decides flatness on an interior region; the Rocq lemmas concern model functions."
 unresolved_assumptions = []
 evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
 actor = "registry-statement-correction"
 reason = "Scope C-869 to the evidence that decides it"
-transition_timestamp = "2026-11-16T17:03:58Z"
-transition_spec_sha256 = "217f7d4a08508983f475a453d47f423b39a81b4424380f574e10f652c30a4856"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "16f6c77c7cc1dfff04a048afdb51ede20d6ec0b8a4b0fa18d34d46f62c9c3e41"
 successors = []
 
 [[transition]]
@@ -4923,15 +4923,15 @@ expected_prior_status = "Verified"
 experiment_verdict = "MethodologyInvalid"
 proposed_claim_status = "Partial"
 current_status = "Partial"
-exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or a direct evaluation of the York time at the center returns a nonzero value; vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or test_center_extrinsic_curvature_is_zero fails (a nonzero York time at the center); vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
 rationale = "The retained Rust tests bound the center values by 0.01 and the York time by 0.1, and the Rocq lemmas concern model functions; no retained check decides vanishing York time across the interior, which the module documentation says the logistic gate does not establish."
 unresolved_assumptions = []
 evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
 actor = "registry-statement-correction"
 reason = "Scope C-874 to the evidence that decides it"
-transition_timestamp = "2026-11-16T17:03:58Z"
-transition_spec_sha256 = "89a0f48005aaab1ada880b3ca20f28bc12393664bb964dde8604c81b290cf4b1"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "45683d95598e87fc6a67f7e132df9e84bcf93cd9824490d1caea344d4ec27dcf"
 successors = []
 
 [[transition]]
@@ -4949,8 +4949,8 @@ evidence_artifact_ids = ["LOCAL-SPECTRAL-FULL-TRACE-V2"]
 experiment_ids = ["E-084"]
 actor = "registry-statement-correction"
 reason = "Scope C-922 to the evidence that decides it"
-transition_timestamp = "2026-11-16T17:03:58Z"
-transition_spec_sha256 = "431238d14b21cf405c99cbd8d5f20133664f944c27a9f00210dbd0d65443a900"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "e304e83f133cc56647fb61558bdc7c793534880484dcd37aceb31121dac3804b"
 successors = []
 
 [[transition]]
@@ -4968,8 +4968,8 @@ evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = ["E-081"]
 actor = "registry-statement-correction"
 reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
-transition_timestamp = "2026-11-16T17:03:58Z"
-transition_spec_sha256 = "68b670bc3c0e05430422434f4a78607370f98c9a59a6d7c500a585da0cb81871"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "97952e9a077151fa709e9cd01885ed8e1709fe77d49bd3d0f6e263780198c2af"
 
 [[transition.successors]]
 proposal_key = "scalar-worldline-plate-polygon-refinement"
