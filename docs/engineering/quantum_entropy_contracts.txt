@@ -1,0 +1,61 @@
+Pure-state subsystem entropy contracts
+======================================
+
+Scope
+-----
+The tensor_networks facade measures exactly the requested subsystem, in nats,
+with site zero the most significant state-vector bit. It no longer replaces
+an arbitrary set by a maximum-index prefix. Full product testing checks every
+prefix cut of a pure state; the tolerance is per cut, not a global trace-distance
+bound. Mixed-state separability is outside this interface.
+
+Dense states and MPS
+--------------------
+The dense helper constructs the actual bipartition coefficient matrix and
+normalizes its squared singular values. Duplicate indices, invalid states,
+overflowing sizes and excessive dense allocation are refused. MPS prefixes
+and suffixes come from canonical-form sweeps. A QR sweep from the left makes
+every site an isometry; each tensor is divided by its largest component and
+the columns are equilibrated before the QR, so bond gauges that cancel across
+sites, such as diag(1e100, 1e-100) against its inverse, are never squared or
+multiplied into an underflowing product. A sweep back from the right takes
+the singular values of each bond matrix, which are the Schmidt coefficients
+of that cut in any input gauge. One pair of sweeps yields every cut in
+O(n chi^3), and the MPS product test uses it. The global scale is dropped
+because every entropy normalizes its input. The dense fallback contracts the
+left-canonical form, so every partial product has magnitude at most one.
+
+Noncontiguous MPS partitions use the existing parallel dense conversion only
+inside the declared 2^20-amplitude facade guard. The dense helper exposes a
+caller-supplied limit. Bond matrices have the same element-count guard; solver
+workspaces are additional, so this is not a byte-perfect memory cap.
+
+PEPS
+----
+The existing row-cut method is an approximation. The checked facade admits
+bond-one product PEPS and refuses a general exact contraction it cannot supply.
+The old infallible methods remain wrappers that panic on unsupported requests;
+new callers should use try_entanglement_entropy and try_is_product_state.
+
+Validation and remaining migration
+----------------------------------
+Native regression tests cover a Bell pair away from site zero, MPS gauge
+invariance including cancelling 1e100 bond gauges on the prefix, dense and
+product paths, the dense-fallback bit order on four sites, every-cut entropies
+from one sweep, arbitrary complex partitions, complements, empty cuts,
+malformed chains, allocation bounds, estimate_memory_bytes overflow and PEPS
+refusal. Required native command:
+
+cargo test -p quantum_core tensor_networks
+
+Native rustfmt, clippy with warnings denied, and cargo test -p quantum_core
+pass on the native toolchain. An earlier independent NumPy check compared the
+two-environment Gram formula with dense Schmidt decompositions in 36 fixed
+cases; the canonical sweeps replace that formula, so the check no longer
+covers the implementation.
+
+MatrixProductState::measure_entropy checks every cut, k = 0 and k = n_qubits
+included, through mps_prefix_entropy and panics on a malformed chain;
+measure_entropy_all_parallel reads one mps_cut_entropies sweep. Retained results are
+not regenerated or re-adjudicated here. No provider job or physical claim is
+created by this change.
