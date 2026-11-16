@@ -1,0 +1,8 @@
+schema: finite-graph-full-heat-trace-v2
+P(t): sum_i exp(-lambda_i*t)/N, including zero modes
+d_s(t): 2*t*sum_i lambda_i*exp(-lambda_i*t)/sum_i exp(-lambda_i*t)
+scope: first cross-assessor component, not the disconnected union
+flatness_score: max(0, 1 - std/abs(mean)); not R-squared
+plateau: flat-window candidate only; finite-size endpoints may be flat
+is_expander: historical finite-graph heuristic, not a family theorem
+physical interpretation: no inference of spacetime dimension
