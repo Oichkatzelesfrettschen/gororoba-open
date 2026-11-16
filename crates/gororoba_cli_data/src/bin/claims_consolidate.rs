@@ -82,7 +82,10 @@ fn run(cli: Cli) -> Result<(), String> {
     let experiments_path = cli.registry_dir.join("experiments.toml");
     let binaries_path = cli.registry_dir.join("binaries.toml");
     let conflict_markers_path = cli.registry_dir.join("conflict_markers.toml");
-    let proofs_project_path = repo_root.join("proofs/_RocqProject");
+    // The canonical sync after a write resolves recorded `proofs/` paths
+    // against the gororoba-math checkout that GOROROBA_MATH names.
+    let proof_tree = provenance_store::ProofTree::from_environment_if_set()
+        .map_err(|error| error.to_string())?;
 
     // Load registries
     let claims_text = match load_registry_compat_text(
@@ -157,7 +160,7 @@ fn run(cli: Cli) -> Result<(), String> {
                         insights: &insights_path,
                         experiments: &experiments_path,
                         binaries: &binaries_path,
-                        proofs_project: &proofs_project_path,
+                        proof_tree: proof_tree.as_ref(),
                     },
                     &claims,
                 );
@@ -177,7 +180,7 @@ fn run(cli: Cli) -> Result<(), String> {
                         insights: &insights_path,
                         experiments: &experiments_path,
                         binaries: &binaries_path,
-                        proofs_project: &proofs_project_path,
+                        proof_tree: proof_tree.as_ref(),
                     },
                     &claims,
                 );
@@ -197,7 +200,7 @@ fn run(cli: Cli) -> Result<(), String> {
                         insights: &insights_path,
                         experiments: &experiments_path,
                         binaries: &binaries_path,
-                        proofs_project: &proofs_project_path,
+                        proof_tree: proof_tree.as_ref(),
                     },
                     &claims,
                 );
@@ -217,7 +220,7 @@ fn run(cli: Cli) -> Result<(), String> {
                         insights: &insights_path,
                         experiments: &experiments_path,
                         binaries: &binaries_path,
-                        proofs_project: &proofs_project_path,
+                        proof_tree: proof_tree.as_ref(),
                     },
                     &claims,
                 );
@@ -237,7 +240,7 @@ fn run(cli: Cli) -> Result<(), String> {
                         insights: &insights_path,
                         experiments: &experiments_path,
                         binaries: &binaries_path,
-                        proofs_project: &proofs_project_path,
+                        proof_tree: proof_tree.as_ref(),
                     },
                     &claims,
                 );
@@ -319,7 +322,8 @@ struct ClaimsWritePaths<'a> {
     insights: &'a std::path::Path,
     experiments: &'a std::path::Path,
     binaries: &'a std::path::Path,
-    proofs_project: &'a std::path::Path,
+    /// The proof tree for the canonical sync, when `GOROROBA_MATH` is set.
+    proof_tree: Option<&'a provenance_store::ProofTree>,
 }
 
 fn write_claims_output(
@@ -331,6 +335,14 @@ fn write_claims_output(
         eprintln!("ERROR: {error}");
         std::process::exit(1);
     });
+    if canonical_sync && cli.canonical_db.exists() && paths.proof_tree.is_none() {
+        eprintln!(
+            "ERROR: the canonical sync after a claims write reads the proof tree: set \
+             GOROROBA_MATH to a gororoba-math checkout at the commit named by \
+             ci/gororoba_math.pin; no file was written"
+        );
+        std::process::exit(1);
+    }
     let target = cli.output.as_deref().unwrap_or(paths.default_path);
     match consolidate::write_claims(target, claims) {
         Ok(()) => {
@@ -387,6 +399,10 @@ fn sync_control_plane_after_claim_write(
         );
         return;
     }
+    let Some(proof_tree) = paths.proof_tree else {
+        eprintln!("ERROR: the canonical sync reads the proof tree, and GOROROBA_MATH is unset");
+        std::process::exit(1);
+    };
     let theorems_path = paths.repo_root.join("docs/THEOREMS.md");
     let theorems_mirror_path = paths
         .repo_root
@@ -408,7 +424,7 @@ fn sync_control_plane_after_claim_write(
             insights: paths.insights,
             experiments: paths.experiments,
             binaries: paths.binaries,
-            rocq_project: paths.proofs_project,
+            proof_tree,
         },
         // The consolidator rewrites claims.toml and then re-imports it, which is
         // the mirror-to-canonical direction the SQLite-canonical doctrine
@@ -590,7 +606,7 @@ mod tests {
                 insights: &directory.path().join("insights.toml"),
                 experiments: &directory.path().join("experiments.toml"),
                 binaries: &directory.path().join("binaries.toml"),
-                proofs_project: &directory.path().join("_RocqProject"),
+                proof_tree: None,
             },
             &[],
         );
