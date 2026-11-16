@@ -647,17 +647,15 @@ impl MatrixProductState {
     /// Measure von Neumann entropy at bipartition k.
     ///
     /// Splits qubits [0..k) vs [k..n) and returns the entropy in nats from
-    /// both contraction environments, so the value is invariant under a
-    /// nonunitary bond gauge. A cut at either end returns zero.
+    /// the Schmidt coefficients of a canonical-form sweep, so the value is
+    /// invariant under a nonunitary bond gauge. A cut at either end returns zero for a valid
+    /// chain; every cut is checked.
     ///
     /// # Panics
-    /// Panics when the tensor chain is malformed, zero or non-finite, or a
-    /// bond matrix exceeds the entropy allocation budget. Use
-    /// `tensor_networks::mps_prefix_entropy` for a `Result`.
+    /// Panics when the tensor chain is malformed, zero or non-finite, a
+    /// bond matrix exceeds the entropy allocation budget, or `k` exceeds the
+    /// qubit count. Use `tensor_networks::mps_prefix_entropy` for a `Result`.
     pub fn measure_entropy(&self, k: usize) -> f64 {
-        if k == 0 || k >= self.n_qubits {
-            return 0.0;
-        }
         crate::tensor_networks::mps_prefix_entropy(self, k)
             .expect("MPS entropy requires a valid tensor chain within the bond budget")
     }
@@ -832,14 +830,17 @@ impl MatrixProductState {
         self.apply_single_gates_parallel(&gates);
     }
 
-    /// Compute entanglement entropy at multiple bipartitions in parallel.
+    /// Compute entanglement entropy at every interior bipartition.
     ///
-    /// Returns entropy for each bipartition in 1..n_qubits.
+    /// Returns entropy for each bipartition in 1..n_qubits from one
+    /// canonical sweep (`tensor_networks::mps_cut_entropies`).
+    ///
+    /// # Panics
+    /// Panics under the conditions of `measure_entropy`.
     pub fn measure_entropy_all_parallel(&self) -> Vec<f64> {
-        (1..self.n_qubits)
-            .into_par_iter()
-            .map(|k| self.measure_entropy(k))
-            .collect()
+        let entropies = crate::tensor_networks::mps_cut_entropies(self)
+            .expect("MPS entropy requires a valid tensor chain within the bond budget");
+        entropies[1..self.n_qubits.max(1)].to_vec()
     }
 }
 
@@ -1034,6 +1035,23 @@ mod tests {
 
         assert!((norm_seq - norm_par).abs() < 1e-10);
         assert!((norm_seq - 1.0).abs() < 0.1, "Should be normalized");
+    }
+
+    #[test]
+    fn measure_entropy_checks_the_chain_at_every_cut() {
+        for cut in [0, 2] {
+            let mut mps = MatrixProductState::new_zero_state(2);
+            mps.tensors[0].data.fill(c64::new(0.0, 0.0));
+            let result = std::panic::catch_unwind(|| mps.measure_entropy(cut));
+            assert!(result.is_err(), "cut {cut} accepted a zeroed tensor");
+            assert_eq!(
+                crate::tensor_networks::mps_prefix_entropy(&mps, cut),
+                Err(crate::tensor_networks::EntropyError::InvalidState),
+            );
+        }
+        let valid = MatrixProductState::new_zero_state(2);
+        assert_eq!(valid.measure_entropy(0), 0.0);
+        assert_eq!(valid.measure_entropy(2), 0.0);
     }
 
     #[test]

@@ -6,7 +6,7 @@
 //! entanglement measure for an arbitrary mixed global state. PEPS row-cut
 //! approximations are not substituted for an exact subsystem contraction.
 
-use nalgebra::{DMatrix, SymmetricEigen};
+use nalgebra::{DMatrix, SVD};
 use num_complex::Complex64;
 use rayon::prelude::*;
 
@@ -257,55 +257,114 @@ fn validate_mps(state: &MatrixProductState) -> Result<(), EntropyError> {
     Ok(())
 }
 
-fn normalized_gram(mut gram: DMatrix<Complex64>) -> Result<DMatrix<Complex64>, EntropyError> {
-    if gram.iter().any(|z| !z.re.is_finite() || !z.im.is_finite()) {
+fn max_component(values: impl Iterator<Item = Complex64>) -> f64 {
+    values
+        .map(|z| z.re.abs().max(z.im.abs()))
+        .fold(0.0_f64, f64::max)
+}
+
+/// Left-canonical form of a validated MPS by a QR sweep, one matrix per site.
+///
+/// Row `2 * left + physical` and column `right` index each matrix, whose
+/// columns are orthonormal, so the chain contracts to the original state up
+/// to one positive global scale and no entry of a partial contraction exceeds
+/// one. Each tensor is divided by its largest component, the triangular
+/// factor carried from the previous site is absorbed, and the columns of the
+/// product are equilibrated before the QR, so bond gauges that cancel across
+/// sites (`diag(1e100, 1e-100)` against its inverse) are never squared or
+/// multiplied into an underflowing partial product. The dropped scale is
+/// irrelevant to every entropy, which normalizes its input.
+fn mps_left_canonical(state: &MatrixProductState) -> Result<Vec<DMatrix<Complex64>>, EntropyError> {
+    let mut carry = DMatrix::from_element(1, 1, Complex64::new(1.0, 0.0));
+    let mut sites = Vec::with_capacity(state.n_qubits);
+    for tensor in &state.tensors {
+        let entries: Vec<Complex64> = tensor
+            .data
+            .iter()
+            .map(|z| Complex64::new(z.re, z.im))
+            .collect();
+        let tensor_scale = max_component(entries.iter().copied());
+        let rows = carry.nrows();
+        let mut block = DMatrix::<Complex64>::zeros(rows * 2, tensor.chi_right);
+        for j in 0..rows {
+            for physical in 0..2 {
+                for right in 0..tensor.chi_right {
+                    let mut sum = Complex64::new(0.0, 0.0);
+                    for left in 0..tensor.chi_left {
+                        let entry = entries[(left * 2 + physical) * tensor.chi_right + right];
+                        sum += carry[(j, left)] * (entry / tensor_scale);
+                    }
+                    block[(j * 2 + physical, right)] = sum;
+                }
+            }
+        }
+        let scale = max_component(block.iter().copied());
+        if scale == 0.0 || !scale.is_finite() {
+            return Err(EntropyError::InvalidState);
+        }
+        for z in block.iter_mut() {
+            *z /= scale;
+        }
+        let column_scale: Vec<f64> = (0..block.ncols())
+            .map(|column| {
+                let largest = max_component(block.column(column).iter().copied());
+                if largest > 0.0 { largest } else { 1.0 }
+            })
+            .collect();
+        for (column, &factor) in column_scale.iter().enumerate() {
+            for z in block.column_mut(column).iter_mut() {
+                *z /= factor;
+            }
+        }
+        let qr = block.qr();
+        let mut triangular = qr.r();
+        for (column, &factor) in column_scale.iter().enumerate() {
+            for z in triangular.column_mut(column).iter_mut() {
+                *z *= factor;
+            }
+        }
+        sites.push(qr.q());
+        carry = triangular;
+    }
+    Ok(sites)
+}
+
+/// Entropy in nats of the Schmidt probabilities s^2 / sum(s^2).
+fn schmidt_entropy(values: &[f64]) -> Result<f64, EntropyError> {
+    if values.iter().any(|&v| !v.is_finite() || v < 0.0) {
         return Err(EntropyError::NumericalFailure);
     }
-    let scale = gram
-        .iter()
-        .map(|z| z.re.abs().max(z.im.abs()))
-        .fold(0.0_f64, f64::max);
-    if scale == 0.0 {
+    let top = values.iter().copied().fold(0.0_f64, f64::max);
+    if top <= 0.0 {
         return Err(EntropyError::InvalidState);
     }
-    gram /= Complex64::new(scale, 0.0);
-    Ok((&gram + gram.adjoint()) * Complex64::new(0.5, 0.0))
-}
-
-fn mps_physical_matrix(tensor: &MpsTensor, physical: usize) -> DMatrix<Complex64> {
-    // A positive local scalar changes only the discarded global normalization.
-    let scale = tensor
-        .data
+    let weights: Vec<f64> = values.iter().map(|&v| (v / top) * (v / top)).collect();
+    let total: f64 = weights.iter().sum();
+    let entropy: f64 = weights
         .iter()
-        .map(|z| z.re.abs().max(z.im.abs()))
-        .fold(0.0_f64, f64::max);
-    DMatrix::from_fn(tensor.chi_left, tensor.chi_right, |left, right| {
-        let value = tensor.get(left, physical, right);
-        Complex64::new(value.re / scale, value.im / scale)
-    })
+        .map(|&w| w / total)
+        .filter(|&p| p > 0.0)
+        .map(|p| -p * p.ln())
+        .sum();
+    if entropy.is_finite() {
+        Ok(entropy.max(0.0))
+    } else {
+        Err(EntropyError::NumericalFailure)
+    }
 }
 
-/// Dense coefficients of a validated MPS, up to one positive global scale.
-///
-/// Each tensor is divided by its largest component magnitude before the
-/// contraction, so tensor scales that cancel across sites (1e200 against
-/// 1e-200) neither overflow nor underflow. The entropy functions normalize
-/// their input, so the dropped product of scales leaves the result unchanged.
+/// Dense coefficients of a validated MPS, up to one positive global scale,
+/// contracted from the left-canonical form so no partial product overflows
+/// or underflows through a bond gauge.
 fn mps_scaled_coefficients(state: &MatrixProductState) -> Result<Vec<Complex64>, EntropyError> {
     let n_sites = state.n_qubits;
-    let scaled: Vec<Vec<Complex64>> = state
-        .tensors
+    let sites = mps_left_canonical(state)?;
+    let rows: Vec<Vec<Complex64>> = sites
         .iter()
-        .map(|tensor| {
-            let scale = tensor
-                .data
-                .iter()
-                .map(|z| z.re.abs().max(z.im.abs()))
-                .fold(0.0_f64, f64::max);
-            tensor
-                .data
-                .iter()
-                .map(|z| Complex64::new(z.re / scale, z.im / scale))
+        .map(|matrix| {
+            (0..matrix.nrows())
+                .flat_map(|row| (0..matrix.ncols()).map(move |column| (row, column)))
+                .map(|(row, column)| matrix[(row, column)])
                 .collect()
         })
         .collect();
@@ -314,12 +373,13 @@ fn mps_scaled_coefficients(state: &MatrixProductState) -> Result<Vec<Complex64>,
         .into_par_iter()
         .map(|basis| {
             let mut row = vec![Complex64::new(1.0, 0.0)];
-            for (site, tensor) in state.tensors.iter().enumerate() {
+            for (site, matrix) in sites.iter().enumerate() {
                 let physical = (basis >> (n_sites - 1 - site)) & 1;
-                let mut next = vec![Complex64::new(0.0, 0.0); tensor.chi_right];
+                let width = matrix.ncols();
+                let mut next = vec![Complex64::new(0.0, 0.0); width];
                 for (left, &weight) in row.iter().enumerate() {
-                    let base = (left * 2 + physical) * tensor.chi_right;
-                    for (slot, &value) in next.iter_mut().zip(&scaled[site][base..]) {
+                    let base = (left * 2 + physical) * width;
+                    for (slot, &value) in next.iter_mut().zip(&rows[site][base..base + width]) {
                         *slot += weight * value;
                     }
                 }
@@ -330,75 +390,62 @@ fn mps_scaled_coefficients(state: &MatrixProductState) -> Result<Vec<Complex64>,
         .collect())
 }
 
-/// Gauge-invariant prefix entropy from both MPS contraction environments.
+/// Entropies in nats of every prefix cut of a pure MPS, indexed by the
+/// number of sites on the left: the result has `n_qubits + 1` entries and
+/// the first and last are zero.
 ///
-/// For a coefficient matrix L R, the nonzero Schmidt probabilities are the
-/// eigenvalues of sqrt(L* L) (R R*) sqrt(L* L), normalized by their sum.
-/// A left Gram matrix alone is not the reduced state in an arbitrary gauge.
-/// Each environment is rescaled by a positive scalar to avoid norm underflow.
+/// A QR sweep from the left makes every site an isometry
+/// (`mps_left_canonical`). A sweep back from the right then takes the
+/// singular values of each bond matrix with the left part still an isometry
+/// and the right part already an isometry, so they are the Schmidt
+/// coefficients of that cut in any input gauge. The sweeps cost O(n chi^3)
+/// for all cuts together and never form a Gram matrix, so a bond gauge is
+/// never squared.
 ///
 /// # Errors
-/// Rejects invalid tensor chains, excessive bond-matrix allocation, invalid
-/// cuts, zero states and failed or nonpositive decompositions.
-pub fn mps_prefix_entropy(state: &MatrixProductState, cut: usize) -> Result<f64, EntropyError> {
+/// Rejects invalid tensor chains, excessive bond-matrix allocation, zero
+/// states and failed decompositions.
+pub fn mps_cut_entropies(state: &MatrixProductState) -> Result<Vec<f64>, EntropyError> {
     validate_mps(state)?;
-    if cut > state.n_qubits {
-        return Err(EntropyError::InvalidSubsystem);
-    }
-    let mut left = DMatrix::from_element(1, 1, Complex64::new(1.0, 0.0));
-    for tensor in &state.tensors[..cut] {
-        let mut next = DMatrix::zeros(tensor.chi_right, tensor.chi_right);
-        for physical in 0..2 {
-            let a = mps_physical_matrix(tensor, physical);
-            next += a.adjoint() * &left * &a;
+    let mut sites = mps_left_canonical(state)?;
+    let mut entropies = vec![0.0; state.n_qubits + 1];
+    for site in (1..sites.len()).rev() {
+        let right = sites[site].ncols();
+        let mut wide = DMatrix::from_fn(sites[site].nrows() / 2, 2 * right, |left, column| {
+            sites[site][(left * 2 + column / right, column % right)]
+        });
+        let scale = max_component(wide.iter().copied());
+        if scale == 0.0 || !scale.is_finite() {
+            return Err(EntropyError::InvalidState);
         }
-        left = normalized_gram(next)?;
-    }
-    let mut right = DMatrix::from_element(1, 1, Complex64::new(1.0, 0.0));
-    for tensor in state.tensors[cut..].iter().rev() {
-        let mut next = DMatrix::zeros(tensor.chi_left, tensor.chi_left);
-        for physical in 0..2 {
-            let a = mps_physical_matrix(tensor, physical);
-            next += &a * &right * a.adjoint();
+        for z in wide.iter_mut() {
+            *z /= scale;
         }
-        right = normalized_gram(next)?;
+        let svd = SVD::try_new(wide, true, false, f64::EPSILON, 100_000)
+            .ok_or(EntropyError::NumericalFailure)?;
+        let values: Vec<f64> = svd.singular_values.iter().copied().collect();
+        entropies[site] = schmidt_entropy(&values)?;
+        let mut carried = svd.u.ok_or(EntropyError::NumericalFailure)?;
+        for (column, &value) in values.iter().enumerate() {
+            for z in carried.column_mut(column).iter_mut() {
+                *z *= value;
+            }
+        }
+        sites[site - 1] = &sites[site - 1] * carried;
     }
-    let decomposition = SymmetricEigen::try_new(left, 32.0 * f64::EPSILON, 100_000)
-        .ok_or(EntropyError::NumericalFailure)?;
-    if decomposition
-        .eigenvalues
-        .iter()
-        .any(|&value| !value.is_finite() || value < -1e-10)
-    {
-        return Err(EntropyError::NumericalFailure);
-    }
-    let root = &decomposition.eigenvectors
-        * DMatrix::from_diagonal(
-            &decomposition
-                .eigenvalues
-                .map(|v| Complex64::new(v.max(0.0).sqrt(), 0.0)),
-        )
-        * decomposition.eigenvectors.adjoint();
-    let effective = normalized_gram(&root * right * root.adjoint())?;
-    let spectrum = SymmetricEigen::try_new(effective, 32.0 * f64::EPSILON, 100_000)
-        .ok_or(EntropyError::NumericalFailure)?
-        .eigenvalues;
-    if spectrum
-        .iter()
-        .any(|&value| !value.is_finite() || value < -1e-10)
-    {
-        return Err(EntropyError::NumericalFailure);
-    }
-    let normalization: f64 = spectrum.iter().map(|v| v.max(0.0)).sum();
-    if normalization <= 0.0 || !normalization.is_finite() {
-        return Err(EntropyError::InvalidState);
-    }
-    Ok(spectrum
-        .iter()
-        .map(|v| v.max(0.0) / normalization)
-        .filter(|&p| p > 0.0)
-        .map(|p| -p * p.ln())
-        .sum())
+    Ok(entropies)
+}
+
+/// Entropy of the first `cut` sites of a pure MPS, invariant under any
+/// bond gauge (see `mps_cut_entropies`).
+///
+/// # Errors
+/// As `mps_cut_entropies`, and `InvalidSubsystem` for `cut > n_qubits`.
+pub fn mps_prefix_entropy(state: &MatrixProductState, cut: usize) -> Result<f64, EntropyError> {
+    mps_cut_entropies(state)?
+        .get(cut)
+        .copied()
+        .ok_or(EntropyError::InvalidSubsystem)
 }
 
 impl EntanglementMeasure for MatrixProductState {
@@ -429,6 +476,17 @@ impl EntanglementMeasure for MatrixProductState {
 
     fn n_sites(&self) -> usize {
         self.n_qubits
+    }
+
+    /// One canonical sweep yields every cut entropy, so the test costs
+    /// O(n chi^3) rather than one chain contraction per cut.
+    fn try_is_product_state(&self, tolerance: f64) -> Result<bool, EntropyError> {
+        if !tolerance.is_finite() || tolerance < 0.0 {
+            return Err(EntropyError::InvalidTolerance);
+        }
+        Ok(mps_cut_entropies(self)?
+            .iter()
+            .all(|&entropy| entropy <= tolerance))
     }
 }
 
@@ -711,6 +769,152 @@ mod tests {
         assert_eq!(
             pure_state_subsystem_entropy(&coefficients, 3, &[0], 4),
             Err(EntropyError::AllocationLimit),
+        );
+    }
+
+    /// Multiplies the bond between `bond` and `bond + 1` by `diag(diagonal)` on
+    /// the left site and its inverse on the right site: the state is unchanged.
+    fn apply_bond_gauge(state: &mut MatrixProductState, bond: usize, diagonal: &[f64]) {
+        let width = state.tensors[bond].chi_right;
+        assert_eq!(width, diagonal.len());
+        for (index, value) in state.tensors[bond].data.iter_mut().enumerate() {
+            let factor = diagonal[index % width];
+            *value = faer::c64::new(value.re * factor, value.im * factor);
+        }
+        let chi_right = state.tensors[bond + 1].chi_right;
+        for (index, value) in state.tensors[bond + 1].data.iter_mut().enumerate() {
+            let factor = diagonal[index / (2 * chi_right)];
+            *value = faer::c64::new(value.re / factor, value.im / factor);
+        }
+    }
+
+    #[test]
+    fn mps_cancelling_bond_gauges_do_not_underflow_the_dense_contraction() {
+        let mut state = MatrixProductState::new_zero_state(4);
+        state.apply_hadamard(0);
+        state.apply_cnot(0, 1);
+        state.apply_hadamard(2);
+        state.apply_cnot(2, 3);
+        apply_bond_gauge(&mut state, 0, &[1e100, 1e-100]);
+        apply_bond_gauge(&mut state, 2, &[1e100, 1e-100]);
+        let ln2 = 2.0_f64.ln();
+        let entropy = state.try_entanglement_entropy(&[0, 2]).unwrap();
+        assert!((entropy - 2.0 * ln2).abs() < 1e-10, "entropy {entropy}");
+        assert!((state.try_entanglement_entropy(&[1, 2]).unwrap() - 2.0 * ln2).abs() < 1e-10);
+        assert!(state.try_entanglement_entropy(&[0, 1]).unwrap().abs() < 1e-10);
+        assert!((state.try_entanglement_entropy(&[0]).unwrap() - ln2).abs() < 1e-10);
+    }
+
+    #[test]
+    fn mps_cancelling_bond_gauge_does_not_zero_the_prefix_entropy() {
+        let mut state = MatrixProductState::new_zero_state(2);
+        state.apply_hadamard(0);
+        state.apply_cnot(0, 1);
+        apply_bond_gauge(&mut state, 0, &[1e100, 1e-100]);
+        let ln2 = 2.0_f64.ln();
+        assert!((mps_prefix_entropy(&state, 1).unwrap() - ln2).abs() < 1e-10);
+        assert!((state.measure_entropy(1) - ln2).abs() < 1e-10);
+        assert!(!state.is_product_state(1e-10));
+    }
+
+    #[test]
+    fn mps_cut_entropies_report_every_cut_from_one_sweep() {
+        let ln2 = 2.0_f64.ln();
+        let mut chain = MatrixProductState::new_zero_state(4);
+        chain.apply_hadamard(1);
+        chain.apply_cnot(1, 2);
+        let entropies = mps_cut_entropies(&chain).unwrap();
+        assert_eq!(entropies.len(), 5);
+        for (cut, expected) in [0.0, 0.0, ln2, 0.0, 0.0].into_iter().enumerate() {
+            assert!((entropies[cut] - expected).abs() < 1e-10, "cut {cut}");
+            assert!((mps_prefix_entropy(&chain, cut).unwrap() - expected).abs() < 1e-10);
+        }
+        let mut ghz = MatrixProductState::new_zero_state(4);
+        ghz.apply_hadamard(0);
+        for site in 0..3 {
+            ghz.apply_cnot(site, site + 1);
+        }
+        let entropies = mps_cut_entropies(&ghz).unwrap();
+        for (cut, &entropy) in entropies.iter().enumerate().take(4).skip(1) {
+            assert!((entropy - ln2).abs() < 1e-10, "cut {cut}");
+        }
+        assert_eq!(
+            mps_prefix_entropy(&ghz, 5),
+            Err(EntropyError::InvalidSubsystem),
+        );
+    }
+
+    #[test]
+    fn mps_cut_entropies_match_dense_schmidt_decomposition_after_gauging() {
+        let mut seed = 0x2545_f491_4f6c_dd1d_u64;
+        let mut next = || {
+            seed ^= seed << 13;
+            seed ^= seed >> 7;
+            seed ^= seed << 17;
+            (seed >> 11) as f64 / (1_u64 << 53) as f64 - 0.5
+        };
+        let n_sites = 5;
+        let mut coefficients: Vec<Complex64> = (0..1_usize << n_sites)
+            .map(|_| Complex64::new(next(), next()))
+            .collect();
+        let norm = coefficients
+            .iter()
+            .map(|z| z.norm_sqr())
+            .sum::<f64>()
+            .sqrt();
+        for z in &mut coefficients {
+            *z /= norm;
+        }
+        let amplitudes: Vec<faer::c64> = coefficients
+            .iter()
+            .map(|z| faer::c64::new(z.re, z.im))
+            .collect();
+        let mut state = MatrixProductState::from_state_vector(&amplitudes, n_sites);
+        assert!(state.max_bond_dimension() >= 4);
+        let rebuilt = state.to_state_vector();
+        for (a, b) in amplitudes.iter().zip(&rebuilt) {
+            assert!((a.re - b.re).abs() + (a.im - b.im).abs() < 1e-10);
+        }
+        let gauges = [1e30, 1e-30, 1e15, 1e-15];
+        for bond in 0..n_sites - 1 {
+            let width = state.tensors[bond].chi_right;
+            apply_bond_gauge(&mut state, bond, &gauges[..width]);
+        }
+        let entropies = mps_cut_entropies(&state).unwrap();
+        for (cut, &entropy) in entropies.iter().enumerate().take(n_sites).skip(1) {
+            let sites: Vec<usize> = (0..cut).collect();
+            let dense =
+                pure_state_subsystem_entropy(&coefficients, n_sites, &sites, 1 << 20).unwrap();
+            assert!(
+                dense > 0.1,
+                "cut {cut} is not entangled enough to discriminate"
+            );
+            assert!((entropy - dense).abs() < 1e-9, "cut {cut}");
+        }
+        for sites in [&[0_usize, 2][..], &[1, 3, 4], &[2], &[0, 4]] {
+            let dense =
+                pure_state_subsystem_entropy(&coefficients, n_sites, sites, 1 << 20).unwrap();
+            let facade = state.try_entanglement_entropy(sites).unwrap();
+            assert!((facade - dense).abs() < 1e-9, "subsystem {sites:?}");
+        }
+    }
+
+    #[test]
+    fn mps_product_test_uses_every_cut_and_checks_tolerance() {
+        let mut state = MatrixProductState::new_zero_state(5);
+        assert_eq!(state.try_is_product_state(0.0), Ok(true));
+        assert_eq!(
+            state.try_is_product_state(-1.0),
+            Err(EntropyError::InvalidTolerance),
+        );
+        state.apply_hadamard(3);
+        state.apply_cnot(3, 4);
+        assert_eq!(state.try_is_product_state(1e-10), Ok(false));
+        assert_eq!(state.try_is_product_state(1.0), Ok(true));
+        state.tensors[2].data.fill(faer::c64::new(0.0, 0.0));
+        assert_eq!(
+            state.try_is_product_state(1.0),
+            Err(EntropyError::InvalidState),
         );
     }
 
