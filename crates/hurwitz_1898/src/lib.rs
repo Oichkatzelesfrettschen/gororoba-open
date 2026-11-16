@@ -4,7 +4,7 @@
 //! Hurwitz, A. "Ueber die Composition der quadratischen Formen von beliebig
 //! vielen Variablen", Nachr. Ges. Wiss. Goettingen, 1898, pp. 309-316.
 //!
-//! Mirrors: proofs/theories/HurwitzTheorem.v (443 lines, 0 Admitted)
+//! Mirrors: gororoba-math rocq/open/theories/HurwitzTheorem.v (443 lines, 0 Admitted)
 //!
 //! # Library Usage
 //!

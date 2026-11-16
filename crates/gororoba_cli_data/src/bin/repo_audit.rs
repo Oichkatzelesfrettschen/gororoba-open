@@ -48,7 +48,7 @@ use walkdir::WalkDir;
 )]
 struct Args {
     /// Root directories to walk (repeat to add multiple).
-    #[arg(long = "root", default_values_t = vec![String::from("crates"), String::from("proofs"), String::from("xtask")])]
+    #[arg(long = "root", default_values_t = vec![String::from("crates"), String::from("xtask")])]
     roots: Vec<String>,
     /// Output directory; the file is named `repo_audit_anchored_<date>.toml`.
     #[arg(long, default_value = "data/output/audit/repo_audit")]

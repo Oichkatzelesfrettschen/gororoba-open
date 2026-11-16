@@ -1,7 +1,7 @@
 //! Calcagni spectral dimension (Rocq-verified: C-883).
 //!
 //! d_S(s) = 4 - 2/(1+s) for s > 0.  Range is (2, 4), strictly increasing.
-//! Kernel-checked in `proofs/verified/C883_CalcagniMonotoneRange.v`.
+//! Kernel-checked in gororoba-math `rocq/open/verified/C883_CalcagniMonotoneRange.v`.
 
 /// Calcagni's running spectral dimension.
 ///

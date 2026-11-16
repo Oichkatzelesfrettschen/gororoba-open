@@ -39,9 +39,6 @@ struct Args {
     /// Path to write the proposal TOML manifest.
     #[arg(long, default_value = "data/output/audit/formal_proof_backfill.toml")]
     output: PathBuf,
-    /// Repository root (used to scan proofs/verified and proofs/theories).
-    #[arg(long, default_value = ".")]
-    repo_root: PathBuf,
     /// If true, run claim_update_formal_proof for each proposed update.
     /// Default false (dry-run only).
     #[arg(long, default_value_t = false)]
@@ -82,8 +79,17 @@ fn main() -> Result<()> {
     let args = Args::parse();
 
     // Build the proof-file index once.
-    let verified_index = index_proof_files(&args.repo_root.join("proofs/verified"))?;
-    let theories_index = index_proof_files(&args.repo_root.join("proofs/theories"))?;
+    // The proof tree is the gororoba-math checkout that GOROROBA_MATH names;
+    // the proposed fields keep the recorded `proofs/<dir>/<file>` locator.
+    let proof_tree = repo_root::ProofTree::from_environment().context("resolve the proof tree")?;
+    let verified_index = index_proof_files(
+        &proof_tree.root().join("verified"),
+        &repo_root::proof_tree::recorded_locator("verified"),
+    )?;
+    let theories_index = index_proof_files(
+        &proof_tree.root().join("theories"),
+        &repo_root::proof_tree::recorded_locator("theories"),
+    )?;
     let arxiv_re = Regex::new(r"arXiv:(\d{4}\.\d{4,5}|[a-z\-]+/\d{7})")?;
     let doi_re = Regex::new(r"doi\.org/(\S+)")?;
 
@@ -249,7 +255,7 @@ fn classify(input: ClassifyInput<'_>) -> (String, u8) {
 /// by walking the directory and matching the leading numeric prefix on each
 /// .v file. The claim_id "C-441" matches files starting with "C0441_" or
 /// "C441_" depending on the project convention.
-fn index_proof_files(dir: &Path) -> Result<BTreeMap<String, String>> {
+fn index_proof_files(dir: &Path, recorded_dir: &str) -> Result<BTreeMap<String, String>> {
     let mut out = BTreeMap::new();
     if !dir.exists() {
         return Ok(out);
@@ -269,12 +275,9 @@ fn index_proof_files(dir: &Path) -> Result<BTreeMap<String, String>> {
             let n: u64 = m[1].parse().unwrap_or(0);
             // Both "C-441" and "C0441" / "C441" should match.
             let canonical_id = format!("C-{}", n);
-            // Emit a repo-relative path: strip a leading "./" so the
-            // resulting field reads "proofs/verified/Cxxx_Foo.v" rather
-            // than "./proofs/verified/Cxxx_Foo.v".
-            let dir_str = dir.display().to_string();
-            let dir_clean = dir_str.strip_prefix("./").unwrap_or(&dir_str);
-            let path = format!("{}/{}", dir_clean, name);
+            // Emit the recorded locator, "proofs/verified/Cxxx_Foo.v", not
+            // the location of the checkout that holds the file.
+            let path = format!("{recorded_dir}/{name}");
             out.insert(canonical_id, path);
         }
     }

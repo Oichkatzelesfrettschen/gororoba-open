@@ -48,7 +48,7 @@
 //!
 //! ## Rocq cross-checks
 //!
-//! For each of `E_6, E_7, E_8, F_4`, a Rocq proof in `proofs/theories/`
+//! For each of `E_6, E_7, E_8, F_4`, a Rocq proof in gororoba-math `rocq/open/theories/`
 //! verifies that the Cartan matrix derives from the simple roots over exact
 //! rationals (`vm_compute. reflexivity.`). See `E6CartanDerivation.v`,
 //! `E7CartanDerivation.v`, `E8CartanDerivation.v`, `F4CartanDerivation.v`.
