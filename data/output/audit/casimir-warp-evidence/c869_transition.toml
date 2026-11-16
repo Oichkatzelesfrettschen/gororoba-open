@@ -5,12 +5,12 @@ expected_prior_status = "Verified"
 experiment_verdict = "MethodologyInvalid"
 evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
-exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or a measured K_ij at the center of the implemented metric differs from zero by more than machine precision (the registered proposition)."
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or a direct ADM evaluation of K_ij at the center of the implemented metric returns a nonzero value (the registered center proposition); flatness on an interior region stays unestablished and a center value does not falsify it."
 proposed_claim_status = "Partial"
 rationale = "The retained Rust tests bound the shape derivative and the gate by 0.01 and the York time at the center by 0.1, and the module documentation states that the logistic gate does not establish exact flatness, so no retained check decides the registered proposition K_ij = 0 to machine precision; the Rocq lemmas concern model functions."
 unresolved_assumptions = []
 actor = "registry-statement-correction"
 reason = "Scope C-869 to the evidence that decides it"
-transition_timestamp = "2026-11-16T13:17:36Z"
-expected_source_state_sha256 = "e740ced147b92372c588f20ffca5107e03065b3915ef3a6e99732844cd7802e9"
+transition_timestamp = "2026-11-16T17:03:58Z"
+expected_source_state_sha256 = "8891728fcbc75418e0bda742884b52bbff593d075df6183698befb429bd96bb2"
 expected_claim_id_max = 1784

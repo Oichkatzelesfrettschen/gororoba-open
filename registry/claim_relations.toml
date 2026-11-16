@@ -893,5 +893,5 @@ transition_event_id = 227
 relation_id = 127
 predecessor_claim_id = "C-871"
 successor_claim_id = "C-1785"
-relation_kind = "narrows"
+relation_kind = "implementation_split"
 transition_event_id = 231

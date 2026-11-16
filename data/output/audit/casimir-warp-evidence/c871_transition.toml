@@ -11,16 +11,16 @@ rationale = "The narrowed statement is the closed-form electromagnetic reference
 unresolved_assumptions = ["Polygon, proper-time and quadrature biases of the scalar estimator remain outside its reported Monte Carlo standard error."]
 actor = "registry-statement-correction"
 reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
-transition_timestamp = "2026-11-16T13:17:36Z"
+transition_timestamp = "2026-11-16T17:03:58Z"
 expected_source_state_sha256 = "06d7c8ec63396d89c5584b0319d58cf49218911f2c0ed1122af707104b144ed5"
 expected_claim_id_max = 1784
 
 [[successor]]
 proposal_key = "scalar-worldline-plate-polygon-refinement"
-statement = "For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate lies below the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly. The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error."
+statement = "For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate is more negative than (larger in magnitude than) the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly (assert_eq on both in the same test). The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error."
 initial_status = "Provisional"
 source_or_implementation_boundary = "Implementation conformance of the scalar worldline estimator in crates/casimir_core against its scalar analytic reference for Dirichlet plates. The electromagnetic plate energy -pi^2/(720*a^3) of C-871 is twice the scalar value and is a separate proposition. Polygon discretization biases the energy magnitude downward, and polygon, proper-time and quadrature biases remain outside the reported Monte Carlo standard error."
 required_falsifier = "scalar_plate_polygon_refinement_matches_known_energy fails at its recorded seeds (32 and 512 polygon points, 5000 loops, seed 8127), or the stderr estimate of the E-081 replay command (500 polygon points, 10000 loops, seed 42) differs from the scalar analytic reference by five of its Monte Carlo standard errors plus 15 percent of the reference magnitude or more."
 where_stated = ["crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)"]
 evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
-predecessor_relation_kind = "narrows"
+predecessor_relation_kind = "implementation_split"
