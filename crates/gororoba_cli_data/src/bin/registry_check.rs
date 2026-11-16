@@ -387,6 +387,18 @@ struct CargoBinEntry {
 struct WorkspaceExecutionInventory {
     bins: HashSet<String>,
     benches: HashSet<String>,
+    /// True when `cargo metadata` produced the inventory. The manifest-walk
+    /// fallback reads only explicit `[[bin]]` tables and misses auto-discovered
+    /// `src/bin` targets, so it cannot prove a registry row stale.
+    from_cargo_metadata: bool,
+}
+
+/// Registry binary names that no Cargo `bin` target carries, in name order.
+fn registry_binaries_without_cargo_target(
+    registry: &HashSet<String>,
+    cargo_bins: &HashSet<String>,
+) -> BTreeSet<String> {
+    registry.difference(cargo_bins).cloned().collect()
 }
 
 #[derive(Default, serde::Deserialize)]
@@ -604,7 +616,10 @@ fn load_workspace_execution_inventory_via_cargo_metadata(
     }
     let metadata: MetadataRoot = serde_json::from_slice(&output.stdout)
         .map_err(|err| format!("parse cargo metadata JSON: {err}"))?;
-    let mut inventory = WorkspaceExecutionInventory::default();
+    let mut inventory = WorkspaceExecutionInventory {
+        from_cargo_metadata: true,
+        ..WorkspaceExecutionInventory::default()
+    };
     for package in metadata.packages {
         for target in package.targets {
             if target.kind.iter().any(|kind| kind == "bin") {
@@ -964,12 +979,34 @@ fn main() {
     let mut canonical_store = if args.canonical_db.exists() {
         match ProvenanceStore::open_read_only(&args.canonical_db) {
             Ok(mut store) => {
-                if let Err(err) = store.verify_control_plane_invariants(&repo_root) {
-                    eprintln!(
-                        "ERROR: canonical control-plane invariants failed for {}: {err}",
-                        args.canonical_db.display()
-                    );
-                    errors += 1;
+                // Recorded `proofs/` paths and kernel receipts are read from the
+                // gororoba-math checkout that GOROROBA_MATH names. Without it
+                // those checks are skipped and the skip is reported.
+                match provenance_store::ProofTree::from_environment_if_set() {
+                    Ok(proof_tree) => {
+                        match store.verify_control_plane_invariants(&repo_root, proof_tree.as_ref())
+                        {
+                            Ok(checks) => {
+                                if checks.skipped > 0 {
+                                    eprintln!(
+                                        "SKIP: {} proof-source checks did not run ({} ran): GOROROBA_MATH is unset, so recorded proofs/ paths and kernel receipts were not read",
+                                        checks.skipped, checks.verified
+                                    );
+                                }
+                            }
+                            Err(err) => {
+                                eprintln!(
+                                    "ERROR: canonical control-plane invariants failed for {}: {err}",
+                                    args.canonical_db.display()
+                                );
+                                errors += 1;
+                            }
+                        }
+                    }
+                    Err(err) => {
+                        eprintln!("ERROR: resolve the proof tree: {err}");
+                        errors += 1;
+                    }
                 }
                 match args.compat_export_policy {
                     CompatExportPolicy::On => {
@@ -1451,7 +1488,21 @@ fn main() {
             None
         };
         // Cargo metadata decides which bin and bench targets exist; the
-        // binaries_cp rows are a synchronized copy of that inventory.
+        // binaries_cp rows are a synchronized copy of that inventory, so a
+        // row without a Cargo bin target is stale.
+        if let Some(inventory) = workspace_inventory
+            .as_ref()
+            .filter(|inventory| inventory.from_cargo_metadata)
+        {
+            for name in
+                registry_binaries_without_cargo_target(&registry_binary_names, &inventory.bins)
+            {
+                eprintln!(
+                    "ERROR: registry binary {name} has no Cargo bin target; run `gororoba-db binaries sync`"
+                );
+                errors += 1;
+            }
+        }
         let mut known_execution_targets = workspace_inventory
             .iter()
             .flat_map(|inventory| inventory.bins.iter().chain(inventory.benches.iter()))
@@ -1566,6 +1617,27 @@ mod execution_target_tests {
                 "{target}"
             );
         }
+    }
+
+    #[test]
+    fn stale_registry_binaries_are_the_names_cargo_does_not_declare() {
+        let names = |items: &[&str]| -> HashSet<String> {
+            items.iter().map(|item| item.to_string()).collect()
+        };
+        let cargo = names(&["alpha", "beta", "gamma"]);
+        // Known good: every registry name is a Cargo target; an unregistered
+        // Cargo target is `binaries sync` territory and not stale.
+        assert!(
+            registry_binaries_without_cargo_target(&names(&["alpha", "beta"]), &cargo).is_empty()
+        );
+        // Known bad: removed targets surface in name order.
+        assert_eq!(
+            registry_binaries_without_cargo_target(
+                &names(&["rocq-project-audit", "alpha", "proof-doc"]),
+                &cargo
+            ),
+            BTreeSet::from(["proof-doc".to_string(), "rocq-project-audit".to_string()])
+        );
     }
 
     #[test]

@@ -7,7 +7,7 @@ authoritative = true
 source_registries = ["registry/requirements.toml", "pyproject.toml", "Cargo.toml"]
 module_count = 13
 package_count = 144
-command_count = 42
+command_count = 40
 python_package_count = 0
 rust_package_count = 144
 
@@ -52,7 +52,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/rocq.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0005", "CMD-0006"]
+command_refs = []
 package_refs = []
 
 [[module]]
@@ -63,7 +63,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/REQUIREMENTS.md"
 requires_modules = []
-command_refs = ["CMD-0007", "CMD-0008"]
+command_refs = ["CMD-0005", "CMD-0006"]
 package_refs = ["PKG-00001", "PKG-00002", "PKG-00003", "PKG-00004", "PKG-00005", "PKG-00006", "PKG-00007", "PKG-00008", "PKG-00009", "PKG-00010", "PKG-00011", "PKG-00012", "PKG-00013", "PKG-00014", "PKG-00015", "PKG-00016", "PKG-00017", "PKG-00018", "PKG-00019", "PKG-00020", "PKG-00021", "PKG-00022", "PKG-00023", "PKG-00024", "PKG-00025", "PKG-00026", "PKG-00027", "PKG-00028", "PKG-00029", "PKG-00030", "PKG-00031", "PKG-00032", "PKG-00033", "PKG-00034", "PKG-00035", "PKG-00036", "PKG-00037", "PKG-00038", "PKG-00039", "PKG-00040", "PKG-00041", "PKG-00042", "PKG-00043", "PKG-00044", "PKG-00045", "PKG-00046", "PKG-00047", "PKG-00048", "PKG-00049", "PKG-00050", "PKG-00051", "PKG-00052", "PKG-00053", "PKG-00054", "PKG-00055", "PKG-00056", "PKG-00057", "PKG-00058", "PKG-00059", "PKG-00060", "PKG-00061", "PKG-00062", "PKG-00063", "PKG-00064", "PKG-00065", "PKG-00066", "PKG-00067", "PKG-00068", "PKG-00069", "PKG-00070", "PKG-00071", "PKG-00072", "PKG-00073", "PKG-00074", "PKG-00075", "PKG-00076", "PKG-00077", "PKG-00078", "PKG-00079", "PKG-00080", "PKG-00081", "PKG-00082", "PKG-00083", "PKG-00084", "PKG-00085", "PKG-00086", "PKG-00087", "PKG-00088", "PKG-00089", "PKG-00090", "PKG-00091", "PKG-00092", "PKG-00093", "PKG-00094", "PKG-00095", "PKG-00096", "PKG-00097", "PKG-00098", "PKG-00099", "PKG-00100", "PKG-00101", "PKG-00102", "PKG-00103", "PKG-00104", "PKG-00105", "PKG-00106", "PKG-00107", "PKG-00108", "PKG-00109", "PKG-00110", "PKG-00111", "PKG-00112", "PKG-00113", "PKG-00114", "PKG-00115", "PKG-00116", "PKG-00117", "PKG-00118", "PKG-00119", "PKG-00120", "PKG-00121", "PKG-00122", "PKG-00123", "PKG-00124", "PKG-00125", "PKG-00126", "PKG-00127", "PKG-00128", "PKG-00129", "PKG-00130", "PKG-00131", "PKG-00132", "PKG-00133", "PKG-00134", "PKG-00135", "PKG-00136", "PKG-00137", "PKG-00138", "PKG-00139", "PKG-00140", "PKG-00141", "PKG-00142", "PKG-00143", "PKG-00144"]
 
 [[module]]
@@ -74,7 +74,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/cpp.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0009", "CMD-0010", "CMD-0011", "CMD-0012"]
+command_refs = ["CMD-0007", "CMD-0008", "CMD-0009", "CMD-0010"]
 package_refs = []
 
 [[module]]
@@ -85,7 +85,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/analysis.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0013", "CMD-0014", "CMD-0015", "CMD-0016", "CMD-0017", "CMD-0018", "CMD-0019", "CMD-0020", "CMD-0021", "CMD-0022", "CMD-0023", "CMD-0024"]
+command_refs = ["CMD-0011", "CMD-0012", "CMD-0013", "CMD-0014", "CMD-0015", "CMD-0016", "CMD-0017", "CMD-0018", "CMD-0019", "CMD-0020", "CMD-0021", "CMD-0022"]
 package_refs = []
 
 [[module]]
@@ -96,7 +96,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/heliosphere.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0025", "CMD-0026", "CMD-0027", "CMD-0028", "CMD-0029", "CMD-0030", "CMD-0031", "CMD-0032", "CMD-0033", "CMD-0034"]
+command_refs = ["CMD-0023", "CMD-0024", "CMD-0025", "CMD-0026", "CMD-0027", "CMD-0028", "CMD-0029", "CMD-0030", "CMD-0031", "CMD-0032"]
 package_refs = []
 
 [[module]]
@@ -107,7 +107,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/latex.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0035", "CMD-0036"]
+command_refs = ["CMD-0033", "CMD-0034"]
 package_refs = []
 
 [[module]]
@@ -118,7 +118,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "crates/lbm_3d_cuda/README.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0037", "CMD-0038"]
+command_refs = ["CMD-0035", "CMD-0036"]
 package_refs = []
 
 [[module]]
@@ -140,7 +140,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "docs/requirements/particle.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0039", "CMD-0040"]
+command_refs = ["CMD-0037", "CMD-0038"]
 package_refs = []
 
 [[module]]
@@ -151,7 +151,7 @@ status = "active"
 status_token = "ACTIVE"
 source_markdown = "apps/gororoba_studio/README.md"
 requires_modules = ["REQ-CORE"]
-command_refs = ["CMD-0041", "CMD-0042"]
+command_refs = ["CMD-0039", "CMD-0040"]
 package_refs = []
 
 [[command]]
@@ -180,228 +180,216 @@ command = "make install-astro"
 
 [[command]]
 id = "CMD-0005"
-module_id = "REQ-COQ"
+module_id = "REQ-CORE"
 kind = "install"
-command = "make rocq"
+command = "make install"
 
 [[command]]
 id = "CMD-0006"
-module_id = "REQ-COQ"
+module_id = "REQ-CORE"
 kind = "verify"
-command = "make rocq"
+command = "make install"
 
 [[command]]
 id = "CMD-0007"
-module_id = "REQ-CORE"
+module_id = "REQ-CPP"
 kind = "install"
-command = "make install"
+command = "make cpp-build"
 
 [[command]]
 id = "CMD-0008"
-module_id = "REQ-CORE"
-kind = "verify"
-command = "make install"
+module_id = "REQ-CPP"
+kind = "install"
+command = "make cpp-test"
 
 [[command]]
 id = "CMD-0009"
 module_id = "REQ-CPP"
-kind = "install"
+kind = "verify"
 command = "make cpp-build"
 
 [[command]]
 id = "CMD-0010"
 module_id = "REQ-CPP"
-kind = "install"
+kind = "verify"
 command = "make cpp-test"
 
 [[command]]
 id = "CMD-0011"
-module_id = "REQ-CPP"
-kind = "verify"
-command = "make cpp-build"
+module_id = "REQ-DATA-GOVERNANCE"
+kind = "install"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --all --skip-existing --output-dir data/external"
 
 [[command]]
 id = "CMD-0012"
-module_id = "REQ-CPP"
-kind = "verify"
-command = "make cpp-test"
+module_id = "REQ-DATA-GOVERNANCE"
+kind = "install"
+command = "cargo run -p gororoba_cli_data --bin record-external-hashes -- --root data/external --output data/external/PROVENANCE.local.json"
 
 [[command]]
 id = "CMD-0013"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --all --skip-existing --output-dir data/external"
+command = "cargo run -p gororoba_cli_data --bin external-redownload-audit -- --out reports/external_redownload_audit_YYYY-MM-DD.toml --backend-order wget,curl,fetch"
 
 [[command]]
 id = "CMD-0014"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin record-external-hashes -- --root data/external --output data/external/PROVENANCE.local.json"
+command = "cargo run -p gororoba_cli_data --bin data-origin-audit -- --fail-on-strict-unknown"
 
 [[command]]
 id = "CMD-0015"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin external-redownload-audit -- --out reports/external_redownload_audit_YYYY-MM-DD.toml --backend-order wget,curl,fetch"
+command = "cargo run -p gororoba_cli_data --bin data-governance-gate --"
 
 [[command]]
 id = "CMD-0016"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin data-origin-audit -- --fail-on-strict-unknown"
+command = "cargo run -p gororoba_cli_data --bin data-semantic-validate --"
 
 [[command]]
 id = "CMD-0017"
 module_id = "REQ-DATA-GOVERNANCE"
-kind = "install"
+kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin data-governance-gate --"
 
 [[command]]
 id = "CMD-0018"
 module_id = "REQ-DATA-GOVERNANCE"
-kind = "install"
-command = "cargo run -p gororoba_cli_data --bin data-semantic-validate --"
+kind = "verify"
+command = "cargo run -p gororoba_cli_data --bin data-origin-audit -- --fail-on-strict-unknown"
 
 [[command]]
 id = "CMD-0019"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin data-governance-gate --"
+command = "cargo run -p gororoba_cli_data --bin data-semantic-validate --"
 
 [[command]]
 id = "CMD-0020"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin data-origin-audit -- --fail-on-strict-unknown"
+command = "cargo run -p gororoba_cli_data --bin external-redownload-audit -- --out reports/external_redownload_audit_YYYY-MM-DD.toml --backend-order wget,curl,fetch"
 
 [[command]]
 id = "CMD-0021"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin data-semantic-validate --"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --all --skip-existing --output-dir data/external"
 
 [[command]]
 id = "CMD-0022"
 module_id = "REQ-DATA-GOVERNANCE"
 kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin external-redownload-audit -- --out reports/external_redownload_audit_YYYY-MM-DD.toml --backend-order wget,curl,fetch"
+command = "cargo run -p gororoba_cli_data --bin record-external-hashes -- --root data/external --output data/external/PROVENANCE.local.json"
 
 [[command]]
 id = "CMD-0023"
-module_id = "REQ-DATA-GOVERNANCE"
-kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --all --skip-existing --output-dir data/external"
+module_id = "REQ-HELIOSPHERE"
+kind = "install"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 1 Merged Hourly\" --skip-existing"
 
 [[command]]
 id = "CMD-0024"
-module_id = "REQ-DATA-GOVERNANCE"
-kind = "verify"
-command = "cargo run -p gororoba_cli_data --bin record-external-hashes -- --root data/external --output data/external/PROVENANCE.local.json"
+module_id = "REQ-HELIOSPHERE"
+kind = "install"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 2 Merged Hourly\" --skip-existing"
 
 [[command]]
 id = "CMD-0025"
 module_id = "REQ-HELIOSPHERE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 1 Merged Hourly\" --skip-existing"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 Merged Hourly (2016)\" --skip-existing"
 
 [[command]]
 id = "CMD-0026"
 module_id = "REQ-HELIOSPHERE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 2 Merged Hourly\" --skip-existing"
+command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 CRS Daily Flux (2016)\" --skip-existing"
 
 [[command]]
 id = "CMD-0027"
 module_id = "REQ-HELIOSPHERE"
 kind = "install"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 Merged Hourly (2016)\" --skip-existing"
-
-[[command]]
-id = "CMD-0028"
-module_id = "REQ-HELIOSPHERE"
-kind = "install"
-command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 CRS Daily Flux (2016)\" --skip-existing"
-
-[[command]]
-id = "CMD-0029"
-module_id = "REQ-HELIOSPHERE"
-kind = "install"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"NASA OMNI2 Solar Wind + IMF (2016)\" --skip-existing"
 
 [[command]]
-id = "CMD-0030"
+id = "CMD-0028"
 module_id = "REQ-HELIOSPHERE"
 kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 1 Merged Hourly\" --skip-existing"
 
 [[command]]
-id = "CMD-0031"
+id = "CMD-0029"
 module_id = "REQ-HELIOSPHERE"
 kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Helios 2 Merged Hourly\" --skip-existing"
 
 [[command]]
-id = "CMD-0032"
+id = "CMD-0030"
 module_id = "REQ-HELIOSPHERE"
 kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"NASA OMNI2 Solar Wind + IMF (2016)\" --skip-existing"
 
 [[command]]
-id = "CMD-0033"
+id = "CMD-0031"
 module_id = "REQ-HELIOSPHERE"
 kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 CRS Daily Flux (2016)\" --skip-existing"
 
 [[command]]
-id = "CMD-0034"
+id = "CMD-0032"
 module_id = "REQ-HELIOSPHERE"
 kind = "verify"
 command = "cargo run -p gororoba_cli_data --bin fetch-datasets -- --dataset \"Voyager 1 Merged Hourly (2016)\" --skip-existing"
 
 [[command]]
-id = "CMD-0035"
+id = "CMD-0033"
 module_id = "REQ-LATEX"
 kind = "install"
 command = "make latex"
+
+[[command]]
+id = "CMD-0034"
+module_id = "REQ-LATEX"
+kind = "verify"
+command = "make latex"
+
+[[command]]
+id = "CMD-0035"
+module_id = "REQ-LBM-CUDA"
+kind = "install"
+command = "cargo check -p lbm_3d_cuda"
 
 [[command]]
 id = "CMD-0036"
-module_id = "REQ-LATEX"
+module_id = "REQ-LBM-CUDA"
 kind = "verify"
-command = "make latex"
+command = "cargo check -p lbm_3d_cuda"
 
 [[command]]
 id = "CMD-0037"
-module_id = "REQ-LBM-CUDA"
+module_id = "REQ-PARTICLE"
 kind = "install"
-command = "cargo check -p lbm_3d_cuda"
+command = "make install-particle"
 
 [[command]]
 id = "CMD-0038"
-module_id = "REQ-LBM-CUDA"
+module_id = "REQ-PARTICLE"
 kind = "verify"
-command = "cargo check -p lbm_3d_cuda"
+command = "make install-particle"
 
 [[command]]
 id = "CMD-0039"
-module_id = "REQ-PARTICLE"
-kind = "install"
-command = "make install-particle"
-
-[[command]]
-id = "CMD-0040"
-module_id = "REQ-PARTICLE"
-kind = "verify"
-command = "make install-particle"
-
-[[command]]
-id = "CMD-0041"
 module_id = "REQ-STUDIO"
 kind = "install"
 command = "make studio-run"
 
 [[command]]
-id = "CMD-0042"
+id = "CMD-0040"
 module_id = "REQ-STUDIO"
 kind = "verify"
 command = "make studio-run"
@@ -1643,8 +1631,8 @@ id = "PKG-00113"
 module_id = "REQ-CORE"
 manager = "cargo"
 name = "rusqlite"
-constraint = "{\"features\":[\"bundled\"],\"version\":\"0.39\"}"
-spec = "rusqlite {\"features\":[\"bundled\"],\"version\":\"0.39\"}"
+constraint = "{\"features\":[\"bundled\"],\"version\":\"0.41\"}"
+spec = "rusqlite {\"features\":[\"bundled\"],\"version\":\"0.41\"}"
 group = "workspace.dependencies"
 optional = false
 source = "Cargo.toml"
@@ -1654,8 +1642,8 @@ id = "PKG-00114"
 module_id = "REQ-CORE"
 manager = "cargo"
 name = "rusqlite_migration"
-constraint = "2.5"
-spec = "rusqlite_migration 2.5"
+constraint = "2.7"
+spec = "rusqlite_migration 2.7"
 group = "workspace.dependencies"
 optional = false
 source = "Cargo.toml"

@@ -3,7 +3,7 @@
 //! Evaluates GF(2) polynomials represented as lists of monomial bitmasks
 //! on finite point sets.  Used to verify the minimum separating degree
 //! for the PG(3,2) cross-assessor partition.
-//! Kernel-checked in `proofs/verified/C881_GF2CubicMinDegree.v`.
+//! Kernel-checked in gororoba-math `rocq/open/verified/C881_GF2CubicMinDegree.v`.
 
 /// Evaluate a single GF(2) monomial on a point.
 ///

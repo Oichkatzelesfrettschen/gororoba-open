@@ -566,9 +566,15 @@ pub(crate) enum TheoremIdentityAction {
         regen_toml: bool,
     },
     /// Promote a registered theorem using retained source-bound kernel evidence.
+    /// A new receipt takes the replay evidence file that gororoba-math's
+    /// `ci/kernel_replay_evidence.py` wrote; a repeated recording of an
+    /// existing receipt needs none. The command runs no Rocq.
     RecordKernelEvidence {
         #[arg(long)]
         spec: PathBuf,
+        /// Replay evidence JSON of the gororoba-math producer; required for a new receipt.
+        #[arg(long)]
+        evidence: Option<PathBuf>,
         #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
         regen_toml: bool,
     },

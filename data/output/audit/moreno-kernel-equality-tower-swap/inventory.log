@@ -1,0 +1,7 @@
+{
+  "event_key": "proof-inventory:moreno-kernel-swap-inventory-ee514ff423105d4faa4530e8a4e915d277631c3009ae5b460b175e3a16238c06",
+  "theorem_count": 350,
+  "source_only_count": 350,
+  "kernel_checked_count": 0,
+  "exact_replay": false
+}
