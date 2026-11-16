@@ -1154,6 +1154,20 @@ struct ConfigKey {
     tau: f64,
     u0: f64,
     delta: f64,
+    /// Transverse perturbation amplitude; two runs with equal (tau, U0, delta)
+    /// and different eps are different configurations.
+    eps: f64,
+}
+
+impl ConfigKey {
+    fn of(cfg: Config, eps: f64) -> Self {
+        Self {
+            tau: cfg.tau,
+            u0: cfg.u0,
+            delta: cfg.delta,
+            eps,
+        }
+    }
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -1217,6 +1231,17 @@ fn quartiles(values: &[f64]) -> Vec<usize> {
         .collect()
 }
 
+/// Quartile of each cell by its smallest population over the density, 0 holding
+/// the smallest. `score` is the stored negated share (a larger score is a smaller
+/// population), so the quartiles of the score are reversed; equal scores keep
+/// sharing a quartile, and the cells of each quartile are those of `quartiles`.
+fn population_quartiles(score: &[f64]) -> Vec<usize> {
+    quartiles(score)
+        .into_iter()
+        .map(|q| QUARTILES - 1 - q)
+        .collect()
+}
+
 /// Record `step` as the first bad step of each cell that holds a bad
 /// population now and has none recorded.
 fn mark_first_bad(solver: &LbmSolver3D, first_bad: &mut [Option<usize>], step: usize) {
@@ -1231,17 +1256,6 @@ fn mark_first_bad(solver: &LbmSolver3D, first_bad: &mut [Option<usize>], step: u
 /// every cell from the states at steps t-2, t-1, t and labeling the cells that
 /// first hold a bad population after t.
 fn forecast_run(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> Result<RunData> {
-/// Quartile of each cell by its smallest population over the density, 0 holding
-/// the smallest. `score` is the stored negated share (a larger score is a smaller
-/// population), so the quartiles of the score are reversed; equal scores keep
-/// sharing a quartile, and the cells of each quartile are those of `quartiles`.
-fn population_quartiles(score: &[f64]) -> Vec<usize> {
-    quartiles(score)
-        .into_iter()
-        .map(|q| QUARTILES - 1 - q)
-        .collect()
-}
-
     if first < FORECAST_LEAD + 2 {
         bail!("first violating step {first} leaves no anchor with two earlier states");
     }
@@ -1278,11 +1292,7 @@ fn population_quartiles(score: &[f64]) -> Vec<usize> {
     let scores = cell_scores(lattice, &recent[0], &recent[1], &recent[2]);
     let quartile = population_quartiles(&scores.min_population_share);
     Ok(RunData {
-        key: ConfigKey {
-            tau: cfg.tau,
-            u0: cfg.u0,
-            delta: cfg.delta,
-        },
+        key: ConfigKey::of(cfg, eps),
         first_violation_step: first,
         scores,
         labels: first_bad.iter().map(Option::is_some).collect(),
@@ -1378,18 +1388,17 @@ fn forecast(args: &ForecastArgs) -> Result<()> {
         let out: Output =
             serde_json::from_str(&text).with_context(|| format!("parse {}", path.display()))?;
         for c in &out.scores {
-            let key = ConfigKey {
-                tau: c.tau,
-                u0: c.u0,
-                delta: c.delta,
-            };
-            let seen = wanted.iter().any(|(w, _, _)| {
-                ConfigKey {
-                    tau: w.tau,
-                    u0: w.u0,
-                    delta: w.delta,
-                } == key
-            });
+            let key = ConfigKey::of(
+                Config {
+                    tau: c.tau,
+                    u0: c.u0,
+                    delta: c.delta,
+                },
+                out.eps,
+            );
+            let seen = wanted
+                .iter()
+                .any(|&(w, weps, _)| ConfigKey::of(w, weps) == key);
             if seen {
                 skipped.push(key);
             } else {
@@ -1653,15 +1662,6 @@ mod tests {
     }
 
     #[test]
-    fn first_bad_step_records_negative_and_non_finite_cells_once() {
-        let mut solver = fresh_solver(cfg(), 0.05);
-        let mut first_bad: Vec<Option<usize>> = vec![None; CELLS];
-        solver.f[aosoa_idx(5, 3)] = -1.0;
-        solver.f[aosoa_idx(7, 0)] = f64::NAN;
-        mark_first_bad(&solver, &mut first_bad, 10);
-        solver.f[aosoa_idx(9, 18)] = f64::INFINITY;
-        mark_first_bad(&solver, &mut first_bad, 11);
-    #[test]
     fn population_quartile_zero_holds_the_smallest_populations() {
         let shares = [0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.0, -0.05];
         let score: Vec<f64> = shares.iter().map(|s: &f64| -s).collect();
@@ -1678,6 +1678,15 @@ mod tests {
         assert!(q[0] < q[4]);
     }
 
+    #[test]
+    fn first_bad_step_records_negative_and_non_finite_cells_once() {
+        let mut solver = fresh_solver(cfg(), 0.05);
+        let mut first_bad: Vec<Option<usize>> = vec![None; CELLS];
+        solver.f[aosoa_idx(5, 3)] = -1.0;
+        solver.f[aosoa_idx(7, 0)] = f64::NAN;
+        mark_first_bad(&solver, &mut first_bad, 10);
+        solver.f[aosoa_idx(9, 18)] = f64::INFINITY;
+        mark_first_bad(&solver, &mut first_bad, 11);
         assert_eq!(first_bad[5], Some(10));
         assert_eq!(first_bad[7], Some(10));
         assert_eq!(first_bad[9], Some(11));
@@ -1724,6 +1733,7 @@ mod tests {
                 tau: 0.5,
                 u0: 0.1,
                 delta: 1.0,
+                eps: 0.05,
             },
             first_violation_step: 300,
             anchor: 250,

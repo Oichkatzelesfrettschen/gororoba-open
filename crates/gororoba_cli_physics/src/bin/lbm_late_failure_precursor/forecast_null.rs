@@ -897,11 +897,7 @@ fn simulate(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> Resu
         .collect();
     let quartile = population_quartiles(&base.min_population_share);
     Ok(NullRun {
-        key: ConfigKey {
-            tau: cfg.tau,
-            u0: cfg.u0,
-            delta: cfg.delta,
-        },
+        key: ConfigKey::of(cfg, eps),
         first,
         anchor,
         states,
@@ -929,14 +925,21 @@ fn collect_configs(args: &NullArgs) -> Result<Vec<(Config, f64, usize)>> {
             serde_json::from_str(&text).with_context(|| format!("parse {}", path.display()))?;
         outputs.push(out);
     }
-    let same = |a: &Config, b: &Config| a.tau == b.tau && a.u0 == b.u0 && a.delta == b.delta;
-    let scored: Vec<Config> = outputs
+    let same =
+        |a: (Config, f64), b: (Config, f64)| ConfigKey::of(a.0, a.1) == ConfigKey::of(b.0, b.1);
+    let scored: Vec<(Config, f64)> = outputs
         .iter()
-        .flat_map(|o| o.scores.iter())
-        .map(|c| Config {
-            tau: c.tau,
-            u0: c.u0,
-            delta: c.delta,
+        .flat_map(|o| {
+            o.scores.iter().map(|c| {
+                (
+                    Config {
+                        tau: c.tau,
+                        u0: c.u0,
+                        delta: c.delta,
+                    },
+                    o.eps,
+                )
+            })
         })
         .collect();
     let mut wanted: Vec<(Config, f64, usize)> = Vec::new();
@@ -951,8 +954,10 @@ fn collect_configs(args: &NullArgs) -> Result<Vec<(Config, f64, usize)>> {
                 let first = row
                     .first_violation_step
                     .context("a kept row without a violation")?;
-                if !scored.iter().any(|s| same(s, &cfg))
-                    && !wanted.iter().any(|(w, _, _)| same(w, &cfg))
+                if !scored.iter().any(|&s| same(s, (cfg, out.eps)))
+                    && !wanted
+                        .iter()
+                        .any(|&(w, weps, _)| same((w, weps), (cfg, out.eps)))
                 {
                     wanted.push((cfg, out.eps, first));
                 }
@@ -964,7 +969,10 @@ fn collect_configs(args: &NullArgs) -> Result<Vec<(Config, f64, usize)>> {
                     u0: c.u0,
                     delta: c.delta,
                 };
-                if !wanted.iter().any(|(w, _, _)| same(w, &cfg)) {
+                if !wanted
+                    .iter()
+                    .any(|&(w, weps, _)| same((w, weps), (cfg, out.eps)))
+                {
                     wanted.push((cfg, out.eps, c.first_violation_step));
                 }
             }
@@ -1410,14 +1418,6 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> LogitFit {
     let mut converged = false;
     for _ in 0..LOGIT_ITERATIONS {
         let eta = eta_of(&beta);
-        let mu: Vec<f64> = eta.iter().map(|e| 1.0 / (1.0 + (-e).exp())).collect();
-        let mut grad = vec![0.0; p];
-        let mut hess = vec![0.0; p * p];
-        for i in 0..n {
-            let r = f64::from(u8::from(y[i])) - mu[i];
-            let w = mu[i] * (1.0 - mu[i]);
-            for j in 0..p {
-                grad[j] += x(i, j) * r;
         if eta
             .iter()
             .zip(y)
@@ -1426,6 +1426,14 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> LogitFit {
             separated = true;
             break;
         }
+        let mu: Vec<f64> = eta.iter().map(|e| 1.0 / (1.0 + (-e).exp())).collect();
+        let mut grad = vec![0.0; p];
+        let mut hess = vec![0.0; p * p];
+        for i in 0..n {
+            let r = f64::from(u8::from(y[i])) - mu[i];
+            let w = mu[i] * (1.0 - mu[i]);
+            for j in 0..p {
+                grad[j] += x(i, j) * r;
                 for k in 0..p {
                     hess[j * p + k] += x(i, j) * x(i, k) * w;
                 }
@@ -1440,19 +1448,19 @@ fn logit_fit(columns: &[&[f64]], y: &[bool]) -> LogitFit {
             *b += s;
         }
         if largest < 1e-10 {
+            converged = true;
             break;
         }
     }
+    let separated = separated || !converged;
     let eta = eta_of(&beta);
     let ll = eta
         .iter()
         .zip(y)
         .map(|(e, &yy)| {
-            converged = true;
             let mu = (1.0 / (1.0 + (-e).exp())).clamp(1e-12, 1.0 - 1e-12);
             if yy { mu.ln() } else { (1.0 - mu).ln() }
         })
-    let separated = separated || !converged;
         .sum();
     LogitFit {
         ll,
@@ -1664,6 +1672,9 @@ fn process_run(
             });
         }
     }
+    // A pair's index addresses its random streams: the pairs run from the highest
+    // quartile to the lowest.
+    selected.reverse();
     let positives_gcd = all_positives.iter().fold(0, |g, &p| gcd(g, p));
 
     // Orbits of the anchor state and their aggregates.
@@ -1672,9 +1683,6 @@ fn process_run(
     let n_orbits = orbits.count;
     let mut o_count = vec![0usize; n_orbits];
     let mut o_quartile = vec![0.0; n_orbits];
-    // A pair's index addresses its random streams: the pairs run from the highest
-    // quartile to the lowest.
-    selected.reverse();
     let mut o_label = vec![0.0; n_orbits];
     let mut o_score = vec![vec![0.0; n_orbits]; 6];
     for cell in 0..CELLS {
@@ -2443,7 +2451,7 @@ fn assemble(
         "seeds": seeds.records,
         "input_sha256": Value::Object(inputs),
         "runs": outs.iter().map(|o| json!({
-            "index": o.index, "tau": o.key.tau, "u0": o.key.u0, "delta": o.key.delta,
+            "index": o.index, "tau": o.key.tau, "u0": o.key.u0, "delta": o.key.delta, "eps": o.key.eps,
             "first_violation_step": o.first, "anchor": o.anchor, "pairs": o.pairs.len(),
             "max_abs_area_difference_vs_retained_forecast": o.retained_auc_diff,
             "max_relative_associator_difference_vs_cd_kernel": o.kernel_rel_diff,
@@ -2810,20 +2818,6 @@ mod tests {
         assert!(p_noise > 1e-3, "{p_noise}");
     }
 
-    #[test]
-    fn block_permuted_series_keeps_the_end_state_and_supplies_the_last_two_increments() {
-        let mut rng = stream(31, 0, 0);
-        let inc: Vec<[f64; Q]> = (0..INCREMENTS)
-            .map(|_| std::array::from_fn(|_| rng.random::<f64>() - 0.5))
-            .collect();
-        let total = |series: &[[f64; Q]]| -> [f64; Q] {
-            std::array::from_fn(|d| series.iter().map(|row| row[d]).sum())
-        };
-        let want = total(&inc);
-        let blocks = INCREMENTS / BLOCK;
-        let mut last = vec![0usize; blocks];
-        for _ in 0..9000 {
-            let order = block_order(&mut rng);
     /// Two normal-score columns that differ by about 0.05 and a label drawn from the
     /// logistic law of their difference: the maximum-likelihood coefficients are finite
     /// near -16 and 16, and the classes overlap.
@@ -2889,6 +2883,20 @@ mod tests {
         );
     }
 
+    #[test]
+    fn block_permuted_series_keeps_the_end_state_and_supplies_the_last_two_increments() {
+        let mut rng = stream(31, 0, 0);
+        let inc: Vec<[f64; Q]> = (0..INCREMENTS)
+            .map(|_| std::array::from_fn(|_| rng.random::<f64>() - 0.5))
+            .collect();
+        let total = |series: &[[f64; Q]]| -> [f64; Q] {
+            std::array::from_fn(|d| series.iter().map(|row| row[d]).sum())
+        };
+        let want = total(&inc);
+        let blocks = INCREMENTS / BLOCK;
+        let mut last = vec![0usize; blocks];
+        for _ in 0..9000 {
+            let order = block_order(&mut rng);
             let mut sorted = order.clone();
             sorted.sort_unstable();
             assert_eq!(
@@ -2970,6 +2978,63 @@ mod tests {
             .map(|(c, _, _)| c.u0)
             .collect();
         assert_eq!(scored, vec![0.2]);
+    }
+
+    #[test]
+    fn configurations_that_differ_in_eps_alone_are_distinct() {
+        let record = |eps: f64, scored: bool| {
+            let scores = if scored {
+                vec![
+                    json!({"tau": 0.5, "u0": 0.2, "delta": 2.0, "first_violation_step": 300,
+                    "bad_population_cells": 16, "skipped_horizons": [], "horizons": []}),
+                ]
+            } else {
+                Vec::new()
+            };
+            json!({"nx": 64, "ny": 64, "nz": 4, "eps": eps, "max_steps": 6000, "min_kept_step": 200,
+                "widened": true,
+                "scan": [json!({"grid": "widened", "tau": 0.5, "u0": 0.2, "delta": 2.0,
+                    "first_violation_step": 300, "bad_population_cells": Value::Null,
+                    "min_population": Value::Null, "kept": true})],
+                "scores": scores})
+        };
+        let dir = tempfile::tempdir().expect("tempdir");
+        let write = |name: &str, eps: f64, scored: bool| {
+            let path = dir.path().join(name);
+            std::fs::write(&path, record(eps, scored).to_string()).expect("write");
+            path
+        };
+        let mut args = NullArgs {
+            json: vec![write("a.json", 0.05, true), write("b.json", 0.04, false)],
+            forecast_json: PathBuf::new(),
+            draw_json: PathBuf::new(),
+            out_json: PathBuf::new(),
+            surrogates: 1,
+            label_draws: 1,
+            heldout: true,
+        };
+        let eps_of = |args: &NullArgs| -> Vec<f64> {
+            collect_configs(args)
+                .expect("configurations")
+                .iter()
+                .map(|&(_, eps, _)| eps)
+                .collect()
+        };
+        assert_eq!(eps_of(&args), vec![0.04], "the eps = 0.04 row is held out");
+        args.heldout = false;
+        args.json = vec![write("c.json", 0.05, true), write("d.json", 0.04, true)];
+        assert_eq!(eps_of(&args), vec![0.05, 0.04], "both scored runs are kept");
+        let key = |eps: f64| {
+            ConfigKey::of(
+                Config {
+                    tau: 0.5,
+                    u0: 0.2,
+                    delta: 2.0,
+                },
+                eps,
+            )
+        };
+        assert!(key(0.05) != key(0.04));
     }
 
     /// Six identical score columns for `units` orbits of `size` cells, each cell scoring
