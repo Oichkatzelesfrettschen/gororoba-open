@@ -1,7 +1,7 @@
 //! Brans-Dicke PPN parameters (Rocq-verified: C-886..C-892).
 //!
 //! gamma_BD(omega) = (1+omega)/(2+omega) approaches GR as omega -> inf.
-//! Kernel-checked in `proofs/theories/BransDicke.v`.
+//! Kernel-checked in gororoba-math `rocq/open/theories/BransDicke.v`.
 
 /// PPN gamma in Brans-Dicke theory.
 ///

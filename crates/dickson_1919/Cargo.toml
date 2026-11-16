@@ -8,7 +8,7 @@ description = "Dickson (1919) Cayley-Dickson process -- verified Rust implementa
 # Source: Dickson, L.E. (1919) "On Quaternions and Their Generalization and the
 # History of the Eight Square Theorem", Annals of Math., 20(3), pp. 155-171.
 #
-# Rocq verification: proofs/theories/DicksonCDProcess.v (239 lines, 0 Admitted)
+# Rocq verification: gororoba-math rocq/open/theories/DicksonCDProcess.v (239 lines, 0 Admitted)
 #
 # This crate implements the CD construction (sections 1-4) and the property
 # hierarchy: C (commutative), H (non-commutative, associative),

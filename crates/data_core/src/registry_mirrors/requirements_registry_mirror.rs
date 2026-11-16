@@ -36,8 +36,6 @@
 //!
 //! - Status: `active`
 //! - Markdown: `docs/requirements/rocq.md`
-//! - Install targets:
-//!   - `make rocq`
 //!
 //! ### REQ-CORE: core
 //!

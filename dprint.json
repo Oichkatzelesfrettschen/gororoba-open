@@ -31,8 +31,6 @@
     "archive/**",
     "curated/**",
     "data/**",
-    "proofs/**/*.vo",
-    "proofs/**/*.glob",
     "reports/**",
     "**/node_modules/**",
     "**/*-lock.json",

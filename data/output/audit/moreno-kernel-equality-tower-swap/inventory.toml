@@ -1,0 +1,5 @@
+sync_key = "moreno-kernel-swap-inventory-ee514ff423105d4faa4530e8a4e915d277631c3009ae5b460b175e3a16238c06"
+actor = "claude-code"
+reason = "Admit CDTowerKernelSwap, MorenoTowerInstance and MorenoSwapIndependence to the proof inventory and preserve append-only canonical history."
+applied_at = "2026-11-13T21:19:20Z"
+project_sha256 = "ee514ff423105d4faa4530e8a4e915d277631c3009ae5b460b175e3a16238c06"

@@ -3,6 +3,7 @@
 //! The validator reconstructs finite recorded statistics. It neither decodes QPY
 //! semantics nor establishes calibration, stationarity, or shot independence.
 use anyhow::{Context, Result, bail, ensure};
+use repo_root::ProofTree;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
@@ -176,6 +177,13 @@ fn regular_bytes(root: &Path, relative: &str) -> Result<Vec<u8>> {
         "artifact is not regular: {relative}"
     );
     Ok(fs::read(current)?)
+}
+/// Reads a file of the proof tree named by its recorded `proofs/<path>`
+/// locator, under the checks of [`regular_bytes`].
+fn tree_bytes(tree: &ProofTree, recorded: &str) -> Result<Vec<u8>> {
+    let relative = repo_root::proof_tree::recorded_relative(recorded)
+        .with_context(|| format!("locator lies outside the proof tree: {recorded}"))?;
+    regular_bytes(tree.root(), relative).with_context(|| format!("read proof tree file {recorded}"))
 }
 fn verify_hash(bytes: &[u8], expected: &str) -> Result<()> {
     ensure!(
@@ -633,8 +641,10 @@ impl QuantumBindingManifest {
     pub fn load(path: &Path) -> Result<Self> {
         Ok(serde_json::from_slice(&fs::read(path)?)?)
     }
-    pub fn validate(&self, root: &Path) -> Result<QuantumBindingReport> {
-        let report = self.validate_recorded_observations(root)?;
+    /// Replays the retained observables against the frozen evidence and the
+    /// theorem sources of `tree`, the gororoba-math proof tree.
+    pub fn validate(&self, tree: &ProofTree) -> Result<QuantumBindingReport> {
+        let report = self.validate_recorded_observations(tree)?;
         self.validate_source_inventory()?;
         Ok(report)
     }
@@ -781,7 +791,7 @@ impl QuantumBindingManifest {
         );
         Ok(())
     }
-    fn validate_recorded_observations(&self, root: &Path) -> Result<QuantumBindingReport> {
+    fn validate_recorded_observations(&self, tree: &ProofTree) -> Result<QuantumBindingReport> {
         ensure!(self.schema_version == 2, "unsupported binding schema");
         ensure!(
             self.source_repository == "https://github.com/Oichkatzelesfrettschen/gororoba-quantum"
@@ -803,7 +813,7 @@ impl QuantumBindingManifest {
                     ),
                 "frozen source locator mismatch"
             );
-            let bytes = regular_bytes(root, &asset.path)?;
+            let bytes = tree_bytes(tree, &asset.path)?;
             verify_hash(&bytes, &asset.sha256).with_context(|| asset.path.clone())?;
             ensure!(
                 assets.insert(asset.path.as_str(), bytes).is_none(),
@@ -816,7 +826,7 @@ impl QuantumBindingManifest {
                 declarations.insert((&theorem.source, &theorem.declaration)),
                 "duplicate theorem declaration"
             );
-            let bytes = regular_bytes(root, &theorem.source)?;
+            let bytes = tree_bytes(tree, &theorem.source)?;
             verify_hash(&bytes, &theorem.sha256).with_context(|| theorem.source.clone())?;
             let text = std::str::from_utf8(&bytes)?;
             ensure!(
@@ -927,7 +937,7 @@ impl QuantumBindingManifest {
         ];
         let mut expected_declarations = BTreeSet::new();
         for source in required_sources {
-            let bytes = regular_bytes(root, source)?;
+            let bytes = tree_bytes(tree, source)?;
             for line in std::str::from_utf8(&bytes)?.lines() {
                 let line = line.trim_start();
                 for prefix in ["Theorem ", "Lemma ", "Corollary "] {
@@ -1353,29 +1363,24 @@ impl QuantumBindingManifest {
 #[cfg(test)]
 mod tests {
     use super::*;
-    fn root() -> std::path::PathBuf {
-        let start = std::env::var_os("GOROROBA_REPO_ROOT")
-            .map(std::path::PathBuf::from)
-            .unwrap_or_else(|| std::env::current_dir().expect("current directory"));
-        start
-            .ancestors()
-            .find(|candidate| {
-                candidate
-                    .join("proofs/evidence/quantum_observables/bindings.json")
-                    .is_file()
-            })
-            .expect("running checkout with binding manifest")
-            .to_path_buf()
+    fn tree() -> ProofTree {
+        ProofTree::from_environment().expect("GOROROBA_MATH names a gororoba-math checkout")
+    }
+    fn proof_relative(recorded: &str) -> &str {
+        repo_root::proof_tree::recorded_relative(recorded).expect("proofs/ locator")
     }
     fn fixture() -> QuantumBindingManifest {
         QuantumBindingManifest::load(
-            &root().join("proofs/evidence/quantum_observables/bindings.json"),
+            &tree()
+                .root()
+                .join("evidence/quantum_observables/bindings.json"),
         )
         .expect("manifest")
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn retained_observables_reconstruct_exactly() {
-        let report = fixture().validate(&root()).expect("valid frozen fixture");
+        let report = fixture().validate(&tree()).expect("valid frozen fixture");
         assert_eq!(report.decoded_members, 30);
         assert_eq!(report.terminal_hardware_means, 16);
         assert_eq!(report.terminal_replay_means, 16);
@@ -1386,10 +1391,11 @@ mod tests {
         );
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn contract_mutations_reach_specific_rejections() {
         let original = fixture();
         original
-            .validate(&root())
+            .validate(&tree())
             .expect("baseline reaches all validators");
         type ManifestMutation = Box<dyn Fn(&mut QuantumBindingManifest)>;
         let mutations: Vec<(&str, ManifestMutation)> = vec![
@@ -1684,7 +1690,7 @@ mod tests {
         for (expected, mutate) in mutations {
             let mut manifest = original.clone();
             mutate(&mut manifest);
-            let failure = format!("{:#}", manifest.validate(&root()).expect_err(expected));
+            let failure = format!("{:#}", manifest.validate(&tree()).expect_err(expected));
             assert!(
                 failure.contains(expected),
                 "expected {expected}, got {failure}"
@@ -1692,14 +1698,17 @@ mod tests {
         }
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn unselected_observation_mutations_reach_data_validation() {
         let manifest = fixture();
         manifest
-            .validate(&root())
+            .validate(&tree())
             .expect("complete observation baseline");
         let temporary =
             std::env::temp_dir().join(format!("quantum-observations-{}", std::process::id()));
         fs::create_dir(&temporary).expect("unique temporary fixture");
+        fs::write(temporary.join("_RocqProject"), "").expect("stub project file");
+        let temporary_tree = ProofTree::at_root(&temporary).expect("stub proof tree");
         let files: BTreeSet<_> = manifest
             .assets
             .iter()
@@ -1713,7 +1722,7 @@ mod tests {
             .collect();
         let mut directories = BTreeSet::new();
         for relative in &files {
-            let destination = temporary.join(relative);
+            let destination = temporary.join(proof_relative(relative));
             let mut parent = destination.parent().expect("fixture parent");
             while parent != temporary {
                 directories.insert(parent.to_path_buf());
@@ -1721,7 +1730,8 @@ mod tests {
             }
             fs::create_dir_all(destination.parent().expect("fixture parent"))
                 .expect("fixture directories");
-            fs::copy(root().join(relative), destination).expect("copy immutable fixture input");
+            fs::copy(tree().root().join(proof_relative(relative)), destination)
+                .expect("copy immutable fixture input");
         }
         let hardware_path = manifest
             .decoders
@@ -1760,14 +1770,16 @@ mod tests {
             .path
             .clone();
         for relative in [&qpy_path, &hardware_path] {
-            let original = fs::read(temporary.join(relative)).expect("source bytes");
+            let original =
+                fs::read(temporary.join(proof_relative(relative))).expect("source bytes");
             let mut altered = original.clone();
             if relative == &qpy_path {
                 *altered.last_mut().expect("QPY payload") ^= 1;
             } else {
                 altered.push(b'\n');
             }
-            fs::write(temporary.join(relative), &altered).expect("write coordinated mutation");
+            fs::write(temporary.join(proof_relative(relative)), &altered)
+                .expect("write coordinated mutation");
             let mut coordinated = manifest.clone();
             coordinated
                 .assets
@@ -1779,15 +1791,16 @@ mod tests {
                 .map(|byte| format!("{byte:02x}"))
                 .collect();
             coordinated
-                .validate_recorded_observations(&temporary)
+                .validate_recorded_observations(&temporary_tree)
                 .expect("substitution preserves decoded observables");
             let error = format!(
                 "{:#}",
                 coordinated
-                    .validate(&temporary)
+                    .validate(&temporary_tree)
                     .expect_err("coordinated source substitution")
             );
-            fs::write(temporary.join(relative), original).expect("restore source bytes");
+            fs::write(temporary.join(proof_relative(relative)), original)
+                .expect("restore source bytes");
             assert!(error.contains("source asset inventory"), "{error}");
         }
         type ObservationMutation = Box<dyn Fn(&mut serde_json::Value)>;
@@ -1852,12 +1865,14 @@ mod tests {
             ),
         ];
         for (relative, expected, mutate) in cases {
-            let original = fs::read(temporary.join(relative)).expect("original fixture input");
+            let original =
+                fs::read(temporary.join(proof_relative(relative))).expect("original fixture input");
             let mut value: serde_json::Value =
                 serde_json::from_slice(&original).expect("source JSON");
             mutate(&mut value);
             let altered = serde_json::to_vec(&value).expect("mutated JSON");
-            fs::write(temporary.join(relative), &altered).expect("write bounded mutation");
+            fs::write(temporary.join(proof_relative(relative)), &altered)
+                .expect("write bounded mutation");
             let mut modified_manifest = manifest.clone();
             modified_manifest
                 .assets
@@ -1871,15 +1886,18 @@ mod tests {
             let error = format!(
                 "{:#}",
                 modified_manifest
-                    .validate_recorded_observations(&temporary)
+                    .validate_recorded_observations(&temporary_tree)
                     .expect_err(expected)
             );
-            fs::write(temporary.join(relative), original).expect("restore fixture input");
+            fs::write(temporary.join(proof_relative(relative)), original)
+                .expect("restore fixture input");
             assert!(error.contains(expected), "expected {expected}, got {error}");
         }
         for relative in files {
-            fs::remove_file(temporary.join(relative)).expect("remove owned fixture file");
+            fs::remove_file(temporary.join(proof_relative(&relative)))
+                .expect("remove owned fixture file");
         }
+        fs::remove_file(temporary.join("_RocqProject")).expect("remove stub project file");
         let mut directories: Vec<_> = directories.into_iter().collect();
         directories.sort_by_key(|directory| std::cmp::Reverse(directory.components().count()));
         for directory in directories {
@@ -1925,10 +1943,11 @@ mod tests {
         }
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn coherence_application_is_separate_from_operator_theorems() {
         let manifest = fixture();
         let report = manifest
-            .validate(&root())
+            .validate(&tree())
             .expect("complete conditional application");
         assert_eq!(report.verified_coherence_applications, 1);
         let theorems: Vec<_> = manifest
@@ -1958,10 +1977,11 @@ mod tests {
         );
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn theorem_proofs_are_separate_from_terminal_applications() {
         let manifest = fixture();
         let report = manifest
-            .validate(&root())
+            .validate(&tree())
             .expect("complete terminal applications");
         assert_eq!(report.verified_theorem_sources, 14);
         assert!(
@@ -1989,6 +2009,7 @@ mod tests {
         );
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn source_inventory_rejects_ambiguous_paths() {
         let original = fixture();
         original
@@ -2010,6 +2031,7 @@ mod tests {
         }
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn unknown_manifest_fields_are_rejected() {
         let mut value = serde_json::to_value(fixture()).expect("JSON");
         value["unproved_promotion"] = true.into();
@@ -2031,6 +2053,7 @@ mod tests {
         }
     }
     #[test]
+    #[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
     fn mathematical_additions_preserve_retained_coherence_scope() {
         let mut manifest = fixture();
         let mut addition = manifest

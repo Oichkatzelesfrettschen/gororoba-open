@@ -1,7 +1,7 @@
 <!-- AUTO-GENERATED: DO NOT EDIT -->
 <!-- Source of truth: registry/requirements.toml; registry/requirements_narrative.toml -->
 
-# open_gororoba Requirements
+# gororoba-open Requirements
 
 This repository is a Rust-first scientific workspace with optional Python,
 Docker, Rocq, LaTeX, C++, and web-app lanes layered on top. The canonical
@@ -23,7 +23,7 @@ human-facing compatibility docs from the same source-of-truth.
 - Rust: stable `1.97.0` via `rust-toolchain.toml`
 - Edition: `2024`
 - Python: `3.11` or `3.12` recommended; `3.13+` allowed with optional-extras caveats
-- Formal proofs: Rocq `9.2.0`
+- Formal proofs: Rocq `9.3.0`, compiled and kernel-checked in gororoba-math; this repository runs no Rocq
 - Formatting/linting: `cargo fmt --all`, `cargo clippy --workspace -- -D warnings`
 
 ## Verification entrypoints
@@ -85,7 +85,7 @@ TOMLs from canonical SQLite. Walk-through:
 | `gororoba-db` | `crates/gororoba_db` | `cargo run --release -p gororoba_db --bin gororoba-db -- <subcommand>` | Canonical mutator for claims/insights/experiments + planning/requirements |
 | `provenance` | `crates/gororoba_cli_provenance` | `cargo run --release -p gororoba_cli_provenance --bin provenance -- export-control-plane` | Re-emit `registry/*.toml` from canonical SQLite |
 | `repo-audit` | `crates/gororoba_cli_data` | `cargo run --release -p gororoba_cli_data --bin repo-audit` | Anchored debt counter; supports `--sqlite` for revisions audit |
-| `registry-integrity` | `crates/gororoba_cli_governance` | `make registry-integrity` | Regenerate conflict markers and lacunae through the dedicated validation-profile cache |
+| `registry-integrity` | `crates/gororoba_cli_governance` | `make registry-integrity` | Regenerate conflict markers and lacunae through the dedicated, resource-bounded validation-profile cache |
 
 ## ONNX runtime (turboquant onnx-eval)
 

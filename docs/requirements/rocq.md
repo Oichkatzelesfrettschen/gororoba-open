@@ -3,34 +3,40 @@
 
 # Requirements: Rocq Proof Checking
 
-This repo contains `.v` files under `proofs/` and companion curated theory
-surfaces.
+The Rocq proof tree lives in gororoba-math under `rocq/open`. This repository
+runs no Rocq: no workflow, make target, command or binary here installs or
+invokes the Rocq toolchain.
 
-Install the pinned Rocq and Flocq packages in the same `opam` switch:
+gororoba-math compiles every proof source and kernel-checks the result with
+`sh ci/check_rocq.sh` under Rocq 9.3.0; its toolchain and proof commands are
+in `rocq/open/README.md` there. Its producer `ci/kernel_replay_evidence.py`
+writes the replay evidence file for one proof source.
+
+This repository ingests that file:
 
 ```bash
-opam install rocq-core.9.2.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2
-eval "$(opam env --switch rocq-9.2)"
-```
-
-Then run:
-
-```bash
-make rocq-project-check
-make rocq-makefile-check
-make -C proofs vos
-make -C proofs vok
+gororoba-db theorem identity record-kernel-evidence --spec SPEC --evidence FILE
 ```
 
 Notes:
 
-- The proof Makefile requires `OPAM_SWITCH_PREFIX`, which keeps Rocq and the
-  compiled Flocq objects in one opam switch.
-- `coq-flocq.4.2.2` supplies the `Flocq.Core` dependency used by
-  `FP24Representable.v`.
-- `make rocq-project-check` compares every `.v` file under `proofs/theories`
-  and `proofs/verified` with `_RocqProject` in both directions.
-- `make rocq-makefile-check` treats any `rocq makefile` warning as an error.
-  This specifically blocks logical-root drift such as "No common logical root."
-- Keep proof checking as an explicit toolchain lane with its own versioned
-  requirements.
+- Ingest binds the sources, the project file, the proof object and the
+  retained logs to the witness and the proof tree, and checks the argument
+  vectors and the compilation order of the evidence file. It trusts the
+  producer for the fact that Rocq ran; no process attestation exists.
+- Flocq object digests must equal the entry of the producer that the evidence
+  names in `flocq_producer`, in the committed copy of the gororoba-math Flocq
+  manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`),
+  when a new event key is admitted; this repository holds no Flocq object
+  bytes. The object bytes depend on the install prefix and the native
+  toolchain of the producer (measured: a hosted runner that built the same
+  export produced different Flocq object bytes, first at `Calc/Bracket.vo`),
+  so the manifest holds one entry per producer, and evidence that names no
+  entry, an unknown entry or another producer's digests is rejected.
+- The statement inventories under `curated/01_theory_frameworks/`
+  (`ConfineModel.v` and `confine_theorems_512.v`, `confine_theorems_1024.v`,
+  `confine_theorems_2048.v`) are statements without proofs here.
+  gororoba-math `rocq/delegation` holds them with proofs under a defined
+  delegation model; no make target here compiles them.
+- `GOROROBA_MATH` names a gororoba-math checkout for the checks that read the
+  proof tree; `ci/gororoba_math.pin` names the commit that hosted CI fetches.
