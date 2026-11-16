@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-16T19:31:00Z"
+transition_key = "c-1130-chsh-bounded-sum-scope"
+source_claim_id = "C-1130"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+exercised_falsifier = "Read every theorem of BellCHSH.v at the pinned gororoba-math commit and evaluate the CHSH expression at (1, -1, 1, 1). The sentence 'establishing quantum advantage' keeps formal support if some theorem bounds a local hidden-variable model by 2 or bounds quantum correlations by 2 * sqrt 2; it loses it when none does and the stated hypotheses admit the value 4."
+proposed_claim_status = "Superseded"
+rationale = "BellCHSH.v proves that four reals in [-1,1] give |eab - eab' + ea'b + ea'b'| <= 4 and that the constant 2 * sqrt 2 is positive and exceeds 2. The four reals share no joint model, so the bound 4 is the triangle inequality and is attained at (1, -1, 1, 1); the local bound 2 named in the file comment is not proved, and tsirelson_bound is a definition, not a theorem about quantum correlations. The comparison 2 * sqrt 2 > 2 is an inequality between two real constants and establishes no quantum advantage. The method cannot support that sentence, so C-1130 becomes Superseded and the successor carries the three proved statements with their scope."
+unresolved_assumptions = ["The CHSH bound 2 for local hidden-variable models and Tsirelson's bound for quantum correlations are standard results; neither is formalized in the cited file.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Scope C-1130 to the bounded-sum inequality and the two constant inequalities that BellCHSH.v proves."
+expected_source_state_sha256 = "196a90ebe458c2eb9b3ad91844343a0ef7b589ee8b1a548ec78aec18982c5206"
+expected_claim_id_max = 1785
+
+[[successor]]
+proposal_key = "chsh-bounded-sum-and-constant-inequalities"
+statement = "For reals eab, eab', ea'b, ea'b' each in [-1,1], |eab - eab' + ea'b + ea'b'| <= 4 (BellCHSH.chsh_classical_bound_weak); the bound is attained at (1, -1, 1, 1). The real constant 2 * sqrt 2 is positive and exceeds 2 (tsirelson_bound_positive, tsirelson_exceeds_classical). The file defines no local hidden-variable model and no quantum correlation, so it proves neither the local bound 2 nor Tsirelson's bound, and the statement asserts no quantum advantage."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement over the Stdlib reals in gororoba-math rocq/open/theories/BellCHSH.v at the commit and digest of data/output/audit/formal-proof-scope/source-map.toml. It is an inequality on four independent reals and on one constant; it models no experiment, strategy or correlation function."
+required_falsifier = "A compile or kernel-check failure of BellCHSH.v at the pinned commit, or four reals in [-1,1] whose CHSH expression exceeds 4 in absolute value, refutes the statement."
+where_stated = ["data/output/audit/formal-proof-scope/source-map.toml", "proofs/theories/BellCHSH.v"]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+predecessor_relation_kind = "narrows"

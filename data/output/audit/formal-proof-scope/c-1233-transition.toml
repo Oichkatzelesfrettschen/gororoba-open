@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-16T19:33:00Z"
+transition_key = "c-1233-chern-cancellation-axiom-scope"
+source_claim_id = "C-1233"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+exercised_falsifier = "Read C1233_ChernSumZero.v and TightBindingTopology.v at the pinned gororoba-math commit and list the Parameters and Axioms the main theorem rests on. The claim keeps its support if a theorem states that the Chern number of each of 9 bands of a defined Hamiltonian vanishes; it loses it when the integral is an uninterpreted Parameter and the conclusion is a sum with a reflected field."
+proposed_claim_status = "Superseded"
+rationale = "chern_sum_zero_under_trs states that a real function F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0. chern_integral is a Parameter, and the theorem is the Axiom chern_integral_linear applied to F and its reflection; no axiom equates the integral of the reflected field with that of F, so the theorem does not state chern_integral F = 0. The file defines no Hamiltonian, band or inversion operation, and nothing ties band_chern_number of quantum_core to the axiom. The claim sentence also names inversion symmetry as the condition while the hypothesis is the time-reversal relation; inversion symmetry alone does not force a vanishing Chern number. The method cannot support the claim as stated, so C-1233 becomes Superseded and the successor states the conditional theorem with its axioms."
+unresolved_assumptions = ["Whether band_chern_number returns zero for each of the 9 bands of the implemented model is a numerical question that this transition does not test.", "The axioms chern_integral_linear, chern_splits_into_valleys and trs_swaps_valleys are declared, not derived from a definition of the integral.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Scope C-1233 to the conditional cancellation theorem and name its axioms."
+expected_source_state_sha256 = "db2a4d068e500043b480571e9d534abc14947d911cf11ba21d8008ea1ad3735f"
+expected_claim_id_max = 1787
+
+[[successor]]
+proposal_key = "chern-integral-reflection-cancellation-conditional"
+statement = "Let chern_integral be a real functional on functions R -> R -> R satisfying the declared axiom that pointwise cancellation of F and G implies chern_integral F + chern_integral G = 0. Then every F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0, where reflected F kx ky = F (-kx) (-ky) (C1233_ChernSumZero.chern_sum_zero_under_trs, resting on TightBindingTopology.chern_integral_linear). The statement is conditional on the axiom, does not assert chern_integral F = 0, and concerns no Hamiltonian, band count or inversion symmetry."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement in gororoba-math rocq/open/verified/C1233_ChernSumZero.v over the Parameters and Axioms of TightBindingTopology.v, at the commit and digests of data/output/audit/formal-proof-scope/source-map.toml. No conformance of crates/quantum_core/src/tight_binding.rs (band_chern_number) to the axiom is asserted."
+required_falsifier = "A compile or kernel-check failure of the two files at the pinned commit, or a Print Assumptions replay of chern_sum_zero_under_trs that omits chern_integral_linear, refutes the statement as scoped."
+where_stated = ["data/output/audit/formal-proof-scope/source-map.toml", "proofs/verified/C1233_ChernSumZero.v", "proofs/theories/TightBindingTopology.v"]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+predecessor_relation_kind = "narrows"

@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-16T19:30:00Z"
+transition_key = "c-029-octonion-subalgebra-family-supersession"
+source_claim_id = "C-029"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+exercised_falsifier = "Read every theorem of C029_FermionGenerations.v at the pinned gororoba-math commit. C-029 keeps its formal support if some theorem states a decomposition of the sedenions or of C tensor S into three octonion subalgebras; it loses it when none does, and the three-subalgebra reading of the file comment is falsified when the high-half or the diagonal image of the octonions is shown not closed under the sedenion product."
+proposed_claim_status = "Superseded"
+rationale = "The cited file proves 1 * 2 * 3 = 6, 3 = 3 and 6 = 3 * 2 by reflexivity and defines no algebra, embedding or group, so the status note 'Kernel-checked' names three arithmetic identities and no sentence of the claim. Its comment counts the low-half, high-half and diagonal embeddings of the octonions as three subalgebras; C029_FermionGenerationArithmetic.C029_hi_image_not_closed and C029_diag_image_not_closed in gororoba-math prove that the high-half and diagonal images are not closed under sed_mul, so two of the three are not subalgebras. The fermion-generation sentence is a phenomenological mapping attributed to Gillard and Gresnigt (2019) and Gresnigt (2023); no formal or computational evidence here reaches that layer, and evidence at the implementation layer does not promote it. C-029 mixes a literature attribution with a falsified formal reading and becomes Superseded; the successor carries the subalgebra classification that gororoba-math proves and asserts nothing about generations."
+unresolved_assumptions = ["The literature claim of Gillard and Gresnigt concerns C tensor S and is neither confirmed nor refuted by this transition; the cited papers were not reread for it.", "The successor files entered gororoba-math after the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Replace the arithmetic support of C-029 by the proved classification of the 15 coordinate-hyperplane subalgebras of the sedenions."
+expected_source_state_sha256 = "f807160437b3a429f28a5cb2f5ada5d74d9ef518e57f18bfdf3040a0b8531d87"
+expected_claim_id_max = 1784
+
+[[successor]]
+proposal_key = "sedenion-coordinate-hyperplane-octonion-subalgebras"
+statement = "For u in 1..15 let in_sub u be the real span of the 8 basis units of the 16D (sedenions) whose index k has even parity of (u land k), under the Cayley-Dickson product sed_mul over the reals. All 15 spans are closed under the product and pairwise distinct (C029_family_closed, C029_family_distinct). Exactly the 8 spans with u <= 8 are isomorphic to the octonions through an explicit linear product-preserving map; each of the 7 spans with 9 <= u <= 15 contains a pair violating left alternativity (C029_octonion_subalgebra_iff, C029_octonion_subalgebra_count). The high-half image and the diagonal image of the octonions are not closed under the product (C029_high_half_not_closed, C029_diagonal_not_closed, C029_FermionGenerationArithmetic.C029_hi_image_not_closed, C029_diag_image_not_closed). The statement classifies this family of 15 and asserts nothing about other subalgebras, about C tensor S, or about fermion generations."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement over the real sedenions of gororoba-math rocq/open (Sedenion.v, product sed_mul) at the commit and file digests of data/output/audit/formal-proof-scope/source-map.toml. It does not prove that every octonion subalgebra, or every unit-spanned one, is among the 15, and it carries no physical interpretation."
+required_falsifier = "A compile or kernel-check failure of C029_SedenionOctonionSubalgebras.v or C029_FermionGenerationArithmetic.v at the recorded commit, a Print Assumptions replay of the cited theorems that lists an axiom outside the ledger rocq/open/kernel-assumptions.txt, or an exact computation in the same product that finds a member of the family not closed, or a span with u <= 8 that violates alternativity, refutes the statement."
+where_stated = ["data/output/audit/formal-proof-scope/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+predecessor_relation_kind = "supersedes"
