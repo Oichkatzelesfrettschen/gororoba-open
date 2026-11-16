@@ -46,12 +46,14 @@
 //! a relative error of `eps + gamma_{2k}^2 kappa` for the condition number
 //! `kappa = sum_j p[j] |s[j] - a| / |mu|`. Centering against a mean pair with
 //! error `delta` changes the exact centered moment by `delta_x delta_y` only,
-//! since the exact centered values have zero weighted sum. The proof of
-//! Proposition 5.5 carried through the triple products then bounds each
+//! since the exact centered values have zero weighted sum. hypothesis: the
+//! proof of Proposition 5.5 carried through the triple products bounds each
 //! entry of `M` by
 //! `eps |M_xy| + (gamma_k^2 + O(eps^2)) sum_j p[j] |c_x[j] c_y[j]| + |delta_x delta_y|`,
 //! so its relative error is `eps + gamma_k^2 kappa_xy` up to terms of order
-//! `eps^4`. A variance has `kappa = 1`
+//! `eps^4`. The paper states the bound for a dot product only; this
+//! covariance form is derived here and has no independent check beyond the
+//! exact-value tests below. A variance has `kappa = 1`
 //! and is therefore rounded once to within those terms. The modal anchor
 //! carries probability at least `1 / k`, so `kappa` for the mean is at most
 //! `k + 1` times the anchor-free condition number `sum_j p[j] |s[j]| / |mu|`.
