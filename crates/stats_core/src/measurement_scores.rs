@@ -14,11 +14,58 @@
 //! covariance of the mean is `M / N`; its unbiased estimate is `M / (N - 1)`.
 //! These are sampling-model estimates, not calibrated confidence intervals.
 //!
-//! Means use offset centering and compensated sums. Covariance uses a Gram
-//! matrix of centered scores weighted by `sqrt(p[j] / denominator)`, so a large
-//! score is reduced by the sample-size factor before it is squared. Arithmetic
-//! errors include nonfinite intermediates and nonzero products that underflow
-//! to zero; such failures never silently report exact zero uncertainty.
+//! The arithmetic carries every rounding residual through the error-free
+//! transformations of Ogita, Rump and Oishi, "Accurate sum and dot product",
+//! SIAM J. Sci. Comput. 26(6), 1955-1988 (2005): TwoSum (Algorithm 3.1,
+//! Theorem 3.4), TwoProductFMA (Algorithm 3.5, through `f64::mul_add`) and
+//! Dot2 (Algorithm 5.3, Proposition 5.5). Only outcomes with nonzero count
+//! enter; `k` counts them.
+//!
+//! - Each row is shifted by the score `a` of the most frequent outcome. The
+//!   offsets `d[j] = s[j] - a` are exact TwoSum pairs, so a constant row has
+//!   exactly zero offsets, and one power of two rescales them so the largest
+//!   lies in `[1, 2)`. The rescaling keeps large scores from overflowing when
+//!   squared and small ones from underflowing.
+//! - The weights `w[j] = n[j] / 2^K`, with `2^K` the least power of two at
+//!   least `N`, are exact, and so is their total `W = N / 2^K`.
+//! - The mean offset is Dot2 over the `2k` products of each weight with both
+//!   parts of its offset, held as a double-length pair and divided by `W` with
+//!   the remainder `fma(-q, W, x)` carried.
+//! - Each centered value `d[j]` minus the mean pair combines all four parts
+//!   through TwoSum, so it keeps the residuals of the offset and of the mean.
+//!   No single anchor choice discards a small score beside a large one.
+//! - Each covariance entry is Dot2 over the triple products
+//!   `w[j] c_x[j] c_y[j]`: TwoProductFMA forms the leading parts and the
+//!   products with the low parts join the error term. The double-length sum is
+//!   divided by `W` and by the estimator denominator, rounded once and scaled
+//!   back by the powers of two of its two rows.
+//!
+//! With `eps = 2^-53`, `gamma_n = n eps / (1 - n eps)` and no underflow,
+//! Proposition 5.5 applied to the doubled vectors bounds the mean by
+//! `|mean - mu| <= eps |mu| + (gamma_{2k}^2 + O(eps^2)) sum_j p[j] |s[j] - a|`,
+//! a relative error of `eps + gamma_{2k}^2 kappa` for the condition number
+//! `kappa = sum_j p[j] |s[j] - a| / |mu|`. Centering against a mean pair with
+//! error `delta` changes the exact centered moment by `delta_x delta_y` only,
+//! since the exact centered values have zero weighted sum. The proof of
+//! Proposition 5.5 carried through the triple products then bounds each
+//! entry of `M` by
+//! `eps |M_xy| + (gamma_k^2 + O(eps^2)) sum_j p[j] |c_x[j] c_y[j]| + |delta_x delta_y|`,
+//! so its relative error is `eps + gamma_k^2 kappa_xy` up to terms of order
+//! `eps^4`. A variance has `kappa = 1`
+//! and is therefore rounded once to within those terms. The modal anchor
+//! carries probability at least `1 / k`, so `kappa` for the mean is at most
+//! `k + 1` times the anchor-free condition number `sum_j p[j] |s[j]| / |mu|`.
+//!
+//! The remaining limit is the conditioning: once `gamma^2 kappa` approaches
+//! `eps` the result is no longer accurate to working precision, and at
+//! `kappa >= 1 / gamma^2` no digit is guaranteed. Overflow of an offset, a
+//! centered value or a rescaled result returns an arithmetic error. TwoProductFMA
+//! loses exactness below `2^-969`, which the rescaling reaches only for
+//! scores more than about `2^900` times smaller than the largest offset of
+//! their row. A nonzero leading product or a nonzero result that underflows to
+//! zero is an arithmetic error, so no failure silently reports exact zero
+//! uncertainty; a subnormal result carries the absolute error of gradual
+//! underflow.
 
 use nalgebra::{DMatrix, DVector};
 
@@ -106,24 +153,129 @@ fn product(left: f64, right: f64) -> Result<f64, MeasurementScoreError> {
     }
 }
 
-/// Neumaier compensated summation preserves small terms beside large offsets.
-fn compensated_sum(
-    terms: impl Iterator<Item = Result<f64, MeasurementScoreError>>,
-) -> Result<f64, MeasurementScoreError> {
-    let mut sum: f64 = 0.0;
-    let mut correction: f64 = 0.0;
-    for term in terms {
-        let term = term?;
-        let next = finite(sum + term)?;
-        let error = if sum.abs() >= term.abs() {
-            (sum - next) + term
-        } else {
-            (term - next) + sum
-        };
-        correction = finite(correction + error)?;
-        sum = next;
+/// An unevaluated sum `high + low`; after `two_sum`, `high` is the rounded sum
+/// and `high == 0` implies `low == 0`.
+#[derive(Debug, Clone, Copy, Default)]
+struct DoubleLength {
+    high: f64,
+    low: f64,
+}
+
+/// TwoSum (Algorithm 3.1): `left + right == high + low` exactly, underflow
+/// included, whenever no intermediate overflows.
+fn two_sum(left: f64, right: f64) -> Result<DoubleLength, MeasurementScoreError> {
+    let high = finite(left + right)?;
+    let right_part = high - left;
+    let low = finite((left - (high - right_part)) + (right - right_part))?;
+    Ok(DoubleLength { high, low })
+}
+
+/// TwoProductFMA (Algorithm 3.5) for a leading product, whose underflow to zero
+/// from nonzero factors is an arithmetic error.
+fn two_product(left: f64, right: f64) -> Result<DoubleLength, MeasurementScoreError> {
+    let high = product(left, right)?;
+    let low = finite(left.mul_add(right, -high))?;
+    Ok(DoubleLength { high, low })
+}
+
+/// TwoProductFMA for a residual product, which may underflow harmlessly.
+fn two_product_residual(left: f64, right: f64) -> Result<DoubleLength, MeasurementScoreError> {
+    let high = finite(left * right)?;
+    let low = finite(left.mul_add(right, -high))?;
+    Ok(DoubleLength { high, low })
+}
+
+/// Dot2 (Algorithm 5.3): TwoSum accumulates the leading parts and the plain sum
+/// `error` collects the TwoSum residuals with each product's low part.
+#[derive(Debug, Clone, Copy, Default)]
+struct CompensatedDot {
+    sum: f64,
+    error: f64,
+}
+
+impl CompensatedDot {
+    fn add(&mut self, term: DoubleLength, extra_error: f64) -> Result<(), MeasurementScoreError> {
+        let step = two_sum(self.sum, term.high)?;
+        self.sum = step.high;
+        self.error = finite(self.error + (step.low + (term.low + extra_error)))?;
+        Ok(())
     }
-    finite(sum + correction)
+
+    fn finish(self) -> Result<DoubleLength, MeasurementScoreError> {
+        two_sum(self.sum, self.error)
+    }
+}
+
+/// Divides a double-length value by a float; FMA forms the remainder of the
+/// leading quotient exactly, so the quotient pair errs by `O(eps^2)` relative.
+fn divide(value: DoubleLength, divisor: f64) -> Result<DoubleLength, MeasurementScoreError> {
+    let high = finite(value.high / divisor)?;
+    if high == 0.0 && value.high != 0.0 {
+        return Err(MeasurementScoreError::Arithmetic);
+    }
+    let remainder = (-high).mul_add(divisor, value.high);
+    let low = finite((remainder + value.low) / divisor)?;
+    two_sum(high, low)
+}
+
+/// Subtracts one double-length value from another, carrying all four parts.
+fn subtract(
+    left: DoubleLength,
+    right: DoubleLength,
+) -> Result<DoubleLength, MeasurementScoreError> {
+    let leading = two_sum(left.high, -right.high)?;
+    let trailing = two_sum(left.low, -right.low)?;
+    let combined = two_sum(leading.high, trailing.high)?;
+    two_sum(
+        combined.high,
+        finite((leading.low + trailing.low) + combined.low)?,
+    )
+}
+
+/// Exponent `e` with `2^e <= |value| < 2^(e + 1)` for finite nonzero `value`.
+fn binary_exponent(value: f64) -> i32 {
+    let bits = value.abs().to_bits();
+    let biased = (bits >> 52) as i32;
+    if biased == 0 {
+        63 - bits.leading_zeros() as i32 - 1074
+    } else {
+        biased - 1023
+    }
+}
+
+/// `2^exponent` for a normal exponent in `-1022..=1023`.
+fn power_of_two(exponent: i32) -> f64 {
+    f64::from_bits(((exponent + 1023) as u64) << 52)
+}
+
+/// Multiplies by `2^exponent` with at most one rounding. The partial factor
+/// goes first, so a later full step either stays exact or sends an already
+/// subnormal value to zero, which is also the correctly rounded result.
+fn scale_by_power_of_two(value: f64, exponent: i32) -> f64 {
+    const STEP: i32 = 1000;
+    let partial = exponent % STEP;
+    let mut scaled = value * power_of_two(partial);
+    let mut remaining = exponent - partial;
+    while remaining > 0 {
+        scaled *= power_of_two(STEP);
+        remaining -= STEP;
+    }
+    while remaining < 0 {
+        scaled *= power_of_two(-STEP);
+        remaining += STEP;
+    }
+    scaled
+}
+
+/// Scales a result back to caller units; a nonzero value that underflows to
+/// zero or overflows is an arithmetic error.
+fn rescale_result(value: f64, exponent: i32) -> Result<f64, MeasurementScoreError> {
+    let scaled = finite(scale_by_power_of_two(value, exponent))?;
+    if scaled == 0.0 && value != 0.0 {
+        Err(MeasurementScoreError::Arithmetic)
+    } else {
+        Ok(scaled)
+    }
 }
 
 /// Estimate means and their full covariance from independent multinomial trials.
@@ -192,62 +344,76 @@ pub fn multinomial_scores(
         CovarianceEstimator::Unbiased if total_count >= 2 => total_count - 1,
         CovarianceEstimator::Unbiased => return Err(MeasurementScoreError::InsufficientCount),
     } as f64;
-    let probabilities: Vec<f64> = counts
-        .iter()
-        .map(|count| *count as f64 / total_count as f64)
+    let observed: Vec<usize> = (0..counts.len())
+        .filter(|outcome| counts[*outcome] != 0)
         .collect();
-    let weights: Vec<f64> = probabilities
+    let weight_scale = total_count.next_power_of_two() as f64;
+    let weights: Vec<f64> = observed
         .iter()
-        .map(|probability| (probability / denominator).sqrt())
+        .map(|outcome| counts[*outcome] as f64 / weight_scale)
         .collect();
-    let mut means = DVector::zeros(scores.nrows());
-    let mut weighted_centered = DMatrix::zeros(scores.nrows(), scores.ncols());
-    for row in 0..scores.nrows() {
-        // The anchor is the score of the most frequent outcome (the first on
-        // ties). Its offset is exactly zero, so the dominant probability mass
-        // contributes no rounding, and a rare outcome's share of the mean is
-        // never cancelled against a distant anchor.
-        let mut modal = 0;
-        for (column, count) in counts.iter().enumerate() {
-            if *count > counts[modal] {
-                modal = column;
-            }
+    let weight_total = total_count as f64 / weight_scale;
+    let mut modal = 0;
+    for (outcome, count) in counts.iter().enumerate() {
+        if *count > counts[modal] {
+            modal = outcome;
         }
+    }
+    let mut means = DVector::zeros(scores.nrows());
+    let mut centered = Vec::with_capacity(scores.nrows());
+    let mut exponents = Vec::with_capacity(scores.nrows());
+    for row in 0..scores.nrows() {
         let anchor = scores[(row, modal)];
-        let offsets: Vec<f64> = counts
+        let offsets = observed
             .iter()
-            .enumerate()
-            .map(|(column, count)| {
-                if *count == 0 {
-                    Ok(0.0)
-                } else {
-                    finite(scores[(row, column)] - anchor)
-                }
+            .map(|outcome| two_sum(scores[(row, *outcome)], -anchor))
+            .collect::<Result<Vec<_>, _>>()?;
+        let largest = offsets
+            .iter()
+            .fold(0.0_f64, |largest, offset| largest.max(offset.high.abs()));
+        let exponent = if largest == 0.0 {
+            0
+        } else {
+            binary_exponent(largest)
+        };
+        let offsets: Vec<DoubleLength> = offsets
+            .iter()
+            .map(|offset| DoubleLength {
+                high: scale_by_power_of_two(offset.high, -exponent),
+                low: scale_by_power_of_two(offset.low, -exponent),
             })
-            .collect::<Result<_, _>>()?;
-        let mean_offset = compensated_sum(
+            .collect();
+        let mut numerator = CompensatedDot::default();
+        for (offset, weight) in offsets.iter().zip(&weights) {
+            numerator.add(two_product(*weight, offset.high)?, 0.0)?;
+            numerator.add(two_product_residual(*weight, offset.low)?, 0.0)?;
+        }
+        let mean_offset = divide(numerator.finish()?, weight_total)?;
+        let leading = two_sum(anchor, rescale_result(mean_offset.high, exponent)?)?;
+        let trailing = scale_by_power_of_two(mean_offset.low, exponent);
+        means[row] = finite(leading.high + (leading.low + trailing))?;
+        centered.push(
             offsets
                 .iter()
-                .zip(&probabilities)
-                .map(|(offset, probability)| product(*offset, *probability)),
-        )?;
-        means[row] = finite(anchor + mean_offset)?;
-        for (column, count) in counts.iter().enumerate() {
-            if *count != 0 {
-                let centered = finite(offsets[column] - mean_offset)?;
-                weighted_centered[(row, column)] = product(centered, weights[column])?;
-            }
-        }
+                .map(|offset| subtract(*offset, mean_offset))
+                .collect::<Result<Vec<_>, _>>()?,
+        );
+        exponents.push(exponent);
     }
     let mut covariance_of_means = DMatrix::zeros(scores.nrows(), scores.nrows());
     for row in 0..scores.nrows() {
         for column in 0..=row {
-            let covariance = compensated_sum((0..counts.len()).map(|outcome| {
-                product(
-                    weighted_centered[(row, outcome)],
-                    weighted_centered[(column, outcome)],
-                )
-            }))?;
+            let mut moment = CompensatedDot::default();
+            for ((left, right), weight) in centered[row].iter().zip(&centered[column]).zip(&weights)
+            {
+                let weighted = two_product(*weight, left.high)?;
+                let weighted_low = finite(weighted.low + weight * left.low)?;
+                let leading = two_product(weighted.high, right.high)?;
+                let cross = finite(weighted.high * right.low + weighted_low * right.high)?;
+                moment.add(leading, cross)?;
+            }
+            let moment = divide(divide(moment.finish()?, weight_total)?, denominator)?;
+            let covariance = rescale_result(moment.high, exponents[row] + exponents[column])?;
             covariance_of_means[(row, column)] = covariance;
             covariance_of_means[(column, row)] = covariance;
         }
@@ -403,6 +569,105 @@ mod tests {
             9.0 * (total - 1.0) / (total * total * total),
             max_relative = 1e-15,
         );
+    }
+
+    #[test]
+    fn imbalanced_counts_keep_the_rare_outcome_mean_in_either_order() {
+        let total = MAX_EXACT_TOTAL_COUNT as f64;
+        let scores = DMatrix::from_row_slice(1, 2, &[3.0, 0.0]);
+        let counts = [1, MAX_EXACT_TOTAL_COUNT - 1];
+        let result = multinomial_scores(&counts, &scores, CovarianceEstimator::PlugIn).unwrap();
+        assert_eq!(result.means[0], 3.0 / total);
+        assert_relative_eq!(
+            result.covariance_of_means[(0, 0)],
+            9.0 * (total - 1.0) / (total * total * total),
+            max_relative = 1e-15,
+        );
+    }
+
+    /// Outcome orders of three columns.
+    const ORDERS: [[usize; 3]; 6] = [
+        [0, 1, 2],
+        [0, 2, 1],
+        [1, 0, 2],
+        [1, 2, 0],
+        [2, 0, 1],
+        [2, 1, 0],
+    ];
+
+    fn permuted(
+        counts: [u64; 3],
+        scores: &DMatrix<f64>,
+        order: [usize; 3],
+    ) -> ([u64; 3], DMatrix<f64>) {
+        let counts = order.map(|outcome| counts[outcome]);
+        let scores = DMatrix::from_fn(scores.nrows(), 3, |row, column| {
+            scores[(row, order[column])]
+        });
+        (counts, scores)
+    }
+
+    fn assert_estimate(result: &MultinomialScoreEstimate, means: [f64; 2], covariance: [f64; 3]) {
+        assert_eq!(result.means[0], means[0]);
+        assert_eq!(result.means[1], means[1]);
+        for (entry, expected) in [(0, 0), (1, 0), (1, 1)].into_iter().zip(covariance) {
+            assert_relative_eq!(
+                result.covariance_of_means[entry],
+                expected,
+                max_relative = 1e-15,
+            );
+        }
+        assert_eq!(
+            result.covariance_of_means[(0, 1)],
+            result.covariance_of_means[(1, 0)]
+        );
+    }
+
+    #[test]
+    fn mixed_scale_scores_keep_low_order_mean_and_covariance() {
+        // N = 3 and p[j] = 1/3. Row means: (2^54 - 2^54 + 1) / 3 = 1/3 and 1/3.
+        // Centered rows: [2^54 - 1/3, -2^54 - 1/3, 2/3] and [-1/3, -1/3, 2/3].
+        // Plug-in covariance (1/9) sum_j c_x[j] c_y[j]:
+        //   C00 = ((2^54 - 1/3)^2 + (2^54 + 1/3)^2 + 4/9) / 9 = 2^109/9 + 2/27,
+        //   C01 = (-2^54/3 + 1/9 + 2^54/3 + 1/9 + 4/9) / 9 = 2/27,
+        //   C11 = (1/9 + 1/9 + 4/9) / 9 = 2/27.
+        // 2/27 lies below half an ulp of 2^109/9, so C00 rounds to 2^109/9.
+        let large = 2_f64.powi(54);
+        let scores = DMatrix::from_row_slice(2, 3, &[large, -large, 1.0, 0.0, 0.0, 1.0]);
+        for order in ORDERS {
+            let (counts, scores) = permuted([1, 1, 1], &scores, order);
+            let result = multinomial_scores(&counts, &scores, CovarianceEstimator::PlugIn).unwrap();
+            assert_estimate(
+                &result,
+                [1.0 / 3.0, 1.0 / 3.0],
+                [2_f64.powi(109) / 9.0, 2.0 / 27.0, 2.0 / 27.0],
+            );
+        }
+    }
+
+    #[test]
+    fn unequal_counts_with_mixed_scales_keep_low_order_terms() {
+        // N = 20 and p = [3, 7, 10] / 20, so the rounded proportions are inexact.
+        // Means: (21 - 21) 2^50 / 20 + 10/20 = 1/2 and 1/2.
+        // Centered rows: [7 2^50 - 1/2, -3 2^50 - 1/2, 1/2] and [-1/2, -1/2, 1/2].
+        // Centered moments sum_j p[j] c_x[j] c_y[j]:
+        //   M00 = 0.15 (49 2^100 - 7 2^50 + 1/4) + 0.35 (9 2^100 + 3 2^50 + 1/4)
+        //         + 0.125 = 10.5 2^100 + 1/4,
+        //   M01 = -0.525 2^50 + 0.0375 + 0.525 2^50 + 0.0875 + 0.125 = 1/4,
+        //   M11 = 1/4.
+        // Plug-in covariance M / 20: C00 = 0.525 2^100 + 1/80, C01 = C11 = 1/80.
+        let large = 2_f64.powi(50);
+        let scores =
+            DMatrix::from_row_slice(2, 3, &[7.0 * large, -3.0 * large, 1.0, 0.0, 0.0, 1.0]);
+        for order in ORDERS {
+            let (counts, scores) = permuted([3, 7, 10], &scores, order);
+            let result = multinomial_scores(&counts, &scores, CovarianceEstimator::PlugIn).unwrap();
+            assert_estimate(
+                &result,
+                [0.5, 0.5],
+                [0.525 * 2_f64.powi(100), 1.0 / 80.0, 1.0 / 80.0],
+            );
+        }
     }
 
     #[test]
