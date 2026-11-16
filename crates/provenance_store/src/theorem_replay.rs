@@ -19,7 +19,7 @@ const TOOLCHAIN: &str = "Rocq 9.3.0; OCaml 5.5.1";
 /// per producer. The bytes equal `ci/flocq-manifest.json` of gororoba-math
 /// (schema_version 2), whose sha256 is
 /// `01cbaf6d07f088508defb5d23910a920df06aabeaaedead3044038007f1ced35`, at
-/// commit `adea94cedc67d1b0c3014a153c3ee859a2cd6800`. A `.vo` records the md5
+/// commit `e69fa46421d8024cf5fae68b6f8ff4c184b7b364`. A `.vo` records the md5
 /// of each OCaml plugin it loads, and those plugin bytes depend on the install
 /// prefix and the native toolchain of the producer (measured: the same opam
 /// export gave different Flocq object bytes on a hosted runner, first at
