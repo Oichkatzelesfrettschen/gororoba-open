@@ -25,7 +25,9 @@
 //!   offsets `d[j] = s[j] - a` are exact TwoSum pairs, so a constant row has
 //!   exactly zero offsets, and one power of two rescales them so the largest
 //!   lies in `[1, 2)`. The rescaling keeps large scores from overflowing when
-//!   squared and small ones from underflowing.
+//!   squared. An offset part that the rescaling cannot hold exactly, which
+//!   happens only when one row spans more than about `2^1022`, returns an
+//!   arithmetic error instead of a flushed zero.
 //! - The weights `w[j] = n[j] / 2^K`, with `2^K` the least power of two at
 //!   least `N`, are exact, and so is their total `W = N / 2^K`.
 //! - The mean offset is Dot2 over the `2k` products of each weight with both
@@ -269,6 +271,18 @@ fn scale_by_power_of_two(value: f64, exponent: i32) -> f64 {
     scaled
 }
 
+/// Scales an offset part by `2^exponent` and refuses a result that does not
+/// scale back exactly: a row spanning more than about `2^1022` would
+/// otherwise flush a small nonzero offset to zero and report a wrong mean.
+fn exact_scale(value: f64, exponent: i32) -> Result<f64, MeasurementScoreError> {
+    let scaled = scale_by_power_of_two(value, exponent);
+    if scale_by_power_of_two(scaled, -exponent) == value {
+        Ok(scaled)
+    } else {
+        Err(MeasurementScoreError::Arithmetic)
+    }
+}
+
 /// Scales a result back to caller units; a nonzero value that underflows to
 /// zero or overflows is an arithmetic error.
 fn rescale_result(value: f64, exponent: i32) -> Result<f64, MeasurementScoreError> {
@@ -378,13 +392,15 @@ pub fn multinomial_scores(
         } else {
             binary_exponent(largest)
         };
-        let offsets: Vec<DoubleLength> = offsets
+        let offsets = offsets
             .iter()
-            .map(|offset| DoubleLength {
-                high: scale_by_power_of_two(offset.high, -exponent),
-                low: scale_by_power_of_two(offset.low, -exponent),
+            .map(|offset| {
+                Ok(DoubleLength {
+                    high: exact_scale(offset.high, -exponent)?,
+                    low: exact_scale(offset.low, -exponent)?,
+                })
             })
-            .collect();
+            .collect::<Result<Vec<_>, _>>()?;
         let mut numerator = CompensatedDot::default();
         for (offset, weight) in offsets.iter().zip(&weights) {
             numerator.add(two_product(*weight, offset.high)?, 0.0)?;
@@ -670,6 +686,33 @@ mod tests {
                 [0.525 * 2_f64.powi(100), 1.0 / 80.0, 1.0 / 80.0],
             );
         }
+    }
+
+    #[test]
+    fn rows_spanning_beyond_the_exponent_range_fail_closed() {
+        // The offset 1e-180 rescaled by 2^-498 underflows past the subnormal
+        // range; the two large outcomes cancel, so a flushed offset would
+        // report a mean of zero instead of the exact 2e-181.
+        let scores = DMatrix::from_row_slice(1, 4, &[-1e150, 0.0, 1e150, 1e-180]);
+        assert_eq!(
+            multinomial_scores(&[1, 2, 1, 1], &scores, CovarianceEstimator::PlugIn),
+            Err(MeasurementScoreError::Arithmetic),
+        );
+        // A rare tiny score beside a dominant zero outcome and a huge one is
+        // refused too: its scaled offset is a subnormal, and its weight of
+        // 2^-53 sends the leading product below the subnormal range.
+        let wide = DMatrix::from_row_slice(1, 3, &[0.0, 1e150, 2_f64.powi(-560)]);
+        assert_eq!(
+            multinomial_scores(
+                &[MAX_EXACT_TOTAL_COUNT - 2, 1, 1],
+                &wide,
+                CovarianceEstimator::PlugIn
+            ),
+            Err(MeasurementScoreError::Arithmetic),
+        );
+        // Equal counts keep the tiny score inside the scaled range.
+        let result = multinomial_scores(&[1, 1, 1], &wide, CovarianceEstimator::PlugIn).unwrap();
+        assert_relative_eq!(result.means[0], 1e150 / 3.0, max_relative = 1e-15);
     }
 
     #[test]
