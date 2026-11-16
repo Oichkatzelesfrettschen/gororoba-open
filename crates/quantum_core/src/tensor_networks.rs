@@ -8,6 +8,7 @@
 
 use nalgebra::{DMatrix, SymmetricEigen};
 use num_complex::Complex64;
+use rayon::prelude::*;
 
 pub use crate::mps::{MatrixProductState, MpsTensor};
 pub use crate::peps::{Peps, PepsTensor};
@@ -180,10 +181,12 @@ pub trait EntanglementMeasure {
 impl EntanglementMeasure for TensorNetworkState {
     fn try_entanglement_entropy(&self, subsystem: &[usize]) -> Result<f64, EntropyError> {
         let selected = partition(self.n_qubits(), subsystem)?;
-        if !selected.is_empty()
-            && selected.len() != self.n_qubits()
-            && state_size(self.n_qubits())? > DEFAULT_ENTROPY_AMPLITUDE_LIMIT
-        {
+        if selected.is_empty() || selected.len() == self.n_qubits() {
+            // A trivial cut has zero entropy; the real coefficients are
+            // checked in place so no complex copy is built.
+            return real_state_cut_entropy(self.coefficients(), self.n_qubits());
+        }
+        if state_size(self.n_qubits())? > DEFAULT_ENTROPY_AMPLITUDE_LIMIT {
             return Err(EntropyError::AllocationLimit);
         }
         let coefficients: Vec<_> = self
@@ -202,6 +205,18 @@ impl EntanglementMeasure for TensorNetworkState {
     fn n_sites(&self) -> usize {
         self.n_qubits()
     }
+}
+
+/// Zero entropy of an empty or full cut, after the same state checks as
+/// `pure_state_subsystem_entropy`, read from real coefficients in place.
+fn real_state_cut_entropy(coefficients: &[f64], n_sites: usize) -> Result<f64, EntropyError> {
+    if coefficients.len() != state_size(n_sites)? || coefficients.iter().any(|x| !x.is_finite()) {
+        return Err(EntropyError::InvalidState);
+    }
+    if coefficients.iter().all(|&x| x == 0.0) {
+        return Err(EntropyError::InvalidState);
+    }
+    Ok(0.0)
 }
 
 fn validate_mps(state: &MatrixProductState) -> Result<(), EntropyError> {
@@ -268,6 +283,51 @@ fn mps_physical_matrix(tensor: &MpsTensor, physical: usize) -> DMatrix<Complex64
         let value = tensor.get(left, physical, right);
         Complex64::new(value.re / scale, value.im / scale)
     })
+}
+
+/// Dense coefficients of a validated MPS, up to one positive global scale.
+///
+/// Each tensor is divided by its largest component magnitude before the
+/// contraction, so tensor scales that cancel across sites (1e200 against
+/// 1e-200) neither overflow nor underflow. The entropy functions normalize
+/// their input, so the dropped product of scales leaves the result unchanged.
+fn mps_scaled_coefficients(state: &MatrixProductState) -> Result<Vec<Complex64>, EntropyError> {
+    let n_sites = state.n_qubits;
+    let scaled: Vec<Vec<Complex64>> = state
+        .tensors
+        .iter()
+        .map(|tensor| {
+            let scale = tensor
+                .data
+                .iter()
+                .map(|z| z.re.abs().max(z.im.abs()))
+                .fold(0.0_f64, f64::max);
+            tensor
+                .data
+                .iter()
+                .map(|z| Complex64::new(z.re / scale, z.im / scale))
+                .collect()
+        })
+        .collect();
+    let size = state_size(n_sites)?;
+    Ok((0..size)
+        .into_par_iter()
+        .map(|basis| {
+            let mut row = vec![Complex64::new(1.0, 0.0)];
+            for (site, tensor) in state.tensors.iter().enumerate() {
+                let physical = (basis >> (n_sites - 1 - site)) & 1;
+                let mut next = vec![Complex64::new(0.0, 0.0); tensor.chi_right];
+                for (left, &weight) in row.iter().enumerate() {
+                    let base = (left * 2 + physical) * tensor.chi_right;
+                    for (slot, &value) in next.iter_mut().zip(&scaled[site][base..]) {
+                        *slot += weight * value;
+                    }
+                }
+                row = next;
+            }
+            row[0]
+        })
+        .collect())
 }
 
 /// Gauge-invariant prefix entropy from both MPS contraction environments.
@@ -358,11 +418,7 @@ impl EntanglementMeasure for MatrixProductState {
         if state_size(self.n_qubits)? > DEFAULT_ENTROPY_AMPLITUDE_LIMIT {
             return Err(EntropyError::AllocationLimit);
         }
-        let coefficients: Vec<_> = self
-            .to_state_vector_parallel()
-            .iter()
-            .map(|z| Complex64::new(z.re, z.im))
-            .collect();
+        let coefficients = mps_scaled_coefficients(self)?;
         pure_state_subsystem_entropy(
             &coefficients,
             self.n_qubits,
@@ -538,6 +594,67 @@ mod tests {
         assert!((state.entanglement_entropy(&[0, 3]) - ln2).abs() < 1e-10);
         assert!(state.entanglement_entropy(&[2, 3]).abs() < 1e-10);
         assert!((state.entanglement_entropy(&[3]) - ln2).abs() < 1e-10);
+    }
+
+    #[test]
+    fn mps_dense_fallback_survives_cancelling_tensor_scales() {
+        let scale_tensors = |state: &mut MatrixProductState| {
+            for (site, tensor) in state.tensors.iter_mut().enumerate() {
+                let factor = if site < 2 { 1e200 } else { 1e-200 };
+                for value in &mut tensor.data {
+                    *value = faer::c64::new(value.re * factor, value.im * factor);
+                }
+            }
+        };
+        let mut zero = MatrixProductState::new_zero_state(4);
+        scale_tensors(&mut zero);
+        assert_eq!(zero.try_entanglement_entropy(&[1]), Ok(0.0));
+        assert_eq!(zero.try_entanglement_entropy(&[0, 2]), Ok(0.0));
+        assert_eq!(zero.try_entanglement_entropy(&[0]), Ok(0.0));
+
+        let mut bell = MatrixProductState::new_zero_state(4);
+        bell.apply_hadamard(2);
+        bell.apply_cnot(2, 3);
+        scale_tensors(&mut bell);
+        let ln2 = 2.0_f64.ln();
+        assert!(bell.try_entanglement_entropy(&[1]).unwrap().abs() < 1e-10);
+        assert!((bell.try_entanglement_entropy(&[2]).unwrap() - ln2).abs() < 1e-10);
+        assert!((bell.try_entanglement_entropy(&[0, 3]).unwrap() - ln2).abs() < 1e-10);
+    }
+
+    #[test]
+    fn oversized_state_trivial_cuts_are_zero_and_product_test_hits_budget() {
+        let state = TensorNetworkState::new_zero_state(21);
+        assert_eq!(
+            state.try_is_product_state(1e-10),
+            Err(EntropyError::AllocationLimit),
+        );
+        assert_eq!(
+            state.try_entanglement_entropy(&[0]),
+            Err(EntropyError::AllocationLimit),
+        );
+        assert_eq!(state.try_entanglement_entropy(&[]), Ok(0.0));
+        let all: Vec<usize> = (0..21).collect();
+        assert_eq!(state.try_entanglement_entropy(&all), Ok(0.0));
+    }
+
+    #[test]
+    fn trivial_cuts_still_reject_invalid_real_states() {
+        let mut state = TensorNetworkState::new_zero_state(2);
+        state.apply_x(0);
+        assert_eq!(state.try_entanglement_entropy(&[]), Ok(0.0));
+        assert_eq!(
+            real_state_cut_entropy(&[0.0, 0.0, 0.0, 0.0], 2),
+            Err(EntropyError::InvalidState),
+        );
+        assert_eq!(
+            real_state_cut_entropy(&[1.0, f64::NAN, 0.0, 0.0], 2),
+            Err(EntropyError::InvalidState),
+        );
+        assert_eq!(
+            real_state_cut_entropy(&[1.0, 0.0], 2),
+            Err(EntropyError::InvalidState),
+        );
     }
 
     #[test]
