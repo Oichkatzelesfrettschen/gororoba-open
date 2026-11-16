@@ -89,8 +89,8 @@ use statrs::distribution::{ChiSquared, ContinuousCDF, Normal};
 use super::{
     CELLS, Config, ConfigKey, D3Q19Lattice, DIM, FORECAST_LEAD, FORECAST_WINDOW, Forecast,
     NORM_FLOOR, NX, NY, NZ, Output, P13C_BOUND, P13C_MIN_POSITIVES, Q, QUARTILES, auc, cell_scores,
-    distance, fresh_solver, gram_volume, mark_first_bad, mean_ranks, median, orient, quartiles,
-    snapshot_into, spearman, unit_vector, violation_in,
+    distance, fresh_solver, gram_volume, mark_first_bad, mean_ranks, median, orient,
+    population_quartiles, snapshot_into, spearman, unit_vector, violation_in,
 };
 
 /// Names of the six scores, in the order of every per-score array.
@@ -895,7 +895,7 @@ fn simulate(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> Resu
             distance(&c, &a)
         })
         .collect();
-    let quartile = quartiles(&base.min_population_share);
+    let quartile = population_quartiles(&base.min_population_share);
     Ok(NullRun {
         key: ConfigKey {
             tau: cfg.tau,
@@ -1672,12 +1672,15 @@ fn process_run(
     let n_orbits = orbits.count;
     let mut o_count = vec![0usize; n_orbits];
     let mut o_quartile = vec![0.0; n_orbits];
+    // A pair's index addresses its random streams: the pairs run from the highest
+    // quartile to the lowest.
+    selected.reverse();
     let mut o_label = vec![0.0; n_orbits];
     let mut o_score = vec![vec![0.0; n_orbits]; 6];
     for cell in 0..CELLS {
         let o = orbits.id[cell];
         o_count[o] += 1;
-        o_quartile[o] += run.quartile[cell] as f64;
+        o_quartile[o] += (QUARTILES - 1 - run.quartile[cell]) as f64;
         o_label[o] += f64::from(u8::from(run.labels[cell]));
         for (k, col) in o_score.iter_mut().enumerate() {
             col[o] += run.scores[k][cell];
@@ -1685,7 +1688,10 @@ fn process_run(
     }
     for o in 0..n_orbits {
         let c = o_count[o] as f64;
-        o_quartile[o] = (o_quartile[o] / c).round_ties_even();
+        // An orbit that spans quartiles joins the quartile of the rounded mean score
+        // index (ties to the even index), which is the reflection of the population
+        // quartile.
+        o_quartile[o] = (QUARTILES - 1) as f64 - (o_quartile[o] / c).round_ties_even();
         o_label[o] /= c;
         o_score.iter_mut().for_each(|col| col[o] /= c);
     }
