@@ -847,8 +847,12 @@ mod tests {
                 Ok((command, expected))
             })
             .collect::<Result<Vec<_>>>()?;
+        let commands = rows
+            .iter()
+            .map(|(command, _)| command)
+            .collect::<BTreeSet<_>>();
         ensure!(
-            rows.iter().map(|(command, _)| command).collect::<BTreeSet<_>>().len() == rows.len(),
+            commands.len() == rows.len(),
             "the Flocq import corpus repeats a command"
         );
         Ok(rows)
