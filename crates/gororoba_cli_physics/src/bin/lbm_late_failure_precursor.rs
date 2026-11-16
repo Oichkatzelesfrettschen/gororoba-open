@@ -301,7 +301,11 @@ struct ConfigScore {
 struct HorizonSummary {
     horizon: usize,
     configs: usize,
+    /// Diagnostic: pairs whose associator area as computed (unoriented) exceeds
+    /// the best product-free area by more than the margin.
     exceed_margin: usize,
+    /// Pairs whose associator area in its better orientation exceeds the best
+    /// product-free area by more than the margin, the comparison rule of P13a.
     exceed_margin_oriented: usize,
     median_associator_auc: Option<f64>,
     median_best_product_free_auc: Option<f64>,
@@ -311,11 +315,17 @@ struct HorizonSummary {
 struct Predictions {
     p13a_by_horizon: Vec<HorizonSummary>,
     /// Pairs (configuration, horizon) scored, and how many of them hold the
-    /// associator above the best product-free score by more than the margin.
+    /// associator, in its better orientation, above the best product-free
+    /// score by more than the margin.
     p13a_pairs: usize,
     p13a_pairs_exceeding: usize,
     p13a_pairs_h_ge_10: usize,
     p13a_pairs_h_ge_10_exceeding: usize,
+    /// The same two counts with the associator area as computed (diagnostic).
+    #[serde(default)]
+    p13a_pairs_exceeding_unoriented: usize,
+    #[serde(default)]
+    p13a_pairs_h_ge_10_exceeding_unoriented: usize,
     p13b_pairs: usize,
     p13b_spearman_min: Option<f64>,
     p13b_spearman_median: Option<f64>,
@@ -970,6 +980,8 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
     let mut exceeding = 0;
     let mut pairs_late = 0;
     let mut exceeding_late = 0;
+    let mut exceeding_unoriented = 0;
+    let mut exceeding_late_unoriented = 0;
     let mut spearmans = Vec::new();
     for h in HORIZONS {
         let at: Vec<&HorizonScore> = scores
@@ -978,10 +990,17 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
             .filter(|s| s.horizon == h)
             .collect();
         pairs += at.len();
-        exceeding += at.iter().filter(|s| exceeds(s.associator_excess)).count();
+        let oriented = at
+            .iter()
+            .filter(|s| exceeds(s.associator_excess_oriented))
+            .count();
+        let unoriented = at.iter().filter(|s| exceeds(s.associator_excess)).count();
+        exceeding += oriented;
+        exceeding_unoriented += unoriented;
         if h >= 10 {
             pairs_late += at.len();
-            exceeding_late += at.iter().filter(|s| exceeds(s.associator_excess)).count();
+            exceeding_late += oriented;
+            exceeding_late_unoriented += unoriented;
         }
         spearmans.extend(at.iter().filter_map(|s| s.spearman_associator_gram_volume));
         let assoc: Vec<f64> = at.iter().filter_map(|s| s.auc_associator).collect();
@@ -989,11 +1008,8 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
         by_horizon.push(HorizonSummary {
             horizon: h,
             configs: at.len(),
-            exceed_margin: at.iter().filter(|s| exceeds(s.associator_excess)).count(),
-            exceed_margin_oriented: at
-                .iter()
-                .filter(|s| exceeds(s.associator_excess_oriented))
-                .count(),
+            exceed_margin: unoriented,
+            exceed_margin_oriented: oriented,
             median_associator_auc: median(&assoc),
             median_best_product_free_auc: median(&best),
         });
@@ -1006,6 +1022,8 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
         p13a_pairs_exceeding: exceeding,
         p13a_pairs_h_ge_10: pairs_late,
         p13a_pairs_h_ge_10_exceeding: exceeding_late,
+        p13a_pairs_exceeding_unoriented: exceeding_unoriented,
+        p13a_pairs_h_ge_10_exceeding_unoriented: exceeding_late_unoriented,
         p13b_pairs: spearmans.len(),
         p13b_spearman_min: (!spearmans.is_empty()).then(|| extreme(f64::min, f64::INFINITY)),
         p13b_spearman_median: median(&spearmans),
@@ -1068,11 +1086,14 @@ fn score(args: &ScoreArgs) -> Result<()> {
     }
     let summary = predictions(&scores);
     eprintln!(
-        "P13a: associator above the best product-free score by more than {AUC_MARGIN} in {} of {} pairs ({} of {} at h >= 10)",
+        "P13a: associator in its better orientation above the best product-free score by more than {AUC_MARGIN} in {} of {} pairs ({} of {} at h >= 10); as computed: {} of {} ({} at h >= 10)",
         summary.p13a_pairs_exceeding,
         summary.p13a_pairs,
         summary.p13a_pairs_h_ge_10_exceeding,
-        summary.p13a_pairs_h_ge_10
+        summary.p13a_pairs_h_ge_10,
+        summary.p13a_pairs_exceeding_unoriented,
+        summary.p13a_pairs,
+        summary.p13a_pairs_h_ge_10_exceeding_unoriented
     );
     eprintln!(
         "P13b: Spearman associator-Gram volume min {} median {} max {} over {} pairs; {} below 0.9, {} at or above 0.95",
@@ -1646,6 +1667,46 @@ mod tests {
         assert!((high.auc - 0.7).abs() < 1e-12);
         assert_eq!(high.orientation, Orientation::Higher);
         assert_eq!(orient(0.5).orientation, Orientation::Higher);
+    }
+
+    #[test]
+    fn p13a_counts_the_associator_in_its_better_orientation() {
+        let horizon = |h: usize, raw: f64| {
+            let best = 0.9;
+            HorizonScore {
+                horizon: h,
+                bad_population_cells: 1,
+                auc_associator: Some(raw),
+                auc_gram_volume: None,
+                auc_step_difference: None,
+                auc_mach: None,
+                auc_min_population_share: None,
+                spearman_associator_gram_volume: None,
+                spearman_associator_step_difference: None,
+                best_product_free_auc: Some(best),
+                best_product_free_score: None,
+                best_product_free_orientation: None,
+                associator_excess: Some(raw - best),
+                associator_excess_oriented: Some(orient(raw).auc - best),
+            }
+        };
+        let config = ConfigScore {
+            tau: 0.5,
+            u0: 0.2,
+            delta: 2.0,
+            first_violation_step: 300,
+            bad_population_cells: 1,
+            skipped_horizons: Vec::new(),
+            horizons: vec![horizon(1, 0.05), horizon(10, 0.05), horizon(50, 0.5)],
+        };
+        let summary = predictions(&[config]);
+        assert_eq!(summary.p13a_pairs, 3);
+        assert_eq!(summary.p13a_pairs_exceeding, 2);
+        assert_eq!(summary.p13a_pairs_h_ge_10_exceeding, 1);
+        assert_eq!(summary.p13a_pairs_exceeding_unoriented, 0);
+        assert_eq!(summary.p13a_pairs_h_ge_10_exceeding_unoriented, 0);
+        assert_eq!(summary.p13a_by_horizon[1].exceed_margin, 0);
+        assert_eq!(summary.p13a_by_horizon[1].exceed_margin_oriented, 1);
     }
 
     #[test]
