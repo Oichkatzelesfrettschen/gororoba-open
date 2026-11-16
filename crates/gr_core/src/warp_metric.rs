@@ -1,16 +1,19 @@
-//! Nacelle warp bubble spacetime (White et al. 2025).
+//! Alcubierre spatial profiles and phenomenological nacelle metrics.
 //!
-//! Implements both the standard Alcubierre warp metric and the White 2025
-//! interior-flat cylindrical nacelle generalization. The nacelle design
-//! segments the warp bubble into n cylindrical sub-bubbles arranged
-//! azimuthally, each with its own warp field. The interior-flat gating
-//! function W_g ensures K_ij = 0 inside the bubble, eliminating tidal forces.
+//! The zero-nacelle branch implements the Alcubierre spatial shift profile.
+//! The nacelle branch is a phenomenological modification inspired by White
+//! et al. (2025), with additional algebra-dependent envelope choices. Its
+//! source tensor and material realization are not supplied by this module.
+//! Logistic gating and a nearly uniform modulation do not establish exact
+//! interior flatness, vanishing tidal forces, or reproduction of that paper.
+//! The center is held at `x_center`; the time argument does not evolve it.
 //!
 //! # Metric form (Cartesian coordinates `[t, x, y, z]`)
 //!
-//! ds^2 = -dt^2 + (dx - beta_x dt)^2 + dy^2 + dz^2
+//! ds^2 = -dt^2 + (dx + beta_x dt)^2 + dy^2 + dz^2
 //!
-//! where beta_x = -v_s * f(r_s) * M(rho, phi) * W_x(x) is the shift vector.
+//! The ADM shift is beta_x = -v_s*f(r_s) for zero nacelles and
+//! beta_x = -v_s*f(r_s)*M(rho,phi)*W_x(x) otherwise, in G=c=1 units.
 //!
 //! # Component functions
 //!
@@ -64,8 +67,8 @@ pub struct NacelleWarpParams {
     /// Axial taper steepness.
     pub sigma_x: f64,
 
-    /// Cayley-Dickson alternativity violation ratio (0 for dims <= 8, ~0.5 for sedenions).
-    /// Used to directly modulate the nacelle radial envelope.
+    /// Phenomenological envelope-width parameter, retained under its legacy name.
+    /// The chosen mapping supplies no physical algebra-to-stress-energy coupling.
     pub cd_alternativity_ratio: f64,
 }
 
@@ -83,13 +86,15 @@ impl Default for NacelleWarpParams {
             delta_gating: 0.5,
             axial_l: 8.0,
             sigma_x: 1.0,
-            cd_alternativity_ratio: 0.5, // Default to sedenion breakdown
+            cd_alternativity_ratio: 0.5,
         }
     }
 }
 
 impl NacelleWarpParams {
-    /// Create parameters for the standard Alcubierre bubble (no nacelles).
+    /// Create the standard Alcubierre spatial profile at a fixed center.
+    ///
+    /// The zero-nacelle branch ignores the axial-taper and nacelle parameters.
     pub fn alcubierre(v_s: f64, r_bubble: f64, sigma: f64) -> Self {
         Self {
             v_s,
@@ -103,7 +108,10 @@ impl NacelleWarpParams {
         }
     }
 
-    /// Create parameters matching the White 2025 paper defaults.
+    /// Create the legacy nacelle preset inspired by White et al. (2025).
+    ///
+    /// This phenomenological preset is not a validated reproduction of the
+    /// paper's geometry or a specification for a physical source.
     pub fn white_2025(v_s: f64, n_nacelles: usize) -> Self {
         Self {
             v_s,
@@ -157,15 +165,14 @@ pub fn alcubierre_shape_derivative(r_s: f64, r_bubble: f64, sigma: f64) -> f64 {
 /// Gaussian centered at rho_0 with width sigma_rho:
 /// F(rho) = exp(-(rho - rho_0)^2 / (2 * sigma_rho^2))
 ///
-/// The effective width is directly modulated by the algebraic alternativity ratio.
-/// If alternativity holds (ratio = 0), the envelope diffuses (sigma -> infinity),
-/// destroying localization. At the Sedenion limit (ratio ~ 0.5), it localizes into the nacelle.
+/// Hypothesis: `cd_ratio` sets the effective width by an imposed mapping.
+/// At 0.5 it leaves `sigma_rho` unchanged; below 1e-5 it selects width 1e6.
+/// This parameter dependence supplies no evidence that a Cayley-Dickson
+/// algebra generates or localizes physical stress-energy.
 pub fn nacelle_radial_envelope(rho: f64, rho_0: f64, sigma_rho: f64, cd_ratio: f64) -> f64 {
-    // If algebra is alternative, it cannot localize stress-energy into distinct nacelles.
     let eff_sigma = if cd_ratio < 1e-5 {
-        1e6 // effectively infinite width
+        1e6
     } else {
-        // Sedenion ratio ~ 0.5 gives the base sigma_rho.
         sigma_rho * (0.5 / cd_ratio)
     };
 
@@ -173,13 +180,13 @@ pub fn nacelle_radial_envelope(rho: f64, rho_0: f64, sigma_rho: f64, cd_ratio: f
     (-dr * dr / (2.0 * eff_sigma * eff_sigma)).exp()
 }
 
-/// Interior-flat gating function W_g(rho).
+/// Logistic modulation gate W_g(rho).
 ///
 /// Logistic transition from 0 (interior) to 1 (wall/exterior):
 /// W_g(rho) = 1 / (1 + exp(-kappa * (rho - rho_0 + delta)))
 ///
-/// At rho << rho_0: W_g -> 0 (interior is flat).
-/// At rho ~ rho_0: W_g -> 1 (nacelle region is active).
+/// At rho << rho_0, W_g approaches zero. This limiting behavior does not
+/// establish a constant shift or exact flatness on an interior region.
 pub fn gating_function(rho: f64, rho_0: f64, kappa: f64, delta: f64) -> f64 {
     1.0 / (1.0 + (-kappa * (rho - rho_0 + delta)).exp())
 }
@@ -245,7 +252,7 @@ pub fn axial_taper(x: f64, l: f64, sigma_x: f64) -> f64 {
 ///
 /// M = 1 - W_g(rho) + W_g(rho) * G_n(rho, phi)
 ///
-/// At the interior (W_g = 0): M = 1 (uniform shift, flat space).
+/// In the W_g -> 0 limit, M -> 1; the remaining f and W_x still vary.
 /// At the wall (W_g = 1): M = G_n (nacelle-modulated shift).
 pub fn modulation(rho: f64, phi: f64, params: &NacelleWarpParams) -> f64 {
     if params.n_nacelles == 0 {
@@ -261,7 +268,9 @@ pub fn modulation(rho: f64, phi: f64, params: &NacelleWarpParams) -> f64 {
 /// beta_x = -v_s * f(r_s) * M(rho, phi) * W_x(x)
 /// beta_y = beta_z = 0
 ///
-/// Coordinates: `[t, x, y, z]`, spatial = {x, y, z}.
+/// With zero nacelles, beta_x = -v_s*f(r_s) and no axial taper applies.
+/// Coordinates: `[t, x, y, z]`, spatial = {x, y, z}. The center stays fixed
+/// at `x_center`; constructing a moving metric requires its time dependence.
 pub fn shift_vector(_t: f64, x: f64, y: f64, z: f64, params: &NacelleWarpParams) -> SpatialVector {
     let dx = x - params.x_center;
     let rho = (y * y + z * z).sqrt();
@@ -269,20 +278,24 @@ pub fn shift_vector(_t: f64, x: f64, y: f64, z: f64, params: &NacelleWarpParams)
     let phi = z.atan2(y);
 
     let f = alcubierre_shape_function(r_s, params.r_bubble, params.sigma);
+    if params.n_nacelles == 0 {
+        return [-params.v_s * f, 0.0, 0.0];
+    }
     let m = modulation(rho, phi, params);
     let wx = axial_taper(dx, params.axial_l, params.sigma_x);
 
     [-params.v_s * f * m * wx, 0.0, 0.0]
 }
 
-/// Nacelle warp bubble energy density (Euler-Lagrange from the metric).
+/// Eulerian source energy density from the ADM Hamiltonian constraint.
 ///
 /// For the ADM decomposition with alpha=1, gamma=delta, the energy density is:
-/// rho = -(1/(16*pi)) * (d_j beta_x)^2 = -(v_s^2/(32*pi)) * W_x^2 * [(d_y(fM))^2 + (d_z(fM))^2]
+/// rho = -[(d_y beta_x)^2 + (d_z beta_x)^2]/(32*pi), in G=c=1 units.
 ///
-/// Always non-positive (violates WEC).
+/// It is negative where the transverse gradient is nonzero. The fixed
+/// derivative step is 1e-6 coordinate units and requires a convergence check
+/// when the profile's length scale changes. This is one source component.
 pub fn nacelle_energy_density(x: f64, y: f64, z: f64, params: &NacelleWarpParams) -> f64 {
-    let dx = x - params.x_center;
     let h = 1e-6;
 
     // Numerical derivatives of the shift component beta_x w.r.t. y and z
@@ -294,30 +307,20 @@ pub fn nacelle_energy_density(x: f64, y: f64, z: f64, params: &NacelleWarpParams
     let d_beta_dy = (beta_yp - beta_ym) / (2.0 * h);
     let d_beta_dz = (beta_zp - beta_zm) / (2.0 * h);
 
-    // rho = -(1/(32*pi)) * (d_y beta_x)^2 + (d_z beta_x)^2)
-    // Factor of 2 from the ADM formula with alpha=1
-    let _ = dx; // suppress unused
     -(1.0 / (32.0 * PI)) * (d_beta_dy * d_beta_dy + d_beta_dz * d_beta_dz)
 }
 
 /// York time (expansion scalar) for the nacelle warp bubble.
 ///
-/// theta = -K = partial_i beta^i = d_x(beta_x)
-/// (since beta_y = beta_z = 0)
+/// For g_0i=beta_i, alpha=1 and gamma=delta, n=(1,-beta) and
+/// theta = div(n) = -partial_i beta^i = -d_x(beta_x) = -K.
 ///
 /// For the nacelle: theta = v_s * f * M * d_x(W_x) + v_s * W_x * d_x(f*M)
 pub fn nacelle_york_time(x: f64, y: f64, z: f64, params: &NacelleWarpParams) -> f64 {
     let h = 1e-6;
     let beta_xp = shift_vector(0.0, x + h, y, z, params)[0];
     let beta_xm = shift_vector(0.0, x - h, y, z, params)[0];
-    // theta = -div(beta) for our sign convention. Since beta_x is the only
-    // nonzero component: theta = -d_x(beta_x).
-    // beta_x = -v_s * f * M * W_x, so d_x(beta_x) is negative-ish.
-    // York time theta = -K = -gamma^{ij} K_{ij}
-    // For alpha=1 and gamma=delta: K_{ij} = -(1/2)(d_i beta_j + d_j beta_i)
-    // K = -(1/2)(d_i beta^i + d_i beta^i) = -d_i beta^i = -div(beta)
-    // So theta = -K = div(beta) = d_x(beta_x)
-    (beta_xp - beta_xm) / (2.0 * h)
+    -(beta_xp - beta_xm) / (2.0 * h)
 }
 
 // ============================================================================
@@ -490,6 +493,34 @@ mod tests {
     // -- Shift vector --
 
     #[test]
+    fn test_alcubierre_profile_ignores_nacelle_taper_off_midplane() {
+        let mut params = NacelleWarpParams::alcubierre(0.3, 2.0, 0.8);
+        params.x_center = 0.5;
+        // A narrow taper would suppress the old zero-nacelle branch here.
+        params.axial_l = 0.01;
+        params.sigma_x = 100.0;
+        let (x, y, z): (f64, f64, f64) = (1.7, 0.9, 0.5);
+        let radius = ((x - params.x_center).powi(2) + y * y + z * z).sqrt();
+        let shape = ((0.8 * (radius + 2.0)).tanh() - (0.8 * (radius - 2.0)).tanh())
+            / (2.0 * 1.6_f64.tanh());
+        let shift = shift_vector(0.0, x, y, z, &params);
+        assert!((shift[0] + 0.3 * shape).abs() < 1e-14);
+        assert_eq!(shift[1], 0.0);
+        assert_eq!(shift[2], 0.0);
+    }
+
+    #[test]
+    fn test_alcubierre_energy_matches_analytic_transverse_gradient() {
+        let params = NacelleWarpParams::alcubierre(0.3, 2.0, 0.8);
+        let (x, y, z): (f64, f64, f64) = (1.0, 1.3, 0.7);
+        let radius_squared = x * x + y * y + z * z;
+        let radial_derivative = alcubierre_shape_derivative(radius_squared.sqrt(), 2.0, 0.8);
+        let expected = -(0.3_f64.powi(2) / (32.0 * PI)) * (y * y + z * z) / radius_squared
+            * radial_derivative.powi(2);
+        assert!((nacelle_energy_density(x, y, z, &params) - expected).abs() < 1e-11);
+    }
+
+    #[test]
     fn test_shift_zero_far_field() {
         let params = NacelleWarpParams::default();
         let beta = shift_vector(0.0, 100.0, 100.0, 100.0, &params);
@@ -569,6 +600,23 @@ mod tests {
     }
 
     // -- York time --
+
+    #[test]
+    fn test_alcubierre_expansion_sign_matches_adm_and_analytic_profile() {
+        let params = NacelleWarpParams::alcubierre(0.3, 2.0, 0.8);
+        let bubble = NacelleWarpBubble::new(params.clone());
+        let (x, y, z): (f64, f64, f64) = (1.2, 1.0, 0.7);
+        let radius = (x * x + y * y + z * z).sqrt();
+        let expected = params.v_s * x / radius * alcubierre_shape_derivative(radius, 2.0, 0.8);
+        let expansion = nacelle_york_time(x, y, z, &params);
+        let adm_expansion = crate::adm::extrinsic_curvature(&bubble, &[0.0, x, y, z]).york_time;
+        assert!(expansion < 0.0, "forward region contracts");
+        assert!((expansion - expected).abs() < 1e-10);
+        assert!((expansion - adm_expansion).abs() < 1e-9);
+        let rear_expansion = nacelle_york_time(-x, y, z, &params);
+        assert!(rear_expansion > 0.0, "rear region expands");
+        assert!((rear_expansion + expansion).abs() < 1e-10);
+    }
 
     #[test]
     fn test_york_time_zero_at_center() {

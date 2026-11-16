@@ -1,0 +1,55 @@
+[[experiment]]
+binary = "casimir-drude-plasma"
+binary_experiment_declared = "E-044"
+binary_registered = true
+claim_refs = []
+claims = []
+dataset_label_refs = []
+dataset_refs = []
+deterministic = true
+external_source_refs = []
+gpu = false
+id = "E-044"
+input = "Analytical Drude-Lorentz parameters; temperature and quadrature settings are recorded in output."
+input_path_refs = []
+lineage_id = "XL-042"
+method = "Computes the finite-temperature Drude-plasma energy discrepancy for Au, Ag, and Cu from 100 nm to 5 um. The TE zero-frequency prescription drives a relative discrepancy that grows as the thermal zero mode becomes dominant."
+output = ["data/output/audit/casimir-optics-discrimination/e044-casimir-drude-plasma.txt"]
+output_path_refs = ["data/output/audit/casimir-optics-discrimination/e044-casimir-drude-plasma.txt"]
+reproducibility_class = "deterministic_replay"
+run = "cargo run --profile validation -p gororoba_cli_physics --bin casimir-drude-plasma -- --output data/output/audit/casimir-optics-discrimination/e044-casimir-drude-plasma.txt"
+run_command_sha256 = "903330948f012883d64103b9df1bd01b5aef1096afd60e0a24fd10ddb0d152af"
+seed = 0
+status = "active"
+status_note = "Replayed after the finite-temperature Lifshitz prefactor correction on 2026-09-12. The retained output is a conditional model comparison. Scope correction: the former C-740 and C-741 links concerned magneto-optical rotation and Drude transport, which this executable does not test. No replacement claim is asserted; this result supplies no local stress tensor, gravitational solution or measurement."
+status_token = "ACTIVE"
+title = "Casimir Drude vs Plasma Model Discrepancy"
+truth_surface_consumption = []
+
+[[experiment]]
+binary = "worldline-casimir"
+binary_experiment_declared = "E-081"
+binary_registered = true
+claim_refs = []
+claims = []
+dataset_label_refs = []
+dataset_refs = []
+deterministic = true
+external_source_refs = []
+gpu = false
+id = "E-081"
+input = "None (analytical geometry)"
+input_path_refs = []
+lineage_id = "XL-080"
+method = "Real-scalar Dirichlet two-body worldline diagnostic. The plate-range estimator integrates loop-center position and proper time analytically to estimate energy per area; a separate loop-center effective-action profile uses finite proper-time Gauss-Legendre quadrature. The scalar continuum plate reference is -pi^2/(1440*a^3) in hbar=c=1 units. Polygon, proper-time and quadrature biases remain outside the reported Monte Carlo standard error."
+output = ["stdout CSV: loop-center effective-action density and Monte Carlo standard error in inverse_um4, with coordinates in um", "stderr: integrated scalar energy per area, Monte Carlo standard error and scalar analytic reference in inverse_um3"]
+output_path_refs = []
+reproducibility_class = "deterministic_replay"
+run = "cargo run --release --bin worldline-casimir -- --geometry plates --separation 1.0 --n-loops 10000 --n-profile 20"
+run_command_sha256 = "7e8e5ae05726b7e819708fb3917afcfb70bbec5d0f08165bcf6a96f3131636ed"
+seed = 42
+status = "active"
+status_note = "This row defines a seeded replay command and retains no output artifact. Its stdout CSV contains loop-center effective-action density, not local physical T_00 or integrated energy per area; the integrated plate estimate is emitted on stderr. C-871 covers the separate analytic electromagnetic oracle and is not a Monte Carlo validation claim. The scalar polygon-refinement regression allows five Monte Carlo standard errors plus a 15 percent finite-polygon allowance; it does not establish agreement within statistical error alone. No new run, stress-tensor validation or gravitational interpretation is asserted by this metadata correction."
+status_token = "ACTIVE"
+title = "Real-scalar worldline parallel-plate diagnostic"
+truth_surface_consumption = []
