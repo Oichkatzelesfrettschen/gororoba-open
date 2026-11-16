@@ -8,6 +8,7 @@ use std::{
 
 use anyhow::{Context, Result, bail, ensure};
 use chrono::DateTime;
+use repo_root::ProofTree;
 use rusqlite::{Connection, OptionalExtension, params};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -171,16 +172,57 @@ pub(crate) fn file_sha256(path: &Path) -> Result<String> {
         .collect())
 }
 
-fn local_file(root: &Path, relative: &str) -> Result<PathBuf> {
+/// Where the paths recorded in a witness resolve. A `proofs/` locator names a
+/// file of the proof tree, which gororoba-math holds; every other recorded path
+/// names a file of this repository, such as a retained log or proof object.
+/// Each file is checked against the directory that holds it, so a locator
+/// cannot reach out of its own repository.
+#[derive(Clone, Copy)]
+pub(crate) struct EvidenceRoots<'a> {
+    pub(crate) repository: &'a Path,
+    pub(crate) tree: &'a ProofTree,
+}
+
+impl<'a> EvidenceRoots<'a> {
+    pub(crate) fn new(repository: &'a Path, tree: &'a ProofTree) -> Self {
+        Self { repository, tree }
+    }
+
+    /// The directory that holds a recorded path, and the path below it.
+    fn split<'path>(&self, recorded: &'path str) -> (&'a Path, &'path str) {
+        match repo_root::proof_tree::recorded_relative(recorded) {
+            Some(inside) => (self.tree.root(), inside),
+            None => (self.repository, recorded),
+        }
+    }
+
+    /// Location of a recorded path, refused when it leaves its directory.
+    pub(crate) fn locate(&self, recorded: &str) -> Result<PathBuf> {
+        Ok(self.tree.resolve(self.repository, recorded)?)
+    }
+
+    /// Whether the file of a recorded path exists; an escaping path is an error.
+    pub(crate) fn exists(&self, recorded: &str) -> Result<bool> {
+        Ok(self.tree.exists(self.repository, recorded)?)
+    }
+
+    /// Whether a recorded path names a regular file; an escaping path is an error.
+    pub(crate) fn is_file(&self, recorded: &str) -> Result<bool> {
+        Ok(self.tree.is_file(self.repository, recorded)?)
+    }
+}
+
+fn local_file(roots: EvidenceRoots<'_>, relative: &str) -> Result<PathBuf> {
     text(relative, "evidence path")?;
+    let (root, inside) = roots.split(relative);
     ensure!(
-        Path::new(relative)
+        Path::new(inside)
             .components()
             .all(|part| matches!(part, Component::Normal(_))),
         "evidence path must be repository-relative: {relative}"
     );
     let mut candidate = root.to_path_buf();
-    for component in Path::new(relative).components() {
+    for component in Path::new(inside).components() {
         candidate.push(component.as_os_str());
         ensure!(
             !fs::symlink_metadata(&candidate)?.file_type().is_symlink(),
@@ -199,9 +241,9 @@ fn local_file(root: &Path, relative: &str) -> Result<PathBuf> {
     Ok(candidate)
 }
 
-fn verify_file(root: &Path, evidence: &ProofFileDigest) -> Result<PathBuf> {
+fn verify_file(roots: EvidenceRoots<'_>, evidence: &ProofFileDigest) -> Result<PathBuf> {
     digest(&evidence.sha256, "evidence SHA-256")?;
-    let path = local_file(root, &evidence.path)?;
+    let path = local_file(roots, &evidence.path)?;
     ensure!(
         file_sha256(&path)? == evidence.sha256,
         "evidence digest changed: {}",
@@ -586,7 +628,7 @@ fn validate_assumption_report(report: &str, assumptions: &[String]) -> Result<()
 }
 
 fn project_dependencies(
-    root: &Path,
+    roots: EvidenceRoots<'_>,
     proof_path: &str,
     modules: &BTreeMap<String, String>,
     visited: &mut BTreeSet<String>,
@@ -595,7 +637,7 @@ fn project_dependencies(
     if !visited.insert(proof_path.to_owned()) {
         return Ok(());
     }
-    let source = fs::read_to_string(local_file(root, proof_path)?)?;
+    let source = fs::read_to_string(local_file(roots, proof_path)?)?;
     for command in source_commands(&source)? {
         let words = command.split_whitespace().collect::<Vec<_>>();
         if words.first() == Some(&"Load") {
@@ -646,7 +688,7 @@ fn project_dependencies(
             let dependency = modules
                 .get(&logical)
                 .with_context(|| format!("project import is unlisted: {logical}"))?;
-            project_dependencies(root, dependency, modules, visited, ordered)?;
+            project_dependencies(roots, dependency, modules, visited, ordered)?;
         }
     }
     ordered.push(proof_path.to_owned());
@@ -654,7 +696,7 @@ fn project_dependencies(
 }
 
 pub(crate) fn validate_kernel_witness(
-    root: &Path,
+    roots: EvidenceRoots<'_>,
     witness: &TheoremKernelWitness,
     current_project: bool,
 ) -> Result<()> {
@@ -689,12 +731,11 @@ pub(crate) fn validate_kernel_witness(
     digest(&witness.project_sha256, "recorded proof project")?;
     if current_project {
         ensure!(
-            file_sha256(&root.join("proofs/_RocqProject"))? == witness.project_sha256,
+            file_sha256(&roots.tree.project_file())? == witness.project_sha256,
             "proof project prestate changed"
         );
     }
-    let inventory =
-        super::proof_inventory::load_proof_inventory(&root.join("proofs/_RocqProject"))?;
+    let inventory = super::proof_inventory::load_proof_inventory(roots.tree)?;
     let mut modules = BTreeMap::new();
     for entry in &inventory.source_entries {
         let relative = entry
@@ -727,7 +768,7 @@ pub(crate) fn validate_kernel_witness(
     );
     let mut required = BTreeSet::new();
     project_dependencies(
-        root,
+        roots,
         &witness.proof_path,
         &modules,
         &mut required,
@@ -745,16 +786,16 @@ pub(crate) fn validate_kernel_witness(
             "kernel witness contains an unrelated source: {}",
             input.path
         );
-        verify_file(root, input)?;
+        verify_file(roots, input)?;
     }
     ensure!(
         required == observed,
         "kernel witness must bind the complete project dependency closure; required {required:?}; observed {observed:?}"
     );
-    let compile_log = verify_file(root, &witness.compile_log)?;
-    let kernel_log = verify_file(root, &witness.kernel_log)?;
-    let assumption_log = verify_file(root, &witness.assumption_log)?;
-    let proof_object = verify_file(root, &witness.proof_object)?;
+    let compile_log = verify_file(roots, &witness.compile_log)?;
+    let kernel_log = verify_file(roots, &witness.kernel_log)?;
+    let assumption_log = verify_file(roots, &witness.assumption_log)?;
+    let proof_object = verify_file(roots, &witness.proof_object)?;
     let output_paths = [
         &witness.compile_log.path,
         &witness.kernel_log.path,
@@ -801,7 +842,8 @@ pub(crate) fn validate_kernel_witness(
         fs::read_to_string(kernel_log)?.contains("CONTEXT SUMMARY"),
         "kernel checker log lacks its context summary"
     );
-    let declarations = source_declarations(&fs::read_to_string(root.join(&witness.proof_path))?)?;
+    let declarations =
+        source_declarations(&fs::read_to_string(roots.locate(&witness.proof_path)?)?)?;
     ensure!(
         !witness.declarations.is_empty(),
         "kernel witness needs declaration-specific scope and assumptions"
@@ -848,7 +890,7 @@ pub(crate) fn validate_kernel_witness(
 
 pub(crate) fn kernel_witness_matches(
     connection: &Connection,
-    root: &Path,
+    roots: EvidenceRoots<'_>,
     stable_id: &str,
     proof_path: &camino::Utf8Path,
 ) -> Result<bool> {
@@ -886,25 +928,33 @@ pub(crate) fn kernel_witness_matches(
     let Some(execution) = &envelope.execution_replay else {
         return Ok(false);
     };
-    Ok(execution.validate(witness).is_ok() && validate_kernel_witness(root, witness, true).is_ok())
+    Ok(
+        execution.validate(witness).is_ok()
+            && validate_kernel_witness(roots, witness, true).is_ok(),
+    )
 }
 
 impl ProvenanceStore {
-    /// Compile the exact source closure and check its matching object before admission.
-    /// The host PATH selects the pinned Rocq toolchain. Retained witness command
-    /// strings describe prior execution; fixed replay argument vectors execute.
+    /// Admit the replay evidence that the gororoba-math producer wrote for the
+    /// exact source closure and promote the theorem. A first recording of an
+    /// event key needs `evidence`, the producer's evidence file as text; it is
+    /// checked against the witness and the proof tree without running Rocq. A
+    /// repeated recording replays the stored envelope and ignores `evidence`.
     pub fn record_theorem_kernel_evidence(
         &mut self,
         root: &Path,
+        proof_tree: &ProofTree,
         specification: &TheoremKernelEvidenceSpec,
         raw: &str,
+        evidence: Option<&str>,
     ) -> Result<TheoremEvidenceMutationResult> {
         let validated = parse_theorem_kernel_evidence_spec(raw)?;
         ensure!(
             serde_json::to_value(&validated)? == serde_json::to_value(specification)?,
             "kernel specification differs from its retained input"
         );
-        validate_kernel_witness(root, &specification.witness, true)?;
+        let roots = EvidenceRoots::new(root, proof_tree);
+        validate_kernel_witness(roots, &specification.witness, true)?;
         let event_key = format!("kernel-evidence:{}", specification.evidence_key);
         let existing: bool = self.conn.query_row(
             "SELECT EXISTS(SELECT 1 FROM theorem_identity_events WHERE binding_key=?1)",
@@ -922,14 +972,17 @@ impl ProvenanceStore {
                         == specification.expected_kernel_result_sha256,
                 "kernel evidence prestate changed"
             );
-            Some(replay::execute(root, &specification.witness)?)
+            let evidence = evidence.context(
+                "a new kernel receipt needs the replay evidence file of the gororoba-math producer",
+            )?;
+            Some(replay::ingest(roots, &specification.witness, evidence)?)
         };
-        self.record_replayed_theorem_kernel_evidence(root, specification, raw, execution)
+        self.record_replayed_theorem_kernel_evidence(roots, specification, raw, execution)
     }
 
     fn record_replayed_theorem_kernel_evidence(
         &mut self,
-        root: &Path,
+        roots: EvidenceRoots<'_>,
         specification: &TheoremKernelEvidenceSpec,
         raw: &str,
         execution_replay: Option<replay::KernelReplayEvidence>,
@@ -939,7 +992,7 @@ impl ProvenanceStore {
             serde_json::to_value(&validated)? == serde_json::to_value(specification)?,
             "kernel specification differs from its retained input"
         );
-        validate_kernel_witness(root, &specification.witness, true)?;
+        validate_kernel_witness(roots, &specification.witness, true)?;
         let event_key = format!("kernel-evidence:{}", specification.evidence_key);
         let spec_sha256 = sha256_hex(raw);
         let transaction = self
@@ -966,7 +1019,7 @@ impl ProvenanceStore {
             envelope
                 .execution_replay
                 .as_ref()
-                .context("kernel receipt lacks internally-produced replay evidence")?
+                .context("kernel receipt lacks its replay evidence")?
                 .validate(&specification.witness)?;
             ensure!(
                 existing == spec_sha256 && before == envelope.after,
@@ -981,8 +1034,8 @@ impl ProvenanceStore {
                 exact_replay: true,
             });
         }
-        let execution_replay = execution_replay
-            .context("kernel promotion requires internally-produced replay evidence")?;
+        let execution_replay =
+            execution_replay.context("kernel promotion requires replay evidence")?;
         execution_replay.validate(&specification.witness)?;
         ensure!(
             sha256_hex(&before.kernel_result) == specification.expected_kernel_result_sha256
@@ -1002,9 +1055,13 @@ impl ProvenanceStore {
             after,
             execution_replay: Some(execution_replay),
         };
-        validate_kernel_witness(root, &specification.witness, true)?;
+        validate_kernel_witness(roots, &specification.witness, true)?;
         transaction.execute("INSERT INTO theorem_identity_events(binding_key,spec_sha256,actor,reason,applied_at,theorem_ids_json,claim_ids_json) VALUES(?1,?2,?3,?4,?5,?6,'[]')", params![event_key,spec_sha256,specification.actor,serde_json::to_string(&envelope)?,specification.applied_at,serde_json::to_string(&[&specification.witness.stable_id])?])?;
-        super::theorem_identity::validate_theorem_identities(&transaction, root)?;
+        super::theorem_identity::validate_theorem_identities(
+            &transaction,
+            roots.repository,
+            Some(roots.tree),
+        )?;
         transaction.commit()?;
         Ok(TheoremEvidenceMutationResult {
             event_key,
@@ -1018,6 +1075,7 @@ impl ProvenanceStore {
     pub fn sync_theorem_inventory(
         &mut self,
         root: &Path,
+        proof_tree: &ProofTree,
         specification: &TheoremInventorySyncSpec,
         raw: &str,
     ) -> Result<TheoremEvidenceMutationResult> {
@@ -1026,12 +1084,12 @@ impl ProvenanceStore {
             serde_json::to_value(&validated)? == serde_json::to_value(specification)?,
             "inventory specification differs from its retained input"
         );
+        let roots = EvidenceRoots::new(root, proof_tree);
         ensure!(
-            file_sha256(&root.join("proofs/_RocqProject"))? == specification.project_sha256,
+            file_sha256(&proof_tree.project_file())? == specification.project_sha256,
             "proof inventory project prestate changed"
         );
-        let inventory =
-            super::proof_inventory::load_proof_inventory(&root.join("proofs/_RocqProject"))?;
+        let inventory = super::proof_inventory::load_proof_inventory(proof_tree)?;
         let claims = self.list_claims()?;
         let event_key = format!("proof-inventory:{}", specification.sync_key);
         let spec_sha256 = sha256_hex(raw);
@@ -1061,7 +1119,7 @@ impl ProvenanceStore {
         );
         let theorems = super::proof_inventory::load_theorems_from_inventory(
             &transaction,
-            root,
+            roots,
             &inventory,
             &current_claims,
         )?;
@@ -1103,16 +1161,15 @@ impl ProvenanceStore {
                 transaction.execute("INSERT OR IGNORE INTO theorem_claim_links(theorem_stable_id,claim_id,relation_kind) SELECT stable_id,?2,'formal_proposition' FROM theorem_identities WHERE legacy_name=?1", params![theorem.legacy_name,claim])?;
             }
         }
-        super::theorem_identity::validate_theorem_identities(&transaction, root)?;
+        super::theorem_identity::validate_theorem_identities(&transaction, root, Some(proof_tree))?;
         ensure!(
-            file_sha256(&root.join("proofs/_RocqProject"))? == specification.project_sha256,
+            file_sha256(&proof_tree.project_file())? == specification.project_sha256,
             "proof inventory project changed during synchronization"
         );
-        let final_inventory =
-            super::proof_inventory::load_proof_inventory(&root.join("proofs/_RocqProject"))?;
+        let final_inventory = super::proof_inventory::load_proof_inventory(proof_tree)?;
         let final_theorems = super::proof_inventory::load_theorems_from_inventory(
             &transaction,
-            root,
+            roots,
             &final_inventory,
             &current_claims,
         )?;
@@ -1124,7 +1181,9 @@ impl ProvenanceStore {
             &transaction,
             root,
             "rocq_project",
-            &root.join("proofs/_RocqProject"),
+            Path::new(&repo_root::proof_tree::recorded_locator(
+                repo_root::proof_tree::PROJECT_FILE,
+            )),
             &inventory.project_raw,
             &specification.applied_at,
         )?;
@@ -1179,6 +1238,7 @@ mod tests {
     struct Fixture {
         store: ProvenanceStore,
         root: PathBuf,
+        tree: ProofTree,
     }
 
     impl Fixture {
@@ -1191,19 +1251,23 @@ mod tests {
                 "gororoba-theorem-execution-{}-{nonce}",
                 std::process::id()
             ));
-            fs::create_dir_all(root.join("proofs/theories"))?;
-            fs::create_dir_all(root.join("proofs/verified"))?;
+            // The proof tree sits outside the repository root, as the
+            // gororoba-math checkout does, so a path resolved against the
+            // wrong root misses its file.
+            let tree_root = root.join("gororoba-math/rocq/open");
+            fs::create_dir_all(tree_root.join("theories"))?;
+            fs::create_dir_all(tree_root.join("verified"))?;
             fs::create_dir(root.join("evidence"))?;
             fs::write(
-                root.join("proofs/_RocqProject"),
+                tree_root.join("_RocqProject"),
                 "-R theories OpenGororoba\n-R verified OpenGororobaVerified\ntheories/Prelude.v\nverified/C900_Test.v\n",
             )?;
             fs::write(
-                root.join("proofs/theories/Prelude.v"),
+                tree_root.join("theories/Prelude.v"),
                 "Definition prerequisite : True := I.\n",
             )?;
             fs::write(
-                root.join("proofs/verified/C900_Test.v"),
+                tree_root.join("verified/C900_Test.v"),
                 "From OpenGororoba Require Import Prelude.\nTheorem fixture : True. Proof. exact I. Qed.\n",
             )?;
             fs::write(root.join("evidence/compile.log"), "")?;
@@ -1225,6 +1289,7 @@ mod tests {
             )?;
             Ok(Self {
                 store: ProvenanceStore { conn: connection },
+                tree: ProofTree::at_root(tree_root)?,
                 root,
             })
         }
@@ -1232,7 +1297,7 @@ mod tests {
         fn file(&self, path: &str) -> Result<ProofFileDigest> {
             Ok(ProofFileDigest {
                 path: path.to_owned(),
-                sha256: file_sha256(&self.root.join(path))?,
+                sha256: file_sha256(&self.tree.resolve(&self.root, path)?)?,
             })
         }
 
@@ -1242,14 +1307,15 @@ mod tests {
                 actor: "test-actor".to_owned(),
                 reason: "Bind the complete source inventory".to_owned(),
                 applied_at: "2026-10-12T00:00:00Z".to_owned(),
-                project_sha256: file_sha256(&self.root.join("proofs/_RocqProject"))?,
+                project_sha256: file_sha256(&self.tree.root().join("_RocqProject"))?,
             })
         }
 
         fn sync(&mut self, key: &str) -> Result<TheoremEvidenceMutationResult> {
             let spec = self.sync_spec(key)?;
             let raw = toml::to_string(&spec)?;
-            self.store.sync_theorem_inventory(&self.root, &spec, &raw)
+            self.store
+                .sync_theorem_inventory(&self.root, &self.tree, &spec, &raw)
         }
 
         fn witness(&self) -> Result<TheoremKernelEvidenceSpec> {
@@ -1258,7 +1324,7 @@ mod tests {
                 evidence_key:"fixture-evidence".to_owned(),actor:"test-actor".to_owned(),reason:"Retain checked declaration scope".to_owned(),applied_at:"2026-10-12T00:00:00Z".to_owned(),
                 expected_kernel_result_sha256:sha256_hex(&before.kernel_result),expected_status:before.theorem_status,
                 witness:TheoremKernelWitness {
-                    schema_version:1,stable_id:"THM-TEST".to_owned(),proof_path:"proofs/verified/C900_Test.v".to_owned(),project_sha256:file_sha256(&self.root.join("proofs/_RocqProject"))?,
+                    schema_version:1,stable_id:"THM-TEST".to_owned(),proof_path:"proofs/verified/C900_Test.v".to_owned(),project_sha256:file_sha256(&self.tree.root().join("_RocqProject"))?,
                     sources:vec![self.file("proofs/theories/Prelude.v")?,self.file("proofs/verified/C900_Test.v")?],
                     compile_log:self.file("evidence/compile.log")?,kernel_log:self.file("evidence/kernel.log")?,assumption_log:self.file("evidence/assumptions.log")?,proof_object:self.file("evidence/C900_Test.vo")?,
                     compile_command:"opam exec --switch rocq-9.3 -- rocq compile -q -w +all verified/C900_Test.v".to_owned(),kernel_command:"opam exec --switch rocq-9.3 -- rocq check OpenGororobaVerified.C900_Test".to_owned(),toolchain:"Rocq 9.3.0; OCaml 5.5.1".to_owned(),compile_exit_code:0,kernel_exit_code:0,warning_policy:"fatal_all".to_owned(),
@@ -1272,7 +1338,7 @@ mod tests {
             spec: &TheoremKernelEvidenceSpec,
         ) -> Result<TheoremEvidenceMutationResult> {
             self.store.record_replayed_theorem_kernel_evidence(
-                &self.root,
+                EvidenceRoots::new(&self.root, &self.tree),
                 spec,
                 &toml::to_string(spec)?,
                 Some(replay::fixture_evidence(&spec.witness)?),
@@ -1319,7 +1385,7 @@ mod tests {
         let events = fixture.events()?;
         let error = fixture
             .store
-            .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)
+            .record_theorem_kernel_evidence(&fixture.root, &fixture.tree, &spec, &raw, None)
             .unwrap_err();
         assert!(error.to_string().contains("fresh distinct evidence key"));
         assert_eq!(fixture.events()?, events);
@@ -1329,8 +1395,7 @@ mod tests {
     }
 
     #[test]
-    fn version_two_promotion_requires_private_replay_evidence_and_exact_replay_is_pure()
-    -> Result<()> {
+    fn version_two_promotion_requires_replay_evidence_and_exact_replay_is_pure() -> Result<()> {
         let mut fixture = Fixture::new()?;
         fixture.sync("trusted-replay-prestate")?;
         let spec = fixture.witness()?;
@@ -1339,7 +1404,12 @@ mod tests {
         assert!(
             fixture
                 .store
-                .record_replayed_theorem_kernel_evidence(&fixture.root, &spec, &raw, None)
+                .record_replayed_theorem_kernel_evidence(
+                    EvidenceRoots::new(&fixture.root, &fixture.tree),
+                    &spec,
+                    &raw,
+                    None
+                )
                 .is_err()
         );
         assert_eq!(read_state(&fixture.store.conn, "THM-TEST")?, before);
@@ -1348,138 +1418,452 @@ mod tests {
         assert!(
             fixture
                 .store
-                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .record_theorem_kernel_evidence(&fixture.root, &fixture.tree, &spec, &raw, None)?
                 .exact_replay
         );
         assert_eq!(fixture.events()?, 2);
         Ok(())
     }
 
+    /// Evidence file and retained outputs that `ci/kernel_replay_evidence.py` of
+    /// gororoba-math wrote for this fixture's proof tree.
+    const PRODUCER_EVIDENCE: &str =
+        include_str!("../fixtures/kernel_replay/C900_Test.evidence.json");
+    const FLOCQ_EVIDENCE: &str =
+        include_str!("../fixtures/kernel_replay/flocq/C900_Test.evidence.json");
+
+    impl Fixture {
+        /// Installs the retained outputs of the producer run on this fixture's
+        /// tree, or on the tree whose proof source imports Flocq.
+        fn install_producer_outputs(&self, flocq: bool) -> Result<()> {
+            let (compile, kernel, assumptions, object): (&[u8], &[u8], &[u8], &[u8]) = if flocq {
+                (
+                    include_bytes!("../fixtures/kernel_replay/flocq/C900_Test.compile.txt"),
+                    include_bytes!("../fixtures/kernel_replay/flocq/C900_Test.kernel.txt"),
+                    include_bytes!("../fixtures/kernel_replay/flocq/C900_Test.assumptions.txt"),
+                    include_bytes!("../fixtures/kernel_replay/flocq/C900_Test.vo"),
+                )
+            } else {
+                (
+                    include_bytes!("../fixtures/kernel_replay/C900_Test.compile.txt"),
+                    include_bytes!("../fixtures/kernel_replay/C900_Test.kernel.txt"),
+                    include_bytes!("../fixtures/kernel_replay/C900_Test.assumptions.txt"),
+                    include_bytes!("../fixtures/kernel_replay/C900_Test.vo"),
+                )
+            };
+            fs::write(self.root.join("evidence/compile.log"), compile)?;
+            fs::write(self.root.join("evidence/kernel.log"), kernel)?;
+            fs::write(self.root.join("evidence/assumptions.log"), assumptions)?;
+            fs::write(self.root.join("evidence/C900_Test.vo"), object)?;
+            Ok(())
+        }
+
+        fn record_with(
+            &mut self,
+            spec: &TheoremKernelEvidenceSpec,
+            evidence: Option<&str>,
+        ) -> Result<TheoremEvidenceMutationResult> {
+            self.store.record_theorem_kernel_evidence(
+                &self.root,
+                &self.tree,
+                spec,
+                &toml::to_string(spec)?,
+                evidence,
+            )
+        }
+
+        fn refuses(
+            &mut self,
+            spec: &TheoremKernelEvidenceSpec,
+            evidence: Option<&str>,
+            needle: &str,
+            case: &str,
+        ) -> Result<()> {
+            let before = read_state(&self.store.conn, "THM-TEST")?;
+            let events = self.events()?;
+            let error = self.record_with(spec, evidence).unwrap_err();
+            assert!(format!("{error:#}").contains(needle), "{case}: {error:#}");
+            assert_eq!(read_state(&self.store.conn, "THM-TEST")?, before, "{case}");
+            assert_eq!(self.events()?, events, "{case}");
+            Ok(())
+        }
+    }
+
     #[test]
-    #[ignore = "requires host PATH/opam switch with Rocq 9.3.0 and OCaml 5.5.1"]
-    fn genuine_rocq_replay_admits_the_source_object_and_rejects_wrong_objects() -> Result<()> {
+    fn producer_evidence_admits_the_source_object_and_replays_idempotently() -> Result<()> {
         let mut fixture = Fixture::new()?;
-        fixture.sync("genuine-prestate")?;
-        replay::genuine_fixture_artifacts(&fixture.root, &fixture.witness()?.witness)?;
-        let mut spec = fixture.witness()?;
-        spec.witness.compile_command.push_str(" ; false");
-        let raw = toml::to_string(&spec)?;
+        fixture.sync("producer-prestate")?;
+        fixture.install_producer_outputs(false)?;
+        let spec = fixture.witness()?;
+        fixture.refuses(&spec, None, "needs the replay evidence file", "no evidence")?;
         assert!(
             !fixture
-                .store
-                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .record_with(&spec, Some(PRODUCER_EVIDENCE))?
                 .exact_replay
         );
+        assert!(fixture.record_with(&spec, None)?.exact_replay);
         assert!(
             fixture
-                .store
-                .record_theorem_kernel_evidence(&fixture.root, &spec, &raw)?
+                .record_with(&spec, Some("not evidence"))?
                 .exact_replay
         );
         let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
         let retained: KernelEvidenceEnvelope = serde_json::from_str(&envelope)?;
         assert_eq!(retained.schema_version, 2);
-        assert!(retained.execution_replay.is_some());
+        assert_eq!(
+            serde_json::to_value(retained.execution_replay.as_ref())?,
+            serde_json::from_str::<serde_json::Value>(PRODUCER_EVIDENCE)?
+        );
+        assert_eq!(
+            read_state(&fixture.store.conn, "THM-TEST")?.theorem_status,
+            KERNEL_CHECKED
+        );
+        Ok(())
+    }
 
-        for mutation in 0..4 {
-            let mut fixture = Fixture::new()?;
-            fixture.sync("wrong-object-prestate")?;
-            replay::genuine_fixture_artifacts(&fixture.root, &fixture.witness()?.witness)?;
-            match mutation {
-                0 => fs::write(
-                    fixture.root.join("evidence/C900_Test.vo"),
-                    b"Coq!fabricated-object",
-                )?,
-                1 => {
-                    fs::copy(
-                        fixture.root.join("proofs/theories/Prelude.vo"),
+    #[test]
+    fn producer_evidence_rejects_tampered_contract_digests_objects_logs_and_order() -> Result<()> {
+        type Mutation = fn(&mut serde_json::Value, &mut Fixture) -> Result<()>;
+        let cases: [(&str, &str, Mutation); 10] = [
+            ("arguments", "fixed execution contract", |evidence, _| {
+                evidence["compilation"][1]["arguments"][3] = "+default".into();
+                Ok(())
+            }),
+            (
+                "source digest",
+                "differs from witnessed source",
+                |evidence, _| {
+                    evidence["sources"][1]["sha256"] = "0".repeat(64).into();
+                    Ok(())
+                },
+            ),
+            (
+                "object digest",
+                "differs from witnessed source",
+                |evidence, _| {
+                    evidence["proof_object_sha256"] = "0".repeat(64).into();
+                    Ok(())
+                },
+            ),
+            (
+                "wrong object",
+                "differs from witnessed source",
+                |_, fixture| {
+                    fs::write(
                         fixture.root.join("evidence/C900_Test.vo"),
+                        b"Coq!fabricated-object",
                     )?;
-                }
-                2 => fs::write(
-                    fixture.root.join("proofs/verified/C900_Test.v"),
-                    "From OpenGororoba Require Import Prelude.\nTheorem fixture : True. Proof. exact prerequisite. Qed.\n",
-                )?,
-                3 => fs::write(
-                    fixture.root.join("proofs/verified/C900_Test.v"),
-                    "From OpenGororoba Require Import Prelude.\nTheorem fixture : False. Proof. exact I. Qed.\n",
-                )?,
-                _ => unreachable!(),
+                    Ok(())
+                },
+            ),
+            (
+                "retained log",
+                "retained compile log differs",
+                |_, fixture| {
+                    fs::write(fixture.root.join("evidence/compile.log"), "unrelated\n")?;
+                    Ok(())
+                },
+            ),
+            ("closure order", "dependency order", |evidence, _| {
+                evidence["compilation"]
+                    .as_array_mut()
+                    .context("compilation list")?
+                    .swap(0, 1);
+                Ok(())
+            }),
+            (
+                "unknown field",
+                "parse kernel replay evidence",
+                |evidence, _| {
+                    evidence["extra"] = 1.into();
+                    Ok(())
+                },
+            ),
+            ("warning output", "warning output", |evidence, _| {
+                evidence["compilation"][0]["stderr"] = "Warning: replay diagnostic".into();
+                Ok(())
+            }),
+            (
+                "source edit",
+                "differs from witnessed source",
+                |_, fixture| {
+                    fs::write(
+                        fixture.tree.root().join("verified/C900_Test.v"),
+                        "From OpenGororoba Require Import Prelude.\nTheorem fixture : True. Proof. exact prerequisite. Qed.\n",
+                    )?;
+                    Ok(())
+                },
+            ),
+            (
+                "toolchain",
+                "unsupported trusted Rocq replay identity",
+                |evidence, _| {
+                    evidence["toolchain"] = "Rocq 9.2; OCaml 5.5.0".into();
+                    Ok(())
+                },
+            ),
+        ];
+        for (case, needle, mutate) in cases {
+            let mut fixture = Fixture::new()?;
+            fixture.sync("tamper-prestate")?;
+            fixture.install_producer_outputs(false)?;
+            let mut evidence: serde_json::Value = serde_json::from_str(PRODUCER_EVIDENCE)?;
+            mutate(&mut evidence, &mut fixture)?;
+            let spec = fixture.witness()?;
+            fixture.refuses(
+                &spec,
+                Some(&serde_json::to_string(&evidence)?),
+                needle,
+                case,
+            )?;
+        }
+        let mut fixture = Fixture::new()?;
+        fixture.sync("toolchain-prestate")?;
+        fixture.install_producer_outputs(false)?;
+        let mut spec = fixture.witness()?;
+        spec.witness.toolchain = "Rocq 9.2; OCaml 5.5.0".to_owned();
+        fixture.refuses(
+            &spec,
+            Some(PRODUCER_EVIDENCE),
+            "witness toolchain differs",
+            "witness toolchain",
+        )
+    }
+
+    #[test]
+    fn producer_evidence_lists_flocq_objects_exactly_when_a_source_imports_flocq() -> Result<()> {
+        for (imports_flocq, flocq_evidence, admitted) in [
+            (true, true, true),
+            (true, false, false),
+            (false, true, false),
+        ] {
+            let mut fixture = Fixture::new()?;
+            if imports_flocq {
+                let source = fixture.tree.root().join("verified/C900_Test.v");
+                let original = fs::read_to_string(&source)?;
+                fs::write(
+                    &source,
+                    format!("From Flocq Require Import Core.\n{original}"),
+                )?;
             }
+            fixture.sync("flocq-prestate")?;
+            fixture.install_producer_outputs(flocq_evidence)?;
             let mut spec = fixture.witness()?;
-            if mutation == 3 {
-                spec.witness.declarations[0].statement = "Theorem fixture : False".to_owned();
+            let mut evidence: serde_json::Value = serde_json::from_str(if flocq_evidence {
+                FLOCQ_EVIDENCE
+            } else {
+                PRODUCER_EVIDENCE
+            })?;
+            if flocq_evidence {
+                spec.witness.warning_policy = "fatal_default".to_owned();
+                spec.witness.compile_command =
+                    spec.witness.compile_command.replace("+all", "+default");
             }
-            let before = read_state(&fixture.store.conn, "THM-TEST")?;
-            let events = fixture.events()?;
-            let error = fixture
-                .store
-                .record_theorem_kernel_evidence(&fixture.root, &spec, &toml::to_string(&spec)?)
-                .unwrap_err();
-            assert!(
-                error.to_string().contains(if mutation == 3 {
-                    "trusted Rocq replay failed"
-                } else {
-                    "retained proof object differs"
-                }),
-                "mutation {mutation}: {error}"
-            );
-            assert_eq!(read_state(&fixture.store.conn, "THM-TEST")?, before);
-            assert_eq!(fixture.events()?, events);
+            evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+            let fixture_flocq_objects = evidence["flocq_objects"].clone();
+            let fixture_flocq_producer = evidence["flocq_producer"].clone();
+            let evidence = serde_json::to_string(&evidence)?;
+            if admitted {
+                assert!(!fixture.record_with(&spec, Some(&evidence))?.exact_replay);
+                let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
+                let retained = serde_json::from_str::<serde_json::Value>(&envelope)?;
+                // The retained list and producer name are the producer's verbatim,
+                // and ingest required the list to equal that producer's entry of
+                // the pinned manifest.
+                assert!(
+                    fixture_flocq_objects
+                        .as_array()
+                        .is_some_and(|objects| objects.len() > 1)
+                );
+                assert_eq!(
+                    retained["execution_replay"]["flocq_objects"],
+                    fixture_flocq_objects
+                );
+                assert_eq!(
+                    retained["execution_replay"]["flocq_producer"],
+                    fixture_flocq_producer
+                );
+            } else {
+                fixture.refuses(
+                    &spec,
+                    Some(&evidence),
+                    "Flocq replay objects disagree",
+                    "flocq",
+                )?;
+            }
         }
         Ok(())
     }
 
     #[test]
-    #[ignore = "requires pinned Rocq and configured Flocq library"]
-    fn genuine_rocq_replay_retains_configured_flocq_mapping() -> Result<()> {
+    fn producer_evidence_flocq_objects_must_equal_the_pinned_manifest() -> Result<()> {
+        for (case, needle) in [
+            ("changed digest", "differs from the pinned manifest"),
+            ("removed object", "absent from the Flocq replay"),
+            ("added object", "absent from the pinned manifest"),
+        ] {
+            let mut fixture = Fixture::new()?;
+            let source = fixture.tree.root().join("verified/C900_Test.v");
+            let original = fs::read_to_string(&source)?;
+            fs::write(
+                &source,
+                format!("From Flocq Require Import Core.\n{original}"),
+            )?;
+            fixture.sync("flocq-manifest-prestate")?;
+            fixture.install_producer_outputs(true)?;
+            let mut spec = fixture.witness()?;
+            spec.witness.warning_policy = "fatal_default".to_owned();
+            spec.witness.compile_command = spec.witness.compile_command.replace("+all", "+default");
+            let mut evidence: serde_json::Value = serde_json::from_str(FLOCQ_EVIDENCE)?;
+            evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+            let mut objects = evidence["flocq_objects"]
+                .as_array()
+                .cloned()
+                .context("flocq fixture lists objects")?;
+            let path = match case {
+                "changed digest" => {
+                    objects[3]["sha256"] = "0".repeat(64).into();
+                    objects[3]["path"].as_str().unwrap_or_default().to_owned()
+                }
+                "removed object" => objects.remove(3)["path"]
+                    .as_str()
+                    .unwrap_or_default()
+                    .to_owned(),
+                _ => {
+                    let path = "external/Flocq/Core/Zzz_extra.vo".to_owned();
+                    objects.push(serde_json::json!({"path": path, "sha256": "1".repeat(64)}));
+                    objects
+                        .sort_by(|left, right| left["path"].as_str().cmp(&right["path"].as_str()));
+                    path
+                }
+            };
+            evidence["flocq_objects"] = objects.into();
+            let evidence = serde_json::to_string(&evidence)?;
+            let before = fixture.events()?;
+            let error = fixture.record_with(&spec, Some(&evidence)).unwrap_err();
+            let text = format!("{error:#}");
+            assert!(
+                text.contains(needle) && text.contains(&path),
+                "{case}: {text}"
+            );
+            assert_eq!(fixture.events()?, before, "{case}");
+        }
+        Ok(())
+    }
+
+    const PINNED_FLOCQ_MANIFEST: &str = include_str!("../fixtures/flocq_manifest/rocq-9.3.json");
+
+    /// Admits or rejects the Flocq fixture evidence after `change` rewrote its
+    /// producer name and object list; returns the retained envelope when
+    /// admitted, or the error text.
+    fn flocq_evidence_outcome(
+        change: impl FnOnce(&mut serde_json::Value) -> Result<()>,
+    ) -> Result<std::result::Result<serde_json::Value, String>> {
         let mut fixture = Fixture::new()?;
-        let source = fixture.root.join("proofs/verified/C900_Test.v");
+        let source = fixture.tree.root().join("verified/C900_Test.v");
         let original = fs::read_to_string(&source)?;
         fs::write(
             &source,
             format!("From Flocq Require Import Core.\n{original}"),
         )?;
-        fixture.sync("flocq-prestate")?;
-        let mut compile_witness = fixture.witness()?.witness;
-        compile_witness.warning_policy = "fatal_default".to_owned();
-        compile_witness.compile_command =
-            compile_witness.compile_command.replace("+all", "+default");
-        replay::genuine_fixture_artifacts(&fixture.root, &compile_witness)?;
+        fixture.sync("flocq-producer-prestate")?;
+        fixture.install_producer_outputs(true)?;
         let mut spec = fixture.witness()?;
         spec.witness.warning_policy = "fatal_default".to_owned();
         spec.witness.compile_command = spec.witness.compile_command.replace("+all", "+default");
-        fixture.store.record_theorem_kernel_evidence(
-            &fixture.root,
-            &spec,
-            &toml::to_string(&spec)?,
-        )?;
-        let envelope: String = fixture.store.conn.query_row("SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'", [], |row| row.get(0))?;
-        let retained: serde_json::Value = serde_json::from_str(&envelope)?;
-        let execution = &retained["execution_replay"];
-        assert!(
-            execution["flocq_objects"]
-                .as_array()
-                .is_some_and(|objects| !objects.is_empty())
-        );
-        for command in execution["compilation"]
+        let mut evidence: serde_json::Value = serde_json::from_str(FLOCQ_EVIDENCE)?;
+        evidence["sources"][1]["sha256"] = spec.witness.sources[1].sha256.clone().into();
+        change(&mut evidence)?;
+        let evidence = serde_json::to_string(&evidence)?;
+        match fixture.record_with(&spec, Some(&evidence)) {
+            Ok(_) => {
+                let envelope: String = fixture.store.conn.query_row(
+                    "SELECT reason FROM theorem_identity_events WHERE binding_key='kernel-evidence:fixture-evidence'",
+                    [],
+                    |row| row.get(0),
+                )?;
+                Ok(Ok(serde_json::from_str(&envelope)?))
+            }
+            Err(error) => Ok(Err(format!("{error:#}"))),
+        }
+    }
+
+    fn flocq_rejection(
+        change: impl FnOnce(&mut serde_json::Value) -> Result<()>,
+    ) -> Result<String> {
+        flocq_evidence_outcome(change)?
+            .err()
+            .context("the evidence was admitted")
+    }
+
+    fn manifest_producer(name: &str) -> Result<serde_json::Value> {
+        let manifest: serde_json::Value = serde_json::from_str(PINNED_FLOCQ_MANIFEST)?;
+        manifest["producers"]
             .as_array()
-            .unwrap()
-            .iter()
-            .chain([&execution["checker"], &execution["assumptions"]])
-        {
-            let arguments = command["arguments"].as_array().unwrap();
-            assert!(
-                arguments
-                    .windows(3)
-                    .any(|arguments| arguments == ["-R", "external/Flocq", "Flocq"])
+            .and_then(|producers| producers.iter().find(|producer| producer["name"] == name))
+            .cloned()
+            .with_context(|| format!("the pinned manifest lacks producer {name}"))
+    }
+
+    #[test]
+    fn producer_evidence_is_admitted_for_each_recorded_producer() -> Result<()> {
+        for name in ["cachyos-gcc-16.2.1", "ubuntu-26.04-gcc-15.2.0"] {
+            let producer = manifest_producer(name)?;
+            let retained = flocq_evidence_outcome(|evidence| {
+                evidence["flocq_producer"] = name.into();
+                evidence["flocq_objects"] = producer["flocq_objects"].clone();
+                Ok(())
+            })?
+            .map_err(|text| anyhow::anyhow!("{name}: {text}"))?;
+            assert_eq!(retained["execution_replay"]["flocq_producer"], name);
+            assert_eq!(
+                retained["execution_replay"]["flocq_objects"],
+                producer["flocq_objects"]
             );
         }
+        Ok(())
+    }
+
+    #[test]
+    fn producer_evidence_flocq_producer_must_name_its_manifest_entry() -> Result<()> {
+        let other = manifest_producer("ubuntu-26.04-gcc-15.2.0")?;
+        let text = flocq_rejection(|evidence| {
+            evidence
+                .as_object_mut()
+                .context("evidence is an object")?
+                .remove("flocq_producer");
+            Ok(())
+        })?;
+        assert!(text.contains("lack their flocq_producer"), "{text}");
+        let text = flocq_rejection(|evidence| {
+            evidence["flocq_producer"] = "fedora-44-gcc-16.1.0".into();
+            Ok(())
+        })?;
+        assert!(text.contains("fedora-44-gcc-16.1.0"), "{text}");
+        assert!(text.contains("not in the pinned manifest"), "{text}");
+        // The fixture holds the first producer's digests; the second
+        // producer's name selects the second entry, which they do not equal.
+        let text = flocq_rejection(|evidence| {
+            evidence["flocq_producer"] = other["name"].clone();
+            Ok(())
+        })?;
+        assert!(text.contains("ubuntu-26.04-gcc-15.2.0"), "{text}");
+        assert!(text.contains("external/Flocq/Calc/Bracket.vo"), "{text}");
+        assert!(text.contains("differs from the pinned manifest"), "{text}");
+        Ok(())
+    }
+
+    #[test]
+    fn a_flocq_producer_without_flocq_objects_is_rejected() -> Result<()> {
+        let fixture = Fixture::new()?;
+        let current_witness = fixture.witness()?.witness;
+        let mut encoded = serde_json::to_value(replay::fixture_evidence(&current_witness)?)?;
+        encoded["flocq_producer"] = "cachyos-gcc-16.2.1".into();
+        let retained: replay::KernelReplayEvidence = serde_json::from_value(encoded)?;
+        let error = retained.validate(&current_witness).unwrap_err();
         assert!(
-            fixture
-                .store
-                .record_theorem_kernel_evidence(&fixture.root, &spec, &toml::to_string(&spec)?)?
-                .exact_replay
+            format!("{error:#}").contains("without Flocq replay objects"),
+            "{error:#}"
         );
         Ok(())
     }
@@ -1527,7 +1911,7 @@ mod tests {
     }
 
     #[test]
-    fn retained_historical_receipts_replay_without_admitting_new_execution() -> Result<()> {
+    fn retained_historical_receipts_replay_without_admitting_new_evidence() -> Result<()> {
         for (toolchain, switch_name) in [
             ("Rocq 9.1.1; OCaml 5.4.0", "rocq-9.1.1"),
             ("Rocq 9.2; OCaml 5.5.0", "rocq-9.2"),
@@ -1550,7 +1934,7 @@ mod tests {
             let retained = serde_json::from_value(encoded)?;
             let raw = toml::to_string(&specification)?;
             fixture.store.record_replayed_theorem_kernel_evidence(
-                &fixture.root,
+                EvidenceRoots::new(&fixture.root, &fixture.tree),
                 &specification,
                 &raw,
                 Some(retained),
@@ -1559,11 +1943,22 @@ mod tests {
             assert!(
                 fixture
                     .store
-                    .record_theorem_kernel_evidence(&fixture.root, &specification, &raw)?
+                    .record_theorem_kernel_evidence(
+                        &fixture.root,
+                        &fixture.tree,
+                        &specification,
+                        &raw,
+                        None
+                    )?
                     .exact_replay
             );
             assert_eq!(fixture.events()?, event_count);
-            let error = replay::execute(&fixture.root, &specification.witness).unwrap_err();
+            let error = replay::ingest(
+                EvidenceRoots::new(&fixture.root, &fixture.tree),
+                &specification.witness,
+                &serde_json::to_string(&replay::fixture_evidence(&specification.witness)?)?,
+            )
+            .unwrap_err();
             assert!(error.to_string().contains("witness toolchain differs"));
         }
         Ok(())
@@ -1592,7 +1987,14 @@ mod tests {
         let mut descriptive = witness;
         descriptive.warning_policy = "default_severity".to_owned();
         descriptive.compile_command = descriptive.compile_command.replace("+all", "default");
-        assert!(validate_kernel_witness(&fixture.root, &descriptive, true).is_ok());
+        assert!(
+            validate_kernel_witness(
+                EvidenceRoots::new(&fixture.root, &fixture.tree),
+                &descriptive,
+                true
+            )
+            .is_ok()
+        );
         assert!(replay::fixture_evidence(&descriptive).is_err());
         Ok(())
     }
@@ -1668,7 +2070,7 @@ mod tests {
         ] {
             let mut fixture = Fixture::new()?;
             fixture.sync("omission-prestate")?;
-            let source_path = fixture.root.join("proofs/verified/C900_Test.v");
+            let source_path = fixture.tree.root().join("verified/C900_Test.v");
             fs::write(
                 &source_path,
                 format!("{}{omitted}", fs::read_to_string(&source_path)?),
@@ -1724,7 +2126,7 @@ mod tests {
     fn complete_receipt_includes_definition_bodies_and_theorem_contexts() -> Result<()> {
         let mut fixture = Fixture::new()?;
         fixture.sync("complete-definition-prestate")?;
-        let source_path = fixture.root.join("proofs/verified/C900_Test.v");
+        let source_path = fixture.tree.root().join("verified/C900_Test.v");
         fs::write(
             &source_path,
             format!(
@@ -1807,7 +2209,7 @@ mod tests {
     #[test]
     fn inventory_rejects_duplicates_collisions_missing_unlisted_and_traversal() -> Result<()> {
         let fixture = Fixture::new()?;
-        let project = fixture.root.join("proofs/_RocqProject");
+        let project = fixture.tree.root().join("_RocqProject");
         let original = fs::read_to_string(&project)?;
         for invalid in [
             format!("{original}verified/C900_Test.v\n"),
@@ -1816,14 +2218,14 @@ mod tests {
             "theories/../verified/C900_Test.v\n".to_owned(),
         ] {
             fs::write(&project, invalid)?;
-            assert!(super::super::proof_inventory::load_proof_inventory(&project).is_err());
+            assert!(super::super::proof_inventory::load_proof_inventory(&fixture.tree).is_err());
         }
         fs::write(
-            fixture.root.join("proofs/verified/Prelude.v"),
+            fixture.tree.root().join("verified/Prelude.v"),
             "Definition duplicate := True.\n",
         )?;
         fs::write(&project, format!("{original}verified/Prelude.v\n"))?;
-        assert!(super::super::proof_inventory::load_proof_inventory(&project).is_err());
+        assert!(super::super::proof_inventory::load_proof_inventory(&fixture.tree).is_err());
         Ok(())
     }
 
@@ -1832,16 +2234,21 @@ mod tests {
         let mut fixture = Fixture::new()?;
         let stale = fixture.sync_spec("stale")?;
         fs::write(
-            fixture.root.join("proofs/_RocqProject"),
+            fixture.tree.root().join("_RocqProject"),
             "theories/Prelude.v\n",
         )?;
         assert!(
             fixture
                 .store
-                .sync_theorem_inventory(&fixture.root, &stale, &toml::to_string(&stale)?)
+                .sync_theorem_inventory(
+                    &fixture.root,
+                    &fixture.tree,
+                    &stale,
+                    &toml::to_string(&stale)?
+                )
                 .is_err()
         );
-        fs::remove_file(fixture.root.join("proofs/verified/C900_Test.v"))?;
+        fs::remove_file(fixture.tree.root().join("verified/C900_Test.v"))?;
         assert!(fixture.sync("registered-source-removal").is_err());
         assert_eq!(fixture.events()?, 0);
         assert_eq!(
@@ -1855,10 +2262,10 @@ mod tests {
     fn inventory_source_only_numeric_stems_need_explicit_scope_before_promotion() -> Result<()> {
         let mut fixture = Fixture::new()?;
         fs::write(
-            fixture.root.join("proofs/theories/C999_Unbound.v"),
+            fixture.tree.root().join("theories/C999_Unbound.v"),
             "Lemma unbound : True. exact I. Qed.\n",
         )?;
-        let project = fixture.root.join("proofs/_RocqProject");
+        let project = fixture.tree.root().join("_RocqProject");
         fs::write(
             &project,
             format!("{}theories/C999_Unbound.v\n", fs::read_to_string(&project)?),
@@ -1921,10 +2328,10 @@ mod tests {
             let mut fixture = Fixture::new()?;
             fixture.sync("initial")?;
             fixture.record(&fixture.witness()?)?;
-            let original = fs::read(fixture.root.join(path))?;
+            let original = fs::read(fixture.tree.resolve(&fixture.root, path)?)?;
             let mut changed = original;
             changed.extend_from_slice(b"\n(* changed input *)\n");
-            fs::write(fixture.root.join(path), changed)?;
+            fs::write(fixture.tree.resolve(&fixture.root, path)?, changed)?;
             assert_eq!(
                 fixture.sync("changed-input")?.kernel_checked_count,
                 0,
@@ -1947,7 +2354,7 @@ mod tests {
         fixture.record(&fixture.witness()?)?;
         fixture.sync("checked-inventory")?;
         let old_spec = fixture.sync_spec("checked-inventory")?;
-        let project = fixture.root.join("proofs/_RocqProject");
+        let project = fixture.tree.root().join("_RocqProject");
         fs::write(
             &project,
             format!(
@@ -1958,7 +2365,12 @@ mod tests {
         assert!(
             fixture
                 .store
-                .sync_theorem_inventory(&fixture.root, &old_spec, &toml::to_string(&old_spec)?)
+                .sync_theorem_inventory(
+                    &fixture.root,
+                    &fixture.tree,
+                    &old_spec,
+                    &toml::to_string(&old_spec)?
+                )
                 .is_err()
         );
         assert_eq!(fixture.sync("changed-project")?.kernel_checked_count, 0);
@@ -2081,24 +2493,48 @@ mod tests {
         Ok(())
     }
 
+    #[test]
+    fn verification_refuses_a_recorded_proof_path_that_leaves_the_tree() -> Result<()> {
+        let fixture = Fixture::new()?;
+        fixture.store.conn.execute(
+            "UPDATE theorems SET status='source_only' WHERE id='C900_Test'",
+            [],
+        )?;
+        let intact = fixture
+            .store
+            .verify_control_plane_invariants(&fixture.root, Some(&fixture.tree))
+            .map(|checks| checks.verified);
+        assert!(intact.is_ok(), "{intact:?}");
+        fixture
+            .store
+            .conn
+            .execute_batch("PRAGMA foreign_keys=OFF;")?;
+        fixture.store.conn.execute(
+            "UPDATE theorems SET proof_path='proofs/../../outside.v' WHERE id='C900_Test'",
+            [],
+        )?;
+        let error = fixture
+            .store
+            .verify_control_plane_invariants(&fixture.root, Some(&fixture.tree))
+            .unwrap_err()
+            .to_string();
+        assert!(error.contains("refused"), "{error}");
+        Ok(())
+    }
+
     #[cfg(unix)]
     #[test]
     fn inventory_rejects_a_symlinked_source_root() -> Result<()> {
         let fixture = Fixture::new()?;
         fs::rename(
-            fixture.root.join("proofs/theories"),
+            fixture.tree.root().join("theories"),
             fixture.root.join("retained-theories"),
         )?;
         std::os::unix::fs::symlink(
             fixture.root.join("retained-theories"),
-            fixture.root.join("proofs/theories"),
+            fixture.tree.root().join("theories"),
         )?;
-        assert!(
-            super::super::proof_inventory::load_proof_inventory(
-                &fixture.root.join("proofs/_RocqProject")
-            )
-            .is_err()
-        );
+        assert!(super::super::proof_inventory::load_proof_inventory(&fixture.tree).is_err());
         Ok(())
     }
 
@@ -2108,19 +2544,20 @@ mod tests {
         let fixture = Fixture::new()?;
         std::os::unix::fs::symlink(
             fixture.root.join("evidence/compile.log"),
-            fixture.root.join("proofs/theories/Symlink.v"),
+            fixture.tree.root().join("theories/Symlink.v"),
         )?;
-        assert!(
-            super::super::proof_inventory::load_proof_inventory(
-                &fixture.root.join("proofs/_RocqProject")
-            )
-            .is_err()
-        );
+        assert!(super::super::proof_inventory::load_proof_inventory(&fixture.tree).is_err());
         std::os::unix::fs::symlink(
             fixture.root.join("evidence"),
             fixture.root.join("linked-evidence"),
         )?;
-        assert!(local_file(&fixture.root, "linked-evidence/compile.log").is_err());
+        assert!(
+            local_file(
+                EvidenceRoots::new(&fixture.root, &fixture.tree),
+                "linked-evidence/compile.log"
+            )
+            .is_err()
+        );
         Ok(())
     }
 }

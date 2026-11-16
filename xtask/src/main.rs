@@ -160,7 +160,6 @@ const XTASK_COMMANDS: &[(&str, &str)] = &[
     ),
     ("ascii-check", "Check ASCII policy, optionally with --fix."),
     ("ascii-cleanup", "Normalize ASCII-policy text with --fix."),
-    ("coq-stub", "Generate a Rocq stub from a source path."),
     ("convos-chunk", "Chunk a conversation transcript."),
     ("terminology-gate", "Run the terminology gate."),
     ("cpd-file-list", "Write the CPD source-file list."),
@@ -440,11 +439,6 @@ fn main() -> Result<()> {
         ),
         "ascii-check" => run_ascii_check(args.any(|arg| arg == "--fix")),
         "ascii-cleanup" => run_ascii_cleanup(args.any(|arg| arg == "--fix")),
-        "coq-stub" => {
-            let src = args.next().expect("coq-stub requires src path");
-            let dst = args.next().expect("coq-stub requires dst path");
-            run_coq_stub(Path::new(&src), Path::new(&dst))
-        }
         "convos-chunk" => {
             let path = args.next().expect("convos-chunk requires path");
             let lines = args.next().and_then(|s| s.parse().ok()).unwrap_or(800);
@@ -591,27 +585,6 @@ fn run_convos_chunk(path: &Path, chunk_lines: usize, prefix: &str) -> Result<()>
         let chunk_id = format!("{}-{:04}", prefix, i + 1);
         println!("{HEADER_STYLE}{}:{RESET} L{}-L{}", chunk_id, start, end);
     }
-    Ok(())
-}
-
-fn run_coq_stub(src: &Path, dst: &Path) -> Result<()> {
-    let header = "From Stdlib Require Import String.\nRequire Import ConfineModel.\n\nOpen Scope string_scope.\n\n";
-    let text = fs::read_to_string(src)?;
-    let mut out = String::from(header);
-    for line in text.lines() {
-        if line.starts_with("Theorem ") {
-            out.push_str("Axiom ");
-            out.push_str(line.strip_prefix("Theorem ").unwrap_or(line));
-        } else {
-            out.push_str(line);
-        }
-        out.push('\n');
-    }
-    if let Some(parent) = dst.parent() {
-        fs::create_dir_all(parent)?;
-    }
-    fs::write(dst, out)?;
-    println!("  [OK]   Wrote {}", dst.display());
     Ok(())
 }
 

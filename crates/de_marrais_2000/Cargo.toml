@@ -10,7 +10,7 @@ description = "de Marrais (2000) -- The 42 Assessors and the Box-Kites they fly"
 #    Diagonal Axis-Pair Systems of Zero-Divisors in the Sedenions' 16 Dimensions"
 #   arXiv:math/0011260.
 #
-# Rocq verification: proofs/theories/DeMarraisAssessors.v (256 lines, 0 Admitted)
+# Rocq verification: gororoba-math rocq/open/theories/DeMarraisAssessors.v (256 lines, 0 Admitted)
 #
 # This crate implements all enumerable content from Sections I and II:
 # - The 7 O-trips (octonion associative triples) with XOR consistency

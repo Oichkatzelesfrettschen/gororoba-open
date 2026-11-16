@@ -28,7 +28,7 @@
 //!   Rust lane: `basis_element_properties.rs`. Direct Rocq chapter lane still open.
 //! - Chapter VII, pp. 45-56: zero-divisor structure, star operator, and the
 //!   Major Theorem. Rust lanes: `star_operator.rs`, `zd_criterion.rs`.
-//!   Rocq lane: `proofs/theories/Brown1972.v` plus companion theorem files.
+//!   Rocq lane: gororoba-math `rocq/open/theories/Brown1972.v` plus companion theorem files.
 //! - Appendix C, pp. 78-89: PL/1 search program.
 //!   Rust lane: `pl1_emulator.rs`. Rocq extraction bridge still open.
 //!

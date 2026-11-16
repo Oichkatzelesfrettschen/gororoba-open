@@ -165,7 +165,6 @@ pub mod docs_requirements_heliosphere;
 pub mod docs_requirements_latex;
 pub mod docs_requirements_materials;
 pub mod docs_requirements_particle;
-pub mod docs_requirements_rocq;
 pub mod docs_research_hypothesis_synthesis_2026;
 pub mod docs_research_manga_null_literature_synthesis_2026;
 pub mod docs_research_manga_null_result_smart_goal_2026;

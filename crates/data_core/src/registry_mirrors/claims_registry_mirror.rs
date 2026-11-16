@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1593
+//! Total claims: 1597
 //!
 //! ## C-001
 //!
@@ -11458,7 +11458,7 @@
 //!
 //! ## C-1617
 //!
-//! - Status: `Established`
+//! - Status: `Superseded`
 //! - Last verified: 2026-04-14
 //! - Statement: The CD spatial associator norm (7 face-neighbor f_i vectors, 32D padded, unit-norm) grows monotonically from ~0 at LBM equilibrium initialization to a detectable non-zero value at least 2 steps before the first f_i < 0 positivity violation in BGK D3Q19 with Gaussian initial conditions. Temporal early-to-late ratio is ~1.92-1.94x across contrasts 21-25 (16^3 grid, tau=0.7). The associator signal is a precursor indicator of O(Ma^3) truncation error accumulation.
 //! - Where stated: E-225 LBM CD spatial associator probe (2026-04-14)
@@ -11466,7 +11466,7 @@
 //!
 //! ## C-1618
 //!
-//! - Status: `Established`
+//! - Status: `Superseded`
 //! - Last verified: 2026-04-14
 //! - Statement: The CD associator early-to-late norm ratio (12-step precursor window, split 6/6) before high-norm events (local maxima above p95) in the ACE 2004 Halloween storm solar wind B-field data (334502 valid rows, 32D Takens embeddings, 8-step x 4-channel) is 4.30x mean / 2.40x median across 4471 detected events. This exceeds the LBM BGK C-1617 baseline of 1.92x and confirms that the CD associator precursor buildup is a general property of continuous dynamical systems, not a BGK lattice artifact. The TeraScale-2 VLIW5 LDS barrier wg-sweep shows no monotonic precursor, confirming the regime boundary.
 //! - Where stated: E-226 cross-domain CD associator survey (2026-04-14)
@@ -11474,7 +11474,7 @@
 //!
 //! ## C-1619
 //!
-//! - Status: `Established`
+//! - Status: `Superseded`
 //! - Last verified: 2026-04-14
 //! - Statement: In the supervised THEMIS magnetopause crossing catalog (Staples et al. 2020 v2, 9455 probe-a crossings, 3-second FGM cadence), the CD associator early/late norm ratio over the 36-second precursor window (12 steps at 32D, 8-step x 4-channel Takens) is 4.48x mean / 1.44x median, IQR [0.75, 3.12]. 64.0% of crossings show ratio > 1.0 (null expectation 50%), confirming statistically significant precursor buildup.
 //! - Where stated: E-227 THEMIS supervised CD crossing survey (2026-04-14)
@@ -12290,7 +12290,7 @@
 //!
 //! ## C-1721
 //!
-//! - Status: `Provisional`
+//! - Status: `Superseded`
 //! - Last verified: 2026-08-06
 //! - Statement: C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace; Moreno Corollary 1.6 states an unrestricted four-way chain for x,y in A_n with n>=4. C1539's left and right skew-adjoint theorems match Proposition 1.7's purity scope and have a concrete sedenion instance. Its kernel-equality theorem, corresponding to the following Remark, additionally depends on im_lx_eq_im_rx and im_rx_eq_im_lx axioms even after that instance; these files leave full source-general kernel equality unproved.
 //! - Where stated: data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-proof-assumptions.log; proofs/theories/C1538_MorZDSymmetry.v; proofs/theories/C1539_MorSkewSymm.v
@@ -12750,4 +12750,36 @@
 //! - Last verified: 2026-11-02
 //! - Statement: PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^3 - 4), and the Fano plane has 7 lines, matching the 7 box-kites of the sedenion zero-divisor graph.
 //! - Where stated: proofs/verified/C004_PSL27Order168.v
+//! - What would verify/refute it:
+//!
+//! ## C-1781
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-14
+//! - Statement: C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace, while Moreno Corollary 1.6 states an unrestricted four-way chain for x, y in A_n with n>=4. The left and right skew-adjoint theorems of C1539_MorSkewSymm.v match the purity scope of Proposition 1.7 and have a concrete sedenion instance. For every order n of the recursive real Cayley-Dickson tower and all a and z, a z = 0 exactly when z a = 0 (CDTowerKernelSwap.tower_kernel_equality; Biss, Dugger and Isaksen arXiv:math/0511691 Corollary 9.3). Moreno's Remark after Proposition 1.7, Ker(L_x) = Ker(R_x) for purely imaginary x, follows: MorKernelEquality.ker_lx_eq_ker_rx holds over the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and the functor TowerMoreno (every order, instantiated at orders 4 and 5) discharge that interface through CDTowerKernelSwap.tower_kernel_swap. The eight tower and concrete-instance theorems queried in the retained Print Assumptions log of the pinned Rocq toolchain rest on the two Stdlib axioms it lists; zd_symmetry and the functor theorems hold over their module interfaces, whose fields are obligations of each model.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v
+//! - What would verify/refute it:
+//!
+//! ## C-1782
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-15
+//! - Statement: On the ACE MFI 16-second magnetic field record of December 2004 and January 2005 (334502 valid rows, 32D unit-normalized delay windows of 8 samples by 4 channels), the sliding Cayley-Dickson associator norm follows the windowed increment energy, the sum over the 9 increments of the 10 samples a norm reads of the squared field increment over the squared field magnitude, with Spearman rank correlation 0.972. Its late-to-early ratio over the 12 norms before a local maximum above the 95th percentile has median 2.41 and mean 4.30 over 4470 peaks when the window ends at the peak, and median 1.13 when the window ends 10 indices earlier and shares no sample with the peak's triple (1.05 at 20 indices). A phase-randomized copy scores 1.23 and 1.07 at those two offsets, and the record's increments permuted inside one-hour blocks score 2.01 and 1.13. Most of the ratio at the peak is therefore the overlap of the windows with a heavy-tailed increment (kurtosis 90.6 for the Bx increments against 3.0 for the phase-randomized copy), and the overlap-free ratio is reproduced with no order below one hour. The record's clustering of large increments within the hour appears in the raw increment energy: its median over peaks rises from 2.47 times the record's median 24 samples before a peak to 3.62 times one sample before, while over the same 24 samples the block-permuted series stays between 1.94 and 2.20 and the phase-randomized copy between 0.94 and 1.04.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/cd_precursor_null.rs
+//! - What would verify/refute it:
+//!
+//! ## C-1783
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-15
+//! - Statement: In BGK D3Q19 runs of a Gaussian density peak at rest (16-cubed grid, relaxation time 0.7, contrasts 21 to 25), with each cell's 19 populations written in lattice order to a unit 32-vector, the late-to-early ratio of the sliding Cayley-Dickson associator norm at the first cell to hold a negative population is 1.91 to 1.94 over the 4 norms of steps 0 to 5. The same ratio is larger at cells that hold no negative population at step 5 (median 2.35 against 1.69 at contrast 23) and is present in runs that never hold a negative population over 400 steps (median over all cells 1.39, 1.58 and 1.84 at contrasts 2, 5 and 10, growing with contrast; 1.97 at contrast 15, which turns negative at step 6). It lies within 0.08 of the ratio of the departure norm, the distance of the cell vector from its initial value (1.86 to 1.92), and it ranges from 0.88 to 1.94 over seven assignments of the populations to slots. The ratio therefore measures departure from the uniform initial state under one slot assignment and does not indicate a positivity violation. Among quantities at step 4, the last associator norm ranks the cells that turn negative at step 5 with area under the ROC curve 0.90, 0.92 and 0.93 at contrasts 21, 23 and 25; the departure norm ranks them at 0.95, 0.98 and 0.99, the local Mach number at 0.97, 0.98 and 0.99, and the smallest population over the density at 0.97, 0.99 and 0.99.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/lbm-associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/lbm-associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/lbm_cd_precursor_null.rs
+//! - What would verify/refute it:
+//!
+//! ## C-1784
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-15
+//! - Statement: At 9455 THEMIS-A magnetopause crossings of the Staples et al. (2020) version 2 catalog (3-second FGM rows, 32D unit-normalized delay windows of 8 rows by 4 channels), the late-to-early ratio of the sliding Cayley-Dickson associator norm over the 12 norms that end one row before the catalogued crossing has median 1.44 with 64.0 percent of crossings above 1; at random times of the same day files the median is 1.00 with 50.3 percent above 1. The same ratio of the windowed increment energy, a sum of squared field increments with no product, has median 1.54 normalized by the squared field and 1.39 raw. With the window moved back 12, 24 and 96 rows the associator median is 1.08, 1.04 and 1.00, and mirrored over the rows after the crossing it is 1.56 with 67.6 percent above 1. The median raw increment energy is 6.4 nT squared 100 rows before the crossing, 22.1 at 5 rows before, 50.7 at the crossing, 31.0 at 5 rows after and 7.9 at 100 rows after, against 0.17 to 0.18 at random times. The ratio therefore measures the flank of a peak of magnetic fluctuation 10 rows (30 seconds) wide at half maximum centered on the catalogued crossing, present on both sides of it, inside an interval about 35 times more disturbed than random times of the same days.
+//! - Where stated: data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null.json; data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null-transition.toml; crates/gororoba_cli_physics/src/bin/themis_cd_crossing_null.rs
 //! - What would verify/refute it:

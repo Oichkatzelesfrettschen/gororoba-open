@@ -3,7 +3,7 @@
 //! The effective EOS w_eff = -1 - eta*(alpha + 3/2) depends on (alpha, eta)
 //! only through the product P = eta*(alpha + 3/2).  The 2D parameterization
 //! is therefore degenerate: infinitely many (alpha, eta) pairs yield the same
-//! w_eff.  Kernel-checked in `proofs/verified/C884_NegDimDegeneracy.v`.
+//! w_eff.  Kernel-checked in gororoba-math `rocq/open/verified/C884_NegDimDegeneracy.v`.
 
 /// Neg-dim effective equation of state.
 ///

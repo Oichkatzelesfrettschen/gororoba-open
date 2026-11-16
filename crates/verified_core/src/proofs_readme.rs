@@ -6,53 +6,49 @@
 //! the PDF cannot desynchronize from the prover.
 //!
 //! ```
-//! Rocq .v sources
+//! gororoba-math rocq/open: Rocq .v sources
 //!     |
 //!     v
-//! rocq compile -> .vo (kernel-checked proof objects)
+//! sh ci/check_rocq.sh: compile -> .vo, kernel check, axiom ledger
 //!     |
-//!     +-> Extraction -> OCaml functor -> golden file diff
+//!     +-> ci/kernel_replay_evidence.py -> replay evidence file
 //!     |                                     |
-//!     |                                     v (manual translation)
-//!     |                                 verified_core/ (Rust crate)
+//!     |                                     v (gororoba-db theorem identity
+//!     |                                        record-kernel-evidence)
+//!     |                               provenance_store theorem_replay::ingest
 //!     |                                     |
 //!     |                                     v
-//!     |                                 cross_validate.rs (FFI Oracle)
+//!     |                               kernel receipt in the registry
 //!     |
-//!     +-> rocq doc --html (browsable documentation)
-//!     +-> collect_metrics.sh -> compile_times.csv + summary.csv (PGFPlots)
-//!     +-> dep_graph.sh + dot2tex -> dep_graph.tikz (paper figure)
-//!     +-> catchfilebetweentags -> source-anchored code in LaTeX
+//!     +-> Extraction -> OCaml functor -> golden file diff
+//!                                         |
+//!                                         v (manual translation)
+//!                                     verified_core/ (Rust crate)
+//!                                         |
+//!                                         v
+//!                                     cross_validate.rs (Rust cross-check)
 //! ```
 //!
-//! ## Quick Start
+//! ## Where The Pipeline Runs
 //!
-//! ```sh
-//! # Full verification pipeline
-//! cd proofs && just all
+//! The Rocq proof tree lives in the gororoba-math repository under
+//! `rocq/open`; gororoba-open holds no `proofs/` tree and runs no Rocq. The
+//! toolchain and the proof commands are described in `rocq/open/README.md`
+//! there, its `Justfile` names the targets (`check`, `extract`, `all`), and
+//! `sh ci/check_rocq.sh` in gororoba-math compiles and kernel-checks the tree
+//! under Rocq 9.3.0.
 //!
-//! # Paper-ready artifacts only (metrics + TikZ dep graph)
-//! cd proofs && just paper-artifacts
-//!
-//! # Build proofs + paper in one command (from repo root)
-//! make lva-paper
-//!
-//! # Browsable HTML documentation
-//! cd proofs && just rocqdoc
-//! ```
-//!
-//! ## Pipeline Targets
-//!
-//! | Target | Command | Output |
-//! |--------|---------|--------|
-//! | Kernel check | `just check` | 38 .vo files, zero Admitted |
-//! | Extraction | `just extract` | OCaml golden file diff |
-//! | Metrics | `just metrics` | `metrics/compile_times.csv`, `metrics/summary.csv` |
-//! | Dep graph | `just depgraph` | `metrics/dep_graph.{dot,pdf,svg}` |
-//! | TikZ graph | `just depgraph-tikz` | `metrics/dep_graph.tikz` |
-//! | HTML docs | `just rocqdoc` | `html/index.html` |
-//! | Paper artifacts | `just paper-artifacts` | metrics + TikZ |
-//! | Full pipeline | `just all` | check + extract + metrics + tikz |
+//! gororoba-open ingests the result as a replay evidence file that
+//! `ci/kernel_replay_evidence.py` in gororoba-math writes, through
+//! `gororoba-db theorem identity record-kernel-evidence`. When a proof source
+//! imports Flocq, ingest requires the evidence file to name its producer in
+//! `flocq_producer` and its Flocq object list to equal that producer's entry
+//! of the committed copy of `ci/flocq-manifest.json` in gororoba-math. The
+//! object bytes depend on the install prefix and the native toolchain of the
+//! producer (measured: a hosted runner that built the same export produced
+//! different Flocq object bytes, first at `Calc/Bracket.vo`), so the manifest
+//! holds one entry per producer. This repository has no target for proof
+//! metrics, dependency-graph figures or `rocq doc` output.
 //!
 //! ## Trust Boundary
 //!
@@ -83,7 +79,7 @@
 //! format is incompatible with Rocq/Rust comment syntax. `\inputminted`
 //! provides the same source-anchoring guarantee plus syntax highlighting.
 //!
-//! Tags in use:
+//! Tags in use (Rocq paths are relative to `rocq/open` in gororoba-math):
 //!
 //! | File | Tag | Content |
 //! |------|-----|---------|
@@ -98,16 +94,16 @@
 //!
 //! ## Opam Environment
 //!
-//! - Switch: `rocq-9.2`
-//! - Rocq: 9.2.0 (OCaml 5.5.0)
-//! - No external Rocq dependencies (stdlib only)
-//! - Backup: `opam switch export rocq-9.2-backup.export`
+//! - Switch: `rocq-9.3`, built by `ci/install_rocq.sh` in gororoba-math
+//! - Rocq: 9.3.0 (OCaml 5.5.1)
+//! - External Rocq dependencies: Flocq 4.2.2 (`coq-flocq`) and the plugin
+//!   ports that `rocq/open/README.md` in gororoba-math lists
 //!
 //! ## Tool Versions
 //!
 //! | Tool | Version | Purpose |
 //! |------|---------|---------|
-//! | rocq | 9.2.0 | Proof compiler |
+//! | rocq | 9.3.0 | Proof compiler (gororoba-math) |
 //! | latexmk | system | LaTeX build |
 //! | dot2tex | 2.11.3 | DOT -> TikZ |
 //! | pygmentize | 2.19.2 | Syntax highlighting (minted) |
@@ -131,6 +127,6 @@
 //!   translation in verified_core is simpler and more idiomatic for numerical
 //!   f64 code. Re-evaluate when the tool supports struct extraction and trait
 //!   mapping from abstract module types.
-//! - **No CI**: Proofs are not yet checked in GitHub Actions. Pipeline runs
-//!   locally via `just all`.
+//! - **Proof checking**: gororoba-math checks the proofs (`ci/check_rocq.sh`);
+//!   gororoba-open runs no Rocq lane.
 //!

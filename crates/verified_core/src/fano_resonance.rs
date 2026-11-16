@@ -1,7 +1,7 @@
 //! TCMT Fano resonance scattering (Rocq-verified: C-913..C-914).
 //!
 //! Temporal coupled-mode theory for single-resonance scattering.
-//! Kernel-checked in `proofs/theories/FanoResonance.v`.
+//! Kernel-checked in gororoba-math `rocq/open/theories/FanoResonance.v`.
 
 /// Squared transmission coefficient |t|^2 for TCMT single resonance.
 ///

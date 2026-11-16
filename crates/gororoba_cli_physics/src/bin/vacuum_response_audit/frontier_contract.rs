@@ -36,7 +36,26 @@ struct Ledger {
     leaf: Vec<Leaf>,
 }
 
-fn validate_reference(root: &Path, reference: &str, formal: bool) -> Result<(), String> {
+/// Checks one evidence reference. An implementation reference names a file of
+/// this repository below `root`. A formal reference names a theory of the proof
+/// tree by its recorded `proofs/theories/<file>.v::<declaration>` locator:
+/// its shape is checked always, and the file, the declaration and the project
+/// listing are checked when `tree` holds the gororoba-math proof tree.
+///
+/// A formal reference without a tree is `Skipped`: its file, declaration and
+/// listing were not read, which the caller reports rather than counts as a pass.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ReferenceCheck {
+    Read,
+    Skipped,
+}
+
+fn validate_reference(
+    root: &Path,
+    tree: Option<&repo_root::ProofTree>,
+    reference: &str,
+    formal: bool,
+) -> Result<ReferenceCheck, String> {
     let (file, symbol) = reference
         .split_once("::")
         .map_or((reference, None), |(file, symbol)| (file, Some(symbol)));
@@ -49,13 +68,6 @@ fn validate_reference(root: &Path, reference: &str, formal: bool) -> Result<(), 
             "reference escapes its relative evidence boundary: {reference}"
         ));
     }
-    let metadata =
-        fs::symlink_metadata(root.join(path)).map_err(|error| format!("{reference}: {error}"))?;
-    if !metadata.is_file() {
-        return Err(format!(
-            "reference is not a regular evidence file: {reference}"
-        ));
-    }
     if formal
         && (!file.starts_with("proofs/theories/") || !file.ends_with(".v") || symbol.is_none())
     {
@@ -63,15 +75,34 @@ fn validate_reference(root: &Path, reference: &str, formal: bool) -> Result<(), 
             "formal reference requires a theory and declaration: {reference}"
         ));
     }
-    if let Some(symbol) = symbol {
-        if symbol.is_empty()
+    if let Some(symbol) = symbol
+        && (symbol.is_empty()
             || !symbol
                 .bytes()
-                .all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
-        {
-            return Err(format!("malformed declaration in {reference}"));
+                .all(|byte| byte.is_ascii_alphanumeric() || byte == b'_'))
+    {
+        return Err(format!("malformed declaration in {reference}"));
+    }
+    let located = if formal {
+        match tree {
+            Some(tree) => tree
+                .resolve(root, file)
+                .map_err(|error| format!("{reference}: {error}"))?,
+            None => return Ok(ReferenceCheck::Skipped),
         }
-        let source = fs::read_to_string(root.join(path)).map_err(|error| error.to_string())?;
+    } else {
+        repo_root::proof_tree::resolve_below(root, file, reference)
+            .map_err(|error| format!("{reference}: {error}"))?
+    };
+    let metadata =
+        fs::symlink_metadata(&located).map_err(|error| format!("{reference}: {error}"))?;
+    if !metadata.is_file() {
+        return Err(format!(
+            "reference is not a regular evidence file: {reference}"
+        ));
+    }
+    if let Some(symbol) = symbol {
+        let source = fs::read_to_string(&located).map_err(|error| error.to_string())?;
         let prefixes: &[&str] = if formal {
             &["Theorem ", "Lemma ", "Corollary "]
         } else {
@@ -92,9 +123,9 @@ fn validate_reference(root: &Path, reference: &str, formal: bool) -> Result<(), 
         if !exists {
             return Err(format!("missing declaration: {reference}"));
         }
-        if formal {
-            let project = fs::read_to_string(root.join("proofs/_RocqProject"))
-                .map_err(|error| error.to_string())?;
+        if let Some(tree) = tree.filter(|_| formal) {
+            let project =
+                fs::read_to_string(tree.project_file()).map_err(|error| error.to_string())?;
             if !project
                 .lines()
                 .any(|line| Some(line) == file.strip_prefix("proofs/"))
@@ -105,7 +136,7 @@ fn validate_reference(root: &Path, reference: &str, formal: bool) -> Result<(), 
             }
         }
     }
-    Ok(())
+    Ok(ReferenceCheck::Read)
 }
 
 fn visit<'a>(
@@ -131,7 +162,13 @@ fn visit<'a>(
     Ok(())
 }
 
-fn validate(root: &Path, expected: &BTreeSet<String>, ledger: &Ledger) -> Result<(), String> {
+fn validate(
+    root: &Path,
+    tree: Option<&repo_root::ProofTree>,
+    expected: &BTreeSet<String>,
+    ledger: &Ledger,
+) -> Result<usize, String> {
+    let mut skipped = 0;
     let contract = &ledger.contract;
     if contract.source_ledger != "plans/vacuum_energy_falsification.toml"
         || contract.leaf_count != expected.len()
@@ -176,10 +213,12 @@ fn validate(root: &Path, expected: &BTreeSet<String>, ledger: &Ledger) -> Result
             ));
         }
         for reference in &leaf.formal {
-            validate_reference(root, reference, true)?;
+            if validate_reference(root, tree, reference, true)? == ReferenceCheck::Skipped {
+                skipped += 1;
+            }
         }
         for reference in &leaf.implementation {
-            validate_reference(root, reference, false)?;
+            validate_reference(root, tree, reference, false)?;
         }
         if leaf.dependencies.iter().collect::<BTreeSet<_>>().len() != leaf.dependencies.len() {
             return Err(format!("{} repeats a dependency", leaf.id));
@@ -194,7 +233,7 @@ fn validate(root: &Path, expected: &BTreeSet<String>, ledger: &Ledger) -> Result
     for id in rows.keys() {
         visit(id, &rows, &mut BTreeSet::new(), &mut complete)?;
     }
-    Ok(())
+    Ok(skipped)
 }
 
 fn fixture() -> (std::path::PathBuf, BTreeSet<String>, Ledger) {
@@ -220,10 +259,34 @@ fn fixture() -> (std::path::PathBuf, BTreeSet<String>, Ledger) {
     (root, expected, ledger)
 }
 
+/// The gororoba-math proof tree that GOROROBA_MATH names; the tests that read
+/// it are ignored by default and run with `--include-ignored`.
+fn proof_tree() -> repo_root::ProofTree {
+    repo_root::ProofTree::from_environment().expect("GOROROBA_MATH names a gororoba-math checkout")
+}
+
 #[test]
 fn every_original_leaf_has_one_checked_integration_and_acyclic_dependencies() {
+    // Without the proof tree the formal references are checked for shape only,
+    // and the count of references left unread is reported.
     let (root, expected, ledger) = fixture();
-    validate(&root, &expected, &ledger).unwrap();
+    let skipped = validate(&root, None, &expected, &ledger).unwrap();
+    let formal: usize = ledger.leaf.iter().map(|leaf| leaf.formal.len()).sum();
+    assert_eq!(
+        skipped, formal,
+        "every formal reference is skipped without a tree"
+    );
+    eprintln!(
+        "SKIP: {skipped} formal references were not read: GOROROBA_MATH is unset, so their files, declarations and project listing are unchecked"
+    );
+}
+
+#[test]
+#[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
+fn every_formal_reference_resolves_in_the_proof_tree() {
+    let (root, expected, ledger) = fixture();
+    let skipped = validate(&root, Some(&proof_tree()), &expected, &ledger).unwrap();
+    assert_eq!(skipped, 0);
 }
 
 #[test]
@@ -231,13 +294,13 @@ fn missing_duplicate_or_invented_leaf_rejects() {
     let (root, expected, ledger) = fixture();
     let mut missing = ledger.clone();
     missing.leaf.pop();
-    assert!(validate(&root, &expected, &missing).is_err());
+    assert!(validate(&root, None, &expected, &missing).is_err());
     let mut duplicate = ledger.clone();
     duplicate.leaf.push(duplicate.leaf[0].clone());
-    assert!(validate(&root, &expected, &duplicate).is_err());
+    assert!(validate(&root, None, &expected, &duplicate).is_err());
     let mut invented = ledger.clone();
     invented.leaf[0].id = "unregistered-inference".to_owned();
-    assert!(validate(&root, &expected, &invented).is_err());
+    assert!(validate(&root, None, &expected, &invented).is_err());
 }
 
 #[test]
@@ -246,27 +309,45 @@ fn cycles_unknown_dependencies_and_unearned_physical_closure_reject() {
     let mut cycle = ledger.clone();
     let first_id = cycle.leaf[0].id.clone();
     cycle.leaf[0].dependencies.push(first_id);
-    assert!(validate(&root, &expected, &cycle).is_err());
+    assert!(validate(&root, None, &expected, &cycle).is_err());
     let mut unknown = ledger.clone();
     unknown.leaf[0].dependencies.push("unknown".to_owned());
-    assert!(validate(&root, &expected, &unknown).is_err());
+    assert!(validate(&root, None, &expected, &unknown).is_err());
     let mut closed = ledger.clone();
     closed.leaf[0].physical_validation = "established".to_owned();
-    assert!(validate(&root, &expected, &closed).is_err());
+    assert!(validate(&root, None, &expected, &closed).is_err());
     let mut empty = ledger.clone();
     empty.leaf[0].next_gate.clear();
-    assert!(validate(&root, &expected, &empty).is_err());
+    assert!(validate(&root, None, &expected, &empty).is_err());
 }
 
 #[test]
-fn stale_declarations_path_escape_and_missing_proofs_reject() {
+fn unproved_leaves_and_path_escapes_reject() {
     let (root, expected, ledger) = fixture();
-    let mut stale = ledger.clone();
-    stale.leaf[0].formal[0].push_str("_invented");
-    assert!(validate(&root, &expected, &stale).is_err());
     let mut unproved = ledger.clone();
     unproved.leaf[0].formal.clear();
-    assert!(validate(&root, &expected, &unproved).is_err());
-    assert!(validate_reference(&root, "../AGENTS.md", false).is_err());
-    assert!(validate_reference(&root, "proofs/theories/Absent.v::invented", true).is_err());
+    assert!(validate(&root, None, &expected, &unproved).is_err());
+    assert!(validate_reference(&root, None, "../AGENTS.md", false).is_err());
+    assert!(validate_reference(&root, None, "proofs/../AGENTS.md::x", true).is_err());
+    assert!(validate_reference(&root, None, "proofs/verified/Other.v::x", true).is_err());
+}
+
+#[test]
+#[ignore = "reads the gororoba-math proof tree; set GOROROBA_MATH and run with --include-ignored"]
+fn stale_declarations_and_missing_theories_reject_against_the_proof_tree() {
+    let (root, expected, ledger) = fixture();
+    let tree = proof_tree();
+    let mut stale = ledger.clone();
+    stale.leaf[0].formal[0].push_str("_invented");
+    assert!(validate(&root, Some(&tree), &expected, &stale).is_err());
+    assert!(
+        validate_reference(
+            &root,
+            Some(&tree),
+            "proofs/theories/Absent.v::invented",
+            true
+        )
+        .is_err()
+    );
+    assert!(validate_reference(&root, Some(&tree), "proofs/theories/../C001.v::x", true).is_err());
 }
