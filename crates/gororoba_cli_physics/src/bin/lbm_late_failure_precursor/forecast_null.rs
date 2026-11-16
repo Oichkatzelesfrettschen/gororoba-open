@@ -1280,14 +1280,39 @@ fn drawn_pair(rng: &mut ChaCha8Rng) -> (usize, usize) {
     (i, j)
 }
 
+/// The cell whose surrogates a cell reuses: the cell of the z = 0 layer above it when all 64
+/// states of the two cells agree bit for bit, else the cell itself. Cells that carry one
+/// 64-state history take one transformation per surrogate, so a surrogate keeps the replication
+/// of the z layers and removes only the temporal order.
+fn z_copy_representatives(run: &NullRun) -> Vec<usize> {
+    let layer = NX * NY;
+    (0..CELLS)
+        .map(|cell| {
+            let base = cell % layer;
+            let copy = cell != base
+                && (0..HISTORY).all(|t| {
+                    let s = run.state(t);
+                    s[cell * Q..(cell + 1) * Q]
+                        .iter()
+                        .zip(&s[base * Q..(base + 1) * Q])
+                        .all(|(a, b)| a.to_bits() == b.to_bits())
+                });
+            if copy { base } else { cell }
+        })
+        .collect()
+}
+
 /// Surrogate scores of the increment nulls: for each cell, the associator,
 /// Gram volume and step difference of `nsur` series per kind, laid out
 /// `[kind][score][surrogate]`. Kinds: block permutation, drawn increments,
 /// phase randomization. The end state is fixed; the last two increments come from the
-/// cell's own 63 increments.
+/// cell's own 63 increments. The streams are addressed by `representative[cell]`, so the
+/// bitwise-identical z copies of a cell share its draws and its surrogate values; cells
+/// related by the in-plane lattice reflections draw independently.
 fn increment_surrogates(
     run_index: usize,
     run: &NullRun,
+    representative: &[usize],
     pathion: &Algebra,
     seeds: &Seeds,
     nsur: usize,
@@ -1305,7 +1330,8 @@ fn increment_surrogates(
             ]
         })
         .collect();
-    (0..CELLS)
+    let own: Vec<usize> = (0..CELLS).filter(|&c| representative[c] == c).collect();
+    let computed: Vec<(usize, Vec<f64>)> = own
         .into_par_iter()
         .map(|cell| {
             let mut inc = vec![[0.0; Q]; INCREMENTS];
@@ -1371,9 +1397,19 @@ fn increment_surrogates(
                 }
                 put(2, t, triple_scores(pathion, end, &last[0], &last[1]));
             }
-            out
+            (cell, out)
         })
-        .collect()
+        .collect();
+    let mut by_cell: Vec<Vec<f64>> = vec![Vec::new(); CELLS];
+    for (cell, out) in computed {
+        by_cell[cell] = out;
+    }
+    for cell in 0..CELLS {
+        if representative[cell] != cell {
+            by_cell[cell] = by_cell[representative[cell]].clone();
+        }
+    }
+    by_cell
 }
 
 // ------------------------------------------------------- logistic regression
@@ -1600,6 +1636,8 @@ struct RunOut {
     order_spearman: Vec<f64>,
     /// Kind x score x surrogate: pairs of this run above the bound.
     inc_counts: Vec<Vec<Vec<usize>>>,
+    /// Cells whose surrogates are those of the z = 0 cell above them.
+    surrogate_shared_cells: usize,
 }
 
 fn retained_areas(a: &super::ScoreAucs) -> [Option<f64>; 5] {
@@ -1843,7 +1881,9 @@ fn process_run(
 
     // Increment surrogates.
     let nsur = args.surrogates;
-    let surrogate = increment_surrogates(index, run, &algs[0].1, seeds, nsur);
+    let representative = z_copy_representatives(run);
+    let shared_cells = (0..CELLS).filter(|&c| representative[c] != c).count();
+    let surrogate = increment_surrogates(index, run, &representative, &algs[0].1, seeds, nsur);
     let mut inc_counts = vec![vec![vec![0usize; nsur]; 3]; 3];
 
     // Pairs.
@@ -1988,6 +2028,7 @@ fn process_run(
         order_share,
         order_spearman,
         inc_counts,
+        surrogate_shared_cells: shared_cells,
     })
 }
 
@@ -2191,6 +2232,14 @@ fn increment_section(outs: &[RunOut], pairs: &[&PairOut], nsur: usize) -> Value 
             json!({"by_score": Value::Object(body), "pairs_associator_shift_differs_from_step_shift_by_more_than_0_1": differs}),
         );
     }
+    out.insert(
+        "symmetry_orbits_preserved".to_string(),
+        json!({
+            "preserved": "the z copies of a cell: cells whose 64 states agree bit for bit with those of the z = 0 cell above them take that cell's draws and surrogate values, for all three kinds",
+            "not_preserved": "the orbits of the in-plane lattice reflections (generic orbits of 16 cells, 4 z copies of 4 in-plane images): each in-plane image draws its own transformation, so a surrogate still breaks the pairing of those images",
+            "cells_sharing_a_z0_transformation_by_run": outs.iter().map(|o| o.surrogate_shared_cells).collect::<Vec<_>>(),
+        }),
+    );
     Value::Object(out)
 }
 
@@ -2520,6 +2569,7 @@ fn assemble(
             "max_abs_area_difference_vs_retained_forecast": o.retained_auc_diff,
             "max_relative_associator_difference_vs_cd_kernel": o.kernel_rel_diff,
             "symmetry": o.symmetry,
+            "surrogate_cells_sharing_the_transformation_of_the_z0_cell": o.surrogate_shared_cells,
         })).collect::<Vec<_>>(),
         "pairs": pairs.iter().map(|p| json!({"run": p.run, "quartile": p.quartile, "cells": p.cells,
             "positives": p.positives, "orbits_excluded_for_mixed_labels": p.orbits_excluded, "raw_area": p.raw.to_vec()})).collect::<Vec<_>>(),
@@ -3384,6 +3434,55 @@ mod tests {
         assert!(
             retained_difference(&run, &dropped).is_err(),
             "a missing area"
+        );
+    }
+
+    #[test]
+    fn surrogates_of_bitwise_identical_z_copies_share_their_transformations() {
+        let layer = NX * NY;
+        let mut states = vec![0.0; HISTORY * CELLS * Q];
+        for t in 0..HISTORY {
+            for i in 0..layer * Q {
+                let v = (mix((t * layer * Q + i) as u64) % 1_000_003) as f64 / 1_000_003.0;
+                for z in 0..NZ {
+                    states[(t * CELLS + z * layer) * Q + i] = v;
+                }
+            }
+        }
+        let odd = 3 * layer + 5;
+        states[odd * Q] = f64::from_bits(states[odd * Q].to_bits() + 1);
+        let run = NullRun {
+            key: ConfigKey {
+                tau: 0.5,
+                u0: 0.2,
+                delta: 2.0,
+                eps: 0.05,
+            },
+            first: 300,
+            anchor: 250,
+            states,
+            labels: vec![false; CELLS],
+            quartile: vec![0; CELLS],
+            scores: Vec::new(),
+        };
+        let representative = z_copy_representatives(&run);
+        for (cell, &got) in representative.iter().enumerate() {
+            let want = if cell == odd { odd } else { cell % layer };
+            assert_eq!(got, want, "cell {cell}");
+        }
+        let pathion = algebras(&fixed_seeds()).expect("algebras").remove(0).1;
+        let surrogate = increment_surrogates(0, &run, &representative, &pathion, &fixed_seeds(), 2);
+        assert_eq!(surrogate.len(), CELLS);
+        for cell in (0..CELLS).filter(|&c| c != odd) {
+            assert_eq!(surrogate[cell], surrogate[cell % layer], "cell {cell}");
+        }
+        assert!(
+            surrogate[odd] != surrogate[odd % layer],
+            "a changed copy draws its own surrogates"
+        );
+        assert!(
+            surrogate[0] != surrogate[1],
+            "neighboring cells draw independently"
         );
     }
 
