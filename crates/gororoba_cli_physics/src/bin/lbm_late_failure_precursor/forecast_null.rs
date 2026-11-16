@@ -90,7 +90,8 @@ use super::{
     CELLS, Config, ConfigKey, D3Q19Lattice, DIM, FORECAST_LEAD, FORECAST_WINDOW, Forecast,
     NORM_FLOOR, NX, NY, NZ, Output, P13C_BOUND, P13C_MIN_POSITIVES, Q, QUARTILES, auc, cell_scores,
     distance, fresh_solver, gram_volume, mark_first_bad, mean_ranks, median, orient,
-    population_quartiles, snapshot_into, spearman, unit_vector, violation_in,
+    population_quartiles, require_first_failure, snapshot_into, spearman, unit_vector,
+    violation_in,
 };
 
 /// Names of the six scores, in the order of every per-score array.
@@ -874,6 +875,7 @@ fn simulate(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> Resu
             mark_first_bad(&solver, &mut first_bad, step);
         }
     }
+    require_first_failure(&first_bad, first)?;
     let mut states = Vec::with_capacity(HISTORY * CELLS * Q);
     for s in &ring {
         states.extend_from_slice(s);

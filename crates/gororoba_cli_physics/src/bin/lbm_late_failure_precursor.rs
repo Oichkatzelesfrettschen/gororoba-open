@@ -1252,6 +1252,18 @@ fn mark_first_bad(solver: &LbmSolver3D, first_bad: &mut [Option<usize>], step: u
     }
 }
 
+/// The supplied first violating step must be the earliest step at which any
+/// cell of the replay holds a bad population, so a stale step cannot shift the
+/// anchor and the labels of a run.
+fn require_first_failure(first_bad: &[Option<usize>], first: usize) -> Result<()> {
+    match first_bad.iter().flatten().copied().min() {
+        Some(step) if step == first => Ok(()),
+        found => bail!(
+            "the first violating step {first} differs from the earliest bad population of the replay ({found:?})"
+        ),
+    }
+}
+
 /// Step a configuration to the anchor F - 50 and 100 steps past it, scoring
 /// every cell from the states at steps t-2, t-1, t and labeling the cells that
 /// first hold a bad population after t.
@@ -1289,6 +1301,7 @@ fn forecast_run(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> 
             mark_first_bad(&solver, &mut first_bad, step);
         }
     }
+    require_first_failure(&first_bad, first)?;
     let scores = cell_scores(lattice, &recent[0], &recent[1], &recent[2]);
     let quartile = population_quartiles(&scores.min_population_share);
     Ok(RunData {
@@ -1692,6 +1705,19 @@ mod tests {
         assert_eq!(first_bad[9], Some(11));
         assert_eq!(first_bad[6], None);
         assert_eq!(first_bad.iter().filter(|b| b.is_some()).count(), 3);
+    }
+
+    #[test]
+    fn a_stale_first_failure_step_is_rejected() {
+        let mut first_bad: Vec<Option<usize>> = vec![None; CELLS];
+        first_bad[3] = Some(280);
+        first_bad[9] = Some(268);
+        first_bad[10] = Some(268);
+        assert!(require_first_failure(&first_bad, 268).is_ok());
+        assert!(require_first_failure(&first_bad, 280).is_err());
+        assert!(require_first_failure(&first_bad, 250).is_err());
+        let none: Vec<Option<usize>> = vec![None; CELLS];
+        assert!(require_first_failure(&none, 268).is_err());
     }
 
     #[test]
