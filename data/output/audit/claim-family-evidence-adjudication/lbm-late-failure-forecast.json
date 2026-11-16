@@ -1,0 +1,1699 @@
+{
+  "anchor_lead": 50,
+  "window": 100,
+  "stratified_by": "smallest population over the density at the anchor",
+  "runs": [
+    {
+      "config": {
+        "tau": 0.502,
+        "u0": 0.12,
+        "delta": 1.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 268,
+      "anchor": 218,
+      "cells": 16384,
+      "positives": 192,
+      "all_cells": {
+        "associator": {
+          "auc": 0.5714190135046113,
+          "orientation": "lower",
+          "unoriented_auc": 0.42858098649538867
+        },
+        "gram_volume": {
+          "auc": 0.7964015151515151,
+          "orientation": "lower",
+          "unoriented_auc": 0.20359848484848486
+        },
+        "step_difference": {
+          "auc": 0.8283926218708828,
+          "orientation": "lower",
+          "unoriented_auc": 0.17160737812911725
+        },
+        "mach": {
+          "auc": 0.887598814229249,
+          "orientation": "lower",
+          "unoriented_auc": 0.11240118577075099
+        },
+        "min_population_share": {
+          "auc": 0.550971673254282,
+          "orientation": "higher",
+          "unoriented_auc": 0.550971673254282
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 80,
+          "auc": {
+            "associator": {
+              "auc": 0.5050298804780876,
+              "orientation": "higher",
+              "unoriented_auc": 0.5050298804780876
+            },
+            "gram_volume": {
+              "auc": 0.7043824701195219,
+              "orientation": "lower",
+              "unoriented_auc": 0.29561752988047807
+            },
+            "step_difference": {
+              "auc": 0.7641434262948207,
+              "orientation": "lower",
+              "unoriented_auc": 0.2358565737051793
+            },
+            "mach": {
+              "auc": 0.9426294820717132,
+              "orientation": "lower",
+              "unoriented_auc": 0.05737051792828685
+            },
+            "min_population_share": {
+              "auc": 0.9936254980079682,
+              "orientation": "higher",
+              "unoriented_auc": 0.9936254980079682
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 0,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 48,
+          "auc": {
+            "associator": {
+              "auc": 0.6627964426877471,
+              "orientation": "lower",
+              "unoriented_auc": 0.337203557312253
+            },
+            "gram_volume": {
+              "auc": 0.8300395256916996,
+              "orientation": "lower",
+              "unoriented_auc": 0.16996047430830039
+            },
+            "step_difference": {
+              "auc": 0.8577075098814229,
+              "orientation": "lower",
+              "unoriented_auc": 0.1422924901185771
+            },
+            "mach": {
+              "auc": 0.9064558629776021,
+              "orientation": "lower",
+              "unoriented_auc": 0.09354413702239789
+            },
+            "min_population_share": {
+              "auc": 0.7351778656126482,
+              "orientation": "higher",
+              "unoriented_auc": 0.7351778656126482
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 64,
+          "auc": {
+            "associator": {
+              "auc": 0.6848958333333333,
+              "orientation": "lower",
+              "unoriented_auc": 0.3151041666666667
+            },
+            "gram_volume": {
+              "auc": 0.8740079365079365,
+              "orientation": "lower",
+              "unoriented_auc": 0.1259920634920635
+            },
+            "step_difference": {
+              "auc": 0.9047619047619048,
+              "orientation": "lower",
+              "unoriented_auc": 0.09523809523809523
+            },
+            "mach": {
+              "auc": 0.7777777777777778,
+              "orientation": "lower",
+              "unoriented_auc": 0.2222222222222222
+            },
+            "min_population_share": {
+              "auc": 0.6775793650793651,
+              "orientation": "lower",
+              "unoriented_auc": 0.32242063492063494
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.502,
+        "u0": 0.16,
+        "delta": 2.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 338,
+      "anchor": 288,
+      "cells": 16384,
+      "positives": 80,
+      "all_cells": {
+        "associator": {
+          "auc": 0.6910819430814523,
+          "orientation": "lower",
+          "unoriented_auc": 0.3089180569185476
+        },
+        "gram_volume": {
+          "auc": 0.6924435721295388,
+          "orientation": "lower",
+          "unoriented_auc": 0.3075564278704612
+        },
+        "step_difference": {
+          "auc": 0.7425907752698724,
+          "orientation": "lower",
+          "unoriented_auc": 0.25740922473012756
+        },
+        "mach": {
+          "auc": 0.9022571148184495,
+          "orientation": "lower",
+          "unoriented_auc": 0.09774288518155054
+        },
+        "min_population_share": {
+          "auc": 0.6213935230618253,
+          "orientation": "higher",
+          "unoriented_auc": 0.6213935230618253
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 32,
+          "auc": {
+            "associator": {
+              "auc": 0.6678149606299213,
+              "orientation": "lower",
+              "unoriented_auc": 0.33218503937007876
+            },
+            "gram_volume": {
+              "auc": 0.7007874015748031,
+              "orientation": "lower",
+              "unoriented_auc": 0.2992125984251969
+            },
+            "step_difference": {
+              "auc": 0.8582677165354331,
+              "orientation": "lower",
+              "unoriented_auc": 0.14173228346456693
+            },
+            "mach": {
+              "auc": 0.9921259842519685,
+              "orientation": "lower",
+              "unoriented_auc": 0.007874015748031496
+            },
+            "min_population_share": {
+              "auc": 1.0,
+              "orientation": "higher",
+              "unoriented_auc": 1.0
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 16,
+          "auc": {
+            "associator": {
+              "auc": 0.9240196078431373,
+              "orientation": "lower",
+              "unoriented_auc": 0.07598039215686274
+            },
+            "gram_volume": {
+              "auc": 0.8549019607843137,
+              "orientation": "lower",
+              "unoriented_auc": 0.1450980392156863
+            },
+            "step_difference": {
+              "auc": 0.7843137254901961,
+              "orientation": "lower",
+              "unoriented_auc": 0.21568627450980393
+            },
+            "mach": {
+              "auc": 0.996078431372549,
+              "orientation": "lower",
+              "unoriented_auc": 0.00392156862745098
+            },
+            "min_population_share": {
+              "auc": 0.7764705882352941,
+              "orientation": "lower",
+              "unoriented_auc": 0.2235294117647059
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 16,
+          "auc": {
+            "associator": {
+              "auc": 0.6102941176470589,
+              "orientation": "lower",
+              "unoriented_auc": 0.3897058823529412
+            },
+            "gram_volume": {
+              "auc": 0.5882352941176471,
+              "orientation": "lower",
+              "unoriented_auc": 0.4117647058823529
+            },
+            "step_difference": {
+              "auc": 0.6588235294117647,
+              "orientation": "lower",
+              "unoriented_auc": 0.3411764705882353
+            },
+            "mach": {
+              "auc": 0.9843137254901961,
+              "orientation": "lower",
+              "unoriented_auc": 0.01568627450980392
+            },
+            "min_population_share": {
+              "auc": 0.592156862745098,
+              "orientation": "lower",
+              "unoriented_auc": 0.40784313725490196
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 16,
+          "auc": {
+            "associator": {
+              "auc": 0.8362745098039216,
+              "orientation": "lower",
+              "unoriented_auc": 0.16372549019607843
+            },
+            "gram_volume": {
+              "auc": 0.7333333333333334,
+              "orientation": "lower",
+              "unoriented_auc": 0.26666666666666666
+            },
+            "step_difference": {
+              "auc": 0.7588235294117647,
+              "orientation": "lower",
+              "unoriented_auc": 0.2411764705882353
+            },
+            "mach": {
+              "auc": 0.7137254901960784,
+              "orientation": "lower",
+              "unoriented_auc": 0.28627450980392155
+            },
+            "min_population_share": {
+              "auc": 0.792156862745098,
+              "orientation": "higher",
+              "unoriented_auc": 0.792156862745098
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.501,
+        "u0": 0.2,
+        "delta": 2.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 208,
+      "anchor": 158,
+      "cells": 16384,
+      "positives": 1376,
+      "all_cells": {
+        "associator": {
+          "auc": 0.5518684608518867,
+          "orientation": "lower",
+          "unoriented_auc": 0.44813153914811327
+        },
+        "gram_volume": {
+          "auc": 0.5046858729607775,
+          "orientation": "lower",
+          "unoriented_auc": 0.4953141270392225
+        },
+        "step_difference": {
+          "auc": 0.5010289086130808,
+          "orientation": "higher",
+          "unoriented_auc": 0.5010289086130808
+        },
+        "mach": {
+          "auc": 0.6837655575940893,
+          "orientation": "lower",
+          "unoriented_auc": 0.31623444240591064
+        },
+        "min_population_share": {
+          "auc": 0.5487429959835375,
+          "orientation": "lower",
+          "unoriented_auc": 0.4512570040164625
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 320,
+          "auc": {
+            "associator": {
+              "auc": 0.5127515889830508,
+              "orientation": "higher",
+              "unoriented_auc": 0.5127515889830508
+            },
+            "gram_volume": {
+              "auc": 0.5091101694915254,
+              "orientation": "higher",
+              "unoriented_auc": 0.5091101694915254
+            },
+            "step_difference": {
+              "auc": 0.661864406779661,
+              "orientation": "higher",
+              "unoriented_auc": 0.661864406779661
+            },
+            "mach": {
+              "auc": 0.7786016949152542,
+              "orientation": "lower",
+              "unoriented_auc": 0.22139830508474576
+            },
+            "min_population_share": {
+              "auc": 0.7129237288135594,
+              "orientation": "higher",
+              "unoriented_auc": 0.7129237288135594
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 224,
+          "auc": {
+            "associator": {
+              "auc": 0.5270439787485242,
+              "orientation": "higher",
+              "unoriented_auc": 0.5270439787485242
+            },
+            "gram_volume": {
+              "auc": 0.5537190082644627,
+              "orientation": "lower",
+              "unoriented_auc": 0.4462809917355372
+            },
+            "step_difference": {
+              "auc": 0.7514757969303424,
+              "orientation": "lower",
+              "unoriented_auc": 0.2485242030696576
+            },
+            "mach": {
+              "auc": 0.7544273907910272,
+              "orientation": "lower",
+              "unoriented_auc": 0.24557260920897284
+            },
+            "min_population_share": {
+              "auc": 0.6558441558441559,
+              "orientation": "higher",
+              "unoriented_auc": 0.6558441558441559
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 384,
+          "auc": {
+            "associator": {
+              "auc": 0.612933279454023,
+              "orientation": "lower",
+              "unoriented_auc": 0.387066720545977
+            },
+            "gram_volume": {
+              "auc": 0.5233477011494253,
+              "orientation": "lower",
+              "unoriented_auc": 0.4766522988505747
+            },
+            "step_difference": {
+              "auc": 0.5091594827586207,
+              "orientation": "higher",
+              "unoriented_auc": 0.5091594827586207
+            },
+            "mach": {
+              "auc": 0.71875,
+              "orientation": "lower",
+              "unoriented_auc": 0.28125
+            },
+            "min_population_share": {
+              "auc": 0.697198275862069,
+              "orientation": "lower",
+              "unoriented_auc": 0.30280172413793105
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 448,
+          "auc": {
+            "associator": {
+              "auc": 0.5439477600250626,
+              "orientation": "lower",
+              "unoriented_auc": 0.4560522399749373
+            },
+            "gram_volume": {
+              "auc": 0.5242794486215538,
+              "orientation": "lower",
+              "unoriented_auc": 0.4757205513784461
+            },
+            "step_difference": {
+              "auc": 0.5328164160401003,
+              "orientation": "lower",
+              "unoriented_auc": 0.46718358395989973
+            },
+            "mach": {
+              "auc": 0.5347744360902256,
+              "orientation": "lower",
+              "unoriented_auc": 0.46522556390977443
+            },
+            "min_population_share": {
+              "auc": 0.5023496240601504,
+              "orientation": "lower",
+              "unoriented_auc": 0.4976503759398496
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.502,
+        "u0": 0.2,
+        "delta": 2.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 233,
+      "anchor": 183,
+      "cells": 16384,
+      "positives": 512,
+      "all_cells": {
+        "associator": {
+          "auc": 0.50830078125,
+          "orientation": "higher",
+          "unoriented_auc": 0.50830078125
+        },
+        "gram_volume": {
+          "auc": 0.5327620967741935,
+          "orientation": "higher",
+          "unoriented_auc": 0.5327620967741935
+        },
+        "step_difference": {
+          "auc": 0.5445438508064516,
+          "orientation": "higher",
+          "unoriented_auc": 0.5445438508064516
+        },
+        "mach": {
+          "auc": 0.6964780745967742,
+          "orientation": "lower",
+          "unoriented_auc": 0.3035219254032258
+        },
+        "min_population_share": {
+          "auc": 0.5085370463709677,
+          "orientation": "lower",
+          "unoriented_auc": 0.49146295362903225
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 176,
+          "auc": {
+            "associator": {
+              "auc": 0.6118506493506494,
+              "orientation": "higher",
+              "unoriented_auc": 0.6118506493506494
+            },
+            "gram_volume": {
+              "auc": 0.6126159554730983,
+              "orientation": "higher",
+              "unoriented_auc": 0.6126159554730983
+            },
+            "step_difference": {
+              "auc": 0.5647495361781076,
+              "orientation": "lower",
+              "unoriented_auc": 0.4352504638218924
+            },
+            "mach": {
+              "auc": 0.8697588126159554,
+              "orientation": "lower",
+              "unoriented_auc": 0.13024118738404453
+            },
+            "min_population_share": {
+              "auc": 0.6916512059369202,
+              "orientation": "higher",
+              "unoriented_auc": 0.6916512059369202
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 64,
+          "auc": {
+            "associator": {
+              "auc": 0.6572420634920635,
+              "orientation": "higher",
+              "unoriented_auc": 0.6572420634920635
+            },
+            "gram_volume": {
+              "auc": 0.7767857142857143,
+              "orientation": "higher",
+              "unoriented_auc": 0.7767857142857143
+            },
+            "step_difference": {
+              "auc": 0.560515873015873,
+              "orientation": "higher",
+              "unoriented_auc": 0.560515873015873
+            },
+            "mach": {
+              "auc": 0.7132936507936508,
+              "orientation": "lower",
+              "unoriented_auc": 0.2867063492063492
+            },
+            "min_population_share": {
+              "auc": 0.5238095238095238,
+              "orientation": "higher",
+              "unoriented_auc": 0.5238095238095238
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 64,
+          "auc": {
+            "associator": {
+              "auc": 0.5833333333333334,
+              "orientation": "higher",
+              "unoriented_auc": 0.5833333333333334
+            },
+            "gram_volume": {
+              "auc": 0.5188492063492063,
+              "orientation": "lower",
+              "unoriented_auc": 0.48115079365079366
+            },
+            "step_difference": {
+              "auc": 0.5327380952380952,
+              "orientation": "higher",
+              "unoriented_auc": 0.5327380952380952
+            },
+            "mach": {
+              "auc": 0.6378968253968254,
+              "orientation": "lower",
+              "unoriented_auc": 0.3621031746031746
+            },
+            "min_population_share": {
+              "auc": 0.6448412698412698,
+              "orientation": "lower",
+              "unoriented_auc": 0.3551587301587302
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 208,
+          "auc": {
+            "associator": {
+              "auc": 0.5152342513453625,
+              "orientation": "lower",
+              "unoriented_auc": 0.48476574865463756
+            },
+            "gram_volume": {
+              "auc": 0.5243748021525799,
+              "orientation": "higher",
+              "unoriented_auc": 0.5243748021525799
+            },
+            "step_difference": {
+              "auc": 0.6581196581196581,
+              "orientation": "higher",
+              "unoriented_auc": 0.6581196581196581
+            },
+            "mach": {
+              "auc": 0.586894586894587,
+              "orientation": "lower",
+              "unoriented_auc": 0.4131054131054131
+            },
+            "min_population_share": {
+              "auc": 0.5324469768914213,
+              "orientation": "higher",
+              "unoriented_auc": 0.5324469768914213
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.501,
+        "u0": 0.16,
+        "delta": 2.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 277,
+      "anchor": 227,
+      "cells": 16384,
+      "positives": 240,
+      "all_cells": {
+        "associator": {
+          "auc": 0.6162702345556657,
+          "orientation": "higher",
+          "unoriented_auc": 0.6162702345556657
+        },
+        "gram_volume": {
+          "auc": 0.6045589692765114,
+          "orientation": "lower",
+          "unoriented_auc": 0.39544103072348863
+        },
+        "step_difference": {
+          "auc": 0.5000991080277503,
+          "orientation": "lower",
+          "unoriented_auc": 0.49990089197224974
+        },
+        "mach": {
+          "auc": 0.894020482325735,
+          "orientation": "lower",
+          "unoriented_auc": 0.10597951767426494
+        },
+        "min_population_share": {
+          "auc": 0.6748595969606872,
+          "orientation": "lower",
+          "unoriented_auc": 0.32514040303931285
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 48,
+          "auc": {
+            "associator": {
+              "auc": 0.9319005270092227,
+              "orientation": "lower",
+              "unoriented_auc": 0.06809947299077734
+            },
+            "gram_volume": {
+              "auc": 0.9143610013175231,
+              "orientation": "lower",
+              "unoriented_auc": 0.08563899868247694
+            },
+            "step_difference": {
+              "auc": 0.9117259552042161,
+              "orientation": "higher",
+              "unoriented_auc": 0.9117259552042161
+            },
+            "mach": {
+              "auc": 0.9631093544137023,
+              "orientation": "lower",
+              "unoriented_auc": 0.03689064558629776
+            },
+            "min_population_share": {
+              "auc": 0.541501976284585,
+              "orientation": "higher",
+              "unoriented_auc": 0.541501976284585
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 32,
+          "auc": {
+            "associator": {
+              "auc": 0.9920029527559056,
+              "orientation": "higher",
+              "unoriented_auc": 0.9920029527559056
+            },
+            "gram_volume": {
+              "auc": 0.8582677165354331,
+              "orientation": "higher",
+              "unoriented_auc": 0.8582677165354331
+            },
+            "step_difference": {
+              "auc": 0.7421259842519685,
+              "orientation": "lower",
+              "unoriented_auc": 0.2578740157480315
+            },
+            "mach": {
+              "auc": 1.0,
+              "orientation": "lower",
+              "unoriented_auc": 0.0
+            },
+            "min_population_share": {
+              "auc": 0.7637795275590551,
+              "orientation": "lower",
+              "unoriented_auc": 0.23622047244094488
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 0,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 160,
+          "auc": {
+            "associator": {
+              "auc": 0.7121697154471545,
+              "orientation": "higher",
+              "unoriented_auc": 0.7121697154471545
+            },
+            "gram_volume": {
+              "auc": 0.5926829268292684,
+              "orientation": "lower",
+              "unoriented_auc": 0.4073170731707317
+            },
+            "step_difference": {
+              "auc": 0.5451219512195122,
+              "orientation": "lower",
+              "unoriented_auc": 0.4548780487804878
+            },
+            "mach": {
+              "auc": 0.683739837398374,
+              "orientation": "lower",
+              "unoriented_auc": 0.31626016260162604
+            },
+            "min_population_share": {
+              "auc": 0.5455284552845528,
+              "orientation": "lower",
+              "unoriented_auc": 0.45447154471544715
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.501,
+        "u0": 0.3,
+        "delta": 4.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 326,
+      "anchor": 276,
+      "cells": 16384,
+      "positives": 16384,
+      "all_cells": {
+        "associator": {
+          "auc": null,
+          "orientation": null,
+          "unoriented_auc": null
+        },
+        "gram_volume": {
+          "auc": null,
+          "orientation": null,
+          "unoriented_auc": null
+        },
+        "step_difference": {
+          "auc": null,
+          "orientation": null,
+          "unoriented_auc": null
+        },
+        "mach": {
+          "auc": null,
+          "orientation": null,
+          "unoriented_auc": null
+        },
+        "min_population_share": {
+          "auc": null,
+          "orientation": null,
+          "unoriented_auc": null
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.501,
+        "u0": 0.25,
+        "delta": 4.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 435,
+      "anchor": 385,
+      "cells": 16384,
+      "positives": 15976,
+      "all_cells": {
+        "associator": {
+          "auc": 0.8999234145335651,
+          "orientation": "higher",
+          "unoriented_auc": 0.8999234145335651
+        },
+        "gram_volume": {
+          "auc": 0.850540516657339,
+          "orientation": "higher",
+          "unoriented_auc": 0.850540516657339
+        },
+        "step_difference": {
+          "auc": 0.6602747258142115,
+          "orientation": "higher",
+          "unoriented_auc": 0.6602747258142115
+        },
+        "mach": {
+          "auc": 0.9387807200997574,
+          "orientation": "higher",
+          "unoriented_auc": 0.9387807200997574
+        },
+        "min_population_share": {
+          "auc": 0.9165316602354512,
+          "orientation": "higher",
+          "unoriented_auc": 0.9165316602354512
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 4096,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 4080,
+          "auc": {
+            "associator": {
+              "auc": 0.9735294117647059,
+              "orientation": "lower",
+              "unoriented_auc": 0.026470588235294117
+            },
+            "gram_volume": {
+              "auc": 0.9098039215686274,
+              "orientation": "lower",
+              "unoriented_auc": 0.09019607843137255
+            },
+            "step_difference": {
+              "auc": 0.6235294117647059,
+              "orientation": "higher",
+              "unoriented_auc": 0.6235294117647059
+            },
+            "mach": {
+              "auc": 0.7686274509803921,
+              "orientation": "lower",
+              "unoriented_auc": 0.23137254901960785
+            },
+            "min_population_share": {
+              "auc": 0.6745098039215687,
+              "orientation": "lower",
+              "unoriented_auc": 0.3254901960784314
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 3704,
+          "auc": {
+            "associator": {
+              "auc": 0.7533499360867457,
+              "orientation": "higher",
+              "unoriented_auc": 0.7533499360867457
+            },
+            "gram_volume": {
+              "auc": 0.6798166350773571,
+              "orientation": "higher",
+              "unoriented_auc": 0.6798166350773571
+            },
+            "step_difference": {
+              "auc": 0.5615991537003571,
+              "orientation": "higher",
+              "unoriented_auc": 0.5615991537003571
+            },
+            "mach": {
+              "auc": 0.8093621898003261,
+              "orientation": "higher",
+              "unoriented_auc": 0.8093621898003261
+            },
+            "min_population_share": {
+              "auc": 0.696434081191872,
+              "orientation": "higher",
+              "unoriented_auc": 0.696434081191872
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.5005,
+        "u0": 0.2,
+        "delta": 4.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 1498,
+      "anchor": 1448,
+      "cells": 16384,
+      "positives": 304,
+      "all_cells": {
+        "associator": {
+          "auc": 0.8029850746268656,
+          "orientation": "higher",
+          "unoriented_auc": 0.8029850746268656
+        },
+        "gram_volume": {
+          "auc": 0.7487824037706206,
+          "orientation": "higher",
+          "unoriented_auc": 0.7487824037706206
+        },
+        "step_difference": {
+          "auc": 0.6578161822466614,
+          "orientation": "higher",
+          "unoriented_auc": 0.6578161822466614
+        },
+        "mach": {
+          "auc": 0.6406912804399058,
+          "orientation": "higher",
+          "unoriented_auc": 0.6406912804399058
+        },
+        "min_population_share": {
+          "auc": 0.6307410316836868,
+          "orientation": "lower",
+          "unoriented_auc": 0.36925896831631316
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 0,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 48,
+          "auc": {
+            "associator": {
+              "auc": 0.8390974967061924,
+              "orientation": "higher",
+              "unoriented_auc": 0.8390974967061924
+            },
+            "gram_volume": {
+              "auc": 0.7351778656126482,
+              "orientation": "higher",
+              "unoriented_auc": 0.7351778656126482
+            },
+            "step_difference": {
+              "auc": 0.8866930171277997,
+              "orientation": "higher",
+              "unoriented_auc": 0.8866930171277997
+            },
+            "mach": {
+              "auc": 0.8801054018445322,
+              "orientation": "higher",
+              "unoriented_auc": 0.8801054018445322
+            },
+            "min_population_share": {
+              "auc": 0.5362318840579711,
+              "orientation": "higher",
+              "unoriented_auc": 0.5362318840579711
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 192,
+          "auc": {
+            "associator": {
+              "auc": 0.8960040983606558,
+              "orientation": "higher",
+              "unoriented_auc": 0.8960040983606558
+            },
+            "gram_volume": {
+              "auc": 0.8309426229508197,
+              "orientation": "higher",
+              "unoriented_auc": 0.8309426229508197
+            },
+            "step_difference": {
+              "auc": 0.7042349726775956,
+              "orientation": "higher",
+              "unoriented_auc": 0.7042349726775956
+            },
+            "mach": {
+              "auc": 0.7602459016393442,
+              "orientation": "higher",
+              "unoriented_auc": 0.7602459016393442
+            },
+            "min_population_share": {
+              "auc": 0.5020491803278688,
+              "orientation": "higher",
+              "unoriented_auc": 0.5020491803278688
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 64,
+          "auc": {
+            "associator": {
+              "auc": 0.5948040674603174,
+              "orientation": "higher",
+              "unoriented_auc": 0.5948040674603174
+            },
+            "gram_volume": {
+              "auc": 0.5535714285714286,
+              "orientation": "higher",
+              "unoriented_auc": 0.5535714285714286
+            },
+            "step_difference": {
+              "auc": 0.6101190476190477,
+              "orientation": "lower",
+              "unoriented_auc": 0.3898809523809524
+            },
+            "mach": {
+              "auc": 0.8303571428571429,
+              "orientation": "higher",
+              "unoriented_auc": 0.8303571428571429
+            },
+            "min_population_share": {
+              "auc": 0.6567460317460317,
+              "orientation": "higher",
+              "unoriented_auc": 0.6567460317460317
+            }
+          }
+        }
+      ]
+    },
+    {
+      "config": {
+        "tau": 0.501,
+        "u0": 0.2,
+        "delta": 4.0,
+        "eps": 0.05
+      },
+      "first_violation_step": 3941,
+      "anchor": 3891,
+      "cells": 16384,
+      "positives": 112,
+      "all_cells": {
+        "associator": {
+          "auc": 0.5900143980896193,
+          "orientation": "higher",
+          "unoriented_auc": 0.5900143980896193
+        },
+        "gram_volume": {
+          "auc": 0.6039823008849557,
+          "orientation": "higher",
+          "unoriented_auc": 0.6039823008849557
+        },
+        "step_difference": {
+          "auc": 0.7155499367888748,
+          "orientation": "higher",
+          "unoriented_auc": 0.7155499367888748
+        },
+        "mach": {
+          "auc": 0.7824834948728754,
+          "orientation": "higher",
+          "unoriented_auc": 0.7824834948728754
+        },
+        "min_population_share": {
+          "auc": 0.5910240202275601,
+          "orientation": "higher",
+          "unoriented_auc": 0.5910240202275601
+        }
+      },
+      "quartiles": [
+        {
+          "quartile": 0,
+          "cells": 4096,
+          "positives": 24,
+          "auc": {
+            "associator": {
+              "auc": 0.6448919449901768,
+              "orientation": "higher",
+              "unoriented_auc": 0.6448919449901768
+            },
+            "gram_volume": {
+              "auc": 0.7753765553372626,
+              "orientation": "higher",
+              "unoriented_auc": 0.7753765553372626
+            },
+            "step_difference": {
+              "auc": 0.7111984282907662,
+              "orientation": "higher",
+              "unoriented_auc": 0.7111984282907662
+            },
+            "mach": {
+              "auc": 0.779305828421742,
+              "orientation": "higher",
+              "unoriented_auc": 0.779305828421742
+            },
+            "min_population_share": {
+              "auc": 0.9024230517354289,
+              "orientation": "lower",
+              "unoriented_auc": 0.09757694826457106
+            }
+          }
+        },
+        {
+          "quartile": 1,
+          "cells": 4096,
+          "positives": 40,
+          "auc": {
+            "associator": {
+              "auc": 0.7684418145956607,
+              "orientation": "higher",
+              "unoriented_auc": 0.7684418145956607
+            },
+            "gram_volume": {
+              "auc": 0.7589743589743589,
+              "orientation": "higher",
+              "unoriented_auc": 0.7589743589743589
+            },
+            "step_difference": {
+              "auc": 0.8497041420118343,
+              "orientation": "higher",
+              "unoriented_auc": 0.8497041420118343
+            },
+            "mach": {
+              "auc": 0.5538461538461539,
+              "orientation": "higher",
+              "unoriented_auc": 0.5538461538461539
+            },
+            "min_population_share": {
+              "auc": 0.9116370808678501,
+              "orientation": "higher",
+              "unoriented_auc": 0.9116370808678501
+            }
+          }
+        },
+        {
+          "quartile": 2,
+          "cells": 4096,
+          "positives": 48,
+          "auc": {
+            "associator": {
+              "auc": 0.6872529644268774,
+              "orientation": "lower",
+              "unoriented_auc": 0.31274703557312256
+            },
+            "gram_volume": {
+              "auc": 0.7002635046113307,
+              "orientation": "lower",
+              "unoriented_auc": 0.2997364953886693
+            },
+            "step_difference": {
+              "auc": 0.5349143610013175,
+              "orientation": "higher",
+              "unoriented_auc": 0.5349143610013175
+            },
+            "mach": {
+              "auc": 0.841897233201581,
+              "orientation": "higher",
+              "unoriented_auc": 0.841897233201581
+            },
+            "min_population_share": {
+              "auc": 0.5378787878787878,
+              "orientation": "higher",
+              "unoriented_auc": 0.5378787878787878
+            }
+          }
+        },
+        {
+          "quartile": 3,
+          "cells": 4096,
+          "positives": 0,
+          "auc": {
+            "associator": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "gram_volume": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "step_difference": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "mach": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            },
+            "min_population_share": {
+              "auc": null,
+              "orientation": null,
+              "unoriented_auc": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "skipped_duplicate_configs": [
+    {
+      "tau": 0.502,
+      "u0": 0.16,
+      "delta": 2.0,
+      "eps": 0.05
+    }
+  ],
+  "pooled_all_cells": {
+    "associator": {
+      "auc": 0.7049403603632655,
+      "orientation": "higher",
+      "unoriented_auc": 0.7049403603632655
+    },
+    "gram_volume": {
+      "auc": 0.7157407660224986,
+      "orientation": "higher",
+      "unoriented_auc": 0.7157407660224986
+    },
+    "step_difference": {
+      "auc": 0.6971398625824081,
+      "orientation": "higher",
+      "unoriented_auc": 0.6971398625824081
+    },
+    "mach": {
+      "auc": 0.753347750056938,
+      "orientation": "higher",
+      "unoriented_auc": 0.753347750056938
+    },
+    "min_population_share": {
+      "auc": 0.7312244098159683,
+      "orientation": "higher",
+      "unoriented_auc": 0.7312244098159683
+    }
+  },
+  "pooled_by_quartile": [
+    {
+      "quartile": 0,
+      "cells": 36864,
+      "positives": 8872,
+      "auc": {
+        "associator": {
+          "auc": 0.8132620527158216,
+          "orientation": "higher",
+          "unoriented_auc": 0.8132620527158216
+        },
+        "gram_volume": {
+          "auc": 0.719601194828047,
+          "orientation": "higher",
+          "unoriented_auc": 0.719601194828047
+        },
+        "step_difference": {
+          "auc": 0.6683388349266866,
+          "orientation": "higher",
+          "unoriented_auc": 0.6683388349266866
+        },
+        "mach": {
+          "auc": 0.9494002021961189,
+          "orientation": "higher",
+          "unoriented_auc": 0.9494002021961189
+        },
+        "min_population_share": {
+          "auc": 0.7738604176744045,
+          "orientation": "higher",
+          "unoriented_auc": 0.7738604176744045
+        }
+      }
+    },
+    {
+      "quartile": 1,
+      "cells": 36864,
+      "positives": 8616,
+      "auc": {
+        "associator": {
+          "auc": 0.7718384085564467,
+          "orientation": "higher",
+          "unoriented_auc": 0.7718384085564467
+        },
+        "gram_volume": {
+          "auc": 0.7203122259483388,
+          "orientation": "higher",
+          "unoriented_auc": 0.7203122259483388
+        },
+        "step_difference": {
+          "auc": 0.6915856295493398,
+          "orientation": "higher",
+          "unoriented_auc": 0.6915856295493398
+        },
+        "mach": {
+          "auc": 0.9468885086514535,
+          "orientation": "higher",
+          "unoriented_auc": 0.9468885086514535
+        },
+        "min_population_share": {
+          "auc": 0.9669998083035336,
+          "orientation": "higher",
+          "unoriented_auc": 0.9669998083035336
+        }
+      }
+    },
+    {
+      "quartile": 2,
+      "cells": 36864,
+      "positives": 8928,
+      "auc": {
+        "associator": {
+          "auc": 0.6679907376615059,
+          "orientation": "higher",
+          "unoriented_auc": 0.6679907376615059
+        },
+        "gram_volume": {
+          "auc": 0.7048702205142733,
+          "orientation": "higher",
+          "unoriented_auc": 0.7048702205142733
+        },
+        "step_difference": {
+          "auc": 0.7070775187114839,
+          "orientation": "higher",
+          "unoriented_auc": 0.7070775187114839
+        },
+        "mach": {
+          "auc": 0.8150770629847229,
+          "orientation": "higher",
+          "unoriented_auc": 0.8150770629847229
+        },
+        "min_population_share": {
+          "auc": 0.9529808533175677,
+          "orientation": "higher",
+          "unoriented_auc": 0.9529808533175677
+        }
+      }
+    },
+    {
+      "quartile": 3,
+      "cells": 36864,
+      "positives": 8760,
+      "auc": {
+        "associator": {
+          "auc": 0.5941458795575989,
+          "orientation": "higher",
+          "unoriented_auc": 0.5941458795575989
+        },
+        "gram_volume": {
+          "auc": 0.7105683131278864,
+          "orientation": "higher",
+          "unoriented_auc": 0.7105683131278864
+        },
+        "step_difference": {
+          "auc": 0.7099129521529297,
+          "orientation": "higher",
+          "unoriented_auc": 0.7099129521529297
+        },
+        "mach": {
+          "auc": 0.5808004060586446,
+          "orientation": "higher",
+          "unoriented_auc": 0.5808004060586446
+        },
+        "min_population_share": {
+          "auc": 0.6174373852110946,
+          "orientation": "higher",
+          "unoriented_auc": 0.6174373852110946
+        }
+      }
+    }
+  ],
+  "p13c": {
+    "pairs_with_enough_positives": 26,
+    "pairs_associator_at_most_bound": 11,
+    "pairs_associator_above_bound": 15,
+    "verdict": "failed"
+  }
+}
