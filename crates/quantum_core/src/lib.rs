@@ -52,6 +52,7 @@ pub mod scaling_laws;
 pub mod spectral_gap_certificate;
 pub mod spinor_mechanics;
 pub mod superfluid;
+pub mod teleportation_frame;
 pub mod tensor_network_classical;
 pub mod tensor_networks;
 pub mod tight_binding;
