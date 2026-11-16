@@ -1,0 +1,16 @@
+[transition]
+transition_key = "c-874-york-time-scope-partial"
+source_claim_id = "C-874"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = []
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or the York time of the implemented shift fails to vanish across the nacelle interior beyond the tested bound."
+proposed_claim_status = "Partial"
+rationale = "The retained Rust tests bound the center values by 0.01 and the York time by 0.1, and the Rocq lemmas concern model functions; no retained check decides vanishing York time across the interior, which the module documentation says the logistic gate does not establish."
+unresolved_assumptions = []
+actor = "registry-statement-correction"
+reason = "Scope C-874 to the evidence that decides it"
+transition_timestamp = "2026-11-16T13:03:26Z"
+expected_source_state_sha256 = "0bf7b1b4cb46dc377a3b913a50de895994dfe3b2005aacc9c6d1f6f4ac3cfd27"
+expected_claim_id_max = 1784

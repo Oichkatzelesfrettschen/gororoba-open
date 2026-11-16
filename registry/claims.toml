@@ -8882,6 +8882,14 @@ status = "Provisional"
 where_stated = "data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null.json; data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null-transition.toml; crates/gororoba_cli_physics/src/bin/themis_cd_crossing_null.rs"
 
 [[claim]]
+id = "C-1785"
+last_verified = "2026-11-16"
+statement = "For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate lies below the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly. The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error."
+status = "Provisional"
+status_note = "The tolerance is the one E-081 records: five Monte Carlo standard errors plus a 15 percent finite-polygon allowance in scalar_plate_polygon_refinement_matches_known_energy, which does not establish agreement within statistical error alone. Polygon discretization biases the energy magnitude downward. The adjudicating experiment is E-081, whose seeded replay command retains no output artifact. Split from C-871, which keeps the analytic electromagnetic reference."
+where_stated = "crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)"
+
+[[claim]]
 id = "C-179"
 last_verified = "2026-02-01"
 statement = "No nonzero nilpotent elements exist in any CD algebra. For unit vectors,||x^n||= 1.0 exactly for all n tested (2 through 5) at all dims through 128. This is a consequence of power-associativity + norm multiplicativity on powers (C-142, C-173). Random unit products never vanish (min norm > 0.1)."
@@ -14006,10 +14014,10 @@ where_stated = "crates/gr_core/src/adm.rs (tests: test_pg_lapse_is_one, test_pg_
 formal_proof = "proofs/verified/C869_InteriorFlat.v"
 id = "C-869"
 last_verified = "2026-02-28"
-statement = "Nacelle warp bubble interior-flat condition: K_ij=0 at bubble center (rho << rho_0) to machine precision."
-status = "Verified"
-status_note = "Formal proof: proofs/verified/C869_InteriorFlat.v (Rocq kernel-checked). Shape function derivative vanishes at center by sech^2 symmetry. Gating function suppressed in interior."
-where_stated = "crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)"
+statement = "At the center of the implemented nacelle shift, the shape-function derivative is below 0.01 in magnitude (test_shape_derivative_zero_at_center), the logistic gating function is below 0.01 at the tested interior radius (test_gating_interior_is_zero), and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center). The Rocq theorem C869_interior_flat gives the exact zero of the shape-function derivative at the center of the Rocq model, and C869_gating_suppressed bounds its gating function below 1/2 at rho = 0. Exact interior flatness (K_ij = 0 to machine precision) is not established: the logistic gate and nearly uniform modulation do not certify a constant shift or vanishing tidal forces on an interior region."
+status = "Partial"
+status_note = "Status Partial. The Rocq source rocq/open/verified/C869_InteriorFlat.v in gororoba-math proves shape_fun_deriv 0 = 0 and gating 0 < 1/2 for its model functions (C869_interior_flat, C869_gating_suppressed); the canonical theorem row records source_only, with no kernel receipt. The Rust tests bound the shape derivative and the gate by 0.01 and the York time by 0.1, and the test comment notes the value may not be exactly zero. The module documentation of warp_metric.rs records that logistic gating and nearly uniform modulation do not establish exact interior flatness or vanishing tidal forces, so no retained check decides K_ij = 0 to machine precision. The former locator test_york_time_center_zero names no test."
+where_stated = "crates/gr_core/src/warp_metric.rs (test_shape_derivative_zero_at_center, test_gating_interior_is_zero, test_york_time_zero_at_center)"
 
 [[claim]]
 formal_proof = "proofs/verified/C870_NacelleModulationDistinct.v"
@@ -14024,10 +14032,10 @@ where_stated = "crates/gr_core/src/warp_metric.rs (test_nacelle_energy_varies_wi
 formal_proof = "proofs/verified/C871_CasimirExact.v"
 id = "C-871"
 last_verified = "2026-02-28"
-statement = "Worldline v-loop reproduces parallel plate Casimir energy E/A=-pi^2/(720*a^3) within Monte Carlo error."
+statement = "The analytic electromagnetic ideal-conductor parallel-plate reference is E/A=-pi^2/(720*a^3) in hbar=c=1 units at zero temperature. The implementation tests its unit-separation value and doubling-gap cubic scaling; these are closed-form reference checks, not Monte Carlo convergence evidence."
 status = "Verified"
-status_note = "The worldline parallel-plate result belongs to casimir_core and remains separate from the corrected quantum_core Lifshitz quadrature and materials_core Matsubara implementation. Conformance in one solver does not validate another."
-where_stated = "crates/casimir_core/src/energy.rs (test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
+status_note = "The worldline parallel-plate result belongs to casimir_core and remains separate from the corrected quantum_core Lifshitz quadrature and materials_core Matsubara implementation. Conformance in one solver does not validate another. The statement is the analytic electromagnetic ideal-conductor reference; the scalar worldline Monte Carlo diagnostic (E-081) is a separate calculation carried by its own claim."
+where_stated = "crates/casimir_core/src/energy.rs (casimir_parallel_plates_exact, test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
 
 [[claim]]
 formal_proof = "proofs/verified/C872_PillarCasimirFinite.v"
@@ -14051,10 +14059,10 @@ where_stated = "crates/casimir_core/src/geometry.rs (SphereInCylinder implementa
 formal_proof = "proofs/verified/C874_YorkTimeVanishesInterior.v"
 id = "C-874"
 last_verified = "2026-02-28"
-statement = "York time vanishes in nacelle warp interior (rho << rho_0, |x| << L)."
-status = "Verified"
-status_note = "Formal proof: proofs/verified/C874_YorkTimeVanishesInterior.v (Rocq kernel-checked). Axial taper derivative and shape function derivative both vanish at center."
-where_stated = "crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)"
+statement = "At the center of the implemented nacelle shift, the shape function and the axial taper equal 1 within 0.01 (test_shape_function_at_center, test_axial_taper_center) and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center); the Rocq theorems C874_shape_unity, C874_axial_taper_unity and C874_axial_deriv_zero give the exact center values and the zero axial taper derivative for the Rocq model functions. Vanishing York time throughout the nacelle interior (rho << rho_0, |x| << L) is not established: the logistic gate and tanh envelope are phenomenological and do not certify exact flatness."
+status = "Partial"
+status_note = "Status Partial. The Rocq source rocq/open/verified/C874_YorkTimeVanishesInterior.v in gororoba-math proves axial_taper_deriv 0 = 0, axial_taper 0 = 1 and shape_fun 0 = 1 for its model functions; the canonical theorem row records source_only, with no kernel receipt. The Rust tests bound the center values by 0.01 and the York time by 0.1. The module documentation of warp_metric.rs records that logistic gating and nearly uniform modulation do not establish exact interior flatness or vanishing tidal forces, so no retained check decides vanishing York time across the interior. The former locator test_york_time_center_zero names no test."
+where_stated = "crates/gr_core/src/warp_metric.rs (test_shape_function_at_center, test_axial_taper_center, test_york_time_zero_at_center)"
 
 [[claim]]
 formal_proof = "proofs/verified/C875_HamiltonianVacuum.v"
@@ -14482,9 +14490,9 @@ where_stated = "crates/verified_core/src/cayley_dickson.rs"
 [[claim]]
 id = "C-922"
 last_verified = "2026-03-03"
-statement = "Zero-divisor graph spectral dimension d_s(t) at CD dim N: heat kernel on the graph Laplacian of cross-assessor ZD components. Measured for N = 16, 32, 64, 128, 256, 512. Result: no stable plateau at any dimension. d_s(t) grows monotonically because components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure."
-status = "Verified"
-status_note = "Census complete (dims 16-512). Only dim=16 yields a marginal plateau (d_s~0.25, R^2=0.54); dims 32-512 show purely monotonic d_s(t). Eigenvalue structure: dim=16 has {4x3, 6x2}, dim=32 has {12x7, 14x6}. Near-complete graph topology produces exponential P(t) decay with no intermediate plateau. XOR-bucket necessity theorem proves components are provably disconnected."
+statement = "Zero-divisor graph spectral dimension d_s(t) at CD dim N from the full finite-graph heat trace (zero Laplacian modes included) of the first cross-assessor ZD component, measured for N = 16, 32, 64, 128, 256, 512 on the 300-point geometric time grid from 0.01 to 50. Result: all 1788 retained d_s values are finite and lie between 0 and 6.661; at each N, d_s(t) rises monotonically to one peak (1.574, 2.585, 3.567, 4.567, 5.597, 6.660 for N = 16 to 512) and then decays monotonically to 0 at late time. The longest slope-flat window at each N is a finite-size tail that ends at the last grid point with flatness_score 0 (d_s mean 4.7e-3 at N = 16, 1.6e-4 at N = 512), so no continuum plateau appears. Components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure."
+status = "Partial"
+status_note = "Status Partial. Census of the registered E-084 command (zd-spectral dimension --min-dim 16 --max-dim 512 --t-points 300, default time grid 0.01 to 50) retained as artifact LOCAL-SPECTRAL-FULL-TRACE-V2 with its SHA256SUMS; a second replay wrote byte-identical files. Flat windows (ln t range, d_s mean, flatness_score 0 throughout): N=16 0.408 to 3.855, 4.714e-3; N=32 -0.304 to 3.855, 6.463e-4; N=64 -1.016 to 3.855, 4.060e-4; N=128 -1.671 to 3.855, 2.740e-4; N=256 -2.326 to 3.855, 2.392e-4; N=512 -2.953 to 3.855, 1.641e-4. The first grid point reads d_s = 0.081, 0.244, 0.569, 1.217, 2.500, 4.942 for N = 16 to 512, so the early-time decay to 0 lies below the grid at N >= 128. The former census used the positive-mode relaxation normalization (retained Laplacian spectra PC-0127, PC-0140, PC-0141): its d_s(t) reached 1253.3 with 267 non-finite entries of 1788, measured in the replay of the change that introduced the full trace. Eigenvalue structure of the first component, besides one zero mode: N=16 {4x3, 6x2}, N=32 {12x7, 14x6}, N=64 {28x15, 30x14}, N=128 {60x31, 62x30}, N=256 {124x63, 126x62}, N=512 {252x127, 254x126}. The census covers the first component only and one time grid, and the flat-window selector is descriptive. XOR-bucket necessity theorem proves components are provably disconnected."
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]
@@ -14492,7 +14500,7 @@ id = "C-923"
 last_verified = "2026-03-03"
 statement = "Cross-dimensional d_s plateau flow: sequence of ZD graph plateau spectral dimensions across CD doubling construction. FALSIFIED: no plateau exists at any CD dimension (16-512). ZD graph components are near-complete graphs with uniform eigenvalue spectra; the Calcagni 2->4 flow does NOT emerge from individual cross-assessor ZD components."
 status = "Refuted"
-status_note = "Binary run at dims 16-512 shows monotonically increasing d_s(t) with no plateau at any dimension. Root cause: XOR-bucket necessity theorem forces components to be disconnected near-complete graphs. Future direction: hierarchical graph connecting components ACROSS CD dimensions (dim doubling as RG step) may yield richer spectral structure. | Legacy status token: Falsified"
+status_note = "Full finite-graph heat trace census of E-084 (dims 16-512, default time grid; artifact LOCAL-SPECTRAL-FULL-TRACE-V2, readings in C-922): d_s(t) is finite at every grid point, rises to one peak per dimension (1.574 at N = 16 to 6.660 at N = 512) and decays to 0 at late time, and the longest slope-flat window at every dimension is a finite-size tail ending at the last grid point with flatness_score 0. The former positive-mode relaxation census showed monotonically increasing d_s(t) with no plateau at any dimension. Root cause: XOR-bucket necessity theorem forces components to be disconnected near-complete graphs. Future direction: hierarchical graph connecting components ACROSS CD dimensions (dim doubling as RG step) may yield richer spectral structure. | Legacy status token: Falsified"
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]
@@ -14516,7 +14524,7 @@ id = "C-926"
 last_verified = "2026-03-03"
 statement = "ZD graph spectral gap (lambda_2) census across CD dims 16-512. All components are expanders: gap_ratio = lambda_2/lambda_max > 1/(2n) at every dimension. Near-complete graph topology forces lambda_2 close to n, producing gap_ratio > 0.6 universally."
 status = "Refuted"
-status_note = "SpectralGapResult struct, spectral_gap(), spectral_gap_census() implemented. Census output includes lambda_2, lambda_max, gap_ratio per dim. CLI binary writes zd_spectral_gap.csv. | Legacy status token: Pending"
+status_note = "SpectralGapResult struct, spectral_gap() (smallest positive eigenvalue), spectral_gap_census() implemented. The CLI writes zd_spectral_first_component_v2_gap.csv for the first cross-assessor component only (gap_ratio 0.667 at N = 16 to 0.992 at N = 512, retained in LOCAL-SPECTRAL-FULL-TRACE-V2); the former zd_spectral_gap.csv is retained historical output. The is_expander field is a finite-graph heuristic, not an expander-family theorem. | Legacy status token: Pending"
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]
