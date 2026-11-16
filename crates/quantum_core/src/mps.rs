@@ -37,7 +37,7 @@
 //! - Vidal (2003): Efficient classical simulation of slightly entangled
 //!   quantum computations, PRL 91, 147902
 
-use faer::{Mat, Side, c64};
+use faer::{Mat, c64};
 use rayon::prelude::*;
 
 /// Maximum bond dimension before truncation.
@@ -646,73 +646,20 @@ impl MatrixProductState {
 
     /// Measure von Neumann entropy at bipartition k.
     ///
-    /// Splits qubits [0..k) vs [k..n) and computes S = -sum(p_i log(p_i)).
+    /// Splits qubits [0..k) vs [k..n) and returns the entropy in nats from
+    /// both contraction environments, so the value is invariant under a
+    /// nonunitary bond gauge. A cut at either end returns zero.
+    ///
+    /// # Panics
+    /// Panics when the tensor chain is malformed, zero or non-finite, or a
+    /// bond matrix exceeds the entropy allocation budget. Use
+    /// `tensor_networks::mps_prefix_entropy` for a `Result`.
     pub fn measure_entropy(&self, k: usize) -> f64 {
         if k == 0 || k >= self.n_qubits {
             return 0.0;
         }
-
-        // Contract left part to get reduced density matrix
-        let mut left = Mat::<c64>::zeros(1, 1);
-        left[(0, 0)] = c64::new(1.0, 0.0);
-
-        for site in 0..k {
-            let tensor = &self.tensors[site];
-            let chi_l = tensor.chi_left;
-            let chi_r = tensor.chi_right;
-
-            // Contract L_{ab} * A_{apc} * A^*_{bpd} -> L'_{cd}
-            let mut new_left = Mat::<c64>::zeros(chi_r, chi_r);
-
-            for c in 0..chi_r {
-                for d in 0..chi_r {
-                    let mut sum = c64::new(0.0, 0.0);
-                    for a in 0..chi_l {
-                        for b in 0..chi_l {
-                            let l_ab = left[(a, b)];
-                            for p in 0..2 {
-                                let a_apc = tensor.get(a, p, c);
-                                let a_bpd = tensor.get(b, p, d);
-                                let a_conj = c64::new(a_bpd.re, -a_bpd.im);
-                                let prod = c64::new(
-                                    a_apc.re * a_conj.re - a_apc.im * a_conj.im,
-                                    a_apc.re * a_conj.im + a_apc.im * a_conj.re,
-                                );
-                                let contrib = c64::new(
-                                    l_ab.re * prod.re - l_ab.im * prod.im,
-                                    l_ab.re * prod.im + l_ab.im * prod.re,
-                                );
-                                sum = c64::new(sum.re + contrib.re, sum.im + contrib.im);
-                            }
-                        }
-                    }
-                    new_left[(c, d)] = sum;
-                }
-            }
-            left = new_left;
-        }
-
-        // The reduced density matrix rho_L is stored in 'left'
-        // Compute eigenvalues and entropy
-        let chi = left.nrows();
-        if chi == 1 {
-            // Single bond dimension means no entanglement
-            return 0.0;
-        }
-
-        // Use faer's eigendecomposition for the density matrix
-        let eig = left.self_adjoint_eigen(Side::Lower).unwrap();
-        let eigenvalues = eig.S();
-
-        let mut entropy = 0.0;
-        for i in 0..chi {
-            let p = eigenvalues.column_vector()[i].re;
-            if p > 1e-15 {
-                entropy -= p * p.ln();
-            }
-        }
-
-        entropy
+        crate::tensor_networks::mps_prefix_entropy(self, k)
+            .expect("MPS entropy requires a valid tensor chain within the bond budget")
     }
 
     // =========================================================================

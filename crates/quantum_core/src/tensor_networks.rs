@@ -435,14 +435,26 @@ pub fn estimate_memory_bytes(n_qubits: usize, representation: &str) -> usize {
 pub fn suggest_representation(n_qubits: usize, geometry: &str) -> &'static str {
     match geometry {
         "chain" | "1d" | "linear" => {
-            if n_qubits <= 20 { "statevector" } else { "mps" }
+            if n_qubits <= 20 {
+                "statevector"
+            } else {
+                "mps"
+            }
         }
         "grid" | "2d" | "lattice" => {
-            if n_qubits <= 16 { "statevector" } else { "peps" }
+            if n_qubits <= 16 {
+                "statevector"
+            } else {
+                "peps"
+            }
         }
         "all_to_all" | "complete" => "statevector",
         _ => {
-            if n_qubits <= 20 { "statevector" } else { "mps" }
+            if n_qubits <= 20 {
+                "statevector"
+            } else {
+                "mps"
+            }
         }
     }
 }
@@ -487,7 +499,9 @@ mod tests {
                     let scale = if right == 0 { 3.0 } else { 0.25 };
                     let old = state.tensors[0].get(left, physical, right);
                     state.tensors[0].set(
-                        left, physical, right,
+                        left,
+                        physical,
+                        right,
                         faer::c64::new(old.re * scale, old.im * scale),
                     );
                 }
@@ -498,7 +512,9 @@ mod tests {
                 let scale = if left == 0 { 3.0 } else { 0.25 };
                 let old = state.tensors[1].get(left, physical, 0);
                 state.tensors[1].set(
-                    left, physical, 0,
+                    left,
+                    physical,
+                    0,
                     faer::c64::new(old.re / scale, old.im / scale),
                 );
             }
@@ -507,6 +523,21 @@ mod tests {
             *value = faer::c64::new(value.re * 7.0, value.im * 7.0);
         }
         assert!((mps_prefix_entropy(&state, 1).unwrap() - baseline).abs() < 1e-10);
+        assert!((state.measure_entropy(1) - baseline).abs() < 1e-10);
+    }
+
+    #[test]
+    fn mps_dense_fallback_reads_site_zero_as_most_significant_bit() {
+        let mut state = MatrixProductState::new_zero_state(4);
+        state.apply_hadamard(2);
+        state.apply_cnot(2, 3);
+        let ln2 = 2.0_f64.ln();
+        assert!(state.entanglement_entropy(&[1]).abs() < 1e-10);
+        assert!((state.entanglement_entropy(&[2]) - ln2).abs() < 1e-10);
+        assert!((state.entanglement_entropy(&[1, 2]) - ln2).abs() < 1e-10);
+        assert!((state.entanglement_entropy(&[0, 3]) - ln2).abs() < 1e-10);
+        assert!(state.entanglement_entropy(&[2, 3]).abs() < 1e-10);
+        assert!((state.entanglement_entropy(&[3]) - ln2).abs() < 1e-10);
     }
 
     #[test]
@@ -530,9 +561,8 @@ mod tests {
         let mut coefficients = vec![Complex64::new(0.0, 0.0); 8];
         coefficients[0] = Complex64::new(std::f64::consts::FRAC_1_SQRT_2, 0.0);
         coefficients[5] = Complex64::new(0.0, std::f64::consts::FRAC_1_SQRT_2);
-        let entropy = |sites: &[usize]| {
-            pure_state_subsystem_entropy(&coefficients, 3, sites, 8).unwrap()
-        };
+        let entropy =
+            |sites: &[usize]| pure_state_subsystem_entropy(&coefficients, 3, sites, 8).unwrap();
         assert!(entropy(&[0, 2]).abs() < 1e-10);
         assert!(entropy(&[1]).abs() < 1e-10);
         assert!((entropy(&[0]) - 2.0_f64.ln()).abs() < 1e-10);
@@ -586,6 +616,18 @@ mod tests {
         assert_eq!(state.entanglement_entropy(&[]), 0.0);
         assert_eq!(state.entanglement_entropy(&[0, 1, 2, 3]), 0.0);
         assert!(MatrixProductState::new_zero_state(4).is_product_state(1e-10));
+    }
+
+    #[test]
+    #[should_panic(expected = "memory estimate exceeds usize")]
+    fn statevector_memory_estimate_overflow_panics() {
+        let _ = estimate_memory_bytes(60, "statevector");
+    }
+
+    #[test]
+    #[should_panic(expected = "memory estimate exceeds usize")]
+    fn statevector_memory_estimate_shift_overflow_panics() {
+        let _ = estimate_memory_bytes(usize::BITS as usize, "statevector");
     }
 
     #[test]
