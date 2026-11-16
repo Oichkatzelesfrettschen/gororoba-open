@@ -13,20 +13,32 @@
 //! layer is invariant under two lattice reflections combined with a velocity
 //! reflection (each verified on the anchor state to a relative tolerance, see
 //! `generators`). Cells in one orbit of the verified group carry equal
-//! scores and equal labels, so the exchangeable unit of a label permutation is
-//! the orbit, not the cell. Three levels are reported: the cell, the z layer
-//! and the orbit. A score field is spatially smooth, so the orbit null still
-//! understates the dependence between neighboring cells; the torus-shift
-//! null keeps it by translating the score field of the z = 0 layer against
-//! fixed labels and fixed quartile masks.
+//! labels and equal quartiles, so the exchangeable unit of a label permutation
+//! is the orbit, not the cell. Scores that ignore the order of the 19
+//! populations (the Gram volume, the step difference, the Mach number, the
+//! smallest population share, |c - a|) take equal values on an orbit. The
+//! associator does not: it places the populations in 32 slots through the
+//! identity slot map, a velocity reflection permutes the slots, and the
+//! Cayley-Dickson product is not invariant under that permutation, so one
+//! orbit holds several associator values (`score_image_deviation` records the
+//! spread). Three levels are reported: the cell, the z layer and the orbit.
+//! The orbit level draws a tie-free rank-sum law from the orbit counts
+//! (`level_null`); the direct orbit null (`direct_null`) relabels whole
+//! orbits of equal size and recomputes the cell-level area of the actual
+//! scores, which is the law of the statistic that P13d compares. A score
+//! field is spatially smooth, so the orbit nulls still understate the
+//! dependence between neighboring cells; the torus-shift null keeps it by
+//! translating the score field of the z = 0 layer against fixed labels and
+//! fixed quartile masks.
 //!
-//! Tests, each on the six scores (the associator, the Gram volume, the step
+//! Tests, each on the six scores unless a family says otherwise (the associator, the Gram volume, the step
 //! difference, the Mach number, the smallest population share, and the norm
 //! of the two-step difference |c - a| of the unit vectors a, b, c at steps
 //! t-2, t-1, t):
 //!
 //! 1. label permutation at the cell, z-layer and orbit level (Poisson-binomial
-//!    law of the count of pairs above the bound, per-pair tail probability);
+//!    law of the count of pairs above the bound, per-pair tail probability),
+//!    and the direct relabeling of whole orbits;
 //! 2. torus shift of the z = 0 layer (every non-zero shift, and the shifts
 //!    along x alone);
 //! 3. surrogate increments: the last two increments of each cell replaced
@@ -43,7 +55,17 @@
 //!    b - a and c - a;
 //! 6. a logistic likelihood-ratio test of the associator given the
 //!    product-free scores at orbit level;
-//! 7. Benjamini-Hochberg and Holm adjustments over the per-pair tests.
+//! 7. Benjamini-Hochberg and Holm adjustments over the per-pair tests. Each
+//!    family is stated in the record: the label tests adjust the pairs of one
+//!    score (one family per score), the torus tests adjust the per-pair
+//!    probabilities of five scores (the associator and the four original
+//!    product-free scores) and of all six, and the likelihood-ratio test
+//!    adjusts the tested pairs.
+//!
+//! P13d reads its threshold from the rank-sum law of the orbit counts and
+//! records the direct-relabeling quantile beside it; a pair whose associator
+//! area, threshold or product-free area is not finite receives no call, stays
+//! out of the pair count behind the floor of 8 and is listed under `skipped`.
 //!
 //! The count statistic of the null is a Poisson-binomial sum over the
 //! (run, quartile) pairs, which treats pairs of one run as independent; the
@@ -109,6 +131,9 @@ const SEED_PHASE: usize = 4;
 const SEED_SIGNS: usize = 5;
 const SEED_DENSE: usize = 6;
 const SEED_TRIPLES: usize = 7;
+const SEED_ORBIT_DIRECT: usize = 9;
+/// Draws per random stream of the direct orbit null.
+const DIRECT_CHUNK: usize = 500;
 
 #[derive(Args)]
 pub struct NullArgs {
@@ -573,6 +598,7 @@ struct Seeds {
     signs: u64,
     dense: u64,
     triples: u64,
+    orbit_direct: u64,
     records: Vec<Value>,
 }
 
@@ -602,6 +628,7 @@ fn read_seeds(path: &Path) -> Result<Seeds> {
     let signs = take("random sign cocycles", SEED_SIGNS)?;
     let dense = take("dense random products", SEED_DENSE)?;
     let triples = take("random unit triples of the property table", SEED_TRIPLES)?;
+    let orbit_direct = take("direct relabeling of whole orbits", SEED_ORBIT_DIRECT)?;
     Ok(Seeds {
         labels,
         block,
@@ -610,6 +637,7 @@ fn read_seeds(path: &Path) -> Result<Seeds> {
         signs,
         dense,
         triples,
+        orbit_direct,
         records,
     })
 }
@@ -741,6 +769,51 @@ fn orbits_of(state: &[f64], gens: &[Generator], tolerance: f64) -> Orbits {
         sizes,
         generators: report,
     }
+}
+
+/// Relative difference of each score between a cell and its image under `g`, over the cells
+/// whose populations obey `g` to `tolerance`: median and maximum of
+/// `|s - s'| / max(|s|, |s'|)`. A score that ignores the order of the 19 populations (the
+/// Gram volume, the step difference, the Mach number, the smallest population share and
+/// |c - a|) reads equal values at the two cells; the associator reads the populations in the
+/// slots of the identity slot map, and the velocity reflection permutes those slots.
+fn score_image_deviation(
+    state: &[f64],
+    scores: &[Vec<f64>],
+    g: &Generator,
+    tolerance: f64,
+) -> Value {
+    let scale = state
+        .iter()
+        .fold(0.0_f64, |m, &x| m.max(x.abs()))
+        .max(f64::MIN_POSITIVE);
+    let obey: Vec<usize> = (0..CELLS)
+        .filter(|&cell| {
+            let image = g.cell[cell];
+            (0..Q).all(|d| {
+                (state[image * Q + g.dir[d]] - state[cell * Q + d]).abs() / scale <= tolerance
+            })
+        })
+        .collect();
+    let by_score = scores.iter().enumerate().map(|(k, col)| {
+        let rel: Vec<f64> = obey
+            .iter()
+            .map(|&c| {
+                let (a, b) = (col[c], col[g.cell[c]]);
+                let top = a.abs().max(b.abs());
+                if top == 0.0 { 0.0 } else { (a - b).abs() / top }
+            })
+            .collect();
+        (
+            SCORE_NAMES[k].to_string(),
+            json!({"median": median(&rel), "max": rel.iter().copied().fold(0.0, f64::max)}),
+        )
+    });
+    json!({
+        "generator": g.name,
+        "cells_compared": obey.len(),
+        "by_score": by_score.collect::<serde_json::Map<_, _>>(),
+    })
 }
 
 fn gcd(a: usize, b: usize) -> usize {
@@ -961,6 +1034,176 @@ fn level_null(
         threshold: quantile(&null, P13D_QUANTILE),
         p_ge,
     }
+}
+
+/// Cell-level exchangeable units of one pair: the cells of the pair grouped by symmetry
+/// orbit, each unit with one label and the sum of its cells' mean ranks per score.
+struct DirectUnits {
+    size: Vec<usize>,
+    label: Vec<bool>,
+    rank_sum: Vec<[f64; 6]>,
+    /// Units of equal size, the strata inside which labels are exchanged.
+    strata: Vec<Vec<usize>>,
+    positive_cells: usize,
+    negative_cells: usize,
+}
+
+/// Groups `cells` by `orbit_of`; fails when a unit holds both labels or a score is not finite.
+fn direct_units(
+    orbit_of: &[usize],
+    cells: &[usize],
+    labels: &[bool],
+    scores: &[Vec<f64>],
+) -> std::result::Result<DirectUnits, String> {
+    let values: Vec<Vec<f64>> = scores.iter().map(|s| select(s, cells)).collect();
+    if values.iter().flatten().any(|v| !v.is_finite()) {
+        return Err("a score of the pair is not finite".to_string());
+    }
+    let ranks: Vec<Vec<f64>> = values.iter().map(|v| mean_ranks(v)).collect();
+    let mut slot: BTreeMap<usize, usize> = BTreeMap::new();
+    let mut size = Vec::new();
+    let mut label = Vec::new();
+    let mut rank_sum: Vec<[f64; 6]> = Vec::new();
+    for (i, &cell) in cells.iter().enumerate() {
+        let u = *slot.entry(orbit_of[cell]).or_insert_with(|| {
+            size.push(0);
+            label.push(labels[i]);
+            rank_sum.push([0.0; 6]);
+            size.len() - 1
+        });
+        if label[u] != labels[i] {
+            return Err("an orbit of the pair holds both labels".to_string());
+        }
+        size[u] += 1;
+        for k in 0..6 {
+            rank_sum[u][k] += ranks[k][i];
+        }
+    }
+    let mut by_size: BTreeMap<usize, Vec<usize>> = BTreeMap::new();
+    for (u, &s) in size.iter().enumerate() {
+        by_size.entry(s).or_default().push(u);
+    }
+    let positive_cells = (0..size.len()).filter(|&u| label[u]).map(|u| size[u]).sum();
+    Ok(DirectUnits {
+        negative_cells: cells.len() - positive_cells,
+        size,
+        label,
+        rank_sum,
+        strata: by_size.into_values().collect(),
+        positive_cells,
+    })
+}
+
+/// Rank-sum area of the units flagged positive, for every score.
+fn direct_areas(units: &DirectUnits, positive: &[bool]) -> [f64; 6] {
+    let mut sums = [0.0; 6];
+    for u in (0..positive.len()).filter(|&u| positive[u]) {
+        for (s, r) in sums.iter_mut().zip(&units.rank_sum[u]) {
+            *s += r;
+        }
+    }
+    let (n1, n0) = (units.positive_cells as f64, units.negative_cells as f64);
+    sums.map(|s| (s - n1 * (n1 + 1.0) / 2.0) / (n1 * n0))
+}
+
+/// The null of the cell-level oriented areas of one pair under relabeling of whole orbits:
+/// labels are exchanged among the units of one size, so the number of positive cells stays
+/// fixed, and the area of every draw is taken from the actual scores of the cells.
+struct DirectNull {
+    units: usize,
+    positive_units: usize,
+    draws: usize,
+    /// Per score: 0.95 quantile of the oriented null, its value on each half of the draws,
+    /// the mean, the share above the P13c bound and the share at least the observed area.
+    threshold: [f64; 6],
+    threshold_halves: [[f64; 6]; 2],
+    mean: [f64; 6],
+    p_above_bound: [f64; 6],
+    p_ge: [f64; 6],
+    /// Largest difference between the unit areas of the identity labeling and the observed raw areas.
+    identity_difference: f64,
+}
+
+fn direct_null(
+    units: &DirectUnits,
+    raw: &[f64; 6],
+    draws: usize,
+    seed: u64,
+    run: u64,
+    pair: u64,
+) -> std::result::Result<DirectNull, String> {
+    let identity = direct_areas(units, &units.label);
+    let identity_difference = identity
+        .iter()
+        .zip(raw)
+        .map(|(a, b)| (a - b).abs())
+        .fold(0.0, f64::max);
+    if identity_difference > 1e-9 {
+        return Err(format!(
+            "the unit areas differ from the cell areas by {identity_difference:e}"
+        ));
+    }
+    if units.positive_cells == 0 || units.negative_cells == 0 || draws == 0 {
+        return Err("a class of the pair is empty".to_string());
+    }
+    let positive_per_stratum: Vec<usize> = units
+        .strata
+        .iter()
+        .map(|s| s.iter().filter(|&&u| units.label[u]).count())
+        .collect();
+    let chunks = draws.div_ceil(DIRECT_CHUNK);
+    let areas: Vec<[f64; 6]> = (0..chunks)
+        .into_par_iter()
+        .flat_map_iter(|c| {
+            let mut rng = stream(seed, run, pair * 1000 + c as u64);
+            let count = DIRECT_CHUNK.min(draws - c * DIRECT_CHUNK);
+            let mut flag = vec![false; units.size.len()];
+            let mut order: Vec<Vec<usize>> = units.strata.clone();
+            (0..count)
+                .map(|_| {
+                    flag.iter_mut().for_each(|f| *f = false);
+                    for (stratum, &npos) in order.iter_mut().zip(&positive_per_stratum) {
+                        for k in 0..npos.min(stratum.len()) {
+                            let j = rng.random_range(k..stratum.len());
+                            stratum.swap(k, j);
+                            flag[stratum[k]] = true;
+                        }
+                    }
+                    direct_areas(units, &flag).map(|a| a.max(1.0 - a))
+                })
+                .collect::<Vec<_>>()
+        })
+        .collect();
+    let observed = raw.map(oriented);
+    let column = |k: usize, from: usize, to: usize| -> Vec<f64> {
+        let mut v: Vec<f64> = areas[from..to].iter().map(|a| a[k]).collect();
+        v.sort_by(f64::total_cmp);
+        v
+    };
+    let half = areas.len() / 2;
+    let mut out = DirectNull {
+        units: units.size.len(),
+        positive_units: units.label.iter().filter(|&&l| l).count(),
+        draws: areas.len(),
+        threshold: [f64::NAN; 6],
+        threshold_halves: [[f64::NAN; 6]; 2],
+        mean: [f64::NAN; 6],
+        p_above_bound: [f64::NAN; 6],
+        p_ge: [f64::NAN; 6],
+        identity_difference,
+    };
+    for (k, &obs) in observed.iter().enumerate() {
+        let all = column(k, 0, areas.len());
+        out.threshold[k] = quantile(&all, P13D_QUANTILE);
+        out.threshold_halves[0][k] = quantile(&column(k, 0, half), P13D_QUANTILE);
+        out.threshold_halves[1][k] = quantile(&column(k, half, areas.len()), P13D_QUANTILE);
+        out.mean[k] = all.iter().sum::<f64>() / all.len() as f64;
+        out.p_above_bound[k] =
+            all.iter().filter(|&&a| a > P13C_BOUND).count() as f64 / all.len() as f64;
+        let at_least = all.iter().filter(|&&a| a >= obs - 1e-12).count();
+        out.p_ge[k] = (at_least + 1) as f64 / (all.len() + 1) as f64;
+    }
+    Ok(out)
 }
 
 /// Shifts (dy, dx) of the torus null in the order of the nulls' record: y outer, x inner, the identity left out.
@@ -1256,6 +1499,8 @@ struct PairOut {
     oriented: [f64; 6],
     /// Cell, z-layer and orbit levels.
     levels: Vec<LevelNull>,
+    /// Direct orbit relabeling of the cell-level areas, or why it is unavailable.
+    direct: std::result::Result<DirectNull, String>,
     orbit_mixed: usize,
     /// Per score, the oriented area of every shifted field.
     torus: Vec<Vec<f64>>,
@@ -1408,6 +1653,8 @@ fn process_run(
         "orbits": n_orbits,
         "orbit_size_counts": orbits.sizes.iter().map(|(s, c)| (s.to_string(), json!(c))).collect::<serde_json::Map<_, _>>(),
         "orbits_with_mixed_labels": mixed,
+        "score_image_deviation": gens.iter().map(|g| score_image_deviation(
+            run.state(HISTORY - 1), &run.scores, g, SYMMETRY_TOLERANCE)).collect::<Vec<_>>(),
         "label_and_quartile_agreement": gens.iter().map(|g| json!({
             "name": g.name,
             "cells_with_equal_label_and_quartile_at_the_image": (0..CELLS)
@@ -1519,6 +1766,16 @@ fn process_run(
                 level_null(pos, neg, &observed, args.label_draws, &mut rng)
             })
             .collect();
+        let direct = direct_units(&orbits.id, &p.cells, &p.labels, &run.scores).and_then(|units| {
+            direct_null(
+                &units,
+                &raw,
+                args.label_draws,
+                seeds.orbit_direct,
+                index as u64,
+                pi as u64,
+            )
+        });
         let mut z0_diff = 0.0_f64;
         let torus: Vec<Vec<f64>> = (0..6)
             .map(|k| {
@@ -1585,6 +1842,7 @@ fn process_run(
             raw,
             oriented: observed,
             levels,
+            direct,
             orbit_mixed,
             torus,
             z0_diff,
@@ -1918,33 +2176,80 @@ fn lr_section(pairs: &[&PairOut]) -> Value {
     })
 }
 
-fn p13d_section(pairs: &[&PairOut], heldout: bool) -> Value {
-    let rows: Vec<Value> = pairs
-        .iter()
-        .map(|p| {
-            let threshold = p.levels[2].threshold;
-            let best = max_of(p.oriented[PRODUCT_FREE].iter().copied());
-            let call = threshold.is_finite() && p.oriented[0] > threshold.max(best + P13D_MARGIN);
-            json!({"run": p.run, "quartile": p.quartile, "associator_oriented": p.oriented[0],
-                   "orbit_null_quantile": threshold, "best_product_free_oriented": best, "call": call})
-        })
-        .collect();
-    let calls = rows.iter().filter(|r| r["call"] == true).count();
-    let verdict = if rows.len() < P13D_MIN_PAIRS {
+/// The call of P13d for one pair: the largest product-free area and whether the associator
+/// area exceeds both the threshold and that area plus the margin, or the reason the pair is
+/// skipped. A non-finite area or threshold gives no call, since `f64::max` would drop it.
+fn p13d_decide(
+    oriented: &[f64; 6],
+    threshold: f64,
+) -> std::result::Result<(f64, bool), &'static str> {
+    if !oriented[0].is_finite() {
+        return Err("the associator area is not finite");
+    }
+    if !threshold.is_finite() {
+        return Err("the orbit null threshold is not finite");
+    }
+    if oriented[PRODUCT_FREE].iter().any(|a| !a.is_finite()) {
+        return Err("a product-free area is not finite");
+    }
+    let best = max_of(oriented[PRODUCT_FREE].iter().copied());
+    Ok((best, oriented[0] > threshold.max(best + P13D_MARGIN)))
+}
+
+/// Verdict of P13d over the pairs that received a call.
+fn p13d_verdict(calls: usize, decided: usize) -> &'static str {
+    if decided < P13D_MIN_PAIRS {
         "undecided"
-    } else if calls * 2 <= rows.len() {
+    } else if calls * 2 <= decided {
         "held"
     } else {
         "failed"
-    };
+    }
+}
+
+fn p13d_section(pairs: &[&PairOut], heldout: bool) -> Value {
+    let direct_threshold = |p: &PairOut| p.direct.as_ref().map_or(f64::NAN, |d| d.threshold[0]);
+    let mut rows = Vec::new();
+    let mut skipped = Vec::new();
+    let mut calls = 0usize;
+    let mut calls_direct = 0usize;
+    for p in pairs {
+        let (rank_sum, direct) = (p.levels[2].threshold, direct_threshold(p));
+        let by_rank_sum = p13d_decide(&p.oriented, rank_sum);
+        calls_direct += usize::from(matches!(p13d_decide(&p.oriented, direct), Ok((_, true))));
+        let head = json!({"run": p.run, "quartile": p.quartile,
+            "associator_oriented": p.oriented[0],
+            "orbit_positives": p.levels[2].positives, "orbit_negatives": p.levels[2].negatives});
+        match by_rank_sum {
+            Ok((best, call)) => {
+                calls += usize::from(call);
+                let mut row = head;
+                row["orbit_null_quantile"] = json!(rank_sum);
+                row["orbit_null_quantile_direct_relabeling"] = json!(direct);
+                row["best_product_free_oriented"] = json!(best);
+                row["call"] = json!(call);
+                rows.push(row);
+            }
+            Err(reason) => {
+                let mut row = head;
+                row["skip_reason"] = json!(reason);
+                skipped.push(row);
+            }
+        }
+    }
+    let verdict = p13d_verdict(calls, rows.len());
     let mut section = json!({
         "set": if heldout { "heldout" } else { "scored_configurations" },
         "quantile": P13D_QUANTILE,
         "margin": P13D_MARGIN,
         "minimum_pairs": P13D_MIN_PAIRS,
+        "threshold_law": "rank-sum law of the orbit counts",
         "pairs": rows.len(),
         "calls": calls,
+        "pairs_skipped": skipped.len(),
+        "calls_by_direct_relabeling": calls_direct,
         "by_pair": rows,
+        "skipped": skipped,
     });
     if heldout {
         section["verdict"] = json!(verdict);
@@ -1952,6 +2257,62 @@ fn p13d_section(pairs: &[&PairOut], heldout: bool) -> Value {
         section["note"] = json!("the scored configurations set the rule; they carry no verdict");
     }
     section
+}
+
+/// The direct orbit null beside the rank-sum law of the orbit level: per score, the quantile,
+/// its two halves, the count law of the areas above the P13c bound and the per-pair tail.
+fn direct_section(pairs: &[&PairOut]) -> Value {
+    let ok: Vec<(&PairOut, &DirectNull)> = pairs
+        .iter()
+        .filter_map(|p| p.direct.as_ref().ok().map(|d| (*p, d)))
+        .collect();
+    let unavailable: Vec<Value> = pairs
+        .iter()
+        .filter_map(|p| {
+            p.direct
+                .as_ref()
+                .err()
+                .map(|e| json!({"run": p.run, "quartile": p.quartile, "reason": e}))
+        })
+        .collect();
+    let law_pairs = ok.len() == pairs.len();
+    let by_score = per_score(&|k| {
+        let p_above: Vec<f64> = ok.iter().map(|(_, d)| d.p_above_bound[k]).collect();
+        let law = poisson_binomial(&p_above);
+        let observed = count_where(&ok, |(p, _)| p.oriented[k] > P13C_BOUND);
+        let p_ge: Vec<f64> = ok.iter().map(|(_, d)| d.p_ge[k]).collect();
+        let diff: Vec<f64> = ok
+            .iter()
+            .map(|(p, d)| d.threshold[k] - p.levels[2].threshold)
+            .collect();
+        let halves: Vec<f64> = ok
+            .iter()
+            .map(|(_, d)| (d.threshold_halves[0][k] - d.threshold_halves[1][k]).abs())
+            .collect();
+        json!({
+            "observed_count_above_bound": observed,
+            "expected_count_above_bound": p_above.iter().sum::<f64>(),
+            "p_count_at_least_observed": tail(&law, observed),
+            "pairs_bh_q_below_0_05": count_below(&benjamini_hochberg(&p_ge), 0.05),
+            "pairs_p_below_0_05": count_below(&p_ge, 0.05),
+            "mean_null_oriented_area": ok.iter().map(|(_, d)| d.mean[k]).sum::<f64>() / ok.len().max(1) as f64,
+            "quantile_by_pair": ok.iter().map(|(_, d)| d.threshold[k]).collect::<Vec<_>>(),
+            "quantile_minus_rank_sum_law_by_pair": diff,
+            "pairs_quantile_differs_from_rank_sum_law_by_more_than_0_02": count_where(&diff, |d| d.abs() > 0.02),
+            "max_abs_quantile_difference_between_halves": halves.iter().copied().fold(0.0, f64::max),
+            "p_at_least_observed_by_pair": p_ge,
+        })
+    });
+    json!({
+        "law": "labels exchanged among whole orbits of equal size inside the pair; the area of each draw is the cell-level area of the actual scores",
+        "draws_per_pair": ok.first().map(|(_, d)| d.draws),
+        "pairs_available": ok.len(),
+        "pairs_unavailable": unavailable,
+        "all_pairs_available": law_pairs,
+        "units_and_positive_units_by_pair": ok.iter().map(|(_, d)| json!([d.units, d.positive_units])).collect::<Vec<_>>(),
+        "max_identity_difference": ok.iter().map(|(_, d)| d.identity_difference).fold(0.0, f64::max),
+        "by_score": by_score,
+    })
 }
 
 fn assemble(
@@ -2052,6 +2413,7 @@ fn assemble(
             "excess_over_best_of_five_by_pair": excess5,
         },
         "label_permutation_null": label_section(&pairs),
+        "orbit_direct_relabeling": direct_section(&pairs),
         "torus_shift_null": torus_section(&pairs),
         "increment_nulls": increment_section(outs, &pairs, args.surrogates),
         "algebra_substitution": algebra_section(algs, &supplying, &pairs, seeds.triples),
@@ -2142,6 +2504,7 @@ mod tests {
             signs: 15,
             dense: 16,
             triples: 17,
+            orbit_direct: 18,
             records: Vec::new(),
         }
     }
@@ -2490,6 +2853,115 @@ mod tests {
             .map(|(c, _, _)| c.u0)
             .collect();
         assert_eq!(scored, vec![0.2]);
+    }
+
+    /// Six identical score columns for `units` orbits of `size` cells, each cell scoring
+    /// `unit_value(unit) + spread(cell)`; the labels are positive for the first `positives` orbits.
+    fn planted_pair(
+        units: usize,
+        size: usize,
+        positives: usize,
+        unit_value: impl Fn(usize) -> f64,
+        spread: impl Fn(usize) -> f64,
+    ) -> (Vec<usize>, Vec<usize>, Vec<bool>, Vec<Vec<f64>>) {
+        let n = units * size;
+        let orbit_of: Vec<usize> = (0..n).map(|c| c / size).collect();
+        let cells: Vec<usize> = (0..n).collect();
+        let labels: Vec<bool> = (0..n).map(|c| c / size < positives).collect();
+        let column: Vec<f64> = (0..n).map(|c| unit_value(c / size) + spread(c)).collect();
+        (orbit_of, cells, labels, vec![column; 6])
+    }
+
+    fn raw_areas(scores: &[Vec<f64>], cells: &[usize], labels: &[bool]) -> [f64; 6] {
+        std::array::from_fn(|k| auc(&select(&scores[k], cells), labels))
+    }
+
+    #[test]
+    fn direct_null_matches_the_rank_sum_law_when_orbits_score_alike() {
+        // Equal scores inside an orbit and equal orbit sizes: the cell-level area is the
+        // orbit-level area, so the direct quantile follows the rank-sum law of the orbits.
+        let (orbit_of, cells, labels, scores) = planted_pair(64, 16, 6, |u| u as f64, |_| 0.0);
+        let raw = raw_areas(&scores, &cells, &labels);
+        let units = direct_units(&orbit_of, &cells, &labels, &scores).expect("units");
+        let direct = direct_null(&units, &raw, 20000, 31, 0, 0).expect("direct");
+        assert!(direct.identity_difference < 1e-12);
+        let mut rng = stream(32, 0, 0);
+        let mut law = oriented_null(6, 64, 20000, &mut rng);
+        law.sort_by(f64::total_cmp);
+        let want = quantile(&law, P13D_QUANTILE);
+        assert!(
+            (direct.threshold[0] - want).abs() < 0.015,
+            "{} against {want}",
+            direct.threshold[0]
+        );
+        assert!((direct.threshold_halves[0][0] - direct.threshold_halves[1][0]).abs() < 0.03);
+    }
+
+    #[test]
+    fn direct_null_narrows_when_cells_of_an_orbit_score_apart() {
+        // Cell scores that ignore the orbit: the orbit-level law treats each orbit as one
+        // tie-free rank and overstates the spread of the cell-level area.
+        let (orbit_of, cells, labels, scores) =
+            planted_pair(64, 16, 6, |_| 0.0, |c| ((c * 2_654_435_761) % 1000) as f64);
+        let raw = raw_areas(&scores, &cells, &labels);
+        let units = direct_units(&orbit_of, &cells, &labels, &scores).expect("units");
+        let direct = direct_null(&units, &raw, 20000, 33, 0, 0).expect("direct");
+        let mut rng = stream(34, 0, 0);
+        let mut law = oriented_null(6, 64, 20000, &mut rng);
+        law.sort_by(f64::total_cmp);
+        let rank_sum = quantile(&law, P13D_QUANTILE);
+        assert!(
+            direct.threshold[0] < rank_sum - 0.1,
+            "{} against {rank_sum}",
+            direct.threshold[0]
+        );
+    }
+
+    #[test]
+    fn direct_units_reject_mixed_orbits_and_non_finite_scores() {
+        let (orbit_of, cells, mut labels, mut scores) =
+            planted_pair(8, 4, 2, |u| u as f64, |_| 0.0);
+        labels[1] = !labels[1];
+        let err = direct_units(&orbit_of, &cells, &labels, &scores).err();
+        assert_eq!(
+            err.as_deref(),
+            Some("an orbit of the pair holds both labels")
+        );
+        labels[1] = !labels[1];
+        scores[3][5] = f64::NAN;
+        let err = direct_units(&orbit_of, &cells, &labels, &scores).err();
+        assert_eq!(err.as_deref(), Some("a score of the pair is not finite"));
+    }
+
+    #[test]
+    fn p13d_skips_a_pair_whose_area_or_threshold_is_not_finite() {
+        let ok = [0.9, 0.5, 0.6, 0.55, 0.52, 0.58];
+        let (best, call) = p13d_decide(&ok, 0.7).expect("finite inputs");
+        assert!((best - 0.6).abs() < 1e-15 && call);
+        assert_eq!(p13d_decide(&ok, 0.95), Ok((0.6, false)));
+        let mut a = ok;
+        a[0] = f64::NAN;
+        assert!(p13d_decide(&a, 0.7).is_err());
+        assert!(p13d_decide(&ok, f64::NAN).is_err());
+        for k in 1..6 {
+            let mut b = ok;
+            b[k] = f64::NAN;
+            assert_eq!(
+                p13d_decide(&b, 0.7),
+                Err("a product-free area is not finite")
+            );
+        }
+        // The margin applies against the best product-free area.
+        let close = [0.62, 0.5, 0.6, 0.55, 0.52, 0.58];
+        assert_eq!(p13d_decide(&close, 0.5).map(|r| r.1), Ok(false));
+    }
+
+    #[test]
+    fn p13d_reports_no_verdict_below_the_pair_floor_and_reads_a_majority_above_it() {
+        assert_eq!(p13d_verdict(7, 7), "undecided");
+        assert_eq!(p13d_verdict(4, 8), "held");
+        assert_eq!(p13d_verdict(5, 8), "failed");
+        assert_eq!(p13d_verdict(0, 8), "held");
     }
 
     #[test]
