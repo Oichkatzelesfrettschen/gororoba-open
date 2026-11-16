@@ -67,7 +67,9 @@ const SPEARMAN_FALSIFIES: f64 = 0.95;
 
 #[derive(Parser)]
 #[command(name = "lbm-late-failure-precursor")]
-#[command(about = "Scores of the cells that hold a negative population at the first violating step")]
+#[command(
+    about = "Scores of the cells that hold a negative population at the first violating step"
+)]
 struct Cli {
     #[command(subcommand)]
     command: Command,
@@ -352,9 +354,7 @@ fn scan_grid(
         .par_iter()
         .map(|&cfg| {
             let found = scan_config(cfg, args.eps, args.max_steps);
-            let kept = found
-                .as_ref()
-                .is_some_and(|v| v.step >= args.min_kept_step);
+            let kept = found.as_ref().is_some_and(|v| v.step >= args.min_kept_step);
             ScanRow {
                 grid: name.to_string(),
                 tau: cfg.tau,
@@ -784,6 +784,11 @@ fn select_kept(rows: &[ScanRow], max: usize) -> Vec<&ScanRow> {
         .collect()
 }
 
+/// An excess above the prediction margin.
+fn exceeds(excess: Option<f64>) -> bool {
+    excess.is_some_and(|e| e > AUC_MARGIN)
+}
+
 fn predictions(scores: &[ConfigScore]) -> Predictions {
     let mut by_horizon = Vec::new();
     let mut pairs = 0;
@@ -797,38 +802,29 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
             .flat_map(|c| c.horizons.iter())
             .filter(|s| s.horizon == h)
             .collect();
-        let over = |s: &&HorizonScore| s.associator_excess.is_some_and(|e| e > AUC_MARGIN);
-        let over_oriented = |s: &&HorizonScore| {
-            s.associator_excess_oriented
-                .is_some_and(|e| e > AUC_MARGIN)
-        };
         pairs += at.len();
-        exceeding += at.iter().filter(over).count();
+        exceeding += at.iter().filter(|s| exceeds(s.associator_excess)).count();
         if h >= 10 {
             pairs_late += at.len();
-            exceeding_late += at.iter().filter(over).count();
+            exceeding_late += at.iter().filter(|s| exceeds(s.associator_excess)).count();
         }
-        spearmans.extend(
-            at.iter()
-                .filter_map(|s| s.spearman_associator_gram_volume),
-        );
+        spearmans.extend(at.iter().filter_map(|s| s.spearman_associator_gram_volume));
         let assoc: Vec<f64> = at.iter().filter_map(|s| s.auc_associator).collect();
         let best: Vec<f64> = at.iter().filter_map(|s| s.best_product_free_auc).collect();
         by_horizon.push(HorizonSummary {
             horizon: h,
             configs: at.len(),
-            exceed_margin: at.iter().filter(over).count(),
-            exceed_margin_oriented: at.iter().filter(over_oriented).count(),
+            exceed_margin: at.iter().filter(|s| exceeds(s.associator_excess)).count(),
+            exceed_margin_oriented: at
+                .iter()
+                .filter(|s| exceeds(s.associator_excess_oriented))
+                .count(),
             median_associator_auc: median(&assoc),
             median_best_product_free_auc: median(&best),
         });
     }
-    let extreme = |pick: fn(f64, f64) -> f64, start: f64| {
-        spearmans
-            .iter()
-            .copied()
-            .fold(start, pick)
-    };
+    let extreme =
+        |pick: fn(f64, f64) -> f64, start: f64| spearmans.iter().copied().fold(start, pick);
     Predictions {
         p13a_by_horizon: by_horizon,
         p13a_pairs: pairs,
@@ -877,7 +873,12 @@ fn score(args: &ScoreArgs) -> Result<()> {
     let mut out: Output =
         serde_json::from_str(&text).with_context(|| format!("parse {}", args.json.display()))?;
     if (out.nx, out.ny, out.nz) != (NX, NY, NZ) {
-        bail!("scan grid {}x{}x{} differs from this binary", out.nx, out.ny, out.nz);
+        bail!(
+            "scan grid {}x{}x{} differs from this binary",
+            out.nx,
+            out.ny,
+            out.nz
+        );
     }
     let lattice = D3Q19Lattice::new();
     let picked = select_kept(&out.scan, args.max_configs);
