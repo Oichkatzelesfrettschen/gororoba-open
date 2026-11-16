@@ -336,8 +336,8 @@ supplies hashes and historical command descriptions; its `compile_command` and
 and process results in the evidence file are the execution record.
 
 The evidence file has `deny_unknown_fields` and schema version 1: toolchain,
-project hash, source digests, proof object digest, Flocq object digests when a
-source imports Flocq, the compilation of every source in dependency order, the
+project hash, source digests, proof object digest, Flocq object digests and
+the producer that supplied them when a source imports Flocq, the compilation of every source in dependency order, the
 checker run and the assumption query, each with arguments, exit code, stdout
 and stderr. Admission compares the arguments with the fixed argument vectors of
 `theorem_replay.rs` and the two project namespaces. It requires a fatal warning
@@ -361,8 +361,18 @@ logs byte for byte to the matching command output, and checks the argument
 vectors and the compilation order. It trusts the producer
 (gororoba-math `ci/kernel_replay_evidence.py`) for the fact that Rocq ran; no
 process attestation exists, so a file with the right bytes and an invented
-transcript is accepted. Flocq object digests are recorded as the producer
-reports them and are compared with no bytes in this repository. Private
+transcript is accepted. Admission of a new event key requires the evidence
+to name its producer in `flocq_producer` and the Flocq object digests to
+equal that producer's entry in the committed copy of the gororoba-math Flocq
+manifest (`crates/provenance_store/fixtures/flocq_manifest/rocq-9.3.json`);
+a stored envelope keeps the contract it was admitted under, and this
+repository holds no Flocq object bytes. A `.vo` records the md5 of each
+OCaml plugin it loads, and the plugin bytes depend on the install prefix and
+the native toolchain of the producer (measured: a hosted runner that built the
+same export produced different Flocq object bytes, first at
+`Calc/Bracket.vo`), so the manifest holds one entry per producer and
+evidence that names no entry, an unknown entry or another producer's digests is
+rejected. Private
 synthetic fixtures test state transitions, and a committed evidence file that
 the gororoba-math producer wrote for the synthetic fixture tree exercises the
 public admission method without Rocq.
@@ -543,3 +553,123 @@ Removing Git pointers does not reclaim GitHub's retained LFS storage. GitHub's
 requires repository deletion/recreation or Support intervention for provider
 object removal. Repository recreation also removes native issue/PR history and
 stars; local exports preserve records but do not restore those identities.
+
+## Execution attestation of kernel replay evidence (design, not implemented)
+
+Status: design for the owner's ruling (gororoba-open issue 283). No code in
+this repository or in gororoba-math implements it. Until it lands, the trust
+statement above holds unchanged: admission trusts the producer for the fact
+that Rocq ran.
+
+### Threat and falsifier
+
+An evidence file whose digests, argument vectors and logs satisfy every check
+of `theorem_replay.rs` can be written by hand, with no Rocq process behind
+it. The falsifier of the design: a forged evidence file for the synthetic
+fixture tree, valid in every field that admission checks today, is rejected
+once the attestation is required, and the unmodified file with its
+attestation is accepted.
+
+### Constraints
+
+- Admission runs no Rocq and reaches no network; the admission test builds
+  its input or reads a committed fixture.
+- This repository is pure Rust and tracks no shell or Python file.
+- Receipts recorded before the attestation exists stay valid history; the
+  requirement applies to a new event key, by schema version.
+- A key or secret value is stored in no checkout.
+- Flocq object bytes depend on the install prefix and the native toolchain of
+  the producer (measured, hosted runner against the build host, first
+  difference at `Calc/Bracket.vo`), so a hosted producer run (Designs A and C)
+  needs its own entry in the per-producer manifest, recorded with that
+  switch, and Design C's byte-for-byte comparison of evidence files holds
+  only between runs on one producer.
+
+### Design A: detached Ed25519 signature by a hosted producer run
+
+- Producer: a `workflow_dispatch` workflow of gororoba-math runs
+  `ci/kernel_replay_evidence.py` for one proof source on a hosted runner under
+  the cached opam switch, then signs a statement that binds the canonical
+  bytes of `STEM.evidence.json` by digest, with an Ed25519 key held as an
+  Actions secret of that repository. It uploads the evidence file, the three logs, the proof object
+  and `STEM.evidence.sig` as one artifact.
+- Signed statement: the 32-byte sha256 of the evidence file, prefixed by a
+  fixed domain string (`gororoba-kernel-replay-evidence-v2\n`), the
+  gororoba-math commit and the workflow run identifier. The commit and run
+  identifier are fields of a small attestation file beside the signature, so
+  the signature covers them.
+- Admission: `record-kernel-evidence` takes `--attestation FILE`, verifies the
+  signature against a public key committed in this repository
+  (`registry/kernel_replay_attestation_keys.toml`: key identifier, public key,
+  first and last accepted date), requires the attested digest to equal the
+  evidence file's digest and the attested commit to equal
+  `ci/gororoba_math.pin` or an ancestor recorded in the receipt, and stores
+  the attestation in the version 3 theorem-event envelope.
+- Verification is pure Rust (`ed25519-dalek`), offline. The admission test
+  generates a key pair, signs a fixture and checks four cases: accepted;
+  forged evidence with a valid-looking but wrong signature rejected; evidence
+  altered after signing rejected; unknown key identifier rejected.
+- What it establishes: the holder of the signing key signed this evidence
+  digest. With the key readable only by the workflow, that is the hosted run.
+  What it leaves open: a repository administrator can read or replace the
+  secret, and a workflow edit on a branch can sign arbitrary bytes unless the
+  secret is bound to an environment with protected branches.
+- Cost: one secret to create and rotate (an infrastructure task: its location
+  goes to `credentials/registry.md`), one new dependency, a schema version.
+
+### Design B: GitHub artifact attestation (Sigstore)
+
+- Producer: the same hosted workflow calls `actions/attest-build-provenance`
+  on the evidence file. GitHub signs an in-toto SLSA provenance statement with
+  a short-lived Fulcio certificate whose identity is the workflow path and
+  ref, and logs it in Rekor. No long-lived secret exists.
+- Admission: `--attestation BUNDLE` takes the Sigstore bundle. Offline,
+  admission can check that the bundle's subject digest equals the evidence
+  file's digest and that the certificate's workflow identity and repository
+  equal pinned values; verifying the certificate chain and the transparency
+  log entry needs the Sigstore trust root and either a Rust Sigstore
+  implementation or `gh attestation verify`, which this repository cannot
+  run in its hermetic gate.
+- What it establishes, when fully verified: GitHub attests that the named
+  workflow at the named commit produced these bytes. That is a stronger
+  statement than Design A, since no party holds a reusable key; a workflow
+  that a branch edit changes can still produce arbitrary bytes, so the
+  statement covers the workflow identity and not the Rocq run inside it.
+- Cost: full verification is a large dependency (`sigstore` crate, trust
+  root updates) or an on-demand check outside the admission gate; with only
+  the digest binding in the gate, a forged bundle passes the gate and fails
+  only on demand, which does not meet the falsifier.
+
+### Design C: reproduce instead of attest
+
+- A hosted gororoba-math workflow re-runs the producer for a receipt and
+  compares its evidence file byte for byte with the recorded one; this
+  repository's `proofs.yml` requires the latest such comparison to be green
+  for the pin. The producer is deterministic by construction (fixed argument
+  vectors, scratch directory, no absolute path in any output), so equality is
+  expected; a first measurement of two runs on different hosts decides
+  whether it holds.
+- It needs no key and no new dependency, and it catches a transcript that
+  differs from the output of a real run. A hand-written file equal to that
+  deterministic output passes, so Design C confirms the content of a receipt
+  and attests no process. It moves the check from admission time to a hosted
+  lane, so a receipt is admitted first and confirmed later.
+
+### Recommendation
+
+Design A with an environment-bound secret, and Design C as the on-demand
+confirmation: A meets the falsifier inside the hermetic gate at the cost of
+one key, and C bounds the residual trust in the key holder with an
+independent rerun. Design B replaces A when a pure-Rust offline Sigstore
+verification is small enough to audit.
+
+### Open decisions
+
+- Whether the signing identity is one key for the repository or one per
+  runner image.
+- Whether admission pins the attested commit to `ci/gororoba_math.pin`
+  exactly or accepts any commit that leaves the bound source bytes unchanged
+  (the rule the gororoba-quantum pin follows).
+- Which date admission compares with the accepted dates of a key: the
+  receipt's `applied_at` or a signing time recorded in the attestation.
+- Whether existing version 2 receipts are re-attested or left as recorded.
