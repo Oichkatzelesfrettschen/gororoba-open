@@ -5,7 +5,7 @@
 //! The flow is a quasi-two-dimensional periodic double shear layer (64 x 64 x
 //! 4 cells) with a transverse sine perturbation. A population is bad when it
 //! is negative or not finite; the first violating step F of a run is the first
-//! step after which any population is bad. Three subcommands:
+//! step after which any population is bad. Four subcommands:
 //!
 //! 1. `scan` steps a grid of (tau, U0, delta) configurations until F or the
 //!    step budget, and records F and the number of cells holding a bad
@@ -24,6 +24,10 @@
 //!    cells without a bad population at t that first hold one in (t, t + 100],
 //!    scores every cell from states up to t, and stratifies the cells by
 //!    quartile of the smallest population over the density at t.
+//! 4. `forecast-null` re-runs the anchored forecast and reports what its ROC
+//!    areas reach under label permutation, a torus shift of the score field,
+//!    surrogate increments and substituted algebras (model and tests in the
+//!    `forecast_null` module).
 //!
 //! The Gram volume is the three-dimensional volume spanned by the triple. It
 //! is zero for collinear states and one for orthonormal states, and it
@@ -44,6 +48,9 @@ use lbm_3d::{
 };
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
+
+#[path = "lbm_late_failure_precursor/forecast_null.rs"]
+mod forecast_null;
 
 /// Lattice extent along x.
 const NX: usize = 64;
@@ -100,6 +107,8 @@ enum Command {
     Score(ScoreArgs),
     /// Rank the cells that first turn bad in the 100 steps after an anchor.
     Forecast(ForecastArgs),
+    /// Compare the areas of the anchored forecast with their null distributions.
+    ForecastNull(forecast_null::NullArgs),
 }
 
 /// Parameter grid of a scan.
@@ -1466,6 +1475,7 @@ fn main() -> Result<()> {
         Command::Scan(args) => scan(&args),
         Command::Score(args) => score(&args),
         Command::Forecast(args) => forecast(&args),
+        Command::ForecastNull(args) => forecast_null::forecast_null(&args),
     }
 }
 
