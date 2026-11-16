@@ -1599,12 +1599,55 @@ fn retained_areas(a: &super::ScoreAucs) -> [Option<f64>; 5] {
     ]
 }
 
-/// Largest difference between the areas of the re-simulated run and the retained forecast record.
-fn retained_difference(run: &NullRun, retained: &super::RunForecast) -> Result<f64> {
-    if retained.config != run.key || retained.anchor != run.anchor {
-        bail!("the retained forecast run differs in configuration or anchor");
-    }
+/// Largest difference between the retained areas of one cell set and the areas of the rerun
+/// on `cells`; a retained area and a rerun area must be both finite or both absent.
+fn area_difference(
+    retained: [Option<f64>; 5],
+    scores: &[Vec<f64>],
+    cells: &[usize],
+    labels: &[bool],
+) -> Result<f64> {
     let mut worst = 0.0_f64;
+    for (k, want) in retained.into_iter().enumerate() {
+        let got = auc(&select(&scores[k], cells), labels);
+        match want {
+            Some(w) if got.is_finite() => worst = worst.max((got - w).abs()),
+            Some(_) => bail!("a retained area is present where the rerun has none"),
+            None if got.is_finite() => bail!("a retained area is absent where the rerun has one"),
+            None => {}
+        }
+    }
+    Ok(worst)
+}
+
+/// Largest difference between the areas of the re-simulated run and the retained forecast record:
+/// the all-cell areas and the areas of each of the four quartiles, which the record must hold
+/// exactly once each.
+fn retained_difference(run: &NullRun, retained: &super::RunForecast) -> Result<f64> {
+    if retained.config != run.key
+        || retained.anchor != run.anchor
+        || retained.first_violation_step != run.first
+    {
+        bail!("the retained forecast run differs in configuration, anchor or first violating step");
+    }
+    let positives = run.labels.iter().filter(|&&l| l).count();
+    if retained.cells != CELLS || retained.positives != positives {
+        bail!("the retained forecast run differs in cells or positives");
+    }
+    let held: Vec<usize> = retained.quartiles.iter().map(|q| q.quartile).collect();
+    if held != (0..QUARTILES).collect::<Vec<_>>() {
+        bail!(
+            "the retained forecast run holds quartiles {held:?} instead of one result for each of 0 to {}",
+            QUARTILES - 1
+        );
+    }
+    let everything: Vec<usize> = (0..CELLS).collect();
+    let mut worst = area_difference(
+        retained_areas(&retained.all_cells),
+        &run.scores,
+        &everything,
+        &run.labels,
+    )?;
     for q in &retained.quartiles {
         let cells: Vec<usize> = (0..CELLS)
             .filter(|&c| run.quartile[c] == q.quartile)
@@ -1617,16 +1660,12 @@ fn retained_difference(run: &NullRun, retained: &super::RunForecast) -> Result<f
                 q.quartile
             );
         }
-        for (k, want) in retained_areas(&q.auc).into_iter().enumerate() {
-            let got = auc(&select(&run.scores[k], &cells), &labels);
-            match want {
-                Some(w) => worst = worst.max((got - w).abs()),
-                None if got.is_finite() => {
-                    bail!("a retained area is absent where the rerun has one")
-                }
-                None => {}
-            }
-        }
+        worst = worst.max(area_difference(
+            retained_areas(&q.auc),
+            &run.scores,
+            &cells,
+            &labels,
+        )?);
     }
     if worst > 1e-12 {
         bail!("the rerun differs from the retained forecast record by {worst:e}");
@@ -3146,6 +3185,106 @@ mod tests {
         assert_eq!(p13d_verdict(4, 8), "held");
         assert_eq!(p13d_verdict(5, 8), "failed");
         assert_eq!(p13d_verdict(0, 8), "held");
+    }
+
+    /// A run of synthetic scores whose forecast record is built by the `forecast` code path.
+    fn replayed_run() -> (NullRun, super::super::RunForecast) {
+        let column = |seed: u64| -> Vec<f64> {
+            (0..CELLS)
+                .map(|c| (mix(seed ^ c as u64) % 1_000_003) as f64 / 1_000_003.0)
+                .collect()
+        };
+        let scores: Vec<Vec<f64>> = (1..=6).map(column).collect();
+        let labels: Vec<bool> = (0..CELLS)
+            .map(|c| mix(99 ^ c as u64) % 10 < 3 + (scores[0][c] * 4.0) as u64)
+            .collect();
+        let quartile = population_quartiles(&scores[4]);
+        let key = ConfigKey {
+            tau: 0.5,
+            u0: 0.2,
+            delta: 2.0,
+            eps: 0.05,
+        };
+        let cell_scores = super::super::CellScores {
+            associator: scores[0].clone(),
+            gram_volume: scores[1].clone(),
+            step_difference: scores[2].clone(),
+            mach: scores[3].clone(),
+            min_population_share: scores[4].clone(),
+        };
+        let forecast = super::super::RunForecast {
+            config: key,
+            first_violation_step: 300,
+            anchor: 250,
+            cells: CELLS,
+            positives: labels.iter().filter(|&&l| l).count(),
+            all_cells: super::super::score_aucs(&cell_scores, &labels),
+            quartiles: (0..QUARTILES)
+                .map(|q| super::super::quartile_result(q, &cell_scores, &labels, &quartile))
+                .collect(),
+        };
+        let run = NullRun {
+            key,
+            first: 300,
+            anchor: 250,
+            states: Vec::new(),
+            labels,
+            quartile,
+            scores,
+        };
+        (run, forecast)
+    }
+
+    #[test]
+    fn the_replay_guard_reads_the_all_cell_areas_and_every_quartile() {
+        let (run, forecast) = replayed_run();
+        assert_eq!(
+            retained_difference(&run, &forecast).expect("equal record"),
+            0.0
+        );
+
+        let (_, mut empty) = replayed_run();
+        empty.quartiles.clear();
+        assert!(
+            retained_difference(&run, &empty).is_err(),
+            "no quartile result"
+        );
+
+        let (_, mut short) = replayed_run();
+        short.quartiles.pop();
+        assert!(
+            retained_difference(&run, &short).is_err(),
+            "three of four quartiles"
+        );
+
+        let (_, mut repeated) = replayed_run();
+        repeated.quartiles[3].quartile = 2;
+        assert!(
+            retained_difference(&run, &repeated).is_err(),
+            "a repeated quartile"
+        );
+
+        let (_, mut altered) = replayed_run();
+        let area = altered.all_cells.associator.unoriented_auc.expect("area");
+        altered.all_cells.associator.unoriented_auc = Some(area + 0.01);
+        assert!(
+            retained_difference(&run, &altered).is_err(),
+            "an altered all-cell area"
+        );
+
+        let (_, mut stale) = replayed_run();
+        stale.first_violation_step = 280;
+        assert!(
+            retained_difference(&run, &stale).is_err(),
+            "a stale first step"
+        );
+
+        let (_, mut dropped) = replayed_run();
+        dropped.all_cells.gram_volume.unoriented_auc = None;
+        assert!(
+            retained_difference(&run, &dropped).is_err(),
+            "a missing area"
+        );
     }
 
     #[test]
