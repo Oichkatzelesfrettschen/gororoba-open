@@ -347,21 +347,36 @@ fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
     arguments
 }
 
-/// Whether one command is a `Require` of a Flocq module. A command prefix
-/// (an attribute such as `#[warnings("-w")]`, or `Time`) can stand before
-/// `From NAMESPACE Require` and before `Require`, so the check anchors on the
-/// `Require` word and not on the first word.
+/// Whether one command is a `Require` of a Flocq module. The command starts
+/// with `Require` or `From NAMESPACE Require`, after any run of command
+/// prefixes: an attribute (`#[warnings("-w")]`, which may span words up to
+/// its closing `]`), `Time`, `Instructions`, `Profile` or `Timeout N`. A
+/// `Require` word anywhere else, such as inside a quoted string of a tactic
+/// command, is not an import.
 fn command_imports_flocq(words: &[&str]) -> bool {
-    let Some(require) = words.iter().position(|word| *word == "Require") else {
-        return false;
-    };
-    let from_flocq = require >= 2
-        && words[require - 2] == "From"
-        && (words[require - 1] == "Flocq" || words[require - 1].starts_with("Flocq."));
-    from_flocq
-        || words[require + 1..]
-            .iter()
-            .any(|module| module.starts_with("Flocq."))
+    let mut rest = words;
+    loop {
+        match rest {
+            [first, ..] if first.starts_with("#[") => {
+                let Some(end) = rest.iter().position(|word| word.ends_with(']')) else {
+                    return false;
+                };
+                rest = &rest[end + 1..];
+            }
+            ["Time" | "Instructions" | "Profile", tail @ ..] | ["Timeout", _, tail @ ..] => {
+                rest = tail;
+            }
+            _ => break,
+        }
+    }
+    let is_flocq = |module: &&str| *module == "Flocq" || module.starts_with("Flocq.");
+    match rest {
+        ["From", namespace, "Require", modules @ ..] => {
+            is_flocq(namespace) || modules.iter().any(|module| module.starts_with("Flocq."))
+        }
+        ["Require", modules @ ..] => modules.iter().any(|module| module.starts_with("Flocq.")),
+        _ => false,
+    }
 }
 
 fn uses_flocq(roots: EvidenceRoots<'_>, witness: &TheoremKernelWitness) -> Result<bool> {
@@ -630,6 +645,17 @@ mod tests {
             ("Require Import Stdlib.Reals.Reals", false),
             ("Definition Flocq_unrelated := 0", false),
             ("Require", false),
+            ("idtac \"Example: Require Import Flocq.Core.Core\"", false),
+            (
+                "Definition note := \"From Flocq Require Import Core\"",
+                false,
+            ),
+            (
+                "#[local, warnings(\"-w\")] Require Import Flocq.Core.Core",
+                true,
+            ),
+            ("Timeout 10 Require Import Flocq.Core.Core", true),
+            ("#[local Require Import Flocq.Core.Core", false),
         ] {
             let words = command.split_whitespace().collect::<Vec<_>>();
             assert_eq!(command_imports_flocq(&words), expected, "{command}");
