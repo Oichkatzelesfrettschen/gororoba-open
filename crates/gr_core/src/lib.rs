@@ -105,6 +105,7 @@ pub mod spatial;
 pub mod spectral_bands;
 pub mod synchrotron;
 pub mod warp_metric;
+pub mod warp_stress_energy;
 
 pub mod nanograv_cd_fit;
 

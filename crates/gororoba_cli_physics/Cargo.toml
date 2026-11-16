@@ -446,6 +446,10 @@ name = "worldline-casimir"
 path = "src/bin/worldline_casimir.rs"
 
 [[bin]]
+name = "casimir-warp-audit"
+path = "src/bin/casimir_warp_audit.rs"
+
+[[bin]]
 name = "adm-decompose"
 path = "src/bin/adm_decompose.rs"
 
