@@ -125,8 +125,6 @@ const TERMINOLOGY_SKIP_NAMES: &[&str] = &[
 
 const TERMINOLOGY_SKIP_SUFFIXES: &[&str] = &[".backup.phase2", ".backup"];
 
-const ROCQ_HEADER: &str = "From Stdlib Require Import String.\nRequire Import ConfineModel.\n\nOpen Scope string_scope.\n\n";
-
 const DOCTOR_PYTHON_MODULES: &[&str] = &[
     "numpy",
     "scipy",
@@ -155,7 +153,7 @@ const DOCTOR_PYTHON_MODULES: &[&str] = &[
     "fontMath",
 ];
 
-const DOCTOR_BINARIES: &[&str] = &["docker", "coqc", "latexmk"];
+const DOCTOR_BINARIES: &[&str] = &["docker", "latexmk"];
 
 const SOURCE_ANALYSIS_MCP_TOOLS: &[&str] = &[
     "source_analysis_catalog",
@@ -240,8 +238,6 @@ enum Commands {
     McpSmoke,
     #[command(name = "docs-redirect-check")]
     DocsRedirectCheck(DocsRedirectArgs),
-    #[command(name = "rocq-prepare-confine", visible_alias = "coq-prepare-confine")]
-    RocqPrepareConfine(CoqArgs),
     #[command(name = "validation-tool-paths")]
     ValidationToolPaths(ValidationToolPathsArgs),
     /// Fail when a tracked text file outside the shrink-only baseline names an
@@ -295,12 +291,6 @@ struct CharacterPolicyArgs {
 struct TerminologyArgs {
     #[arg(long)]
     quiet: bool,
-}
-
-#[derive(Args, Debug)]
-struct CoqArgs {
-    src: PathBuf,
-    dst: PathBuf,
 }
 
 #[derive(Args, Debug)]
@@ -955,27 +945,6 @@ fn run_mcp_smoke() -> Result<()> {
     Ok(())
 }
 
-fn run_rocq_prepare_confine(args: CoqArgs) -> Result<()> {
-    let text =
-        fs::read_to_string(&args.src).with_context(|| format!("read {}", args.src.display()))?;
-    let mut output = String::from(ROCQ_HEADER);
-    for line in text.lines() {
-        if let Some(rest) = line.strip_prefix("Theorem ") {
-            output.push_str("Axiom ");
-            output.push_str(rest);
-        } else {
-            output.push_str(line);
-        }
-        output.push('\n');
-    }
-    if let Some(parent) = args.dst.parent() {
-        fs::create_dir_all(parent).with_context(|| format!("create {}", parent.display()))?;
-    }
-    fs::write(&args.dst, output).with_context(|| format!("write {}", args.dst.display()))?;
-    println!("Wrote {}", args.dst.display());
-    Ok(())
-}
-
 fn docs_redirect_root(path: &str) -> String {
     let first_segment = path
         .strip_prefix('/')
@@ -1177,7 +1146,6 @@ fn main() -> ExitCode {
         }
         Commands::McpSmoke => run_mcp_smoke(),
         Commands::DocsRedirectCheck(args) => run_docs_redirect_check(args),
-        Commands::RocqPrepareConfine(args) => run_rocq_prepare_confine(args),
         Commands::ValidationToolPaths(args) => run_validation_tool_paths(args),
         Commands::PathHygiene(args) => run_path_hygiene(args),
     };

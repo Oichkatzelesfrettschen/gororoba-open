@@ -4,7 +4,6 @@
 .PHONY: test lint check smoke integrity integrity-rust math-verify governance-gate governance-gate-readonly wave6-gate synthesis-execution-contract
 .PHONY: verify verify-grand verify-c010-c011-theses ansi-check ansi-check-strict terminology-gate doctor doctor-blas provenance cuda-source-ownership
 .PHONY: provenance-registry-index provenance-registry-export provenance-registry-verify provenance-registry-doctor provenance-registry-link-audit provenance-registry-recover
-.PHONY: rocq-proofs rocq-proofs-check rocq-project-check rocq-makefile-check lva-paper
 .PHONY: heavy test-inventory
 .PHONY: rust-test rust-clippy rust-semver-check rust-smoke rust-regression miri-cd-kernel dep-audit cargo-deny-check mcp-smoke e027-validate studio-run studio-check profile-tensor-avt x87-strategy-bench x87-strategy-perf x87-strategy-hyperfine x87-strategy-flamegraph x87-givens-microbench x87-givens-microbench-perf jacobi-backend-sweep jacobi-backend-perf jacobi-backend-flamegraph jacobi-backend-samply jacobi-backend-samply-compare gpu-bench gpu-bench-ncu gpu-bench-nsys
 .PHONY: cpu-bench cpu-bench-perf cpu-bench-cachegrind cpu-bench-flamegraph parity-bench parity-report
@@ -58,7 +57,7 @@
 .PHONY: registry-refresh registry-export-markdown registry-verify-mirrors docs-publish docs-freshness docs-gate docs-site docs-rustdoc docs-book docs-redirect-check
 .PHONY: artifacts artifacts-dimensional artifacts-materials artifacts-boxkites
 .PHONY: artifacts-reggiani artifacts-m3 artifacts-motifs artifacts-motifs-big artifacts-repo-visuals
-.PHONY: fetch-data fetch-data-redownload provenance-audit external-redownload-audit semantic-data-validate semantic-data-validate-strict run rocq latex latex-heliosphere latex-heliosphere-figs latex-heliosphere-clean latex-heliosphere-review
+.PHONY: fetch-data fetch-data-redownload provenance-audit external-redownload-audit semantic-data-validate semantic-data-validate-strict run latex latex-heliosphere latex-heliosphere-figs latex-heliosphere-clean latex-heliosphere-review
 .PHONY: clean clean-builds clean-artifacts clean-all host-profile
 .PHONY: check-ansi check-terminology check-path-hygiene
 .PHONY: validate-rust-integrity-claims validate-rust-integrity-test-inventory validate-rust-integrity-typed-policy
@@ -107,8 +106,7 @@ CI_ONLY_VALIDATION_GOALS := test lint check smoke integrity integrity-rust \
                            cpd-audit cpd-audit-strict cpd-audit-tooling cpd-audit-generated \
                            repo-audit repo-audit-strict repo-audit-strict-unjustified \
                            ref-audit ref-audit-strict docs-gate docs-freshness \
-                           docs-redirect-check rocq-proofs-check rocq-project-check \
-                           rocq-makefile-check registry-control-plane-gate \
+                           docs-redirect-check registry-control-plane-gate \
                            registry-control-plane-gate-readonly registry-semantic-atoms-gate \
                            registry-evidence-provenance-gate \
                            registry-execution-planning-gate \
@@ -312,7 +310,6 @@ validation-resource-contract-workers:
 	if grep -Eq 'heavy-(math|research)[[:space:]]*=[[:space:]]*\{[[:space:]]*max-threads[[:space:]]*=[[:space:]]*1' .config/nextest.toml; then echo "ERROR: nextest retains a CPU or memory safety serialization group." >&2; status=1; fi; \
 	if grep -Fq -- '--test-threads=1' .github/workflows/bench-cd-kernel.yml; then echo "ERROR: benchmark CI fixes the Rust test harness to one worker." >&2; status=1; fi; \
 	if grep -Eq 'physical_core_ids|init_physical_rayon_pool' crates/algebra_analysis/src/test_support.rs; then echo "ERROR: algebra tests substitute or pin physical cores." >&2; status=1; fi; \
-	if grep -Eq 'PHYS_CORES|PHYS_CPUS|taskset' proofs/Makefile || grep -Fq -- '-j$$(JOBS)' proofs/Makefile; then echo "ERROR: proof validation replaces or constrains the inherited Make jobserver." >&2; status=1; fi; \
 	for contract in 'cargo clippy --keep-going' 'cargo nextest run --no-fail-fast'; do \
 	    if ! grep -Fq "$$contract" Makefile; then echo "ERROR: Rust collector contract is missing: $$contract" >&2; status=1; fi; \
 	done; \
@@ -324,8 +321,12 @@ validation-resource-contract-workers:
 	    'cargo build --locked --keep-going --profile validation -p gororoba_cli_governance --bin registry-integrity'; do \
 	    if ! grep -Fq "$$contract" Makefile; then echo "ERROR: staged validation-tool build can mutate Cargo.lock: $$contract" >&2; status=1; fi; \
 	done; \
-	if ! grep -Fq 'make --jobs="$$MAKE_JOBS" --keep-going all' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to Make." >&2; status=1; fi; \
-	if ! grep -Fq 'opam install rocq-core.9.3.0 rocq-stdlib.9.2.0 coq-flocq.4.2.2 dune.3.23.1 --jobs="$$OPAMJOBS" --yes' .github/workflows/proofs.yml; then echo "ERROR: proof workflow does not pass every detected worker to opam." >&2; status=1; fi; \
+	if ! grep -Fq 'ci/gororoba_math.pin' .github/actions/fetch-gororoba-math/action.yml; then echo "ERROR: gororoba-math fetch action does not read the pin." >&2; status=1; fi; \
+	for workflow in .github/workflows/proofs.yml .github/workflows/paper.yml; do \
+	    if ! grep -Fq './.github/actions/fetch-gororoba-math' "$$workflow"; then echo "ERROR: workflow does not fetch the pinned gororoba-math commit: $$workflow" >&2; status=1; fi; \
+	done; \
+	if ! grep -Fq 'GOROROBA_MATH/rocq/open' .github/workflows/paper.yml; then echo "ERROR: paper workflow does not point TEXINPUTS at the pinned proof tree." >&2; status=1; fi; \
+	if grep -Eq 'install_rocq|opam|rocq (compile|check)|coqc' .github/workflows/proofs.yml; then echo "ERROR: proof workflow installs or runs Rocq; gororoba-math produces the kernel replay evidence." >&2; status=1; fi; \
 	if grep -Fq 'ci-rust-$${{ matrix.lane }}' .github/workflows/ci.yml; then echo "ERROR: Rust matrix jobs retain quota-consuming duplicate target caches." >&2; status=1; fi; \
 	rust_cache_block="$$(sed -n '/^  rust-validation:/,/^  benchmark:/p' .github/workflows/ci.yml)"; \
 	for contract in 'SCCACHE_DIR:' 'SCCACHE_CACHE_SIZE: 2G' 'compiler-content-v1-' 'fromJSON(needs.validation-core.outputs.rust_matrix).include[1].lane' 'mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba' 'version: v0.15.0'; do \
@@ -347,8 +348,10 @@ validation-resource-contract-workers:
 	done; \
 	for workflow in .github/workflows/proofs.yml .github/workflows/bench-cd-kernel.yml .github/workflows/paper.yml .github/workflows/unsafe-survey.yml .github/workflows/navier-stokes-certificates.yml; do \
 	    if ! grep -Fq 'workflow_call:' "$$workflow"; then echo "ERROR: component evidence workflow is not reusable: $$workflow" >&2; status=1; fi; \
-	    if grep -Eq '^  (push|pull_request):' "$$workflow"; then echo "ERROR: component workflow retains an independent push or pull-request admission root: $$workflow" >&2; status=1; fi; \
+	    if grep -Eq '^  push:' "$$workflow"; then echo "ERROR: component workflow retains an independent push admission root: $$workflow" >&2; status=1; fi; \
+	    if [ "$$workflow" != .github/workflows/proofs.yml ] && grep -Eq '^  pull_request:' "$$workflow"; then echo "ERROR: component workflow retains an independent pull-request admission root: $$workflow" >&2; status=1; fi; \
 	done; \
+	if ! awk '/^  pull_request:/ { inpr = 1; next } inpr && /^    paths:/ { found = 1 } inpr && /^  [a-z_]+:/ { inpr = 0 } END { exit !found }' .github/workflows/proofs.yml; then echo "ERROR: proof workflow pull-request trigger lacks its path filter." >&2; status=1; fi; \
 	exit "$$status"
 
 validation-resource-contract-collectors:
@@ -1318,7 +1321,7 @@ heavy:
 	$(CARGO_ENV) cargo nextest run --build-jobs $(CARGO_JOBS) --test-threads $(NEXTEST_TEST_THREADS) --cargo-profile test-heavy -P heavy -p algebra_analysis -p gr_core --run-ignored only
 	@echo "OK: heavy lane passed."
 
-# Convenience: sync all git submodules (proofs, paper when extracted).
+# Convenience: sync all git submodules (paper when extracted).
 submodule-sync:
 	git submodule update --init --recursive
 	@echo "OK: submodules synchronized."
@@ -2526,51 +2529,15 @@ run-e183:
 		--cd-dim 1024 --csv data/results/e183/manga_stack_D1024.csv
 	@echo "E-183 sweep complete. Results in data/results/e183/"
 
-# ---- Rocq proofs ----
-
-rocq:
-	@command -v coqc >/dev/null 2>&1 || { echo "ERROR: coqc not found. See docs/requirements/rocq.md"; exit 1; }
-	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- rocq-prepare-confine curated/01_theory_frameworks/confine_theorems_512.v curated/01_theory_frameworks/confine_theorems_512_axioms.v
-	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- rocq-prepare-confine curated/01_theory_frameworks/confine_theorems_1024.v curated/01_theory_frameworks/confine_theorems_1024_axioms.v
-	$(CARGO_ENV) cargo run --release -p repo_utilities --bin repo-utilities -- rocq-prepare-confine curated/01_theory_frameworks/confine_theorems_2048.v curated/01_theory_frameworks/confine_theorems_2048_axioms.v
-	cd curated/01_theory_frameworks && \
-		coqc ConfineModel.v && \
-		coqc confine_theorems_512_axioms.v && \
-		coqc confine_theorems_1024_axioms.v && \
-		coqc confine_theorems_2048_axioms.v
-
 # ---- Rocq formal verification proofs (ADM/Casimir/Warp claims) ----
+# The proof tree is the rocq/open directory of the gororoba-math checkout that
+# GOROROBA_MATH names (ci/gororoba_math.pin records the commit hosted CI uses).
+# Its Rocq build is gate-checked in gororoba-math by ci/check_rocq.sh.
 
-rocq-proofs:
-	@command -v rocq >/dev/null 2>&1 || { echo "SKIP: rocq not found"; exit 0; }
-	@if [ -f proofs/Makefile ]; then \
-	    $(MAKE) -C proofs all; \
-	else \
-	    echo "SKIP: proofs/ not present (submodule not initialized? run: make submodule-sync)"; \
-	fi
-
-rocq-proofs-check:
-	@if [ -f proofs/Makefile ]; then \
-	    $(MAKE) -C proofs check; \
-	else \
-	    echo "SKIP: proofs/ not present (submodule not initialized? run: make submodule-sync)"; \
-	fi
-
-rocq-project-check:
-	$(CARGO_ENV) cargo run --release -p gororoba_cli_data --bin rocq-project-audit -- --repo-root .
-
-rocq-makefile-check: rocq-project-check
-	@command -v rocq >/dev/null 2>&1 || { echo "ERROR: rocq not found. See docs/requirements/rocq.md"; exit 1; }
-	@if [ -f proofs/Makefile ]; then \
-	    $(MAKE) -C proofs rocq-makefile-check; \
-	else \
-	    echo "SKIP: proofs/ not present (submodule not initialized? run: make submodule-sync)"; \
-	fi
-
-lva-paper: rocq-proofs rocq-proofs-check
-	@command -v just >/dev/null 2>&1 || { echo "ERROR: just not found (install via cargo install just)"; exit 1; }
-	cd proofs && just paper-artifacts
-	$(MAKE) latex
+define require_proof_tree
+	@test -n "$(GOROROBA_MATH)" || { echo "ERROR: GOROROBA_MATH is unset; set it to a gororoba-math checkout (the proof tree is rocq/open there)." >&2; exit 1; }
+	@test -f "$(GOROROBA_MATH)/rocq/open/Makefile" || { echo "ERROR: $(GOROROBA_MATH)/rocq/open/Makefile is missing; GOROROBA_MATH must name a gororoba-math checkout." >&2; exit 1; }
+endef
 
 # ---- LaTeX (warnings-as-errors via latexmk -Werror) ----
 
@@ -2578,7 +2545,8 @@ latex:
 	@command -v latexmk >/dev/null 2>&1 || { echo "ERROR: latexmk not found. Install TeX Live (see docs/requirements/latex.md)"; exit 1; }
 	$(CARGO_ENV) cargo run --release --bin generate-latex
 	@mkdir -p docs/latex/out
-	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -shell-escape -output-directory=out llm_scaffold_paper.tex
+	$(require_proof_tree)
+	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/:$(GOROROBA_MATH)/rocq/open: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -shell-escape -output-directory=out llm_scaffold_paper.tex
 	cd docs/latex && TEXINPUTS=.:$(CURDIR)/papers/bib/: BIBINPUTS=$(CURDIR)/papers/bib/: latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -output-directory=out MASTER_SYNTHESIS.tex
 	cd docs/latex && latexmk -pdf -Werror -interaction=nonstopmode -halt-on-error -output-directory=out MATHEMATICAL_FORMALISM.tex
 	$(MAKE) latex-heliosphere
@@ -2699,9 +2667,10 @@ cpd-audit:
 		| $(CARGO_ENV) cargo run --release -p gororoba_cli_data --bin cpd-report -- --top $(CPD_TOP)
 
 # Anchored repo-debt counter (replaces unreliable grep heuristics).
-# Walks crates/, proofs/, xtask/ and emits a TOML snapshot of the
-# measurable debt classes (unsafe blocks, attrs, macros, Rocq Admitted/
-# Axiom/Parameter). Use REPO_AUDIT_OUT to override the output dir.
+# Walks crates/ and xtask/ and emits a TOML snapshot of the measurable
+# debt classes (unsafe blocks, attrs, macros; gororoba-math owns the Rocq
+# Admitted/Axiom/Parameter counts of its proof tree). Use REPO_AUDIT_OUT to
+# override the output dir.
 # See crates/gororoba_cli_data/src/bin/repo_audit.rs for what is counted
 # and the limitations of the regex-on-stripped-source approach.
 REPO_AUDIT_OUT ?= data/output/audit/repo_audit
@@ -2731,7 +2700,7 @@ repo-audit-strict:
 # closed every unjustified clippy allow in `crates/` -- new code adding
 # an unjustified suppression must add a comment immediately above (see
 # docs/engineering/repo_audit_metric_taxonomy.md for the policy).
-# `proofs/` is excluded indirectly by the `crates/`-only roots default.
+# The cap applies to the `crates/` root alone.
 repo-audit-strict-unjustified:
 	@mkdir -p "$(REPO_AUDIT_TMPDIR)"
 	TMPDIR=$(REPO_AUDIT_TMPDIR) $(CARGO_ENV) cargo run --release -p gororoba_cli_data --bin repo-audit -- \
@@ -2854,7 +2823,6 @@ help:
 	@echo ""
 	@echo "  Other:"
 	@echo "    make run                  Run simulations (sedenion, modular, entropy)"
-	@echo "    make rocq                Compile Rocq proofs"
 	@echo "    make latex                Build MASTER_SYNTHESIS.pdf"
 
 # -----------------------------------------------------------------------------

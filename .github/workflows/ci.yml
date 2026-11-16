@@ -89,8 +89,8 @@ jobs:
             for component in benchmark proofs paper unsafe_survey; do
               case "$component" in
                 benchmark) pattern='^crates/(cd_kernel|fwht|verified_core|gororoba_gpu_bridge)/|^crates/gororoba_cli/src/bin/detect_worker_budget\.rs$|^Cargo\.(toml|lock)$|^rust-toolchain\.toml$|^\.cargo/config\.toml$|^\.github/workflows/(bench-cd-kernel|ci)\.yml$' ;;
-                proofs) pattern='^proofs/|^crates/(provenance_store|provenance_core|repo_root)/|(^|/)Cargo\.(toml|lock)$|^rust-toolchain\.toml$|^\.cargo/|^\.github/workflows/(proofs|ci)\.yml$' ;;
-                paper) pattern='^docs/latex/|^papers/bib/|^\.github/workflows/(paper|ci)\.yml$' ;;
+                proofs) pattern='^ci/gororoba_math\.pin$|^registry/canonical/|^\.github/actions/fetch-gororoba-math/|^plans/vacuum_(energy_falsification|integration_contract)\.toml$|^crates/(provenance_store|provenance_core|repo_root|gororoba_db)/|^crates/gororoba_cli_physics/src/bin/vacuum_response_audit|(^|/)Cargo\.(toml|lock)$|^rust-toolchain\.toml$|^\.cargo/|^\.github/workflows/(proofs|ci)\.yml$' ;;
+                paper) pattern='^docs/latex/|^ci/gororoba_math\.pin$|^\.github/actions/fetch-gororoba-math/|^papers/bib/|^\.github/workflows/(paper|ci)\.yml$' ;;
                 unsafe_survey) pattern='^tools/vendor/cargo-geiger/|(^|/)Cargo\.(toml|lock)$|^rust-toolchain\.toml$|^\.cargo/config\.toml$|^\.github/workflows/(unsafe-survey|ci)\.yml$' ;;
               esac
               if grep -Eq "$pattern" "$RUNNER_TEMP/component-changed-paths"; then

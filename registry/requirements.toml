@@ -64,9 +64,9 @@ status = "active"
 status_token = "ACTIVE"
 runtime_stack = "rocq"
 requires_modules = ["REQ-CORE"]
-install_targets = ["make rocq"]
-verify_targets = ["make rocq"]
-acceptance_criteria = ["Runtime stack classification is explicit.", "Install and verify commands are reproducible.", "Module dependencies are fully declared in TOML."]
+install_targets = []
+verify_targets = []
+acceptance_criteria = ["Runtime stack classification is explicit.", "Rocq sources are compiled and kernel-checked in gororoba-math by sh ci/check_rocq.sh under Rocq 9.3.0.", "This repository runs no Rocq and ingests the replay evidence file.", "Module dependencies are fully declared in TOML."]
 
 [[module]]
 id = "REQ-CORE"

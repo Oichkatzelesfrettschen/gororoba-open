@@ -4,7 +4,7 @@
 //! division algebras at dim 16+ over suitable fields. Classifies algebras
 //! up to isomorphism at dims 16, 32, 64.
 //!
-//! Mirrors: proofs/theories/BrownGeneralizedCD.v (0 Admitted)
+//! Mirrors: gororoba-math rocq/open/theories/BrownGeneralizedCD.v (0 Admitted)
 //!
 //! # Key results
 //!

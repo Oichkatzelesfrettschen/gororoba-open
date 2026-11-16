@@ -8,7 +8,7 @@ description = "Hurwitz (1898) Composition of Quadratic Forms -- verified Rust im
 # Source: Hurwitz, A. (1898) "Ueber die Composition der quadratischen Formen
 # von beliebig vielen Variablen", Nachr. Ges. Wiss. Goettingen, pp. 309-316.
 #
-# Rocq verification: proofs/theories/HurwitzTheorem.v (443 lines, 0 Admitted)
+# Rocq verification: gororoba-math rocq/open/theories/HurwitzTheorem.v (443 lines, 0 Admitted)
 #
 # This crate implements all computable content from the paper:
 # - Norm multiplicativity at dims 1, 2, 4, 8

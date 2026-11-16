@@ -29,13 +29,6 @@ crates/data_core/src/registry_mirrors/reports_repo_inventory.rs
 crates/data_core/src/registry_mirrors/reports_repo_structure_audit.rs
 crates/gororoba_cli_algebra/src/bin/jacobi_backend_samply_compare.rs
 crates/provenance_store/src/theorem_replay.rs
-curated/01_theory_frameworks/.ConfineModel.aux
-curated/01_theory_frameworks/.confine_theorems_1024.aux
-curated/01_theory_frameworks/.confine_theorems_1024_axioms.aux
-curated/01_theory_frameworks/.confine_theorems_2048.aux
-curated/01_theory_frameworks/.confine_theorems_2048_axioms.aux
-curated/01_theory_frameworks/.confine_theorems_512.aux
-curated/01_theory_frameworks/.confine_theorems_512_axioms.aux
 data/output/audit/2026-04-30/01-cargo-tree-depth1.txt
 data/output/audit/2026-04-30/01-cargo-tree-duplicates.txt
 data/output/audit/2026-04-30/01-machete.txt
@@ -540,8 +533,6 @@ data/output/static_analysis/machete_2026_04_30.txt
 docs/engineering/quantum_associator_evidence_reconciliation.txt
 docs/physics/sedenion_standard_model.md
 plans/external-execution-targets.toml
-proofs/.CoqMakefile.d
-proofs/CoqMakefile.conf
 registry/experiment_lineage.toml
 registry/experiments.toml
 registry/knowledge_sources.toml

@@ -1,7 +1,7 @@
 //! Shannon binary entropy (Rocq-verified: C-915..C-917).
 //!
 //! H(p) = -(p*ln(p) + (1-p)*ln(1-p)).
-//! Kernel-checked in `proofs/theories/BinaryEntropy.v`.
+//! Kernel-checked in gororoba-math `rocq/open/theories/BinaryEntropy.v`.
 
 /// Binary entropy function H(p).
 ///
