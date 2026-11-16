@@ -48,6 +48,7 @@ pub mod peps;
 pub mod pseudospectrum;
 pub mod qua_ten_net_bridge;
 pub mod quantum_frequency_conversion;
+pub mod qubit_compatibility;
 pub mod scaling_laws;
 pub mod spectral_gap_certificate;
 pub mod spinor_mechanics;
