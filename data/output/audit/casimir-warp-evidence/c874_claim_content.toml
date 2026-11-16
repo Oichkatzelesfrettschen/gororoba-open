@@ -1,0 +1,5 @@
+claim_id = "C-874"
+expected_statement = "York time vanishes in nacelle warp interior (rho << rho_0, |x| << L)."
+expected_where_stated = "crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)"
+statement = "At the center of the implemented nacelle shift, the shape function and the axial taper equal 1 within 0.01 (test_shape_function_at_center, test_axial_taper_center) and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center); the Rocq theorems C874_shape_unity, C874_axial_taper_unity and C874_axial_deriv_zero give the exact center values and the zero axial taper derivative for the Rocq model functions. Vanishing York time throughout the nacelle interior (rho << rho_0, |x| << L) is not established: the logistic gate and tanh envelope are phenomenological and do not certify exact flatness."
+where_stated = "crates/gr_core/src/warp_metric.rs (test_shape_function_at_center, test_axial_taper_center, test_york_time_zero_at_center)"

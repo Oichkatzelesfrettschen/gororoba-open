@@ -1,0 +1,12 @@
+correction_key = "c874-model-function-scope-2026-11"
+actor = "registry-statement-correction"
+reason = "Align the theorem title with the proved model-function lemmas; the proof source states no K_ij or implemented-shift result. Preserve the existing source_only status and formal claim relation."
+applied_at = "2026-11-16T12:27:05Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C874_YorkTimeVanishesInterior"
+proof_path = "proofs/verified/C874_YorkTimeVanishesInterior.v"
+expected_title = "York time vanishes in nacelle warp interior (rho << rho_0, |x| << L)."
+expected_claim_ids = ["C-874"]
+title = "Rocq model functions: the axial taper derivative vanishes and the axial taper and shape function equal 1 at the bubble center."
+claim_ids = ["C-874"]

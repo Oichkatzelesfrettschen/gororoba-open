@@ -1,0 +1,27 @@
+[[experiment]]
+binary = "zd-spectral dimension"
+binary_experiment_declared = "E-084"
+binary_registered = true
+claim_refs = ["C-922", "C-923", "C-926"]
+claims = ["C-922", "C-923", "C-926"]
+dataset_label_refs = []
+dataset_refs = ["PC-0141", "PC-0127", "PC-0140"]
+deterministic = true
+external_source_refs = []
+gpu = false
+id = "E-084"
+input = "None (computational)"
+input_path_refs = []
+lineage_id = "XL-083"
+method = "For each CD dim: build the cross-assessor ZD graph and take the first component, compute its Laplacian with zero modes included, eigendecompose, evaluate the full finite-graph heat trace P(t) and its exact logarithmic derivative on a geometric t-grid (evaluate_heat_trace, no smoothing), and report the longest slope-flat window with its flatness_score."
+output = ["data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_convention.txt", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_curves.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_eigenvalues.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_flat_windows.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_first_component_v2_gap.csv"]
+output_path_refs = ["data/output/audit/spectral-full-trace/census/zd_spectral_first_component_v2_gap.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_convention.txt", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_curves.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_eigenvalues.csv", "data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_flat_windows.csv"]
+reproducibility_class = "deterministic_replay"
+run = "cargo run --release --bin zd-spectral -- dimension --min-dim 16 --max-dim 512 --t-points 300 --output-dir data/output/audit/spectral-full-trace/census"
+run_command_sha256 = "5406c5bcb9e5d8b6f38b85b4dc718a445959a1f6fa253b54cea8a4e09633f8bc"
+seed = 0
+status = "active"
+status_note = "Historical outputs zd_spectral_dimension_curves.csv, zd_spectral_dimension_plateaus.csv, zd_laplacian_eigenvalues.csv and zd_spectral_gap.csv are the positive-mode relaxation census; the registered run no longer writes them. The full finite-graph heat trace writes the version 2 files, retained with SHA256SUMS in the census directory of the artifact LOCAL-SPECTRAL-FULL-TRACE-V2; a second replay wrote byte-identical files. The flat-window selector is descriptive and selects a finite-size tail at every dimension."
+status_token = "ACTIVE"
+title = "ZD graph spectral dimension census"
+truth_surface_consumption = []
