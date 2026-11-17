@@ -69,3 +69,18 @@ Round 1: Advisor on bea3a50e
 
 Hosted review: the owner requested a hosted Copilot deep dive; the pull
 request stays a draft and no review is requested at this head.
+
+Hosted rounds
+-------------
+Hosted Codex review on a9c7b039: no findings.
+
+Hosted Copilot review on a9c7b039, requested by the owner as a deep dive
+of the rule against the retained record: one finding. In the
+attainability table, run 1 quartile 1 (P = 2, N = 254, q = 453/508)
+listed Dmax 55; the rule compares strictly (A > threshold), so
+D < (1 - 453/508) * 508 = 55 and the largest admissible D is 54.
+Disposition: confirmed and corrected in the table. The call count
+(0 of 12) and the verdict are unchanged. Copilot reported that it
+recomputed all 12 areas, thresholds, headrooms and calls from the
+record and checked eligibility, the non-finite and mixed-orbit skips,
+the floor of 8 pairs and the saturated runs, with no other difference.
