@@ -809,13 +809,16 @@ mod tests {
 
     /// The Flocq import corpus of gororoba-math (`flocq-import-corpus.tsv`),
     /// whose sha256 is
-    /// `5b5cdfb485701a0dcd6289ff4fc74c290f51afe963f956f9e66e453c14afa36b`, at
-    /// commit `66af7e4d38f5fcb6dd4f52ea12aec4a403f27c35`. The calibration of
-    /// the gororoba-math evidence producer reads the same corpus, and
+    /// `5b5cdfb485701a0dcd6289ff4fc74c290f51afe963f956f9e66e453c14afa36b`,
+    /// first at commit `66af7e4d38f5fcb6dd4f52ea12aec4a403f27c35`. The
+    /// calibration of the gororoba-math evidence producer reads the same
+    /// corpus. `ci/flocq_import_corpus.pin` names the gororoba-math commit whose
+    /// corpus this copy equals, apart from `ci/gororoba_math.pin`, because the
+    /// retained kernel receipts bind the proof tree of that pin.
     /// `the_vendored_flocq_import_corpus_equals_that_of_gororoba_math` compares
-    /// this copy with the corpus of the checkout `GOROROBA_MATH` names, so a
-    /// rule change in either repository fails a test until both read one
-    /// corpus again.
+    /// this copy with the corpus file `FLOCQ_IMPORT_CORPUS` names, so a rule
+    /// change in either repository fails a test until both read one corpus
+    /// again.
     const FLOCQ_IMPORT_CORPUS: &str =
         include_str!("../fixtures/flocq_import_corpus/flocq-import-corpus.tsv");
     const FLOCQ_IMPORT_CORPUS_SHA256: &str =
@@ -860,33 +863,32 @@ mod tests {
         Ok(rows)
     }
 
-    /// Location of the Flocq import corpus inside a gororoba-math checkout.
-    const FLOCQ_IMPORT_CORPUS_IN_CHECKOUT: &str = "ci/flocq-import-corpus.tsv";
+    /// Environment variable naming the corpus file of the gororoba-math commit
+    /// that `ci/flocq_import_corpus.pin` names.
+    const FLOCQ_IMPORT_CORPUS_ENV: &str = "FLOCQ_IMPORT_CORPUS";
 
     #[test]
-    #[ignore = "reads the gororoba-math checkout; set GOROROBA_MATH and run with --include-ignored"]
+    #[ignore = "reads the gororoba-math Flocq import corpus; set FLOCQ_IMPORT_CORPUS and run with --include-ignored"]
     fn the_vendored_flocq_import_corpus_equals_that_of_gororoba_math() -> Result<()> {
-        let tree = repo_root::ProofTree::from_environment()?;
-        let depth = Path::new(repo_root::proof_tree::TREE_PATH)
-            .components()
-            .count();
-        let checkout = tree
-            .root()
-            .ancestors()
-            .nth(depth)
-            .context("the proof tree has no enclosing gororoba-math checkout")?;
-        let path = checkout.join(FLOCQ_IMPORT_CORPUS_IN_CHECKOUT);
-        let corpus = fs::read_to_string(&path).with_context(|| {
+        let path = std::env::var_os(FLOCQ_IMPORT_CORPUS_ENV)
+            .filter(|value| !value.is_empty())
+            .with_context(|| {
+                format!(
+                    "{FLOCQ_IMPORT_CORPUS_ENV} is unset; set it to the flocq-import-corpus.tsv \
+                     of the gororoba-math commit that ci/flocq_import_corpus.pin names"
+                )
+            })?;
+        let path = Path::new(&path);
+        let corpus = fs::read_to_string(path).with_context(|| {
             format!(
-                "read the Flocq import corpus {}; ci/gororoba_math.pin must name a \
-                 gororoba-math commit that holds it",
+                "read the Flocq import corpus {} that {FLOCQ_IMPORT_CORPUS_ENV} names",
                 path.display()
             )
         })?;
         ensure!(
             corpus == FLOCQ_IMPORT_CORPUS,
-            "the vendored Flocq import corpus (sha256 {}) differs from that of the gororoba-math \
-             checkout (sha256 {})",
+            "the vendored Flocq import corpus (sha256 {}) differs from the gororoba-math corpus \
+             that {FLOCQ_IMPORT_CORPUS_ENV} names (sha256 {})",
             crate::sha256_hex(FLOCQ_IMPORT_CORPUS),
             crate::sha256_hex(&corpus)
         );
