@@ -349,8 +349,8 @@ fn assoc_series(states: &[Vec<f64>], cell: usize, slots: &[usize; Q]) -> Vec<f64
 }
 
 /// First-difference and departure norms of the cell's unit vectors, one per
-/// state triple (the triple ending at state t + 2 gives |v[t+2] - v[t+1]| and
-/// |v[t+2] - v[0]|).
+/// state triple (the triple ending at state t + 2 gives `|v[t+2] - v[t+1]|`
+/// and `|v[t+2] - v[0]|`).
 fn difference_series(states: &[Vec<f64>], cell: usize) -> (Vec<f64>, Vec<f64>) {
     let vectors: Vec<Vec<f64>> = states
         .iter()
