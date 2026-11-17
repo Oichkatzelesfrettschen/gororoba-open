@@ -66,7 +66,7 @@ jobs:
       - name: Fetch the pinned gororoba-math checkout
         uses: ./.github/actions/fetch-gororoba-math
         with:
-          paths: rocq/open
+          paths: rocq/open ci
 
       - name: Install Rust linker and system libraries
         run: |
@@ -83,6 +83,17 @@ jobs:
           cargo run --locked -p provenance_store --example verify_quantum_bindings -- \
             "$GOROROBA_MATH/rocq/open/evidence/quantum_observables/bindings.json" || failure=1
           exit "$failure"
+
+      # The consumer's Flocq import rule reads a vendored copy of the corpus that
+      # the gororoba-math producer's calibration reads; the copy must equal the
+      # corpus of the pinned commit.
+      - name: Verify the vendored Flocq import corpus
+        id: flocq-import-corpus
+        continue-on-error: true
+        run: |
+          cargo test --locked -p provenance_store --lib \
+            theorem_execution::replay::tests::the_vendored_flocq_import_corpus_equals_that_of_gororoba_math \
+            -- --include-ignored --exact
 
       - name: Verify control-plane proof paths and kernel receipts
         id: control-plane
@@ -120,6 +131,7 @@ jobs:
         if: always()
         env:
           OBSERVABLE_BINDINGS_OUTCOME: ${{ steps.observable-bindings.outcome }}
+          FLOCQ_IMPORT_CORPUS_OUTCOME: ${{ steps.flocq-import-corpus.outcome }}
           CONTROL_PLANE_OUTCOME: ${{ steps.control-plane.outcome }}
           FORMAL_REFERENCES_OUTCOME: ${{ steps.formal-references.outcome }}
         run: |
@@ -127,7 +139,7 @@ jobs:
           failure_count=0
           # A verification lane that did not succeed (failed, was skipped because
           # an earlier step stopped the job, or was cancelled) is a failure.
-          for outcome_variable in OBSERVABLE_BINDINGS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
+          for outcome_variable in OBSERVABLE_BINDINGS_OUTCOME FLOCQ_IMPORT_CORPUS_OUTCOME CONTROL_PLANE_OUTCOME FORMAL_REFERENCES_OUTCOME; do
             outcome="${!outcome_variable}"
             printf '%s=%s\n' "$outcome_variable" "$outcome"
             if [ "$outcome" != success ]; then

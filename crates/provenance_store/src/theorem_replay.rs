@@ -347,7 +347,7 @@ fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
     arguments
 }
 
-/// The control flags of Rocq 9.3.0 (`control_flag` of `vernac/g_vernac.mlg`),
+/// The control flags of Rocq 9.3.0 (`control_flag` of its vernacular grammar),
 /// each with the number of argument tokens it takes: `Redirect` a string,
 /// `Timeout` a natural, `AllocLimit` a natural and `Mw` or `kw`. `Profile`
 /// takes an optional string.
@@ -362,8 +362,8 @@ const CONTROL_FLAGS: [(&str, usize); 8] = [
     ("Succeed", 0),
 ];
 
-/// The legacy attributes of Rocq 9.3.0 (`legacy_attr` of
-/// `vernac/g_vernac.mlg`).
+/// The legacy attributes of Rocq 9.3.0 (`legacy_attr` of its vernacular
+/// grammar).
 const LEGACY_ATTRIBUTES: [&str; 8] = [
     "Local",
     "Global",
@@ -475,7 +475,7 @@ fn is_flocq(name: &str) -> bool {
 
 /// The module names among the arguments of `Require`. Rocq 9.3 reads
 /// `Require [Import | Export [-](CATEGORIES)] MODULE[(NAMES)]...`
-/// (`export_token` and `filtered_import` of `vernac/g_vernac.mlg`), so the
+/// (`export_token` and `filtered_import` of its vernacular grammar), so the
 /// names are the words outside parentheses after a leading `Import` or
 /// `Export`, other than the category negation `-`.
 fn module_words<'a>(mut arguments: &[Token<'a>]) -> Vec<&'a str> {
@@ -496,9 +496,9 @@ fn module_words<'a>(mut arguments: &[Token<'a>]) -> Vec<&'a str> {
 }
 
 /// Whether one command imports Flocq. The rule is that of
-/// `command_imports_flocq` in gororoba-math `ci/kernel_replay_evidence.py`,
-/// the producer of the evidence, and the pinned corpus of the tests holds the
-/// cases both answer. A run of control flags (`CONTROL_FLAGS`, each with its
+/// `command_imports_flocq` of the gororoba-math kernel replay evidence
+/// producer, and the Flocq import corpus that the tests pin holds the cases
+/// both answer. A run of control flags (`CONTROL_FLAGS`, each with its
 /// argument tokens and `Profile` with an optional string), attributes and
 /// legacy attributes (`LEGACY_ATTRIBUTES`) is skipped in any order; Rocq 9.3
 /// reads them in the order flags, attributes, legacy attributes and rejects
@@ -807,13 +807,15 @@ mod tests {
         )
     }
 
-    /// The Flocq import corpus: `ci/flocq-import-corpus.tsv` of gororoba-math,
+    /// The Flocq import corpus of gororoba-math (`flocq-import-corpus.tsv`),
     /// whose sha256 is
     /// `5b5cdfb485701a0dcd6289ff4fc74c290f51afe963f956f9e66e453c14afa36b`, at
-    /// commit `66af7e4d38f5fcb6dd4f52ea12aec4a403f27c35`. The producer's
-    /// calibration (`ci/check_kernel_replay_evidence.sh`) reads the same bytes,
-    /// so a rule change in one repository fails the other's test until both
-    /// agree on the corpus again.
+    /// commit `66af7e4d38f5fcb6dd4f52ea12aec4a403f27c35`. The calibration of
+    /// the gororoba-math evidence producer reads the same corpus, and
+    /// `the_vendored_flocq_import_corpus_equals_that_of_gororoba_math` compares
+    /// this copy with the corpus of the checkout `GOROROBA_MATH` names, so a
+    /// rule change in either repository fails a test until both read one
+    /// corpus again.
     const FLOCQ_IMPORT_CORPUS: &str =
         include_str!("../fixtures/flocq_import_corpus/flocq-import-corpus.tsv");
     const FLOCQ_IMPORT_CORPUS_SHA256: &str =
@@ -856,6 +858,39 @@ mod tests {
             "the Flocq import corpus repeats a command"
         );
         Ok(rows)
+    }
+
+    /// Location of the Flocq import corpus inside a gororoba-math checkout.
+    const FLOCQ_IMPORT_CORPUS_IN_CHECKOUT: &str = "ci/flocq-import-corpus.tsv";
+
+    #[test]
+    #[ignore = "reads the gororoba-math checkout; set GOROROBA_MATH and run with --include-ignored"]
+    fn the_vendored_flocq_import_corpus_equals_that_of_gororoba_math() -> Result<()> {
+        let tree = repo_root::ProofTree::from_environment()?;
+        let depth = Path::new(repo_root::proof_tree::TREE_PATH)
+            .components()
+            .count();
+        let checkout = tree
+            .root()
+            .ancestors()
+            .nth(depth)
+            .context("the proof tree has no enclosing gororoba-math checkout")?;
+        let path = checkout.join(FLOCQ_IMPORT_CORPUS_IN_CHECKOUT);
+        let corpus = fs::read_to_string(&path).with_context(|| {
+            format!(
+                "read the Flocq import corpus {}; ci/gororoba_math.pin must name a \
+                 gororoba-math commit that holds it",
+                path.display()
+            )
+        })?;
+        ensure!(
+            corpus == FLOCQ_IMPORT_CORPUS,
+            "the vendored Flocq import corpus (sha256 {}) differs from that of the gororoba-math \
+             checkout (sha256 {})",
+            crate::sha256_hex(FLOCQ_IMPORT_CORPUS),
+            crate::sha256_hex(&corpus)
+        );
+        Ok(())
     }
 
     #[test]
