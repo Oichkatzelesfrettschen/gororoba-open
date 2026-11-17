@@ -10,12 +10,17 @@ last. Codex read gororoba-math 7c505c9 and gororoba-open 03452b94 together.
    classification (152,173 commands); the corpus holds the new forms; the
    fail-closed producer guard is gororoba-math issue 64. Advisor: confirmed.
 2. The corpus pin was documentary (P2). Fixed in 54732574: an ignored test
-   byte-compares the vendored corpus with the gororoba-math checkout that
-   proofs.yml fetches, in a lane of its own. Commit 06565b55 moves
-   ci/gororoba_math.pin to the head of gororoba-math pull request 65 as a
-   trial, so every proofs lane runs against the moved tree; the pin moves to
-   that pull request's merge commit before this one lands. Advisor: confirmed;
-   the trial pin requested.
+   byte-compares the vendored corpus with the gororoba-math corpus, in a
+   proofs.yml lane of its own. The corpus has its own pin,
+   ci/flocq_import_corpus.pin, and the lane fetches only
+   ci/flocq-import-corpus.tsv at that commit and passes it to the test as
+   FLOCQ_IMPORT_CORPUS. ci/gororoba_math.pin stays at 0c818156: the retained
+   kernel receipts bind the proof tree of that pin, and a trial move of it to
+   the head of gororoba-math pull request 65 (06565b55, reverted in c07df8c9)
+   failed the control-plane lane because gororoba-math has since changed
+   rocq/open/_RocqProject. The corpus pin names 7c505c98 and moves to the
+   merge commit of gororoba-math pull request 65 before this one lands.
+   Advisor: confirmed.
 3. New comments cited internal repository paths (P3). Fixed in 54732574.
    Advisor: confirmed.
 
