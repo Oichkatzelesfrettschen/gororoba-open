@@ -1,0 +1,86 @@
+Reconciliation: held-out P13d record
+
+Round 1: Advisor on bea3a50e
+
+1. The interpretive sentence outruns the rule.
+   Disposition: confirmed. The sentence that the associator carries no
+   forecast information beyond the best product-free score and the orbit
+   null read the rule's output (0 of 12 calls, verdict held) as a finding
+   about information. Resolved in 6da8971f, which tabulates per pair the
+   orbit counts, the rank-sum quantile, the associator area, the best
+   product-free area and its score, and the headroom 1 - max(q, best +
+   0.02) that a call needs. A call was attainable in all 12 pairs
+   (headroom 0.0063 to 0.3671); two pairs are ceiling-bound, with headroom
+   below the margin 0.02 (run 0 quartile 1, threshold 0.9937; run 1
+   quartile 0, threshold 0.9847), so their outcome says little about the
+   associator. The associator lies below the best product-free area in 11
+   pairs (by 0.0440 to 0.3369) and 0.0001 above it in one; the best
+   product-free score is the Gram volume in 6 pairs and the Mach number in
+   6. The pull request body states the verdict as the rule's output and
+   scopes the reading to the 10 pairs with headroom of at least 0.02.
+
+2. A host name in the pull request body.
+   Disposition: confirmed. The body now says "a compute host". A search of
+   the registration restatement, the record and both commit bodies for host,
+   multiplexer and user names, addresses and absolute paths finds none; the
+   registration text uses "the compute host's" generically. No commit
+   changes the registration file (sha256
+   76c5dd95d4cf20f717091e1bece5c600e80b3a1ea43552180ec40b59d365d6dc).
+
+3. Registration against the merged text.
+   Disposition: confirmed as a check; no difference of substance. The
+   eligibility rule (at least 10 positives and both classes), the 0.95
+   quantile, the margin 0.02, the floor of 8, the mixed-label and
+   non-finite skip rules and the six held-out configurations in the
+   registration restatement agree with the module documentation and the
+   constants of forecast_null.rs at da4628ea and with the P13d section of
+   the body of pull request 288. The sources of the binary are identical
+   between da4628ea and the branch. The restatement adds the decision
+   rule as coded (held when calls * 2 is at most the decided pairs), which
+   the module documentation leaves to the code (p13d_verdict). Push time:
+   the branch reached the remote in one push at 2026-11-17T00:03:23Z with
+   bea3a50e at its head, after the evaluation began (2026-11-17T00:00:11Z);
+   commit 676fdb57 (2026-11-17T00:00:03Z) precedes the run by its local
+   commit time only. The public registration is pull request 288, merged as
+   da4628ea at 2026-11-16T17:16:00Z.
+
+4. Cells that are neither decided nor skipped.
+   Disposition: confirmed. The 12 (run, quartile) cells of the saturated
+   runs 2, 3 and 5 hold 4096 positives per quartile (quartile_positives),
+   runs[i].pairs is 0 and p13d_rule_applied.skipped is empty; the record
+   carries no reason string for them. The pair constructor admits a quartile
+   with at least 10 positives and fewer positives than cells, so they are not
+   pairs under the registered unit. The attainability table and the pull
+   request body state this; the bytes of the record are unchanged.
+
+5. Binding and full CI.
+   Disposition: confirmed. No manifest row, digest list, SHA256SUMS file or
+   registry artifact binds lbm-late-failure-null.json: a search of the tracked
+   tree (name and digest, text and binary files) finds the file only in the
+   default path of the binary, in the registration restatement (calibration
+   digest) and in the retained records themselves. The two new files are
+   bound the same way, by digest in the pull request body, and no file the
+   casimir native-output manifest binds changed, so it is not rebound. The
+   full CI dispatch (full=true) on the final head and its run identifier
+   are recorded in the pull request body.
+
+6. Review record.
+   Disposition: confirmed; this directory is the record.
+
+Hosted review: the owner requested a hosted Copilot deep dive; the pull
+request stays a draft and no review is requested at this head.
+
+Hosted rounds
+-------------
+Hosted Codex review on a9c7b039: no findings.
+
+Hosted Copilot review on a9c7b039, requested by the owner as a deep dive
+of the rule against the retained record: one finding. In the
+attainability table, run 1 quartile 1 (P = 2, N = 254, q = 453/508)
+listed Dmax 55; the rule compares strictly (A > threshold), so
+D < (1 - 453/508) * 508 = 55 and the largest admissible D is 54.
+Disposition: confirmed and corrected in the table. The call count
+(0 of 12) and the verdict are unchanged. Copilot reported that it
+recomputed all 12 areas, thresholds, headrooms and calls from the
+record and checked eligibility, the non-finite and mixed-orbit skips,
+the floor of 8 pairs and the saturated runs, with no other difference.
