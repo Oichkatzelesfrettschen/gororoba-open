@@ -3,34 +3,41 @@
 //! temporal associator norm of claim C-1617 against product-free scores.
 //!
 //! The flow is a quasi-two-dimensional periodic double shear layer (64 x 64 x
-//! 4 cells) with a transverse sine perturbation. Two subcommands:
+//! 4 cells) with a transverse sine perturbation. A population is bad when it
+//! is negative or not finite; the first violating step F of a run is the first
+//! step after which any population is bad. Three subcommands:
 //!
-//! 1. `scan` steps a grid of (tau, U0, delta) configurations until the first
-//!    population is negative or the step budget ends, and records the first
-//!    violating step and the number of cells holding a negative population.
-//!    When no configuration violates inside the kept window, one wider grid
-//!    (lower tau, larger U0) runs and the output records it.
+//! 1. `scan` steps a grid of (tau, U0, delta) configurations until F or the
+//!    step budget, and records F and the number of cells holding a bad
+//!    population. `--grid base` runs the base axes (and one wider grid when no
+//!    configuration is kept); `--grid widened` runs only the wider axes
+//!    (lower tau, larger U0), and the output records it.
 //! 2. `score` re-runs at most eight kept configurations, labels each cell
-//!    positive when it holds a negative population at the first violating
-//!    step F, and ranks the cells at horizons h before F with six scores that
-//!    read only states up to step F - h: the associator norm of the cell's
-//!    unit 32-vectors at steps F-h-2, F-h-1, F-h (identity slot map), the Gram
-//!    volume of the same three unit vectors, the step-difference norm, the
-//!    local Mach number, and the smallest population over the density.
+//!    positive when it holds a bad population at step F, and ranks the cells at
+//!    horizons h before F with five scores that read only states up to step
+//!    F - h: the associator norm of the cell's unit 32-vectors at steps F-h-2,
+//!    F-h-1, F-h (identity slot map), the Gram volume of the same three unit
+//!    vectors, the step-difference norm, the local Mach number, and the
+//!    smallest population over the density. The best product-free score takes
+//!    each of the four non-associator scores in its better orientation.
+//! 3. `forecast` anchors each scored configuration at t = F - 50, labels the
+//!    cells without a bad population at t that first hold one in (t, t + 100],
+//!    scores every cell from states up to t, and stratifies the cells by
+//!    quartile of the smallest population over the density at t.
 //!
 //! The Gram volume is the three-dimensional volume spanned by the triple. It
 //! is zero for collinear states and one for orthonormal states, and it
 //! separates a product-free third-order quantity from the associator.
 //!
-//! Output: one JSON file, written by `scan` and extended by `score`, and a
-//! summary on stderr.
+//! Output: one JSON file, written by `scan` and extended by `score` (and a
+//! separate file for `forecast`), and a summary on stderr.
 
 use std::collections::VecDeque;
 use std::path::{Path, PathBuf};
 
 use anyhow::{Context, Result, bail};
 use cd_kernel::batch_sliding_associator_norms_parallel;
-use clap::{Args, Parser, Subcommand};
+use clap::{Args, Parser, Subcommand, ValueEnum};
 use lbm_3d::{
     lattice::D3Q19Lattice,
     solver::{LbmSolver3D, aosoa_idx},
@@ -64,10 +71,22 @@ const AUC_MARGIN: f64 = 0.02;
 const SPEARMAN_HOLDS: f64 = 0.9;
 /// Spearman bound at or above which prediction P13b is falsified.
 const SPEARMAN_FALSIFIES: f64 = 0.95;
+/// Steps before the first violating step at which the forecast anchors.
+const FORECAST_LEAD: usize = 50;
+/// Steps after the anchor in which a first bad population counts as positive.
+const FORECAST_WINDOW: usize = 100;
+/// Quartiles of the smallest population over the density at the anchor.
+const QUARTILES: usize = 4;
+/// ROC area at or below which the associator holds prediction P13c.
+const P13C_BOUND: f64 = 0.65;
+/// Positives a (run, quartile) pair needs to count toward prediction P13c.
+const P13C_MIN_POSITIVES: usize = 10;
 
 #[derive(Parser)]
 #[command(name = "lbm-late-failure-precursor")]
-#[command(about = "Scores of the cells that hold a negative population at the first violating step")]
+#[command(
+    about = "Scores of the cells that hold a negative or non-finite population at the first violating step"
+)]
 struct Cli {
     #[command(subcommand)]
     command: Command,
@@ -79,10 +98,25 @@ enum Command {
     Scan(ScanArgs),
     /// Rank the cells of the kept configurations before their first violation.
     Score(ScoreArgs),
+    /// Rank the cells that first turn bad in the 100 steps after an anchor.
+    Forecast(ForecastArgs),
+}
+
+/// Parameter grid of a scan.
+#[derive(Clone, Copy, PartialEq, Eq, ValueEnum)]
+enum GridName {
+    /// The `--taus`, `--u0s` and `--deltas` axes.
+    Base,
+    /// The `--wide-taus`, `--wide-u0s` and `--deltas` axes only.
+    Widened,
 }
 
 #[derive(Args)]
 struct ScanArgs {
+    /// Grid to scan.
+    #[arg(long, value_enum, default_value_t = GridName::Base)]
+    grid: GridName,
+
     /// Relaxation times of the grid.
     #[arg(long, value_delimiter = ',', default_value = "0.502,0.505,0.51,0.52")]
     taus: Vec<f64>,
@@ -103,7 +137,7 @@ struct ScanArgs {
     #[arg(long, value_delimiter = ',', default_value = "0.16,0.2,0.25,0.3")]
     wide_u0s: Vec<f64>,
 
-    /// Skip the wider grid.
+    /// Skip the wider grid that `--grid base` runs when none is kept.
     #[arg(long)]
     no_widen: bool,
 
@@ -148,6 +182,29 @@ struct ScoreArgs {
     max_configs: usize,
 }
 
+#[derive(Args)]
+struct ForecastArgs {
+    /// JSON files written by `score`; each file's scored configurations are
+    /// forecast, and a configuration already taken from an earlier file is
+    /// skipped.
+    #[arg(
+        long,
+        value_delimiter = ',',
+        default_values = [
+            "data/output/lbm/ablations/lbm_late_failure_precursor.json",
+            "data/output/lbm/ablations/lbm_late_failure_precursor_widened.json",
+        ]
+    )]
+    json: Vec<PathBuf>,
+
+    /// Output JSON path.
+    #[arg(
+        long,
+        default_value = "data/output/audit/claim-family-evidence-adjudication/lbm-late-failure-forecast.json"
+    )]
+    out_json: PathBuf,
+}
+
 /// One point of the parameter grid.
 #[derive(Clone, Copy)]
 struct Config {
@@ -165,17 +222,37 @@ struct ScanRow {
     delta: f64,
     #[serde(default)]
     first_violation_step: Option<usize>,
+    /// Cells holding a negative or non-finite population at the first
+    /// violating step.
     #[serde(default)]
-    violating_cells: Option<usize>,
+    bad_population_cells: Option<usize>,
     #[serde(default)]
     min_population: Option<f64>,
     kept: bool,
 }
 
+/// Direction in which a score ranks the positives: `Higher` when a larger
+/// score marks a positive cell, `Lower` when a smaller one does.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum Orientation {
+    Higher,
+    Lower,
+}
+
+/// A ROC area in the orientation that ranks the positives better.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+struct Oriented {
+    auc: f64,
+    orientation: Orientation,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 struct HorizonScore {
     horizon: usize,
-    positive_cells: usize,
+    /// Cells labeled positive: a negative or non-finite population at the
+    /// first violating step.
+    bad_population_cells: usize,
     auc_associator: Option<f64>,
     auc_gram_volume: Option<f64>,
     auc_step_difference: Option<f64>,
@@ -183,12 +260,18 @@ struct HorizonScore {
     auc_min_population_share: Option<f64>,
     spearman_associator_gram_volume: Option<f64>,
     spearman_associator_step_difference: Option<f64>,
-    /// Best ROC area among Mach, smallest population share and step difference.
+    /// Best ROC area among Gram volume, step difference, Mach number and
+    /// smallest population share, each in its better orientation.
     best_product_free_auc: Option<f64>,
-    /// Associator area minus the best product-free area.
+    /// Score that attains `best_product_free_auc`.
+    best_product_free_score: Option<String>,
+    /// Orientation of that score.
+    best_product_free_orientation: Option<Orientation>,
+    /// Associator area (as computed, unoriented) minus the best product-free
+    /// area.
     associator_excess: Option<f64>,
-    /// The same excess after each score takes the orientation (area or its
-    /// complement) that ranks the positives better.
+    /// The associator in its better orientation minus the best product-free
+    /// area.
     associator_excess_oriented: Option<f64>,
 }
 
@@ -198,7 +281,9 @@ struct ConfigScore {
     u0: f64,
     delta: f64,
     first_violation_step: usize,
-    violating_cells: usize,
+    /// Cells holding a negative or non-finite population at the first
+    /// violating step.
+    bad_population_cells: usize,
     skipped_horizons: Vec<usize>,
     horizons: Vec<HorizonScore>,
 }
@@ -352,16 +437,14 @@ fn scan_grid(
         .par_iter()
         .map(|&cfg| {
             let found = scan_config(cfg, args.eps, args.max_steps);
-            let kept = found
-                .as_ref()
-                .is_some_and(|v| v.step >= args.min_kept_step);
+            let kept = found.as_ref().is_some_and(|v| v.step >= args.min_kept_step);
             ScanRow {
                 grid: name.to_string(),
                 tau: cfg.tau,
                 u0: cfg.u0,
                 delta: cfg.delta,
                 first_violation_step: found.as_ref().map(|v| v.step),
-                violating_cells: found.as_ref().map(|v| v.cells),
+                bad_population_cells: found.as_ref().map(|v| v.cells),
                 min_population: found.as_ref().map(|v| v.min_population),
                 kept,
             }
@@ -388,7 +471,7 @@ fn report_scan(rows: &[ScanRow]) {
             r.first_violation_step
                 .map_or("no violation".to_string(), |s| format!(
                     "first violation step {s}, {} cells, min population {:.3e}",
-                    r.violating_cells.unwrap_or(0),
+                    r.bad_population_cells.unwrap_or(0),
                     r.min_population.unwrap_or(f64::NAN)
                 )),
             if r.kept { " (kept)" } else { "" }
@@ -397,19 +480,27 @@ fn report_scan(rows: &[ScanRow]) {
 }
 
 fn scan(args: &ScanArgs) -> Result<()> {
-    let mut rows = scan_grid("base", &args.taus, &args.u0s, &args.deltas, args);
-    let mut widened = false;
-    if !rows.iter().any(|r| r.kept) && !args.no_widen {
-        eprintln!("no base configuration is kept; running the wider grid");
-        widened = true;
-        rows.extend(scan_grid(
+    let widen = |args: &ScanArgs| {
+        scan_grid(
             "widened",
             &args.wide_taus,
             &args.wide_u0s,
             &args.deltas,
             args,
-        ));
-    }
+        )
+    };
+    let (rows, widened) = match args.grid {
+        GridName::Widened => (widen(args), true),
+        GridName::Base => {
+            let mut rows = scan_grid("base", &args.taus, &args.u0s, &args.deltas, args);
+            let none_kept = !rows.iter().any(|r| r.kept);
+            if none_kept && !args.no_widen {
+                eprintln!("no base configuration is kept; running the wider grid");
+                rows.extend(widen(args));
+            }
+            (rows, none_kept && !args.no_widen)
+        }
+    };
     report_scan(&rows);
     eprintln!(
         "kept {} of {} configurations (widened grid: {widened})",
@@ -642,6 +733,46 @@ struct CellScores {
     min_population_share: Vec<f64>,
 }
 
+impl CellScores {
+    fn empty() -> Self {
+        Self {
+            associator: Vec::new(),
+            gram_volume: Vec::new(),
+            step_difference: Vec::new(),
+            mach: Vec::new(),
+            min_population_share: Vec::new(),
+        }
+    }
+
+    /// The scores of the cells whose `keep` entry is true.
+    fn select(&self, keep: &[bool]) -> Self {
+        let pick = |v: &[f64]| -> Vec<f64> {
+            v.iter()
+                .zip(keep)
+                .filter(|(_, k)| **k)
+                .map(|(x, _)| *x)
+                .collect()
+        };
+        Self {
+            associator: pick(&self.associator),
+            gram_volume: pick(&self.gram_volume),
+            step_difference: pick(&self.step_difference),
+            mach: pick(&self.mach),
+            min_population_share: pick(&self.min_population_share),
+        }
+    }
+
+    fn extend(&mut self, other: &Self) {
+        self.associator.extend_from_slice(&other.associator);
+        self.gram_volume.extend_from_slice(&other.gram_volume);
+        self.step_difference
+            .extend_from_slice(&other.step_difference);
+        self.mach.extend_from_slice(&other.mach);
+        self.min_population_share
+            .extend_from_slice(&other.min_population_share);
+    }
+}
+
 /// Scores of every cell from three consecutive states `s0`, `s1`, `s2`
 /// (steps F-h-2, F-h-1, F-h); the Mach number and population share read `s2`.
 fn cell_scores(lattice: &D3Q19Lattice, s0: &[f64], s1: &[f64], s2: &[f64]) -> CellScores {
@@ -687,9 +818,37 @@ fn cell_scores(lattice: &D3Q19Lattice, s0: &[f64], s1: &[f64], s2: &[f64]) -> Ce
     }
 }
 
-/// The orientation of a ROC area that ranks the positives better.
-fn oriented(a: f64) -> f64 {
-    a.max(1.0 - a)
+/// The orientation of a ROC area that ranks the positives better; an area of
+/// exactly one half reads `Higher`.
+fn orient(a: f64) -> Oriented {
+    if a >= 0.5 {
+        Oriented {
+            auc: a,
+            orientation: Orientation::Higher,
+        }
+    } else {
+        Oriented {
+            auc: 1.0 - a,
+            orientation: Orientation::Lower,
+        }
+    }
+}
+
+/// The product-free score with the largest oriented ROC area, from
+/// (name, area) pairs; the first of equal areas wins and a non-finite area is
+/// skipped.
+fn best_product_free(candidates: &[(&'static str, f64)]) -> Option<(&'static str, Oriented)> {
+    let mut best: Option<(&'static str, Oriented)> = None;
+    for &(name, a) in candidates {
+        if !a.is_finite() {
+            continue;
+        }
+        let o = orient(a);
+        if best.is_none_or(|(_, b)| o.auc > b.auc) {
+            best = Some((name, o));
+        }
+    }
+    best
 }
 
 fn horizon_score(
@@ -710,11 +869,16 @@ fn horizon_score(
     let a_step = auc(&s.step_difference, labels);
     let a_mach = auc(&s.mach, labels);
     let a_pop = auc(&s.min_population_share, labels);
-    let best = a_step.max(a_mach).max(a_pop);
-    let best_oriented = oriented(a_step).max(oriented(a_mach)).max(oriented(a_pop));
+    let best = best_product_free(&[
+        ("gram_volume", a_gram),
+        ("step_difference", a_step),
+        ("mach", a_mach),
+        ("min_population_share", a_pop),
+    ]);
+    let best_auc = best.map(|(_, o)| o.auc);
     HorizonScore {
         horizon,
-        positive_cells: labels.iter().filter(|&&l| l).count(),
+        bad_population_cells: labels.iter().filter(|&&l| l).count(),
         auc_associator: finite(a_assoc),
         auc_gram_volume: finite(a_gram),
         auc_step_difference: finite(a_step),
@@ -722,9 +886,11 @@ fn horizon_score(
         auc_min_population_share: finite(a_pop),
         spearman_associator_gram_volume: finite(spearman(&s.associator, &s.gram_volume)),
         spearman_associator_step_difference: finite(spearman(&s.associator, &s.step_difference)),
-        best_product_free_auc: finite(best),
-        associator_excess: finite(a_assoc - best),
-        associator_excess_oriented: finite(oriented(a_assoc) - best_oriented),
+        best_product_free_auc: best_auc,
+        best_product_free_score: best.map(|(n, _)| n.to_string()),
+        best_product_free_orientation: best.map(|(_, o)| o.orientation),
+        associator_excess: best_auc.and_then(|b| finite(a_assoc - b)),
+        associator_excess_oriented: best_auc.and_then(|b| finite(orient(a_assoc).auc - b)),
     }
 }
 
@@ -766,7 +932,7 @@ fn score_config(row: &ScanRow, out: &Output, lattice: &D3Q19Lattice) -> Result<C
         u0: row.u0,
         delta: row.delta,
         first_violation_step: expected,
-        violating_cells: labels.iter().filter(|&&l| l).count(),
+        bad_population_cells: labels.iter().filter(|&&l| l).count(),
         skipped_horizons: skipped,
         horizons,
     })
@@ -784,6 +950,11 @@ fn select_kept(rows: &[ScanRow], max: usize) -> Vec<&ScanRow> {
         .collect()
 }
 
+/// An excess above the prediction margin.
+fn exceeds(excess: Option<f64>) -> bool {
+    excess.is_some_and(|e| e > AUC_MARGIN)
+}
+
 fn predictions(scores: &[ConfigScore]) -> Predictions {
     let mut by_horizon = Vec::new();
     let mut pairs = 0;
@@ -797,38 +968,29 @@ fn predictions(scores: &[ConfigScore]) -> Predictions {
             .flat_map(|c| c.horizons.iter())
             .filter(|s| s.horizon == h)
             .collect();
-        let over = |s: &&HorizonScore| s.associator_excess.is_some_and(|e| e > AUC_MARGIN);
-        let over_oriented = |s: &&HorizonScore| {
-            s.associator_excess_oriented
-                .is_some_and(|e| e > AUC_MARGIN)
-        };
         pairs += at.len();
-        exceeding += at.iter().filter(over).count();
+        exceeding += at.iter().filter(|s| exceeds(s.associator_excess)).count();
         if h >= 10 {
             pairs_late += at.len();
-            exceeding_late += at.iter().filter(over).count();
+            exceeding_late += at.iter().filter(|s| exceeds(s.associator_excess)).count();
         }
-        spearmans.extend(
-            at.iter()
-                .filter_map(|s| s.spearman_associator_gram_volume),
-        );
+        spearmans.extend(at.iter().filter_map(|s| s.spearman_associator_gram_volume));
         let assoc: Vec<f64> = at.iter().filter_map(|s| s.auc_associator).collect();
         let best: Vec<f64> = at.iter().filter_map(|s| s.best_product_free_auc).collect();
         by_horizon.push(HorizonSummary {
             horizon: h,
             configs: at.len(),
-            exceed_margin: at.iter().filter(over).count(),
-            exceed_margin_oriented: at.iter().filter(over_oriented).count(),
+            exceed_margin: at.iter().filter(|s| exceeds(s.associator_excess)).count(),
+            exceed_margin_oriented: at
+                .iter()
+                .filter(|s| exceeds(s.associator_excess_oriented))
+                .count(),
             median_associator_auc: median(&assoc),
             median_best_product_free_auc: median(&best),
         });
     }
-    let extreme = |pick: fn(f64, f64) -> f64, start: f64| {
-        spearmans
-            .iter()
-            .copied()
-            .fold(start, pick)
-    };
+    let extreme =
+        |pick: fn(f64, f64) -> f64, start: f64| spearmans.iter().copied().fold(start, pick);
     Predictions {
         p13a_by_horizon: by_horizon,
         p13a_pairs: pairs,
@@ -854,7 +1016,7 @@ fn fmt(x: Option<f64>) -> String {
 fn report_score(c: &ConfigScore) {
     eprintln!(
         "tau {} U0 {} delta {}: F {} ({} cells), skipped horizons {:?}",
-        c.tau, c.u0, c.delta, c.first_violation_step, c.violating_cells, c.skipped_horizons
+        c.tau, c.u0, c.delta, c.first_violation_step, c.bad_population_cells, c.skipped_horizons
     );
     for h in &c.horizons {
         eprintln!(
@@ -877,7 +1039,12 @@ fn score(args: &ScoreArgs) -> Result<()> {
     let mut out: Output =
         serde_json::from_str(&text).with_context(|| format!("parse {}", args.json.display()))?;
     if (out.nx, out.ny, out.nz) != (NX, NY, NZ) {
-        bail!("scan grid {}x{}x{} differs from this binary", out.nx, out.ny, out.nz);
+        bail!(
+            "scan grid {}x{}x{} differs from this binary",
+            out.nx,
+            out.ny,
+            out.nz
+        );
     }
     let lattice = D3Q19Lattice::new();
     let picked = select_kept(&out.scan, args.max_configs);
@@ -919,10 +1086,386 @@ fn score(args: &ScoreArgs) -> Result<()> {
     Ok(())
 }
 
+/// One score's ROC area in its better orientation, with the area as computed.
+#[derive(Debug, Serialize, Deserialize)]
+struct ScoreAuc {
+    auc: Option<f64>,
+    orientation: Option<Orientation>,
+    unoriented_auc: Option<f64>,
+}
+
+fn score_auc(score: &[f64], labels: &[bool]) -> ScoreAuc {
+    let a = auc(score, labels);
+    if a.is_finite() {
+        let o = orient(a);
+        ScoreAuc {
+            auc: Some(o.auc),
+            orientation: Some(o.orientation),
+            unoriented_auc: Some(a),
+        }
+    } else {
+        ScoreAuc {
+            auc: None,
+            orientation: None,
+            unoriented_auc: None,
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct ScoreAucs {
+    associator: ScoreAuc,
+    gram_volume: ScoreAuc,
+    step_difference: ScoreAuc,
+    mach: ScoreAuc,
+    min_population_share: ScoreAuc,
+}
+
+fn score_aucs(s: &CellScores, labels: &[bool]) -> ScoreAucs {
+    ScoreAucs {
+        associator: score_auc(&s.associator, labels),
+        gram_volume: score_auc(&s.gram_volume, labels),
+        step_difference: score_auc(&s.step_difference, labels),
+        mach: score_auc(&s.mach, labels),
+        min_population_share: score_auc(&s.min_population_share, labels),
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct QuartileResult {
+    /// 0 holds the cells with the smallest population over the density.
+    quartile: usize,
+    cells: usize,
+    positives: usize,
+    auc: ScoreAucs,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+struct ConfigKey {
+    tau: f64,
+    u0: f64,
+    delta: f64,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct RunForecast {
+    config: ConfigKey,
+    first_violation_step: usize,
+    anchor: usize,
+    cells: usize,
+    /// Cells with no bad population at the anchor that first hold one in the
+    /// window after it.
+    positives: usize,
+    all_cells: ScoreAucs,
+    quartiles: Vec<QuartileResult>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct P13c {
+    pairs_with_enough_positives: usize,
+    pairs_associator_at_most_bound: usize,
+    pairs_associator_above_bound: usize,
+    /// `held`, `failed`, or `undecided` when neither side is a majority.
+    verdict: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Forecast {
+    anchor_lead: usize,
+    window: usize,
+    stratified_by: String,
+    runs: Vec<RunForecast>,
+    skipped_duplicate_configs: Vec<ConfigKey>,
+    pooled_all_cells: ScoreAucs,
+    pooled_by_quartile: Vec<QuartileResult>,
+    p13c: P13c,
+}
+
+/// Cells and scores of one forecast run.
+struct RunData {
+    key: ConfigKey,
+    first_violation_step: usize,
+    scores: CellScores,
+    labels: Vec<bool>,
+    quartile: Vec<usize>,
+}
+
+/// Quartile of each value among `values`: the count of the thresholds at the
+/// first, second and third quarter of the sorted values that it reaches, so
+/// equal values share a quartile.
+fn quartiles(values: &[f64]) -> Vec<usize> {
+    let mut sorted = values.to_vec();
+    sorted.sort_by(f64::total_cmp);
+    let n = sorted.len();
+    let thresholds = [
+        sorted[n / QUARTILES],
+        sorted[n / 2],
+        sorted[3 * n / QUARTILES],
+    ];
+    values
+        .iter()
+        .map(|v| thresholds.iter().filter(|t| v.total_cmp(t).is_ge()).count())
+        .collect()
+}
+
+/// Record `step` as the first bad step of each cell that holds a bad
+/// population now and has none recorded.
+fn mark_first_bad(solver: &LbmSolver3D, first_bad: &mut [Option<usize>], step: usize) {
+    for (cell, slot) in first_bad.iter_mut().enumerate() {
+        if slot.is_none() && (0..Q).any(|dir| is_bad(solver.f[aosoa_idx(cell, dir)])) {
+            *slot = Some(step);
+        }
+    }
+}
+
+/// Step a configuration to the anchor F - 50 and 100 steps past it, scoring
+/// every cell from the states at steps t-2, t-1, t and labeling the cells that
+/// first hold a bad population after t.
+fn forecast_run(lattice: &D3Q19Lattice, cfg: Config, eps: f64, first: usize) -> Result<RunData> {
+    if first < FORECAST_LEAD + 2 {
+        bail!("first violating step {first} leaves no anchor with two earlier states");
+    }
+    let anchor = first - FORECAST_LEAD;
+    let mut solver = fresh_solver(cfg, eps);
+    let mut recent: VecDeque<Vec<f64>> = VecDeque::with_capacity(3);
+    let mut first_bad: Vec<Option<usize>> = vec![None; CELLS];
+    for step in 0..=anchor + FORECAST_WINDOW {
+        if step > 0 {
+            let _ = solver.phase1_collision();
+            let _ = solver.phase2_streaming();
+        }
+        if step <= anchor && violation_in(&solver).is_some() {
+            bail!(
+                "tau {} U0 {} delta {}: a bad population at step {step}, before anchor {anchor}",
+                cfg.tau,
+                cfg.u0,
+                cfg.delta
+            );
+        }
+        if step + 2 >= anchor && step <= anchor {
+            let mut buffer = if recent.len() == 3 {
+                recent.pop_front().unwrap_or_default()
+            } else {
+                Vec::with_capacity(CELLS * Q)
+            };
+            snapshot_into(&solver, &mut buffer);
+            recent.push_back(buffer);
+        }
+        if step > anchor {
+            mark_first_bad(&solver, &mut first_bad, step);
+        }
+    }
+    let scores = cell_scores(lattice, &recent[0], &recent[1], &recent[2]);
+    let quartile = quartiles(&scores.min_population_share);
+    Ok(RunData {
+        key: ConfigKey {
+            tau: cfg.tau,
+            u0: cfg.u0,
+            delta: cfg.delta,
+        },
+        first_violation_step: first,
+        scores,
+        labels: first_bad.iter().map(Option::is_some).collect(),
+        quartile,
+    })
+}
+
+fn quartile_result(
+    q: usize,
+    scores: &CellScores,
+    labels: &[bool],
+    quartile: &[usize],
+) -> QuartileResult {
+    let keep: Vec<bool> = quartile.iter().map(|&x| x == q).collect();
+    let kept_labels: Vec<bool> = labels
+        .iter()
+        .zip(&keep)
+        .filter(|(_, k)| **k)
+        .map(|(l, _)| *l)
+        .collect();
+    QuartileResult {
+        quartile: q,
+        cells: kept_labels.len(),
+        positives: kept_labels.iter().filter(|&&l| l).count(),
+        auc: score_aucs(&scores.select(&keep), &kept_labels),
+    }
+}
+
+fn run_forecast(run: &RunData) -> RunForecast {
+    RunForecast {
+        config: run.key,
+        first_violation_step: run.first_violation_step,
+        anchor: run.first_violation_step - FORECAST_LEAD,
+        cells: run.labels.len(),
+        positives: run.labels.iter().filter(|&&l| l).count(),
+        all_cells: score_aucs(&run.scores, &run.labels),
+        quartiles: (0..QUARTILES)
+            .map(|q| quartile_result(q, &run.scores, &run.labels, &run.quartile))
+            .collect(),
+    }
+}
+
+/// Prediction P13c over the (run, quartile) pairs that hold enough positives.
+fn p13c(runs: &[RunForecast]) -> P13c {
+    let areas: Vec<f64> = runs
+        .iter()
+        .flat_map(|r| r.quartiles.iter())
+        .filter(|q| q.positives >= P13C_MIN_POSITIVES)
+        .filter_map(|q| q.auc.associator.auc)
+        .collect();
+    let at_most = areas.iter().filter(|&&a| a <= P13C_BOUND).count();
+    let above = areas.len() - at_most;
+    let verdict = if at_most * 2 > areas.len() {
+        "held"
+    } else if above * 2 > areas.len() {
+        "failed"
+    } else {
+        "undecided"
+    };
+    P13c {
+        pairs_with_enough_positives: areas.len(),
+        pairs_associator_at_most_bound: at_most,
+        pairs_associator_above_bound: above,
+        verdict: verdict.to_string(),
+    }
+}
+
+fn fmt_auc(a: &ScoreAuc) -> String {
+    match (a.auc, a.orientation) {
+        (Some(v), Some(Orientation::Higher)) => format!("{v:.3}+"),
+        (Some(v), Some(Orientation::Lower)) => format!("{v:.3}-"),
+        _ => "n/a".to_string(),
+    }
+}
+
+fn report_aucs(label: &str, positives: usize, cells: usize, a: &ScoreAucs) {
+    eprintln!(
+        "  {label}: {positives} of {cells} positive; assoc {} gram {} step {} Mach {} min pop {}",
+        fmt_auc(&a.associator),
+        fmt_auc(&a.gram_volume),
+        fmt_auc(&a.step_difference),
+        fmt_auc(&a.mach),
+        fmt_auc(&a.min_population_share)
+    );
+}
+
+fn forecast(args: &ForecastArgs) -> Result<()> {
+    let mut wanted: Vec<(Config, f64, usize)> = Vec::new();
+    let mut skipped = Vec::new();
+    for path in &args.json {
+        let text =
+            std::fs::read_to_string(path).with_context(|| format!("read {}", path.display()))?;
+        let out: Output =
+            serde_json::from_str(&text).with_context(|| format!("parse {}", path.display()))?;
+        for c in &out.scores {
+            let key = ConfigKey {
+                tau: c.tau,
+                u0: c.u0,
+                delta: c.delta,
+            };
+            let seen = wanted.iter().any(|(w, _, _)| {
+                ConfigKey {
+                    tau: w.tau,
+                    u0: w.u0,
+                    delta: w.delta,
+                } == key
+            });
+            if seen {
+                skipped.push(key);
+            } else {
+                let cfg = Config {
+                    tau: c.tau,
+                    u0: c.u0,
+                    delta: c.delta,
+                };
+                wanted.push((cfg, out.eps, c.first_violation_step));
+            }
+        }
+    }
+    if wanted.is_empty() {
+        bail!("the inputs hold no scored configuration");
+    }
+    let lattice = D3Q19Lattice::new();
+    let runs: Vec<RunData> = wanted
+        .par_iter()
+        .map(|&(cfg, eps, first)| forecast_run(&lattice, cfg, eps, first))
+        .collect::<Result<Vec<_>>>()?;
+    let per_run: Vec<RunForecast> = runs.iter().map(run_forecast).collect();
+    for r in &per_run {
+        eprintln!(
+            "tau {} U0 {} delta {}: F {}, anchor {}",
+            r.config.tau, r.config.u0, r.config.delta, r.first_violation_step, r.anchor
+        );
+        report_aucs("all cells", r.positives, r.cells, &r.all_cells);
+        for q in &r.quartiles {
+            report_aucs(
+                &format!("quartile {}", q.quartile),
+                q.positives,
+                q.cells,
+                &q.auc,
+            );
+        }
+    }
+
+    let mut pooled_scores = CellScores::empty();
+    let mut pooled_labels = Vec::new();
+    let mut pooled_quartile = Vec::new();
+    for run in &runs {
+        pooled_scores.extend(&run.scores);
+        pooled_labels.extend_from_slice(&run.labels);
+        pooled_quartile.extend_from_slice(&run.quartile);
+    }
+    let pooled_all = score_aucs(&pooled_scores, &pooled_labels);
+    let pooled_by_quartile: Vec<QuartileResult> = (0..QUARTILES)
+        .map(|q| quartile_result(q, &pooled_scores, &pooled_labels, &pooled_quartile))
+        .collect();
+    let positives = pooled_labels.iter().filter(|&&l| l).count();
+    report_aucs(
+        "pooled, all cells",
+        positives,
+        pooled_labels.len(),
+        &pooled_all,
+    );
+    for q in &pooled_by_quartile {
+        report_aucs(
+            &format!("pooled quartile {}", q.quartile),
+            q.positives,
+            q.cells,
+            &q.auc,
+        );
+    }
+    let verdict = p13c(&per_run);
+    eprintln!(
+        "P13c: associator area at most {P13C_BOUND} in {} of {} pairs with at least {P13C_MIN_POSITIVES} positives ({}): {}",
+        verdict.pairs_associator_at_most_bound,
+        verdict.pairs_with_enough_positives,
+        verdict.pairs_associator_above_bound,
+        verdict.verdict
+    );
+    let output = Forecast {
+        anchor_lead: FORECAST_LEAD,
+        window: FORECAST_WINDOW,
+        stratified_by: "smallest population over the density at the anchor".to_string(),
+        runs: per_run,
+        skipped_duplicate_configs: skipped,
+        pooled_all_cells: pooled_all,
+        pooled_by_quartile,
+        p13c: verdict,
+    };
+    if let Some(parent) = args.out_json.parent() {
+        std::fs::create_dir_all(parent).with_context(|| format!("create {}", parent.display()))?;
+    }
+    std::fs::write(&args.out_json, serde_json::to_string_pretty(&output)?)
+        .with_context(|| format!("write {}", args.out_json.display()))?;
+    eprintln!("wrote {}", args.out_json.display());
+    Ok(())
+}
+
 fn main() -> Result<()> {
     match Cli::parse().command {
         Command::Scan(args) => scan(&args),
         Command::Score(args) => score(&args),
+        Command::Forecast(args) => forecast(&args),
     }
 }
 
@@ -1040,7 +1583,7 @@ mod tests {
                 u0: 0.1,
                 delta: 1.0,
                 first_violation_step: Some(200 + 10 * i),
-                violating_cells: Some(1),
+                bad_population_cells: Some(1),
                 min_population: Some(-1.0),
                 kept: true,
             })
@@ -1049,5 +1592,116 @@ mod tests {
         assert_eq!(picked.len(), 8);
         assert_eq!(picked[0].first_violation_step, Some(200));
         assert_eq!(picked[7].first_violation_step, Some(390));
+    }
+
+    #[test]
+    fn orientation_takes_the_complement_of_a_low_area() {
+        let low = orient(0.1);
+        assert!((low.auc - 0.9).abs() < 1e-12);
+        assert_eq!(low.orientation, Orientation::Lower);
+        let high = orient(0.7);
+        assert!((high.auc - 0.7).abs() < 1e-12);
+        assert_eq!(high.orientation, Orientation::Higher);
+        assert_eq!(orient(0.5).orientation, Orientation::Higher);
+    }
+
+    #[test]
+    fn best_product_free_includes_the_gram_volume_in_its_better_orientation() {
+        let candidates = [
+            ("gram_volume", 0.05),
+            ("step_difference", 0.6),
+            ("mach", 0.8),
+            ("min_population_share", f64::NAN),
+        ];
+        let (name, best) = best_product_free(&candidates).expect("a finite candidate");
+        assert_eq!(name, "gram_volume");
+        assert!((best.auc - 0.95).abs() < 1e-12);
+        assert_eq!(best.orientation, Orientation::Lower);
+        assert!(best_product_free(&[("mach", f64::NAN)]).is_none());
+    }
+
+    #[test]
+    fn quartiles_split_sorted_values_and_keep_ties_together() {
+        let values: Vec<f64> = (0..8).map(f64::from).collect();
+        assert_eq!(quartiles(&values), vec![0, 0, 1, 1, 2, 2, 3, 3]);
+        let tied = [1.0, 1.0, 1.0, 1.0, 5.0, 5.0, 5.0, 5.0];
+        let q = quartiles(&tied);
+        assert!(q[..4].iter().all(|&x| x == q[0]));
+        assert!(q[4..].iter().all(|&x| x == q[4]));
+        assert!(q[0] < q[4]);
+    }
+
+    #[test]
+    fn first_bad_step_records_negative_and_non_finite_cells_once() {
+        let mut solver = fresh_solver(cfg(), 0.05);
+        let mut first_bad: Vec<Option<usize>> = vec![None; CELLS];
+        solver.f[aosoa_idx(5, 3)] = -1.0;
+        solver.f[aosoa_idx(7, 0)] = f64::NAN;
+        mark_first_bad(&solver, &mut first_bad, 10);
+        solver.f[aosoa_idx(9, 18)] = f64::INFINITY;
+        mark_first_bad(&solver, &mut first_bad, 11);
+        assert_eq!(first_bad[5], Some(10));
+        assert_eq!(first_bad[7], Some(10));
+        assert_eq!(first_bad[9], Some(11));
+        assert_eq!(first_bad[6], None);
+        assert_eq!(first_bad.iter().filter(|b| b.is_some()).count(), 3);
+    }
+
+    #[test]
+    fn grid_option_selects_the_widened_axes() {
+        let cli = Cli::try_parse_from(["x", "scan", "--grid", "widened"]).expect("parses");
+        let Command::Scan(args) = cli.command else {
+            panic!("scan subcommand expected");
+        };
+        assert!(args.grid == GridName::Widened);
+        let base = Cli::try_parse_from(["x", "scan"]).expect("parses");
+        let Command::Scan(args) = base.command else {
+            panic!("scan subcommand expected");
+        };
+        assert!(args.grid == GridName::Base);
+    }
+
+    #[test]
+    fn p13c_counts_pairs_with_enough_positives() {
+        let auc_of = |a: f64| ScoreAuc {
+            auc: Some(a),
+            orientation: Some(Orientation::Higher),
+            unoriented_auc: Some(a),
+        };
+        let aucs = |a: f64| ScoreAucs {
+            associator: auc_of(a),
+            gram_volume: auc_of(0.5),
+            step_difference: auc_of(0.5),
+            mach: auc_of(0.5),
+            min_population_share: auc_of(0.5),
+        };
+        let quartile = |q: usize, positives: usize, a: f64| QuartileResult {
+            quartile: q,
+            cells: 100,
+            positives,
+            auc: aucs(a),
+        };
+        let run = RunForecast {
+            config: ConfigKey {
+                tau: 0.5,
+                u0: 0.1,
+                delta: 1.0,
+            },
+            first_violation_step: 300,
+            anchor: 250,
+            cells: 400,
+            positives: 60,
+            all_cells: aucs(0.5),
+            quartiles: vec![
+                quartile(0, 3, 0.99),
+                quartile(1, 10, 0.60),
+                quartile(2, 20, 0.65),
+                quartile(3, 30, 0.80),
+            ],
+        };
+        let result = p13c(&[run]);
+        assert_eq!(result.pairs_with_enough_positives, 3);
+        assert_eq!(result.pairs_associator_at_most_bound, 2);
+        assert_eq!(result.verdict, "held");
     }
 }
