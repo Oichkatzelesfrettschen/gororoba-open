@@ -1,0 +1,101 @@
+command	imports_flocq
+From Flocq Require Import Core	true
+From Flocq.Core Require Import Raux	true
+Require Import Flocq.Core.Core	true
+Time From Flocq Require Import Core	true
+#[warnings("-w")] From Flocq Require Import Core	true
+Time Require Import Flocq.Core.Core	true
+From Stdlib Require Import List	false
+Require Import Stdlib.Reals.Reals	false
+Definition Flocq_unrelated := 0	false
+Require	false
+idtac "Example: Require Import Flocq.Core.Core"	false
+Definition note := "From Flocq Require Import Core"	false
+#[local, warnings("-w")] Require Import Flocq.Core.Core	true
+Timeout 10 Require Import Flocq.Core.Core	true
+#[local Require Import Flocq.Core.Core	false
+Instructions From Flocq Require Import Core	true
+Profile Require Import Flocq.Core.Core	true
+Time Timeout 5 Profile From Flocq Require Import Core	true
+#[local] Time Require Import Flocq.Core.Core	true
+From OpenGororoba Require Import Prelude	false
+Redirect "replay" From Flocq Require Import Core	true
+Redirect "replay" Require Import Flocq.Core.Core	true
+Redirect"replay"Require Import Flocq.Core.Core	true
+Redirect "a "" b" Require Import Flocq.Core.Core	true
+Redirect "From Flocq Require Import Core" Check 0	false
+Redirect "replay Require Import Flocq.Core.Core	false
+#[local]From Flocq Require Import Core	true
+#[local]Require Import Flocq.Core.Core	true
+#[warnings="-x"]Require Import Flocq.Core.Core	true
+Time#[local]Require Import Flocq.Core.Core	true
+Time #[warnings="-x"]Require Import Flocq.Core.Core	true
+#[deprecated(note="see [1]")] From Flocq Require Import Core	true
+#[warnings="-x]"] Require Import Flocq.Core.Core	true
+#[warnings="-x] -y"] Require Import Flocq.Core.Core	true
+#[warnings="[-x"] Require Import Flocq.Core.Core	true
+#[warnings="a""]b"] Require Import Flocq.Core.Core	true
+#[warnings="-x"] Require Import Flocq.Core.Core	true
+#[local] #[warnings="-w"] Require Import Flocq.Core.Core	true
+#[warnings="-x]"	false
+From OpenGororoba Require Import Flocq.Helper	false
+From OpenGororoba Require Flocq.Core.Core	false
+From Stdlib Require Import Flocq.Core.Core	false
+From FlocqExtra Require Import Core	false
+From Flocq.Core Require Core	true
+Require Import Flocq	true
+Require Flocq	true
+Require Export Flocq.Core.Core	true
+Require Flocq.Core.Core	true
+Require Import Stdlib.Reals Flocq.Core.Core	true
+Require Import FlocqExtra.Core	false
+Require Import OpenGororoba.Flocq.Helper	false
+Require Import "Flocq.Core.Core"	false
+Local Require Import Flocq.Core.Core	true
+Global Require Import Flocq.Core.Core	true
+Local From Flocq Require Import Core	true
+#[local] Global Require Import Flocq.Core.Core	true
+Polymorphic Require Import Flocq.Core.Core	true
+Monomorphic Require Import Flocq.Core.Core	true
+Cumulative Require Import Flocq.Core.Core	true
+NonCumulative Require Import Flocq.Core.Core	true
+Private Require Import Flocq.Core.Core	true
+Program Require Import Flocq.Core.Core	true
+From Flocq Require	false
+From Flocq Require Import	false
+From Flocq Require Export	false
+From Flocq Require Import(notations)	false
+From Flocq Require Import -(notations)	false
+Require Import	false
+Require Export	false
+Require Import(notations) Flocq.Core.Core	true
+Require Import -(notations) Flocq.Core.Core	true
+From Flocq Require Import(notations) Core	true
+Require Import Flocq.Core.Core(Rnd)	true
+Require Import Flocq.Core.Zaux(Zfast_pow_pos)	true
+Require Import Stdlib.Reals(Flocq.Core.Core)	false
+Profile "replay" Require Import Flocq.Core.Core	true
+Profile "replay" From Flocq Require Import Core	true
+AllocLimit 1000 Mw Require Import Flocq.Core.Core	true
+AllocLimit 100000 kw From Flocq Require Import Core	true
+Succeed Require Import Flocq.Core.Core	true
+Succeed From Flocq Require Import Core	true
+Fail Require Import Flocq.Core.Core(Rnd)	true
+Fail From Flocq Require Import Core(Rnd)	true
+Fail Require Import Flocq.Core.Core	true
+Fail Fail Require Import Flocq.Core.Core	true
+Time Fail Require Import Flocq.Core.Core	true
+Fail Require Import Flocq.NoSuchModule	true
+Time Time Require Import Flocq.Core.Core	true
+Timeout 10 Time Require Import Flocq.Core.Core	true
+Instructions Instructions From Flocq Require Import Core	true
+Redirect "a" Time Timeout 10 Profile "b" Succeed Fail AllocLimit 1000 Mw Instructions #[warnings="-x"] Local From Flocq Require Import Core	true
+Time #[local] Require Import Flocq.Core.Core	true
+Check "From Flocq Require Import Core"	false
+Comments "Require Import Flocq.Core.Core"	false
+Definition note := "Redirect"	false
+Import Flocq.Core.Core	false
+Time Check 0	false
+Timeout	false
+Time	false
+#[local]	false

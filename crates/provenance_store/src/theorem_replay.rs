@@ -347,34 +347,210 @@ fn external_arguments(mut arguments: Vec<String>, flocq: bool) -> Vec<String> {
     arguments
 }
 
-/// Whether one command is a `Require` of a Flocq module. The command starts
-/// with `Require` or `From NAMESPACE Require`, after any run of command
-/// prefixes: an attribute (`#[warnings("-w")]`, which may span words up to
-/// its closing `]`), `Time`, `Instructions`, `Profile` or `Timeout N`. A
-/// `Require` word anywhere else, such as inside a quoted string of a tactic
-/// command, is not an import.
-fn command_imports_flocq(words: &[&str]) -> bool {
-    let mut rest = words;
-    loop {
-        match rest {
-            [first, ..] if first.starts_with("#[") => {
-                let Some(end) = rest.iter().position(|word| word.ends_with(']')) else {
-                    return false;
-                };
-                rest = &rest[end + 1..];
+/// The control flags of Rocq 9.3.0 (`control_flag` of its vernacular grammar),
+/// each with the number of argument tokens it takes: `Redirect` a string,
+/// `Timeout` a natural, `AllocLimit` a natural and `Mw` or `kw`. `Profile`
+/// takes an optional string.
+const CONTROL_FLAGS: [(&str, usize); 8] = [
+    ("Time", 0),
+    ("Instructions", 0),
+    ("Profile", 0),
+    ("Redirect", 1),
+    ("Timeout", 1),
+    ("AllocLimit", 2),
+    ("Fail", 0),
+    ("Succeed", 0),
+];
+
+/// The legacy attributes of Rocq 9.3.0 (`legacy_attr` of its vernacular
+/// grammar).
+const LEGACY_ATTRIBUTES: [&str; 8] = [
+    "Local",
+    "Global",
+    "Polymorphic",
+    "Monomorphic",
+    "Cumulative",
+    "NonCumulative",
+    "Private",
+    "Program",
+];
+
+/// A token of one command: an attribute (`#[` to its matching `]`), a string
+/// literal, a parenthesis, or a word, a run of characters that holds no
+/// whitespace, quote or parenthesis and ends before `#[`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Token<'a> {
+    Attribute,
+    String,
+    Open,
+    Close,
+    Word(&'a str),
+}
+
+/// The index after the quote that closes a string whose text starts at
+/// `cursor`; a doubled quote inside a Rocq string literal stands for one
+/// quote character. The delimiters are ASCII, so a byte scan finds them.
+fn string_end(command: &str, mut cursor: usize) -> Option<usize> {
+    let bytes = command.as_bytes();
+    while cursor < bytes.len() {
+        if bytes[cursor] == b'"' {
+            if bytes.get(cursor + 1) == Some(&b'"') {
+                cursor += 2;
+                continue;
             }
-            ["Time" | "Instructions" | "Profile", tail @ ..] | ["Timeout", _, tail @ ..] => {
-                rest = tail;
+            return Some(cursor + 1);
+        }
+        cursor += 1;
+    }
+    None
+}
+
+/// The index after the bracket that closes an attribute whose text starts at
+/// `cursor`. Brackets nest, and a bracket inside a string literal of the
+/// attribute is text.
+fn attribute_end(command: &str, mut cursor: usize) -> Option<usize> {
+    let bytes = command.as_bytes();
+    let mut depth = 1usize;
+    while cursor < bytes.len() {
+        match bytes[cursor] {
+            b'"' => {
+                cursor = string_end(command, cursor + 1)?;
+                continue;
+            }
+            b'[' => depth += 1,
+            b']' => {
+                depth -= 1;
+                if depth == 0 {
+                    return Some(cursor + 1);
+                }
+            }
+            _ => {}
+        }
+        cursor += 1;
+    }
+    None
+}
+
+/// The tokens of one command, or `None` when an attribute or a string is
+/// unterminated.
+fn command_tokens(command: &str) -> Option<Vec<Token<'_>>> {
+    let mut tokens = Vec::new();
+    let mut cursor = 0;
+    while let Some(character) = command[cursor..].chars().next() {
+        if character.is_whitespace() {
+            cursor += character.len_utf8();
+        } else if command[cursor..].starts_with("#[") {
+            cursor = attribute_end(command, cursor + 2)?;
+            tokens.push(Token::Attribute);
+        } else if character == '"' {
+            cursor = string_end(command, cursor + 1)?;
+            tokens.push(Token::String);
+        } else if character == '(' || character == ')' {
+            tokens.push(if character == '(' {
+                Token::Open
+            } else {
+                Token::Close
+            });
+            cursor += 1;
+        } else {
+            let start = cursor;
+            while let Some(next) = command[cursor..].chars().next() {
+                if next.is_whitespace()
+                    || matches!(next, '"' | '(' | ')')
+                    || command[cursor..].starts_with("#[")
+                {
+                    break;
+                }
+                cursor += next.len_utf8();
+            }
+            tokens.push(Token::Word(&command[start..cursor]));
+        }
+    }
+    Some(tokens)
+}
+
+fn is_flocq(name: &str) -> bool {
+    name == "Flocq" || name.starts_with("Flocq.")
+}
+
+/// The module names among the arguments of `Require`. Rocq 9.3 reads
+/// `Require [Import | Export [-](CATEGORIES)] MODULE[(NAMES)]...`
+/// (`export_token` and `filtered_import` of its vernacular grammar), so the
+/// names are the words outside parentheses after a leading `Import` or
+/// `Export`, other than the category negation `-`.
+fn module_words<'a>(mut arguments: &[Token<'a>]) -> Vec<&'a str> {
+    if let [Token::Word("Import" | "Export"), tail @ ..] = arguments {
+        arguments = tail;
+    }
+    let mut depth = 0usize;
+    let mut words = Vec::new();
+    for token in arguments {
+        match *token {
+            Token::Open => depth += 1,
+            Token::Close => depth = depth.saturating_sub(1),
+            Token::Word(word) if depth == 0 && word != "-" => words.push(word),
+            _ => {}
+        }
+    }
+    words
+}
+
+/// Whether one command imports Flocq. The rule is that of
+/// `command_imports_flocq` of the gororoba-math kernel replay evidence
+/// producer, and the Flocq import corpus that the tests pin holds the cases
+/// both answer. A run of control flags (`CONTROL_FLAGS`, each with its
+/// argument tokens and `Profile` with an optional string), attributes and
+/// legacy attributes (`LEGACY_ATTRIBUTES`) is skipped in any order; Rocq 9.3
+/// reads them in the order flags, attributes, legacy attributes and rejects
+/// the other orders. `Fail` is skipped like the others: a command under
+/// `Fail` may load Flocq before it fails. Then `From NAMESPACE Require`
+/// imports Flocq when `NAMESPACE` is `Flocq` or starts with `Flocq.`, since
+/// Rocq resolves the modules under `NAMESPACE`, and a bare `Require` imports
+/// Flocq when a module word is `Flocq` or starts with `Flocq.`. A command
+/// that names no module, or whose attribute or string is unterminated,
+/// imports nothing.
+fn command_imports_flocq(command: &str) -> bool {
+    imports_flocq_under(command, &CONTROL_FLAGS, &LEGACY_ATTRIBUTES)
+}
+
+/// `command_imports_flocq` over the given prefix tables, which a test
+/// shortens by one entry.
+fn imports_flocq_under(
+    command: &str,
+    control_flags: &[(&str, usize)],
+    legacy_attributes: &[&str],
+) -> bool {
+    let Some(tokens) = command_tokens(command) else {
+        return false;
+    };
+    let mut position = 0;
+    while let Some(token) = tokens.get(position) {
+        match *token {
+            Token::Attribute => position += 1,
+            Token::Word(word) if legacy_attributes.contains(&word) => position += 1,
+            Token::Word(word) => {
+                let Some(&(_, arguments)) = control_flags.iter().find(|(flag, _)| *flag == word)
+                else {
+                    break;
+                };
+                position += 1 + arguments;
+                if word == "Profile" && tokens.get(position) == Some(&Token::String) {
+                    position += 1;
+                }
             }
             _ => break,
         }
     }
-    let is_flocq = |module: &&str| *module == "Flocq" || module.starts_with("Flocq.");
-    match rest {
-        ["From", namespace, "Require", modules @ ..] => {
-            is_flocq(namespace) || modules.iter().any(|module| module.starts_with("Flocq."))
+    match tokens.get(position..).unwrap_or_default() {
+        [
+            Token::Word("From"),
+            Token::Word(namespace),
+            Token::Word("Require"),
+            arguments @ ..,
+        ] => is_flocq(namespace) && !module_words(arguments).is_empty(),
+        [Token::Word("Require"), arguments @ ..] => {
+            module_words(arguments).into_iter().any(is_flocq)
         }
-        ["Require", modules @ ..] => modules.iter().any(|module| module.starts_with("Flocq.")),
         _ => false,
     }
 }
@@ -383,8 +559,7 @@ fn uses_flocq(roots: EvidenceRoots<'_>, witness: &TheoremKernelWitness) -> Resul
     for source in &witness.sources {
         let contents = fs::read_to_string(super::verify_file(roots, source)?)?;
         for command in super::source_commands(&contents)? {
-            let words = command.split_whitespace().collect::<Vec<_>>();
-            if command_imports_flocq(&words) {
+            if command_imports_flocq(&command) {
                 return Ok(true);
             }
         }
@@ -632,34 +807,142 @@ mod tests {
         )
     }
 
+    /// The Flocq import corpus of gororoba-math (`flocq-import-corpus.tsv`),
+    /// whose sha256 is
+    /// `5b5cdfb485701a0dcd6289ff4fc74c290f51afe963f956f9e66e453c14afa36b`,
+    /// first at commit `66af7e4d38f5fcb6dd4f52ea12aec4a403f27c35`. The
+    /// calibration of the gororoba-math evidence producer reads the same
+    /// corpus. `ci/flocq_import_corpus.pin` names the gororoba-math commit whose
+    /// corpus this copy equals, apart from `ci/gororoba_math.pin`, because the
+    /// retained kernel receipts bind the proof tree of that pin.
+    /// `the_vendored_flocq_import_corpus_equals_that_of_gororoba_math` compares
+    /// this copy with the corpus file `FLOCQ_IMPORT_CORPUS` names, so a rule
+    /// change in either repository fails a test until both read one corpus
+    /// again.
+    const FLOCQ_IMPORT_CORPUS: &str =
+        include_str!("../fixtures/flocq_import_corpus/flocq-import-corpus.tsv");
+    const FLOCQ_IMPORT_CORPUS_SHA256: &str =
+        "5b5cdfb485701a0dcd6289ff4fc74c290f51afe963f956f9e66e453c14afa36b";
+
+    /// The (command, expected answer) rows of the corpus: a header line, then
+    /// one tab-separated row per command with `true` or `false`.
+    fn flocq_import_corpus() -> Result<Vec<(&'static str, bool)>> {
+        let body = FLOCQ_IMPORT_CORPUS
+            .strip_prefix("command\timports_flocq\n")
+            .context("the Flocq import corpus lacks its header")?
+            .strip_suffix('\n')
+            .context("the Flocq import corpus lacks its final newline")?;
+        let rows = body
+            .split('\n')
+            .enumerate()
+            .map(|(index, line)| {
+                let (command, expected) = line
+                    .split_once('\t')
+                    .with_context(|| format!("corpus row {} has no tab", index + 2))?;
+                ensure!(
+                    !command.is_empty() && !expected.contains('\t'),
+                    "corpus row {} is malformed",
+                    index + 2
+                );
+                let expected = match expected {
+                    "true" => true,
+                    "false" => false,
+                    _ => anyhow::bail!("corpus row {} has no boolean answer", index + 2),
+                };
+                Ok((command, expected))
+            })
+            .collect::<Result<Vec<_>>>()?;
+        let commands = rows
+            .iter()
+            .map(|(command, _)| command)
+            .collect::<BTreeSet<_>>();
+        ensure!(
+            commands.len() == rows.len(),
+            "the Flocq import corpus repeats a command"
+        );
+        Ok(rows)
+    }
+
+    /// Environment variable naming the corpus file of the gororoba-math commit
+    /// that `ci/flocq_import_corpus.pin` names.
+    const FLOCQ_IMPORT_CORPUS_ENV: &str = "FLOCQ_IMPORT_CORPUS";
+
     #[test]
-    fn flocq_imports_are_found_behind_command_prefixes() {
-        for (command, expected) in [
-            ("From Flocq Require Import Core", true),
-            ("From Flocq.Core Require Import Raux", true),
-            ("Require Import Flocq.Core.Core", true),
-            ("Time From Flocq Require Import Core", true),
-            ("#[warnings(\"-w\")] From Flocq Require Import Core", true),
-            ("Time Require Import Flocq.Core.Core", true),
-            ("From Stdlib Require Import List", false),
-            ("Require Import Stdlib.Reals.Reals", false),
-            ("Definition Flocq_unrelated := 0", false),
-            ("Require", false),
-            ("idtac \"Example: Require Import Flocq.Core.Core\"", false),
-            (
-                "Definition note := \"From Flocq Require Import Core\"",
-                false,
-            ),
-            (
-                "#[local, warnings(\"-w\")] Require Import Flocq.Core.Core",
-                true,
-            ),
-            ("Timeout 10 Require Import Flocq.Core.Core", true),
-            ("#[local Require Import Flocq.Core.Core", false),
-        ] {
-            let words = command.split_whitespace().collect::<Vec<_>>();
-            assert_eq!(command_imports_flocq(&words), expected, "{command}");
+    #[ignore = "reads the gororoba-math Flocq import corpus; set FLOCQ_IMPORT_CORPUS and run with --include-ignored"]
+    fn the_vendored_flocq_import_corpus_equals_that_of_gororoba_math() -> Result<()> {
+        let path = std::env::var_os(FLOCQ_IMPORT_CORPUS_ENV)
+            .filter(|value| !value.is_empty())
+            .with_context(|| {
+                format!(
+                    "{FLOCQ_IMPORT_CORPUS_ENV} is unset; set it to the flocq-import-corpus.tsv \
+                     of the gororoba-math commit that ci/flocq_import_corpus.pin names"
+                )
+            })?;
+        let path = Path::new(&path);
+        let corpus = fs::read_to_string(path).with_context(|| {
+            format!(
+                "read the Flocq import corpus {} that {FLOCQ_IMPORT_CORPUS_ENV} names",
+                path.display()
+            )
+        })?;
+        ensure!(
+            corpus == FLOCQ_IMPORT_CORPUS,
+            "the vendored Flocq import corpus (sha256 {}) differs from the gororoba-math corpus \
+             that {FLOCQ_IMPORT_CORPUS_ENV} names (sha256 {})",
+            crate::sha256_hex(FLOCQ_IMPORT_CORPUS),
+            crate::sha256_hex(&corpus)
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn the_flocq_import_corpus_has_its_pinned_digest() {
+        assert_eq!(
+            crate::sha256_hex(FLOCQ_IMPORT_CORPUS),
+            FLOCQ_IMPORT_CORPUS_SHA256
+        );
+    }
+
+    #[test]
+    fn flocq_imports_follow_the_pinned_corpus() -> Result<()> {
+        let corpus = flocq_import_corpus()?;
+        assert!(!corpus.is_empty());
+        for (command, expected) in corpus {
+            assert_eq!(command_imports_flocq(command), expected, "{command}");
+            // The source reader yields the row as one command, or refuses the
+            // source, which is a refused run and imports nothing.
+            match crate::theorem_execution::source_commands(&format!("{command}.")) {
+                Ok(commands) => assert_eq!(commands, [command], "{command}"),
+                Err(_) => assert!(!expected, "{command}"),
+            }
         }
+        Ok(())
+    }
+
+    #[test]
+    fn the_corpus_rejects_a_rule_without_any_one_prefix() -> Result<()> {
+        let corpus = flocq_import_corpus()?;
+        let answers_corpus = |flags: &[(&str, usize)], legacy: &[&str]| {
+            corpus
+                .iter()
+                .all(|(command, expected)| imports_flocq_under(command, flags, legacy) == *expected)
+        };
+        assert!(answers_corpus(&CONTROL_FLAGS, &LEGACY_ATTRIBUTES));
+        for (flag, _) in CONTROL_FLAGS {
+            let flags = CONTROL_FLAGS
+                .into_iter()
+                .filter(|(name, _)| *name != flag)
+                .collect::<Vec<_>>();
+            assert!(!answers_corpus(&flags, &LEGACY_ATTRIBUTES), "{flag}");
+        }
+        for attribute in LEGACY_ATTRIBUTES {
+            let legacy = LEGACY_ATTRIBUTES
+                .into_iter()
+                .filter(|name| *name != attribute)
+                .collect::<Vec<_>>();
+            assert!(!answers_corpus(&CONTROL_FLAGS, &legacy), "{attribute}");
+        }
+        Ok(())
     }
 
     #[test]
