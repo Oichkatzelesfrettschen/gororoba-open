@@ -1,0 +1,58 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+Attainability of a P13d call in the 12 decided held-out pairs
+==============================================================
+
+Source: lbm-late-failure-heldout-null.json, sha256 bbb94758559b2f2b572bf9b8826bef6d48e3ccd99f2b8690cf211c0776b6e00d,
+field p13d_rule_applied.by_pair and observed_by_score.*.oriented_by_pair.
+This file restates fields of that record; it computes no new evaluation.
+
+Derivation. A pair calls when the associator oriented area A exceeds
+T = max(q, best + 0.02), q the 0.95 rank-sum quantile of the pair and
+best the largest oriented area of the five product-free scores. The
+record shows no orbit with both labels (orbits_excluded_for_mixed_labels
+is 0 in every pair), so each orbit of cells carries one label and an
+ordering that places every positive orbit above every negative orbit is
+a valid ranking of the cells: the largest area a pair allows is 1 for a
+score without ties across the classes. A call is attainable when T < 1;
+the headroom is 1 - T. The record holds no per-cell score list, so the
+ties of the associator are not counted and the bound is not lowered by
+them. At orbit level, with P positive and N negative orbits and D
+discordant orbit pairs, the area is 1 - D/(P N), so a call needs
+D < headroom * P * N; Dmax is the largest such D (the associator varies
+inside an orbit, so this is the orbit-level reading of the cell area). A
+pair is ceiling-bound when its headroom is below the margin 0.02.
+
+run qt   P    N      q      A   best  score   A-best     T  headroom  Dmax  of P*N  A>q  best>q  ceiling  call
+  0  3  20  237  0.6319 0.6203 0.6831 gram    -0.0628 0.7031  0.2969  1407    4740  no   yes     no       no
+  0  2   9  247  0.6923 0.6176 0.7980 mach    -0.1804 0.8180  0.1820   404    2223  no   yes     no       no
+  0  1   5  251  0.7546 0.8506 0.9737 mach    -0.1231 0.9937  0.0063     7    1255  yes  yes     yes      no
+  0  0   9  247  0.6923 0.5048 0.8417 mach    -0.3369 0.8617  0.1383   307    2223  no   yes     no       no
+  1  3   8  249  0.7013 0.7660 0.7659 gram    +0.0001 0.7859  0.2141   426    1992  yes  yes     no       no
+  1  2   9  247  0.6919 0.6757 0.7589 gram    -0.0832 0.7789  0.2211   491    2223  no   yes     no       no
+  1  1   2  254  0.8917 0.7965 0.8406 gram    -0.0440 0.8917  0.1083    55     508  no   no      no       no
+  1  0   1  255  0.9765 0.7098 0.9647 gram    -0.2549 0.9847  0.0153     3     255  no   no      yes      no
+  4  3  56  201  0.5860 0.5278 0.8555 mach    -0.3277 0.8755  0.1245  1400   11256  no   yes     no       no
+  4  2 128  128  0.5705 0.5421 0.6129 gram    -0.0709 0.6329  0.3671  6014   16384  no   yes     no       no
+  4  1 131  125  0.5711 0.5181 0.6388 mach    -0.1206 0.6588  0.3412  5587   16375  no   yes     no       no
+  4  0 235   21  0.6296 0.6613 0.8026 mach    -0.1413 0.8226  0.1774   875    4935  yes  yes     no       no
+
+Pairs where a call was attainable (T < 1): 12 of 12.
+Ceiling-bound pairs (headroom below 0.02): 2: run 0 quartile 1 (T 0.9937, headroom 0.0063, at most 7 of 1255 orbit pairs may be discordant); run 1 quartile 0 (T 0.9847, headroom 0.0153, at most 3 of 255 orbit pairs may be discordant).
+Pairs with a call attainable and headroom of at least 0.02: 10 of 12.
+Calls: 0 of 12.
+Best product-free score by pair: gram 6, mach 6 (step, minpop and twostep are best in no pair).
+Associator A above q (threshold a): 3 pairs; A above best + 0.02 (threshold b): 0 pairs.
+Associator below the best product-free area: 11 pairs (by 0.0440 to 0.3369); above it: 1 pair (by 0.0001).
+Best product-free area above q: 10 pairs; no product-free score above q: run 1 quartile 1, run 1 quartile 0.
+Pairs with 9 or fewer positive orbits: 7 of 12 (q from 0.6919 to 0.9765).
+
+Cells that are neither decided nor skipped. The record lists no reason for them.
+Runs 2, 3 and 5 hold quartile_positives [4096, 4096, 4096, 4096], the quartile
+size of every run that has pairs (pairs[].cells is 4096), so every cell is
+positive; runs[i].pairs is 0 for them, p13d_rule_applied.skipped is
+[] and p13d_rule_applied.pairs is 12. The pair constructor of forecast-null
+admits a quartile with at least min_positives (10) positives and fewer positives
+than cells, so these 12 (run, quartile) cells never become pairs; the registered
+unit is a pair with at least 10 positives and both classes.
