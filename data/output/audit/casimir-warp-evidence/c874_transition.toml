@@ -5,12 +5,12 @@ expected_prior_status = "Verified"
 experiment_verdict = "MethodologyInvalid"
 evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
 experiment_ids = []
-exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or a direct evaluation of the York time at the center returns a nonzero value; vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or test_center_extrinsic_curvature_is_zero fails (a nonzero York time at the center); vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
 proposed_claim_status = "Partial"
 rationale = "The retained Rust tests bound the center values by 0.01 and the York time by 0.1, and the Rocq lemmas concern model functions; no retained check decides vanishing York time across the interior, which the module documentation says the logistic gate does not establish."
 unresolved_assumptions = []
 actor = "registry-statement-correction"
 reason = "Scope C-874 to the evidence that decides it"
-transition_timestamp = "2026-11-16T17:03:58Z"
-expected_source_state_sha256 = "5fb8e9ec3a9e130800d1f0610aebe43473b44680bd193472d61339d5a652b6f2"
+transition_timestamp = "2026-11-16T18:38:27Z"
+expected_source_state_sha256 = "feb2a7e5162574c2ac8712fd9a9ba795a3ae32be70e7de7ee4a74ca54c48520f"
 expected_claim_id_max = 1784
