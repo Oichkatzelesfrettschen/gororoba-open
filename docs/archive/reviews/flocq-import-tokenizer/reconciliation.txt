@@ -1,0 +1,23 @@
+Review record: provenance_store Flocq import tokenizer (gororoba-open pull request 293)
+
+Companion of gororoba-math pull request 65; both land together because the
+kernel replay evidence contract changes in both repositories. The owner chose
+codex on gpt-daybreak-blue and no red-team for this round; the Advisor reviewed
+last. Codex read gororoba-math 7c505c9 and gororoba-open 03452b94 together.
+
+1. Evidence-contract migration for the newly recognized commands (P2).
+   Accepted and bounded: no tracked source of the three repositories changes
+   classification (152,173 commands); the corpus holds the new forms; the
+   fail-closed producer guard is gororoba-math issue 64. Advisor: confirmed.
+2. The corpus pin was documentary (P2). Fixed in 54732574: an ignored test
+   byte-compares the vendored corpus with the gororoba-math checkout that
+   proofs.yml fetches, in a lane of its own. Commit 06565b55 moves
+   ci/gororoba_math.pin to the head of gororoba-math pull request 65 as a
+   trial, so every proofs lane runs against the moved tree; the pin moves to
+   that pull request's merge commit before this one lands. Advisor: confirmed;
+   the trial pin requested.
+3. New comments cited internal repository paths (P3). Fixed in 54732574.
+   Advisor: confirmed.
+
+Codex found no command on which the Python and Rust rules differ and
+justified the prefix list against the Rocq 9.3 vernacular grammar.
