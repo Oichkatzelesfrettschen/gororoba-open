@@ -42,7 +42,8 @@ const FEATURE_NAMES: [&str; 7] = [
 ];
 
 /// CSV column index for each entry of `FEATURE_NAMES`.
-/// Header: file_id,assoc,dbdt,rot,bmag,label,cumrot6,maxrot6,pvi6,gram6,scram,chperm
+/// Header: file_id,assoc,dbdt,rot,bmag,label,cumrot6,maxrot6,pvi6,gram6,scram,chperm,
+/// timestamp_us (the trailing column is not read).
 const FEATURE_CSV_COL: [usize; 7] = [2, 3, 6, 7, 8, 9, 1];
 const COL_FILE_ID: usize = 0;
 const COL_LABEL: usize = 5;

@@ -1,7 +1,8 @@
 //! Block-bootstrap ROC-AUC comparison for the Staples THEMIS benchmark.
 //!
 //! Consumes the flat score CSV written by `themis-staples-score-export`
-//! (columns `assoc,dbdt,rot,bmag,label`) and decides the paper-grade
+//! (columns `assoc,dbdt,rot,bmag,label`; a leading `file_id` and the trailing
+//! `timestamp_us` column are optional context and are not read) and decides the paper-grade
 //! questions the point estimates leave open: does the normalized CD
 //! staple-associator beat the field-rotation-angle baseline on bulk
 //! magnetopause-crossing detection, does the edge survive within each
