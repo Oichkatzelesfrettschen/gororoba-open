@@ -13,9 +13,13 @@
 //! norms plus the two conventional baselines, labels each sample within
 //! +/- 2 minutes of a catalogued magnetopause crossing on that UTC day, and
 //! concatenates everything into one flat CSV of
-//! (file_id, assoc, dbdt, rot, bmag, label), where file_id names the
+//! (file_id, assoc, dbdt, rot, bmag, label, ...), where file_id names the
 //! source daily file -- the intact cluster a file-aware bootstrap
-//! resamples on. A sidecar `<out>.files.csv` maps file_id to path.
+//! resamples on. The last column, timestamp_us, is the UTC time of the
+//! sample a row's window is aligned to, in integer microseconds since the
+//! Unix epoch, so a consumer can mask by time or side of a crossing
+//! without assuming which rows the finite-score filter dropped. A sidecar
+//! `<out>.files.csv` maps file_id to path.
 //!
 //! HOW:
 //!   cargo run --release -p gororoba_cli_physics \
@@ -74,6 +78,7 @@ struct Scored {
     gram6: Vec<f64>,
     scram: Vec<f64>,
     chperm: Vec<f64>,
+    timestamp_us: Vec<i64>,
 }
 
 fn parse_timestamp(s: &str) -> Option<DateTime<Utc>> {
@@ -157,8 +162,9 @@ fn score_file(
     let n = assoc.len();
 
     // Staple k spans samples k..k+3 and the associator joins staples
-    // k, k+1, k+2, so score k aligns to sample timestamp k+4 -- one past
-    // the middle staple's trailing sample, matching the reference export.
+    // k, k+1, k+2, so score k aligns to sample timestamp k+4, the trailing
+    // sample of the middle staple (k+1 spans k+1..k+4), matching the
+    // reference export.
     let ts: Vec<DateTime<Utc>> = times[4..4 + n].to_vec();
 
     let pad = Duration::milliseconds((args.label_pad_minutes * 60_000.0) as i64);
@@ -206,7 +212,39 @@ fn score_file(
         gram6: keep.iter().map(|&k| base.max_gram_volume[k]).collect(),
         scram: keep.iter().map(|&k| scram[k]).collect(),
         chperm: keep.iter().map(|&k| chperm[k]).collect(),
+        timestamp_us: keep.iter().map(|&k| ts[k].timestamp_micros()).collect(),
     })
+}
+
+/// Writes the score CSV: one row per kept window, with the label and the
+/// trailing `timestamp_us` column drawn from the same per-file alignment.
+fn write_scores(out: &mut impl Write, scored: &[(&String, Scored)]) -> Result<()> {
+    writeln!(
+        out,
+        "file_id,assoc,dbdt,rot,bmag,label,cumrot6,maxrot6,pvi6,gram6,scram,chperm,timestamp_us"
+    )?;
+    for (file_id, (_, s)) in scored.iter().enumerate() {
+        for k in 0..s.assoc.len() {
+            writeln!(
+                out,
+                "{},{:e},{:e},{:e},{:e},{},{:e},{:e},{:e},{:e},{:e},{:e},{}",
+                file_id,
+                s.assoc[k],
+                s.dbdt[k],
+                s.rot[k],
+                s.bmag[k],
+                u8::from(s.label[k]),
+                s.cumrot6[k],
+                s.maxrot6[k],
+                s.pvi6[k],
+                s.gram6[k],
+                s.scram[k],
+                s.chperm[k],
+                s.timestamp_us[k]
+            )?;
+        }
+    }
+    Ok(())
 }
 
 fn main() -> Result<()> {
@@ -252,30 +290,8 @@ fn main() -> Result<()> {
     let mut out = std::io::BufWriter::new(
         fs::File::create(&args.out).with_context(|| format!("create {}", args.out.display()))?,
     );
-    writeln!(
-        out,
-        "file_id,assoc,dbdt,rot,bmag,label,cumrot6,maxrot6,pvi6,gram6,scram,chperm"
-    )?;
-    for (file_id, (_, s)) in scored.iter().enumerate() {
-        for k in 0..s.assoc.len() {
-            writeln!(
-                out,
-                "{},{:e},{:e},{:e},{:e},{},{:e},{:e},{:e},{:e},{:e},{:e}",
-                file_id,
-                s.assoc[k],
-                s.dbdt[k],
-                s.rot[k],
-                s.bmag[k],
-                u8::from(s.label[k]),
-                s.cumrot6[k],
-                s.maxrot6[k],
-                s.pvi6[k],
-                s.gram6[k],
-                s.scram[k],
-                s.chperm[k]
-            )?;
-        }
-    }
+    write_scores(&mut out, &scored)?;
+    out.flush()?;
 
     // Sidecar map ties each file_id back to its source path for
     // provenance and for event-level attribution later.
@@ -296,4 +312,143 @@ fn main() -> Result<()> {
         100.0 * positives as f64 / total.max(1) as f64
     );
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A zero-field stretch makes the normalized associator non-finite, so
+    /// the finite-score filter drops the windows it touches; the exported
+    /// timestamps must still name the sample each kept score aligns to.
+    #[test]
+    fn timestamps_follow_the_finite_score_filter() -> Result<()> {
+        let dir = tempfile::tempdir()?;
+        let day = "2010-05-05T";
+        let n = 400usize;
+        let mut body = String::new();
+        for i in 0..n {
+            let secs = 3 * i;
+            let (h, m, sec) = (secs / 3600, (secs / 60) % 60, secs % 60);
+            let phase = i as f64 * 0.37;
+            let (x, y, z) = if (200..230).contains(&i) {
+                (0.0, 0.0, 0.0)
+            } else {
+                (
+                    5.0 + phase.sin(),
+                    3.0 + phase.cos(),
+                    1.0 + (2.0 * phase).sin(),
+                )
+            };
+            body.push_str(&format!(
+                "{day}{h:02}:{m:02}:{sec:02}.500000Z,{x},{y},{z}\n"
+            ));
+        }
+        let path = dir.path().join("tha_fgm_2010_125.csv");
+        fs::write(&path, body)?;
+        let crossing = parse_timestamp("2010-05-05T00:10:00Z").context("crossing time")?;
+        let table = cd_kernel::mult_table::CdMultTable::generate(16);
+        let cd_tensor = SparseCubicTensor::from_associator(&table);
+        let scrambled = cd_tensor.sign_scrambled(42);
+        let args = Args {
+            matched_files: PathBuf::new(),
+            catalog: PathBuf::new(),
+            out: PathBuf::new(),
+            label_pad_minutes: 2.0,
+            min_samples: 100,
+        };
+        let path_str = path.to_str().context("utf-8 path")?;
+        let scored = score_file(path_str, &[crossing], &args, &scrambled, &cd_tensor)
+            .context("file scored")?;
+        let t0 = parse_timestamp("2010-05-05T00:00:00.5Z")
+            .context("first sample")?
+            .timestamp_micros();
+        assert_eq!(scored.timestamp_us.len(), scored.assoc.len());
+        assert!(scored.assoc.len() < n - 4, "the zero stretch drops windows");
+        assert_eq!(scored.timestamp_us[0], t0 + 12_000_000);
+        for pair in scored.timestamp_us.windows(2) {
+            assert!(pair[1] > pair[0]);
+            assert_eq!((pair[1] - pair[0]) % 3_000_000, 0);
+        }
+        let dropped_from = t0 + 3_000_000 * 200;
+        assert!(
+            scored
+                .timestamp_us
+                .iter()
+                .any(|&t| t > dropped_from && t - dropped_from > 3_000_000 * 5),
+            "scores resume after the zero stretch"
+        );
+        Ok(())
+    }
+
+    /// Every written row's label must equal the label recomputed from that
+    /// row's own `timestamp_us` and the crossing list.
+    #[test]
+    fn written_labels_match_their_timestamps() -> Result<()> {
+        let dir = tempfile::tempdir()?;
+        let day = "2010-05-05T";
+        let n = 400usize;
+        let mut body = String::new();
+        for i in 0..n {
+            let secs = 3 * i;
+            let (h, m, sec) = (secs / 3600, (secs / 60) % 60, secs % 60);
+            let phase = i as f64 * 0.37;
+            let (x, y, z) = if (200..230).contains(&i) {
+                (0.0, 0.0, 0.0)
+            } else {
+                (
+                    5.0 + phase.sin(),
+                    3.0 + phase.cos(),
+                    1.0 + (2.0 * phase).sin(),
+                )
+            };
+            body.push_str(&format!(
+                "{day}{h:02}:{m:02}:{sec:02}.500000Z,{x},{y},{z}\n"
+            ));
+        }
+        let path = dir.path().join("tha_fgm_2010_125.csv");
+        fs::write(&path, body)?;
+        let crossing = parse_timestamp("2010-05-05T00:10:00Z").context("crossing time")?;
+        let table = cd_kernel::mult_table::CdMultTable::generate(16);
+        let cd_tensor = SparseCubicTensor::from_associator(&table);
+        let scrambled = cd_tensor.sign_scrambled(42);
+        let args = Args {
+            matched_files: PathBuf::new(),
+            catalog: PathBuf::new(),
+            out: PathBuf::new(),
+            label_pad_minutes: 2.0,
+            min_samples: 100,
+        };
+        let path_str = path.to_str().context("utf-8 path")?.to_owned();
+        let scored = score_file(&path_str, &[crossing], &args, &scrambled, &cd_tensor)
+            .context("file scored")?;
+        let mut written: Vec<u8> = Vec::new();
+        write_scores(&mut written, &[(&path_str, scored)])?;
+
+        let mut reader = csv::Reader::from_reader(written.as_slice());
+        let headers = reader.headers()?.clone();
+        let label_col = headers
+            .iter()
+            .position(|h| h == "label")
+            .context("label column")?;
+        let ts_col = headers
+            .iter()
+            .position(|h| h == "timestamp_us")
+            .context("timestamp_us column")?;
+        assert_eq!(ts_col, headers.len() - 1);
+        let pad_us = (args.label_pad_minutes * 60.0 * 1e6) as i64;
+        let crossing_us = crossing.timestamp_micros();
+        let (mut rows, mut positives) = (0usize, 0usize);
+        for record in reader.records() {
+            let record = record?;
+            let ts: i64 = record[ts_col].parse()?;
+            let expected = (ts - crossing_us).abs() <= pad_us;
+            assert_eq!(&record[label_col], if expected { "1" } else { "0" });
+            rows += 1;
+            positives += usize::from(expected);
+        }
+        assert!(rows > 0);
+        assert!(positives > 0 && positives < rows, "both classes occur");
+        Ok(())
+    }
 }

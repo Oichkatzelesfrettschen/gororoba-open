@@ -14,6 +14,10 @@ use crate::{
     staple_controls::six_sample_baselines,
 };
 
+/// Optional trailing column of the score export; admission reads only the
+/// twelve leading fields and checks that this one parses as i64.
+const TIMESTAMP_COLUMN: &str = "timestamp_us";
+
 const HEADER: [&str; 12] = [
     "file_id", "assoc", "dbdt", "rot", "bmag", "label", "cumrot6", "maxrot6", "pvi6", "gram6",
     "scram", "chperm",
@@ -345,8 +349,12 @@ pub fn prepare(
     }
     ensure!(!crossings.is_empty(), "catalog has zero parsed crossings");
     let mut reader = csv::Reader::from_path(scores)?;
+    let header = reader.headers()?.clone();
     ensure!(
-        reader.headers()?.iter().eq(HEADER),
+        header.iter().take(HEADER.len()).eq(HEADER)
+            && (header.len() == HEADER.len()
+                || (header.len() == HEADER.len() + 1
+                    && header.get(HEADER.len()) == Some(TIMESTAMP_COLUMN))),
         "unexpected retained score header"
     );
     let mut records = reader.records();
@@ -385,6 +393,12 @@ pub fn prepare(
                     id == raw.evidence.id,
                     "file/order drift at score row {row_count}"
                 );
+                if let Some(stamp) = record.get(HEADER.len()) {
+                    ensure!(
+                        stamp.parse::<i64>().is_ok(),
+                        "invalid {TIMESTAMP_COLUMN} at score row {row_count}"
+                    );
+                }
                 let label: u8 = record[5].parse()?;
                 ensure!(
                     matches!(&record[5], "0" | "1"),
@@ -588,6 +602,65 @@ mod tests {
                 .unwrap()
                 .to_string()
                 .contains("numeric drift")
+        );
+    }
+
+    fn rewrite_scores(fixture: &AdmissionFixture, header: &str, stamp: &str) {
+        let path = fixture.0.join("scores.csv");
+        let original = std::fs::read_to_string(&path).unwrap();
+        let mut lines = original.lines();
+        let mut text = format!("{},{header}\n", lines.next().unwrap());
+        for line in lines {
+            text += &format!("{line},{stamp}\n");
+        }
+        std::fs::write(path, text).unwrap();
+    }
+
+    #[test]
+    fn admission_accepts_the_timestamp_column_identically() {
+        let fixture = admission_fixture();
+        let plain = admit_fixture(&fixture).unwrap();
+        rewrite_scores(&fixture, TIMESTAMP_COLUMN, "1472688000000000");
+        let stamped = admit_fixture(&fixture).unwrap();
+        assert_eq!(plain.features, stamped.features);
+        assert_eq!(plain.labels, stamped.labels);
+        assert_eq!(plain.file_index, stamped.file_index);
+        assert_eq!(plain.raw_assoc, stamped.raw_assoc);
+        assert_eq!(plain.rolling_pvi, stamped.rolling_pvi);
+    }
+
+    #[test]
+    fn admission_rejects_a_thirteenth_column_that_is_not_the_timestamp() {
+        let fixture = admission_fixture();
+        rewrite_scores(&fixture, "extra", "1");
+        assert!(
+            admit_fixture(&fixture)
+                .err()
+                .unwrap()
+                .to_string()
+                .contains("unexpected retained score header")
+        );
+        let fixture = admission_fixture();
+        rewrite_scores(&fixture, "timestamp_us,timestamp_us", "1,1");
+        assert!(
+            admit_fixture(&fixture)
+                .err()
+                .unwrap()
+                .to_string()
+                .contains("unexpected retained score header")
+        );
+    }
+
+    #[test]
+    fn admission_rejects_an_unparseable_timestamp() {
+        let fixture = admission_fixture();
+        rewrite_scores(&fixture, TIMESTAMP_COLUMN, "soon");
+        assert!(
+            admit_fixture(&fixture)
+                .err()
+                .unwrap()
+                .to_string()
+                .contains("invalid timestamp_us")
         );
     }
 
