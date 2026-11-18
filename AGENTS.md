@@ -162,8 +162,8 @@ Full rules: `docs/engineering/research_epistemics.md` and
   `~/worktrees/gororoba-open/<branch>`; the primary checkout stays on `main`.
 - `main` changes through a pull request whose GitHub Actions validation is
   green, after the workspace guide's review order: the owner's choice of
-  local reviewers, the Advisor last, then the hosted Codex review, and the
-  hosted Copilot review only when resolving the Codex threads pushed a fix.
+  local reviewers, the Advisor last, then the hosted Codex review. No
+  Copilot review is requested on any pull request (owner, 2026-11-17).
 - A pull request merges by squash, the method of #261, #263 and #265; a merge
   commit is the exception the owner names. GitHub allows all three merge
   methods and protects no branch here, so the operator chooses squash.
