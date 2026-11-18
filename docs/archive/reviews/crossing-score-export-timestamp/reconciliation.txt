@@ -1,0 +1,20 @@
+# Reconciliation: local review of PR 295 (timestamp_us column in themis-staples-score-export)
+
+Head read: caa952ef. Reviewer (owner's selection, 2026-11-18): codex (gpt-daybreak-blue, reasoning effort high, read-only, exit 0); no red-teamer (the question returned unanswered; its recommended default None applied); the Advisor last. git status clean after the run.
+
+| # | Finding | Check against the source | Verdict |
+|---|---|---|---|
+| C1 | Claims 1, 2, 3 and 5 hold: score k aligns to sample k+4; one keep vector filters scores, labels and timestamps; the three consumers ignore a trailing column; microseconds fit i64 and keep a fractional input | Read by the orchestrator: one keep vector maps scores, labels and timestamp_us (themis_staples_score_export.rs, Scored construction); staples_roc_cluster_bootstrap.rs resolves columns by header name; staples_incremental_information.rs requires at least 10 fields and reads fixed leading indices; staples_roc_block_bootstrap.rs reads the leading fields after an optional file_id | Confirmed |
+| R1 | The added test checks score_file only: labels built from times[3..3 + n] with timestamps unchanged pass it, and the CSV writer is outside it | No assertion reads scored.label in the original test | Survives; fixed in a6fb6996: the writer moves into write_scores, and written_labels_match_their_timestamps parses timestamp_us from the written CSV and recomputes every label from it and the crossing list; the label-only mutation fails it, offsets 3 and 5 fail the earlier test (mutations run by the implementing worker on the compute host) |
+| R2 | The alignment comment calls k+4 "one past the middle staple's trailing sample"; the middle staple k+1 spans k+1..k+4, so k+4 is its trailing sample | staple_associator.rs:23-28 (STAPLE_LAGS 4) | Survives; fixed in a6fb6996 |
+| R3 | The consumer schema comments omit timestamp_us | staples_roc_cluster_bootstrap.rs:4, staples_incremental_information.rs:44, staples_roc_block_bootstrap.rs:3 | Survives; fixed in a6fb6996 |
+
+Validation on a6fb6996 (compute host): cargo test -p gororoba_cli_physics --bin themis-staples-score-export, 2 passed; clippy -D warnings clean on the exporter with --tests and on the three consumer bins; rustfmt --check clean on the four changed files. origin/main merged first as 2995de92.
+
+## Advisor verdicts
+
+| # | Verdict |
+|---|---|
+| C1 | Stands after the orchestrator read the keep vector and the three consumers' parse sites (the first draft cited lines that had not been read; corrected before filing). |
+| R1 | Sound: the zero-field stretch sits inside the positive window, so a shifted or unfiltered label vector mismatches at the window edges; the mutation results are the worker's. |
+| R2, R3 | Confirmed from the diff. |
