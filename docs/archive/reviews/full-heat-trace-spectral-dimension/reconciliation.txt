@@ -1,5 +1,12 @@
 Reconciliation: review of gororoba-open #272 (spectral_dimension: full heat traces with stationary modes and versioned exports)
 
-Source: pull request metadata and inline review comments. Merge commit dc46b2b7eeef0a0f8851925c7511db9950fba720. Local reviewer rounds and the Advisor verdict: not recorded.
+Source: pull request metadata and inline review comments. Merge commit dc46b2b7eeef0a0f8851925c7511db9950fba720. Advisor and worker rounds come from the orchestration record (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
 
 No finding was raised; the hosted Codex receipt reports no major issues and no thread exists.
+
+Orchestration-record rounds
+
+| # | Reviewer | Finding | Disposition |
+|---|---|---|---|
+| A1 | advisor | Blocking: v2 export determinism. | Closed: two runs byte-equal in all five files. |
+| A2 | advisor | Blocking: removed lines and contracts .txt unseen. | Closed by the worker check; precedent of 24 .txt files. |

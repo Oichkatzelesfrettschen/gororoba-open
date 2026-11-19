@@ -1,5 +1,11 @@
 Reconciliation: review of gororoba-open #273 (quantum_core: partial-qubit compatibility without inventing Z tomography)
 
-Source: pull request metadata and inline review comments. Merge commit f81aba2b4e9f18fef4ac751422972bf1d8f3a764. Local reviewer rounds and the Advisor verdict: not recorded.
+Source: pull request metadata and inline review comments. Merge commit f81aba2b4e9f18fef4ac751422972bf1d8f3a764. Advisor and worker rounds come from the orchestration record (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
 
 No finding was raised; the hosted Codex receipt reports no major issues and no thread exists.
+
+Orchestration-record rounds
+
+| # | Reviewer | Finding | Disposition |
+|---|---|---|---|
+| A1 | advisor | Adopted draft; redundancy note on the alpha == 0.0 clause. | Confirmed; the redundancy claim was falsified, clause kept. |

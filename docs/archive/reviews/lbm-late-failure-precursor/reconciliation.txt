@@ -1,6 +1,6 @@
 Reconciliation: review of gororoba-open #288 (physics: rank the cells of a late lattice-Boltzmann failure by associator and product-free scores)
 
-Source: pull request metadata and inline review comments. Merge commit da4628eafe9b85678a2357724088e18a67a9d0c8. Local reviewer rounds and the Advisor verdict: not recorded.
+Source: pull request metadata and inline review comments. Merge commit da4628eafe9b85678a2357724088e18a67a9d0c8. Advisor and worker rounds come from the orchestration record (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
 
 | # | Reviewer | Finding | Disposition (as the thread records it) |
 |---|---|---|---|
@@ -12,3 +12,13 @@ Source: pull request metadata and inline review comments. Merge commit da4628eaf
 | R3 | copilot | A tolerance-linked orbit with both future labels becomes a positive unit when at least half its cells are positive. | Fixed in dcec0c9d: the nine retained runs hold 0 mixed orbits (no retained number moves); the orbit level keeps only orbits of one label. |
 | R4 | copilot | The aggregate P13a counters use raw associator excess, although the comparison rule uses the better orientation. | Fixed in 71ebfce2: counters and the stderr summary read associator_excess_oriented; unoriented counts are kept under separate names. |
 | R5 | copilot | The replay guard never compares retained all-cell areas and accepts an empty quartiles array. | Fixed in 20b72f07: retained_difference requires exactly one result per quartile 0 to 3, matches first violating step, cells and positives, and compares the all-cell areas. |
+
+Orchestration-record rounds
+
+| # | Reviewer | Finding | Disposition |
+|---|---|---|---|
+| L1 | local codex | P13a is threshold proximity, not a clean forecast. | See the README round; a99b634c adds the anchored forecast. |
+| L2 | local codex | Best product-free score omits Gram, raw orientation. | See the README round; a99b634c orients every score (counts unchanged on recompute). |
+| L3 | local codex | Widened record labeled base. | a99b634c adds --grid; retained records regenerated in 08170903 (inferred). |
+| L4 | local codex | Label wider than text. | a99b634c names the label negative or non-finite (inferred). |
+| A1 | advisor | Blocking: orbit-level threshold law versus asymmetric copies. | Closed by the follow-up worker; rank-sum law kept, calibration equal under both. |

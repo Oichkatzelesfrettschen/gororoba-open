@@ -2,11 +2,16 @@ Review record: spectral_dimension: full heat traces with stationary modes and ve
 
 Pull request: gororoba-open #272, branch algebra/full-heat-trace, merged 2026-11-16T09:18:19Z, merge commit dc46b2b7eeef0a0f8851925c7511db9950fba720.
 
-This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). A review step that left no trace in the pull request reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
+This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). The orchestration board of the same session supplies the Advisor and worker rounds below; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
 
 Reviewers that ran:
 - Hosted Codex (requested by an "@Codex review" comment, 2026-11-16T08:28Z): review of 8087e6b2 completed; no findings, receipt "Didn't find any major issues".
 - CodeRabbit: automatic review skipped (auto reviews are disabled on the repository); no findings.
-- Local reviewers (codex, grok, red-teamers) and the Advisor: not recorded in the pull request.
+- Further rounds recovered from the orchestration record (what ran, on which head, disposition): see "Rounds beyond the pull request" below.
+- Local codex, grok and red-team rounds: not recorded.
 
 Findings: none raised by any recorded reviewer.
+
+Rounds beyond the pull request
+- Advisor, partial read (added lines only): confirmed the heat-trace core, the complete-graph test and the SG weights. Blocking: v2 export determinism (two census runs, sha256 of five files; sort nodes if they differ) and the unseen removed lines and spectral_heat_trace_contracts.txt (allowlist and owner-map precedent). Non-blocking: flat windows likely endpoint tails (registry follow-up may change claim status, owner side), the spectral_gap old return, callers of the new panics.
+- Determinism check by a Haiku worker: two runs, all five v2 exports equal (BTreeSet node order); flat windows are large-t tails (end at the last point, flatness 0, d_s about 1e-3 and 1e-4), so four plateau-citing registry rows change content and go to an owner-read registry follow-up; spectral_gap is equivalent on sorted input; panic callers are tests and quantum_chaos (1e-12); the .txt precedent holds (24 files). Disposition: blocking items closed; body updated; merged after the Codex round on 8087e6b2.
