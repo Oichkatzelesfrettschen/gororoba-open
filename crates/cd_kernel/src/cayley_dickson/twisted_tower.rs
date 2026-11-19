@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 //! Cayley-Dickson tower as a twisted group algebra with exact integer and modular arithmetic.
 //!
-//!     A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
+//! ```text
+//! A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
+//! ```
 //!
 //! with sigma_k from `signs::cd_basis_mul_sign_iter`. From D = 8 on sigma_k is a 2-cochain, not a
 //! 2-cocycle: its coboundary is the associator sign omega below, which is -1 exactly on the
@@ -17,7 +19,9 @@
 //! - A two-blade product (e_i + t e_j)(e_k + s e_l) with disjoint nonzero supports vanishes iff
 //!   i ^ j = k ^ l and the cross-ratio chi(i, j; k, l) = +1, with t s = -sigma(i, k) sigma(j, l).
 //!   The four terms land pairwise on e_{i ^ k} = e_{j ^ l} and e_{i ^ l} = e_{j ^ k}; chi = +1 is
-//!   the condition that one sign s cancels both pairs.
+//!   the condition that one sign s cancels both pairs. The tests check every listed product at
+//!   D = 16 and 32 and match the census against the sign-table enumerator; no wider range is
+//!   tested.
 
 use super::signs::cd_basis_mul_sign_iter;
 
