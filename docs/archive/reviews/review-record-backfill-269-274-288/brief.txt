@@ -1,0 +1,19 @@
+# Brief: gororoba-open PR 298: backfilled review records for merged PRs 269-274 and 288 (docs only)
+
+Read first: the workspace AGENTS.md, then the sections of the workspace reference (workspace/reference.md in gororoba-infrastructure) on comments, commits, pull requests and reviews, then the repository's AGENTS.md. Work read-only: change no file except your report; never commit, push, stash, submit to a provider or start a cloud resource; spawn no subagents. You may run git and read files; keep any computation under 10 minutes in a scratch directory outside every repository.
+
+Material: the worktree the branch worktree (repository gororoba-open); the change under review is `git diff origin/main...HEAD` there, and `git log origin/main..HEAD`.
+
+## Claims under review (each is a claim, not a fact; justify or falsify it)
+
+1. Each record states only what the PR threads and the orchestration record show; every finding row names the commit its thread names (check each "Fixed in <sha>" sha exists in origin/main history and touches the named file).
+2. Every merge commit, branch and timestamp matches `gh`-free git history: `git log --format="%H %s" origin/main` contains each merge commit named.
+3. No host name, user name, absolute path or private-repository text appears; gororoba-open text is ASCII only.
+4. The README preface describes the sources accurately (PR metadata plus the orchestration record) and the records mark inferred links as inferred.
+
+## Questions to answer
+
+- Defects in the change: code, claims and records, with file:line.
+- Anything the change states that its sources do not support.
+
+Report ranked by consequence, every claim tied to a file:line or a command with its output, each marked proved, computed, measured or hypothesis. Print it as your answer, under 120 lines.

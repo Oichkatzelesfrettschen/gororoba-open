@@ -13,6 +13,7 @@ during their review. Paths are repository-relative.
 - lbm-late-failure-precursor/README.txt: Review record: physics: rank the cells of a late lattice-Boltzmann failure by associator and product-free scores
 - partial-qubit-compatibility/README.txt: Review record: quantum_core: partial-qubit compatibility without inventing Z tomography
 - registry-claims-270-272-follow-up/README.txt: Registry claims 270/272 follow-up: review record
+- review-record-backfill-269-274-288/reconciliation.txt: Local codex round on the seven backfilled records (PR 298): the PR 288 source contradiction, the unmarked inferred links, the abbreviated hashes and the squash commits
 - stats-core-score-covariance/README.txt: Review record: stats_core: retain full multinomial score covariance
 - subsystem-entropy-mps-contractions/README.txt: Review record: quantum_core: checked subsystem entropy and two-sided MPS contractions
 - teleportation-pauli-frame-readout/README.txt: Review record: quantum_core: exact Pauli-frame algebra for teleportation readout
