@@ -7,7 +7,7 @@ during their review. Paths are repository-relative.
 
 - casimir-stress-source-tensor-audit/README.txt: Review record: casimir_core: audit Casimir stress against complete gravitational source tensors
 - crossing-score-export-timestamp/README.txt: Brief: review of gororoba-open PR 295 at head caa952ef, the timestamp_us column of themis-staples-score-export
-- flocq-import-tokenizer/: Review record: provenance_store Flocq import tokenizer (gororoba-open pull request 293)
+- flocq-import-tokenizer/reconciliation.txt: Review record: provenance_store Flocq import tokenizer (gororoba-open pull request 293)
 - full-heat-trace-spectral-dimension/README.txt: Review record: spectral_dimension: full heat traces with stationary modes and versioned exports
 - lbm-heldout-p13d-record/README.txt: Held-out P13d record: review record
 - lbm-late-failure-precursor/README.txt: Review record: physics: rank the cells of a late lattice-Boltzmann failure by associator and product-free scores
