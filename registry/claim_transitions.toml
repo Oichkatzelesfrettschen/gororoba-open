@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 223
+event_count = 231
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4803,3 +4803,175 @@ transition_spec_sha256 = "441b6a0c225ec6128e920d143430e6beebd0d113ddbdb008040785
 proposal_key = "psl27-order-and-fano-line-count"
 canonical_claim_id = "C-1780"
 relation_kind = "narrows"
+
+[[transition]]
+event_id = 224
+transition_key = "c-1721-moreno-kernel-equality-supersession"
+source_claim_id = "C-1721"
+expected_prior_status = "Provisional"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Print Assumptions and Check on CDTowerKernelSwap.tower_kernel_equality, MorenoSedenionInstance.sed_ker_lx_eq_ker_rx and MorenoTowerInstance.pathion_ker_lx_eq_ker_rx under the pinned Rocq toolchain. The kernel-equality sentence of C-1721 stays true of the present files if any of them lists im_lx_eq_im_rx or im_rx_eq_im_lx, or if tower_kernel_equality is stated with a hypothesis on its operands; it is falsified when none does."
+rationale = "C-1721 states two things about the files of 2026-08-06: that C1538_MorZDSymmetry.zd_symmetry and the C1539 skew-adjoint theorems have the scopes it lists, and that the kernel-equality theorem of C1539_MorSkewSymm.v additionally depends on the axioms im_lx_eq_im_rx and im_rx_eq_im_lx, which leaves full source-general kernel equality unproved. Only the second sentence is stale: CDTowerKernelSwap.tower_kernel_equality proves a z = 0 exactly when z a = 0 at every order of the real Cayley-Dickson tower, MorKernelEquality.ker_lx_eq_ker_rx derives Ker(L_x) = Ker(R_x) from the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and TowerMoreno discharge that interface. The C1538 purity and nonzero restriction and the skew-adjoint scopes are unchanged; the successor statement carries those two sentences forward beside the present scope of the kernel equality, so no live claim loses them. C-1721 mixes a retained part with a falsified sentence and becomes Superseded, as events 193 to 195 did for claims of that shape; its evidence contract names this outcome a revision (retain the partial result and update the formal edge), and the Superseded row keeps the adjudicated text while the successor holds the updated edge."
+unresolved_assumptions = ["The two Stdlib axioms listed in the retained Print Assumptions log remain assumptions of the eight queried theorems; the log does not query zd_symmetry or the functor theorems over an abstract interface.", "The successor statement is for the real Cayley-Dickson tower; the swap is not asserted over other coefficient rings.", "CDAlgMorenoSwap adds the swap to the interface as an obligation; which laws force the swap in general remains unproved.", "The theorem inventory holds no kernel receipt for the cited modules, so their rows read source_only."]
+evidence_artifact_ids = ["LOCAL-MORENO-KERNEL-EQUALITY"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register the present scope of the Moreno kernel equality as the successor of C-1721 after the recursive-tower kernel swap."
+transition_timestamp = "2026-11-14T23:12:25Z"
+transition_spec_sha256 = "59a68099d147e3c708fd3eb33a99a8da556771b8750979761560d3b3488aaf8d"
+
+[[transition.successors]]
+proposal_key = "moreno-kernel-equality-real-tower"
+canonical_claim_id = "C-1781"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 225
+transition_key = "c-1618-associator-precursor-window-overlap"
+source_claim_id = "C-1618"
+expected_prior_status = "Established"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "B-cd-precursor-null on the ACE MFI 16-second record of December 2004 and January 2005, seed 20261114. The reading of C-1618, that the ratio is a precursor buildup which the Cayley-Dickson associator detects, stays standing if the late-to-early ratio keeps its size when its 12-norm window shares no sample with the peak's own triple, if the record's increments permuted inside one-hour blocks score near 1, and if the associator norm departs from the product-free windowed increment energy. It is falsified when the ratio falls to the level of the nulls without shared samples, when the block-permuted increments reproduce most of it, and when the norm follows the increment energy in rank."
+rationale = "C-1618 states a measurement and a reading of it. The measurement replicates: 334502 rows, 334494 windows, ratio mean 4.30 and median 2.41 over 4470 peaks (4471, 4.297 and 2.400 as registered). The survey's input file is absent; this run rebuilds it from the yearly ACE files and reproduces the row and window counts and the norm mean to five digits (0.0272301 against 0.0272303). The survey's tie and nearest-rank rules applied to the rebuilt norms leave 4470 peaks and a median of 2.410, so the remaining difference lies in the input bytes. The reading does not survive three removals. An associator at index q reads samples q to q+9, so the 12 norms before a peak at index p read samples up to p+8 and the late six hold the event; with the window moved back 10 indices, so that no sample is shared, the median ratio is 1.13 against 1.07 for a phase-randomized copy. The record's own increments permuted inside one-hour blocks, which keep every increment and hold no order in time below an hour, score a median of 2.01 at offset 0 and 1.13 at offset 10, the record's own value there. The associator norm follows the windowed increment energy, the sum over the 9 increments of the 10 samples a norm reads of the squared field increment over the squared field magnitude, with Spearman 0.972, so no product is needed for the signal. The statement compares the ratio with the 1.92 of C-1617 and states no null; the phase-randomized copy scores 1.23 at offset 0, so both null series of this record score above 1 under the same peak selection. The statement calls the ratio early-to-late while cd-domain-survey computes late over early, as this transition does. The TeraScale-2 sentence is not tested here and is not carried forward. C-1618 mixes a replicated number with a falsified reading and becomes Superseded; the successor keeps the number and states what it measures. The statement's label, the 2004 Halloween storm, does not match the interval of its input, December 2004 and January 2005."
+unresolved_assumptions = ["The record is read as a uniform sequence, as B-cd-domain-survey reads it: rows with fill values are dropped and their neighbors become adjacent. The retained rows hold 4 time steps above 24 seconds, the longest 4608 seconds; one of the 4470 peaks has such a step inside its ratio window or triple, and without it the median ratio is 2.410 at offset 0 and 1.133 at offset 10. No retained row has a zero field.", "The input is rebuilt from ac_h0_mfi_2004.csv and ac_h0_mfi_2005.csv (sha256 82ddeb814cd08efa022795a380b3aa003e1d3cfae5c4f3a43d1529de5d5606c0 and a86638943b8102954a12c59b0e069790a5a5d10eb29419f171bb60de1f4a1feb); the file the survey of C-1618 read is not retained, and the two agree to three significant digits in the ratio.", "One two-month interval of one spacecraft at 16-second cadence, 8-by-4 unit-normalized windows, peaks above the 95th percentile.", "The block permutation keeps order above one hour, so it does not test clustering at longer scales; its peaks sit at 0.65 of the median field magnitude against 0.84 for the record, the mark of weak-field selection by the unit normalization.", "C-1617 (LBM) and C-1619 (THEMIS crossings) use the same 12-norm window before an event and have no overlap-free or product-free baseline; neither is tested by this transition.", "The identification with the partial variance of increments of solar-wind studies rests on the definition as given in abstracts of Greco et al.; the paper was not read."]
+evidence_artifact_ids = ["LOCAL-ASSOCIATOR-PRECURSOR-NULL"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register what the ACE late-to-early associator ratio measures after the overlap-free, shuffled-increment and product-free checks of B-cd-precursor-null."
+transition_timestamp = "2026-11-15T12:00:00Z"
+transition_spec_sha256 = "97359677ff9ea084eb5f645a29ad0f067d8238479e1a2e0e39e7c320c900a7f2"
+
+[[transition.successors]]
+proposal_key = "ace-associator-ratio-windowed-increment-energy"
+canonical_claim_id = "C-1782"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 226
+transition_key = "c-1617-lbm-associator-ratio-departure-from-initial-state"
+source_claim_id = "C-1617"
+expected_prior_status = "Established"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "B-lbm-cd-precursor-null on the run of C-1617 (16-cubed D3Q19 BGK lattice, relaxation time 0.7, Gaussian density peak at rest, contrasts 21 to 25). The reading of C-1617, that the growth of the associator norm and its late-to-early ratio indicate the approach of a positivity violation, stays standing if the ratio is absent or smaller at cells that hold no negative population, absent in runs that hold no negative population, larger than the ratio of a product-free norm of the same vectors, and independent of which basis element each lattice direction is written to. It is falsified when cells and runs without a violation show the same or a larger ratio, when a product-free norm reproduces it, and when the ratio moves with the slot assignment."
+rationale = "C-1617 states a measurement and a reading of it. The measurement replicates: the first negative population appears at step 5 at every contrast from 21 to 25, the late-to-early ratio at the first violating cell is 1.939, 1.919, 1.933, 1.914 and 1.915, and the mean associator norm over the 7 face-neighbor vectors reaches 0.0790 at step 5 at contrast 23 (1.91 to 1.94 and 7.9e-2 as registered). The series behind the ratio holds 6 states and 4 norms, so the ratio is the mean of the last two norms over the mean of the first two. The reading does not survive four controls. At contrast 23 the 776 cells that hold a negative population at step 5 have a median ratio of 1.69 and the 3320 cells that hold none have a median of 2.35, with 0.89 of them above 1.1. Runs at contrasts 2, 5 and 10 hold no negative population over 400 steps of B-lbm-rca-probe, and the run at contrast 15 turns negative at step 6; over the same 5 steps their median ratio over all cells is 1.39, 1.58, 1.84 and 1.97, the ratio at the same cell is 0.87, 1.16, 1.55 and 1.76, and the neighbor-cell mean rises from 1e-16 at step 0 to 0.0012, 0.0083, 0.028 and 0.050 at step 5, so the growth from zero and the ratio both vary smoothly with contrast and neither changes where a population first turns negative. The ratio of the departure norm, the distance of the cell's unit vector from its initial value, is 1.86 to 1.92 at the same cell, against 1.03 to 1.08 for the step-to-step difference norm, so the associator ratio follows the departure ratio to within 0.08. Writing the same 19 populations to other slots of the 32-vector gives 0.88, 0.97, 1.07, 1.15, 1.35 and 1.39 at contrast 23 against 1.93 for the identity order, and the lattice does not fix that order. Every cell starts on the same unit vector, because a fluid at rest in equilibrium holds populations proportional to the lattice weights, which is why every norm starts at zero. The statement's last sentence, that the signal indicates accumulation of third-order Mach truncation error, is not supported by a statistic that non-violating cells and stable runs share. C-1617 mixes replicated numbers with a falsified reading and becomes Superseded; the successor keeps the numbers and states what they measure."
+unresolved_assumptions = ["One grid size, one relaxation time and one initial condition; the violation occurs at step 5, inside the initial transient of a density contrast above 20.", "The six alternative slot assignments are five affine maps and the reversed order, a sample of the injective maps of 19 populations into 32 slots. Each moves the rest population off the scalar slot, which receives no associator term (C-1630); four maps that keep it there gave 1.26 to 1.60 in a replica of the run that is not retained here.", "The runs at contrasts 2, 5 and 10 never turn negative in 400 steps and the run at contrast 15 does at step 6, so the stable-run control rests on the first three; their ratio is smaller than at contrasts 21 to 25 and grows with contrast.", "The ranking of violating cells uses states up to step 4 only and one threshold-free score per quantity; no detector with a threshold or lead time is evaluated.", "The associator is first order in the increment for vectors without a repeated-block structure at dimension 16 and above; that reading rests on a scaling measurement outside this repository and is not asserted by the successor."]
+evidence_artifact_ids = ["LOCAL-LBM-ASSOCIATOR-PRECURSOR-NULL"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register what the LBM late-to-early associator ratio measures after the non-violating-cell, stable-run, product-free and slot-assignment controls of B-lbm-cd-precursor-null."
+transition_timestamp = "2026-11-15T19:35:00Z"
+transition_spec_sha256 = "a8103e890e954199a322da7f34b35c6a504a357b5441b83e7e8d76dbd0fc77fe"
+
+[[transition.successors]]
+proposal_key = "lbm-associator-ratio-departure-from-initial-state"
+canonical_claim_id = "C-1783"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 227
+transition_key = "c-1619-themis-crossing-ratio-boundary-fluctuation-layer"
+source_claim_id = "C-1619"
+expected_prior_status = "Established"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "B-themis-cd-crossing-null on the probe-A crossings of the Staples et al. (2020) version 2 catalog and the retained THEMIS-A FGM day files (catalog and 815 day files bound by sha256 in the output), seed 57236 (ANU QRNG draw draw-2026-11-15T230053Z.json, index 0). The reading of C-1619, that the ratio above 1 confirms a precursor buildup which the Cayley-Dickson associator detects, stays standing if the ratio exceeds that of a product-free statistic on the same rows and if the mirrored ratio after the crossing is near 1. It is falsified when a sum of squared increments reproduces the ratio at every window offset and when the mirrored ratio after the crossing is also well above 1. The comparison with random times of the same files tests whether the ratio is an artifact of the statistic."
+rationale = "C-1619 states a measurement and a reading of it. The measurement replicates exactly: 9455 crossings analyzed and 35 skipped, late-to-early ratio median 1.4434, mean 4.4796, quartiles 0.748 and 3.117, 64.0 percent above 1. The survey's window ends one row before the catalogued crossing, so no window holds the catalogued row; the catalog times a crossing from 24-second samples with criteria met inside 60 seconds, so the event itself may lie inside the 36-second window. The ratio is not an artifact of the statistic: at random times of the same files, one per crossing and more than 400 rows from any crossing, the median is 1.00 and 50.3 percent lie above 1, and with the window moved back 12, 24, 48 and 96 rows the crossing median falls to 1.08, 1.04, 1.01 and 1.00. The reading fails twice. A product-free statistic gives the same result: the late-to-early ratio of the windowed increment energy, the sum over 9 increments of the squared field increment, has median 1.54 with 66.2 percent above 1 when normalized by the squared field and 1.39 with 65.6 percent raw, and follows the associator at every offset (1.11 and 1.08 at 12 rows). The ratio is not specific to the rows before the crossing: mirrored over the 22 rows at the same distance after it, near six over far six, the associator median is 1.56 with 67.6 percent above 1. The raw increment energy shows the shape: its median over crossings is 6.4 nT squared 100 rows before, 13.0 at 10 rows, 22.1 at 5 rows, 50.7 at the crossing, 31.0 at 5 rows after and 7.9 at 100 rows after, against 0.17 to 0.18 at random times, and it exceeds half of its peak above the 100-row level from 4 rows before to 5 rows after. The ratio is the flank of a peak of magnetic fluctuation 10 rows wide at half maximum centered on the catalogued time, seen from either side. The claim's mean is not informative: the mean associator ratio of the random-time controls lies between 1.6 and 5.0 over the offsets for this seed and between 2.2 and 15.6 for another, since single small early means dominate it. C-1619 mixes a replicated number with a falsified reading and becomes Superseded; the successor keeps the number and states what it measures."
+unresolved_assumptions = ["One probe of one catalog at 3-second cadence; windows of 8 rows by 4 channels at 32 dimensions.", "The catalog classifies crossings from the same magnetometer downsampled to 24 seconds, with a Bz-rate and an ion-density criterion met inside a 60-second interval (Staples et al. 2020, section 3.1), so the width of the peak is not separated from the timing resolution of the labels.", "Two day files (2007 day 144 and 2009 day 174, 7 crossings) are skipped because the reader rejects a file with one malformed record, as B-themis-cd-crossing-survey does; 28 crossings lie within 120 rows of the start of their file.", "At 22 crossings the rows before or after the crossing hold a cadence step above 1.5 times the file median; without them the median is 1.4434 before and 1.5600 after.", "Crossings with no other catalogued crossing within 120 rows, counting crossings before the first analyzable row and on the adjacent days (2147), have medians 1.55 before and 1.59 after; the others (7308) 1.40 and 1.56. The direction of each crossing is not separated here, so the pooled excess of the ratio after the crossing over the ratio before it is not attributed to either side.", "The later benchmark family on the same catalog (C-1628 to C-1754) scores detectors per sample against rows within 2 minutes of a crossing and is not tested by this transition."]
+evidence_artifact_ids = ["LOCAL-THEMIS-CROSSING-ASSOCIATOR-NULL"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Register what the THEMIS late-to-early associator ratio measures after the random-time, window-offset, mirror and product-free controls of B-themis-cd-crossing-null."
+transition_timestamp = "2026-11-15T19:40:00Z"
+transition_spec_sha256 = "a6b36b7965328126b9f17dba6ac717cc7eedec867a3858b99076b45b73d5dea6"
+
+[[transition.successors]]
+proposal_key = "themis-crossing-ratio-boundary-fluctuation-layer"
+canonical_claim_id = "C-1784"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 228
+transition_key = "c-869-interior-flat-scope-partial"
+source_claim_id = "C-869"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the Rust shape derivative at the center or the gating function at the tested interior radius reaches 0.01, or test_center_extrinsic_curvature_is_zero fails (a nonzero K_ij component, trace-free component or York time at the center of the implemented metric: the registered center proposition); flatness on an interior region stays unestablished and a center value does not falsify it."
+rationale = "The retained Rust tests bound the shape derivative and the gate by 0.01 and the York time at the center by 0.1, and test_center_extrinsic_curvature_is_zero asserts K_ij = 0 exactly at the center. The module documentation states that the logistic gate does not establish exact flatness, so no retained check decides flatness on an interior region; the Rocq lemmas concern model functions."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = []
+actor = "registry-statement-correction"
+reason = "Scope C-869 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "16f6c77c7cc1dfff04a048afdb51ede20d6ec0b8a4b0fa18d34d46f62c9c3e41"
+successors = []
+
+[[transition]]
+event_id = 229
+transition_key = "c-874-york-time-scope-partial"
+source_claim_id = "C-874"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "nacelle_york_time(0,0,0) with default parameters returns |theta| >= 0.1, or the shape function or axial taper at the center differs from 1 by 0.01 or more, or test_center_extrinsic_curvature_is_zero fails (a nonzero York time at the center); vanishing York time throughout the nacelle interior stays unestablished and a center value does not falsify it."
+rationale = "The retained Rust tests bound the center values by 0.01 and the York time by 0.1, and the Rocq lemmas concern model functions; no retained check decides vanishing York time across the interior, which the module documentation says the logistic gate does not establish."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = []
+actor = "registry-statement-correction"
+reason = "Scope C-874 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "45683d95598e87fc6a67f7e132df9e84bcf93cd9824490d1caea344d4ec27dcf"
+successors = []
+
+[[transition]]
+event_id = 230
+transition_key = "c-922-full-trace-scope-partial"
+source_claim_id = "C-922"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Partial"
+current_status = "Partial"
+exercised_falsifier = "A replay of the registered E-084 command writes a non-finite d_s value, a d_s value above 6.661, or a longest slope-flat window with flatness_score above 0 and d_s mean above 0.1, or its curves differ in sha256 from the retained census."
+rationale = "The registered monotonic-growth and marginal-plateau statements describe the positive-mode relaxation normalization. The retained full-trace census is finite and unimodal at N = 16 to 512 with finite-size tails of flatness_score 0, but it covers the first component and one time grid, and the flat-window selector is descriptive and not an adjudicated plateau test."
+unresolved_assumptions = []
+evidence_artifact_ids = ["LOCAL-SPECTRAL-FULL-TRACE-V2"]
+experiment_ids = ["E-084"]
+actor = "registry-statement-correction"
+reason = "Scope C-922 to the evidence that decides it"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "e304e83f133cc56647fb61558bdc7c793534880484dcd37aceb31121dac3804b"
+successors = []
+
+[[transition]]
+event_id = 231
+transition_key = "c-871-worldline-scalar-diagnostic-split"
+source_claim_id = "C-871"
+expected_prior_status = "Verified"
+experiment_verdict = "SurvivesChallenge"
+proposed_claim_status = "Verified"
+current_status = "Verified"
+exercised_falsifier = "casimir_parallel_plates_exact at unit separation differs from -pi^2/720 in the hbar=c=1 convention, or the doubling-gap ratio of E/A differs from 1/8."
+rationale = "The narrowed statement is the closed-form electromagnetic reference, which test_parallel_plates_exact and test_exact_scales_as_a_minus_3 assert. The former proposition that the worldline estimator reproduces that energy within Monte Carlo error concerned a different calculation, the scalar estimator of E-081, whose retained regression allows five standard errors plus 15 percent; the successor claim carries it with that tolerance."
+unresolved_assumptions = ["Polygon, proper-time and quadrature biases of the scalar estimator remain outside its reported Monte Carlo standard error."]
+evidence_artifact_ids = ["LOCAL-CASIMIR-WARP-EVIDENCE-AUDIT"]
+experiment_ids = ["E-081"]
+actor = "registry-statement-correction"
+reason = "Split the scalar worldline convergence diagnostic from the analytic electromagnetic reference of C-871"
+transition_timestamp = "2026-11-16T18:38:27Z"
+transition_spec_sha256 = "97952e9a077151fa709e9cd01885ed8e1709fe77d49bd3d0f6e263780198c2af"
+
+[[transition.successors]]
+proposal_key = "scalar-worldline-plate-polygon-refinement"
+canonical_claim_id = "C-1785"
+relation_kind = "implementation_split"

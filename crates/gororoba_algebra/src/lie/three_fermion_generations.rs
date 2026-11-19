@@ -34,7 +34,7 @@
 //! - de Marrais (2007), "Flying Higher Than A Box-Kite"
 //! - Gillard & Gresnigt (2019), "Three fermion generations with two unbroken
 //!   gauge symmetries from the complex sedenions"
-//! - Rocq formal proof C-029 in `proofs/ThreeFermionGenerations.v`
+//! - Rocq formal proof C-029 in gororoba-math `rocq/open/ThreeFermionGenerations.v`
 
 use cd_kernel::cayley_dickson::{cd_associator_norm, cd_multiply};
 use rand::RngExt;

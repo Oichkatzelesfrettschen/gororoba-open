@@ -1,0 +1,12 @@
+correction_key = "c871-analytic-reference-scope-2026-11-11"
+actor = "casimir-warp-evidence-audit"
+reason = "Align the theorem title with its closed-form electromagnetic plate-energy proposition; the proof source supplies no Monte Carlo convergence or gravitational-source result. Preserve the existing source_only status and formal claim relation."
+applied_at = "2026-11-11T20:57:23Z"
+
+[[correction]]
+stable_id = "THM-LEGACY-C871_CasimirExact"
+proof_path = "proofs/verified/C871_CasimirExact.v"
+expected_title = "Worldline v-loop reproduces parallel plate Casimir energy E/A=-pi^2/(720*a^3) within Monte Carlo error."
+expected_claim_ids = ["C-871"]
+title = "Analytic electromagnetic ideal-plate energy: unit-separation value, negativity and cubic scaling."
+claim_ids = ["C-871"]

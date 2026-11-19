@@ -1,0 +1,257 @@
+{
+  "schema": "casimir-warp-evidence-v1",
+  "evidence_class": "analytic_reference_and_local_tensor_counterexample",
+  "conclusion": "energy_density_matching_alone_is_insufficient_for_the_full_einstein_equation",
+  "coordinate_convention": "x0=ct; signature (-+++); ds2=-(dx0)^2+[dx-B(y)dx0]^2+dy^2+dz^2",
+  "orthonormal_frame": "Eulerian n=(1,B,0,0), ex=(0,1,0,0), ey=(0,0,1,0), ez=(0,0,0,1)",
+  "ideal_plate_normal": "x",
+  "gravitational_constant_m3_kg_s2": 6.6743e-11,
+  "speed_of_light_m_s": 299792458.0,
+  "einstein_coupling_m_per_j": 2.0766474428449717e-43,
+  "assumptions": [
+    "Ideal EM reference: infinite perfectly conducting parallel plates at zero temperature.",
+    "The tensor is the vacuum contribution; plate and support stresses are outside this reference.",
+    "The stationary planar shift is evaluated locally with B''=0 and (B')^2/4=kappa*K.",
+    "The matched derivative is an algebraic construction, not an inferred propagation speed.",
+    "The source scale kappa*K has inverse-square-metre units; it is not a measured curvature invariant.",
+    "Worldline center-of-mass effective-action density is distinct from local stress-energy."
+  ],
+  "unresolved_physical_requirements": [
+    "A justified renormalized local stress tensor for the actual geometry, material and quantum state.",
+    "A complete apparatus contribution, conservation law and consistent gravitational boundary data.",
+    "A self-consistent spacetime solution and an observable with quantified conventional alternatives.",
+    "Calibrated physical measurements; neither a QPU encoding nor this reference supplies them."
+  ],
+  "cases": [
+    {
+      "gap_m": 1e-6,
+      "energy_density_j_m3": -0.00043337525774812184,
+      "energy_per_area_j_m2": -4.3337525774812185e-10,
+      "normal_pressure_pa": -0.0013001257732443655,
+      "source_scale_m_inverse2": 8.999676207949177e-47,
+      "matched_shift_derivative_m_inverse": 1.897332465115081e-23,
+      "einstein_orthonormal_m_inverse2": [
+        [
+          -8.999676207949177e-47,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -2.699902862384753e-46,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          8.999676207949177e-47,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -8.999676207949177e-47
+        ]
+      ],
+      "ideal_vacuum_tensor_j_m3": [
+        [
+          -0.00043337525774812184,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0013001257732443655,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00043337525774812184,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.00043337525774812184
+        ]
+      ],
+      "residual_m_inverse2": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -1.7999352415898353e-46
+        ]
+      ],
+      "residual_over_source_scale": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -2.0
+        ]
+      ],
+      "max_normalized_residual": 2.0,
+      "energy_density_matches": true,
+      "full_tensor_matches": false
+    },
+    {
+      "gap_m": 4e-6,
+      "energy_density_j_m3": -1.692872100578601e-6,
+      "energy_per_area_j_m2": -6.771488402314404e-12,
+      "normal_pressure_pa": -5.078616301735803e-6,
+      "source_scale_m_inverse2": 3.515498518730147e-49,
+      "matched_shift_derivative_m_inverse": 1.1858327906969257e-24,
+      "einstein_orthonormal_m_inverse2": [
+        [
+          -3.515498518730147e-49,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0546495556190442e-48,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.515498518730147e-49,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -3.515498518730147e-49
+        ]
+      ],
+      "ideal_vacuum_tensor_j_m3": [
+        [
+          -1.692872100578601e-6,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -5.078616301735803e-6,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.692872100578601e-6,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.692872100578601e-6
+        ]
+      ],
+      "residual_m_inverse2": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -7.030997037460294e-49
+        ]
+      ],
+      "residual_over_source_scale": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          -2.0
+        ]
+      ],
+      "max_normalized_residual": 2.0,
+      "energy_density_matches": true,
+      "full_tensor_matches": false
+    }
+  ]
+}

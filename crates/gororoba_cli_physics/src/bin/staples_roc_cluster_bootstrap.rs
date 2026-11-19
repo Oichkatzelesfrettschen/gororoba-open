@@ -2,7 +2,8 @@
 //! benchmark, with a simultaneous-dominance certificate.
 //!
 //! Consumes the score CSV written by `themis-staples-score-export`
-//! (columns `file_id,assoc,dbdt,rot,bmag,label`) and treats each daily
+//! (columns `file_id,assoc,dbdt,rot,bmag,label`, read by name; the trailing
+//! `timestamp_us` column is ignored) and treats each daily
 //! file as the intact sampling cluster: every resample draws whole
 //! files with replacement and keeps every sample inside each selected
 //! file. Cluster resampling gives materially better interval coverage

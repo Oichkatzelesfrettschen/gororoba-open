@@ -1,0 +1,79 @@
+Held-out evaluation of P13d: statement written before the run
+================================================================
+
+Source of the registration: pull request 288 (merge commit da4628ea), the
+section "P13d (registered here, before any held-out run)", and the module
+documentation of forecast_null.rs. This file restates it before the run and
+changes nothing in it.
+
+Prediction (P13d). On configurations held out of P13a to P13c, the associator
+does not beat its baselines against a null calibrated to the data.
+
+Unit. A (run, quartile) pair of the anchored forecast with at least 10
+positives and both classes; quartiles of the smallest population share at the
+anchor.
+
+Statement. In at most half of the pairs does the associator's
+better-orientation ROC area exceed both thresholds: (a) the 0.95 quantile of
+the exchangeable-label null over the symmetry orbits of that pair (the
+rank-sum law of the orbit counts), which replaces the fixed 0.65; (b) the
+largest better-orientation area among the five product-free scores (Gram
+volume, step difference, Mach number, smallest population share, |c - a|)
+plus 0.02.
+
+Falsifier. More than half of the pairs exceed both thresholds. With fewer
+than 8 pairs the run reports undecided and no verdict is read. A falsified
+P13d means the associator carries forecast information beyond the baselines
+and the orbit null on held-out data; the torus, surrogate-increment and
+algebra-substitution results of the same run then decide whether the product
+is credited.
+
+Skip rules. A pair whose associator area, orbit threshold or any
+product-free area is not finite receives no call, is listed under skipped
+with its reason, and leaves the pair count and the floor of 8. A pair with an
+orbit that holds both labels receives no call, is listed under skipped, and
+leaves the pair count and the floor of 8.
+
+Decision rule as coded (p13d_verdict, p13d_decide): a pair calls when the
+associator oriented area exceeds max(threshold, best product-free + 0.02);
+the verdict is undecided when fewer than 8 pairs are decided (a decided
+pair is one not listed under skipped), held when calls * 2 <= decided pairs,
+failed otherwise. The direct-relabeling threshold is recorded beside the
+rank-sum threshold and does not set the verdict.
+
+Held-out runs (tau, U0, delta, first violating step; eps 0.05), the kept rows
+of the retained scan records that no score list holds:
+  (0.5005, 0.16, 2, 261)
+  (0.5005, 0.16, 4, 2727)
+  (0.5005, 0.25, 4, 431)
+  (0.5005, 0.3, 4, 323)
+  (0.502, 0.25, 4, 447)
+  (0.502, 0.3, 4, 332)
+
+Development value of the rule on the nine runs: 1 of 26 pairs (calibration,
+not a test).
+
+Command. lbm-late-failure-precursor forecast-null --heldout --out-json PATH,
+run from the repository root with every other option at its default
+(surrogates 20, label draws 20000, score records, QRNG draw and their relative
+paths unchanged).
+
+Binary. Package gororoba_cli_physics, binary lbm-late-failure-precursor,
+cargo release profile, built at origin/main 81d513b5 (the three source files
+of the binary are those of da4628ea); sha256
+dbba5d28769dcbd2846df4d22c12b05fbefa0fae5b89955a83326a2a10c2621e. Calibration
+of this build on the development set: forecast-null with default paths writes
+a record with sha256
+728bfe0a45f80b35758f08027fb2218c7e98001844683ba8497c09c07819b537, the digest
+of the retained lbm-late-failure-null.json.
+
+No prior scoring of a held-out run. Sampling conditions: git log --all and git
+grep -a over the 23 refs of a freshly fetched clone find no blob with
+p13d_rule_applied or "heldout": true; lbm-late-failure-null.json has one
+history entry (da4628ea, heldout false); a content search of the compute
+host's earlier logs, output directories and the unregistered lbm-late-failure
+checkout, and of the review-orchestration directory of the workspace, finds
+no held-out run output (the one hit is the text of the pull request 288 body).
+
+Claims the outcome bears on: C-1783 (Provisional; successor of C-1617, which
+is Superseded). No registry change accompanies the run.

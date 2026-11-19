@@ -446,6 +446,10 @@ name = "worldline-casimir"
 path = "src/bin/worldline_casimir.rs"
 
 [[bin]]
+name = "casimir-warp-audit"
+path = "src/bin/casimir_warp_audit.rs"
+
+[[bin]]
 name = "adm-decompose"
 path = "src/bin/adm_decompose.rs"
 
@@ -902,6 +906,22 @@ path = "src/bin/ism_multichannel_null.rs"
 [[bin]]
 name = "cd-domain-survey"
 path = "src/bin/cd_domain_survey.rs"
+
+[[bin]]
+name = "cd-precursor-null"
+path = "src/bin/cd_precursor_null.rs"
+
+[[bin]]
+name = "lbm-cd-precursor-null"
+path = "src/bin/lbm_cd_precursor_null.rs"
+
+[[bin]]
+name = "lbm-late-failure-precursor"
+path = "src/bin/lbm_late_failure_precursor.rs"
+
+[[bin]]
+name = "themis-cd-crossing-null"
+path = "src/bin/themis_cd_crossing_null.rs"
 
 [[bin]]
 name = "themis-cd-crossing-survey"

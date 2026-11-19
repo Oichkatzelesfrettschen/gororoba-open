@@ -31,7 +31,8 @@ governs where the two differ.
 | `docs/engineering/comment_and_commit_style.md`                                     | Comment voice, finding-doc rules, markdown style                                                                                                                       |
 | `plans/repo_debt_taxonomy_roadmap_2026_06_04.toml`                                 | Active 22-class debt taxonomy; `plans/repo_debt_roadmap_2026_04_11.toml` (11 classes) is historical; baseline git tag `debt-baseline-v0` resolves to commit `2fa31935` |
 | `~/.claude/projects/-home-eirikr-Projects-gororoba-workspace-gororoba-open/memory` | Project memory directory                                                                                                                                               |
-| `proofs/README.md`                                                                 | Rocq toolchain and proof commands                                                                                                                                      |
+| gororoba-math `rocq/open/README.md`                                                | Rocq toolchain and proof commands of the proof tree, which gororoba-math holds                                                                                         |
+| `ci/gororoba_math.pin`                                                             | gororoba-math commit that hosted CI fetches for the proof tree                                                                                                         |
 | `docs/REQUIREMENTS.md`                                                             | Toolchain prerequisites                                                                                                                                                |
 
 ## Validation boundary
@@ -70,6 +71,30 @@ governs where the two differ.
   `gororoba_gpu_cuda`; see `crates/AGENTS.md`.
 - Generated code: `crates/data_core/src/registry_mirrors/` is generated; MUST
   NOT be hand-edited.
+
+## Proof tree
+
+- The Rocq proof tree lives in gororoba-math under `rocq/open`; its build,
+  admission scan and extraction checks run there (`ci/check_rocq.sh`).
+- Retained records (registry rows, receipts, witnesses, `data/output/audit`)
+  keep the locators they were recorded under, `proofs/<path>`; each such
+  locator names gororoba-math `rocq/open/<path>`. Their bytes stay as recorded.
+- Code resolves a locator through `repo_root::ProofTree`, built from
+  `GOROROBA_MATH` (a gororoba-math checkout). A check that needs the tree
+  fails with a message naming the variable, or reports its skip; a test that
+  reads the tree is `#[ignore]` and runs in `proofs.yml` with
+  `--include-ignored`. The governance gate skips and counts the proof-source
+  checks without a checkout; `proofs.yml` runs them in full at the commit
+  `ci/gororoba_math.pin` names and fails on any skip.
+- No lane, make target, command or binary here runs Rocq. gororoba-math
+  compiles and kernel-checks a proof source with `ci/kernel_replay_evidence.py`
+  and writes the replay evidence file; `gororoba-db theorem identity
+  record-kernel-evidence --spec SPEC --evidence FILE` validates that file
+  against the witness and the pinned tree (`theorem_replay.rs`) and records the
+  receipt. Digest and existence checks against the tree stay here.
+- A record that pins `_RocqProject` by sha256 `d327e4c6...` (the first import)
+  verifies at gororoba-math commit 93ae476; the pin's `_RocqProject` is
+  `ee514ff4...`, which the latest kernel receipts bind.
 
 ## Registry
 
@@ -137,8 +162,8 @@ Full rules: `docs/engineering/research_epistemics.md` and
   `~/worktrees/gororoba-open/<branch>`; the primary checkout stays on `main`.
 - `main` changes through a pull request whose GitHub Actions validation is
   green, after the workspace guide's review order: the owner's choice of
-  local reviewers, the Advisor last, then the hosted Codex review, and the
-  hosted Copilot review only when resolving the Codex threads pushed a fix.
+  local reviewers, the Advisor last, then the hosted Codex review. No
+  Copilot review is requested on any pull request (owner, 2026-11-17).
 - A pull request merges by squash, the method of #261, #263 and #265; a merge
   commit is the exception the owner names. GitHub allows all three merge
   methods and protects no branch here, so the operator chooses squash.

@@ -4606,7 +4606,7 @@ id = "C-1539"
 last_verified = "2026-03-23"
 statement = "Moreno Proposition 1.7 (skew-symmetry): For x in circ-A_n (purely imaginary), L_x and R_x are skew-symmetric operators on A_n (with respect to the Euclidean inner product). Ker(L_x) = Ker(R_x). Source: Moreno (1997) arXiv:q-alg/9710013v1."
 status = "Theoretical"
-status_note = "(status_note is NULL) | ADJUDICATED 2026-08-06 by the claim falsification fleet: status Theoretical, fleet finding confirmed. DURABLE CHECK that would decide this claim: Source locator: thezero.tex lines 390-407 (Proposition 1.7) and 408-412 (the Remark carrying Ker L_x = Ker R_x), sha256 ad9bf59860da8079a640648b7ac8bc2425042a746e0bb2711025ed46a6d3c928. Formal locator: proofs/theories/C1539_MorSkewSymm.v theorems l_x_skew_symm and r_x_skew_symm (full match); the Ker equality edge belongs to C1538_MorZDSymmetry.v and is hypothesis-narrowed. Retained finding: data/output/audit/2026-08-06/claim-falsification-fleet-k-pmns.toml"
+status_note = "ADJUDICATED 2026-08-06 by the claim falsification fleet: status Theoretical, fleet finding confirmed. DURABLE CHECK that would decide this claim: Source locator: thezero.tex lines 390-407 (Proposition 1.7) and 408-412 (the Remark carrying Ker L_x = Ker R_x), sha256 ad9bf59860da8079a640648b7ac8bc2425042a746e0bb2711025ed46a6d3c928. UPDATED after the recursive-tower kernel swap (gororoba-open pull request 276); the status stays Theoretical pending the adjudicator. Formal locator: gororoba-math rocq/open/theories/C1539_MorSkewSymm.v (recorded as proofs/theories/C1539_MorSkewSymm.v), theorems l_x_skew_symm and r_x_skew_symm (full match) and MorKernelEquality.ker_lx_eq_ker_rx (the Ker equality of the Remark) over the interface CDAlgMorenoSwap; SedMorenoSwap (16D, rocq/open/theories/MorenoSedenionInstance.v) and TowerMoreno (every order, rocq/open/theories/MorenoTowerInstance.v) discharge the interface through CDTowerKernelSwap.tower_kernel_swap. The formal statement covers every order of the real tower; the source statement is for purely imaginary x in A_n. Retained finding: data/output/audit/2026-08-06/claim-falsification-fleet-k-pmns.toml. Successor source map: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml"
 where_stated = "crates/moreno_1997/src/lib.rs (l_a_squared, moreno_decomposition)"
 
 [[claim]]
@@ -4923,7 +4923,7 @@ where_stated = "TurboQuant CD bridge (2026-03-29), `crates/fwht/src/lib.rs`, `cr
 id = "C-1617"
 last_verified = "2026-04-14"
 statement = "The CD spatial associator norm (7 face-neighbor f_i vectors, 32D padded, unit-norm) grows monotonically from ~0 at LBM equilibrium initialization to a detectable non-zero value at least 2 steps before the first f_i < 0 positivity violation in BGK D3Q19 with Gaussian initial conditions. Temporal early-to-late ratio is ~1.92-1.94x across contrasts 21-25 (16^3 grid, tau=0.7). The associator signal is a precursor indicator of O(Ma^3) truncation error accumulation."
-status = "Established"
+status = "Superseded"
 status_note = "SUPPORTED at all 5 contrasts (21-25). Spatial mean grows from 0 to 7.9e-2 by violation step; temporal ratio 1.91-1.94x across sweep. Binary: lbm-rca-probe --cd-probe."
 where_stated = "E-225 LBM CD spatial associator probe (2026-04-14)"
 
@@ -4931,7 +4931,7 @@ where_stated = "E-225 LBM CD spatial associator probe (2026-04-14)"
 id = "C-1618"
 last_verified = "2026-04-14"
 statement = "The CD associator early-to-late norm ratio (12-step precursor window, split 6/6) before high-norm events (local maxima above p95) in the ACE 2004 Halloween storm solar wind B-field data (334502 valid rows, 32D Takens embeddings, 8-step x 4-channel) is 4.30x mean / 2.40x median across 4471 detected events. This exceeds the LBM BGK C-1617 baseline of 1.92x and confirms that the CD associator precursor buildup is a general property of continuous dynamical systems, not a BGK lattice artifact. The TeraScale-2 VLIW5 LDS barrier wg-sweep shows no monotonic precursor, confirming the regime boundary."
-status = "Established"
+status = "Superseded"
 status_note = "ESTABLISHED: ACE p95-event ratio 4.30x (mean), 2.40x (median), IQR [1.32, 4.61]. GPU step-function: no precursor. Regime boundary confirmed. Binary: cd-domain-survey."
 where_stated = "E-226 cross-domain CD associator survey (2026-04-14)"
 
@@ -4939,7 +4939,7 @@ where_stated = "E-226 cross-domain CD associator survey (2026-04-14)"
 id = "C-1619"
 last_verified = "2026-04-14"
 statement = "In the supervised THEMIS magnetopause crossing catalog (Staples et al. 2020 v2, 9455 probe-a crossings, 3-second FGM cadence), the CD associator early/late norm ratio over the 36-second precursor window (12 steps at 32D, 8-step x 4-channel Takens) is 4.48x mean / 1.44x median, IQR [0.75, 3.12]. 64.0% of crossings show ratio > 1.0 (null expectation 50%), confirming statistically significant precursor buildup."
-status = "Established"
+status = "Superseded"
 status_note = "ESTABLISHED: 9455 crossings, 64.0% > 1.0 (vs 50% null). Mean 4.48x, median 1.44x. Binary: themis-cd-crossing-survey."
 where_stated = "E-227 THEMIS supervised CD crossing survey (2026-04-14)"
 
@@ -7284,7 +7284,7 @@ inconclusive_outcomes = ["Per-field original-source receipts for the historical 
 id = "C-1721"
 last_verified = "2026-08-06"
 statement = "C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace; Moreno Corollary 1.6 states an unrestricted four-way chain for x,y in A_n with n>=4. C1539's left and right skew-adjoint theorems match Proposition 1.7's purity scope and have a concrete sedenion instance. Its kernel-equality theorem, corresponding to the following Remark, additionally depends on im_lx_eq_im_rx and im_rx_eq_im_lx axioms even after that instance; these files leave full source-general kernel equality unproved."
-status = "Provisional"
+status = "Superseded"
 where_stated = "data/output/audit/claim-family-evidence-adjudication/finite-motif-moreno-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-proof-assumptions.log; proofs/theories/C1538_MorZDSymmetry.v; proofs/theories/C1539_MorSkewSymm.v"
 evidence_layer = "implementation_conformance"
 depth_status = "declared"
@@ -8850,6 +8850,44 @@ statement = "PSL(2,7) = GL(3,2) has order 168, computed as (2^3 - 1)(2^3 - 2)(2^
 status = "Verified"
 status_note = "Kernel-checked via Rocq: C004_gl3_gf2_order and C004_fano_matches_boxkites in proofs/verified/C004_PSL27Order168.v."
 where_stated = "proofs/verified/C004_PSL27Order168.v"
+
+[[claim]]
+formal_proof = "proofs/theories/CDTowerKernelSwap.v"
+id = "C-1781"
+last_verified = "2026-11-14"
+statement = "C1538_MorZDSymmetry.zd_symmetry proves two-way zero-product symmetry for purely imaginary, nonzero x over CDAlgInnerTrace, while Moreno Corollary 1.6 states an unrestricted four-way chain for x, y in A_n with n>=4. The left and right skew-adjoint theorems of C1539_MorSkewSymm.v match the purity scope of Proposition 1.7 and have a concrete sedenion instance. For every order n of the recursive real Cayley-Dickson tower and all a and z, a z = 0 exactly when z a = 0 (CDTowerKernelSwap.tower_kernel_equality; Biss, Dugger and Isaksen arXiv:math/0511691 Corollary 9.3). Moreno's Remark after Proposition 1.7, Ker(L_x) = Ker(R_x) for purely imaginary x, follows: MorKernelEquality.ker_lx_eq_ker_rx holds over the interface CDAlgMorenoSwap, and SedMorenoSwap (16D) and the functor TowerMoreno (every order, instantiated at orders 4 and 5) discharge that interface through CDTowerKernelSwap.tower_kernel_swap. The eight tower and concrete-instance theorems queried in the retained Print Assumptions log of the pinned Rocq toolchain rest on the two Stdlib axioms it lists; zd_symmetry and the functor theorems hold over their module interfaces, whose fields are obligations of each model."
+status = "Provisional"
+status_note = "Kernel equality of the real recursive Cayley-Dickson tower and Moreno's Remark Ker L_x = Ker R_x. Formal locator: gororoba-math rocq/open/theories/CDTowerKernelSwap.v (tower_kernel_swap, tower_kernel_equality); rocq/open/theories/C1539_MorSkewSymm.v (MorKernelEquality.ker_lx_eq_ker_rx over CDAlgMorenoSwap); rocq/open/theories/MorenoSedenionInstance.v (SedMorenoSwap, 16D); rocq/open/theories/MorenoTowerInstance.v (TowerMoreno, every order). Each file is recorded as proofs/theories/NAME.v at the gororoba-math commit of ci/gororoba_math.pin. Supersedes C-1721 through the claim relation. Evidence: data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-source-map.toml; data/output/audit/claim-family-evidence-adjudication/moreno-kernel-equality-assumptions.log; proofs/theories/CDTowerKernelSwap.v; proofs/theories/MorenoTowerInstance.v; proofs/theories/MorenoSedenionInstance.v; proofs/theories/C1539_MorSkewSymm.v; proofs/theories/C1538_MorZDSymmetry.v"
+
+[[claim]]
+id = "C-1782"
+last_verified = "2026-11-15"
+statement = "On the ACE MFI 16-second magnetic field record of December 2004 and January 2005 (334502 valid rows, 32D unit-normalized delay windows of 8 samples by 4 channels), the sliding Cayley-Dickson associator norm follows the windowed increment energy, the sum over the 9 increments of the 10 samples a norm reads of the squared field increment over the squared field magnitude, with Spearman rank correlation 0.972. Its late-to-early ratio over the 12 norms before a local maximum above the 95th percentile has median 2.41 and mean 4.30 over 4470 peaks when the window ends at the peak, and median 1.13 when the window ends 10 indices earlier and shares no sample with the peak's triple (1.05 at 20 indices). A phase-randomized copy scores 1.23 and 1.07 at those two offsets, and the record's increments permuted inside one-hour blocks score 2.01 and 1.13. Most of the ratio at the peak is therefore the overlap of the windows with a heavy-tailed increment (kurtosis 90.6 for the Bx increments against 3.0 for the phase-randomized copy), and the overlap-free ratio is reproduced with no order below one hour. The record's clustering of large increments within the hour appears in the raw increment energy: its median over peaks rises from 2.47 times the record's median 24 samples before a peak to 3.62 times one sample before, while over the same 24 samples the block-permuted series stays between 1.94 and 2.20 and the phase-randomized copy between 0.94 and 1.04."
+status = "Provisional"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/cd_precursor_null.rs"
+
+[[claim]]
+id = "C-1783"
+last_verified = "2026-11-15"
+statement = "In BGK D3Q19 runs of a Gaussian density peak at rest (16-cubed grid, relaxation time 0.7, contrasts 21 to 25), with each cell's 19 populations written in lattice order to a unit 32-vector, the late-to-early ratio of the sliding Cayley-Dickson associator norm at the first cell to hold a negative population is 1.91 to 1.94 over the 4 norms of steps 0 to 5. The same ratio is larger at cells that hold no negative population at step 5 (median 2.35 against 1.69 at contrast 23) and is present in runs that never hold a negative population over 400 steps (median over all cells 1.39, 1.58 and 1.84 at contrasts 2, 5 and 10, growing with contrast; 1.97 at contrast 15, which turns negative at step 6). It lies within 0.08 of the ratio of the departure norm, the distance of the cell vector from its initial value (1.86 to 1.92), and it ranges from 0.88 to 1.94 over seven assignments of the populations to slots. The ratio therefore measures departure from the uniform initial state under one slot assignment and does not indicate a positivity violation. Among quantities at step 4, the last associator norm ranks the cells that turn negative at step 5 with area under the ROC curve 0.90, 0.92 and 0.93 at contrasts 21, 23 and 25; the departure norm ranks them at 0.95, 0.98 and 0.99, the local Mach number at 0.97, 0.98 and 0.99, and the smallest population over the density at 0.97, 0.99 and 0.99."
+status = "Provisional"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/lbm-associator-precursor-null.json; data/output/audit/claim-family-evidence-adjudication/lbm-associator-precursor-null-transition.toml; crates/gororoba_cli_physics/src/bin/lbm_cd_precursor_null.rs"
+
+[[claim]]
+id = "C-1784"
+last_verified = "2026-11-15"
+statement = "At 9455 THEMIS-A magnetopause crossings of the Staples et al. (2020) version 2 catalog (3-second FGM rows, 32D unit-normalized delay windows of 8 rows by 4 channels), the late-to-early ratio of the sliding Cayley-Dickson associator norm over the 12 norms that end one row before the catalogued crossing has median 1.44 with 64.0 percent of crossings above 1; at random times of the same day files the median is 1.00 with 50.3 percent above 1. The same ratio of the windowed increment energy, a sum of squared field increments with no product, has median 1.54 normalized by the squared field and 1.39 raw. With the window moved back 12, 24 and 96 rows the associator median is 1.08, 1.04 and 1.00, and mirrored over the rows after the crossing it is 1.56 with 67.6 percent above 1. The median raw increment energy is 6.4 nT squared 100 rows before the crossing, 22.1 at 5 rows before, 50.7 at the crossing, 31.0 at 5 rows after and 7.9 at 100 rows after, against 0.17 to 0.18 at random times. The ratio therefore measures the flank of a peak of magnetic fluctuation 10 rows (30 seconds) wide at half maximum centered on the catalogued crossing, present on both sides of it, inside an interval about 35 times more disturbed than random times of the same days."
+status = "Provisional"
+where_stated = "data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null.json; data/output/audit/claim-family-evidence-adjudication/themis-crossing-associator-null-transition.toml; crates/gororoba_cli_physics/src/bin/themis_cd_crossing_null.rs"
+
+[[claim]]
+id = "C-1785"
+last_verified = "2026-11-16"
+statement = "For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate is more negative than (larger in magnitude than) the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly (assert_eq on both in the same test). The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error."
+status = "Provisional"
+status_note = "The tolerance is the one E-081 records: five Monte Carlo standard errors plus a 15 percent finite-polygon allowance in scalar_plate_polygon_refinement_matches_known_energy, which does not establish agreement within statistical error alone. Measured deviations of the estimate from the scalar analytic reference: 10.5 Monte Carlo standard errors in that regression test (512 points, 5000 loops, seed 8127) and 15.1 in the E-081 replay (500 points, 10000 loops, seed 42); both lie inside the tolerance because the 15 percent allowance exceeds five standard errors. The same test asserts the factor-8 separation scaling exactly: assert_eq on the energy and on the error of the estimates at separations 1.0 and 2.0, and test_exact_scales_as_a_minus_3 asserts the closed-form ratio 8 within 1e-10. Polygon discretization biases the energy magnitude downward. The adjudicating experiment is E-081, whose seeded replay command retains no output artifact. Split from C-871, which keeps the analytic electromagnetic reference."
+where_stated = "crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)"
 
 [[claim]]
 id = "C-179"
@@ -13976,10 +14014,10 @@ where_stated = "crates/gr_core/src/adm.rs (tests: test_pg_lapse_is_one, test_pg_
 formal_proof = "proofs/verified/C869_InteriorFlat.v"
 id = "C-869"
 last_verified = "2026-02-28"
-statement = "Nacelle warp bubble interior-flat condition: K_ij=0 at bubble center (rho << rho_0) to machine precision."
-status = "Verified"
-status_note = "Formal proof: proofs/verified/C869_InteriorFlat.v (Rocq kernel-checked). Shape function derivative vanishes at center by sech^2 symmetry. Gating function suppressed in interior."
-where_stated = "crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)"
+statement = "At the center of the implemented nacelle shift, the shape-function derivative is below 0.01 in magnitude (test_shape_derivative_zero_at_center), the logistic gating function is below 0.01 at the tested interior radius (test_gating_interior_is_zero), and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center). The Rocq theorem C869_interior_flat gives the exact zero of the shape-function derivative at the center of the Rocq model, and C869_gating_suppressed bounds its gating function below 1/2 at rho = 0 under the hypothesis delta < rho_0 (with kappa > 0 and rho_0 > 0). test_center_extrinsic_curvature_is_zero asserts the exact center values at default parameters: every K_ij component and every component of its trace-free part equals 0.0, and the ADM York time and nacelle_york_time(0,0,0) equal 0.0 (a signed zero -0.0 compares equal). Flatness on an interior region (a constant shift and vanishing tidal forces away from the center) is not established: the logistic gate and nearly uniform modulation do not certify it."
+status = "Partial"
+status_note = "Status Partial. The Rocq source rocq/open/verified/C869_InteriorFlat.v in gororoba-math proves shape_fun_deriv 0 = 0 and gating 0 < 1/2 (hypotheses kappa > 0, rho_0 > 0, delta < rho_0) for its model functions (C869_interior_flat, C869_gating_suppressed); the canonical theorem row records source_only, with no kernel receipt. The Rust tests bound the shape derivative and the gate by 0.01 and the York time by 0.1 (the comment of that test notes the value may not be exactly zero). The module documentation of warp_metric.rs records that logistic gating and nearly uniform modulation do not establish exact interior flatness or vanishing tidal forces, so no retained check decides flatness on an interior region. test_center_extrinsic_curvature_is_zero asserts the exact center values (extrinsic_curvature of NacelleWarpBubble at default parameters, f64: every K_ij component and every trace-free component equals 0.0, and the ADM York time and nacelle_york_time(0,0,0) equal 0.0; -0.0 compares equal). The former locator test_york_time_center_zero names no test."
+where_stated = "crates/gr_core/src/warp_metric.rs (test_shape_derivative_zero_at_center, test_gating_interior_is_zero, test_york_time_zero_at_center, test_center_extrinsic_curvature_is_zero)"
 
 [[claim]]
 formal_proof = "proofs/verified/C870_NacelleModulationDistinct.v"
@@ -13994,10 +14032,10 @@ where_stated = "crates/gr_core/src/warp_metric.rs (test_nacelle_energy_varies_wi
 formal_proof = "proofs/verified/C871_CasimirExact.v"
 id = "C-871"
 last_verified = "2026-02-28"
-statement = "Worldline v-loop reproduces parallel plate Casimir energy E/A=-pi^2/(720*a^3) within Monte Carlo error."
+statement = "The analytic electromagnetic ideal-conductor parallel-plate reference is E/A=-pi^2/(720*a^3) in hbar=c=1 units at zero temperature. The implementation tests its unit-separation value and doubling-gap cubic scaling; these are closed-form reference checks, not Monte Carlo convergence evidence."
 status = "Verified"
-status_note = "The worldline parallel-plate result belongs to casimir_core and remains separate from the corrected quantum_core Lifshitz quadrature and materials_core Matsubara implementation. Conformance in one solver does not validate another."
-where_stated = "crates/casimir_core/src/energy.rs (test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
+status_note = "The worldline parallel-plate result belongs to casimir_core and remains separate from the corrected quantum_core Lifshitz quadrature and materials_core Matsubara implementation. Conformance in one solver does not validate another. The statement is the analytic electromagnetic ideal-conductor reference; the scalar worldline Monte Carlo diagnostic (E-081) is a separate calculation carried by its own claim."
+where_stated = "crates/casimir_core/src/energy.rs (casimir_parallel_plates_exact, test_parallel_plates_exact, test_exact_scales_as_a_minus_3)"
 
 [[claim]]
 formal_proof = "proofs/verified/C872_PillarCasimirFinite.v"
@@ -14021,10 +14059,10 @@ where_stated = "crates/casimir_core/src/geometry.rs (SphereInCylinder implementa
 formal_proof = "proofs/verified/C874_YorkTimeVanishesInterior.v"
 id = "C-874"
 last_verified = "2026-02-28"
-statement = "York time vanishes in nacelle warp interior (rho << rho_0, |x| << L)."
-status = "Verified"
-status_note = "Formal proof: proofs/verified/C874_YorkTimeVanishesInterior.v (Rocq kernel-checked). Axial taper derivative and shape function derivative both vanish at center."
-where_stated = "crates/gr_core/src/warp_metric.rs (test_york_time_center_zero)"
+statement = "At the center of the implemented nacelle shift, the shape function and the axial taper equal 1 within 0.01 (test_shape_function_at_center, test_axial_taper_center) and the default-parameter York time satisfies |theta| < 0.1 (test_york_time_zero_at_center); test_center_extrinsic_curvature_is_zero asserts that at the center with default parameters nacelle_york_time(0,0,0) and the ADM York time equal 0.0 (a signed zero -0.0 compares equal). The Rocq theorems C874_shape_unity, C874_axial_taper_unity and C874_axial_deriv_zero give the exact center values and the zero axial taper derivative for the Rocq model functions. Vanishing York time throughout the nacelle interior (rho << rho_0, |x| << L) is a region statement and is not established: the logistic gate and tanh envelope are phenomenological and do not certify exact flatness away from the center."
+status = "Partial"
+status_note = "Status Partial. The Rocq source rocq/open/verified/C874_YorkTimeVanishesInterior.v in gororoba-math proves axial_taper_deriv 0 = 0, axial_taper 0 = 1 and shape_fun 0 = 1 for its model functions; the canonical theorem row records source_only, with no kernel receipt. The Rust tests bound the center values by 0.01 and the York time by 0.1; test_center_extrinsic_curvature_is_zero asserts that nacelle_york_time(0,0,0) and the ADM York time equal 0.0 at default parameters (f64; -0.0 compares equal). The module documentation of warp_metric.rs records that logistic gating and nearly uniform modulation do not establish exact interior flatness or vanishing tidal forces, so no retained check decides vanishing York time across the interior region. The former locator test_york_time_center_zero names no test."
+where_stated = "crates/gr_core/src/warp_metric.rs (test_shape_function_at_center, test_axial_taper_center, test_york_time_zero_at_center, test_center_extrinsic_curvature_is_zero)"
 
 [[claim]]
 formal_proof = "proofs/verified/C875_HamiltonianVacuum.v"
@@ -14452,9 +14490,9 @@ where_stated = "crates/verified_core/src/cayley_dickson.rs"
 [[claim]]
 id = "C-922"
 last_verified = "2026-03-03"
-statement = "Zero-divisor graph spectral dimension d_s(t) at CD dim N: heat kernel on the graph Laplacian of cross-assessor ZD components. Measured for N = 16, 32, 64, 128, 256, 512. Result: no stable plateau at any dimension. d_s(t) grows monotonically because components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure."
-status = "Verified"
-status_note = "Census complete (dims 16-512). Only dim=16 yields a marginal plateau (d_s~0.25, R^2=0.54); dims 32-512 show purely monotonic d_s(t). Eigenvalue structure: dim=16 has {4x3, 6x2}, dim=32 has {12x7, 14x6}. Near-complete graph topology produces exponential P(t) decay with no intermediate plateau. XOR-bucket necessity theorem proves components are provably disconnected."
+statement = "Zero-divisor graph spectral dimension d_s(t) at CD dim N from the full finite-graph heat trace (zero Laplacian modes included) of the first cross-assessor ZD component, measured for N = 16, 32, 64, 128, 256, 512 on the 300-point geometric time grid from 0.01 to 50 (298 curve rows per N). Result: all 1788 retained d_s values are finite and lie between 0 and 6.661; at each N, d_s(t) rises monotonically to one peak (1.574, 2.585, 3.567, 4.567, 5.597, 6.660 for N = 16 to 512) and then falls toward 0 at late time: the fall is strict at N = 16 and 32 and non-increasing at N >= 64, where the last 22, 48, 74 and 99 curve rows (N = 64, 128, 256, 512) are exactly 0. The longest slope-flat window at each N is a finite-size tail that ends at ln t = 3.855 near the late end of the grid and has flatness_score 0 (d_s mean 4.7e-3 at N = 16, 1.6e-4 at N = 512), so no continuum plateau appears. Components are near-complete finite graphs (K_{2,2,...,2}) with uniform eigenvalue spectra lacking multi-scale structure."
+status = "Partial"
+status_note = "Status Partial. Census of the registered E-084 command (zd-spectral dimension --min-dim 16 --max-dim 512 --t-points 300, default time grid 0.01 to 50) retained as artifact LOCAL-SPECTRAL-FULL-TRACE-V2 with its SHA256SUMS; replayed byte-identical on x86_64 and aarch64 (sha256 equal to the retained SHA256SUMS in each; the aarch64 replay compiled the sources of the zd-spectral module in a scratch package against the same algebra_analysis crate and Cargo.lock, because the system libraries of the registered binary are absent on that host). The curve rows run from ln t = -4.577 (t = 0.0103) to 3.884 (t = 48.6). Flat windows (ln t range, d_s mean, flatness_score 0 throughout): N=16 0.408 to 3.855, 4.714e-3; N=32 -0.304 to 3.855, 6.463e-4; N=64 -1.016 to 3.855, 4.060e-4; N=128 -1.671 to 3.855, 2.740e-4; N=256 -2.326 to 3.855, 2.392e-4; N=512 -2.953 to 3.855, 1.641e-4. The first curve row reads d_s = 0.081, 0.244, 0.569, 1.217, 2.500, 4.942 for N = 16 to 512, so the early-time approach to 0 is not resolved by the grid at N >= 128. The former census used the positive-mode relaxation normalization; its curve rows in dataset PC-0140 reach d_s = 1253.3 and hold 267 non-finite entries of 1788. The last 22, 48, 74 and 99 curve rows at N = 64, 128, 256 and 512 are exactly 0, so the late-time fall is non-increasing there and strict at N = 16 and 32. Eigenvalue structure of the first component, besides one zero mode: N=16 {4x3, 6x2}, N=32 {12x7, 14x6}, N=64 {28x15, 30x14}, N=128 {60x31, 62x30}, N=256 {124x63, 126x62}, N=512 {252x127, 254x126}. The census covers the first component only and one time grid, and the flat-window selector is descriptive. XOR-bucket necessity theorem proves components are provably disconnected."
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]
@@ -14462,7 +14500,7 @@ id = "C-923"
 last_verified = "2026-03-03"
 statement = "Cross-dimensional d_s plateau flow: sequence of ZD graph plateau spectral dimensions across CD doubling construction. FALSIFIED: no plateau exists at any CD dimension (16-512). ZD graph components are near-complete graphs with uniform eigenvalue spectra; the Calcagni 2->4 flow does NOT emerge from individual cross-assessor ZD components."
 status = "Refuted"
-status_note = "Binary run at dims 16-512 shows monotonically increasing d_s(t) with no plateau at any dimension. Root cause: XOR-bucket necessity theorem forces components to be disconnected near-complete graphs. Future direction: hierarchical graph connecting components ACROSS CD dimensions (dim doubling as RG step) may yield richer spectral structure. | Legacy status token: Falsified"
+status_note = "Full finite-graph heat trace census of E-084 (dims 16-512, default time grid; artifact LOCAL-SPECTRAL-FULL-TRACE-V2, readings in C-922): d_s(t) is finite at every curve row, rises to one peak per dimension (1.574 at N = 16 to 6.660 at N = 512) and decays toward 0 at late time, and the longest slope-flat window at every dimension is a finite-size tail ending at ln t = 3.855 near the late end of the grid with flatness_score 0. The former positive-mode relaxation census showed monotonically increasing d_s(t) with no plateau at any dimension. Root cause: XOR-bucket necessity theorem forces components to be disconnected near-complete graphs. Future direction: hierarchical graph connecting components ACROSS CD dimensions (dim doubling as RG step) may yield richer spectral structure. | Legacy status token: Falsified"
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]
@@ -14486,7 +14524,7 @@ id = "C-926"
 last_verified = "2026-03-03"
 statement = "ZD graph spectral gap (lambda_2) census across CD dims 16-512. All components are expanders: gap_ratio = lambda_2/lambda_max > 1/(2n) at every dimension. Near-complete graph topology forces lambda_2 close to n, producing gap_ratio > 0.6 universally."
 status = "Refuted"
-status_note = "SpectralGapResult struct, spectral_gap(), spectral_gap_census() implemented. Census output includes lambda_2, lambda_max, gap_ratio per dim. CLI binary writes zd_spectral_gap.csv. | Legacy status token: Pending"
+status_note = "SpectralGapResult struct, spectral_gap() (smallest positive eigenvalue), spectral_gap_census() implemented. The CLI writes zd_spectral_first_component_v2_gap.csv for the first cross-assessor component only (gap_ratio 0.667 at N = 16 to 0.992 at N = 512, retained in LOCAL-SPECTRAL-FULL-TRACE-V2); the former zd_spectral_gap.csv is the output of the earlier command. The is_expander field is a finite-graph heuristic, not an expander-family theorem. | Legacy status token: Pending"
 where_stated = "crates/algebra_analysis/src/spectral_dimension.rs"
 
 [[claim]]

@@ -736,7 +736,7 @@
 //! - Deterministic: `true`
 //! - Seed: `0`
 //! - GPU: `false`
-//! - Claims: C-740, C-741
+//! - Claims: (none)
 //!
 //! Method:
 //! Computes the finite-temperature Drude-plasma energy discrepancy for Au, Ag, and Cu from 100 nm to 5 um. The TE zero-frequency prescription drives a relative discrepancy that grows as the thermal zero mode becomes dominant.
@@ -1365,18 +1365,18 @@
 //! cargo run --release --bin nacelle-warp-sweep -- --paper-mode --velocity 0.1 --radius 100.0 --n-points 80
 //! ```
 //!
-//! ## E-081: Worldline Casimir numerics: parallel plate validation
+//! ## E-081: Real-scalar worldline parallel-plate diagnostic
 //!
 //! - Binary: `worldline-casimir`
 //! - Input: None (analytical geometry)
-//! - Output: stdout CSV
+//! - Output: stdout CSV: loop-center effective-action density and Monte Carlo standard error in inverse_um4, with coordinates in um, stderr: integrated scalar energy per area, Monte Carlo standard error and scalar analytic reference in inverse_um3
 //! - Deterministic: `true`
 //! - Seed: `42`
 //! - GPU: `false`
-//! - Claims: C-871
+//! - Claims: C-1785
 //!
 //! Method:
-//! Monte Carlo worldline path integral with Gauss-Legendre quadrature for proper-time integration. 10k loops per T-sample, 500 points per loop.
+//! Real-scalar Dirichlet two-body worldline diagnostic. The plate-range estimator integrates loop-center position and proper time analytically to estimate energy per area; a separate loop-center effective-action profile uses finite proper-time Gauss-Legendre quadrature. The scalar continuum plate reference is -pi^2/(1440*a^3) in hbar=c=1 units. Polygon, proper-time and quadrature biases remain outside the reported Monte Carlo standard error.
 //!
 //! Run command:
 //! ```bash
@@ -1423,18 +1423,18 @@
 //!
 //! - Binary: `zd-spectral dimension`
 //! - Input: None (computational)
-//! - Output: data/csv/zd_spectral_dimension_curves.csv, data/csv/zd_spectral_dimension_plateaus.csv, data/csv/zd_laplacian_eigenvalues.csv, data/csv/zd_spectral_gap.csv
+//! - Output: data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_convention.txt, data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_curves.csv, data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_eigenvalues.csv, data/output/audit/spectral-full-trace/census/zd_spectral_full_trace_v2_flat_windows.csv, data/output/audit/spectral-full-trace/census/zd_spectral_first_component_v2_gap.csv
 //! - Deterministic: `true`
 //! - Seed: `0`
 //! - GPU: `false`
 //! - Claims: C-922, C-923, C-926
 //!
 //! Method:
-//! For each CD dim: build cross-assessor ZD graph, compute Laplacian, eigendecompose, compute P(t) on geometric t-grid, SG-smooth ln P vs ln t, extract d_s plateau via central differences.
+//! For each CD dim: build the cross-assessor ZD graph and take the first component, compute its Laplacian with zero modes included, eigendecompose, evaluate the full finite-graph heat trace P(t) and its exact logarithmic derivative on a geometric t-grid (evaluate_heat_trace, no smoothing), and report the longest slope-flat window with its flatness_score.
 //!
 //! Run command:
 //! ```bash
-//! cargo run --release --bin zd-spectral -- dimension --min-dim 16 --max-dim 512 --t-points 300
+//! cargo run --release --bin zd-spectral -- dimension --min-dim 16 --max-dim 512 --t-points 300 --output-dir data/output/audit/spectral-full-trace/census
 //! ```
 //!
 //! ## E-085: Associator entropy mechanism decomposition

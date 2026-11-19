@@ -250,6 +250,11 @@ description = "Deterministic audit for refuted Cayley-Dickson spectrum, shape-ma
 experiment = "E-207"
 
 [[binary]]
+name = "cd-precursor-null"
+crate = "gororoba_cli_physics"
+description = "Workspace executable cd-precursor-null declared by crate gororoba_cli_physics."
+
+[[binary]]
 name = "cd-tower-report"
 crate = "gororoba_cli_algebra"
 description = "Comprehensive CD tower analysis: property retention, psi/eta convergence, ZD geometry, face sign census, imbalance indexs, split-CD, scaling laws"
@@ -1029,6 +1034,11 @@ crate = "gororoba_cli_physics"
 description = "Reframed T1: Sweep grid resolutions to test whether D3Q19 lattice UV cutoff bounds analog Hawking temperature via acoustic metric and viscosity-limited spectrum"
 
 [[binary]]
+name = "lbm-cd-precursor-null"
+crate = "gororoba_cli_physics"
+description = "Workspace executable lbm-cd-precursor-null declared by crate gororoba_cli_physics."
+
+[[binary]]
 name = "lbm-live-viewer"
 crate = "gororoba_cli_physics"
 description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_physics; registry metadata pending."
@@ -1440,21 +1450,6 @@ crate = "gororoba_cli_quantum"
 description = "Projector-FHS with polar link stabilization (SVD-based multiband Chern numbers)"
 
 [[binary]]
-name = "proof-dep-graph"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
-name = "proof-doc"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
-name = "proof-metrics"
-crate = "gororoba_cli"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli; registry metadata pending."
-
-[[binary]]
 name = "provenance"
 crate = "gororoba_cli_provenance"
 description = "Workspace binary discovered from crates/gororoba_cli_provenance/Cargo.toml; registry metadata pending."
@@ -1556,11 +1551,6 @@ name = "riemann-resonance-sweep"
 crate = "gororoba_cli_physics"
 description = "Orthoplex Laplacian spacing-statistics sweep for Brody-parameter and quantum-chaos diagnostics."
 experiment = "E-093"
-
-[[binary]]
-name = "rocq-project-audit"
-crate = "gororoba_cli_data"
-description = "Workspace binary discovered from cargo metadata in crate gororoba_cli_data; consult crate source for authoritative behavior."
 
 [[binary]]
 name = "routon-chaos-crucible"
@@ -1802,6 +1792,11 @@ description = "Workspace binary discovered from crates/gororoba_cli_data/Cargo.t
 name = "test-tda-api"
 crate = "gororoba_cli"
 description = "Validate TDA Vietoris-Rips persistent homology API on a known 2D circle topology"
+
+[[binary]]
+name = "themis-cd-crossing-null"
+crate = "gororoba_cli_physics"
+description = "Workspace executable themis-cd-crossing-null declared by crate gororoba_cli_physics."
 
 [[binary]]
 name = "themis-cd-crossing-survey"
