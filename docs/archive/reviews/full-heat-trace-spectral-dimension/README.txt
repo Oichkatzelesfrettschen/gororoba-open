@@ -1,8 +1,8 @@
 Review record: spectral_dimension: full heat traces with stationary modes and versioned exports
 
-Pull request: gororoba-open #272, branch algebra/full-heat-trace, merged 2026-11-16T09:18:19Z, merge commit dc46b2b7eeef0a0f8851925c7511db9950fba720.
+Pull request: gororoba-open #272, branch algebra/full-heat-trace, merged 2026-11-16T09:18:19Z (GitHub mergedAt), squash commit dc46b2b7eeef0a0f8851925c7511db9950fba720 (one parent).
 
-This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). The orchestration board of the same session supplies the Advisor and worker rounds below; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
+This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). This record is a post-merge backfill, so no brief exists. Its scope is the pull request's own threads and the private orchestration record of the session that ran the Advisor and worker rounds below, which this repository does not retain; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
 
 Reviewers that ran:
 - Hosted Codex (requested by an "@Codex review" comment, 2026-11-16T08:28Z): review of 8087e6b2 completed; no findings, receipt "Didn't find any major issues".
@@ -10,7 +10,7 @@ Reviewers that ran:
 - Further rounds recovered from the orchestration record (what ran, on which head, disposition): see "Rounds beyond the pull request" below.
 - Local codex, grok and red-team rounds: not recorded.
 
-Findings: none raised by any recorded reviewer.
+Findings: hosted Codex raised none; the Advisor and worker findings are listed in the orchestration-record table of reconciliation.txt.
 
 Rounds beyond the pull request
 - Advisor, partial read (added lines only): confirmed the heat-trace core, the complete-graph test and the SG weights. Blocking: v2 export determinism (two census runs, sha256 of five files; sort nodes if they differ) and the unseen removed lines and spectral_heat_trace_contracts.txt (allowlist and owner-map precedent). Non-blocking: flat windows likely endpoint tails (registry follow-up may change claim status, owner side), the spectral_gap old return, callers of the new panics.

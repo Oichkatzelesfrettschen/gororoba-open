@@ -1,18 +1,18 @@
 Reconciliation: review of gororoba-open #271 (quantum_core: checked subsystem entropy and two-sided MPS contractions)
 
-Source: pull request metadata and inline review comments. Merge commit 2848ae506b1b46e7e8f26763635062b4f4864984. Advisor and worker rounds come from the orchestration record (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
+Source: pull request metadata and inline review comments. Squash commit 2848ae506b1b46e7e8f26763635062b4f4864984 (one parent). Advisor and worker rounds come from the private orchestration record of the session that ran them, which this repository does not retain (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
 
-| # | Reviewer | Finding | Disposition (as the thread records it) |
-|---|---|---|---|
-| C1 | codex | P2: the MPS dense fallback can overflow before normalization when tensors carry large compensating scales (1e200, 1e200, 1e-200, 1e-200). | Fixed in 8153dacf: each tensor is divided by its largest component magnitude before contraction (mps_scaled_coefficients); regression mps_dense_fallback_survives_cancelling_scales. |
-| C2 | codex | P2: an empty or full cut still allocates a complex copy of the whole state (512 MiB at 25 qubits) before returning zero. | Fixed in 8153dacf: an empty or full cut validates the real coefficients in place (real_state_cut_entropy); a nontrivial cut checks the size guard before any allocation. |
-| R1 | copilot | The early return in measure_entropy bypasses validation at k = 0 and k = n_qubits. | Fixed in dfd2bd0e: measure_entropy delegates every cut to mps_prefix_entropy (test measure_entropy_checks_the_chain_at_every_cut); k > n_qubits now panics with InvalidSubsystem. |
-| R2 | copilot | Each MPS prefix query validates the whole chain and rebuilds both environments, so the product test is quadratic. | Fixed in dfd2bd0e: try_is_product_state reads every cut from one mps_cut_entropies sweep, O(n chi^3); measure_entropy_all_parallel shares the sweep. |
-| R3 | copilot | Cancelling bond gauges diag(1e100, 1e-100) across Bell pairs make the dense contraction underflow to zero. | Fixed in dfd2bd0e: the dense fallback contracts a left-canonical form from a QR sweep, so no partial product exceeds magnitude one. |
-| R4 | copilot | The same gauges square to Gram diagonals [1, 0] and [0, 1], whose combined matrix is zero, so a valid Bell pair returns InvalidState. | Fixed in dfd2bd0e: the Gram environments are removed; Schmidt coefficients come from an SVD sweep over the canonical form (test mps_cancelling_bond_gauge_does_not_zero_the_prefix_entropy). |
+| # | Reviewer | Finding | Disposition (as the thread records it) | Source | Check |
+|---|---|---|---|---|---|
+| C1 | codex | P2: the MPS dense fallback can overflow before normalization when tensors carry large compensating scales (1e200, 1e200, 1e-200, 1e-200). | Fixed in 8153dacf (branch commit, squashed into 2848ae50): each tensor is divided by its largest component magnitude before contraction (mps_scaled_coefficients); regression mps_dense_fallback_survives_cancelling_scales. | PR thread | regression mps_dense_fallback_survives_cancelling_scales (fix commit 8153dacf) |
+| C2 | codex | P2: an empty or full cut still allocates a complex copy of the whole state (512 MiB at 25 qubits) before returning zero. | Fixed in 8153dacf (branch commit, squashed into 2848ae50): an empty or full cut validates the real coefficients in place (real_state_cut_entropy); a nontrivial cut checks the size guard before any allocation. | PR thread | real_state_cut_entropy and size guard (fix commit 8153dacf; squash 2848ae50, one parent) |
+| R1 | copilot | The early return in measure_entropy bypasses validation at k = 0 and k = n_qubits. | Fixed in dfd2bd0e (branch commit, squashed into 2848ae50): measure_entropy delegates every cut to mps_prefix_entropy (test measure_entropy_checks_the_chain_at_every_cut); k > n_qubits now panics with InvalidSubsystem. | PR thread | test measure_entropy_checks_the_chain_at_every_cut |
+| R2 | copilot | Each MPS prefix query validates the whole chain and rebuilds both environments, so the product test is quadratic. | Fixed in dfd2bd0e (branch commit, squashed into 2848ae50): try_is_product_state reads every cut from one mps_cut_entropies sweep, O(n chi^3); measure_entropy_all_parallel shares the sweep. | PR thread | mps_cut_entropies single sweep (fix commit dfd2bd0e) |
+| R3 | copilot | Cancelling bond gauges diag(1e100, 1e-100) across Bell pairs make the dense contraction underflow to zero. | Fixed in dfd2bd0e (branch commit, squashed into 2848ae50): the dense fallback contracts a left-canonical form from a QR sweep, so no partial product exceeds magnitude one. | PR thread | left-canonical QR form (fix commit dfd2bd0e) |
+| R4 | copilot | The same gauges square to Gram diagonals [1, 0] and [0, 1], whose combined matrix is zero, so a valid Bell pair returns InvalidState. | Fixed in dfd2bd0e (branch commit, squashed into 2848ae50): the Gram environments are removed; Schmidt coefficients come from an SVD sweep over the canonical form (test mps_cancelling_bond_gauge_does_not_zero_the_prefix_entropy). | PR thread | test mps_cancelling_bond_gauge_does_not_zero_the_prefix_entropy |
 
 Orchestration-record rounds
 
-| # | Reviewer | Finding | Disposition |
-|---|---|---|---|
-| A1 | advisor | Gaps: diff tail unread; dense-fallback bit order untested; overflow-panic callers; body names the panic class. | Closed by a follow-up worker (see above). |
+| # | Reviewer | Finding | Disposition | Source | Check |
+|---|---|---|---|---|---|
+| A1 | advisor | Gaps: diff tail unread; dense-fallback bit order untested; overflow-panic callers; body names the panic class. | Closed by a follow-up worker (see above). | orchestration record | closed by the follow-up worker (orchestration record) |

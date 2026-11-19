@@ -1,8 +1,8 @@
 Review record: casimir_core: audit Casimir stress against complete gravitational source tensors
 
-Pull request: gororoba-open #270, branch casimir-warp-evidence, merged 2026-11-16T09:10:17Z, merge commit 14f63a201e4426bc5dc7354a19570b52f2684d15.
+Pull request: gororoba-open #270, branch casimir-warp-evidence, merged 2026-11-16T09:10:17Z (GitHub mergedAt), squash commit 14f63a201e4426bc5dc7354a19570b52f2684d15 (one parent).
 
-This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). The orchestration board of the same session supplies the Advisor and worker rounds below; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
+This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). This record is a post-merge backfill, so no brief exists. Its scope is the pull request's own threads and the private orchestration record of the session that ran the Advisor and worker rounds below, which this repository does not retain; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
 
 Reviewers that ran:
 - Hosted Codex (requested by an "@Codex review" comment, 2026-11-16T09:06Z): review of 954120c1 completed; no findings, receipt "Didn't find any major issues".
@@ -10,7 +10,7 @@ Reviewers that ran:
 - Further rounds recovered from the orchestration record (what ran, on which head, disposition): see "Rounds beyond the pull request" below.
 - Local codex, grok and red-team rounds: not recorded.
 
-Findings: none raised by any recorded reviewer.
+Findings: hosted Codex raised none; the Advisor and worker findings are listed in the orchestration-record table of reconciliation.txt.
 
 Rounds beyond the pull request
 - Advisor, partial read (about 21k of 63k characters of the diff): confirmed the Brown-Maclay tensor, the null contraction, the planar-shift Einstein tensor (independent ADM check), the zz residual of -2 and the licenses (casimir_core GPL-2.0-or-later, gr_core MIT). Blocking items: the warp_metric.rs diff unread (an off-center expansion-sign test needed), the audit binary tail and the audit report unread. Non-blocking: scalar versus electromagnetic constant, report bytes produced on a compute host, registry statements are owner-read, dispatch the audit validation after merge.

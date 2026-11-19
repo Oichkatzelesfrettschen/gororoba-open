@@ -1,8 +1,8 @@
 Review record: quantum_core: checked subsystem entropy and two-sided MPS contractions
 
-Pull request: gororoba-open #271, branch quantum/checked-subsystem-entropy, merged 2026-11-16T12:14:29Z, merge commit 2848ae506b1b46e7e8f26763635062b4f4864984.
+Pull request: gororoba-open #271, branch quantum/checked-subsystem-entropy, merged 2026-11-16T12:14:29Z (GitHub mergedAt), squash commit 2848ae506b1b46e7e8f26763635062b4f4864984 (one parent).
 
-This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). The orchestration board of the same session supplies the Advisor and worker rounds below; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
+This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). This record is a post-merge backfill, so no brief exists. Its scope is the pull request's own threads and the private orchestration record of the session that ran the Advisor and worker rounds below, which this repository does not retain; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
 
 Reviewers that ran:
 - Hosted Codex (requested 2026-11-16T08:39Z): review of eb362102 completed with two P2 inline findings (C1, C2).

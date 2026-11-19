@@ -1,8 +1,8 @@
 Review record: stats_core: retain full multinomial score covariance
 
-Pull request: gororoba-open #269, branch stats_core/measurement-scores, merged 2026-11-16T08:33:58Z, merge commit 76fa9bb1805d6c825128c41525fbb184a3a6e094.
+Pull request: gororoba-open #269, branch stats_core/measurement-scores, merged 2026-11-16T08:33:58Z (GitHub mergedAt), squash commit 76fa9bb1805d6c825128c41525fbb184a3a6e094 (one parent).
 
-This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). The orchestration board of the same session supplies the Advisor and worker rounds below; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
+This record was written after the merge from the pull request itself (title, body, commits, reviews, issue comments and inline review comments as GitHub returns them). This record is a post-merge backfill, so no brief exists. Its scope is the pull request's own threads and the private orchestration record of the session that ran the Advisor and worker rounds below, which this repository does not retain; a step with no source in either reads "not recorded". Reviewer verdicts below are the threads' own; no later judgment is added.
 
 Reviewers that ran:
 - Hosted Codex (requested 2026-11-16T05:16Z): review of 1b7ee1db completed with one P2 inline finding (C1).
