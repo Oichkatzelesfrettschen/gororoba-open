@@ -1,5 +1,19 @@
-# Owner request 2026-10-14: CodeRabbit reviews only on explicit prompt.
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Owner request 2026-10-14: CodeRabbit reviews only on explicit prompt; owner 2026-11-19: no
+# automatic review, summary, check run, status or chat reply.
 reviews:
+  profile: "assertive"
   auto_review:
     enabled: false
   request_changes_workflow: false
+  high_level_summary: false
+  high_level_summary_in_walkthrough: false
+  review_status: false
+  review_progress: false
+  commit_status: false
+  poem: false
+  collapse_walkthrough: true
+  changed_files_summary: false
+  sequence_diagrams: false
+chat:
+  auto_reply: false
