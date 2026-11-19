@@ -1,0 +1,5 @@
+Reconciliation: review of gororoba-open #274 (quantum_core: exact Pauli-frame algebra for teleportation readout)
+
+Source: pull request metadata and inline review comments. Merge commit 91f0986134cf5ee78e5d80bbf9d456ff63695b47. Local reviewer rounds and the Advisor verdict: not recorded.
+
+No finding was raised; the hosted Codex receipt reports no major issues and no thread exists.

@@ -1,0 +1,5 @@
+Reconciliation: review of gororoba-open #270 (casimir_core: audit Casimir stress against complete gravitational source tensors)
+
+Source: pull request metadata and inline review comments. Merge commit 14f63a201e4426bc5dc7354a19570b52f2684d15. Local reviewer rounds and the Advisor verdict: not recorded.
+
+No finding was raised; the hosted Codex receipt reports no major issues and no thread exists.
