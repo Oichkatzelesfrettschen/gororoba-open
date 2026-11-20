@@ -1,0 +1,25 @@
+# Reconciliation: local codex review of PR 299 (twisted tower in cd_kernel)
+
+Reviewer: codex, read-only, one round. Fixes below are commits on the branch
+cd_kernel/twisted-tower-architecture; origin/main was merged last as ffeb7d20.
+
+| # | Finding | Source | Check | Verdict |
+|---|---|---|---|---|
+| 1 | mul_exact is not exact for admitted i64 inputs (HIGH) | twisted_tower.rs, module doc and mul_exact | Unchecked i64 product and sum in the original loop; a coordinate of i64::MAX squared leaves i64 | Confirmed; fixed in fbfac4ae: checked_mul and checked_add return Overflow, associator and its difference are checked, the doc states the contract; integer_product_reports_overflow_instead_of_wrapping covers i64::MAX, a sum overflow with in-range terms, an exact result and an associator overflow |
+| 2 | The modular type enforces no F_p domain (HIGH) | twisted_tower.rs, ModularCdElement | zero and basis accepted 0, 1 and composites; % by 0 panics; public fields allowed residues >= p, so the digit split subtracted p once | Confirmed; fixed in fbfac4ae and a10ce4a6: new validates the prime by deterministic trial division (is_multiple_of form for clippy) and reduces residues, fields are private with coords() and prime(); modulus_must_be_prime_and_residues_are_reduced covers 0, 1, 4, 9, a composite, u32::MAX, primes up to 4294967291 and an unreduced residue |
+| 3 | D not a power of two panics; D > 64 loses support bits (MEDIUM) | twisted_tower.rs, both element types and support_mask | p ^ q reaches past the array for D = 3; BasisSupportMask holds 64 bits | Confirmed; fixed in fbfac4ae: every constructor checks a power of two in 1..=64 and returns InvalidDimension, fields are private; dimension_must_be_a_power_of_two_up_to_64 covers 0, 3, 6 and 128 and accepts 64 |
+| 4 | The cross-ratio is named a gauge-invariant cocycle but needs the XOR skeleton (LOW) | twisted_tower.rs, cocycle_cross_ratio | Under sigma' = sigma g(p) g(q) g(p ^ q), chi gains g(i^k) g(j^l) g(i^l) g(j^k), which is 1 only when i ^ j = k ^ l | Confirmed; fixed in a5e2cba0 and fbfac4ae: renamed twist_cross_ratio, doc states the precondition (documented, not enforced), twist_cross_ratio_is_gauge_invariant_only_on_the_xor_skeleton checks eight gauges on every skeleton quadruple at D = 16 and the flip of (1,2;3,4) from -1 to +1 off it |
+| 5 | Public panic contracts are incomplete (LOW) | twisted_tower.rs, public items | basis, mul_mod and the four sign-table functions can panic | Confirmed; fixed in a5e2cba0 (sign-table functions) and fbfac4ae (basis, mul_mod); the Errors sections cover the new Result returns |
+| 6 | Current-head Clippy is unverified (evidence gap) | gh calls failed in the review | The earlier fingerprint predates the source | Confirmed as a gap; closed for the compute host on ffeb7d20: fmt, clippy -D warnings --all-targets and tests pass; hosted CI still pending |
+| S1 | The module does not cite its twisted-group-algebra source | twisted_tower.rs module doc | docs/physics/sedenion_standard_model.md is the repository source | Confirmed; cited in the module doc in fbfac4ae |
+
+The review's claim verdicts 1 and 2 (finite identities and the two-blade census)
+needed no change. The i64 exactness sentence of the module doc was rewritten as
+the domain contract in fbfac4ae.
+
+Not enforced: commit a5e2cba0 alone does not build (mod.rs still re-exported the
+old name until fbfac4ae); the branch head builds and passes.
+
+Validation on ffeb7d20 (a compute host): cargo fmt -p cd_kernel --check, cargo
+clippy -p cd_kernel --all-targets -- -D warnings, cargo test -p cd_kernel: 431 lib,
+3, 2 and 2 tests passed, 0 failed, 1 doc-test ignored.
