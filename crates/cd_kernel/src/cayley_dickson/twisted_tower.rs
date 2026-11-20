@@ -199,6 +199,11 @@ impl BasisSupportMask {
 ///
 /// Returns +1 if the triple associates ([e_a, e_b, e_c] = 0).
 /// Returns -1 if the triple non-associates ([e_a, e_b, e_c] = +-2 e_{a ^ b ^ c}).
+///
+/// # Panics
+///
+/// Panics in builds with debug assertions when `dim` is not a power of two or an index is not
+/// below `dim`.
 #[inline]
 pub fn basis_associator_sign(dim: usize, a: usize, b: usize, c: usize) -> i32 {
     let s_ab = cd_basis_mul_sign_iter(dim, a, b);
@@ -208,13 +213,23 @@ pub fn basis_associator_sign(dim: usize, a: usize, b: usize, c: usize) -> i32 {
     s_ab * s_ab_c * s_bc * s_a_bc
 }
 
-/// Compute the gauge-invariant cocycle cross-ratio for two pairs of basis units:
+/// Compute the twist cross-ratio of two pairs of basis units, a product of four values of the
+/// 2-cochain sigma:
 ///     chi(i, j; k, l) = sigma(i, k) * sigma(j, l) * sigma(i, l) * sigma(j, k)
 ///
-/// On the skeleton i ^ j = k ^ l, chi = +1 indicates that the signed two-blade
-/// product (e_i + t e_j)(e_k + s e_l) vanishes for a suitable choice of signs t, s.
+/// A gauge change sigma'(p, q) = sigma(p, q) g(p) g(q) g(p ^ q) with g(p) in {+1, -1} multiplies
+/// chi by g(i ^ k) g(j ^ l) g(i ^ l) g(j ^ k). That factor is 1 for every g exactly when
+/// i ^ j = k ^ l (the XOR skeleton); off the skeleton chi depends on the gauge and the function
+/// accepts such arguments without checking the skeleton. On the skeleton, chi = +1 indicates
+/// that the signed two-blade product (e_i + t e_j)(e_k + s e_l) vanishes for a suitable choice
+/// of signs t, s.
+///
+/// # Panics
+///
+/// Panics in builds with debug assertions when `dim` is not a power of two or an index is not
+/// below `dim`.
 #[inline]
-pub fn cocycle_cross_ratio(dim: usize, i: usize, j: usize, k: usize, l: usize) -> i32 {
+pub fn twist_cross_ratio(dim: usize, i: usize, j: usize, k: usize, l: usize) -> i32 {
     let s_ik = cd_basis_mul_sign_iter(dim, i, k);
     let s_jl = cd_basis_mul_sign_iter(dim, j, l);
     let s_il = cd_basis_mul_sign_iter(dim, i, l);
@@ -226,6 +241,11 @@ pub fn cocycle_cross_ratio(dim: usize, i: usize, j: usize, k: usize, l: usize) -
 ///
 /// Returns Some((t, s)) with t = 1 and the unique sign s in {+1, -1} such that
 /// (e_i + t e_j)(e_k + s e_l) = 0, or None if no such zero product exists.
+///
+/// # Panics
+///
+/// Panics in builds with debug assertions when `dim` is not a power of two or an index is not
+/// below `dim`.
 pub fn find_two_blade_zero_divisor_signs(
     dim: usize,
     i: usize,
@@ -245,7 +265,7 @@ pub fn find_two_blade_zero_divisor_signs(
         return None;
     }
     // Cross-ratio gauge condition: chi == +1
-    if cocycle_cross_ratio(dim, i, j, k, l) != 1 {
+    if twist_cross_ratio(dim, i, j, k, l) != 1 {
         return None;
     }
 
@@ -264,6 +284,10 @@ pub fn find_two_blade_zero_divisor_signs(
 /// `dim`, as tuples (i, j, t, k, l, s) with 1 <= i < j < dim, 1 <= k < l < dim, disjoint supports
 /// and t, s in {+1, -1}. D = 16 gives 336 products on 42 index pairs (84 signed elements);
 /// D = 32 gives 5040 products on 294 index pairs (588 signed elements).
+///
+/// # Panics
+///
+/// Panics in builds with debug assertions when `dim` is not a power of two.
 pub fn enumerate_two_blade_zero_products(
     dim: usize,
 ) -> Vec<(usize, usize, i32, usize, usize, i32)> {
@@ -630,7 +654,52 @@ mod tests {
                 assert!(prod.is_zero(), "({i} + {t} e{j})(e{k} + {s} e{l}) at {dim}");
             }
         }
-        assert_eq!(cocycle_cross_ratio(16, 1, 10, 4, 15), 1);
+        assert_eq!(twist_cross_ratio(16, 1, 10, 4, 15), 1);
+    }
+
+    /// Gauge-changed sign sigma'(p, q) = sigma(p, q) g(p) g(q) g(p ^ q).
+    fn gauged_sign(dim: usize, g: &[i32], p: usize, q: usize) -> i32 {
+        cd_basis_mul_sign_iter(dim, p, q) * g[p] * g[q] * g[p ^ q]
+    }
+
+    fn gauged_cross_ratio(dim: usize, g: &[i32], i: usize, j: usize, k: usize, l: usize) -> i32 {
+        gauged_sign(dim, g, i, k)
+            * gauged_sign(dim, g, j, l)
+            * gauged_sign(dim, g, i, l)
+            * gauged_sign(dim, g, j, k)
+    }
+
+    #[test]
+    fn twist_cross_ratio_is_gauge_invariant_only_on_the_xor_skeleton() {
+        let dim = 16usize;
+        let mut state = 0x2545_f491_u32;
+        for _ in 0..8 {
+            let mut g = vec![1i32; dim];
+            for slot in g.iter_mut().skip(1) {
+                state = state.wrapping_mul(1_664_525).wrapping_add(1_013_904_223);
+                *slot = if state >> 31 == 1 { -1 } else { 1 };
+            }
+            for i in 1..dim {
+                for j in 1..dim {
+                    for k in 1..dim {
+                        for l in 1..dim {
+                            if i ^ j == k ^ l {
+                                assert_eq!(
+                                    gauged_cross_ratio(dim, &g, i, j, k, l),
+                                    twist_cross_ratio(dim, i, j, k, l),
+                                    "({i}, {j}; {k}, {l})"
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Off the skeleton (1 ^ 2 != 3 ^ 4) the gauge g(e1) = -1 flips chi.
+        let mut g = vec![1i32; dim];
+        g[1] = -1;
+        assert_eq!(twist_cross_ratio(dim, 1, 2, 3, 4), -1);
+        assert_eq!(gauged_cross_ratio(dim, &g, 1, 2, 3, 4), 1);
     }
 
     #[test]
