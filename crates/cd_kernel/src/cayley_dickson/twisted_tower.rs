@@ -6,8 +6,11 @@
 //! ```
 //!
 //! with sigma_k from `signs::cd_basis_mul_sign_iter`; the twisted-group-algebra reading of the
-//! tower is that of Bales (arXiv:1107.1375) and Flaut (2021, arXiv:2103.12805, "Twisted group
-//! algebra structure for CD algebras"). From D = 8 on sigma_k is a 2-cochain, not a
+//! tower is that of Bales (2011, arXiv:1107.1375, "Cayley-Dickson and Clifford Algebras as
+//! Twisted Group Algebras") and Flaut and Boboescu (2021, arXiv:2103.12805, "A twisted group
+//! algebra structure for an algebra obtained by the Cayley-Dickson process"), whose theorem is
+//! stated over a field of characteristic 0; the F_p arithmetic here uses the same structure
+//! constants and claims only exactness of the computation. From D = 8 on sigma_k is a 2-cochain, not a
 //! 2-cocycle: its coboundary is the associator sign omega below, which is -1 exactly on the
 //! non-associating triples. Every structure constant is +-1, so a product coordinate is a signed
 //! sum of coordinate products.
