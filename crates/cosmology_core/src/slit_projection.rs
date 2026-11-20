@@ -211,11 +211,10 @@ pub fn deproject_rotation_curve(
 /// On x86_64, uses the x87 80-bit Jacobi solver for maximum precision.
 /// On other targets, falls back to the double-double software lane.
 fn eigensystem_dispatch(a_flat: &[f64], n: usize) -> (Vec<f64>, Vec<f64>) {
-    let max_iter = 100 * n * n;
-
     #[cfg(target_arch = "x86_64")]
     {
         use algebra_analysis::x87_jacobi::symmetric_eigensystem_x87;
+        let max_iter = 100 * n * n;
         match symmetric_eigensystem_x87(a_flat, n, max_iter, 1.0e-12) {
             Ok(result) => result,
             Err(_) => {

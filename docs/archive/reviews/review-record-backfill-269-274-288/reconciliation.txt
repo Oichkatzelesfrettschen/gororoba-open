@@ -1,0 +1,57 @@
+Reconciliation: local review of gororoba-open PR 298 (docs/archive/reviews: records for merged pull requests)
+
+Head read: the head before the first fixing commit (inferred from the branch log, f9df0f96064f8f49ec48370034b285912a6c445e). Reviewer: the local codex round (gpt-daybreak-blue, read-only, exit 0), chosen by the owner on 2026-11-19; the Advisor last. Every finding below carries its disposition; a fixing commit is named by its full hash after its diff was read.
+
+#: H1
+Finding: High: PR 288 says local Codex rounds are not recorded, then records them
+Source: codex
+Check: README.txt and reconciliation.txt of the 288 record
+Verdict: Fixed in 531e69cbe7ecfd06c2d95bda043793593cc3bdd7: only grok and red-team rounds read not recorded
+
+#: M1
+Finding: Medium: L1 and L2 present an inferred link without the marker
+Source: codex
+Check: reconciliation.txt rows L1 and L2
+Verdict: Fixed in 531e69cbe7ecfd06c2d95bda043793593cc3bdd7: both rows read inferred
+
+#: M2
+Finding: Medium: the 13 abbreviated Fixed in hashes are not in origin/main history
+Source: codex
+Check: git rev-parse resolves each; merge-base --is-ancestor against origin/main is false (squash merge)
+Verdict: Fixed in 531e69cbe7ecfd06c2d95bda043793593cc3bdd7 (each row names the squash commit) and 219995df90f0ba2c4c61ab274ef5ef72240211ad (full hashes, each reachable from refs/pull/N/head of its pull request)
+
+#: L1
+Finding: Low: a squash result is not a merge commit
+Source: codex
+Check: each result commit has one parent
+Verdict: Fixed in 531e69cbe7ecfd06c2d95bda043793593cc3bdd7: the records say squash commit
+
+#: L2
+Finding: Low: four merge times differ by 1 s from the committer time; branch fields unprovable from git
+Source: codex
+Check: git log --format=%cI
+Verdict: Fixed in 531e69cbe7ecfd06c2d95bda043793593cc3bdd7: the times are marked GitHub mergedAt values; open as a boundary, git history cannot prove them
+
+#: S1
+Finding: Thread fidelity is unproved from retained material
+Source: codex
+Check: no orchestration record in the repository
+Verdict: Open as a boundary: the private session record is not retained
+
+#: C3
+Finding: Claim 3: ASCII only, no leak
+Source: codex
+Check: character-class and name scans on the diff
+Verdict: Passes
+
+#: A1
+Finding: Advisor (parent)
+Source: Advisor
+Check: 
+Verdict: Needs the abbreviated hashes expanded to 40 hex
+
+#: A1f
+Finding: Preface wording
+Source: this record
+Check: README prefaces on the inferred links
+Verdict: Fixed in 219995df90f0ba2c4c61ab274ef5ef72240211ad: the 288 preface now excepts the inferred links from "no later judgment is added"

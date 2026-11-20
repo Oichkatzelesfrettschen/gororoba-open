@@ -1,0 +1,12 @@
+Reconciliation: review of gororoba-open #270 (casimir_core: audit Casimir stress against complete gravitational source tensors)
+
+Source: pull request metadata and inline review comments. Squash commit 14f63a201e4426bc5dc7354a19570b52f2684d15 (one parent). Advisor and worker rounds come from the private orchestration record of the session that ran them, which this repository does not retain (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
+
+Hosted Codex raised no finding (receipt: no major issues; no thread exists); the Advisor and worker findings are in the table below.
+
+Orchestration-record rounds
+
+| # | Reviewer | Finding | Disposition | Source | Check |
+|---|---|---|---|---|---|
+| A1 | advisor | Blocking: warp_metric.rs diff unread; off-center expansion-sign test needed. | Closed: such tests already exist (see above). | orchestration record | off-center expansion-sign tests already present at 954120c17bcbd13a92bda64d9f05e5e6baad149d (orchestration record) |
+| A2 | advisor | Blocking: audit binary tail and audit report unread. | Closed by the worker check; report bytes rewritten to the binary's exact output. | orchestration record | report bytes rewritten to the binary exact output at 954120c17bcbd13a92bda64d9f05e5e6baad149d (orchestration record) |
