@@ -947,10 +947,7 @@ mod tests {
         assert_eq!(a.mul_exact(&b), Err(TwistedTowerError::Overflow));
         let ok = IntegralCdElement::<2>::new([3, 4]).expect("valid dimension");
         let conj = IntegralCdElement::<2>::new([3, -4]).expect("valid dimension");
-        assert_eq!(
-            ok.mul_exact(&conj).expect("in range").coords(),
-            &[25, 0]
-        );
+        assert_eq!(ok.mul_exact(&conj).expect("in range").coords(), &[25, 0]);
         let m = IntegralCdElement::<8>::basis(1, i64::MAX).expect("valid basis");
         let n = IntegralCdElement::<8>::basis(2, i64::MAX).expect("valid basis");
         assert_eq!(m.associator(&n, &m), Err(TwistedTowerError::Overflow));
