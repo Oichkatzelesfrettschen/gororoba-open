@@ -17,3 +17,4 @@ during their review. Paths are repository-relative.
 - stats-core-score-covariance/README.txt: Review record: stats_core: retain full multinomial score covariance
 - subsystem-entropy-mps-contractions/README.txt: Review record: quantum_core: checked subsystem entropy and two-sided MPS contractions
 - teleportation-pauli-frame-readout/README.txt: Review record: quantum_core: exact Pauli-frame algebra for teleportation readout
+- twisted-tower-module/README.txt: Review record: cd_kernel: twisted-tower group algebra with exact associators

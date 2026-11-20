@@ -1144,7 +1144,7 @@ fn test_high_dim_sign_table_verification() {
 
 /// Investigate whether A_3(Q_p) remains a division algebra.
 ///
-/// Bales (2003, arXiv:1107.1375) shows CD algebras are twisted group
+/// Bales (2011, arXiv:1107.1375) shows CD algebras are twisted group
 /// algebras `[G, alpha, F]` over (Z/2)^n with twist alpha(p,q).
 /// The construction works over ANY field F, giving A_n(F) immediately.
 ///
