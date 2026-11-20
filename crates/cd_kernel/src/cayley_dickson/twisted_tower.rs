@@ -5,8 +5,9 @@
 //! A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
 //! ```
 //!
-//! with sigma_k from `signs::cd_basis_mul_sign_iter`; the twisted-group-algebra reading follows
-//! `docs/physics/sedenion_standard_model.md`. From D = 8 on sigma_k is a 2-cochain, not a
+//! with sigma_k from `signs::cd_basis_mul_sign_iter`; the twisted-group-algebra reading of the
+//! tower is that of Bales (arXiv:1107.1375) and Flaut (2021, arXiv:2103.12805, "Twisted group
+//! algebra structure for CD algebras"). From D = 8 on sigma_k is a 2-cochain, not a
 //! 2-cocycle: its coboundary is the associator sign omega below, which is -1 exactly on the
 //! non-associating triples. Every structure constant is +-1, so a product coordinate is a signed
 //! sum of coordinate products.
