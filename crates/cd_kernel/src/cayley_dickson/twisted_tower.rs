@@ -5,10 +5,16 @@
 //! A_k = R^sigma[Z_2^k],   e_p * e_q = sigma_k(p, q) * e_{p ^ q}
 //! ```
 //!
-//! with sigma_k from `signs::cd_basis_mul_sign_iter`. From D = 8 on sigma_k is a 2-cochain, not a
+//! with sigma_k from `signs::cd_basis_mul_sign_iter`; the twisted-group-algebra reading follows
+//! `docs/physics/sedenion_standard_model.md`. From D = 8 on sigma_k is a 2-cochain, not a
 //! 2-cocycle: its coboundary is the associator sign omega below, which is -1 exactly on the
-//! non-associating triples. Every structure constant is +-1, so
-//! products of integer elements are exact in i64 and products of residues are exact in F_p.
+//! non-associating triples. Every structure constant is +-1, so a product coordinate is a signed
+//! sum of coordinate products.
+//!
+//! Domain contract: the dimension is a power of two in 1..=64 (the support mask holds 64
+//! coordinates). `IntegralCdElement::mul_exact` checks every product and sum in i64 and returns
+//! `Overflow` rather than a wrapped value, so an `Ok` product is exact. `ModularCdElement` holds
+//! a prime modulus and residues below it, so `mul_mod` is exact in F_p; `new` reduces its input.
 //!
 //! - The basis associator [e_a, e_b, e_c] vanishes when omega(a, b, c) = +1 and equals
 //!   +-2 e_{a ^ b ^ c} when omega(a, b, c) = -1 (checked on every basis triple through D = 32 by
@@ -307,26 +313,119 @@ pub fn enumerate_two_blade_zero_products(
     zds
 }
 
+/// Failure of a checked twisted-tower construction or product.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TwistedTowerError {
+    /// The dimension is not a power of two in 1..=64.
+    InvalidDimension(usize),
+    /// The modulus is not a prime.
+    InvalidModulus(u32),
+    /// An i64 coordinate product or sum left the i64 range.
+    Overflow,
+}
+
+impl std::fmt::Display for TwistedTowerError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::InvalidDimension(dim) => {
+                write!(f, "dimension {dim} is not a power of two in 1..=64")
+            }
+            Self::InvalidModulus(p) => write!(f, "modulus {p} is not prime"),
+            Self::Overflow => write!(f, "integer coordinate product left the i64 range"),
+        }
+    }
+}
+
+impl std::error::Error for TwistedTowerError {}
+
+/// The support mask holds 64 coordinates and the sign recursion needs a power of two.
+const fn check_dimension(dim: usize) -> Result<(), TwistedTowerError> {
+    if dim.is_power_of_two() && dim <= 64 {
+        Ok(())
+    } else {
+        Err(TwistedTowerError::InvalidDimension(dim))
+    }
+}
+
+/// Deterministic trial division; the largest u32 divisor bound is 65535.
+const fn is_prime_u32(n: u32) -> bool {
+    if n < 2 {
+        return false;
+    }
+    if n % 2 == 0 {
+        return n == 2;
+    }
+    let n = n as u64;
+    let mut d = 3u64;
+    while d * d <= n {
+        if n % d == 0 {
+            return false;
+        }
+        d += 2;
+    }
+    true
+}
+
 /// Sized integral Cayley-Dickson element over i64 coordinates.
+///
+/// The dimension `D` is a power of two in 1..=64, checked by every constructor; the coordinates
+/// are private so no element of another shape exists.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct IntegralCdElement<const D: usize> {
-    pub coords: [i64; D],
+    coords: [i64; D],
 }
 
 impl<const D: usize> IntegralCdElement<D> {
-    pub const fn zero() -> Self {
-        Self { coords: [0; D] }
+    /// Build an element from its coordinates.
+    ///
+    /// # Errors
+    ///
+    /// Returns `InvalidDimension` when `D` is not a power of two in 1..=64.
+    pub const fn new(coords: [i64; D]) -> Result<Self, TwistedTowerError> {
+        match check_dimension(D) {
+            Ok(()) => Ok(Self { coords }),
+            Err(e) => Err(e),
+        }
     }
 
-    pub fn basis(index: usize, scale: i64) -> Self {
+    /// The zero element.
+    ///
+    /// # Errors
+    ///
+    /// Returns `InvalidDimension` when `D` is not a power of two in 1..=64.
+    pub const fn zero() -> Result<Self, TwistedTowerError> {
+        Self::new([0; D])
+    }
+
+    /// The element `scale * e_index`.
+    ///
+    /// # Errors
+    ///
+    /// Returns `InvalidDimension` when `D` is not a power of two in 1..=64.
+    ///
+    /// # Panics
+    ///
+    /// Panics when `index >= D`.
+    pub fn basis(index: usize, scale: i64) -> Result<Self, TwistedTowerError> {
+        check_dimension(D)?;
         assert!(index < D, "basis index exceeds dimension");
         let mut coords = [0; D];
         coords[index] = scale;
-        Self { coords }
+        Ok(Self { coords })
     }
 
-    /// Multiply two integral elements exactly using the discrete sign table.
-    pub fn mul_exact(&self, other: &Self) -> Self {
+    /// The coordinates in basis order.
+    pub const fn coords(&self) -> &[i64; D] {
+        &self.coords
+    }
+
+    /// Multiply two integral elements with the discrete sign table. Every coordinate product and
+    /// every running sum is checked, so an `Ok` result is the exact product in Z^D.
+    ///
+    /// # Errors
+    ///
+    /// Returns `Overflow` when a coordinate product or sum leaves the i64 range.
+    pub fn mul_exact(&self, other: &Self) -> Result<Self, TwistedTowerError> {
         let mut out = [0i64; D];
         for p in 0..D {
             let ap = self.coords[p];
@@ -338,25 +437,37 @@ impl<const D: usize> IntegralCdElement<D> {
                 if bq == 0 {
                     continue;
                 }
-                let sign = cd_basis_mul_sign_iter(D, p, q) as i64;
-                out[p ^ q] += sign * ap * bq;
+                let sign = i64::from(cd_basis_mul_sign_iter(D, p, q));
+                let term = ap
+                    .checked_mul(bq)
+                    .and_then(|t| t.checked_mul(sign))
+                    .ok_or(TwistedTowerError::Overflow)?;
+                out[p ^ q] = out[p ^ q]
+                    .checked_add(term)
+                    .ok_or(TwistedTowerError::Overflow)?;
             }
         }
-        Self { coords: out }
+        Ok(Self { coords: out })
     }
 
     /// Exact associator [a, b, c] = (a * b) * c - a * (b * c).
-    pub fn associator(&self, b: &Self, c: &Self) -> Self {
-        let ab = self.mul_exact(b);
-        let abc_left = ab.mul_exact(c);
-        let bc = b.mul_exact(c);
-        let abc_right = self.mul_exact(&bc);
+    ///
+    /// # Errors
+    ///
+    /// Returns `Overflow` when a product or the final difference leaves the i64 range.
+    pub fn associator(&self, b: &Self, c: &Self) -> Result<Self, TwistedTowerError> {
+        let ab = self.mul_exact(b)?;
+        let abc_left = ab.mul_exact(c)?;
+        let bc = b.mul_exact(c)?;
+        let abc_right = self.mul_exact(&bc)?;
 
         let mut out = [0i64; D];
         for (i, item) in out.iter_mut().enumerate() {
-            *item = abc_left.coords[i] - abc_right.coords[i];
+            *item = abc_left.coords[i]
+                .checked_sub(abc_right.coords[i])
+                .ok_or(TwistedTowerError::Overflow)?;
         }
-        Self { coords: out }
+        Ok(Self { coords: out })
     }
 
     /// Whether this element is identically zero.
@@ -368,7 +479,7 @@ impl<const D: usize> IntegralCdElement<D> {
     pub fn support_mask(&self) -> BasisSupportMask {
         let mut mask = 0u64;
         for (i, &c) in self.coords.iter().enumerate() {
-            if c != 0 && i < 64 {
+            if c != 0 {
                 mask |= 1u64 << i;
             }
         }
@@ -377,28 +488,73 @@ impl<const D: usize> IntegralCdElement<D> {
 }
 
 /// Sized exact modular Cayley-Dickson element over F_p (u32 residue in [0, p-1]).
+///
+/// The modulus is a prime, the dimension `D` is a power of two in 1..=64, and every residue is
+/// reduced below p; the constructors establish these and the fields are private.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ModularCdElement<const D: usize> {
-    pub coords: [u32; D],
-    pub prime: u32,
+    coords: [u32; D],
+    prime: u32,
 }
 
 impl<const D: usize> ModularCdElement<D> {
-    pub const fn zero(prime: u32) -> Self {
-        Self {
-            coords: [0; D],
-            prime,
+    /// Build an element, reducing each coordinate modulo `prime`.
+    ///
+    /// # Errors
+    ///
+    /// Returns `InvalidDimension` when `D` is not a power of two in 1..=64 and `InvalidModulus`
+    /// when `prime` is not prime.
+    pub fn new(mut coords: [u32; D], prime: u32) -> Result<Self, TwistedTowerError> {
+        check_dimension(D)?;
+        if !is_prime_u32(prime) {
+            return Err(TwistedTowerError::InvalidModulus(prime));
         }
+        for c in &mut coords {
+            *c %= prime;
+        }
+        Ok(Self { coords, prime })
     }
 
-    pub fn basis(index: usize, scale: u32, prime: u32) -> Self {
-        assert!(index < D, "basis index exceeds dimension");
+    /// The zero element.
+    ///
+    /// # Errors
+    ///
+    /// Same as [`Self::new`].
+    pub fn zero(prime: u32) -> Result<Self, TwistedTowerError> {
+        Self::new([0; D], prime)
+    }
+
+    /// The element `scale * e_index` with `scale` reduced modulo `prime`.
+    ///
+    /// # Errors
+    ///
+    /// Same as [`Self::new`].
+    ///
+    /// # Panics
+    ///
+    /// Panics when `index >= D`.
+    pub fn basis(index: usize, scale: u32, prime: u32) -> Result<Self, TwistedTowerError> {
         let mut coords = [0; D];
-        coords[index] = scale % prime;
-        Self { coords, prime }
+        assert!(index < D, "basis index exceeds dimension");
+        coords[index] = scale;
+        Self::new(coords, prime)
+    }
+
+    /// The residues in basis order, each in [0, p-1].
+    pub const fn coords(&self) -> &[u32; D] {
+        &self.coords
+    }
+
+    /// The prime modulus.
+    pub const fn prime(&self) -> u32 {
+        self.prime
     }
 
     /// Multiply two modular elements over F_p.
+    ///
+    /// # Panics
+    ///
+    /// Panics when the two moduli differ.
     pub fn mul_mod(&self, other: &Self) -> Self {
         assert_eq!(self.prime, other.prime, "primes must match");
         let p = self.prime as u64;
@@ -469,6 +625,10 @@ mod tests {
     use super::super::associator::cd_associator;
     use super::super::zero_divisors::find_zero_divisors_sign_table;
     use super::*;
+
+    fn izero<const D: usize>() -> IntegralCdElement<D> {
+        IntegralCdElement::zero().expect("valid dimension")
+    }
 
     const LEVELS: [TwistedTowerLevel; 7] = [
         TwistedTowerLevel::Real,
@@ -561,9 +721,9 @@ mod tests {
             for a in 0..dim {
                 for b in 0..dim {
                     for c in 0..dim {
-                        let x = IntegralCdElement::<32>::basis(a, 1);
-                        let y = IntegralCdElement::<32>::basis(b, 1);
-                        let z = IntegralCdElement::<32>::basis(c, 1);
+                        let x = IntegralCdElement::<32>::basis(a, 1).expect("valid basis");
+                        let y = IntegralCdElement::<32>::basis(b, 1).expect("valid basis");
+                        let z = IntegralCdElement::<32>::basis(c, 1).expect("valid basis");
                         let assoc = embedded_associator(dim, &x, &y, &z);
                         if basis_associator_sign(dim, a, b, c) == 1 {
                             assert!(assoc.is_zero(), "({a}, {b}, {c}) at {dim}");
@@ -585,7 +745,7 @@ mod tests {
         z: &IntegralCdElement<32>,
     ) -> IntegralCdElement<32> {
         let mul = |u: &IntegralCdElement<32>, v: &IntegralCdElement<32>| {
-            let mut out = IntegralCdElement::<32>::zero();
+            let mut out = izero::<32>();
             for p in 0..dim {
                 for q in 0..dim {
                     out.coords[p ^ q] +=
@@ -596,7 +756,7 @@ mod tests {
         };
         let left = mul(&mul(x, y), z);
         let right = mul(x, &mul(y, z));
-        let mut out = IntegralCdElement::<32>::zero();
+        let mut out = izero::<32>();
         for i in 0..32 {
             out.coords[i] = left.coords[i] - right.coords[i];
         }
@@ -637,13 +797,13 @@ mod tests {
                 "sign-table enumerator at {dim}"
             );
             for &(i, j, t, k, l, s) in &zds {
-                let mut a = IntegralCdElement::<32>::zero();
+                let mut a = izero::<32>();
                 a.coords[i] = 1;
                 a.coords[j] = i64::from(t);
-                let mut b = IntegralCdElement::<32>::zero();
+                let mut b = izero::<32>();
                 b.coords[k] = 1;
                 b.coords[l] = i64::from(s);
-                let mut prod = IntegralCdElement::<32>::zero();
+                let mut prod = izero::<32>();
                 for p in 0..dim {
                     for q in 0..dim {
                         prod.coords[p ^ q] += i64::from(cd_basis_mul_sign_iter(dim, p, q))
@@ -707,23 +867,23 @@ mod tests {
         // x = e1 + e10 is a zero divisor: x (e4 - e15) = (e4 - e15) x = 0. With N(x) = 2,
         // x conj(x) = conj(x) x = 2, so conj(x) / 2 and conj(x) / 2 + (e4 - e15) are both
         // two-sided inverses; integer scaling by 2 keeps the check exact.
-        let mut x = IntegralCdElement::<16>::zero();
+        let mut x = izero::<16>();
         x.coords[1] = 1;
         x.coords[10] = 1;
-        let mut z = IntegralCdElement::<16>::zero();
+        let mut z = izero::<16>();
         z.coords[4] = 1;
         z.coords[15] = -1;
-        let two = IntegralCdElement::<16>::basis(0, 2);
-        let mut conj = IntegralCdElement::<16>::zero();
+        let two = IntegralCdElement::<16>::basis(0, 2).expect("valid basis");
+        let mut conj = izero::<16>();
         conj.coords[1] = -1;
         conj.coords[10] = -1;
         let mut other = conj.clone();
         other.coords[4] = 2;
         other.coords[15] = -2;
-        assert!(x.mul_exact(&z).is_zero() && z.mul_exact(&x).is_zero());
+        assert!(x.mul_exact(&z).unwrap().is_zero() && z.mul_exact(&x).unwrap().is_zero());
         for y in [&conj, &other] {
-            assert_eq!(x.mul_exact(y), two);
-            assert_eq!(y.mul_exact(&x), two);
+            assert_eq!(x.mul_exact(y).unwrap(), two);
+            assert_eq!(y.mul_exact(&x).unwrap(), two);
         }
         assert_ne!(conj, other);
     }
@@ -731,8 +891,8 @@ mod tests {
     #[test]
     fn modular_product_and_digit_split() {
         let p = 32009u32;
-        let mut a = ModularCdElement::<32>::zero(p);
-        let mut b = ModularCdElement::<32>::zero(p);
+        let mut a = ModularCdElement::<32>::zero(p).expect("prime modulus");
+        let mut b = ModularCdElement::<32>::zero(p).expect("prime modulus");
         a.coords[1] = 1;
         a.coords[10] = 1;
         b.coords[4] = 1;
@@ -743,7 +903,7 @@ mod tests {
 
         // Every residue of F_32009 splits into in-range digits that reconstruct it mod p.
         for start in (0..p).step_by(32) {
-            let mut elem = ModularCdElement::<32>::zero(p);
+            let mut elem = ModularCdElement::<32>::zero(p).expect("prime modulus");
             for (i, slot) in elem.coords.iter_mut().enumerate() {
                 *slot = (start + i as u32).min(p - 1);
             }
@@ -759,7 +919,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "p < 2^15")]
     fn digit_split_rejects_wide_primes() {
-        let elem = ModularCdElement::<4>::zero(40_009);
+        let elem = ModularCdElement::<4>::zero(40_009).expect("prime modulus");
         let _ = elem.split_base256_digits();
     }
 
@@ -774,5 +934,71 @@ mod tests {
         assert!(quat.iter().all(|&v| v == 0.0));
         let oct = cd_associator(&e(8, 1), &e(8, 2), &e(8, 4));
         assert_eq!(oct.iter().map(|v| v * v).sum::<f64>(), 4.0);
+    }
+
+    #[test]
+    fn integer_product_reports_overflow_instead_of_wrapping() {
+        let big = IntegralCdElement::<1>::basis(0, i64::MAX).expect("valid basis");
+        assert_eq!(big.mul_exact(&big), Err(TwistedTowerError::Overflow));
+        // Each coordinate product fits in i64; the running sum x^2 + y^2 does not.
+        let x = 2_500_000_000i64;
+        let a = IntegralCdElement::<2>::new([x, x]).expect("valid dimension");
+        let b = IntegralCdElement::<2>::new([x, -x]).expect("valid dimension");
+        assert_eq!(a.mul_exact(&b), Err(TwistedTowerError::Overflow));
+        let ok = IntegralCdElement::<2>::new([3, 4]).expect("valid dimension");
+        let conj = IntegralCdElement::<2>::new([3, -4]).expect("valid dimension");
+        assert_eq!(
+            ok.mul_exact(&conj).expect("in range").coords(),
+            &[25, 0]
+        );
+        let m = IntegralCdElement::<8>::basis(1, i64::MAX).expect("valid basis");
+        let n = IntegralCdElement::<8>::basis(2, i64::MAX).expect("valid basis");
+        assert_eq!(m.associator(&n, &m), Err(TwistedTowerError::Overflow));
+    }
+
+    #[test]
+    fn modulus_must_be_prime_and_residues_are_reduced() {
+        for bad in [0u32, 1, 4, 9, 32_011 * 3, u32::MAX] {
+            assert_eq!(
+                ModularCdElement::<4>::zero(bad),
+                Err(TwistedTowerError::InvalidModulus(bad)),
+                "modulus {bad}"
+            );
+        }
+        for good in [2u32, 3, 32_009, 4_294_967_291] {
+            assert!(ModularCdElement::<4>::zero(good).is_ok(), "modulus {good}");
+        }
+        let elem = ModularCdElement::<4>::new([5, 7, 0, u32::MAX], 3).expect("prime modulus");
+        assert_eq!(elem.prime(), 3);
+        assert_eq!(elem.coords(), &[2, 1, 0, 0]);
+        let basis = ModularCdElement::<4>::basis(1, 10, 7).expect("prime modulus");
+        assert_eq!(basis.coords(), &[0, 3, 0, 0]);
+    }
+
+    #[test]
+    fn dimension_must_be_a_power_of_two_up_to_64() {
+        assert_eq!(
+            IntegralCdElement::<3>::zero(),
+            Err(TwistedTowerError::InvalidDimension(3))
+        );
+        assert_eq!(
+            IntegralCdElement::<0>::zero(),
+            Err(TwistedTowerError::InvalidDimension(0))
+        );
+        assert_eq!(
+            IntegralCdElement::<128>::zero(),
+            Err(TwistedTowerError::InvalidDimension(128))
+        );
+        assert_eq!(
+            ModularCdElement::<6>::zero(7),
+            Err(TwistedTowerError::InvalidDimension(6))
+        );
+        assert_eq!(
+            ModularCdElement::<128>::zero(7),
+            Err(TwistedTowerError::InvalidDimension(128))
+        );
+        let top = IntegralCdElement::<64>::basis(63, 1).expect("valid basis");
+        assert_eq!(top.support_mask(), BasisSupportMask::single(63));
+        assert!(ModularCdElement::<64>::zero(7).is_ok());
     }
 }
