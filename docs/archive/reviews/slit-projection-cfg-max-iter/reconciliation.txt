@@ -1,0 +1,7 @@
+Reconciliation: review of gororoba-open #300 (cosmology_core: scope the Jacobi iteration cap to the x87 lane)
+
+| # | Reviewer | Finding | Source | Check | Verdict |
+|---|---|---|---|---|---|
+| A1 | advisor | The diff moves one binding inside the only block that reads it; the x86_64 path is unchanged; every hosted check at f00ab188 is green. | diff and hosted checks | gh pr checks 300 at f00ab188: all pass or skipping | passes |
+| A2 | advisor | The commit body must carry Closes: with the full issue URL. | commit f00ab188 | git log -1 shows Closes: https://github.com/Oichkatzelesfrettschen/gororoba-open/issues/292 | met |
+| A3 | advisor | The body must state that the aarch64 evidence is a measured local run and that no hosted leg builds aarch64. | pull-request body, Validation | the body states "Hosted CI has no aarch64 lane; the aarch64 evidence comes from a local run on an Arm compute host" | met |
