@@ -23,3 +23,5 @@ old name until fbfac4ae); the branch head builds and passes.
 Validation on ffeb7d20 (a compute host): cargo fmt -p cd_kernel --check, cargo
 clippy -p cd_kernel --all-targets -- -D warnings, cargo test -p cd_kernel: 431 lib,
 3, 2 and 2 tests passed, 0 failed, 1 doc-test ignored.
+| H1 | hosted codex (P1) | The module doc cites its source as an internal path; the comment rule asks for the paper by name | thread on twisted_tower.rs:9 | arXiv metadata of 1107.1375 and 2103.12805 read 2026-11-20 | Fixed in b3d0c198ca9fa753f5488072decebd047a390a40, corrected in 9b79e253a78b3788a0f192def45bb5876f659dcf (Bales 2011; Flaut and Boboescu 2021, theorem over characteristic 0; tests.rs year 2003 corrected to 2011) |
+| A1 | advisor (last) | Modular zero and basis must validate the modulus; citations must be checked, not copied | twisted_tower.rs zero/basis bodies | both call Self::new, which checks the dimension and the prime and reduces residues | Met |
