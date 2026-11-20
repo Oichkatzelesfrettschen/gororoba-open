@@ -1,0 +1,11 @@
+Reconciliation: review of gororoba-open #273 (quantum_core: partial-qubit compatibility without inventing Z tomography)
+
+Source: pull request metadata and inline review comments. Squash commit f81aba2b4e9f18fef4ac751422972bf1d8f3a764 (one parent). Advisor and worker rounds come from the private orchestration record of the session that ran them, which this repository does not retain (README, "Rounds beyond the pull request"); local codex, grok and red-team rounds: not recorded.
+
+Hosted Codex raised no finding (receipt: no major issues; no thread exists); the Advisor and worker findings are in the table below.
+
+Orchestration-record rounds
+
+| # | Reviewer | Finding | Disposition | Source | Check |
+|---|---|---|---|---|---|
+| A1 | advisor | Adopted draft; redundancy note on the alpha == 0.0 clause. | Confirmed; the redundancy claim was falsified, clause kept. | orchestration record | alpha = 0.0 clause kept; interval 0.0..1.0 contains 0 (orchestration record) |
