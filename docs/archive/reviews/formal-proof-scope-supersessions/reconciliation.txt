@@ -1,0 +1,23 @@
+# Reconciliation: local codex review of the formal-proof-scope supersessions
+
+Reviewer: codex, read-only, one round on commit 50d7069c (branch
+supersede-formal-proof-scope, pull request 304). Fixes are in the
+specifications applied at c45ecf60 (branch
+registry-formal-proof-scope-supersessions). The Advisor reviewed last.
+
+| # | Finding | Source | Check | Verdict |
+|---|---|---|---|---|
+| 1 | The knowledge atom of the CHSH successor splits its statement at a vertical bar (SERIOUS) | registry/knowledge/claim_atoms.toml | main already splits C-1130's own atom the same way (statement "CHSH classical bound", status_token UNSPECIFIED) | Confirmed as a generator defect on main; avoided here: the C-1130 specification writes Rabs (...) as the theorem does, and the C-1788 atom reads PROVISIONAL with its whole statement. Boundary: the Markdown-table renderer behind the knowledge atoms needs a fix of its own |
+| 2 | C-029's verdict Falsifies retires an unrefuted literature proposition (SERIOUS) | c-029-transition.toml, verdict and unresolved_assumptions | The specification itself says the papers were not reread and the proposition is neither confirmed nor refuted | Confirmed; fixed: verdict MethodologyInvalid; a source_split successor (C-1786) records the proposition C-029 attributed to BIB-0138 and BIB-0140 of registry/bibliography.toml, with their recorded descriptions, and asserts no evidence for or against it |
+| 3 | Two successors are classed closed_claim by a substring match on "closed" (SERIOUS) | registry/claims_atoms.toml; crates/gororoba_cli_data/src/bin/semantic_atoms.rs | main classes three Provisional claims closed_claim by the same substring (C-1156, C-1362, C-1684) | Confirmed as a classifier defect on main. Here only C-1787 is affected: its theorem names contain "closed". C-1789 no longer says "closed form". Boundary: the classifier needs typed input, a follow-up |
+| 4 | The CHSH and zero-divisor successors state facts no cited theorem states (SLOPPY) | c-1130 and c-1141 specifications | Attainment at (1, -1, 1, 1) is a computation; the materials_core tests were not run | Confirmed; fixed: both moved to the boundary, labeled as computation and as an implementation layer not run for this transition |
+| 5 | The brief's claim 4 named supersedes for every relation (SLOPPY) | the review brief | The relations are narrows for four claims, by design | Confirmed as an error in the brief, not the data. Final relations: C-029 to C-1786 source_split, C-029 to C-1787 supersedes, C-1130 to C-1788, C-1141 to C-1789, C-1233 to C-1790 and C-1236 to C-1791 narrows |
+| 6 | Two falsifiers run backward (SLOPPY) | c-1233 and c-1236 specifications | An omitted axiom would strengthen the theorem | Confirmed; fixed: a Print Assumptions replay that lists an axiom beyond the declared one, its Parameters and the ledger rocq/open/kernel-assumptions.txt refutes the statement |
+| 7 | The commit body said every mirror was regenerated (SLOPPY) | registry/markdown_export/claims_registry_mirror.rs, docs/latex/claims_appendix.tex | main's last full regeneration (096960a7) left both files untouched as well | Confirmed; fixed: the commit names the four targets run. Both views stay stale on main and here (residual risk) |
+
+Advisor (last): confirmed findings 1 to 7 and the fixes; required that the spec
+fields beyond the statements, the C-1786 wording against the bibliography, the
+classification and status of all six successors, and the other registry
+worktrees be read before the commit. Each was read, which changed the C-1786
+statement and the C-029 and C-1141 rationales, before the final application at
+c45ecf60.
