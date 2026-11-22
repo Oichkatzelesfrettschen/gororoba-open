@@ -1,0 +1,109 @@
+schema_version = 1
+claims = ["C-029", "C-1130", "C-1141", "C-1233", "C-1236"]
+purpose = "For five claims whose status reads Verified on the strength of a kernel-checked Rocq file, this map records the statements the cited files prove and the parts of each claim statement that no cited theorem states. The five transitions beside this map register the proved statements as successors."
+formal_evidence_layer = "implementation_conformance"
+locator_form = "A recorded locator proofs/NAME names gororoba-math rocq/open/NAME; this map gives the gororoba-math path."
+method = "Each cited file was read in full at the commits below and its sha256 computed from the git object. No file was compiled or kernel-checked for this map; the compile and kernel check of each listed commit are those of the rocq workflow of gororoba-math."
+
+[formal_source]
+repository = "gororoba-math"
+tree = "rocq/open"
+pin_commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+pin_file = "ci/gororoba_math.pin"
+successor_commit = "8d6bb650ca9ba353317654cea1374b74409301dd"
+successor_commit_scope = "The two successor files of C-029 entered gororoba-math after the pin commit and are read at successor_commit. Every other file below has the same sha256 at both commits."
+
+[[formal_edge]]
+claim = "C-029"
+claim_sentence = "Three fermion generations arise from the C tensor S decomposition into three C tensor O subalgebras."
+formal_file = "rocq/open/verified/C029_FermionGenerations.v"
+theorems = ["C029_s3_order : 1 * 2 * 3 = 6", "C029_three_embeddings : 3 = 3", "C029_orbit_stabilizer : 6 = 3 * 2"]
+formal_scope = "Three identities of natural numbers, each closed by reflexivity. The file imports Stdlib Arith alone and defines no algebra, embedding, group or action."
+not_stated = ["Any subalgebra of the sedenions or of their complexification.", "Any symmetric-group action.", "Any relation between the number 3 and fermion generations."]
+contradicted_by = "The file comment names the low-half, high-half and diagonal embeddings of the octonions as three subalgebras. C029_FermionGenerationArithmetic.C029_hi_image_not_closed and C029_diag_image_not_closed prove that the high-half and diagonal images are not closed under sed_mul."
+
+[[formal_edge]]
+claim = "C-029"
+role = "successor"
+formal_file = "rocq/open/verified/C029_SedenionOctonionSubalgebras.v"
+theorems = ["C029_family_closed", "C029_octonion_subalgebra_iff", "C029_octonion_subalgebra_count", "C029_family_distinct", "C029_high_half_not_closed", "C029_diagonal_not_closed", "C029_degenerate_index_set_not_closed"]
+formal_scope = "For u in 1..15, in_sub u is the real span of the 8 sedenion basis units whose index k has even parity of (u land k). All 15 spans are closed under sed_mul; in_sub u is isomorphic to the octonions through an explicit product-preserving map exactly when u <= 8; for 9 <= u <= 15 a pair of members violates left alternativity; the 15 spans are pairwise distinct."
+not_stated = ["That every octonion subalgebra of the sedenions, or every unit-spanned one, is among the 15.", "Any statement about the complexified algebra C tensor S.", "Any statement about fermion generations."]
+
+[[formal_edge]]
+claim = "C-1130"
+claim_sentence = "CHSH classical bound |S| <= 4 for bounded correlations E in [-1,1]. Tsirelson bound 2*sqrt(2) > 2, establishing quantum advantage."
+formal_file = "rocq/open/theories/BellCHSH.v"
+theorems = ["chsh_classical_bound_weak : four reals in [-1,1] give Rabs (eab - eab' + ea'b + ea'b') <= 4", "tsirelson_bound_positive : 2 * sqrt 2 > 0", "tsirelson_exceeds_classical : 2 * sqrt 2 > 2"]
+formal_scope = "A bound on a signed sum of four independently bounded reals and two inequalities on the real constant 2 * sqrt 2."
+not_stated = ["A local hidden-variable model; the four reals share no joint distribution, so the local bound 2 is not a consequence of the hypotheses.", "That quantum correlations satisfy or attain 2 * sqrt 2; tsirelson_bound is a definition of a constant.", "Any comparison of a quantum strategy with a classical one."]
+bound_attained = "The reals (eab, eab', ea'b, ea'b') = (1, -1, 1, 1) satisfy the four hypotheses and give 1 - (-1) + 1 + 1 = 4, so the hypotheses of chsh_classical_bound_weak admit a value above 2 and above 2 * sqrt 2."
+
+[[formal_edge]]
+claim = "C-1141"
+claim_sentence = "For dim >= 16, the zero-divisor graph has (dim/2 - 1) missing edges and (dim^2 - 6*dim + 8)/2 edges. Edge density approaches 1.0 as dim grows. Proven parametrically via Rocq."
+formal_file = "rocq/open/verified/C1141_ZDGraphGeneralStructure.v"
+theorems = ["zd_missing_edge_count : dim / 2 - 1 = dim / 2 - 1 for even dim >= 4, closed by reflexivity", "zd_vertex_count : dim >= 16 implies dim - 1 >= 15", "missing_edges_16 .. missing_edges_256 : values of dim / 2 - 1", "edge_count_16, edge_count_32, edge_count_64 with their _val lemmas : values 84, 420, 1860 of (dim^2 - 6*dim + 8) / 2", "edge_density_increases : 168 <= 182, 840 <= 870, 3720 <= 3906", "missing_fraction_16_gt_32, missing_fraction_32_gt_64 : two numeric inequalities"]
+formal_scope = "Evaluations and inequalities of natural-number expressions. The file imports Stdlib Arith, PeanoNat and Lia alone and defines no graph, vertex set, adjacency relation or multiplication."
+not_stated = ["That the zero-divisor graph of any Cayley-Dickson algebra has these counts.", "Any limit of an edge density."]
+implementation_evidence = "crates/materials_core/src/e8_crystal_bridge.rs holds tests that compare zd_graph_topology_closed_form with zd_graph_topology_brute_force at dimensions 16, 32 and 64 (test_zd_closed_form_matches_brute_force_16d and its siblings). They were not run for this map."
+
+[[formal_edge]]
+claim = "C-1233"
+claim_sentence = "The total Chern number equals zero for all 9 bands when inversion symmetry is preserved, as guaranteed by time-reversal symmetry F(k) = -F(-k)."
+formal_file = "rocq/open/verified/C1233_ChernSumZero.v"
+depends_on = "rocq/open/theories/TightBindingTopology.v"
+theorems = ["trs_pointwise_cancel : has_trs F implies F kx ky + reflected F kx ky = 0", "chern_sum_zero_under_trs : has_trs F implies chern_integral F + chern_integral (reflected F) = 0"]
+formal_scope = "chern_integral is a Parameter of type berry_curvature -> R with the Axiom chern_integral_linear (pointwise cancellation of F and G implies chern_integral F + chern_integral G = 0). The main theorem is that axiom applied to F and its reflection, for a real function F with F kx ky = - F (-kx) (-ky)."
+axioms = ["TightBindingTopology.chern_integral (Parameter)", "TightBindingTopology.chern_integral_linear (Axiom)"]
+not_stated = ["chern_integral F = 0; the theorem bounds the sum with the reflected field, and no axiom of the file equates chern_integral (reflected F) with chern_integral F.", "Any Hamiltonian, band, band count or inversion symmetry.", "That band_chern_number of crates/quantum_core/src/tight_binding.rs satisfies the axiom or the hypothesis has_trs."]
+
+[[formal_edge]]
+claim = "C-1236"
+claim_sentence = "The flat band DOS enhancement is proportional to 1/bandwidth, reaching ~1000x for the kagome flat band with W ~ 0.001 GHz vs dispersive bands with W ~ 1 GHz."
+formal_file = "rocq/open/verified/C1236_FlatBandGroupVelocity.v"
+depends_on = "rocq/open/theories/TightBindingTopology.v"
+theorems = ["flat_band_group_velocity_bound : is_flat_band E eps and 0 < dk imply max_group_velocity E dk < eps / dk", "perfectly_flat_zero_velocity : bandwidth E = 0 and 0 < dk imply max_group_velocity E dk <= 0"]
+formal_scope = "bandwidth and max_group_velocity are Parameters with the Axiom group_velocity_bandwidth_bound (max_group_velocity E dk <= bandwidth E / dk for 0 < dk). Both theorems are that axiom combined with the hypothesis on bandwidth."
+axioms = ["TightBindingTopology.bandwidth (Parameter)", "TightBindingTopology.max_group_velocity (Parameter)", "TightBindingTopology.group_velocity_bandwidth_bound (Axiom)"]
+not_stated = ["A density of states, an effective mass or an enhancement factor.", "The bandwidths 0.001 GHz and 1 GHz or any kagome model.", "That detect_flat_bands of crates/quantum_core/src/tight_binding.rs satisfies the axiom."]
+
+[[formal_input]]
+path = "rocq/open/verified/C029_FermionGenerations.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "dd820275a4333807f8a1176f20e5856ff1712b35e287c9feb7e65ddd149d8c70"
+
+[[formal_input]]
+path = "rocq/open/verified/C029_FermionGenerationArithmetic.v"
+commit = "8d6bb650ca9ba353317654cea1374b74409301dd"
+sha256 = "1dc5d0eb6575d06014cc8041bc0772aa77a60745ca659f4ae2f7ca079ccdfa3b"
+
+[[formal_input]]
+path = "rocq/open/verified/C029_SedenionOctonionSubalgebras.v"
+commit = "8d6bb650ca9ba353317654cea1374b74409301dd"
+sha256 = "005a132ad2d8f7ca25ffd8c76b2667f00c3b03ee8a9e38db290a5cdc37ab51cf"
+
+[[formal_input]]
+path = "rocq/open/theories/BellCHSH.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "5dd68419a167ac811fcb942b9d585673594b17fb0036dcc5bd6d151dd76c16fc"
+
+[[formal_input]]
+path = "rocq/open/verified/C1141_ZDGraphGeneralStructure.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "d32cecf6123d14412f9a53cfdb10feb4b4b3d917f5ed47fc9d35431e32d027b3"
+
+[[formal_input]]
+path = "rocq/open/verified/C1233_ChernSumZero.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "3ca9ce436ccd1ebfc96a92e9143c24cd14f06dce41ba172fd1a493c95fc2fbba"
+
+[[formal_input]]
+path = "rocq/open/verified/C1236_FlatBandGroupVelocity.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "7c0a346562886d1ee75d4b0c071305fc40fda60e56452341e66702b3a8203eba"
+
+[[formal_input]]
+path = "rocq/open/theories/TightBindingTopology.v"
+commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+sha256 = "35df5302f63c756df83e543d6f6a9af812966f78c6cdefa3ea5c43367bddbd00"

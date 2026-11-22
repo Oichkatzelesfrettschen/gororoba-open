@@ -260,7 +260,7 @@ formal_proof = "proofs/verified/C029_FermionGenerations.v"
 id = "C-029"
 last_verified = "2026-01-30"
 statement = "Three fermion generations arise from the C tensor S decomposition into three C tensor O subalgebras (Gillard & Gresnigt 2019, Gresnigt 2023)."
-status = "Verified"
+status = "Superseded"
 status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C029_FermionGenerations.v"
 where_stated = "`docs/BIBLIOGRAPHY.md` (Gillard & Gresnigt 2019; Gresnigt 2023), `docs/SEDENION_FIELD_THEORY.md`, `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_sedenion_box_kites, test_octonion_field_fano)"
 
@@ -1183,7 +1183,7 @@ formal_proof = "proofs/theories/BellCHSH.v"
 id = "C-1130"
 last_verified = "2026-03-07"
 statement = "CHSH classical bound |S| <= 4 for bounded correlations E in [-1,1]. Tsirelson bound 2*sqrt(2) > 2, establishing quantum advantage. Kernel-checked via Rocq 9.1."
-status = "Verified"
+status = "Superseded"
 where_stated = "proofs/theories/BellCHSH.v (chsh_classical_bound_weak, tsirelson_bound_positive, tsirelson_exceeds_classical)"
 
 [[claim]]
@@ -1279,7 +1279,7 @@ formal_proof = "proofs/verified/C1141_ZDGraphGeneralStructure.v"
 id = "C-1141"
 last_verified = "2026-03-07"
 statement = "ZD graph general structure: for dim >= 16, the zero-divisor graph has (dim/2 - 1) missing edges and (dim^2 - 6*dim + 8)/2 edges. Edge density approaches 1.0 as dim grows. Proven parametrically via Rocq (no CD multiplication needed -- pure graph combinatorics)."
-status = "Verified"
+status = "Superseded"
 status_note = "C1141_ZDGraphGeneralStructure.vo compiled and kernel-checked."
 where_stated = "proofs/verified/C1141_ZDGraphGeneralStructure.v"
 
@@ -2026,7 +2026,7 @@ formal_proof = "proofs/verified/C1233_ChernSumZero.v"
 id = "C-1233"
 last_verified = "2026-03-11"
 statement = "The total Chern number equals zero for all 9 bands when inversion symmetry is preserved, as guaranteed by time-reversal symmetry F(k) = -F(-k)."
-status = "Verified"
+status = "Superseded"
 status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C1233_ChernSumZero.v"
 where_stated = "crates/quantum_core/src/tight_binding.rs (band_chern_number), proofs/verified/C1233_ChernSumZero.v"
 
@@ -2052,7 +2052,7 @@ formal_proof = "proofs/verified/C1236_FlatBandGroupVelocity.v"
 id = "C-1236"
 last_verified = "2026-03-11"
 statement = "The flat band DOS enhancement is proportional to 1/bandwidth, reaching ~1000x for the kagome flat band with W ~ 0.001 GHz vs dispersive bands with W ~ 1 GHz."
-status = "Verified"
+status = "Superseded"
 status_note = "Kernel-checked via Rocq 9.1: proofs/verified/C1236_FlatBandGroupVelocity.v"
 where_stated = "crates/quantum_core/src/tight_binding.rs (detect_flat_bands), proofs/verified/C1236_FlatBandGroupVelocity.v, Kaman et al. (2026) Sec. IV"
 
@@ -8890,11 +8890,46 @@ status_note = "The tolerance is the one E-081 records: five Monte Carlo standard
 where_stated = "crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)"
 
 [[claim]]
+id = "C-1786"
+last_verified = "2026-11-22"
+statement = "For u in 1..15 let in_sub u be the real span of the 8 basis units of the 16D (sedenions) whose index k has even parity of (u land k), under the Cayley-Dickson product sed_mul over the reals. All 15 spans are closed under the product and pairwise distinct (C029_family_closed, C029_family_distinct). Exactly the 8 spans with u <= 8 are isomorphic to the octonions through an explicit linear product-preserving map; each of the 7 spans with 9 <= u <= 15 contains a pair violating left alternativity (C029_octonion_subalgebra_iff, C029_octonion_subalgebra_count). The high-half image and the diagonal image of the octonions are not closed under the product (C029_high_half_not_closed, C029_diagonal_not_closed, C029_FermionGenerationArithmetic.C029_hi_image_not_closed, C029_diag_image_not_closed). The statement classifies this family of 15 and asserts nothing about other subalgebras, about C tensor S, or about fermion generations."
+status = "Provisional"
+where_stated = "data/output/audit/formal-proof-scope/source-map.toml"
+
+[[claim]]
+id = "C-1787"
+last_verified = "2026-11-22"
+statement = "For reals eab, eab', ea'b, ea'b' each in [-1,1], |eab - eab' + ea'b + ea'b'| <= 4 (BellCHSH.chsh_classical_bound_weak); the bound is attained at (1, -1, 1, 1). The real constant 2 * sqrt 2 is positive and exceeds 2 (tsirelson_bound_positive, tsirelson_exceeds_classical). The file defines no local hidden-variable model and no quantum correlation, so it proves neither the local bound 2 nor Tsirelson's bound, and the statement asserts no quantum advantage."
+status = "Provisional"
+where_stated = "data/output/audit/formal-proof-scope/source-map.toml; proofs/theories/BellCHSH.v"
+
+[[claim]]
+id = "C-1788"
+last_verified = "2026-11-22"
+statement = "The expressions dim / 2 - 1 and (dim^2 - 6*dim + 8) / 2 take the values 7, 15, 31, 63, 127 at dim = 16, 32, 64, 128, 256 and 84, 420, 1860 at dim = 16, 32, 64 (C1141_ZDGraphGeneralStructure: missing_edges_16 to missing_edges_256, edge_count_16_val, edge_count_32_val, edge_count_64_val). These are evaluations of natural-number expressions. That the zero-divisor basis participation graph of the Cayley-Dickson algebra of dimension dim has dim / 2 - 1 missing edges and (dim^2 - 6*dim + 8) / 2 edges is a closed form implemented in materials_core (zd_graph_topology_closed_form) with brute-force comparison tests at dim = 16, 32 and 64; it is not proved for any dimension by the Rocq file and is not established for dim > 64."
+status = "Provisional"
+where_stated = "data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1141_ZDGraphGeneralStructure.v; crates/materials_core/src/e8_crystal_bridge.rs (zd_graph_topology_closed_form, test_zd_closed_form_matches_brute_force_16d)"
+
+[[claim]]
+id = "C-1789"
+last_verified = "2026-11-22"
+statement = "Let chern_integral be a real functional on functions R -> R -> R satisfying the declared axiom that pointwise cancellation of F and G implies chern_integral F + chern_integral G = 0. Then every F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0, where reflected F kx ky = F (-kx) (-ky) (C1233_ChernSumZero.chern_sum_zero_under_trs, resting on TightBindingTopology.chern_integral_linear). The statement is conditional on the axiom, does not assert chern_integral F = 0, and concerns no Hamiltonian, band count or inversion symmetry."
+status = "Provisional"
+where_stated = "data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1233_ChernSumZero.v; proofs/theories/TightBindingTopology.v"
+
+[[claim]]
 id = "C-179"
 last_verified = "2026-02-01"
 statement = "No nonzero nilpotent elements exist in any CD algebra. For unit vectors,||x^n||= 1.0 exactly for all n tested (2 through 5) at all dims through 128. This is a consequence of power-associativity + norm multiplicativity on powers (C-142, C-173). Random unit products never vanish (min norm > 0.1)."
 status = "Verified"
 where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v22.py`, `data/csv/cd_algebraic_experiments_v22.json`"
+
+[[claim]]
+id = "C-1790"
+last_verified = "2026-11-22"
+statement = "Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."
+status = "Provisional"
+where_stated = "data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1236_FlatBandGroupVelocity.v; proofs/theories/TightBindingTopology.v"
 
 [[claim]]
 id = "C-180"

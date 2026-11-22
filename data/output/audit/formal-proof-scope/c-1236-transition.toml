@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-22T20:51:00Z"
+transition_key = "c-1236-flat-band-velocity-axiom-scope"
+source_claim_id = "C-1236"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+exercised_falsifier = "Read C1236_FlatBandGroupVelocity.v and TightBindingTopology.v at the pinned gororoba-math commit and list the Parameters and Axioms the theorems rest on. The claim keeps its support if a theorem states a density-of-states enhancement or the factor 1000; it loses it when the theorems bound an uninterpreted group velocity through a declared axiom."
+proposed_claim_status = "Superseded"
+rationale = "flat_band_group_velocity_bound states max_group_velocity E dk < eps / dk for a band with bandwidth E < eps and 0 < dk, and perfectly_flat_zero_velocity states max_group_velocity E dk <= 0 when bandwidth E = 0. bandwidth and max_group_velocity are Parameters, and both theorems are the Axiom group_velocity_bandwidth_bound combined with the hypothesis. The file defines no density of states, effective mass or enhancement, and contains neither bandwidth 0.001 GHz nor 1 GHz. The enhancement sentence is a statement about an implemented model and a cited source (Kaman et al. 2026, Sec. IV); the kernel check does not reach it. The method cannot support the claim as stated, so C-1236 becomes Superseded and the successor states the conditional velocity bound."
+unresolved_assumptions = ["Whether detect_flat_bands of quantum_core reports the stated bandwidths, and whether a density-of-states ratio near 1000 follows for the implemented kagome model, are numerical questions this transition does not test.", "The axiom group_velocity_bandwidth_bound is declared for uninterpreted Parameters and is not derived from a discretized dispersion.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Scope C-1236 to the conditional group-velocity bound and name its axiom."
+expected_source_state_sha256 = "fcc932212c094627d648824ad993079eee064b9bafd8f274017537b2e9c89a8b"
+expected_claim_id_max = 1789
+
+[[successor]]
+proposal_key = "flat-band-group-velocity-bound-conditional"
+statement = "Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement in gororoba-math rocq/open/verified/C1236_FlatBandGroupVelocity.v over the Parameters and Axioms of TightBindingTopology.v, at the commit and digests of data/output/audit/formal-proof-scope/source-map.toml. No conformance of crates/quantum_core/src/tight_binding.rs (detect_flat_bands) to the axiom is asserted."
+required_falsifier = "A compile or kernel-check failure of the two files at the pinned commit, or a Print Assumptions replay of flat_band_group_velocity_bound that omits group_velocity_bandwidth_bound, refutes the statement as scoped."
+where_stated = ["data/output/audit/formal-proof-scope/source-map.toml", "proofs/verified/C1236_FlatBandGroupVelocity.v", "proofs/theories/TightBindingTopology.v"]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+predecessor_relation_kind = "narrows"

@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_relations
 [meta]
 surface = "typed predecessor and successor claim relations"
-relation_count = 127
+relation_count = 132
 relation_kinds = ["source_split", "implementation_split", "narrows", "refines", "supersedes"]
 
 [[relation]]
@@ -895,3 +895,38 @@ predecessor_claim_id = "C-871"
 successor_claim_id = "C-1785"
 relation_kind = "implementation_split"
 transition_event_id = 231
+
+[[relation]]
+relation_id = 128
+predecessor_claim_id = "C-029"
+successor_claim_id = "C-1786"
+relation_kind = "supersedes"
+transition_event_id = 232
+
+[[relation]]
+relation_id = 129
+predecessor_claim_id = "C-1130"
+successor_claim_id = "C-1787"
+relation_kind = "narrows"
+transition_event_id = 233
+
+[[relation]]
+relation_id = 130
+predecessor_claim_id = "C-1141"
+successor_claim_id = "C-1788"
+relation_kind = "narrows"
+transition_event_id = 234
+
+[[relation]]
+relation_id = 131
+predecessor_claim_id = "C-1233"
+successor_claim_id = "C-1789"
+relation_kind = "narrows"
+transition_event_id = 235
+
+[[relation]]
+relation_id = 132
+predecessor_claim_id = "C-1236"
+successor_claim_id = "C-1790"
+relation_kind = "narrows"
+transition_event_id = 236

@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-22T20:49:00Z"
+transition_key = "c-1141-zd-graph-count-arithmetic-scope"
+source_claim_id = "C-1141"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+exercised_falsifier = "Read every theorem of C1141_ZDGraphGeneralStructure.v at the pinned gororoba-math commit. The sentence 'Proven parametrically via Rocq' keeps its support if some theorem relates dim / 2 - 1 or (dim^2 - 6*dim + 8) / 2 to a graph defined from Cayley-Dickson zero divisors; it loses it when the file defines no graph."
+proposed_claim_status = "Superseded"
+rationale = "The file imports Stdlib arithmetic alone and defines no graph, adjacency relation or multiplication. Its parametric theorem zd_missing_edge_count states dim / 2 - 1 = dim / 2 - 1 and is closed by reflexivity; zd_vertex_count states that dim >= 16 implies dim - 1 >= 15; the remaining lemmas evaluate the two count expressions at dimensions 16 to 256 and compare fixed numerals. None connects a count to the zero-divisor graph, so the kernel check supports no sentence of C-1141 about that graph, and no theorem states a limit of the edge density. The method cannot support the claim, so C-1141 becomes Superseded. The successor states the evaluations the file proves and the bounded implementation comparison that exists, and leaves the graph statement for every dimension unproved."
+unresolved_assumptions = ["The closed form may hold for every power-of-two dimension; neither a proof nor a counterexample is recorded here.", "The tests of crates/materials_core/src/e8_crystal_bridge.rs that compare the closed form with a brute-force count at dimensions 16, 32 and 64 were not run for this transition.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Scope C-1141 to the arithmetic evaluations its Rocq file proves and name the graph statement as unproved."
+expected_source_state_sha256 = "09c14a8b7dc375a14af0ab95b29fca1584a3b30d111af6da2f7b5904f3e94771"
+expected_claim_id_max = 1787
+
+[[successor]]
+proposal_key = "zd-graph-count-expressions-arithmetic"
+statement = "The expressions dim / 2 - 1 and (dim^2 - 6*dim + 8) / 2 take the values 7, 15, 31, 63, 127 at dim = 16, 32, 64, 128, 256 and 84, 420, 1860 at dim = 16, 32, 64 (C1141_ZDGraphGeneralStructure: missing_edges_16 to missing_edges_256, edge_count_16_val, edge_count_32_val, edge_count_64_val). These are evaluations of natural-number expressions. That the zero-divisor basis participation graph of the Cayley-Dickson algebra of dimension dim has dim / 2 - 1 missing edges and (dim^2 - 6*dim + 8) / 2 edges is a closed form implemented in materials_core (zd_graph_topology_closed_form) with brute-force comparison tests at dim = 16, 32 and 64; it is not proved for any dimension by the Rocq file and is not established for dim > 64."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal part: natural-number arithmetic in gororoba-math rocq/open/verified/C1141_ZDGraphGeneralStructure.v at the commit and digest of data/output/audit/formal-proof-scope/source-map.toml. Implementation part: the tests of crates/materials_core/src/e8_crystal_bridge.rs, bounded to the dimensions they enumerate. No theorem links the two parts."
+required_falsifier = "A compile or kernel-check failure of the Rocq file at the pinned commit refutes the formal part. A brute-force enumeration of the zero-divisor basis participation graph at dim = 16, 32 or 64 whose edge count differs from the closed form refutes the implementation part, and one at a larger dimension refutes the closed form there."
+where_stated = ["data/output/audit/formal-proof-scope/source-map.toml", "proofs/verified/C1141_ZDGraphGeneralStructure.v", "crates/materials_core/src/e8_crystal_bridge.rs (zd_graph_topology_closed_form, test_zd_closed_form_matches_brute_force_16d)"]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+predecessor_relation_kind = "narrows"
