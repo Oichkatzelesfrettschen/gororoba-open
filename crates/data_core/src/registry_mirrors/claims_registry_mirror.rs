@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1598
+//! Total claims: 1604
 //!
 //! ## C-001
 //!
@@ -234,7 +234,7 @@
 //!
 //! ## C-029
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-01-30
 //! - Statement: Three fermion generations arise from the C tensor S decomposition into three C tensor O subalgebras (Gillard & Gresnigt 2019, Gresnigt 2023).
 //! - Where stated: `docs/BIBLIOGRAPHY.md` (Gillard & Gresnigt 2019; Gresnigt 2023), `docs/SEDENION_FIELD_THEORY.md`, `CURRENT::PATH crates/gororoba_algebra/src/construction/hypercomplex.rs (LEGACY::PATH crates/algebra_core/src/construction/hypercomplex.rs)` (test_sedenion_box_kites, test_octonion_field_fano)
@@ -7946,7 +7946,7 @@
 //!
 //! ## C-1130
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-03-07
 //! - Statement: CHSH classical bound |S| <= 4 for bounded correlations E in [-1,1]. Tsirelson bound 2*sqrt(2) > 2, establishing quantum advantage. Kernel-checked via Rocq 9.1.
 //! - Where stated: proofs/theories/BellCHSH.v (chsh_classical_bound_weak, tsirelson_bound_positive, tsirelson_exceeds_classical)
@@ -8034,7 +8034,7 @@
 //!
 //! ## C-1141
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-03-07
 //! - Statement: ZD graph general structure: for dim >= 16, the zero-divisor graph has (dim/2 - 1) missing edges and (dim^2 - 6*dim + 8)/2 edges. Edge density approaches 1.0 as dim grows. Proven parametrically via Rocq (no CD multiplication needed -- pure graph combinatorics).
 //! - Where stated: proofs/verified/C1141_ZDGraphGeneralStructure.v
@@ -8770,7 +8770,7 @@
 //!
 //! ## C-1233
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-03-11
 //! - Statement: The total Chern number equals zero for all 9 bands when inversion symmetry is preserved, as guaranteed by time-reversal symmetry F(k) = -F(-k).
 //! - Where stated: crates/quantum_core/src/tight_binding.rs (band_chern_number), proofs/verified/C1233_ChernSumZero.v
@@ -8794,7 +8794,7 @@
 //!
 //! ## C-1236
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-03-11
 //! - Statement: The flat band DOS enhancement is proportional to 1/bandwidth, reaching ~1000x for the kagome flat band with W ~ 0.001 GHz vs dispersive bands with W ~ 1 GHz.
 //! - Where stated: crates/quantum_core/src/tight_binding.rs (detect_flat_bands), proofs/verified/C1236_FlatBandGroupVelocity.v, Kaman et al. (2026) Sec. IV
@@ -12790,4 +12790,52 @@
 //! - Last verified: 2026-11-16
 //! - Statement: For the real-scalar Dirichlet worldline estimator of the parallel-plate interaction energy per area at unit separation (5000 loops, seed 8127, hbar=c=1), the 512-point-per-loop polygon estimate is more negative than (larger in magnitude than) the 32-point estimate and differs from the scalar analytic reference -pi^2/(1440*a^3) by less than five Monte Carlo standard errors plus 15 percent of the reference magnitude (scalar_plate_polygon_refinement_matches_known_energy); doubling the separation divides the estimate and its error by 8 exactly (assert_eq on both in the same test). The finite-polygon allowance exceeds the statistical error, so the result bounds convergence and does not establish agreement within Monte Carlo error.
 //! - Where stated: crates/casimir_core/src/energy.rs (scalar_parallel_plates_worldline, scalar_parallel_plates_exact, scalar_plate_polygon_refinement_matches_known_energy)
+//! - What would verify/refute it:
+//!
+//! ## C-1786
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: C-029 attributed to Gillard and Gresnigt (2019) and Gresnigt, Gourlay and Varma (2023) the proposition that three fermion generations arise from the C tensor S decomposition into three C tensor O subalgebras. The bibliography records the two papers as minimal left ideals of C tensor S under Cl(6) describing three fermion generations (BIB-0138) and as three octonion subalgebras of S distinguished by SU(3) color or chiral SU(2) (BIB-0140). This successor records the attributed proposition; this repository holds no formal or computational evidence that confirms or refutes it.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; registry/bibliography.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1787
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: For u in 1..15 let in_sub u be the real span of the 8 basis units of the 16D (sedenions) whose index k has even parity of (u land k), under the Cayley-Dickson product sed_mul over the reals. All 15 spans are closed under the product and pairwise distinct (C029_family_closed, C029_family_distinct). Exactly the 8 spans with u <= 8 are isomorphic to the octonions through an explicit linear product-preserving map; each of the 7 spans with 9 <= u <= 15 contains a pair violating left alternativity (C029_octonion_subalgebra_iff, C029_octonion_subalgebra_count). The high-half image and the diagonal image of the octonions are not closed under the product (C029_high_half_not_closed, C029_diagonal_not_closed, C029_FermionGenerationArithmetic.C029_hi_image_not_closed, C029_diag_image_not_closed). The statement classifies this family of 15 and asserts nothing about other subalgebras, about C tensor S, or about fermion generations.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1788
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: For reals eab, eab', ea'b, ea'b' each in [-1,1], Rabs (eab - eab' + ea'b + ea'b') <= 4 (BellCHSH.chsh_classical_bound_weak). The real constant 2 * sqrt 2 is positive and exceeds 2 (tsirelson_bound_positive, tsirelson_exceeds_classical). The file defines no local hidden-variable model and no quantum correlation, so it proves neither the local bound 2 nor Tsirelson's bound, and the statement asserts no quantum advantage.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/theories/BellCHSH.v
+//! - What would verify/refute it:
+//!
+//! ## C-1789
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: The expressions dim / 2 - 1 and (dim^2 - 6*dim + 8) / 2 take the values 7, 15, 31, 63, 127 at dim = 16, 32, 64, 128, 256 and 84, 420, 1860 at dim = 16, 32, 64 (C1141_ZDGraphGeneralStructure: missing_edges_16 to missing_edges_256, edge_count_16_val, edge_count_32_val, edge_count_64_val). These are evaluations of natural-number expressions; no theorem of the file defines a zero-divisor graph or relates these expressions to one.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1141_ZDGraphGeneralStructure.v; crates/materials_core/src/e8_crystal_bridge.rs (zd_graph_topology_closed_form, test_zd_closed_form_matches_brute_force_16d)
+//! - What would verify/refute it:
+//!
+//! ## C-1790
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: Let chern_integral be a real functional on functions R -> R -> R satisfying the declared axiom that pointwise cancellation of F and G implies chern_integral F + chern_integral G = 0. Then every F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0, where reflected F kx ky = F (-kx) (-ky) (C1233_ChernSumZero.chern_sum_zero_under_trs, resting on TightBindingTopology.chern_integral_linear). The statement is conditional on the axiom, does not assert chern_integral F = 0, and concerns no Hamiltonian, band count or inversion symmetry.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1233_ChernSumZero.v; proofs/theories/TightBindingTopology.v
+//! - What would verify/refute it:
+//!
+//! ## C-1791
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-22
+//! - Statement: Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model.
+//! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1236_FlatBandGroupVelocity.v; proofs/theories/TightBindingTopology.v
 //! - What would verify/refute it:
