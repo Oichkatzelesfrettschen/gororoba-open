@@ -18,3 +18,4 @@ during their review. Paths are repository-relative.
 - subsystem-entropy-mps-contractions/README.txt: Review record: quantum_core: checked subsystem entropy and two-sided MPS contractions
 - teleportation-pauli-frame-readout/README.txt: Review record: quantum_core: exact Pauli-frame algebra for teleportation readout
 - twisted-tower-module/README.txt: Review record: cd_kernel: twisted-tower group algebra with exact associators
+- registry-c1783-heldout-evidence/README.txt: Review record: registry: C-1783 carries its held-out P13d evaluation
