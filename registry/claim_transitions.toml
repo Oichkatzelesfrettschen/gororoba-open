@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 231
+event_count = 236
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -4975,3 +4975,123 @@ transition_spec_sha256 = "97952e9a077151fa709e9cd01885ed8e1709fe77d49bd3d0f6e263
 proposal_key = "scalar-worldline-plate-polygon-refinement"
 canonical_claim_id = "C-1785"
 relation_kind = "implementation_split"
+
+[[transition]]
+event_id = 232
+transition_key = "c-029-octonion-subalgebra-family-supersession"
+source_claim_id = "C-029"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read every theorem of C029_FermionGenerations.v at the pinned gororoba-math commit. C-029 keeps its formal support if some theorem states a decomposition of the sedenions or of C tensor S into three octonion subalgebras; it loses it when none does, and the three-subalgebra reading of the file comment is falsified when the high-half or the diagonal image of the octonions is shown not closed under the sedenion product."
+rationale = "The cited file proves 1 * 2 * 3 = 6, 3 = 3 and 6 = 3 * 2 by reflexivity and defines no algebra, embedding or group, so the status note 'Kernel-checked' names three arithmetic identities and no sentence of the claim. Its comment counts the low-half, high-half and diagonal embeddings of the octonions as three subalgebras; C029_FermionGenerationArithmetic.C029_hi_image_not_closed and C029_diag_image_not_closed in gororoba-math prove that the high-half and diagonal images are not closed under sed_mul, so two of the three are not subalgebras. The fermion-generation sentence is a phenomenological mapping attributed to Gillard and Gresnigt (2019) and Gresnigt (2023); no formal or computational evidence here reaches that layer, and evidence at the implementation layer does not promote it. C-029 mixes a literature attribution with formal support that does not reach it, so its methodology is invalid and it becomes Superseded. One successor carries the subalgebra classification that gororoba-math proves and asserts nothing about generations; a source_split successor keeps the literature proposition, which no evidence here confirms or refutes."
+unresolved_assumptions = ["The literature claim of Gillard and Gresnigt concerns C tensor S and is neither confirmed nor refuted by this transition; the cited papers were not reread for it.", "The successor files entered gororoba-math after the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so both successors start Provisional."]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Replace the arithmetic support of C-029 by the proved classification of the 15 coordinate-hyperplane subalgebras of the sedenions, and keep its literature proposition as a successor of its own."
+transition_timestamp = "2026-11-23T00:05:00Z"
+transition_spec_sha256 = "924cc55d374af7f6bf246e4ac5c6f465da55ac68f92122ee5e08291cabed7fb8"
+
+[[transition.successors]]
+proposal_key = "gillard-gresnigt-three-generations-literature-proposition"
+canonical_claim_id = "C-1786"
+relation_kind = "source_split"
+
+[[transition.successors]]
+proposal_key = "sedenion-coordinate-hyperplane-octonion-subalgebras"
+canonical_claim_id = "C-1787"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 233
+transition_key = "c-1130-chsh-bounded-sum-scope"
+source_claim_id = "C-1130"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read every theorem of BellCHSH.v at the pinned gororoba-math commit and evaluate the CHSH expression at (1, -1, 1, 1). The sentence 'establishing quantum advantage' keeps formal support if some theorem bounds a local hidden-variable model by 2 or bounds quantum correlations by 2 * sqrt 2; it loses it when none does and the stated hypotheses admit the value 4."
+rationale = "BellCHSH.v proves that four reals in [-1,1] give Rabs (eab - eab' + ea'b + ea'b') <= 4 and that the constant 2 * sqrt 2 is positive and exceeds 2. The four reals share no joint model, so the bound 4 is the triangle inequality and is attained at (1, -1, 1, 1); the local bound 2 named in the file comment is not proved, and tsirelson_bound is a definition, not a theorem about quantum correlations. The comparison 2 * sqrt 2 > 2 is an inequality between two real constants and establishes no quantum advantage. The method cannot support that sentence, so C-1130 becomes Superseded and the successor carries the three proved statements with their scope."
+unresolved_assumptions = ["The CHSH bound 2 for local hidden-variable models and Tsirelson's bound for quantum correlations are standard results; neither is formalized in the cited file.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Scope C-1130 to the bounded-sum inequality and the two constant inequalities that BellCHSH.v proves."
+transition_timestamp = "2026-11-23T00:06:00Z"
+transition_spec_sha256 = "00c9ccf487769919337b3c4acbb1f36f1409de26c51f41af519944a84441c3eb"
+
+[[transition.successors]]
+proposal_key = "chsh-bounded-sum-and-constant-inequalities"
+canonical_claim_id = "C-1788"
+relation_kind = "narrows"
+
+[[transition]]
+event_id = 234
+transition_key = "c-1141-zd-graph-count-arithmetic-scope"
+source_claim_id = "C-1141"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read every theorem of C1141_ZDGraphGeneralStructure.v at the pinned gororoba-math commit. The sentence 'Proven parametrically via Rocq' keeps its support if some theorem relates dim / 2 - 1 or (dim^2 - 6*dim + 8) / 2 to a graph defined from Cayley-Dickson zero divisors; it loses it when the file defines no graph."
+rationale = "The file imports Stdlib arithmetic alone and defines no graph, adjacency relation or multiplication. Its parametric theorem zd_missing_edge_count states dim / 2 - 1 = dim / 2 - 1 and is closed by reflexivity; zd_vertex_count states that dim >= 16 implies dim - 1 >= 15; the remaining lemmas evaluate the two count expressions at dimensions 16 to 256 and compare fixed numerals. None connects a count to the zero-divisor graph, so the kernel check supports no sentence of C-1141 about that graph, and no theorem states a limit of the edge density. The method cannot support the claim, so C-1141 becomes Superseded. The successor states the evaluations the file proves; the bounded implementation comparison stays outside it, in its boundary, and the graph statement for every dimension stays unproved."
+unresolved_assumptions = ["The closed form may hold for every power-of-two dimension; neither a proof nor a counterexample is recorded here.", "The tests of crates/materials_core/src/e8_crystal_bridge.rs that compare the closed form with a brute-force count at dimensions 16, 32 and 64 were not run for this transition.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Scope C-1141 to the arithmetic evaluations its Rocq file proves and name the graph statement as unproved."
+transition_timestamp = "2026-11-23T00:07:00Z"
+transition_spec_sha256 = "1ff80974e033129db11da3b2cba0ce5d11f8d8da6e3103ab8c13ca190d45118f"
+
+[[transition.successors]]
+proposal_key = "zd-graph-count-expressions-arithmetic"
+canonical_claim_id = "C-1789"
+relation_kind = "narrows"
+
+[[transition]]
+event_id = 235
+transition_key = "c-1233-chern-cancellation-axiom-scope"
+source_claim_id = "C-1233"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read C1233_ChernSumZero.v and TightBindingTopology.v at the pinned gororoba-math commit and list the Parameters and Axioms the main theorem rests on. The claim keeps its support if a theorem states that the Chern number of each of 9 bands of a defined Hamiltonian vanishes; it loses it when the integral is an uninterpreted Parameter and the conclusion is a sum with a reflected field."
+rationale = "chern_sum_zero_under_trs states that a real function F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0. chern_integral is a Parameter, and the theorem is the Axiom chern_integral_linear applied to F and its reflection; no axiom equates the integral of the reflected field with that of F, so the theorem does not state chern_integral F = 0. The file defines no Hamiltonian, band or inversion operation, and nothing ties band_chern_number of quantum_core to the axiom. The claim sentence also names inversion symmetry as the condition while the hypothesis is the time-reversal relation; inversion symmetry alone does not force a vanishing Chern number. The method cannot support the claim as stated, so C-1233 becomes Superseded and the successor states the conditional theorem with its axioms."
+unresolved_assumptions = ["Whether band_chern_number returns zero for each of the 9 bands of the implemented model is a numerical question that this transition does not test.", "The axioms chern_integral_linear, chern_splits_into_valleys and trs_swaps_valleys are declared, not derived from a definition of the integral.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Scope C-1233 to the conditional cancellation theorem and name its axioms."
+transition_timestamp = "2026-11-23T00:08:00Z"
+transition_spec_sha256 = "f60c51d95f92b2a8d0029735cdc507f3944546630a62e38cb3275dbf307678b3"
+
+[[transition.successors]]
+proposal_key = "chern-integral-reflection-cancellation-conditional"
+canonical_claim_id = "C-1790"
+relation_kind = "narrows"
+
+[[transition]]
+event_id = 236
+transition_key = "c-1236-flat-band-velocity-axiom-scope"
+source_claim_id = "C-1236"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read C1236_FlatBandGroupVelocity.v and TightBindingTopology.v at the pinned gororoba-math commit and list the Parameters and Axioms the theorems rest on. The claim keeps its support if a theorem states a density-of-states enhancement or the factor 1000; it loses it when the theorems bound an uninterpreted group velocity through a declared axiom."
+rationale = "flat_band_group_velocity_bound states max_group_velocity E dk < eps / dk for a band with bandwidth E < eps and 0 < dk, and perfectly_flat_zero_velocity states max_group_velocity E dk <= 0 when bandwidth E = 0 and 0 < dk. bandwidth and max_group_velocity are Parameters, and both theorems are the Axiom group_velocity_bandwidth_bound combined with the hypothesis. The file defines no density of states, effective mass or enhancement, and contains neither bandwidth 0.001 GHz nor 1 GHz. The enhancement sentence is a statement about an implemented model and a cited source (Kaman et al. 2026, Sec. IV); the kernel check does not reach it. The method cannot support the claim as stated, so C-1236 becomes Superseded and the successor states the conditional velocity bound."
+unresolved_assumptions = ["Whether detect_flat_bands of quantum_core reports the stated bandwidths, and whether a density-of-states ratio near 1000 follows for the implemented kagome model, are numerical questions this transition does not test.", "The axiom group_velocity_bandwidth_bound is declared for uninterpreted Parameters and is not derived from a discretized dispersion.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
+evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Scope C-1236 to the conditional group-velocity bound and name its axiom."
+transition_timestamp = "2026-11-23T00:09:00Z"
+transition_spec_sha256 = "f21b36dbfd3d4d4a6afecd73bff0eddc28961bb166f91d0796a4bb2caff00a47"
+
+[[transition.successors]]
+proposal_key = "flat-band-group-velocity-bound-conditional"
+canonical_claim_id = "C-1791"
+relation_kind = "narrows"
