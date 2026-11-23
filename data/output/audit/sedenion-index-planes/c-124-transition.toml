@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-23T20:25:00Z"
+transition_key = "c-124-middle-moufang-identity-name"
+source_claim_id = "C-124"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+exercised_falsifier = "Compare the identity that C-124 writes, (ab)(ca) = a((bc)a), with the flexible law (ab)a = a(ba). C-124 keeps its name if the two are the same identity or if the flexible law fails at dim=16; it loses it when the written identity is the middle Moufang identity and the flexible law holds at dim=16."
+proposed_claim_status = "Superseded"
+rationale = "The identity (ab)(ca) = a((bc)a) is the middle Moufang identity. The flexible law (ab)a = a(ba) holds at every Cayley-Dickson level over a commutative ring whose star is the identity (CayleyDickson.Tower.mul_mul_self_eq' in gororoba-math; C-100 and C-101 record the tested real instances), so the sentence 'the flexibility identity ... is lost at dim=16' is false of the identity it names. The measured loss is real for the identity as written: Tower.moufang_middle_of_le_three proves it at levels up to 3 (dim <= 8) over a commutative ring whose star is the identity, and Tower.exists_moufang_middle_ne refutes it at every level from 4 over a ring with 2 <> 0. The computation of the cited script is a valid test of the written identity; the claim attaches it to the wrong identity name, so the named sentence is falsified, C-124 becomes Superseded and the successor states the identity under its name with the proofs."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional.", "The violation magnitude 'toward ~1.7' is a measurement of the cited script and is carried by no theorem."]
+actor = "claude-code"
+reason = "Name the identity of C-124 as the middle Moufang identity and attach the Lean proofs of its range."
+expected_source_state_sha256 = "9f4ae7835593028b0e818d08889599b6324f4d7c60f8d8a3e72e51358e03b628"
+expected_claim_id_max = 1792
+
+[[successor]]
+proposal_key = "middle-moufang-identity-holds-through-octonions"
+statement = "The middle Moufang identity (ab)(ca) = a((bc)a) holds at every Cayley-Dickson level k <= 3, that is through dim=8 (octonions), over every commutative ring whose star is the identity (CayleyDickson.Tower.moufang_middle_of_le_three). At every level k >= 4, from the 16D (sedenions) on, it fails over every not necessarily associative ring with a star in which 2 is nonzero (CayleyDickson.Tower.exists_moufang_middle_ne). The flexible law (ab)a = a(ba) is a different identity; it holds at every level over every commutative ring whose star is the identity (CayleyDickson.Tower.mul_mul_self_eq'), and C-100 and C-101 record tested real instances through dimensions 256 and 2048. The growth of the violation with dimension reported by C-124 is a measurement and is not part of this statement."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statements in the Lean library of gororoba-math (lean/GororobaMath/CayleyDickson/Alternative.lean and FlexibleLaw.lean) at the commit and digests of data/output/audit/sedenion-index-planes/source-map.toml. The holding half of the middle Moufang result and the flexible law assume a commutative ring with identity star; the failure half assumes a not necessarily associative ring with a star and 2 <> 0."
+required_falsifier = "A build, axiom-audit or kernel-check failure of the cited sources at the recorded commit withholds formal support for this successor. A triple of elements of a level k <= 3 over a commutative ring with identity star that violates the middle Moufang identity, a proof of that identity at level 4 over the integers, or a pair violating the flexible law over such a ring falsifies the corresponding clause."
+where_stated = ["data/output/audit/sedenion-index-planes/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+predecessor_relation_kind = "supersedes"

@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-23T20:28:00Z"
+transition_key = "c-1469-quaternions-per-pair-of-planes"
+source_claim_id = "C-1469"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+exercised_falsifier = "Count, in the sedenion index group, the quaternion triples {a, b, a xor b} common to two distinct xor-closed octets, and the octets through one triple. The last sentence of C-1469 survives if every pair of octets shares 3 triples; it is refuted when every pair shares exactly 1."
+proposed_claim_status = "Superseded"
+rationale = "C582_IndexPlaneIncidence.plane_line_incidence decides that two distinct index planes of the sedenions share 4 indices, that is index 0 and 3 imaginary units, and exactly one line {a, b, a xor b}, and that each line lies in exactly 3 planes. The quotient 7 T_n / H_n = 2^(n-2) - 1, which the cited test computes and compares with 3 at n = 4 without enumerating any pair, is the number of xor-closed octets through one line, and C-1469 states it as the number of quaternions shared by a pair. Read as quaternion subalgebras, the sentence 'Each pair shares 2^(n-2)-1 quaternions (3 for sedenions)' is false at n = 4, where every pair shares exactly one; read as imaginary units, the value 3 holds at n = 4 and the cited test supports neither reading. The counts H_4 = 35 and T_4 = 15 are proved (plane_line_incidence, closed_octets_are_planes), and H_3 = 7 is the line count of late_planes_are_fano_lines. The formulas at general n and H_5 = 155 are proved by no declaration cited here. The Rocq file that C-1469 cites, C1469_TowerTrilinearity.v, verifies identity, square and anticommutation properties of the sign function at dimensions 16, 32 and 64 and states no H_n or T_n count."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional.", "Wilmot (arXiv:2512.07210) was not reread for this transition; whether the paper or the claim introduced the wording of the last sentence is not decided.", "No cited declaration states that the real span of a line is isomorphic to the quaternions; sorted_triple_classes decides that the three units of a line associate in all six orders."]
+actor = "claude-code"
+reason = "Correct the pair count of C-1469 to one shared quaternion subalgebra per pair and three octonion-like subalgebras per quaternion subalgebra."
+expected_source_state_sha256 = "47e8500fb250fc623b087968269de50bee386a6bb69a370adc9f70973ed463fe"
+expected_claim_id_max = 1793
+
+[[successor]]
+proposal_key = "sedenion-index-lines-and-octets-incidence"
+statement = "In the basis index group {0..15} of the 16D (sedenions) under xor there are 35 lines {a, b, a xor b} of nonzero indices and 15 xor-closed octets containing 0 (C582_IndexPlaneIncidence.plane_line_incidence, closed_octets_are_planes). Each line lies in exactly 3 octets, and two distinct octets share 4 indices and exactly one line. The real span of each octet is closed under the sedenion product (C029_SedenionOctonionSubalgebras.C029_family_closed), and the three units of a line associate in all six orders (sorted_triple_classes). The octonion index set {0..7} holds 7 lines (late_planes_are_fano_lines). These are the values H_4 = 35, T_4 = 15, 7 T_4 / H_4 = 3 and H_3 = 7 of the formulas that C-1469 attributes to Wilmot (arXiv:2512.07210); this statement asserts the formulas at no other n."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement about index sets and basis units of level 4 of the integer Cayley-Dickson tower of gororoba-math rocq/open (C582_IndexPlaneIncidence.v), decided by evaluation, with the closure of the 15 real spans from C029_SedenionOctonionSubalgebras.v, at the commit and digests of data/output/audit/sedenion-index-planes/source-map.toml. Seven of the 15 spans are not isomorphic to the octonions (C-1787)."
+required_falsifier = "A build, axiom-audit or kernel-check failure of the cited sources at the recorded commit withholds formal support for this successor. An exact enumeration that finds a line count other than 35, a count of xor-closed octets containing 0 other than 15, a pair of distinct octets sharing a number of lines other than 1 or a number of indices other than 4, a line lying in a number of octets other than 3, or a line count of {0..7} other than 7 falsifies the corresponding clause."
+where_stated = ["data/output/audit/sedenion-index-planes/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+predecessor_relation_kind = "supersedes"

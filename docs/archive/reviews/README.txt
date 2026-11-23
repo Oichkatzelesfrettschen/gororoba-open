@@ -19,3 +19,4 @@ during their review. Paths are repository-relative.
 - teleportation-pauli-frame-readout/README.txt: Review record: quantum_core: exact Pauli-frame algebra for teleportation readout
 - twisted-tower-module/README.txt: Review record: cd_kernel: twisted-tower group algebra with exact associators
 - registry-c1783-heldout-evidence/README.txt: Review record: registry: C-1783 carries its held-out P13d evaluation
+- sedenion-index-plane-supersessions/README.txt: Review record: registry supersession of C-581, C-124 and C-1469 by proved statements on the sedenion index planes

@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 236
+event_count = 239
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -5095,3 +5095,72 @@ transition_spec_sha256 = "f21b36dbfd3d4d4a6afecd73bff0eddc28961bb166f91d0796a4bb
 proposal_key = "flat-band-group-velocity-bound-conditional"
 canonical_claim_id = "C-1791"
 relation_kind = "narrows"
+
+[[transition]]
+event_id = 237
+transition_key = "c-581-index-plane-alternativity-scope"
+source_claim_id = "C-581"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read is_alternative_subalgebra, which enumerate_octonion_subalgebras calls and test_all_15_are_alternative asserts, and evaluate left alternativity (x x) y = x (x y) on a two-term element of each of the 15 index planes in the same product. C-581 keeps its first sentence if the function evaluates an identity that implies alternativity of the span and no plane holds a violating pair; it loses it when the function evaluates only basis triples (a, b, a xor b) and some plane holds a violating pair."
+rationale = "The function first checks xor closure of the index set. Its alternativity phase evaluates, for each pair a, b of the set, the associator of the basis triple (e_a, e_b, e_(a xor b)) and no other; it then requires seven oriented Fano triples. A triple (a, b, a xor b) spans a quaternion subalgebra and associates in every Cayley-Dickson algebra, so the three checks pass on every xor-closed octet and decide nothing about alternativity of the span. In gororoba-math, C029_octonion_subalgebra_iff proves that exactly the 8 spans with u <= 8 are isomorphic to the octonions, and not_left_alt_9 to not_left_alt_15 give, for each of the 7 spans with 9 <= u, a pair x = e_a + e_b, y = e_c with (x x) y <> x (x y). The sentence 'All 15 hyperplanes are alternative algebras (octonion subalgebras)' is therefore false, and the method could not have supported it. The second sentence holds for basis units (C582_IndexPlaneIncidence.basis_units_alternate) and the third holds as 7 lines per plane (plane_line_incidence). C-581 becomes Superseded and the successor carries what is proved."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional."]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Replace the alternativity sentence of C-581 by the proved index-plane statements and the 8 to 7 split of C-1787."
+transition_timestamp = "2026-11-23T20:25:00Z"
+transition_spec_sha256 = "4ff3a50e5e525af23a7a73384580ba63415d95532155bc2e8085c3c22a6f26db"
+
+[[transition.successors]]
+proposal_key = "sedenion-index-planes-lines-and-basis-alternativity"
+canonical_claim_id = "C-1792"
+relation_kind = "narrows"
+
+[[transition]]
+event_id = 238
+transition_key = "c-124-middle-moufang-identity-name"
+source_claim_id = "C-124"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Compare the identity that C-124 writes, (ab)(ca) = a((bc)a), with the flexible law (ab)a = a(ba). C-124 keeps its name if the two are the same identity or if the flexible law fails at dim=16; it loses it when the written identity is the middle Moufang identity and the flexible law holds at dim=16."
+rationale = "The identity (ab)(ca) = a((bc)a) is the middle Moufang identity. The flexible law (ab)a = a(ba) holds at every Cayley-Dickson level over a commutative ring whose star is the identity (CayleyDickson.Tower.mul_mul_self_eq' in gororoba-math; C-100 and C-101 record the tested real instances), so the sentence 'the flexibility identity ... is lost at dim=16' is false of the identity it names. The measured loss is real for the identity as written: Tower.moufang_middle_of_le_three proves it at levels up to 3 (dim <= 8) over a commutative ring whose star is the identity, and Tower.exists_moufang_middle_ne refutes it at every level from 4 over a ring with 2 <> 0. The computation of the cited script is a valid test of the written identity; the claim attaches it to the wrong identity name, so the named sentence is falsified, C-124 becomes Superseded and the successor states the identity under its name with the proofs."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional.", "The violation magnitude 'toward ~1.7' is a measurement of the cited script and is carried by no theorem."]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Name the identity of C-124 as the middle Moufang identity and attach the Lean proofs of its range."
+transition_timestamp = "2026-11-23T20:25:00Z"
+transition_spec_sha256 = "1f346bb560e7795b56bedcc368a2f71659e11f7cbcf4e37171f616bc9d66f6c9"
+
+[[transition.successors]]
+proposal_key = "middle-moufang-identity-holds-through-octonions"
+canonical_claim_id = "C-1793"
+relation_kind = "supersedes"
+
+[[transition]]
+event_id = 239
+transition_key = "c-1469-quaternions-per-pair-of-planes"
+source_claim_id = "C-1469"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Count, in the sedenion index group, the quaternion triples {a, b, a xor b} common to two distinct xor-closed octets, and the octets through one triple. The last sentence of C-1469 survives if every pair of octets shares 3 triples; it is refuted when every pair shares exactly 1."
+rationale = "C582_IndexPlaneIncidence.plane_line_incidence decides that two distinct index planes of the sedenions share 4 indices, that is index 0 and 3 imaginary units, and exactly one line {a, b, a xor b}, and that each line lies in exactly 3 planes. The quotient 7 T_n / H_n = 2^(n-2) - 1, which the cited test computes and compares with 3 at n = 4 without enumerating any pair, is the number of xor-closed octets through one line, and C-1469 states it as the number of quaternions shared by a pair. Read as quaternion subalgebras, the sentence 'Each pair shares 2^(n-2)-1 quaternions (3 for sedenions)' is false at n = 4, where every pair shares exactly one; read as imaginary units, the value 3 holds at n = 4 and the cited test supports neither reading. The counts H_4 = 35 and T_4 = 15 are proved (plane_line_incidence, closed_octets_are_planes), and H_3 = 7 is the line count of late_planes_are_fano_lines. The formulas at general n and H_5 = 155 are proved by no declaration cited here. The Rocq file that C-1469 cites, C1469_TowerTrilinearity.v, verifies identity, square and anticommutation properties of the sign function at dimensions 16, 32 and 64 and states no H_n or T_n count."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional.", "Wilmot (arXiv:2512.07210) was not reread for this transition; whether the paper or the claim introduced the wording of the last sentence is not decided.", "No cited declaration states that the real span of a line is isomorphic to the quaternions; sorted_triple_classes decides that the three units of a line associate in all six orders."]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Correct the pair count of C-1469 to one shared quaternion subalgebra per pair and three octonion-like subalgebras per quaternion subalgebra."
+transition_timestamp = "2026-11-23T20:28:00Z"
+transition_spec_sha256 = "23e1e96bef26ddbf802de6c7e36d9a3911181c7f44d275b0db13d81b9341fc48"
+
+[[transition.successors]]
+proposal_key = "sedenion-index-lines-and-octets-incidence"
+canonical_claim_id = "C-1794"
+relation_kind = "supersedes"
