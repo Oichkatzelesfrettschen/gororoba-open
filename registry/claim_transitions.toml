@@ -4991,8 +4991,8 @@ evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
 experiment_ids = []
 actor = "claude-code"
 reason = "Replace the arithmetic support of C-029 by the proved classification of the 15 coordinate-hyperplane subalgebras of the sedenions, and keep its literature proposition as a successor of its own."
-transition_timestamp = "2026-11-22T23:13:00Z"
-transition_spec_sha256 = "5876ca58e534c155896f927516a5b8fe8c96865762dad16e1e1052fa39c15dc0"
+transition_timestamp = "2026-11-23T00:05:00Z"
+transition_spec_sha256 = "924cc55d374af7f6bf246e4ac5c6f465da55ac68f92122ee5e08291cabed7fb8"
 
 [[transition.successors]]
 proposal_key = "gillard-gresnigt-three-generations-literature-proposition"
@@ -5019,8 +5019,8 @@ evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
 experiment_ids = []
 actor = "claude-code"
 reason = "Scope C-1130 to the bounded-sum inequality and the two constant inequalities that BellCHSH.v proves."
-transition_timestamp = "2026-11-22T23:14:00Z"
-transition_spec_sha256 = "0a5621cf22c7f1d389874bb75641af1067afe054ef558878daa4c7ce56cd7222"
+transition_timestamp = "2026-11-23T00:06:00Z"
+transition_spec_sha256 = "00c9ccf487769919337b3c4acbb1f36f1409de26c51f41af519944a84441c3eb"
 
 [[transition.successors]]
 proposal_key = "chsh-bounded-sum-and-constant-inequalities"
@@ -5042,8 +5042,8 @@ evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
 experiment_ids = []
 actor = "claude-code"
 reason = "Scope C-1141 to the arithmetic evaluations its Rocq file proves and name the graph statement as unproved."
-transition_timestamp = "2026-11-22T23:15:00Z"
-transition_spec_sha256 = "245a6aa288b1d23c5a610e0b63bd70b0f6bdfed3d945b3b978392d1565eb90f8"
+transition_timestamp = "2026-11-23T00:07:00Z"
+transition_spec_sha256 = "1ff80974e033129db11da3b2cba0ce5d11f8d8da6e3103ab8c13ca190d45118f"
 
 [[transition.successors]]
 proposal_key = "zd-graph-count-expressions-arithmetic"
@@ -5065,8 +5065,8 @@ evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
 experiment_ids = []
 actor = "claude-code"
 reason = "Scope C-1233 to the conditional cancellation theorem and name its axioms."
-transition_timestamp = "2026-11-22T23:16:00Z"
-transition_spec_sha256 = "f1b2cc142e5e50a2cf1d446b6bd2d79d408dcbb8dcd00bd623d2e578f34a68fa"
+transition_timestamp = "2026-11-23T00:08:00Z"
+transition_spec_sha256 = "f60c51d95f92b2a8d0029735cdc507f3944546630a62e38cb3275dbf307678b3"
 
 [[transition.successors]]
 proposal_key = "chern-integral-reflection-cancellation-conditional"
@@ -5082,14 +5082,14 @@ experiment_verdict = "MethodologyInvalid"
 proposed_claim_status = "Superseded"
 current_status = "Superseded"
 exercised_falsifier = "Read C1236_FlatBandGroupVelocity.v and TightBindingTopology.v at the pinned gororoba-math commit and list the Parameters and Axioms the theorems rest on. The claim keeps its support if a theorem states a density-of-states enhancement or the factor 1000; it loses it when the theorems bound an uninterpreted group velocity through a declared axiom."
-rationale = "flat_band_group_velocity_bound states max_group_velocity E dk < eps / dk for a band with bandwidth E < eps and 0 < dk, and perfectly_flat_zero_velocity states max_group_velocity E dk <= 0 when bandwidth E = 0. bandwidth and max_group_velocity are Parameters, and both theorems are the Axiom group_velocity_bandwidth_bound combined with the hypothesis. The file defines no density of states, effective mass or enhancement, and contains neither bandwidth 0.001 GHz nor 1 GHz. The enhancement sentence is a statement about an implemented model and a cited source (Kaman et al. 2026, Sec. IV); the kernel check does not reach it. The method cannot support the claim as stated, so C-1236 becomes Superseded and the successor states the conditional velocity bound."
+rationale = "flat_band_group_velocity_bound states max_group_velocity E dk < eps / dk for a band with bandwidth E < eps and 0 < dk, and perfectly_flat_zero_velocity states max_group_velocity E dk <= 0 when bandwidth E = 0 and 0 < dk. bandwidth and max_group_velocity are Parameters, and both theorems are the Axiom group_velocity_bandwidth_bound combined with the hypothesis. The file defines no density of states, effective mass or enhancement, and contains neither bandwidth 0.001 GHz nor 1 GHz. The enhancement sentence is a statement about an implemented model and a cited source (Kaman et al. 2026, Sec. IV); the kernel check does not reach it. The method cannot support the claim as stated, so C-1236 becomes Superseded and the successor states the conditional velocity bound."
 unresolved_assumptions = ["Whether detect_flat_bands of quantum_core reports the stated bandwidths, and whether a density-of-states ratio near 1000 follows for the implemented kagome model, are numerical questions this transition does not test.", "The axiom group_velocity_bandwidth_bound is declared for uninterpreted Parameters and is not derived from a discretized dispersion.", "No file was compiled or kernel-checked for this transition; the theorem inventory holds no kernel receipt bound to it, so the successor starts Provisional."]
 evidence_artifact_ids = ["LOCAL-FORMAL-PROOF-SCOPE"]
 experiment_ids = []
 actor = "claude-code"
 reason = "Scope C-1236 to the conditional group-velocity bound and name its axiom."
-transition_timestamp = "2026-11-22T23:17:00Z"
-transition_spec_sha256 = "8a40c08fe072df2798aceccc1ae5ea82703b7d3a0d74f724e90a6d10e683c762"
+transition_timestamp = "2026-11-23T00:09:00Z"
+transition_spec_sha256 = "f21b36dbfd3d4d4a6afecd73bff0eddc28961bb166f91d0796a4bb2caff00a47"
 
 [[transition.successors]]
 proposal_key = "flat-band-group-velocity-bound-conditional"

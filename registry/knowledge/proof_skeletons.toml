@@ -15077,7 +15077,7 @@ id = "PRS-00838"
 skeleton_kind = "claim_decision_rule"
 theorem_label = "C-1791"
 claim_id = "C-1791"
-assumptions = ["Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."]
+assumptions = ["Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then for every dk with 0 < dk: a band with 0 < eps and bandwidth E < eps (is_flat_band E eps) has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement says nothing for dk <= 0, where the axiom constrains nothing; it is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."]
 obligations = ["Establish evidence-backed status for C-1791."]
 derivation_steps = []
 decision_rule = ""

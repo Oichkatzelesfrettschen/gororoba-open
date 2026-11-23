@@ -64241,12 +64241,12 @@ claim_id = "C-1791"
 claim_refs = ["C-1791"]
 step_index = 1
 step_kind = "derivation_step"
-text = "Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."
-text_sha256 = "cf72782ba5db17be333d5495431ebbdde210ba26c4448ee52dfebe3e5fafdb98"
+text = "Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then for every dk with 0 < dk: a band with 0 < eps and bandwidth E < eps (is_flat_band E eps) has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement says nothing for dk <= 0, where the axiom constrains nothing; it is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model."
+text_sha256 = "b6a2dae7770af1e01ef829f39f1cfc17e9e48f952e245775ff0432b0a6d8f714"
 equation_refs = []
 symbol_refs = []
 numeric_constants = ["0"]
-key_tokens = ["C1236_FlatBandGroupVelocity", "Let", "Then", "TightBindingTopology", "asserts", "axiom", "band", "bandwidth", "conditional", "declared", "density", "dk", "enhancement", "eps", "factor", "flat_band_group_velocity_bound", "functionals", "group_velocity_bandwidth_bound", "has", "kagome"]
+key_tokens = ["C1236_FlatBandGroupVelocity", "Let", "Then", "TightBindingTopology", "asserts", "axiom", "band", "bandwidth", "conditional", "constrains", "declared", "density", "dk", "enhancement", "eps", "every", "factor", "flat_band_group_velocity_bound", "functionals", "group_velocity_bandwidth_bound"]
 depends_on_step_ids = []
 line_start = 0
 line_end = 0

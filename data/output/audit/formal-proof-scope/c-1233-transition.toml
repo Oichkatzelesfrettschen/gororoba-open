@@ -1,5 +1,5 @@
 [transition]
-transition_timestamp = "2026-11-22T23:16:00Z"
+transition_timestamp = "2026-11-23T00:08:00Z"
 transition_key = "c-1233-chern-cancellation-axiom-scope"
 source_claim_id = "C-1233"
 expected_prior_status = "Verified"

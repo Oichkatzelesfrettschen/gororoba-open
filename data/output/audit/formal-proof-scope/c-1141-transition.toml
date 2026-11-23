@@ -1,5 +1,5 @@
 [transition]
-transition_timestamp = "2026-11-22T23:15:00Z"
+transition_timestamp = "2026-11-23T00:07:00Z"
 transition_key = "c-1141-zd-graph-count-arithmetic-scope"
 source_claim_id = "C-1141"
 expected_prior_status = "Verified"

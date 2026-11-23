@@ -1,5 +1,5 @@
 [transition]
-transition_timestamp = "2026-11-22T23:13:00Z"
+transition_timestamp = "2026-11-23T00:05:00Z"
 transition_key = "c-029-octonion-subalgebra-family-supersession"
 source_claim_id = "C-029"
 expected_prior_status = "Verified"

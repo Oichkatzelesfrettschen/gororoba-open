@@ -12795,7 +12795,7 @@
 //! ## C-1786
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
+//! - Last verified: 2026-11-23
 //! - Statement: C-029 attributed to Gillard and Gresnigt (2019) and Gresnigt, Gourlay and Varma (2023) the proposition that three fermion generations arise from the C tensor S decomposition into three C tensor O subalgebras. The bibliography records the two papers as minimal left ideals of C tensor S under Cl(6) describing three fermion generations (BIB-0138) and as three octonion subalgebras of S distinguished by SU(3) color or chiral SU(2) (BIB-0140). This successor records the attributed proposition; this repository holds no formal or computational evidence that confirms or refutes it.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; registry/bibliography.toml
 //! - What would verify/refute it:
@@ -12803,7 +12803,7 @@
 //! ## C-1787
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
+//! - Last verified: 2026-11-23
 //! - Statement: For u in 1..15 let in_sub u be the real span of the 8 basis units of the 16D (sedenions) whose index k has even parity of (u land k), under the Cayley-Dickson product sed_mul over the reals. All 15 spans are closed under the product and pairwise distinct (C029_family_closed, C029_family_distinct). Exactly the 8 spans with u <= 8 are isomorphic to the octonions through an explicit linear product-preserving map; each of the 7 spans with 9 <= u <= 15 contains a pair violating left alternativity (C029_octonion_subalgebra_iff, C029_octonion_subalgebra_count). The high-half image and the diagonal image of the octonions are not closed under the product (C029_high_half_not_closed, C029_diagonal_not_closed, C029_FermionGenerationArithmetic.C029_hi_image_not_closed, C029_diag_image_not_closed). The statement classifies this family of 15 and asserts nothing about other subalgebras, about C tensor S, or about fermion generations.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml
 //! - What would verify/refute it:
@@ -12811,7 +12811,7 @@
 //! ## C-1788
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
+//! - Last verified: 2026-11-23
 //! - Statement: For reals eab, eab', ea'b, ea'b' each in [-1,1], Rabs (eab - eab' + ea'b + ea'b') <= 4 (BellCHSH.chsh_classical_bound_weak). The real constant 2 * sqrt 2 is positive and exceeds 2 (tsirelson_bound_positive, tsirelson_exceeds_classical). The file defines no local hidden-variable model and no quantum correlation, so it proves neither the local bound 2 nor Tsirelson's bound, and the statement asserts no quantum advantage.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/theories/BellCHSH.v
 //! - What would verify/refute it:
@@ -12819,7 +12819,7 @@
 //! ## C-1789
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
+//! - Last verified: 2026-11-23
 //! - Statement: The expressions dim / 2 - 1 and (dim^2 - 6*dim + 8) / 2 take the values 7, 15, 31, 63, 127 at dim = 16, 32, 64, 128, 256 and 84, 420, 1860 at dim = 16, 32, 64 (C1141_ZDGraphGeneralStructure: missing_edges_16 to missing_edges_256, edge_count_16_val, edge_count_32_val, edge_count_64_val). These are evaluations of natural-number expressions; no theorem of the file defines a zero-divisor graph or relates these expressions to one.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1141_ZDGraphGeneralStructure.v; crates/materials_core/src/e8_crystal_bridge.rs (zd_graph_topology_closed_form, test_zd_closed_form_matches_brute_force_16d)
 //! - What would verify/refute it:
@@ -12827,7 +12827,7 @@
 //! ## C-1790
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
+//! - Last verified: 2026-11-23
 //! - Statement: Let chern_integral be a real functional on functions R -> R -> R satisfying the declared axiom that pointwise cancellation of F and G implies chern_integral F + chern_integral G = 0. Then every F with F kx ky = - F (-kx) (-ky) satisfies chern_integral F + chern_integral (reflected F) = 0, where reflected F kx ky = F (-kx) (-ky) (C1233_ChernSumZero.chern_sum_zero_under_trs, resting on TightBindingTopology.chern_integral_linear). The statement is conditional on the axiom, does not assert chern_integral F = 0, and concerns no Hamiltonian, band count or inversion symmetry.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1233_ChernSumZero.v; proofs/theories/TightBindingTopology.v
 //! - What would verify/refute it:
@@ -12835,7 +12835,7 @@
 //! ## C-1791
 //!
 //! - Status: `Provisional`
-//! - Last verified: 2026-11-22
-//! - Statement: Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then a band with bandwidth E < eps has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model.
+//! - Last verified: 2026-11-23
+//! - Statement: Let bandwidth and max_group_velocity be real functionals satisfying the declared axiom max_group_velocity E dk <= bandwidth E / dk for 0 < dk. Then for every dk with 0 < dk: a band with 0 < eps and bandwidth E < eps (is_flat_band E eps) has max_group_velocity E dk < eps / dk, and a band with bandwidth E = 0 has max_group_velocity E dk <= 0 (C1236_FlatBandGroupVelocity.flat_band_group_velocity_bound, perfectly_flat_zero_velocity, resting on TightBindingTopology.group_velocity_bandwidth_bound). The statement says nothing for dk <= 0, where the axiom constrains nothing; it is conditional on the axiom and asserts no density-of-states enhancement, no numerical factor and no property of a kagome model.
 //! - Where stated: data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1236_FlatBandGroupVelocity.v; proofs/theories/TightBindingTopology.v
 //! - What would verify/refute it:

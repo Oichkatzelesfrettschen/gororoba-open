@@ -21,3 +21,9 @@ classification and status of all six successors, and the other registry
 worktrees be read before the commit. Each was read, which changed the C-1786
 statement and the C-029 and C-1141 rationales, before the final application at
 c45ecf60.
+
+## Hosted review (Codex on GitHub, on e7724f14)
+
+| # | Finding | Source | Check | Verdict |
+|---|---|---|---|---|
+| H1 | C-1791 drops the positive-step hypothesis of both velocity conclusions (P2) | c-1236-transition.toml, statement | flat_band_group_velocity_bound and perfectly_flat_zero_velocity both assume 0 < dk (C1236_FlatBandGroupVelocity.v lines 26-30 and 43-47); the axiom constrains nothing for dk <= 0 | Confirmed; fixed: the statement quantifies over 0 < dk, quotes is_flat_band as 0 < eps and bandwidth E < eps, and says nothing for dk <= 0; the rationale states the hypothesis for perfectly_flat_zero_velocity too. The transitions were applied again from main with the corrected specification |

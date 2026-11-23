@@ -1,5 +1,5 @@
 [transition]
-transition_timestamp = "2026-11-22T23:14:00Z"
+transition_timestamp = "2026-11-23T00:06:00Z"
 transition_key = "c-1130-chsh-bounded-sum-scope"
 source_claim_id = "C-1130"
 expected_prior_status = "Verified"
