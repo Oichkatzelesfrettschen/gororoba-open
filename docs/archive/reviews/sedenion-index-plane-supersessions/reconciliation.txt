@@ -1,0 +1,27 @@
+# Reconciliation: local review of the sedenion index-plane supersessions
+
+Reviewers: codex (R), agy gemini-4-argon-low (A) and opencode-go/glm-5.3 (O), read-only, one
+round on the draft specifications before any apply. The Advisor reviewed last.
+
+| # | Finding | By | Check | Verdict |
+|---|---|---|---|---|
+| 1 | The C-124 successor says the identity holds "over every ring with an involution"; the theorem assumes a commutative ring whose star is the identity | R, A, O | Alternative.lean, section LevelThree: CommRing, StarRing, TrivialStar | Confirmed; fixed: the statement and the boundary state the hypotheses of each half |
+| 2 | The flexible-law clause cites C-100 and C-101, which record tested dimensions, for an every-level statement | R, O | claims.toml: C-100 through 256, C-101 through 2048; FlexibleLaw.lean holds mul_mul_self_eq' | Confirmed; fixed: the clause cites the theorem, names C-100 and C-101 as tested instances, and the boundary and the falsifier cover FlexibleLaw.lean |
+| 3 | The C-1469 successor asserts the general-n formulas and H_5 = 155 with no cited declaration | R, A, O | C582_IndexPlaneIncidence.v states level-4 counts and the level-3 line count only | Confirmed; fixed: the statement gives the proved values and asserts the formulas at no other n |
+| 4 | Lines and octets are called quaternion and octonion-like subalgebras with no declaration that states it | R, A, O | plane_line_incidence counts index triples | Confirmed; fixed: the statement speaks of index lines and octets, cites C029_family_closed for closure of the spans and sorted_triple_classes for associativity of a line's units, and an unresolved assumption records that no declaration states a quaternion isomorphism |
+| 5 | The C-581 falsifier names a test that does not exist, and the rationale omits two checks of the function | R, O | subalgebra.rs: test_all_15_are_alternative; xor closure, the (a, b, a xor b) associators, a Fano-triple count | Confirmed; fixed in the falsifier and the rationale. The where_stated field of C-581 itself keeps the stale name; a Superseded claim's text stays as recorded |
+| 6 | The required falsifiers say a build failure refutes the statement | R | a failed build withdraws formal support and refutes nothing | Confirmed; fixed: each falsifier separates loss of formal support from a counterexample and lists every asserted count |
+| 7 | C-124: verdict and relation depart from precedent | A, O | events 224 to 227: a false reading of a valid measurement took Falsifies with supersedes; refines never accompanies Superseded | Confirmed; fixed: Falsifies, supersedes. The computation of the cited script is a valid test of the written identity; the sentence naming it flexibility is false |
+| 8 | C-1469: relation narrows against four Falsifies and Superseded precedents | O | events 224 to 227 use supersedes | Confirmed; fixed: supersedes |
+| 9 | "Proved here at n = 4 only" contradicts the cited H_3 = 7 | O | late_planes_are_fano_lines | Confirmed; removed with finding 3 |
+| 10 | "(3 for sedenions)" is true when read as shared imaginary units | O | plane_line_incidence: two octets share 4 indices | Confirmed; the rationale states both readings and that the cited test enumerates no pair |
+| 11 | The Rocq file C-1469 cites is left unread | O | C1469_TowerTrilinearity.v: sign-function properties at dimensions 16, 32, 64 | Confirmed; the rationale and the source map record its scope |
+| 12 | The evidence artifact and the source map did not exist at review time | A, O | plan-time dependency | Confirmed as sequence; both exist in this commit, and where_stated names the source map alone because the cited sources are later than ci/gororoba_math.pin, as for C-029 |
+| 13 | C-581: verdict MethodologyInvalid and relation narrows | R, A, O | the function cannot decide alternativity of a span; events 233 to 236 | Upheld by all three; unchanged |
+
+Advisor (last): upheld the dispositions; required before the apply a check for
+concurrent registry branches (none open), the workflow name of each cited run,
+a reading of sorted_triple_classes (it decides that the triples failing in no
+order are exactly the lines), the call path from enumerate_octonion_subalgebras,
+the wording "not necessarily associative ring", and the digest form of the
+precedent source map. Each was done before the apply.

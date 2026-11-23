@@ -2084,7 +2084,7 @@ where_stated = "crates/quantum_core/src/magnonic_crystal.rs (build_domain_wall_s
 id = "C-124"
 last_verified = "2026-01-31"
 statement = "The flexibility identity (ab)(ca) = a((bc)a) holds exactly through dim=8 (octonions) and is lost at dim=16 (sedenions), with violations growing toward ~1.7."
-status = "Verified"
+status = "Superseded"
 where_stated = "`src/scripts/analysis/cd_algebraic_experiments_v13.py`, `data/csv/cd_algebraic_experiments_v13.json`"
 
 [[claim]]
@@ -4051,7 +4051,7 @@ formal_proof = "proofs/verified/C1469_TowerTrilinearity.v"
 id = "C-1469"
 last_verified = "2026-03-21"
 statement = "Wilmot (2512.07210) Algebra Stacking: H_n = (2^n-1)(2^n-2)/6 quaternion subalgebras. H_3=7, H_4=35, H_5=155. T_n = (2^n-1)(2^n-2)(2^n-4)/168 octonion-like subalgebras. T_4=15. Each pair shares 2^(n-2)-1 quaternions (3 for sedenions)."
-status = "Verified"
+status = "Superseded"
 where_stated = "crates/algebra_experimental/src/sedenion_subalgebras.rs::test_wilmot_algebra_stacking_quaternion_count"
 
 [[claim]]
@@ -8939,6 +8939,27 @@ status = "Provisional"
 where_stated = "data/output/audit/formal-proof-scope/source-map.toml; proofs/verified/C1236_FlatBandGroupVelocity.v; proofs/theories/TightBindingTopology.v"
 
 [[claim]]
+id = "C-1792"
+last_verified = "2026-11-23"
+statement = "In the 16D (sedenions) with basis index group {0..15} under xor, exactly 15 of the 6435 eight-element index sets containing 0 are closed under xor; they are the sets {i : parity(u land i) = 0} for u in 1..15 (C582_IndexPlaneIncidence.closed_octets_are_planes). Each holds 7 of the 35 lines {a, b, a xor b}, each line lies in 3 of them, and two distinct sets share 4 indices and exactly one line (plane_line_incidence). Both alternative laws hold on basis units: (e_a e_a) e_b = e_a (e_a e_b) and (e_a e_b) e_b = e_a (e_b e_b) for all indices (basis_units_alternate). The real spans are not all alternative algebras: C-1787 records that exactly the 8 spans with u <= 8 are isomorphic to the octonions and that each of the 7 spans with 9 <= u holds a pair violating left alternativity."
+status = "Provisional"
+where_stated = "data/output/audit/sedenion-index-planes/source-map.toml"
+
+[[claim]]
+id = "C-1793"
+last_verified = "2026-11-23"
+statement = "The middle Moufang identity (ab)(ca) = a((bc)a) holds at every Cayley-Dickson level k <= 3, that is through dim=8 (octonions), over every commutative ring whose star is the identity (CayleyDickson.Tower.moufang_middle_of_le_three). At every level k >= 4, from the 16D (sedenions) on, it fails over every not necessarily associative ring with a star in which 2 is nonzero (CayleyDickson.Tower.exists_moufang_middle_ne). The flexible law (ab)a = a(ba) is a different identity; it holds at every level over every commutative ring whose star is the identity (CayleyDickson.Tower.mul_mul_self_eq'), and C-100 and C-101 record tested real instances through dimensions 256 and 2048. The growth of the violation with dimension reported by C-124 is a measurement and is not part of this statement."
+status = "Provisional"
+where_stated = "data/output/audit/sedenion-index-planes/source-map.toml"
+
+[[claim]]
+id = "C-1794"
+last_verified = "2026-11-23"
+statement = "In the basis index group {0..15} of the 16D (sedenions) under xor there are 35 lines {a, b, a xor b} of nonzero indices and 15 xor-closed octets containing 0 (C582_IndexPlaneIncidence.plane_line_incidence, closed_octets_are_planes). Each line lies in exactly 3 octets, and two distinct octets share 4 indices and exactly one line. The real span of each octet is closed under the sedenion product (C029_SedenionOctonionSubalgebras.C029_family_closed), and the three units of a line associate in all six orders (sorted_triple_classes). The octonion index set {0..7} holds 7 lines (late_planes_are_fano_lines). These are the values H_4 = 35, T_4 = 15, 7 T_4 / H_4 = 3 and H_3 = 7 of the formulas that C-1469 attributes to Wilmot (arXiv:2512.07210); this statement asserts the formulas at no other n."
+status = "Provisional"
+where_stated = "data/output/audit/sedenion-index-planes/source-map.toml"
+
+[[claim]]
 id = "C-180"
 last_verified = "2026-02-01"
 statement = "Inner product preservation <ax,ay> =||a||^2 <x,y> holds EXACTLY at composition dimensions (dim <= 8) and FAILS at dim >= 16. Mean deviation decreases with dim: 0.106 (dim=16), 0.092 (dim=64), 0.062 (dim=128). This is equivalent to the norm composition property."
@@ -11802,7 +11823,7 @@ where_stated = "`CURRENT::PATH crates/gororoba_algebra/src/construction/exceptio
 id = "C-581"
 last_verified = "2026-02-09"
 statement = "All 15 hyperplanes of Z_2^4 (sedenion index group) are alternative algebras (octonion subalgebras). Every order-8 XOR-closed subgroup of {0..15} containing 0 passes the alternative identity [x,x,y]=0 for all basis triples. All 15 subalgebras have 7 Fano triples each."
-status = "Verified"
+status = "Superseded"
 where_stated = "`crates/algebra_analysis/src/subalgebra.rs` (test_all_subalgebras_are_alternative, test_hyperplane_enumeration_dim16)"
 
 [[claim]]

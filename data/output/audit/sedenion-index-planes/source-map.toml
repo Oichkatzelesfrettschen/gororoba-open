@@ -1,0 +1,78 @@
+schema_version = 1
+claims = ["C-581", "C-124", "C-1469"]
+purpose = "For three claims about the sedenion index planes, the middle Moufang identity and the incidence of quaternion and octonion-like index sets, this map records the statements that sources of gororoba-math prove and the parts of each claim statement that no cited declaration states or that a cited declaration contradicts. The three transitions beside this map register the proved statements as successors."
+formal_evidence_layer = "implementation_conformance"
+locator_form = "A recorded locator proofs/NAME names gororoba-math rocq/open/NAME; this map gives the gororoba-math path."
+method = "Each cited file was read at the commit below and its sha256 computed from the checkout of that commit. No file was compiled or kernel-checked for this map; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math on commit 5258d2b6938c091092511056de222f026ab6365d, whose tree equals the tree of the merge commit below."
+
+[formal_source]
+repository = "gororoba-math"
+pin_commit = "0c818156aca7641542f62496f36e0f9ceafc710d"
+pin_file = "ci/gororoba_math.pin"
+successor_commit = "9b9e1b26921daf71366db28f2205bef64be04408"
+successor_commit_scope = "C582_IndexPlaneIncidence.v entered gororoba-math after the pin commit and is read at successor_commit, as are the three other files below."
+
+[[formal_edge]]
+claim = "C-581"
+claim_sentence = "All 15 hyperplanes of Z_2^4 (sedenion index group) are alternative algebras (octonion subalgebras)."
+implementation_file = "crates/algebra_analysis/src/subalgebra.rs"
+implementation_scope = "is_alternative_subalgebra checks xor closure of the index set, the associator of each basis triple (e_a, e_b, e_(a xor b)), and a count of seven oriented Fano triples; test_all_15_are_alternative asserts its result on the 15 index sets. No check evaluates an alternative law on a sum of basis units."
+contradicted_by = "C029_SedenionOctonionSubalgebras.C029_octonion_subalgebra_iff and not_left_alt_9 to not_left_alt_15: the spans with 9 <= u <= 15 each hold a pair x = e_a + e_b, y = e_c with (x x) y <> x (x y)."
+
+[[formal_edge]]
+claim = "C-581"
+role = "successor"
+formal_file = "rocq/open/verified/C582_IndexPlaneIncidence.v"
+theorems = ["closed_octets_are_planes", "plane_line_incidence", "basis_units_alternate"]
+formal_scope = "Boolean decisions by evaluation at level 4 of the integer tower: the 15 xor-closed octets among the 6435 eight-element index sets containing 0 are the sets of even parity of (u land i) for u in 1..15; each holds 7 of the 35 lines, each line lies in 3, two distinct ones share 4 indices and one line; both alternative laws hold on every pair of basis units."
+not_stated = ["Alternativity of any real span; C-1787 carries the 8 to 7 split.", "Any statement at another level."]
+
+[[formal_edge]]
+claim = "C-124"
+claim_sentence = "The flexibility identity (ab)(ca) = a((bc)a) holds exactly through dim=8 (octonions) and is lost at dim=16 (sedenions), with violations growing toward ~1.7."
+contradicted_by = "The written identity is the middle Moufang identity. The flexible law (ab)a = a(ba) is CayleyDickson.Tower.mul_mul_self_eq' of FlexibleLaw.lean, proved at every level over a commutative ring whose star is the identity."
+
+[[formal_edge]]
+claim = "C-124"
+role = "successor"
+formal_file = "lean/GororobaMath/CayleyDickson/Alternative.lean"
+depends_on = "lean/GororobaMath/CayleyDickson/FlexibleLaw.lean"
+theorems = ["CayleyDickson.Tower.moufang_middle_of_le_three : levels k <= 3, CommRing with StarRing and TrivialStar", "CayleyDickson.Tower.exists_moufang_middle_ne : levels k >= 4, NonAssocRing (not necessarily associative) with StarRing and 2 <> 0", "CayleyDickson.Tower.mul_mul_self_eq' : every level, CommRing with StarRing and TrivialStar"]
+formal_scope = "The middle Moufang identity at levels up to 3 and its failure from level 4; the flexible law at every level."
+not_stated = ["Any magnitude or growth of the violation.", "The holding half over a noncommutative ring or a ring with a nontrivial star."]
+
+[[formal_edge]]
+claim = "C-1469"
+claim_sentence = "Each pair shares 2^(n-2)-1 quaternions (3 for sedenions)."
+recorded_formal_file = "rocq/open/verified/C1469_TowerTrilinearity.v"
+recorded_formal_scope = "Identity, square and anticommutation properties of the sign function at dimensions 16, 32 and 64. The file states no H_n or T_n count."
+contradicted_by = "C582_IndexPlaneIncidence.plane_line_incidence: two distinct xor-closed octets share exactly one line; each line lies in exactly 3 octets, which is the quotient 7 T_4 / H_4 the cited test computes."
+
+[[formal_edge]]
+claim = "C-1469"
+role = "successor"
+formal_file = "rocq/open/verified/C582_IndexPlaneIncidence.v"
+depends_on = "rocq/open/verified/C029_SedenionOctonionSubalgebras.v"
+theorems = ["plane_line_incidence", "closed_octets_are_planes", "sorted_triple_classes", "late_planes_are_fano_lines", "C029_SedenionOctonionSubalgebras.C029_family_closed"]
+formal_scope = "35 lines and 15 xor-closed octets at level 4 with their incidence counts; closure of the 15 real spans under the sedenion product; associativity of the three units of a line in all six orders; 7 lines in the index set {0..7}."
+not_stated = ["The formulas H_n and T_n at any n other than the values H_3, H_4 and T_4.", "H_5 = 155.", "That the real span of a line is isomorphic to the quaternions."]
+
+[[formal_input]]
+path = "rocq/open/verified/C582_IndexPlaneIncidence.v"
+commit = "9b9e1b26921daf71366db28f2205bef64be04408"
+sha256 = "039a1ddc18706b624d729ed1657f0d72c982392839276a9beeb5eacddee95b4f"
+
+[[formal_input]]
+path = "rocq/open/verified/C029_SedenionOctonionSubalgebras.v"
+commit = "9b9e1b26921daf71366db28f2205bef64be04408"
+sha256 = "005a132ad2d8f7ca25ffd8c76b2667f00c3b03ee8a9e38db290a5cdc37ab51cf"
+
+[[formal_input]]
+path = "lean/GororobaMath/CayleyDickson/Alternative.lean"
+commit = "9b9e1b26921daf71366db28f2205bef64be04408"
+sha256 = "f202ea2cfc87594db350eabef62af7683bf739c304478d2dafc8071a99acb2e7"
+
+[[formal_input]]
+path = "lean/GororobaMath/CayleyDickson/FlexibleLaw.lean"
+commit = "9b9e1b26921daf71366db28f2205bef64be04408"
+sha256 = "c7f2f5d7c8302c9a5a5596a84b631dfd9a0f04695da8d51ed16ff3054b135a97"

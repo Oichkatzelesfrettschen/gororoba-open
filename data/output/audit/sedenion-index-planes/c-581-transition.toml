@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-23T20:25:00Z"
+transition_key = "c-581-index-plane-alternativity-scope"
+source_claim_id = "C-581"
+expected_prior_status = "Verified"
+experiment_verdict = "MethodologyInvalid"
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+exercised_falsifier = "Read is_alternative_subalgebra, which enumerate_octonion_subalgebras calls and test_all_15_are_alternative asserts, and evaluate left alternativity (x x) y = x (x y) on a two-term element of each of the 15 index planes in the same product. C-581 keeps its first sentence if the function evaluates an identity that implies alternativity of the span and no plane holds a violating pair; it loses it when the function evaluates only basis triples (a, b, a xor b) and some plane holds a violating pair."
+proposed_claim_status = "Superseded"
+rationale = "The function first checks xor closure of the index set. Its alternativity phase evaluates, for each pair a, b of the set, the associator of the basis triple (e_a, e_b, e_(a xor b)) and no other; it then requires seven oriented Fano triples. A triple (a, b, a xor b) spans a quaternion subalgebra and associates in every Cayley-Dickson algebra, so the three checks pass on every xor-closed octet and decide nothing about alternativity of the span. In gororoba-math, C029_octonion_subalgebra_iff proves that exactly the 8 spans with u <= 8 are isomorphic to the octonions, and not_left_alt_9 to not_left_alt_15 give, for each of the 7 spans with 9 <= u, a pair x = e_a + e_b, y = e_c with (x x) y <> x (x y). The sentence 'All 15 hyperplanes are alternative algebras (octonion subalgebras)' is therefore false, and the method could not have supported it. The second sentence holds for basis units (C582_IndexPlaneIncidence.basis_units_alternate) and the third holds as 7 lines per plane (plane_line_incidence). C-581 becomes Superseded and the successor carries what is proved."
+unresolved_assumptions = ["The successor's Rocq and Lean sources are read at the gororoba-math commit of source-map.toml, which is later than the commit of ci/gororoba_math.pin, so no check of this repository reads them until the pin moves.", "No file was compiled or kernel-checked for this transition here; the compile and kernel check are those of the lean workflow (run 45248667134) and the rocq workflow (run 45248667274) of gororoba-math (on commit 5258d2b69, whose tree equals that of the recorded merge commit 9b9e1b269), so the successor starts Provisional."]
+actor = "claude-code"
+reason = "Replace the alternativity sentence of C-581 by the proved index-plane statements and the 8 to 7 split of C-1787."
+expected_source_state_sha256 = "065126ed51e92f9644fce2f58d0467e54c13d01dae61b2d3074b9db647e29de5"
+expected_claim_id_max = 1791
+
+[[successor]]
+proposal_key = "sedenion-index-planes-lines-and-basis-alternativity"
+statement = "In the 16D (sedenions) with basis index group {0..15} under xor, exactly 15 of the 6435 eight-element index sets containing 0 are closed under xor; they are the sets {i : parity(u land i) = 0} for u in 1..15 (C582_IndexPlaneIncidence.closed_octets_are_planes). Each holds 7 of the 35 lines {a, b, a xor b}, each line lies in 3 of them, and two distinct sets share 4 indices and exactly one line (plane_line_incidence). Both alternative laws hold on basis units: (e_a e_a) e_b = e_a (e_a e_b) and (e_a e_b) e_b = e_a (e_b e_b) for all indices (basis_units_alternate). The real spans are not all alternative algebras: C-1787 records that exactly the 8 spans with u <= 8 are isomorphic to the octonions and that each of the 7 spans with 9 <= u holds a pair violating left alternativity."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Formal statement about index sets and basis units of level 4 of the integer Cayley-Dickson tower of gororoba-math rocq/open (C582_IndexPlaneIncidence.v, product tz_mul), decided by evaluation, at the commit and digest of data/output/audit/sedenion-index-planes/source-map.toml. Alternativity of a span over the reals is the subject of C-1787 and is not proved here."
+required_falsifier = "A build, axiom-audit or kernel-check failure of the cited sources at the recorded commit withholds formal support for this successor. An exact enumeration in the same product that finds a sixteenth xor-closed octet containing 0, a plane with a line count other than 7, a line lying in a number of planes other than 3, two distinct planes sharing a number of indices other than 4 or a number of lines other than 1, or a pair of basis units violating an alternative law falsifies the corresponding clause."
+where_stated = ["data/output/audit/sedenion-index-planes/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-SEDENION-INDEX-PLANES"]
+predecessor_relation_kind = "narrows"
