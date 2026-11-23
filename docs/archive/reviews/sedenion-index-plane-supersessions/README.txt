@@ -14,7 +14,7 @@ Review. One local round on the draft specifications, chosen by the owner: codex
 (gpt-daybreak-blue-latest, high effort, read-only) as reviewer, agy
 (gemini-4-argon-low) and opencode (opencode-go/glm-5.3) as red-teamers, then the
 Advisor last on the revised specifications before the apply. reconciliation.txt
-lists each finding with its check and resolution. Seven findings changed the
+lists each finding with its check and resolution. Findings 1 to 11 changed the
 specifications; the transitions were applied once, after the revision.
 
 Result. The four gororoba-math file digests in the source map equal gororoba-math

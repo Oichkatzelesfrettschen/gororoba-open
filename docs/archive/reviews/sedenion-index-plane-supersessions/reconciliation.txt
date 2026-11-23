@@ -25,3 +25,10 @@ a reading of sorted_triple_classes (it decides that the triples failing in no
 order are exactly the lines), the call path from enumerate_octonion_subalgebras,
 the wording "not necessarily associative ring", and the digest form of the
 precedent source map. Each was done before the apply.
+
+Advisor, second pass, on the applied commit c2adc957: required that the committed
+specifications equal the applied ones (their sha256 equal transition_spec_sha256
+of events 237 to 239), that events 237 to 239 be read whole in
+registry/claim_transitions.toml, that the equal timestamp of events 237 and 238
+be compared with main (earlier events share timestamps), and that the count of
+findings in README.txt be corrected. Each was done; the count was the one change.
