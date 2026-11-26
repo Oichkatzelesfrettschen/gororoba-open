@@ -1,0 +1,15 @@
+[transition]
+transition_timestamp = "2026-11-25T16:50:00Z"
+transition_key = "c-168-sparse-zero-divisors-at-128d-refuted"
+source_claim_id = "C-168"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+exercised_falsifier = "Compute the nullity of the left-multiplication matrix of two-term elements at 64D and 128D. The inference that zero divisors are dramatically sparser at 128D survives if most two-term elements have nullity 0 at those dimensions; it is refuted when most have nonzero nullity."
+proposed_claim_status = "Refuted"
+rationale = "The census of doubly pure two-term elements records nonzero nullity (a nonzero z with y z = 0) for 930 of the 961 pairs e_a + e_(32+b) at level 6 (64D, not 128D; tower-matrix row T082: nullities 28, 20, 12, 4, 0 on 342, 168, 168, 252, 31 pairs) and for 27768 of 31500 signed two-term elements at 128D. Two-term elements are zero divisors in most cases at both dimensions, so the inference that the zero-divisor structure becomes dramatically sparser at 128D is refuted. The first-100 sample of the claim has an unstated ordering and was not recomputed here."
+unresolved_assumptions = ["The sample count of zero zero divisors among the first 100 candidates of cd_algebraic_experiments_v20.py is not recomputed here.", "The census inputs are held in gororoba-math local/a5-tower and are identified by sha256 in the source map."]
+actor = "claude-code"
+reason = "Refute the sparsity inference of C-168 with the exact two-term nullity censuses at 64D and 128D."
+expected_source_state_sha256 = "0b7604947e83f698f128cc5905511d620012d76089cc000cd833a502f1612a89"
+expected_claim_id_max = 1795

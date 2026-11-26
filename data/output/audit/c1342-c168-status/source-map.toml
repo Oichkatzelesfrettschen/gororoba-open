@@ -1,0 +1,50 @@
+schema_version = 1
+claims = ["C-1342", "C-168"]
+purpose = "For two claims about zero-divisor structure of the Cayley-Dickson tower, this map records what the retained enumerations and censuses establish and the parts of each claim statement that they do not support or that they contradict. The two transitions beside this map mark C-1342 Superseded by a Provisional successor and C-168 Refuted."
+formal_evidence_layer = "implementation_conformance"
+method = "C-1342: the test every_enumerated_motif_has_certified_rational_rank of crates/algebra_analysis/tests/motif_exact_rank.rs was run at the commit of this repository below (cargo test --profile validation -p algebra_analysis --test motif_exact_rank, with MOTIF_EXACT_OUTPUT set; 1 passed) and the component counts were read from the report the test writes. C-168: the rows and counts below were read from the exact computations of the gororoba-math audit of the Cayley-Dickson tower (local/a5-tower), whose input digests are listed; no computation was repeated for this map."
+
+[[implementation_edge]]
+claim = "C-1342"
+claim_sentence = "The number of motif components (box-kite generalizations) at CD dimension D is n_components = D/2 - 1, each containing D/2 - 2 cross-assessor nodes. Total cross-assessors = (D/2-1)(D/2-2). Verified computationally at D=16 (7*6=42), D=32 (15*14=210), D=64 (31*30=930), and analytically to D=4096."
+implementation_file = "crates/algebra_analysis/tests/motif_exact_rank.rs"
+implementation_scope = "The test enumerates motif_components_for_cross_assessors(D) for D in 16, 32, 64, 128 and 256, asserts that each component has D/2 - 2 vertices and that the rational rank of each component adjacency matrix equals the number of its distinct columns, and writes the report. Its report header records universal_extension = \"unproved\"."
+measured_components = "D=16: 7; D=32: 15; D=64: 31; D=128: 63; D=256: 127 (components = D/2 - 1 in all five dimensions)"
+measured_total_cross_assessors = "42; 210; 930; 3906; 16002 (components times D/2 - 2)"
+report_sha256 = "4e87c4ca648a04a9c278b534058b9024ee44148c23bac838105d5d73dc55e460"
+not_stated = ["The component count D/2 - 1 is read from the report and is not an assertion of the test.", "No test, source or document in the repository derives the formulas analytically, and none enumerates a dimension above 256; the clause 'analytically to D=4096' has no cited support.", "The where_stated of C-1342 cites a test function by a name that no repository file holds; the enumeration that exists is the test motif_exact_rank (every_enumerated_motif_has_certified_rational_rank)."]
+
+[[implementation_edge]]
+claim = "C-168"
+claim_sentence = "ZD product spectrum at dim=128: among the first 100 diagonal-form (e_i+e_j)/sqrt(2) candidates, ZERO are actual zero divisors. This suggests the ZD structure becomes dramatically sparser at dim=128, or requires different index pairs."
+census_definition = "tower_census.py computes, for each doubly pure element y with coordinates in {-1, 0, 1} (coordinates 0 and D/2 zero) the nullity D - rank over Z of the left-multiplication matrix L_y built from cd_sign; nullity above 0 means y z = 0 for some nonzero z, so y is a zero divisor."
+level_6_two_term = "tower-matrix.tsv row T082 (level 6, dimension 64D): two-term operands e_a + e_(32+b), a and b in 1..31, take nullities 28, 20, 12, 4, 0 on 342, 168, 168, 252, 31 pairs; 930 of 961 pairs have nonzero nullity at level 6 (64D); the figure is not a 128D count."
+level_7_two_term = "census.json, key 128 (support 2, doubly pure, signs counted): 27768 of 31500 two-term elements have nonzero nullity (by_support_nullity keys 2:4 to 2:60 against 2:0 = 3732)."
+conflict = "Both counts show that two-term (support 2) elements are zero divisors in most cases at 64D and at 128D. The inference that the zero-divisor structure is sparser at 128D rests on a first-100 sample whose ordering the claim does not state and whose data file was not read here; the sample's own count is not contested, the inference drawn from it is."
+not_stated = ["The first 100 candidates of cd_algebraic_experiments_v20.py were not recomputed; the claim's observed count of zero among them is neither confirmed nor refuted here.", "The census elements are signed sums with coordinates in {-1, 0, 1} excluding coordinates 0 and D/2; the claim's normalized (e_i + e_j)/sqrt(2) candidates scale such an element by a nonzero constant, which leaves its nullity unchanged, but the claim's index selection is unstated."]
+
+[[input]]
+path = "crates/algebra_analysis/tests/motif_exact_rank.rs"
+commit = "3c04c2eb0cb0580cd0eaab26992e092e7d6fa283"
+sha256 = "f880f285b7cdc17c5499a30954de70a11b7d0b0421eba4fd9ca8aa6203c1c355"
+
+[[input]]
+path = "crates/algebra_analysis/src/boxkites.rs"
+commit = "3c04c2eb0cb0580cd0eaab26992e092e7d6fa283"
+sha256 = "c38eee0b01fd4a9c7bc228c7d2df423014c999ccf4e8dc46c69089d19dee7753"
+
+[[input]]
+path = "gororoba-math local/a5-tower/tower-matrix.tsv"
+sha256 = "e6c7e412c76385408db601e0cd1b9e69e153c7dfd7e403c4ddcf034db7dd7478"
+
+[[input]]
+path = "gororoba-math local/a5-tower/census.json"
+sha256 = "05b5c6c2ec8fe0d77b4ca8a5af4b0f9795017e0339cdb25046c2ab0aae027bc8"
+
+[[input]]
+path = "gororoba-math local/a5-tower/tower_census.py"
+sha256 = "57c78603380957f57ea801e4b7878cee795738a3542bd4d13f079ac5f987bde7"
+
+[[input]]
+path = "gororoba-math local/a5-tower/report.md"
+sha256 = "eeb90de5f8ab711bb089470807189844ab13363d02f7f4f47b5f7e752dbae283"

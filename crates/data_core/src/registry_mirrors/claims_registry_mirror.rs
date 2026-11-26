@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1607
+//! Total claims: 1608
 //!
 //! ## C-001
 //!
@@ -1346,7 +1346,7 @@
 //!
 //! ## C-168
 //!
-//! - Status: `Verified`
+//! - Status: `Refuted`
 //! - Last verified: 2026-02-01
 //! - Statement: ZD product spectrum at dim=128: among the first 100 diagonal-form (e_i+e_j)/sqrt(2) candidates, ZERO are actual zero divisors. This suggests the ZD structure becomes dramatically sparser at dim=128, or requires different index pairs.
 //! - Where stated: `src/scripts/analysis/cd_algebraic_experiments_v20.py`, `data/csv/cd_algebraic_experiments_v20.json`
@@ -9626,7 +9626,7 @@
 //!
 //! ## C-1342
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified:
 //! - Statement: The number of motif components (box-kite generalizations) at CD dimension D is n_components = D/2 - 1, each containing D/2 - 2 cross-assessor nodes. Total cross-assessors = (D/2-1)(D/2-2). Verified computationally at D=16 (7*6=42), D=32 (15*14=210), D=64 (31*30=930), and analytically to D=4096.
 //! - Where stated: crates/algebra_analysis/src/boxkites.rs (motif_components_for_cross_assessors, test_motif_component_count_formula)
@@ -12862,4 +12862,12 @@
 //! - Last verified: 2026-11-23
 //! - Statement: In the basis index group {0..15} of the 16D (sedenions) under xor there are 35 lines {a, b, a xor b} of nonzero indices and 15 xor-closed octets containing 0 (C582_IndexPlaneIncidence.plane_line_incidence, closed_octets_are_planes). Each line lies in exactly 3 octets, and two distinct octets share 4 indices and exactly one line. The real span of each octet is closed under the sedenion product (C029_SedenionOctonionSubalgebras.C029_family_closed), and the three units of a line associate in all six orders (sorted_triple_classes). The octonion index set {0..7} holds 7 lines (late_planes_are_fano_lines). These are the values H_4 = 35, T_4 = 15, 7 T_4 / H_4 = 3 and H_3 = 7 of the formulas that C-1469 attributes to Wilmot (arXiv:2512.07210); this statement asserts the formulas at no other n.
 //! - Where stated: data/output/audit/sedenion-index-planes/source-map.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1795
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-25
+//! - Statement: For the 16D (sedenions), 32D, 64D, 128D and 256D Cayley-Dickson algebras, the exhaustive enumeration motif_components_for_cross_assessors(D) returns D/2 - 1 motif components (7, 15, 31, 63, 127), each with D/2 - 2 cross-assessor nodes, so (D/2 - 1)(D/2 - 2) cross-assessors in total (42, 210, 930, 3906, 16002). Verified 16D to 256D by exhaustive enumeration; extension to 4096D unproved.
+//! - Where stated: data/output/audit/c1342-c168-status/source-map.toml
 //! - What would verify/refute it:

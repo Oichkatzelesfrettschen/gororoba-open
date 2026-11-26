@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 239
+event_count = 241
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -5164,3 +5164,45 @@ transition_spec_sha256 = "23e1e96bef26ddbf802de6c7e36d9a3911181c7f44d275b0db13d8
 proposal_key = "sedenion-index-lines-and-octets-incidence"
 canonical_claim_id = "C-1794"
 relation_kind = "supersedes"
+
+[[transition]]
+event_id = 240
+transition_key = "c-1342-motif-component-count-range"
+source_claim_id = "C-1342"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read motif_exact_rank.rs, boxkites.rs and the repository for any derivation or enumeration of the motif component count above 256. C-1342 keeps its analytic clause if a cited source derives n_components = D/2 - 1 and D/2 - 2 nodes per component for every D up to 4096, or enumerates a dimension above 256; it loses the clause when the enumeration stops at 256 and the test itself records universal_extension as unproved."
+rationale = "The test every_enumerated_motif_has_certified_rational_rank enumerates the motif components at 16D, 32D, 64D, 128D and 256D, asserts D/2 - 2 vertices per component, and records universal_extension = unproved. Its report, produced by a run on this commit, holds 7, 15, 31, 63 and 127 components. The claim's clause 'analytically to D=4096' cites no derivation, and the test function its where_stated cites is absent from the repository; the enumeration that exists is the test motif_exact_rank. The formulas hold at the five enumerated dimensions and are unproved beyond 256D. C-1342 becomes Superseded and the successor carries the enumerated range."
+unresolved_assumptions = ["The component count D/2 - 1 is read from the report the test writes and is not asserted by the test.", "The formulas for D from 512 to 4096 are neither enumerated nor derived in this repository."]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Bound the motif count claim to the enumerated range 16D to 256D and mark the extension to 4096D unproved."
+transition_timestamp = "2026-11-25T16:50:00Z"
+transition_spec_sha256 = "52e355a78ccaed3582468c6a1171fb9085db7162813bfcced895ddc071cd8747"
+
+[[transition.successors]]
+proposal_key = "motif-component-count-enumerated-16d-to-256d"
+canonical_claim_id = "C-1795"
+relation_kind = "narrows"
+
+[[transition]]
+event_id = 241
+transition_key = "c-168-sparse-zero-divisors-at-128d-refuted"
+source_claim_id = "C-168"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Refuted"
+current_status = "Refuted"
+exercised_falsifier = "Compute the nullity of the left-multiplication matrix of two-term elements at 64D and 128D. The inference that zero divisors are dramatically sparser at 128D survives if most two-term elements have nullity 0 at those dimensions; it is refuted when most have nonzero nullity."
+rationale = "The census of doubly pure two-term elements records nonzero nullity (a nonzero z with y z = 0) for 930 of the 961 pairs e_a + e_(32+b) at level 6 (64D, not 128D; tower-matrix row T082: nullities 28, 20, 12, 4, 0 on 342, 168, 168, 252, 31 pairs) and for 27768 of 31500 signed two-term elements at 128D. Two-term elements are zero divisors in most cases at both dimensions, so the inference that the zero-divisor structure becomes dramatically sparser at 128D is refuted. The first-100 sample of the claim has an unstated ordering and was not recomputed here."
+unresolved_assumptions = ["The sample count of zero zero divisors among the first 100 candidates of cd_algebraic_experiments_v20.py is not recomputed here.", "The census inputs are held in gororoba-math local/a5-tower and are identified by sha256 in the source map."]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Refute the sparsity inference of C-168 with the exact two-term nullity censuses at 64D and 128D."
+transition_timestamp = "2026-11-25T16:50:00Z"
+transition_spec_sha256 = "ba46b027a5259a58345f744f1e718b1dd70f1702238ff62dadae295d4e922ecf"
+successors = []

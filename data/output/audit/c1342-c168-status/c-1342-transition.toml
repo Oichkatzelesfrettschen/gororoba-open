@@ -1,0 +1,25 @@
+[transition]
+transition_timestamp = "2026-11-25T16:50:00Z"
+transition_key = "c-1342-motif-component-count-range"
+source_claim_id = "C-1342"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+exercised_falsifier = "Read motif_exact_rank.rs, boxkites.rs and the repository for any derivation or enumeration of the motif component count above 256. C-1342 keeps its analytic clause if a cited source derives n_components = D/2 - 1 and D/2 - 2 nodes per component for every D up to 4096, or enumerates a dimension above 256; it loses the clause when the enumeration stops at 256 and the test itself records universal_extension as unproved."
+proposed_claim_status = "Superseded"
+rationale = "The test every_enumerated_motif_has_certified_rational_rank enumerates the motif components at 16D, 32D, 64D, 128D and 256D, asserts D/2 - 2 vertices per component, and records universal_extension = unproved. Its report, produced by a run on this commit, holds 7, 15, 31, 63 and 127 components. The claim's clause 'analytically to D=4096' cites no derivation, and the test function its where_stated cites is absent from the repository; the enumeration that exists is the test motif_exact_rank. The formulas hold at the five enumerated dimensions and are unproved beyond 256D. C-1342 becomes Superseded and the successor carries the enumerated range."
+unresolved_assumptions = ["The component count D/2 - 1 is read from the report the test writes and is not asserted by the test.", "The formulas for D from 512 to 4096 are neither enumerated nor derived in this repository."]
+actor = "claude-code"
+reason = "Bound the motif count claim to the enumerated range 16D to 256D and mark the extension to 4096D unproved."
+expected_source_state_sha256 = "7c67350c84fa67ce596f2b0fbbdb918997e2c8fcffeded6b7e0a6881ca29120f"
+expected_claim_id_max = 1794
+
+[[successor]]
+proposal_key = "motif-component-count-enumerated-16d-to-256d"
+statement = "For the 16D (sedenions), 32D, 64D, 128D and 256D Cayley-Dickson algebras, the exhaustive enumeration motif_components_for_cross_assessors(D) returns D/2 - 1 motif components (7, 15, 31, 63, 127), each with D/2 - 2 cross-assessor nodes, so (D/2 - 1)(D/2 - 2) cross-assessors in total (42, 210, 930, 3906, 16002). Verified 16D to 256D by exhaustive enumeration; extension to 4096D unproved."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Exhaustive enumeration by crates/algebra_analysis/tests/motif_exact_rank.rs at dimensions 16, 32, 64, 128 and 256 (cross_assessors and motif_components_for_cross_assessors of crates/algebra_analysis/src/boxkites.rs); an implementation measurement with no formal proof, recorded in data/output/audit/c1342-c168-status/source-map.toml."
+required_falsifier = "An enumeration at one of the five dimensions that returns a component count other than D/2 - 1 or a component with a node count other than D/2 - 2 falsifies the clause for that dimension. A derivation or enumeration above 256D, a result that confirms or breaks the formulas there, replaces the unproved clause."
+where_stated = ["data/output/audit/c1342-c168-status/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+predecessor_relation_kind = "narrows"
