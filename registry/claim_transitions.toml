@@ -4,7 +4,7 @@
 # Compatibility export lane: claim_transitions
 [meta]
 surface = "canonical claim transition events"
-event_count = 239
+event_count = 241
 history_policy = "append-only events retain prior status, verdict, evidence, assumptions, and successor IDs"
 
 [[transition]]
@@ -5164,3 +5164,50 @@ transition_spec_sha256 = "23e1e96bef26ddbf802de6c7e36d9a3911181c7f44d275b0db13d8
 proposal_key = "sedenion-index-lines-and-octets-incidence"
 canonical_claim_id = "C-1794"
 relation_kind = "supersedes"
+
+[[transition]]
+event_id = 240
+transition_key = "c-1342-motif-component-count-range"
+source_claim_id = "C-1342"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Read motif_exact_rank.rs, boxkites.rs and the repository for any derivation or enumeration of the motif component count above 256. C-1342 keeps its analytic clause if a cited source derives n_components = D/2 - 1 and D/2 - 2 nodes per component for every D up to 4096, or enumerates a dimension above 256; it loses the clause when the enumeration stops at 256 and the test itself records universal_extension as unproved."
+rationale = "The test every_enumerated_motif_has_certified_rational_rank enumerates the motif components at 16D, 32D, 64D, 128D and 256D, asserts D/2 - 2 vertices per component, and records universal_extension = unproved. Its report holds 7, 15, 31, 63 and 127 components. The claim's clause 'analytically to D=4096' cites no derivation, and the test function its where_stated cites is absent from the repository. The product (D/2 - 1)(D/2 - 2) counts the active motif nodes of the components, not the pairs of cross_assessors(D), which returns (D/2 - 1)(D/2) pairs before isolated nodes are dropped. The enumerated finite statement is the existing Provisional claim C-1715, which the transition tooling cannot attach as a relation target because it relates a predecessor only to a claim it creates; C-1342 becomes Superseded and C-1715 carries the enumerated range."
+unresolved_assumptions = ["The component count D/2 - 1 is read from the report the test writes and is not asserted by the test.", "The formulas for D from 512 to 4096 are neither enumerated nor derived in this repository.", "No relation row joins C-1342 to C-1715 (see the rationale)."]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Bound the motif count claim to the enumerated range 16D to 256D, held by C-1715, and mark the extension to 4096D unproved."
+transition_timestamp = "2026-11-26T04:28:27Z"
+transition_spec_sha256 = "778e8936fde11e5c6667f606a0040371d366a92fdf8d8b1a85de21b8a199d248"
+successors = []
+
+[[transition]]
+event_id = 241
+transition_key = "c-168-sparse-zero-divisors-at-128d-superseded"
+source_claim_id = "C-168"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+proposed_claim_status = "Superseded"
+current_status = "Superseded"
+exercised_falsifier = "Compute the nullity of the left-multiplication matrix of doubly pure two-term elements at 16D, 32D, 64D and 128D. The sparsity alternative of C-168 ('the ZD structure becomes dramatically sparser at dim=128') survives if most two-term elements have nullity 0 at 128D; it is falsified when most have nonzero nullity there and the fraction does not fall from 16D to 128D. The observation of 0 zero divisors among the first 100 candidates is a separate clause that this census does not test."
+rationale = "C-168 joins an observation (0 of the first 100 candidates are zero divisors) to two alternative inferences. The census, reproduced by a second implementation, falsifies the sparsity alternative: 6942 of the 7875 unordered pairs e_i + e_j have nonzero nullity at 128D (88.15 percent, against 46.15, 67.59 and 80.27 percent, that is 42 of 91, 294 of 435 and 1518 of 1891 pairs, at 16D, 32D and 64D), and the pairs e_i - e_j are the same 6942 (27768 of 31500 signed elements). C-156 (Verified) already holds the counts 84, 588 and 3036 zero divisors at 16D, 32D and 64D, equal to twice 42, 294 and 1518; the 128D count 13884 is new, so the first successor continues that series. The 64D cross-half figure, 930 of the 961 operands e_a + e_(32+b) with nonzero nullity (nullities 28, 20, 12, 4 on 342, 168, 168, 252 pairs; 0 on 31), equals as a set the 930 motif nodes (31 x 30) of C-1715, measured against the node lists of the motif_exact_rank report at 64D, so C-1715 holds it and it registers no successor. The observation is untested because cd_algebraic_experiments_v20.py and its JSON are absent from the history of this repository and the ordering of the sample is unstated. The alternative 'requires different index pairs' stays consistent with the census. computed: in lexicographic order starting at i = 0 the first 100 pairs, (0,1) to (0,100), all have nullity 0 at 128D, while of the 100 pairs (1,2) to (1,101) starting at i = 1, 86 have nonzero nullity and 14 have nullity 0; the ordering of the original script is unknown. hypothesis: the script started at i = 0, which gives 0 of 100 because no element with a nonzero coordinate at e_0 or e_(D/2) is a zero divisor. C-168 becomes Superseded; the successors state the 128D count and the index-zero theorem with their domains."
+unresolved_assumptions = ["The 0-of-100 observation is not recomputed and cannot be, because the script and its JSON are absent from the history.", "census.json and recount.json are retained outputs and were not rerun for this transition; two implementations with different sign tables agree on every count.", "The cited gororoba-math file does not exist at the commit of ci/gororoba_math.pin (0c818156, 2026-11-13); it is cited at commit 796aa5c1, whose lean run (45587924245) and rocq schedule run (45589354987) on main succeeded."]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+experiment_ids = []
+actor = "claude-code"
+reason = "Retire the compound claim and record the census results and the index-zero theorem as bounded successors."
+transition_timestamp = "2026-11-26T04:28:27Z"
+transition_spec_sha256 = "f173cfc89636dea46da24b683af16780d60ab2dc7a01554e92320042b979eca0"
+
+[[transition.successors]]
+proposal_key = "two-term-zero-divisor-count-at-128d"
+canonical_claim_id = "C-1795"
+relation_kind = "narrows"
+
+[[transition.successors]]
+proposal_key = "zero-divisors-have-zero-coordinates-at-e0-and-e-half"
+canonical_claim_id = "C-1796"
+relation_kind = "narrows"

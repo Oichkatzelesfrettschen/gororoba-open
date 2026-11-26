@@ -20,3 +20,4 @@ during their review. Paths are repository-relative.
 - twisted-tower-module/README.txt: Review record: cd_kernel: twisted-tower group algebra with exact associators
 - registry-c1783-heldout-evidence/README.txt: Review record: registry: C-1783 carries its held-out P13d evaluation
 - sedenion-index-plane-supersessions/README.txt: Review record: registry supersession of C-581, C-124 and C-1469 by proved statements on the sedenion index planes
+- c1342-c168-status/README.txt: Review record: registry transitions of C-1342 and C-168 (both Superseded)

@@ -1,0 +1,53 @@
+"""Nullity census of doubly pure {-1, 0, 1} elements of support <= S in the Cayley-Dickson algebra of dimension D.
+
+Doubly pure: coordinates 0 and D/2 are zero. L_y is the left-multiplication matrix built from cd_core.cd_sign, the
+nullity is D - rank over Z (python-flint fmpz_mat). Usage: python3 tower_census.py D S [WORKERS]; prints one JSON line.
+Reproduces the 32-dimensional census of docs/evidence/a5-zero-divisor-strata/verification.md at D = 32, S = 4.
+"""
+import itertools
+import json
+import os
+import sys
+import time
+from collections import Counter
+from multiprocessing import Pool
+
+sys.path.insert(0, os.environ["GQ"])
+sys.path.insert(0, os.path.join(os.environ["GQ"], "gororoba_quantum"))
+import flint  # noqa: E402
+from gororoba_quantum.cd_core import cd_sign  # noqa: E402
+
+D = int(sys.argv[1])
+S = int(sys.argv[2])
+W = int(sys.argv[3]) if len(sys.argv) > 3 else 8
+SIGN = [[cd_sign(D, k, c) for c in range(D)] for k in range(D)]
+POS = [[((k ^ c) * D + c, SIGN[k][c]) for c in range(D)] for k in range(D)]
+DP = [k for k in range(1, D) if k != D // 2]
+
+
+def item(combo):
+    stats = Counter()
+    for signs in itertools.product((1, -1), repeat=len(combo)):
+        if signs[0] == -1:
+            continue  # y and -y have the same nullity; count the pair twice below
+        flat = [0] * (D * D)
+        for k, s in zip(combo, signs):
+            for pos, sg in POS[k]:
+                flat[pos] += s * sg
+        stats[(len(combo), D - int(flint.fmpz_mat(D, D, flat).rank()))] += 2
+    return stats
+
+
+def main():
+    t = time.time()
+    combos = [c for size in range(1, S + 1) for c in itertools.combinations(DP, size)]
+    total = Counter()
+    with Pool(W) as pool:
+        for st in pool.imap_unordered(item, combos, chunksize=256):
+            total.update(st)
+    print(json.dumps({"dim": D, "support": S, "points": sum(total.values()),
+                      "by_support_nullity": {f"{s}:{n}": v for (s, n), v in sorted(total.items())}, "seconds": round(time.time() - t, 1)}))
+
+
+if __name__ == "__main__":
+    main()
