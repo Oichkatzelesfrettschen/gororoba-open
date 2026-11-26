@@ -6,7 +6,7 @@
 //!
 //! Authoritative source: `registry/canonical/control_plane.sqlite3`.
 //!
-//! Total claims: 1607
+//! Total claims: 1610
 //!
 //! ## C-001
 //!
@@ -1346,7 +1346,7 @@
 //!
 //! ## C-168
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified: 2026-02-01
 //! - Statement: ZD product spectrum at dim=128: among the first 100 diagonal-form (e_i+e_j)/sqrt(2) candidates, ZERO are actual zero divisors. This suggests the ZD structure becomes dramatically sparser at dim=128, or requires different index pairs.
 //! - Where stated: `src/scripts/analysis/cd_algebraic_experiments_v20.py`, `data/csv/cd_algebraic_experiments_v20.json`
@@ -9626,7 +9626,7 @@
 //!
 //! ## C-1342
 //!
-//! - Status: `Verified`
+//! - Status: `Superseded`
 //! - Last verified:
 //! - Statement: The number of motif components (box-kite generalizations) at CD dimension D is n_components = D/2 - 1, each containing D/2 - 2 cross-assessor nodes. Total cross-assessors = (D/2-1)(D/2-2). Verified computationally at D=16 (7*6=42), D=32 (15*14=210), D=64 (31*30=930), and analytically to D=4096.
 //! - Where stated: crates/algebra_analysis/src/boxkites.rs (motif_components_for_cross_assessors, test_motif_component_count_formula)
@@ -12862,4 +12862,28 @@
 //! - Last verified: 2026-11-23
 //! - Statement: In the basis index group {0..15} of the 16D (sedenions) under xor there are 35 lines {a, b, a xor b} of nonzero indices and 15 xor-closed octets containing 0 (C582_IndexPlaneIncidence.plane_line_incidence, closed_octets_are_planes). Each line lies in exactly 3 octets, and two distinct octets share 4 indices and exactly one line. The real span of each octet is closed under the sedenion product (C029_SedenionOctonionSubalgebras.C029_family_closed), and the three units of a line associate in all six orders (sorted_triple_classes). The octonion index set {0..7} holds 7 lines (late_planes_are_fano_lines). These are the values H_4 = 35, T_4 = 15, 7 T_4 / H_4 = 3 and H_3 = 7 of the formulas that C-1469 attributes to Wilmot (arXiv:2512.07210); this statement asserts the formulas at no other n.
 //! - Where stated: data/output/audit/sedenion-index-planes/source-map.toml
+//! - What would verify/refute it:
+//!
+//! ## C-1795
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-26
+//! - Statement: In the 128D Cayley-Dickson algebra, 6,942 of the 7,875 unordered pairs e_i + e_j (1 <= i < j <= 127, i and j different from 64) have nonzero left-multiplication nullity, so each such element, and its scaling by 1/sqrt(2), is a zero divisor; the pairs e_i - e_j are the same 6,942, so 27,768 of the 31,500 signed elements +-e_i +-e_j are zero divisors. Two implementations with different sign tables give the same counts.
+//! - Where stated: data/output/audit/c1342-c168-status/source-map.toml; data/output/audit/c1342-c168-status/census.json; data/output/audit/c1342-c168-status/recount.json
+//! - What would verify/refute it:
+//!
+//! ## C-1796
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-26
+//! - Statement: Over the signed doubly pure two-term elements +-e_i +-e_j with 1 <= i < j < D, i and j different from D/2, coordinates in {-1, 0, 1} and y and -y both counted, the unordered plus-sign pairs e_i + e_j with nonzero left-multiplication nullity number 42 of 91 at 16D, 294 of 435 at 32D, 1,518 of 1,891 at 64D and 6,942 of 7,875 at 128D, and the minus-sign pairs are the same pairs (signed elements: 168/364, 1,176/1,740, 6,072/7,564 and 27,768/31,500). Separately, of the 961 cross-half operands e_a + e_(32+b), a and b in 1..31, at 64D, 930 have nonzero nullity (nullities 28, 20, 12, 4 on 342, 168, 168, 252 pairs; nullity 0 on 31). Nothing is claimed above 128D.
+//! - Where stated: data/output/audit/c1342-c168-status/source-map.toml; data/output/audit/c1342-c168-status/census.json
+//! - What would verify/refute it:
+//!
+//! ## C-1797
+//!
+//! - Status: `Provisional`
+//! - Last verified: 2026-11-26
+//! - Statement: At every Cayley-Dickson dimension D = 2^n, a zero divisor has zero coordinates at e_0 and e_(D/2) (gororoba-math, lean/GororobaMath/CayleyDickson/ScaledPairAnnihilator.lean, theorem CayleyDickson.Tower.re_halves_eq_zero_of_mk_mul_eq_zero, over an ordered commutative ring with trivial star and no zero divisors). No two-term element with a nonzero coefficient at e_0 or e_(D/2) is therefore a zero divisor; at 128D that excludes 253 of the 8,128 unordered index pairs.
+//! - Where stated: data/output/audit/c1342-c168-status/source-map.toml
 //! - What would verify/refute it:

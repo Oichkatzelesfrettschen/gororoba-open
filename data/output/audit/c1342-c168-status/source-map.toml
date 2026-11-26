@@ -1,0 +1,88 @@
+schema_version = 1
+claims = ["C-1342", "C-168"]
+purpose = "For two claims about zero-divisor structure of the Cayley-Dickson tower, this map records what the retained enumeration and census establish and the parts of each claim statement that they do not support. The two transitions beside this map mark C-1342 and C-168 Superseded; C-168 registers three Provisional successors."
+formal_evidence_layer = "implementation_conformance"
+method = "C-1342: the test every_enumerated_motif_has_certified_rational_rank of crates/algebra_analysis/tests/motif_exact_rank.rs ran on the tree of commit 3c04c2eb0cb0580cd0eaab26992e092e7d6fa283 (cargo test --profile validation -p algebra_analysis --test motif_exact_rank, MOTIF_EXACT_OUTPUT set; 1 passed); the implementation files are the two inputs below, and the report of the run equals the retained report below byte for byte. C-168: counts are read from census.json, the output of tower_census.py (cd_sign of gororoba-quantum), and were reproduced by a second implementation, recount.py, whose basis product shares no code with cd_sign (record recount.json: cd_sign table mismatch 0 and counts equal to census.json at 16D, 32D, 64D and 128D). The 64D cross-half counts were also recomputed by a third exact-rank run, cross_half_check."
+
+[[implementation_edge]]
+claim = "C-1342"
+claim_sentence = "The number of motif components (box-kite generalizations) at CD dimension D is n_components = D/2 - 1, each containing D/2 - 2 cross-assessor nodes. Total cross-assessors = (D/2-1)(D/2-2). Verified computationally at D=16 (7*6=42), D=32 (15*14=210), D=64 (31*30=930), and analytically to D=4096."
+implementation_file = "crates/algebra_analysis/tests/motif_exact_rank.rs"
+implementation_scope = "The test enumerates motif_components_for_cross_assessors(D) for D in 16, 32, 64, 128 and 256, asserts that each component has D/2 - 2 vertices and that the rational rank of each component adjacency matrix equals the number of its distinct columns, and writes the report. The report header records universal_extension = unproved."
+measured_components = "D=16: 7; D=32: 15; D=64: 31; D=128: 63; D=256: 127 (components = D/2 - 1 in all five dimensions)"
+measured_active_motif_nodes = "42; 210; 930; 3906; 16002 (components times D/2 - 2). These are the active motif nodes that survive in the components; cross_assessors(D) returns (D/2 - 1)(D/2) pairs and motif_components_for_nodes drops nodes without a diagonal zero-product edge."
+successor_state = "The finite statement holds in the existing Provisional claim C-1715 (components 7, 15, 31, 63, 127; D/2 - 2 vertices each; evidence data/output/audit/claim-family-evidence-adjudication/motif-exact-rank.toml). The transition tooling registers a relation only to a claim it creates, so the transition names C-1715 in its rationale."
+not_stated = ["The component count D/2 - 1 is read from the report and is not an assertion of the test.", "No test, source or document in the repository derives the formulas analytically, and none enumerates a dimension above 256; the clause 'analytically to D=4096' has no cited support.", "The where_stated of C-1342 cites a test function by a name that no repository file holds; the enumeration that exists is the test motif_exact_rank (every_enumerated_motif_has_certified_rational_rank)."]
+
+[[implementation_edge]]
+claim = "C-168"
+claim_sentence = "ZD product spectrum at dim=128: among the first 100 diagonal-form (e_i+e_j)/sqrt(2) candidates, ZERO are actual zero divisors. This suggests the ZD structure becomes dramatically sparser at dim=128, or requires different index pairs."
+clauses = ["1a observation: 0 of the first 100 candidates are zero divisors. Untested: cd_algebraic_experiments_v20.py and its JSON are absent from the history of this repository, and the ordering is unstated.", "1b inference: the structure becomes dramatically sparser at 128D. Falsified by the census below.", "1c inference: zero divisors need other index pairs. Consistent with the census; untested."]
+census_definition = "tower_census.py computes, for each doubly pure element y with coordinates in {-1, 0, 1} (coordinates 0 and D/2 zero), the nullity D - rank over Z of the left-multiplication matrix L_y built from cd_sign of gororoba-quantum (gororoba_quantum/cd_core.py). Nullity above 0 means y z = 0 for some nonzero z, so y is a zero divisor. Elements y and -y have the same nullity and are both counted."
+census_128d = "census.json, key 128, support 2: 27768 of 31500 signed two-term elements have nonzero nullity (keys 2:4 to 2:60) and 3732 have nullity 0 (key 2:0). recount.json counts unordered pairs: 6942 of the 7875 plus-sign pairs e_i + e_j have nonzero nullity, and the 6942 minus-sign pairs e_i - e_j are the same pairs (pairs_with_differing_sign_nullity 0); 4 x 6942 = 27768."
+density_by_dimension = "recount.json, unordered plus-sign pairs with nonzero nullity over all pairs: 16D 42/91, 32D 294/435, 64D 1518/1891, 128D 6942/7875 (46.15, 67.59, 80.27 and 88.15 percent); census.json signed counts 168/364, 1176/1740, 6072/7564, 27768/31500."
+cross_half_check = "The 64D cross-half operands e_a + e_(32+b), a and b in 1..31, were recomputed with exact matrix rank of L_y (cd_sign of gororoba-quantum, numpy matrix_rank, 64 by 64 integer matrices): nullities 28, 20, 12, 4, 0 on 342, 168, 168, 252, 31 pairs, 930 of 961 nonzero. The counts agree with row T082 of the gororoba-math tower audit (local, untracked) and with census.json at 64D (2:28 = 1368 = 4 x 342, 2:20 = 672 = 4 x 168, 2:12 = 672 = 4 x 168, 2:4 = 1008 = 4 x 252)."
+ordering_computed = "recount.json at 128D, nullity of e_i + e_j: the first 100 pairs in lexicographic order starting at i = 0, (0,1) to (0,100), all have nullity 0; the 100 pairs (1,2) to (1,101) starting at i = 1 hold 86 with nonzero nullity and 14 with nullity 0 (j = 2 to 9, 16, 17, 32, 33, 64 and 65)."
+ordering_caveat = "The ordering of the original script cd_algebraic_experiments_v20.py is unknown, and the script is absent from the history; the computed facts concern two named orderings only. hypothesis: the script iterated pairs from i = 0, which would give 0 of 100 because no element with a nonzero coordinate at e_0 or e_(D/2) is a zero divisor (successor 3)."
+not_stated = ["The first 100 candidates of cd_algebraic_experiments_v20.py were not recomputed; the claim's observed count of zero is neither confirmed nor refuted.", "Nothing is claimed for a dimension above 128D.", "census.json and recount.json are retained outputs and were not rerun for this map."]
+
+[[implementation_edge]]
+claim = "C-168"
+role = "formal_successor_3"
+formal_file = "lean/GororobaMath/CayleyDickson/ScaledPairAnnihilator.lean"
+repository = "gororoba-math"
+commit = "796aa5c1f3a8856fec62573f96995792556cb202"
+sha256 = "847113b94821909ac98c8798d2444467ff36a6aac0ad67d38f7134820acad361"
+theorem = "CayleyDickson.Tower.re_halves_eq_zero_of_mk_mul_eq_zero"
+theorem_scope = "For an ordered commutative ring R with trivial star and no zero divisors (hsq: every square nonnegative), when mk a b * mk c d = 0 with both factors nonzero, re a = re b = re c = re d = 0 (Lemma 9.5 of Biss, Dugger and Isaksen). In Tower R (k+1) the coordinate of 1 is re a and the coordinate of the adjoined unit is re b, so a zero divisor has zero coordinates at e_0 and e_(D/2)."
+rocq_partner = "rocq/quantum/CdAnnihilatorSymmetryReal.v, theorem lemma_9_5 (sha256 70b15f8a9a24b7d089812b513144c124f366d6505a5bfac5472e073d3e3c4fc7, same commit)"
+audit_row = "row T017 of the gororoba-math tower audit (local)"
+pin_boundary = "The commit is later than the commit of ci/gororoba_math.pin (0c818156aca7641542f62496f36e0f9ceafc710d, an ancestor); no check of this repository reads the theorem until the pin moves."
+not_stated = ["No file was compiled or kernel-checked for this map; the compile and kernel check are those of the gororoba-math workflows."]
+
+[[input]]
+path = "data/output/audit/c1342-c168-status/census.json"
+sha256 = "05b5c6c2ec8fe0d77b4ca8a5af4b0f9795017e0339cdb25046c2ab0aae027bc8"
+note = "Output of tower_census.py for D = 16, 32, 64, 128 and support at most 4 (128D support at most 3), copied unchanged."
+
+[[input]]
+path = "data/output/audit/c1342-c168-status/tower_census.py.txt"
+sha256 = "57c78603380957f57ea801e4b7878cee795738a3542bd4d13f079ac5f987bde7"
+note = "The census program copied unchanged under a .txt name, since this repository tracks no .py file. It imports cd_sign from gororoba_quantum/cd_core.py of gororoba-quantum (read at commit 5dee678c385a7d6bc129f8e08bc1ca28cf4420e5, sha256 3ca79d18217bf5803725a9726787cf73e170fdd0727f10156d82018cd605e4f0) and python-flint."
+
+[[input]]
+path = "data/output/audit/c1342-c168-status/recount.py.txt"
+sha256 = "8d0409594840795164a40900ed7af2d5964c41e6d848d552594ce93abbda37b6"
+note = "Second implementation of the signed doubly pure two-term nullity census, copied unchanged under a .txt name. Its product is written from (a, b)(c, d) = (ac - d* b, da + b c*) and shares no code with cd_sign; it reads gororoba_quantum/cd_core.py only to compare the two sign tables, and uses python-flint."
+
+[[input]]
+path = "data/output/audit/c1342-c168-status/recount.json"
+sha256 = "8de64c1dd7baa428ff3bde37c4bee0b6a4a8943653fda1301238dfe4ae3d1083"
+note = "Output of recount.py: counts equal to census.json at 16D to 128D, plus-sign and minus-sign pair counts, the e_0 and e_(D/2) pairs (all nullity 0), the 64D cross-half counts and the two 128D orderings; a mutated-table control at 16D differs from the census."
+
+[[input]]
+path = "data/output/audit/claim-family-evidence-adjudication/motif-exact-rank.toml"
+sha256 = "4e87c4ca648a04a9c278b534058b9024ee44148c23bac838105d5d73dc55e460"
+note = "Retained report of motif_exact_rank; report_sha256 of the run equals this digest."
+
+[[input]]
+path = "crates/algebra_analysis/tests/motif_exact_rank.rs"
+commit = "3c04c2eb0cb0580cd0eaab26992e092e7d6fa283"
+sha256 = "f880f285b7cdc17c5499a30954de70a11b7d0b0421eba4fd9ca8aa6203c1c355"
+
+[[input]]
+path = "crates/algebra_analysis/src/boxkites.rs"
+commit = "3c04c2eb0cb0580cd0eaab26992e092e7d6fa283"
+sha256 = "c38eee0b01fd4a9c7bc228c7d2df423014c999ccf4e8dc46c69089d19dee7753"
+
+[[input]]
+path = "lean/GororobaMath/CayleyDickson/ScaledPairAnnihilator.lean"
+repository = "gororoba-math"
+commit = "796aa5c1f3a8856fec62573f96995792556cb202"
+sha256 = "847113b94821909ac98c8798d2444467ff36a6aac0ad67d38f7134820acad361"
+
+[[input]]
+path = "rocq/quantum/CdAnnihilatorSymmetryReal.v"
+repository = "gororoba-math"
+commit = "796aa5c1f3a8856fec62573f96995792556cb202"
+sha256 = "70b15f8a9a24b7d089812b513144c124f366d6505a5bfac5472e073d3e3c4fc7"

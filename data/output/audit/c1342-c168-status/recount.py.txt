@@ -1,0 +1,152 @@
+"""Recount of the signed doubly pure two-term nullities with a basis product written from (a, b)(c, d) = (ac - d* b, da + b c*).
+
+Usage: GQ=<gororoba-quantum export> python recount.py OUT.json
+The product shares no code with cd_core.cd_sign; GQ is read only to compare the two tables. Nullity = D - rank of the
+left-multiplication matrix of the element over Z (python-flint, exact).
+"""
+import itertools
+import json
+import os
+import resource
+import sys
+import time
+from collections import Counter
+from multiprocessing import Pool
+
+import flint
+
+TABLES = {}
+
+
+def basis_product(n, i, j):
+    """(k, s) with e_i e_j = s e_k in dimension n, by the recursion on single components."""
+    if n == 1:
+        return 0, 1
+    h = n // 2
+    if i < h and j < h:
+        return basis_product(h, i, j)
+    if i < h:
+        k, s = basis_product(h, j - h, i)
+        return h + k, s
+    if j < h:
+        k, s = basis_product(h, i - h, j)
+        return h + k, s * (1 if j == 0 else -1)
+    k, s = basis_product(h, j - h, i - h)
+    return k, -s * (1 if j == h else -1)
+
+
+def table(n):
+    if n not in TABLES:
+        t = [[basis_product(n, i, j) for j in range(n)] for i in range(n)]
+        TABLES[n] = t
+    return TABLES[n]
+
+
+def nullity(n, vec, tab=None):
+    tab = tab or table(n)
+    flat = [0] * (n * n)
+    for i, a in vec.items():
+        row = tab[i]
+        for j in range(n):
+            k, s = row[j]
+            flat[k * n + j] += a * s
+    return n - int(flint.fmpz_mat(n, n, flat).rank())
+
+
+def pair_item(args):
+    n, i, j = args
+    return (i, j, tuple(nullity(n, {i: si, j: sj}) for si, sj in ((1, 1), (1, -1), (-1, 1), (-1, -1))))
+
+
+def signs_item(args):
+    n, i, j = args
+    return (i, j, nullity(n, {i: 1, j: 1}), nullity(n, {i: 1, j: -1}))
+
+
+def pairs_of(n):
+    idx = [k for k in range(1, n) if k != n // 2]
+    return [(n, i, j) for i, j in itertools.combinations(idx, 2)]
+
+
+def cgroup_peak():
+    try:
+        rel = open("/proc/self/cgroup").read().strip().split("::", 1)[1]
+        return int(open("/sys/fs/cgroup" + rel + "/memory.peak").read()) // 1024
+    except (OSError, IndexError, ValueError):
+        return None
+
+
+def main(path):
+    t0 = time.time()
+    census = json.load(open(os.environ["CENSUS"]))
+    sys.path.insert(0, os.environ["GQ"])
+    sys.path.insert(0, os.environ["GQ"] + "/gororoba_quantum")
+    from gororoba_quantum.cd_core import cd_sign
+    out = {"levels": {}}
+    with Pool(4) as pool:
+        for n in (16, 32, 64, 128):
+            t1 = time.time()
+            tab = table(n)
+            bad = sum(1 for i in range(n) for j in range(n) if tab[i][j] != (i ^ j, cd_sign(n, i, j)))
+            rows = pool.map(pair_item, pairs_of(n), chunksize=64)
+            cnt = Counter()
+            plus, minus, differ = Counter(), Counter(), 0
+            for i, j, v in rows:
+                for x in v:
+                    cnt[x] += 1
+                plus[v[0]] += 1
+                minus[v[1]] += 1
+                if v[0] != v[1] or v[0] != v[3] or v[1] != v[2]:
+                    differ += 1
+            keys = {f"2:{k}": m for k, m in sorted(cnt.items())}
+            ref = {k: m for k, m in census[str(n)]["by_support_nullity"].items() if k.startswith("2:")}
+            nz = sum(m for k, m in cnt.items() if k)
+            lvl = {"cd_sign_table_mismatch": bad, "points": sum(cnt.values()), "counts": keys, "census": ref,
+                   "equal_to_census": keys == ref, "nonzero_total": nz,
+                   "plus_pairs_nonzero": sum(m for k, m in plus.items() if k),
+                   "minus_pairs_nonzero": sum(m for k, m in minus.items() if k),
+                   "pairs_with_differing_sign_nullity": differ}
+            # (b)
+            b0 = pool.map(signs_item, [(n, 0, j) for j in range(1, n)])
+            bh = pool.map(signs_item, [(n, min(n // 2, j), max(n // 2, j)) for j in range(1, n) if j != n // 2])
+            lvl["b_e0_pm_ej"] = {"pairs": len(b0), "nonzero": sum(1 for r in b0 if r[2] or r[3]),
+                                 "values": dict(Counter(r[2] for r in b0) + Counter(r[3] for r in b0))}
+            lvl["b_ehalf_pm_ej"] = {"pairs": len(bh), "nonzero": sum(1 for r in bh if r[2] or r[3]),
+                                    "values": dict(Counter(r[2] for r in bh) + Counter(r[3] for r in bh))}
+            lvl["seconds"] = round(time.time() - t1, 1)
+            out["levels"][n] = lvl
+        # (c)
+        cross = pool.map(signs_item, [(64, a, 32 + b) for a in range(1, 32) for b in range(1, 32)], chunksize=16)
+        out["c_64_cross_half"] = {"pairs": len(cross),
+                                  "plus": dict(sorted(Counter(r[2] for r in cross).items(), reverse=True)),
+                                  "minus": dict(sorted(Counter(r[3] for r in cross).items(), reverse=True)),
+                                  "nonzero_plus": sum(1 for r in cross if r[2]),
+                                  "signs_differ": sum(1 for r in cross if r[2] != r[3])}
+        # (d)
+        d0 = pool.map(signs_item, [(128, 0, j) for j in range(1, 101)])
+        d1 = pool.map(signs_item, [(128, 1, j) for j in range(2, 102)])
+        out["d_128_first100_from_i0"] = {"plus": [r[2] for r in d0], "minus": [r[3] for r in d0]}
+        out["d_128_first100_from_i1"] = {"plus": [r[2] for r in d1], "minus": [r[3] for r in d1],
+                                         "j_range": [2, 101],
+                                         "plus_distribution": dict(sorted(Counter(r[2] for r in d1).items())),
+                                         "signs_differ": sum(1 for r in d1 if r[2] != r[3])}
+        # control: known-bad table at D = 16
+        tab = [row[:] for row in table(16)]
+        k, s = tab[3][5]
+        tab[3][5] = (k, -s)
+        idx = [k for k in range(1, 16) if k != 8]
+        cm = Counter()
+        for i, j in itertools.combinations(idx, 2):
+            for si, sj in itertools.product((1, -1), repeat=2):
+                cm[nullity(16, {i: si, j: sj}, tab)] += 1
+        ref16 = {k: m for k, m in census["16"]["by_support_nullity"].items() if k.startswith("2:")}
+        out["control_mutated_table_16"] = {"counts": {f"2:{k}": m for k, m in sorted(cm.items())}, "census": ref16,
+                                           "differs_from_census": {f"2:{k}": m for k, m in sorted(cm.items())} != ref16}
+    out["seconds"] = round(time.time() - t0, 1)
+    out["cgroup_memory_peak_kb"] = cgroup_peak()
+    json.dump(out, open(path, "w"), indent=1)
+    print(json.dumps({"seconds": out["seconds"], "peak_kb": out["cgroup_memory_peak_kb"]}))
+
+
+if __name__ == "__main__":
+    main(sys.argv[1])
