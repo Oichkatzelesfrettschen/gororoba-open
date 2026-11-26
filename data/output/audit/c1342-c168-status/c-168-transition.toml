@@ -1,0 +1,35 @@
+[transition]
+transition_timestamp = "2026-11-26T04:28:27Z"
+transition_key = "c-168-sparse-zero-divisors-at-128d-superseded"
+source_claim_id = "C-168"
+expected_prior_status = "Verified"
+experiment_verdict = "Falsifies"
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+exercised_falsifier = "Compute the nullity of the left-multiplication matrix of doubly pure two-term elements at 16D, 32D, 64D and 128D. The sparsity alternative of C-168 ('the ZD structure becomes dramatically sparser at dim=128') survives if most two-term elements have nullity 0 at 128D; it is falsified when most have nonzero nullity there and the fraction does not fall from 16D to 128D. The observation of 0 zero divisors among the first 100 candidates is a separate clause that this census does not test."
+proposed_claim_status = "Superseded"
+rationale = "C-168 joins an observation (0 of the first 100 candidates are zero divisors) to two alternative inferences. The census, reproduced by a second implementation, falsifies the sparsity alternative: 6942 of the 7875 unordered pairs e_i + e_j have nonzero nullity at 128D (88.15 percent, against 46.15, 67.59 and 80.27 percent, that is 42 of 91, 294 of 435 and 1518 of 1891 pairs, at 16D, 32D and 64D), and the pairs e_i - e_j are the same 6942 (27768 of 31500 signed elements). C-156 (Verified) already holds the counts 84, 588 and 3036 zero divisors at 16D, 32D and 64D, equal to twice 42, 294 and 1518; the 128D count 13884 is new, so the first successor continues that series. The 64D cross-half figure, 930 of the 961 operands e_a + e_(32+b) with nonzero nullity (nullities 28, 20, 12, 4 on 342, 168, 168, 252 pairs; 0 on 31), equals as a set the 930 motif nodes (31 x 30) of C-1715, measured against the node lists of the motif_exact_rank report at 64D, so C-1715 holds it and it registers no successor. The observation is untested because cd_algebraic_experiments_v20.py and its JSON are absent from the history of this repository and the ordering of the sample is unstated. The alternative 'requires different index pairs' stays consistent with the census. computed: in lexicographic order starting at i = 0 the first 100 pairs, (0,1) to (0,100), all have nullity 0 at 128D, while of the 100 pairs (1,2) to (1,101) starting at i = 1, 86 have nonzero nullity and 14 have nullity 0; the ordering of the original script is unknown. hypothesis: the script started at i = 0, which gives 0 of 100 because no element with a nonzero coordinate at e_0 or e_(D/2) is a zero divisor. C-168 becomes Superseded; the successors state the 128D count and the index-zero theorem with their domains."
+unresolved_assumptions = ["The 0-of-100 observation is not recomputed and cannot be, because the script and its JSON are absent from the history.", "census.json and recount.json are retained outputs and were not rerun for this transition; two implementations with different sign tables agree on every count.", "The cited gororoba-math file does not exist at the commit of ci/gororoba_math.pin (0c818156, 2026-11-13); it is cited at commit 796aa5c1, whose lean run (45587924245) and rocq schedule run (45589354987) on main succeeded."]
+actor = "claude-code"
+reason = "Retire the compound claim and record the census results and the index-zero theorem as bounded successors."
+expected_source_state_sha256 = "0b7604947e83f698f128cc5905511d620012d76089cc000cd833a502f1612a89"
+expected_claim_id_max = 1794
+
+[[successor]]
+proposal_key = "two-term-zero-divisor-count-at-128d"
+statement = "In the 128D Cayley-Dickson algebra, 6,942 of the 7,875 unordered pairs e_i + e_j (1 <= i < j <= 127, i and j different from 64) have nonzero left-multiplication nullity, so each such element, and its scaling by 1/sqrt(2), is a zero divisor; the pairs e_i - e_j are the same 6,942, so 13,884 plus-sign and minus-sign pairs and 27,768 of the 31,500 signed elements +-e_i +-e_j are zero divisors. This continues the series that C-156 holds through 64D (84, 588 and 3,036 zero divisors, equal to twice 42, 294 and 1,518 pairs); the fractions of pairs are 42/91, 294/435 and 1,518/1,891 at 16D, 32D and 64D (counts of C-156) and 6,942/7,875 at 128D. Two implementations with different sign tables give the same counts. Nothing is claimed above 128D."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Exact integer-rank census of tower_census.py (cd_sign of gororoba-quantum) and of recount.py (an independent product), retained as census.json and recount.json under data/output/audit/c1342-c168-status; implementation measurement with no formal proof."
+required_falsifier = "Recomputing the nullity of L_y over the integers for every doubly pure two-term element at 128D and finding other than 6942 nonzero-nullity plus-sign pairs of 7875, or a minus-sign set that differs from the plus-sign set, falsifies the statement."
+where_stated = ["data/output/audit/c1342-c168-status/source-map.toml", "data/output/audit/c1342-c168-status/census.json", "data/output/audit/c1342-c168-status/recount.json"]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+predecessor_relation_kind = "narrows"
+
+[[successor]]
+proposal_key = "zero-divisors-have-zero-coordinates-at-e0-and-e-half"
+statement = "At every Cayley-Dickson dimension D = 2^n, a zero divisor has zero coordinates at e_0 and e_(D/2) (gororoba-math, lean/GororobaMath/CayleyDickson/ScaledPairAnnihilator.lean, theorem CayleyDickson.Tower.re_halves_eq_zero_of_mk_mul_eq_zero, over an ordered commutative ring with trivial star and no zero divisors). No two-term element with a nonzero coefficient at e_0 or e_(D/2) is therefore a zero divisor; at 128D that excludes 253 of the 8,128 unordered index pairs."
+initial_status = "Provisional"
+source_or_implementation_boundary = "Lean theorem of gororoba-math at commit 796aa5c1f3a8856fec62573f96995792556cb202 (file sha256 847113b94821909ac98c8798d2444467ff36a6aac0ad67d38f7134820acad361), with the Rocq partner lemma_9_5 of rocq/quantum/CdAnnihilatorSymmetryReal.v; the compile and kernel check are those of the gororoba-math workflows, and the file does not exist at the commit of ci/gororoba_math.pin (0c818156); at the cited commit the lean workflow run 45587924245 and the rocq workflow run 45589354987 (schedule; the push run was cancelled) on main succeeded."
+required_falsifier = "A build, axiom-audit or kernel-check failure of the cited sources at the recorded commit withholds formal support. A nonzero z with (e_0 + e_j) z = 0 or (e_(D/2) + e_j) z = 0 at any D falsifies the statement."
+where_stated = ["data/output/audit/c1342-c168-status/source-map.toml"]
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+predecessor_relation_kind = "narrows"

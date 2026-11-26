@@ -1,0 +1,15 @@
+[transition]
+transition_timestamp = "2026-11-26T04:28:27Z"
+transition_key = "c-1342-motif-component-count-range"
+source_claim_id = "C-1342"
+expected_prior_status = "Verified"
+experiment_verdict = "Inconclusive"
+evidence_artifact_ids = ["LOCAL-C1342-C168-ZERO-DIVISOR-STATUS"]
+exercised_falsifier = "Read motif_exact_rank.rs, boxkites.rs and the repository for any derivation or enumeration of the motif component count above 256. C-1342 keeps its analytic clause if a cited source derives n_components = D/2 - 1 and D/2 - 2 nodes per component for every D up to 4096, or enumerates a dimension above 256; it loses the clause when the enumeration stops at 256 and the test itself records universal_extension as unproved."
+proposed_claim_status = "Superseded"
+rationale = "The test every_enumerated_motif_has_certified_rational_rank enumerates the motif components at 16D, 32D, 64D, 128D and 256D, asserts D/2 - 2 vertices per component, and records universal_extension = unproved. Its report holds 7, 15, 31, 63 and 127 components. The claim's clause 'analytically to D=4096' cites no derivation, and the test function its where_stated cites is absent from the repository. The product (D/2 - 1)(D/2 - 2) counts the active motif nodes of the components, not the pairs of cross_assessors(D), which returns (D/2 - 1)(D/2) pairs before isolated nodes are dropped. The enumerated finite statement is the existing Provisional claim C-1715, which the transition tooling cannot attach as a relation target because it relates a predecessor only to a claim it creates; C-1342 becomes Superseded and C-1715 carries the enumerated range."
+unresolved_assumptions = ["The component count D/2 - 1 is read from the report the test writes and is not asserted by the test.", "The formulas for D from 512 to 4096 are neither enumerated nor derived in this repository.", "No relation row joins C-1342 to C-1715 (see the rationale)."]
+actor = "claude-code"
+reason = "Bound the motif count claim to the enumerated range 16D to 256D, held by C-1715, and mark the extension to 4096D unproved."
+expected_source_state_sha256 = "7c67350c84fa67ce596f2b0fbbdb918997e2c8fcffeded6b7e0a6881ca29120f"
+expected_claim_id_max = 1794
